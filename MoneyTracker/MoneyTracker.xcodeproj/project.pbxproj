@@ -8,24 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */; };
-		2EB109FE27A6C30C00743416 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB109FD27A6C30C00743416 /* AppDelegate.swift */; };
-		2EB10A0027A6C30C00743416 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB109FF27A6C30C00743416 /* SceneDelegate.swift */; };
-		2EB10A0227A6C30C00743416 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A0127A6C30C00743416 /* ViewController.swift */; };
-		2EB10A0527A6C30C00743416 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0327A6C30C00743416 /* Main.storyboard */; };
 		2EB10A0727A6C30D00743416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0627A6C30D00743416 /* Assets.xcassets */; };
 		2EB10A0A27A6C30D00743416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */; };
+		2EB10A1227A6C8CB00743416 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A1127A6C8CB00743416 /* Application.swift */; };
+		2EB10A1427A6C8D400743416 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A1327A6C8D400743416 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB109FA27A6C30C00743416 /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EB109FD27A6C30C00743416 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2EB109FF27A6C30C00743416 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2EB10A0127A6C30C00743416 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2EB10A0427A6C30C00743416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2EB10A0627A6C30D00743416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EB10A0927A6C30D00743416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2EB10A0B27A6C30D00743416 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EB10A1127A6C8CB00743416 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		2EB10A1327A6C8D400743416 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.release.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.release.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,10 +59,8 @@
 		2EB109FC27A6C30C00743416 /* MoneyTracker */ = {
 			isa = PBXGroup;
 			children = (
-				2EB109FD27A6C30C00743416 /* AppDelegate.swift */,
-				2EB109FF27A6C30C00743416 /* SceneDelegate.swift */,
-				2EB10A0127A6C30C00743416 /* ViewController.swift */,
-				2EB10A0327A6C30C00743416 /* Main.storyboard */,
+				2EB10A1327A6C8D400743416 /* main.swift */,
+				2EB10A1127A6C8CB00743416 /* Application.swift */,
 				2EB10A0627A6C30D00743416 /* Assets.xcassets */,
 				2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */,
 				2EB10A0B27A6C30D00743416 /* Info.plist */,
@@ -153,7 +147,6 @@
 			files = (
 				2EB10A0A27A6C30D00743416 /* LaunchScreen.storyboard in Resources */,
 				2EB10A0727A6C30D00743416 /* Assets.xcassets in Resources */,
-				2EB10A0527A6C30C00743416 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,23 +199,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EB10A0227A6C30C00743416 /* ViewController.swift in Sources */,
-				2EB109FE27A6C30C00743416 /* AppDelegate.swift in Sources */,
-				2EB10A0027A6C30C00743416 /* SceneDelegate.swift in Sources */,
+				2EB10A1227A6C8CB00743416 /* Application.swift in Sources */,
+				2EB10A1427A6C8D400743416 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2EB10A0327A6C30C00743416 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2EB10A0427A6C30C00743416 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -363,7 +347,7 @@
 				INFOPLIST_FILE = MoneyTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -394,7 +378,7 @@
 				INFOPLIST_FILE = MoneyTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
