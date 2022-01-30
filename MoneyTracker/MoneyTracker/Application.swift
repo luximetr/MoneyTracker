@@ -7,16 +7,31 @@
 
 import UIKit
 import AUIKit
+import MoneyTrackerPresentation
+typealias Presentation = MoneyTrackerPresentation.Presentation
 
 class Application: AUIEmptyApplication {
     
     override func didFinishLaunching() {
         super.didFinishLaunching()
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .green
+        displayPresentation()
+    }
+    
+    // MARK: Presentation
+    
+    private lazy var presentationWindow: UIWindow = {
         let window = self.window ?? UIWindow()
         window.makeKeyAndVisible()
-        window.rootViewController = viewController
+        return window
+    }()
+    
+    private lazy var presentation: Presentation = {
+        let presentation = Presentation(window: presentationWindow)
+        return presentation
+    }()
+    
+    private func displayPresentation() {
+        presentation.display()
     }
     
 }
