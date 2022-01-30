@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */; };
 		2EB109FE27A6C30C00743416 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB109FD27A6C30C00743416 /* AppDelegate.swift */; };
 		2EB10A0027A6C30C00743416 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB109FF27A6C30C00743416 /* SceneDelegate.swift */; };
 		2EB10A0227A6C30C00743416 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A0127A6C30C00743416 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB109FA27A6C30C00743416 /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB109FD27A6C30C00743416 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EB109FF27A6C30C00743416 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +26,8 @@
 		2EB10A0627A6C30D00743416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EB10A0927A6C30D00743416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2EB10A0B27A6C30D00743416 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.release.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.release.xcconfig"; sourceTree = "<group>"; };
+		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +47,8 @@
 			children = (
 				2EB109FC27A6C30C00743416 /* MoneyTracker */,
 				2EB109FB27A6C30C00743416 /* Products */,
+				51E3EA472CC8324F4826A8AD /* Pods */,
+				F6CDF223860AC628D18B4DED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +74,23 @@
 			path = MoneyTracker;
 			sourceTree = "<group>";
 		};
+		51E3EA472CC8324F4826A8AD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */,
+				920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F6CDF223860AC628D18B4DED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2EB10A0E27A6C30D00743416 /* Build configuration list for PBXNativeTarget "MoneyTracker" */;
 			buildPhases = (
+				FD7BF82A9949D6B2D9FDE63A /* [CP] Check Pods Manifest.lock */,
 				2EB109F627A6C30C00743416 /* Sources */,
 				2EB109F727A6C30C00743416 /* Frameworks */,
 				2EB109F827A6C30C00743416 /* Resources */,
+				6F5E88B3E336AB2CF96031BE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +158,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6F5E88B3E336AB2CF96031BE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD7BF82A9949D6B2D9FDE63A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoneyTracker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2EB109F627A6C30C00743416 /* Sources */ = {
@@ -284,6 +352,7 @@
 		};
 		2EB10A0F27A6C30D00743416 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -295,8 +364,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,12 +377,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		2EB10A1027A6C30D00743416 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -323,8 +395,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +408,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
