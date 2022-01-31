@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-class MenuScreenViewController: AUIStatusBarScreenViewController {
+final class MenuScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Initializer
     

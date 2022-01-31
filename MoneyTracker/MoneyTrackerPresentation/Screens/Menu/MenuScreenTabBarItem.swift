@@ -7,7 +7,7 @@
 
 import AUIKit
 
-class MenuScreenTabBarItem: AUIButton {
+final class MenuScreenTabBarItem: AUIButton {
     
     // MARK: Settigns
     

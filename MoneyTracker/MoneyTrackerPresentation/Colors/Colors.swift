@@ -9,7 +9,8 @@ import UIKit
 
 enum Colors {
     
+    static let white: UIColor = UIColor.white
     static let black: UIColor = UIColor.black
-    static let blue: UIColor = UIColor.blue
+    static let blue: UIColor = UIColor.systemBlue
     
 }

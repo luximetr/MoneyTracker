@@ -15,8 +15,7 @@ public class Presentation: AUIWindowPresentation {
         mainViewController.view.backgroundColor = .green
         let mainNavigationController = AUINavigationBarHiddenNavigationController()
         mainNavigationController.viewControllers = [mainViewController]
-        let categoriesViewController = UIViewController()
-        categoriesViewController.view.backgroundColor = .red
+        let categoriesViewController = CategoriesScreenViewController()
         let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
         categoriesNavigationController.viewControllers = [categoriesViewController]
         let label3ViewController = UIViewController()
@@ -59,7 +58,7 @@ public class Presentation: AUIWindowPresentation {
     
     // MARK: Categories View Controller
     
-    private var categoriesViewController: UIViewController?
+    private var categoriesViewController: CategoriesScreenViewController?
     
     // MARK: Label3 Navigation Controller
     

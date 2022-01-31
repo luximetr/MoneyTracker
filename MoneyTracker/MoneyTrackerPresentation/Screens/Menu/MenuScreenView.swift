@@ -7,7 +7,7 @@
 
 import AUIKit
 
-class MenuScreenView: AUIView {
+final class MenuScreenView: AUIView {
     
     // MARK: Subviews
     

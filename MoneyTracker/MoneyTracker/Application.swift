@@ -12,6 +12,8 @@ typealias Presentation = MoneyTrackerPresentation.Presentation
 
 class Application: AUIEmptyApplication {
     
+    // MARK: Events
+    
     override func didFinishLaunching() {
         super.didFinishLaunching()
         displayPresentation()
