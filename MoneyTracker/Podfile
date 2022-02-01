@@ -13,3 +13,9 @@ target 'MoneyTrackerPresentation' do
   pod "AFoundation", :git => 'https://github.com/ihormyroniuk/AFoundation.git', :branch => 'development'
   pod "AUIKit", :git => 'https://github.com/ihormyroniuk/AUIKit.git', :branch => 'development'
 end
+
+target 'MoneyTrackerStorage' do
+  use_frameworks!
+
+  pod "AFoundation", :git => 'https://github.com/ihormyroniuk/AFoundation.git', :branch => 'development'
+end

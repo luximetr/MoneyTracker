@@ -8,14 +8,25 @@
 import UIKit
 import AUIKit
 
+public protocol PresentationDelegate: AnyObject {
+    func presentationCategories(presentation: Presentation) -> [Category]
+}
+
 public class Presentation: AUIWindowPresentation {
+    
+    // MARK: Delegate
+    
+    public weak var delegate: PresentationDelegate!
+    
+    // MARK: Display
     
     public func display() {
         let mainViewController = UIViewController()
         mainViewController.view.backgroundColor = .green
         let mainNavigationController = AUINavigationBarHiddenNavigationController()
         mainNavigationController.viewControllers = [mainViewController]
-        let categoriesViewController = CategoriesScreenViewController()
+        let categories = delegate.presentationCategories(presentation: self)
+        let categoriesViewController = CategoriesScreenViewController(categories: categories)
         let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
         categoriesNavigationController.viewControllers = [categoriesViewController]
         let label3ViewController = UIViewController()

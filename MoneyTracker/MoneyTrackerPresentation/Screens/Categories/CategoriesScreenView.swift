@@ -64,10 +64,26 @@ final class CategoriesScreenView: NavigationBarScreenView {
         return cell
     }
     
+    func categoryTableViewCellEstimatedHeight() -> CGFloat {
+        return 76
+    }
+    
+    func categoryTableViewCellHeight() -> CGFloat {
+        return 76
+    }
+    
     func addCategoryTableViewCell(_ indexPath: IndexPath) -> CategoriesScreenAddCategoryTableViewCell! {
         let cell = tableView.dequeueReusableCell(withIdentifier: addCategoryTableViewCellReuseIdentifier, for: indexPath) as? CategoriesScreenAddCategoryTableViewCell
         cell?.pictureImageView.image = Images.plusInDashCircle
         return cell
+    }
+    
+    func addCategoryTableViewCellEstimatedHeight() -> CGFloat {
+        return 76
+    }
+    
+    func addCategoryTableViewCellHeight() -> CGFloat {
+        return 76
     }
     
 }

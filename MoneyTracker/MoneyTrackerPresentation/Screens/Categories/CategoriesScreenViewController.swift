@@ -10,6 +10,16 @@ import AUIKit
 
 final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
+    // MARK: Data
+    
+    private var categories: [Category]
+    
+    // MARK: Initializer
+    
+    init(categories: [Category]) {
+        self.categories = categories
+    }
+    
     // MARK: View
     
     override func loadView() {
@@ -40,23 +50,27 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         tableViewController.tableView = categoriesScreenView.tableView
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
-        for i in 1...10 {
+        for category in categories {
             let cellController = AUIClosuresTableViewCellController()
             cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
                 guard let self = self else { return UITableViewCell() }
                 let cell = self.categoriesScreenView.categoryTableViewCell(indexPath)
+                cell?.nameLabel.text = category.name
                 return cell!
             }
             cellController.estimatedHeightClosure = { [weak self] in
                 guard let self = self else { return 0 }
-                return 76
+                let estimatedHeight = self.categoriesScreenView.categoryTableViewCellEstimatedHeight()
+                return estimatedHeight
             }
             cellController.heightClosure = { [weak self] in
                 guard let self = self else { return 0 }
-                return 76
+                let height = self.categoriesScreenView.categoryTableViewCellHeight()
+                return height
             }
             cellController.didSelectClosure = { [weak self] in
-                print(i)
+                guard let self = self else { return }
+                self.didSelectCategory(category)
             }
             cellControllers.append(cellController)
         }
@@ -70,11 +84,13 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         }
         addCategoryCellController.estimatedHeightClosure = { [weak self] in
             guard let self = self else { return 0 }
-            return 76
+            let estimatedHeight = self.categoriesScreenView.addCategoryTableViewCellEstimatedHeight()
+            return estimatedHeight
         }
         addCategoryCellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
-            return 76
+            let height = self.categoriesScreenView.addCategoryTableViewCellHeight()
+            return height
         }
         addCategoryCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
@@ -87,6 +103,10 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     }
     
     // MARK: Events
+    
+    private func didSelectCategory(_ category: Category) {
+        print(category.name)
+    }
     
     private func didSelectAddCategory() {
         print("add category")
