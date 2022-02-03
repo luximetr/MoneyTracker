@@ -40,11 +40,16 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         presentation.display()
     }
     
-    func presentationCategories(presentation: Presentation) -> [PresentationCategory] {
+    func presentationCategories(_ presentation: Presentation) -> [PresentationCategory] {
         let storageCategories = storage.categories()
         let categories = storageCategories.map({ Category(storageCategoty: $0) })
         let presentationCategories = categories.map({ $0.presentationCategory })
         return presentationCategories
+    }
+    
+    func presentation(_ presentation: Presentation, addCategory addingCategory: PresentationAddingCategory) {
+        let storageAddingCategory = AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty
+        storage.addCategory(storageAddingCategory)
     }
     
     // MARK: Storage

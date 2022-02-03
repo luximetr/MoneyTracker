@@ -9,10 +9,11 @@ import UIKit
 import AUIKit
 
 public protocol PresentationDelegate: AnyObject {
-    func presentationCategories(presentation: Presentation) -> [Category]
+    func presentationCategories(_ presentation: Presentation) -> [Category]
+    func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory)
 }
 
-public class Presentation: AUIWindowPresentation {
+public final class Presentation: AUIWindowPresentation {
     
     // MARK: Delegate
     
@@ -25,8 +26,14 @@ public class Presentation: AUIWindowPresentation {
         mainViewController.view.backgroundColor = .green
         let mainNavigationController = AUINavigationBarHiddenNavigationController()
         mainNavigationController.viewControllers = [mainViewController]
-        let categories = delegate.presentationCategories(presentation: self)
+        let categories = delegate.presentationCategories(self)
         let categoriesViewController = CategoriesScreenViewController(categories: categories)
+        categoriesViewController.didSelectAddCategoryClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddCategoryScreenViewController()
+            self.addCategoryViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+        }
         let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
         categoriesNavigationController.viewControllers = [categoriesViewController]
         let label3ViewController = UIViewController()
@@ -78,5 +85,21 @@ public class Presentation: AUIWindowPresentation {
     // MARK: Label3 View Controller
     
     private var label3ViewController: UIViewController?
+    
+    // MARK: Add Category View Controller
+    
+    private var addCategoryViewController: AddCategoryScreenViewController?
+        
+    private func createAddCategoryScreenViewController() -> AddCategoryScreenViewController {
+        let viewController = AddCategoryScreenViewController()
+        viewController.addCategoryClosure = { [weak self] addingCategory in
+            guard let self = self else { return }
+            self.delegate.presentation(self, addCategory: addingCategory)
+            let categories = self.delegate.presentationCategories(self)
+            self.categoriesViewController?.updateCategories(categories)
+            viewController.dismiss(animated: true, completion: nil)
+        }
+        return viewController
+    }
     
 }

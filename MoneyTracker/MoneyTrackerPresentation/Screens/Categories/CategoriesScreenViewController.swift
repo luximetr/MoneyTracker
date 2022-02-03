@@ -20,6 +20,15 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         self.categories = categories
     }
     
+    // MARK: Delegation
+    
+    var didSelectAddCategoryClosure: (() -> Void)?
+    
+    func updateCategories(_ categories: [Category]) {
+        self.categories = categories
+        setupTableViewController()
+    }
+    
     // MARK: View
     
     override func loadView() {
@@ -109,7 +118,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private func didSelectAddCategory() {
-        print("add category")
+        didSelectAddCategoryClosure?()
     }
     
 }
