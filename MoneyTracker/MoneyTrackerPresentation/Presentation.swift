@@ -11,6 +11,7 @@ import AUIKit
 public protocol PresentationDelegate: AnyObject {
     func presentationCategories(_ presentation: Presentation) -> [Category]
     func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory)
+    func presentation(_ presentation: Presentation, deleteCategory category: Category)
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -26,14 +27,7 @@ public final class Presentation: AUIWindowPresentation {
         mainViewController.view.backgroundColor = .green
         let mainNavigationController = AUINavigationBarHiddenNavigationController()
         mainNavigationController.viewControllers = [mainViewController]
-        let categories = delegate.presentationCategories(self)
-        let categoriesViewController = CategoriesScreenViewController(categories: categories)
-        categoriesViewController.didSelectAddCategoryClosure = { [weak self] in
-            guard let self = self else { return }
-            let viewController = self.createAddCategoryScreenViewController()
-            self.addCategoryViewController = viewController
-            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
-        }
+        let categoriesViewController = createCategoriesViewController()
         let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
         categoriesNavigationController.viewControllers = [categoriesViewController]
         let label3ViewController = UIViewController()
@@ -77,6 +71,22 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: Categories View Controller
     
     private var categoriesViewController: CategoriesScreenViewController?
+    
+    private func createCategoriesViewController() -> CategoriesScreenViewController {
+        let categories = delegate.presentationCategories(self)
+        let viewController = CategoriesScreenViewController(categories: categories)
+        viewController.didSelectAddCategoryClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddCategoryScreenViewController()
+            self.addCategoryViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+        }
+        viewController.didDeleteCategoryClosure = { [weak self] category in
+            guard let self = self else { return }
+            self.delegate.presentation(self, deleteCategory: category)
+        }
+        return viewController
+    }
     
     // MARK: Label3 Navigation Controller
     

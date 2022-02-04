@@ -35,8 +35,9 @@ public class Storage {
         return try repository.fetchAllCategories()
     }
     
-    public func addCategory(_ category: Category) throws {
+    public func addCategory(_ addingcategory: AddingCategory) throws {
         let repository = CategoriesCoreDataRepository(accessor: coreDataAccessor)
+        let category = Category(id: UUID().uuidString, name: addingcategory.name)
         try repository.createCategory(category)
     }
     
@@ -53,11 +54,6 @@ public class Storage {
     public func removeCategory(id: String) throws {
         let repository = CategoriesCoreDataRepository(accessor: coreDataAccessor)
         try repository.removeCategory(id: id)
-    }
-    
-    public func addCategory(_ addingCategory: AddingCategory) {
-        let category = Category(id: UUID().uuidString, name: addingCategory.name)
-        _categories.append(category)
     }
     
 }

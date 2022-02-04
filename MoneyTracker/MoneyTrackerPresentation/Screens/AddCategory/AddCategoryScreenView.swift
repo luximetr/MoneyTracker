@@ -75,7 +75,7 @@ final class AddCategoryScreenView: NavigationBarScreenView {
     
     private func setScrollViewContentSize() {
         let width = scrollView.bounds.width
-        let height = nameTextField.frame.origin.y + nameTextField.frame.size.height + 16.0
+        let height = nameTextField.frame.origin.y + nameTextField.frame.size.height + 16.0 + safeAreaInsets.bottom
         let contentSize = CGSize(width: width, height: height)
         scrollView.contentSize = contentSize
     }
@@ -84,7 +84,7 @@ final class AddCategoryScreenView: NavigationBarScreenView {
         let x: CGFloat = 44
         let width = bounds.width - 2 * x
         let height: CGFloat = 44
-        let y = bounds.height - 16 - height
+        let y = bounds.height - 16 - height - safeAreaInsets.bottom
         var frame = CGRect(x: x, y: y, width: width, height: height)
         if let keyboardFrame = keyboardFrame {
             frame.origin.y -= keyboardFrame.size.height

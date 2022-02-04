@@ -49,7 +49,12 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addCategory addingCategory: PresentationAddingCategory) {
         let storageAddingCategory = AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty
-        storage.addCategory(storageAddingCategory)
+        try? storage.addCategory(storageAddingCategory)
+    }
+    
+    func presentation(_ presentation: Presentation, deleteCategory category: PresentationCategory) {
+        let storageCategory = Category(presentationCategory: category).storageCategoty
+        try? storage.removeCategory(id: storageCategory.id)
     }
     
     // MARK: Storage

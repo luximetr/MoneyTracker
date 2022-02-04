@@ -22,6 +22,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Delegation
     
+    var didDeleteCategoryClosure: ((Category) throws -> Void)?
     var didSelectAddCategoryClosure: (() -> Void)?
     
     func updateCategories(_ categories: [Category]) {
@@ -57,6 +58,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     private func setupTableViewController() {
         tableViewController.tableView = categoriesScreenView.tableView
+        tableViewController.dragInteractionEnabled = true
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
         for category in categories {
@@ -81,6 +83,25 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
                 guard let self = self else { return }
                 self.didSelectCategory(category)
             }
+            cellController.itemsForBeginningSessionClosure = { _ in
+                return []
+            }
+            cellController.canMoveCellClosure = {
+                return true
+            }
+            cellController.trailingSwipeActionsConfigurationForCellClosure = {
+                let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { contextualAction, view, success in
+                    do {
+                        try self.didDeleteCategoryClosure?(category)
+                        self.tableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
+                            success(true)
+                        }
+                    } catch {
+                        success(false)
+                    }
+                })
+                return UISwipeActionsConfiguration(actions: [deleteAction])
+            }
             cellControllers.append(cellController)
         }
         
@@ -104,6 +125,9 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         addCategoryCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
             self.didSelectAddCategory()
+        }
+        addCategoryCellController.canMoveCellClosure = {
+            return false
         }
         cellControllers.append(addCategoryCellController)
         
