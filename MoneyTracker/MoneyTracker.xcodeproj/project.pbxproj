@@ -41,6 +41,12 @@
 		2EC19AD827A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19AD727A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift */; };
 		2EC19ADA27A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19AD927A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift */; };
 		2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC19ADD27A8238F00E1A6FA /* CategoriesScreenStrings.strings */; };
+		2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292B27AC1F3700371252 /* AddCategoryScreenViewController.swift */; };
+		2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */; };
+		2EC6293227AC252300371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293127AC252300371252 /* AddingCategory.swift */; };
+		2EC6293427AC262000371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293327AC262000371252 /* AddingCategory.swift */; };
+		2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293527AC267D00371252 /* AddingCategory.swift */; };
+		2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */; };
 		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepository.swift */; };
@@ -121,6 +127,12 @@
 		2EC19AD727A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScreenCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		2EC19AD927A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScreenAddCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		2EC19ADC27A8238F00E1A6FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CategoriesScreenStrings.strings; sourceTree = "<group>"; };
+		2EC6292B27AC1F3700371252 /* AddCategoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryScreenViewController.swift; sourceTree = "<group>"; };
+		2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryScreenView.swift; sourceTree = "<group>"; };
+		2EC6293127AC252300371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
+		2EC6293327AC262000371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
+		2EC6293527AC267D00371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
+		2EC6293827AC282100371252 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
 		3BF952E2EAD51B56319BC964 /* Pods-MoneyTrackerPresentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.release.xcconfig"; sourceTree = "<group>"; };
 		419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				2E91155227A9375300359F21 /* Category.swift */,
+				2EC6293327AC262000371252 /* AddingCategory.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -189,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				2E91155527A93D5C00359F21 /* Category.swift */,
+				2EC6293527AC267D00371252 /* AddingCategory.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -250,6 +264,7 @@
 			children = (
 				2EB10A2C27A6E7B500743416 /* Menu */,
 				2EC19ACC27A7F61B00E1A6FA /* Categories */,
+				2EC6292A27AC1EF600371252 /* AddCategory */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -311,6 +326,7 @@
 			children = (
 				2EB10A4927A707A300743416 /* Language.swift */,
 				2E91153D27A92DE600359F21 /* Category.swift */,
+				2EC6293127AC252300371252 /* AddingCategory.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -341,6 +357,16 @@
 				2EC19AD527A7F78C00E1A6FA /* NavigationBarScreenView.swift */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		2EC6292A27AC1EF600371252 /* AddCategory */ = {
+			isa = PBXGroup;
+			children = (
+				2EC6292B27AC1F3700371252 /* AddCategoryScreenViewController.swift */,
+				2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */,
+				2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */,
+			);
+			path = AddCategory;
 			sourceTree = "<group>";
 		};
 		51E3EA472CC8324F4826A8AD /* Pods */ = {
@@ -532,6 +558,7 @@
 			files = (
 				2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */,
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
+				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,6 +658,7 @@
 			files = (
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
+				2EC6293427AC262000371252 /* AddingCategory.swift in Sources */,
 				2E91155327A9375300359F21 /* Category.swift in Sources */,
 				DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepository.swift in Sources */,
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
@@ -641,6 +669,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */,
 				2EB10A1227A6C8CB00743416 /* Application.swift in Sources */,
 				2EB10A1427A6C8D400743416 /* main.swift in Sources */,
 				2E91155627A93D5C00359F21 /* Category.swift in Sources */,
@@ -664,9 +693,12 @@
 				2EB10A3527A6FE8500743416 /* Images.swift in Sources */,
 				2EC19ACE27A7F64000E1A6FA /* CategoriesScreenViewController.swift in Sources */,
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
+				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
 				2EB10A3027A6E7B500743416 /* MenuScreenView.swift in Sources */,
+				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
+				2EC6293227AC252300371252 /* AddingCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,6 +745,14 @@
 				2EC19ADC27A8238F00E1A6FA /* en */,
 			);
 			name = CategoriesScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2EC6293827AC282100371252 /* en */,
+			);
+			name = AddCategoryScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

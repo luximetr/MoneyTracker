@@ -55,4 +55,9 @@ public class Storage {
         try repository.removeCategory(id: id)
     }
     
+    public func addCategory(_ addingCategory: AddingCategory) {
+        let category = Category(id: UUID().uuidString, name: addingCategory.name)
+        _categories.append(category)
+    }
+    
 }
