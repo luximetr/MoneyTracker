@@ -50,10 +50,10 @@ class CoreDataAccessor {
     private func createManagedObjectModel() throws -> NSManagedObjectModel {
         let bundle = Bundle(for: type(of: self))
         guard let modelURL = bundle.url(forResource: storageName, withExtension: "momd") else {
-            throw Exception.canNotCreateModelURL
+            throw CreationError.canNotCreateModelURL
         }
         guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
-            throw Exception.canNotCreateModel
+            throw CreationError.canNotCreateModel
         }
         return model
     }
@@ -66,7 +66,7 @@ class CoreDataAccessor {
     
     // MARK: - Errors
     
-    enum Exception: Error {
+    enum CreationError: Error {
         case canNotCreateModelURL
         case canNotCreateModel
     }
