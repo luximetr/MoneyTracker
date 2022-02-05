@@ -12,6 +12,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationCategories(_ presentation: Presentation) -> [Category]
     func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory)
     func presentation(_ presentation: Presentation, deleteCategory category: Category)
+    func presentation(_ presentation: Presentation, sortCategories categories: [Category])
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -84,6 +85,10 @@ public final class Presentation: AUIWindowPresentation {
         viewController.didDeleteCategoryClosure = { [weak self] category in
             guard let self = self else { return }
             self.delegate.presentation(self, deleteCategory: category)
+        }
+        viewController.didSortCategoriesClosure = { [weak self] categories in
+            guard let self = self else { return }
+            self.delegate.presentation(self, sortCategories: categories)
         }
         return viewController
     }

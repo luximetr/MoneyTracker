@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */; };
+		2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */; };
+		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
 		2E91153E27A92DE600359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91153D27A92DE600359F21 /* Category.swift */; };
 		2E91154727A9308B00359F21 /* MoneyTrackerStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */; };
@@ -95,6 +97,8 @@
 
 /* Begin PBXFileReference section */
 		03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFilledButton.swift; sourceTree = "<group>"; };
+		2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E91153D27A92DE600359F21 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerStorage.h; sourceTree = "<group>"; };
@@ -177,6 +181,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E0DB4CE27AD778300A92682 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		2E8FF0FC27AEF1B900DA033F /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				2E8FF0FD27AEF1CA00DA033F /* Category */,
+				2E8FF0FE27AEF1DE00DA033F /* AddCategory */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		2E8FF0FD27AEF1CA00DA033F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				2EC19AD727A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		2E8FF0FE27AEF1DE00DA033F /* AddCategory */ = {
+			isa = PBXGroup;
+			children = (
+				2EC19AD927A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift */,
+			);
+			path = AddCategory;
+			sourceTree = "<group>";
+		};
 		2E91154527A9308B00359F21 /* MoneyTrackerStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,8 +374,7 @@
 				2EC19ACD27A7F64000E1A6FA /* CategoriesScreenViewController.swift */,
 				2EC19ACF27A7F65200E1A6FA /* CategoriesScreenView.swift */,
 				2EC19ADD27A8238F00E1A6FA /* CategoriesScreenStrings.strings */,
-				2EC19AD727A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift */,
-				2EC19AD927A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift */,
+				2E8FF0FC27AEF1B900DA033F /* TableViewCells */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -346,6 +382,7 @@
 		2EC19AD327A7F75600E1A6FA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2E0DB4CE27AD778300A92682 /* Buttons */,
 				2EC19AD427A7F78200E1A6FA /* Screens */,
 			);
 			path = Components;
@@ -355,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				2EC19AD527A7F78C00E1A6FA /* NavigationBarScreenView.swift */,
+				2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -686,6 +724,7 @@
 				2EC19ADA27A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift in Sources */,
 				2EC19AD827A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift in Sources */,
 				2EB10A4827A7075700743416 /* Bundle.swift in Sources */,
+				2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */,
 				2EB10A3127A6E7B500743416 /* MenuScreenTabBarItem.swift in Sources */,
 				2E91153E27A92DE600359F21 /* Category.swift in Sources */,
 				2EB10A3A27A6FEAE00743416 /* Colors.swift in Sources */,
@@ -699,6 +738,7 @@
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
 				2EC6293227AC252300371252 /* AddingCategory.swift in Sources */,
+				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

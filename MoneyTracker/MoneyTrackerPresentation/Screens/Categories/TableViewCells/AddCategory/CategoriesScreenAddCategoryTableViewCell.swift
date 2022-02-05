@@ -8,6 +8,10 @@
 import UIKit
 import AUIKit
 
+final class CategoriesScreenAddCategoryTableViewCellController: AUIClosuresTableViewCellController {
+
+}
+
 final class CategoriesScreenAddCategoryTableViewCell: AUITableViewCell {
     
     // MARK: Subviews

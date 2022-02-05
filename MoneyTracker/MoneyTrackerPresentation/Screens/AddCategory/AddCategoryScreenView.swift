@@ -8,13 +8,13 @@
 import UIKit
 import AUIKit
 
-final class AddCategoryScreenView: NavigationBarScreenView {
+final class AddCategoryScreenView: TitleNavigationBarScreenView {
     
     // MARK: Subviews
     
     let scrollView = UIScrollView()
     let nameTextField = UITextField()
-    let addButton = UIButton()
+    let addButton = TextFilledButton()
     
     // MARK: Setup
     
@@ -48,7 +48,6 @@ final class AddCategoryScreenView: NavigationBarScreenView {
         layoutScrollView()
         layoutNameTextField()
         layoutAddButton()
-        addButton.backgroundColor = Colors.gray
         setScrollViewContentSize()
     }
     

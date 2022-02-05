@@ -24,6 +24,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     var didDeleteCategoryClosure: ((Category) throws -> Void)?
     var didSelectAddCategoryClosure: (() -> Void)?
+    var didSortCategoriesClosure: (([Category]) -> Void)?
     
     func updateCategories(_ categories: [Category]) {
         self.categories = categories
@@ -40,7 +41,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         return view as? CategoriesScreenView
     }
     
-    private let tableViewController = AUIEmptyTableViewController()
+    private let tableViewController = AUIClosuresTableViewController()
     
     // MARK: Localizer
     
@@ -53,16 +54,32 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        categoriesScreenView.titleLabel.text = localizer.localizeText("title")
         setupTableViewController()
     }
     
     private func setupTableViewController() {
         tableViewController.tableView = categoriesScreenView.tableView
+        tableViewController.targetIndexPathForMoveFromRowAtClosure = { sourceCellController, destinationCellController in
+            if destinationCellController is CategoriesScreenAddCategoryTableViewCellController {
+                return sourceCellController
+            }
+            return destinationCellController
+        }
+        tableViewController.moveCellControllerClosure = { [weak self] sourceCellController, destinationCellController in
+            guard let self = self else { return }
+            guard let category1 = (sourceCellController as? CategoriesScreenCategoryTableViewCellController)?.category else { return }
+            guard let category2 = (destinationCellController as? CategoriesScreenCategoryTableViewCellController)?.category else { return }
+            guard let i = self.categories.firstIndex(of: category1) else { return }
+            guard let j = self.categories.firstIndex(of: category2) else { return }
+            self.categories.swapAt(i, j)
+            self.didSortCategoriesClosure?(self.categories)
+        }
         tableViewController.dragInteractionEnabled = true
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
         for category in categories {
-            let cellController = AUIClosuresTableViewCellController()
+            let cellController = CategoriesScreenCategoryTableViewCellController(category: category)
             cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
                 guard let self = self else { return UITableViewCell() }
                 let cell = self.categoriesScreenView.categoryTableViewCell(indexPath)
@@ -105,7 +122,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
             cellControllers.append(cellController)
         }
         
-        let addCategoryCellController = AUIClosuresTableViewCellController()
+        let addCategoryCellController = CategoriesScreenAddCategoryTableViewCellController()
         addCategoryCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.categoriesScreenView.addCategoryTableViewCell(indexPath)!

@@ -8,6 +8,19 @@
 import UIKit
 import AUIKit
 
+final class CategoriesScreenCategoryTableViewCellController: AUIClosuresTableViewCellController {
+    
+    // MARK: Data
+    
+    let category: Category
+    
+    init(category: Category) {
+        self.category = category
+        super.init()
+    }
+
+}
+
 final class CategoriesScreenCategoryTableViewCell: AUITableViewCell {
     
     // MARK: Subviews

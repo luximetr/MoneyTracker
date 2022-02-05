@@ -57,6 +57,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         try? storage.removeCategory(id: storageCategory.id)
     }
     
+    func presentation(_ presentation: Presentation, sortCategories categories: [PresentationCategory]) {
+        //try? storage.
+    }
+    
     // MARK: Storage
     
     private lazy var storage: Storage = {

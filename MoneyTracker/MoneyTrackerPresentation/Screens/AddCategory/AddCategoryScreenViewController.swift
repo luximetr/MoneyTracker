@@ -35,6 +35,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addCategoryScreenView.titleLabel.text = localizer.localizeText("title")
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         addCategoryScreenView.addButton.addTarget(self, action: #selector(add), for: .touchUpInside)
