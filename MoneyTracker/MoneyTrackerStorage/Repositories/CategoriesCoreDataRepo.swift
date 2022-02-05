@@ -1,5 +1,5 @@
 //
-//  CategoriesCoreDataRepository.swift
+//  CategoriesCoreDataRepo.swift
 //  MoneyTrackerStorage
 //
 //  Created by Oleksandr Orlov on 03.02.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class CategoriesCoreDataRepository {
+class CategoriesCoreDataRepo {
     
     // MARK: - Dependency
     
@@ -25,7 +25,6 @@ class CategoriesCoreDataRepository {
     func createCategory(_ category: Category) throws {
         let context = accessor.viewContext
         let categoryMO = CategoryMO(context: context)
-        
         categoryMO.id = category.id
         categoryMO.name = category.name
         
