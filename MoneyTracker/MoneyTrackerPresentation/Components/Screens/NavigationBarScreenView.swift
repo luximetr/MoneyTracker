@@ -25,12 +25,15 @@ class NavigationBarScreenView: AUIStatusBarScreenView {
     
     override func setup() {
         super.setup()
-        addSubview(navigationBarView)
+        insertSubview(navigationBarView, belowSubview: statusBarView)
         setupNavigationBarView()
     }
     
     func setupNavigationBarView() {
-        
+        navigationBarView.layer.shadowColor = Colors.black.withAlphaComponent(0.12).cgColor
+        navigationBarView.layer.shadowOpacity = 0.6
+        navigationBarView.layer.shadowRadius = 12
+        navigationBarView.layer.shadowOffset = CGSize(width: 0, height: 12)
     }
     
     // MARK: Layout

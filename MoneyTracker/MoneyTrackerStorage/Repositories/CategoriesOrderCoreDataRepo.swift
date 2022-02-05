@@ -45,7 +45,12 @@ class CatetoriesOrderCoreDataRepo {
     private func fetchOrderMO(context: NSManagedObjectContext) throws -> CategoriesOrderMO {
         let request = CategoriesOrderMO.fetchRequest()
         guard let orderMO = try context.fetch(request).first else {
-            throw FetchError.notFound
+            let context = accessor.viewContext
+            let categoryMO = CategoriesOrderMO(context: context)
+            categoryMO.orderedCategoryIds = []
+            
+            try context.save()
+            return categoryMO
         }
         return orderMO
     }

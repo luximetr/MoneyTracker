@@ -73,4 +73,13 @@ final class CategoriesScreenCategoryTableViewCell: AUITableViewCell {
         separatorView.frame = frame
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        if highlighted {
+            nameLabel.alpha = 0.6
+        } else {
+            nameLabel.alpha = 1
+        }
+    }
+    
 }

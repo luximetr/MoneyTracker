@@ -36,6 +36,7 @@ public final class Presentation: AUIWindowPresentation {
         let label3NavigationController = AUINavigationBarHiddenNavigationController()
         label3NavigationController.viewControllers = [label3ViewController]
         let menuViewController = MenuScreenViewController(mainScreenViewController: mainNavigationController, categoriesScreenViewController: categoriesNavigationController, label3ScreenViewController: label3NavigationController)
+        menuViewController.categories()
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController

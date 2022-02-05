@@ -28,12 +28,16 @@ final class MenuScreenView: AUIView {
     
     private func setuptTabBarView() {
         tabBarView.backgroundColor = .white
+        tabBarView.layer.shadowColor = Colors.black.withAlphaComponent(0.12).cgColor
+        tabBarView.layer.shadowOpacity = 0.6
+        tabBarView.layer.shadowRadius = 12
+        tabBarView.layer.shadowOffset = CGSize(width: 0, height: -12)
         tabBarView.addSubview(mainTabBarItem)
         mainTabBarItem.pictureImageView.image = Images.card.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(categoriesTabBarItem)
         categoriesTabBarItem.pictureImageView.image = Images.tag.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(label3TabBarItem)
-        label3TabBarItem.pictureImageView.image = Images.star.withRenderingMode(.alwaysTemplate)
+        label3TabBarItem.pictureImageView.image = Images.gear.withRenderingMode(.alwaysTemplate)
     }
     
     // MARK: Layut

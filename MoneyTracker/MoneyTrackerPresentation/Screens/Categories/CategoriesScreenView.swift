@@ -19,7 +19,7 @@ final class CategoriesScreenView: TitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         backgroundColor = Colors.white
-        addSubview(tableView)
+        insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
     }
     

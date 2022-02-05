@@ -27,9 +27,12 @@ public class Storage {
     }
     
     public func addCategory(_ addingcategory: AddingCategory) throws {
+        var categoryIds = (try getOrderedCategories()).map({ $0.id })
         let repo = CategoriesCoreDataRepo(accessor: coreDataAccessor)
         let category = Category(id: UUID().uuidString, name: addingcategory.name)
         try repo.createCategory(category)
+        categoryIds.append(category.id)
+        try saveCategoriesOrder(orderedIds: categoryIds)
     }
     
     public func getCategory(id: String) throws -> Category {

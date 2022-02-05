@@ -41,24 +41,41 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationCategories(_ presentation: Presentation) -> [PresentationCategory] {
-        let storageCategories = (try? storage.getCategories()) ?? []
-        let categories = storageCategories.map({ Category(storageCategoty: $0) })
-        let presentationCategories = categories.map({ $0.presentationCategory })
-        return presentationCategories
+        do {
+            let storageCategories = try storage.getOrderedCategories()
+            let categories = storageCategories.map({ Category(storageCategoty: $0) })
+            let presentationCategories = categories.map({ $0.presentationCategory })
+            return presentationCategories
+        } catch {
+            print(error)
+            return []
+        }
     }
     
     func presentation(_ presentation: Presentation, addCategory addingCategory: PresentationAddingCategory) {
-        let storageAddingCategory = AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty
-        try? storage.addCategory(storageAddingCategory)
+        do {
+            let storageAddingCategory = AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty
+            try storage.addCategory(storageAddingCategory)
+        } catch {
+            print(error)
+        }
     }
     
     func presentation(_ presentation: Presentation, deleteCategory category: PresentationCategory) {
-        let storageCategory = Category(presentationCategory: category).storageCategoty
-        try? storage.removeCategory(id: storageCategory.id)
+        do {
+            let storageCategory = Category(presentationCategory: category).storageCategoty
+            try storage.removeCategory(id: storageCategory.id)
+        } catch {
+            print(error)
+        }
     }
     
     func presentation(_ presentation: Presentation, sortCategories categories: [PresentationCategory]) {
-        //try? storage.
+        do {
+            try storage.saveCategoriesOrder(orderedIds: categories.map({ $0.id }))
+        } catch {
+            print(error)
+        }
     }
     
     // MARK: Storage

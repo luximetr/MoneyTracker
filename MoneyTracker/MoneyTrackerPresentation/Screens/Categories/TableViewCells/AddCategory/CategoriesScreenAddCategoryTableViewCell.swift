@@ -64,4 +64,15 @@ final class CategoriesScreenAddCategoryTableViewCell: AUITableViewCell {
         _textLabel.frame = frame
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        if highlighted {
+            pictureImageView.alpha = 0.6
+            _textLabel.alpha = 0.6
+        } else {
+            pictureImageView.alpha = 1
+            _textLabel.alpha = 1
+        }
+    }
+    
 }

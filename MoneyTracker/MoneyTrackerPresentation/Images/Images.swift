@@ -17,9 +17,9 @@ private func _UIImage(named: String) -> UIImage {
 
 enum Images {
 
-    static var card: UIImage { return UIImage(systemName: "creditcard.fill") ?? UIImage() }
-    static var tag: UIImage { return UIImage(systemName: "tag.fill") ?? UIImage() }
-    static var star: UIImage { return UIImage(systemName: "star.fill") ?? UIImage() }
+    static var card: UIImage { return _UIImage(named: "card") }
+    static var tag: UIImage { return _UIImage(named: "tag") }
+    static var gear: UIImage { return _UIImage(named: "gear") }
     static var plusInDashCircle: UIImage { return _UIImage(named: "plusInDashCircle") }
     
 }
