@@ -9,9 +9,11 @@ import Foundation
 
 public class Storage {
     
-    // MARK: Initiaizer
+    // MARK: - Dependencies
     
     private let coreDataAccessor: CoreDataAccessor
+    
+    // MARK: Initiaizer
     
     public init() {
         coreDataAccessor = CoreDataAccessor(storageName: "CoreDataModel", storeURL: nil)
@@ -19,41 +21,45 @@ public class Storage {
     
     // MARK: Categories
     
-    private var _categories: [Category] = [
-        Category(id: UUID().uuidString, name: "Category 1"),
-        Category(id: UUID().uuidString, name: "Category 2"),
-        Category(id: UUID().uuidString, name: "Category 3"),
-        Category(id: UUID().uuidString, name: "Category 4"),
-    ]
-    
-//    public func categories() -> [Category] {
-//        return _categories
-//    }
-    
-    public func categories() throws -> [Category] {
-        let repository = CategoriesCoreDataRepository(accessor: coreDataAccessor)
-        return try repository.fetchAllCategories()
+    public func getCategories() throws -> [Category] {
+        let repo = CategoriesCoreDataRepo(accessor: coreDataAccessor)
+        return try repo.fetchAllCategories()
     }
     
     public func addCategory(_ addingcategory: AddingCategory) throws {
-        let repository = CategoriesCoreDataRepository(accessor: coreDataAccessor)
+        let repo = CategoriesCoreDataRepo(accessor: coreDataAccessor)
         let category = Category(id: UUID().uuidString, name: addingcategory.name)
-        try repository.createCategory(category)
+        try repo.createCategory(category)
     }
     
     public func getCategory(id: String) throws -> Category {
-        let repository = CategoriesCoreDataRepository(accessor: coreDataAccessor)
-        return try repository.fetchCategory(id: id)
+        let repo = CategoriesCoreDataRepo(accessor: coreDataAccessor)
+        return try repo.fetchCategory(id: id)
     }
     
     public func updateCategory(id: String, newValue: Category) throws {
-        let repository = CategoriesCoreDataRepository(accessor: coreDataAccessor)
-        try repository.updateCategory(id: id, newValue: newValue)
+        let repo = CategoriesCoreDataRepo(accessor: coreDataAccessor)
+        try repo.updateCategory(id: id, newValue: newValue)
     }
     
     public func removeCategory(id: String) throws {
-        let repository = CategoriesCoreDataRepository(accessor: coreDataAccessor)
-        try repository.removeCategory(id: id)
+        let repo = CategoriesCoreDataRepo(accessor: coreDataAccessor)
+        try repo.removeCategory(id: id)
+    }
+    
+    public func saveCategoriesOrder(orderedIds: [String]) throws {
+        let repo = CatetoriesOrderCoreDataRepo(accessor: coreDataAccessor)
+        try repo.updateOrder(orderedIds: orderedIds)
+    }
+    
+    public func getOrderedCategories() throws -> [Category] {
+        let repo = CatetoriesOrderCoreDataRepo(accessor: coreDataAccessor)
+        let orderedIds = try repo.fetchOrder()
+        let categories = try getCategories()
+        let sortedCategories = orderedIds.compactMap { id -> Category? in
+            categories.first(where: { $0.id == id })
+        }
+        return sortedCategories
     }
     
 }

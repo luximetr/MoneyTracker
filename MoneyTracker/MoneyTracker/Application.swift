@@ -41,7 +41,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationCategories(_ presentation: Presentation) -> [PresentationCategory] {
-        let storageCategories = (try? storage.categories()) ?? []
+        let storageCategories = (try? storage.getCategories()) ?? []
         let categories = storageCategories.map({ Category(storageCategoty: $0) })
         let presentationCategories = categories.map({ $0.presentationCategory })
         return presentationCategories
