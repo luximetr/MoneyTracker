@@ -26,13 +26,11 @@ public class Storage {
         return try repo.fetchAllCategories()
     }
     
-    public func addCategory(_ addingcategory: AddingCategory) throws {
-        var categoryIds = (try getOrderedCategories()).map({ $0.id })
+    public func addCategory(_ addingCategory: AddingCategory) throws {
         let repo = CategoriesCoreDataRepo(accessor: coreDataAccessor)
-        let category = Category(id: UUID().uuidString, name: addingcategory.name)
+        let category = Category(id: UUID().uuidString, name: addingCategory.name)
         try repo.createCategory(category)
-        categoryIds.append(category.id)
-        try saveCategoriesOrder(orderedIds: categoryIds)
+        try appendToCategoriesOrder(categoryId: category.id)
     }
     
     public func getCategory(id: String) throws -> Category {
@@ -48,21 +46,34 @@ public class Storage {
     public func removeCategory(id: String) throws {
         let repo = CategoriesCoreDataRepo(accessor: coreDataAccessor)
         try repo.removeCategory(id: id)
+        try removeFromCategoriesOrder(categoryId: id)
     }
     
+    // MARK: - Categories order
+    
     public func saveCategoriesOrder(orderedIds: [String]) throws {
-        let repo = CatetoriesOrderCoreDataRepo(accessor: coreDataAccessor)
+        let repo = CategoriesOrderCoreDataRepo(accessor: coreDataAccessor)
         try repo.updateOrder(orderedIds: orderedIds)
     }
     
     public func getOrderedCategories() throws -> [Category] {
-        let repo = CatetoriesOrderCoreDataRepo(accessor: coreDataAccessor)
+        let repo = CategoriesOrderCoreDataRepo(accessor: coreDataAccessor)
         let orderedIds = try repo.fetchOrder()
         let categories = try getCategories()
         let sortedCategories = orderedIds.compactMap { id -> Category? in
             categories.first(where: { $0.id == id })
         }
         return sortedCategories
+    }
+    
+    private func appendToCategoriesOrder(categoryId: String) throws {
+        let repo = CategoriesOrderCoreDataRepo(accessor: coreDataAccessor)
+        try repo.appendCategoryId(categoryId)
+    }
+    
+    private func removeFromCategoriesOrder(categoryId: String) throws {
+        let repo = CategoriesOrderCoreDataRepo(accessor: coreDataAccessor)
+        try repo.removeCategoryId(categoryId)
     }
     
     // MARK: - Balance Account
