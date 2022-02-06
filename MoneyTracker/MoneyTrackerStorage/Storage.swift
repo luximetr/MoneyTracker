@@ -65,4 +65,31 @@ public class Storage {
         return sortedCategories
     }
     
+    // MARK: - Balance Account
+    
+    public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        let account = BalanceAccount(addingBalanceAccount: addingBalanceAccount)
+        try repo.insertAccount(account)
+    }
+    
+    public func removeBalanceAccount(id: String) throws {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        try repo.removeAccount(id: id)
+    }
+    
+    public func updateBalanceAccount(id: String, newValue: BalanceAccount) throws {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        try repo.updateAccount(id: id, newValue: newValue)
+    }
+    
+    public func getBalanceAccount(id: String) throws -> BalanceAccount {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        return try repo.fetchAccount(id: id)
+    }
+    
+    public func getAllBalanceAccounts() throws -> [BalanceAccount] {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        return try repo.fetchAllAccounts()
+    }
 }

@@ -54,6 +54,10 @@
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
 		DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */; };
+		DBD6ACD427AF704600389236 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD327AF704600389236 /* Currency.swift */; };
+		DBD6ACD627AF719000389236 /* BalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD527AF719000389236 /* BalanceAccount.swift */; };
+		DBD6ACD827AF724C00389236 /* BalanceAccountCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */; };
+		DBD6ACDA27AF73BA00389236 /* AddingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +152,10 @@
 		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
+		DBD6ACD327AF704600389236 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		DBD6ACD527AF719000389236 /* BalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccount.swift; sourceTree = "<group>"; };
+		DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountCoreDataRepo.swift; sourceTree = "<group>"; };
+		DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingBalanceAccount.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -233,6 +241,9 @@
 			children = (
 				2E91155227A9375300359F21 /* Category.swift */,
 				2EC6293327AC262000371252 /* AddingCategory.swift */,
+				DBD6ACD327AF704600389236 /* Currency.swift */,
+				DBD6ACD527AF719000389236 /* BalanceAccount.swift */,
+				DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -427,6 +438,7 @@
 			children = (
 				DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */,
 				DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */,
+				DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -701,9 +713,13 @@
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
 				2EC6293427AC262000371252 /* AddingCategory.swift in Sources */,
 				2E91155327A9375300359F21 /* Category.swift in Sources */,
+				DBD6ACD427AF704600389236 /* Currency.swift in Sources */,
 				DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */,
+				DBD6ACD827AF724C00389236 /* BalanceAccountCoreDataRepo.swift in Sources */,
 				DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */,
+				DBD6ACDA27AF73BA00389236 /* AddingBalanceAccount.swift in Sources */,
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
+				DBD6ACD627AF719000389236 /* BalanceAccount.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
