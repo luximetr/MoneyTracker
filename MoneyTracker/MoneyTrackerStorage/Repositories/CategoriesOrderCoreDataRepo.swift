@@ -24,7 +24,7 @@ class CategoriesOrderCoreDataRepo {
     
     func updateOrder(orderedIds: [CategoryId]) throws {
         let context = accessor.viewContext
-        let orderMO = try fetchOrderMO(context: context)
+        let orderMO = try fetchOrCreateOrderMO(context: context)
         orderMO.orderedCategoryIds = orderedIds.map { NSString(string: $0) }
         try context.save()
     }
@@ -60,15 +60,18 @@ class CategoriesOrderCoreDataRepo {
         return ids
     }
     
+    private func fetchOrCreateOrderMO(context: NSManagedObjectContext) throws -> CategoriesOrderMO {
+        do {
+            return try fetchOrderMO(context: context)
+        } catch {
+            return CategoriesOrderMO(context: context)
+        }
+    }
+    
     private func fetchOrderMO(context: NSManagedObjectContext) throws -> CategoriesOrderMO {
         let request = CategoriesOrderMO.fetchRequest()
         guard let orderMO = try context.fetch(request).first else {
-            let context = accessor.viewContext
-            let categoryMO = CategoriesOrderMO(context: context)
-            categoryMO.orderedCategoryIds = []
-            
-            try context.save()
-            return categoryMO
+            throw FetchError.notFound
         }
         return orderMO
     }
