@@ -14,8 +14,8 @@ final class MenuScreenView: AUIView {
     private var screenView: UIView?
     private let tabBarView = UIView()
     let mainTabBarItem = MenuScreenTabBarItem()
-    let categoriesTabBarItem = MenuScreenTabBarItem()
-    let label3TabBarItem = MenuScreenTabBarItem()
+    let statisticTabBarItem = MenuScreenTabBarItem()
+    let settingsTabBarItem = MenuScreenTabBarItem()
     private var selectedTabBarItem: MenuScreenTabBarItem?
     
     // MARK: Setup
@@ -34,10 +34,10 @@ final class MenuScreenView: AUIView {
         tabBarView.layer.shadowOffset = CGSize(width: 0, height: -12)
         tabBarView.addSubview(mainTabBarItem)
         mainTabBarItem.pictureImageView.image = Images.card.withRenderingMode(.alwaysTemplate)
-        tabBarView.addSubview(categoriesTabBarItem)
-        categoriesTabBarItem.pictureImageView.image = Images.statistic.withRenderingMode(.alwaysTemplate)
-        tabBarView.addSubview(label3TabBarItem)
-        label3TabBarItem.pictureImageView.image = Images.gear.withRenderingMode(.alwaysTemplate)
+        tabBarView.addSubview(statisticTabBarItem)
+        statisticTabBarItem.pictureImageView.image = Images.statistic.withRenderingMode(.alwaysTemplate)
+        tabBarView.addSubview(settingsTabBarItem)
+        settingsTabBarItem.pictureImageView.image = Images.gear.withRenderingMode(.alwaysTemplate)
     }
     
     // MARK: Layut
@@ -58,7 +58,7 @@ final class MenuScreenView: AUIView {
         tabBarView.frame = frame
         var itemHeight = tabBarView.bounds.height
         if #available(iOS 11.0, *) { itemHeight -= safeAreaInsets.bottom }
-        let items = [mainTabBarItem, categoriesTabBarItem, label3TabBarItem]
+        let items = [mainTabBarItem, statisticTabBarItem, settingsTabBarItem]
         let itemWidth = tabBarView.bounds.width * 0.9 / CGFloat(items.count)
         var itemX: CGFloat = tabBarView.bounds.width * 0.1 / 2
         let itemY: CGFloat = 0
@@ -82,24 +82,24 @@ final class MenuScreenView: AUIView {
     
     // MARK: Setters
     
-    func setHomeScreenView(_ homeScreenView: UIView) {
+    func setMainScreenView(_ homeScreenView: UIView) {
         selectedTabBarItem?.isSelected = false
         selectedTabBarItem = mainTabBarItem
         mainTabBarItem.isSelected = true
         setScreenView(homeScreenView)
     }
     
-    func setCreateScreenView(_ homeScreenView: UIView) {
+    func setStatisticScreenView(_ homeScreenView: UIView) {
         selectedTabBarItem?.isSelected = false
-        selectedTabBarItem = categoriesTabBarItem
-        categoriesTabBarItem.isSelected = true
+        selectedTabBarItem = statisticTabBarItem
+        statisticTabBarItem.isSelected = true
         setScreenView(homeScreenView)
     }
     
-    func setSearchScreenView(_ homeScreenView: UIView) {
+    func setSettingsScreenView(_ homeScreenView: UIView) {
         selectedTabBarItem?.isSelected = false
-        selectedTabBarItem = label3TabBarItem
-        label3TabBarItem.isSelected = true
+        selectedTabBarItem = settingsTabBarItem
+        settingsTabBarItem.isSelected = true
         setScreenView(homeScreenView)
     }
     

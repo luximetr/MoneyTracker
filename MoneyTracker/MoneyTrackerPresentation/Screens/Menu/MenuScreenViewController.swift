@@ -12,10 +12,10 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(mainScreenViewController: UIViewController, categoriesScreenViewController: UIViewController, label3ScreenViewController: UIViewController) {
+    init(mainScreenViewController: UIViewController, categoriesScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
         self.mainScreenViewController = mainScreenViewController
         self.categoriesScreenViewController = categoriesScreenViewController
-        self.label3ScreenViewController = label3ScreenViewController
+        self.settingsScreenViewController = settingsScreenViewController
         super.init()
     }
     
@@ -32,7 +32,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     private var screenController: UIViewController?
     let mainScreenViewController: UIViewController
     let categoriesScreenViewController: UIViewController
-    let label3ScreenViewController: UIViewController
+    let settingsScreenViewController: UIViewController
     
     // MARK: Localizer
     
@@ -46,8 +46,8 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         menuScreenView.mainTabBarItem.addTarget(self, action: #selector(main), for: .touchUpInside)
-        menuScreenView.categoriesTabBarItem.addTarget(self, action: #selector(categories), for: .touchUpInside)
-        menuScreenView.label3TabBarItem.addTarget(self, action: #selector(label3), for: .touchUpInside)
+        menuScreenView.statisticTabBarItem.addTarget(self, action: #selector(categories), for: .touchUpInside)
+        menuScreenView.settingsTabBarItem.addTarget(self, action: #selector(label3), for: .touchUpInside)
         main()
         setContent()
     }
@@ -57,7 +57,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         menuScreenView.setScreenView(nil)
         screenController?.removeFromParent()
         addChild(mainScreenViewController)
-        menuScreenView.setHomeScreenView(mainScreenViewController.view)
+        menuScreenView.setMainScreenView(mainScreenViewController.view)
         mainScreenViewController.didMove(toParent: self)
         screenController = mainScreenViewController
     }
@@ -67,7 +67,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         menuScreenView.setScreenView(nil)
         self.screenController?.removeFromParent()
         addChild(categoriesScreenViewController)
-        menuScreenView.setCreateScreenView(categoriesScreenViewController.view)
+        menuScreenView.setStatisticScreenView(categoriesScreenViewController.view)
         categoriesScreenViewController.didMove(toParent: self)
         screenController = categoriesScreenViewController
     }
@@ -76,18 +76,18 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         self.screenController?.willMove(toParent: nil)
         menuScreenView.setScreenView(nil)
         self.screenController?.removeFromParent()
-        addChild(label3ScreenViewController)
-        menuScreenView.setSearchScreenView(label3ScreenViewController.view)
-        label3ScreenViewController.didMove(toParent: self)
-        screenController = label3ScreenViewController
+        addChild(settingsScreenViewController)
+        menuScreenView.setSettingsScreenView(settingsScreenViewController.view)
+        settingsScreenViewController.didMove(toParent: self)
+        screenController = settingsScreenViewController
     }
     
     // MARK: Content
     
     private func setContent() {
         menuScreenView.mainTabBarItem.textLabel.text = localizer.localizeText("main")
-        menuScreenView.categoriesTabBarItem.textLabel.text = localizer.localizeText("statistic")
-        menuScreenView.label3TabBarItem.textLabel.text = localizer.localizeText("settings")
+        menuScreenView.statisticTabBarItem.textLabel.text = localizer.localizeText("statistic")
+        menuScreenView.settingsTabBarItem.textLabel.text = localizer.localizeText("settings")
     }
     
 }

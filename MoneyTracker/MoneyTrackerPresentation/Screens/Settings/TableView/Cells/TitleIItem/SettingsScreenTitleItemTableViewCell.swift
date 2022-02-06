@@ -56,7 +56,7 @@ final class TitleItemTableViewCell: AUITableViewCell {
         let x: CGFloat = 28
         let y: CGFloat = 12
         let width = bounds.width - x - 40
-        let height = bounds.height - 2 * y - 1
+        let height = bounds.height - 2 * y
         let frame = CGRect(x: x, y: y, width: width, height: height)
         nameLabel.frame = frame
     }

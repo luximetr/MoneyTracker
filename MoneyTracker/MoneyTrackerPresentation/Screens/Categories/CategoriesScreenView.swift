@@ -55,6 +55,7 @@ final class CategoriesScreenView: TitleNavigationBarScreenView {
         let height = bounds.height - y
         let frame = CGRect(x: x, y: y, width: width, height: height)
         tableView.frame = frame
+        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     }
     
     // MARK: Cells

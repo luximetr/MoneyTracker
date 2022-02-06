@@ -19,8 +19,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     override func didFinishLaunching() {
         super.didFinishLaunching()
-        displayPresentation()
+        presentation.display()
     }
+    
+    // MARK: Storage
+    
+    private lazy var storage: Storage = {
+        let storage = Storage()
+        return storage
+    }()
     
     // MARK: Presentation
     
@@ -35,10 +42,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         presentation.delegate = self
         return presentation
     }()
-    
-    private func displayPresentation() {
-        presentation.display()
-    }
     
     func presentationCategories(_ presentation: Presentation) -> [PresentationCategory] {
         do {
@@ -86,12 +89,5 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             print(error)
         }
     }
-    
-    // MARK: Storage
-    
-    private lazy var storage: Storage = {
-        let storage = Storage()
-        return storage
-    }()
     
 }

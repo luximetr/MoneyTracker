@@ -322,8 +322,8 @@
 			isa = PBXGroup;
 			children = (
 				2EB109FC27A6C30C00743416 /* MoneyTracker */,
-				2EB10A1B27A6CAE500743416 /* MoneyTrackerPresentation */,
 				2E91154527A9308B00359F21 /* MoneyTrackerStorage */,
+				2EB10A1B27A6CAE500743416 /* MoneyTrackerPresentation */,
 				2EB109FB27A6C30C00743416 /* Products */,
 				51E3EA472CC8324F4826A8AD /* Pods */,
 				F6CDF223860AC628D18B4DED /* Frameworks */,
@@ -374,10 +374,10 @@
 			isa = PBXGroup;
 			children = (
 				2EB10A2C27A6E7B500743416 /* Menu */,
+				2E9289F927AFF9A7002F3403 /* Settings */,
 				2EC19ACC27A7F61B00E1A6FA /* Categories */,
 				2EC6292A27AC1EF600371252 /* AddCategory */,
 				2E96212527AFD91B00DF0DD4 /* EditCategory */,
-				2E9289F927AFF9A7002F3403 /* Settings */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -646,8 +646,8 @@
 			projectRoot = "";
 			targets = (
 				2EB109F927A6C30C00743416 /* MoneyTracker */,
-				2EB10A1927A6CAE500743416 /* MoneyTrackerPresentation */,
 				2E91154327A9308B00359F21 /* MoneyTrackerStorage */,
+				2EB10A1927A6CAE500743416 /* MoneyTrackerPresentation */,
 			);
 		};
 /* End PBXProject section */

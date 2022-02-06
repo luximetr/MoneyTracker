@@ -24,7 +24,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         return view as? SettingsScreenView
     }
     
-    private let tableViewController = AUIClosuresTableViewController()
+    private let tableViewController = AUIEmptyTableViewController()
     
     // MARK: Localizer
     
@@ -45,32 +45,28 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         tableViewController.tableView = settingsScreenView.tableView
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
-        let addCategoryCellController = CategoriesScreenAddCategoryTableViewCellController()
-        addCategoryCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+        let categoriesCellController = CategoriesScreenAddCategoryTableViewCellController()
+        categoriesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
             cell.nameLabel.text = self.localizer.localizeText("categories")
             return cell
         }
-        addCategoryCellController.estimatedHeightClosure = { [weak self] in
+        categoriesCellController.estimatedHeightClosure = { [weak self] in
             guard let self = self else { return 0 }
             let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
             return estimatedHeight
         }
-        addCategoryCellController.heightClosure = { [weak self] in
+        categoriesCellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
             let height = self.settingsScreenView.titleItemTableViewCellHeight()
             return height
         }
-        addCategoryCellController.didSelectClosure = { [weak self] in
+        categoriesCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
             self.didSelectCategories()
         }
-        addCategoryCellController.canMoveCellClosure = {
-            return false
-        }
-        cellControllers.append(addCategoryCellController)
-        
+        cellControllers.append(categoriesCellController)
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
     }

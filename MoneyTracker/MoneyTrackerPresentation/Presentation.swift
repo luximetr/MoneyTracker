@@ -36,12 +36,12 @@ public final class Presentation: AUIWindowPresentation {
         let settingsViewController = createSettingsScreenViewController()
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
         settingsNavigationController.viewControllers = [settingsViewController]
-        let menuViewController = MenuScreenViewController(mainScreenViewController: mainNavigationController, categoriesScreenViewController: categoriesNavigationController, label3ScreenViewController: settingsNavigationController)
+        let menuViewController = MenuScreenViewController(mainScreenViewController: mainNavigationController, categoriesScreenViewController: categoriesNavigationController, settingsScreenViewController: settingsNavigationController)
         menuViewController.label3()
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
-        self.menuViewController = menuViewController
+        self.menuScreenViewController = menuViewController
         self.mainViewController = mainViewController
         self.mainNavigationController = mainNavigationController
         self.categoriesNavigationController = categoriesNavigationController
@@ -56,7 +56,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Menu View Controller
     
-    private var menuViewController: MenuScreenViewController?
+    private var menuScreenViewController: MenuScreenViewController?
     
     // MARK: Main Navigation Controller
     
