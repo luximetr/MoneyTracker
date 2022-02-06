@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class CatetoriesOrderCoreDataRepo {
+class CategoriesOrderCoreDataRepo {
     
     // MARK: - Dependency
     
@@ -26,6 +26,24 @@ class CatetoriesOrderCoreDataRepo {
         let context = accessor.viewContext
         let orderMO = try fetchOrderMO(context: context)
         orderMO.orderedCategoryIds = orderedIds.map { NSString(string: $0) }
+        try context.save()
+    }
+    
+    func appendCategoryId(_ id: CategoryId) throws {
+        let context = accessor.viewContext
+        let orderMO = try fetchOrderMO(context: context)
+        var idsMO = orderMO.orderedCategoryIds ?? []
+        idsMO.append(NSString(string: id))
+        orderMO.orderedCategoryIds = idsMO
+        try context.save()
+    }
+    
+    func removeCategoryId(_ id: CategoryId) throws {
+        let context = accessor.viewContext
+        let orderMO = try fetchOrderMO(context: context)
+        var idsMO = orderMO.orderedCategoryIds ?? []
+        idsMO.removeAll(where: { $0 as String == id })
+        orderMO.orderedCategoryIds = idsMO
         try context.save()
     }
     
