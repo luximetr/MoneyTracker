@@ -8,7 +8,7 @@
 import Foundation
 import AFoundation
 
-class ScreenLocalizer {
+final class ScreenLocalizer {
     
     // MARK: Initializer
     

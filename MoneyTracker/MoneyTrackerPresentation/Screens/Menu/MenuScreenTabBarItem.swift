@@ -14,8 +14,8 @@ final class MenuScreenTabBarItem: AUIButton {
     override var isSelected: Bool {
         willSet {
             if newValue {
-                pictureImageView.tintColor = Colors.blue
-                textLabel.textColor = Colors.blue
+                pictureImageView.tintColor = Colors.accent
+                textLabel.textColor = Colors.accent
             } else {
                 pictureImageView.tintColor = Colors.black
                 textLabel.textColor = Colors.black

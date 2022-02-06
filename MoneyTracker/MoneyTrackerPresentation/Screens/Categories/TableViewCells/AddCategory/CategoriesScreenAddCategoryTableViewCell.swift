@@ -35,7 +35,7 @@ final class CategoriesScreenAddCategoryTableViewCell: AUITableViewCell {
     }
     
     private func setupTextLabel() {
-        _textLabel.textColor = Colors.blue
+        _textLabel.textColor = Colors.accent
     }
     
     // MARK: Layout
