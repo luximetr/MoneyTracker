@@ -29,6 +29,24 @@ class BalanceAccountsOrderCoreDataRepo {
         try context.save()
     }
     
+    func appendBalanceAccountId(_ id: BalanceAccountId) throws {
+        let context = accessor.viewContext
+        let orderMO = try fetchOrderMO(context: context)
+        var idsMO = orderMO.orderedAccountIds ?? []
+        idsMO.append(id as NSString)
+        orderMO.orderedAccountIds = idsMO
+        try context.save()
+    }
+    
+    func removeBalanceAccountId(_ id: BalanceAccountId) throws {
+        let context = accessor.viewContext
+        let orderMO = try fetchOrderMO(context: context)
+        var idsMO = orderMO.orderedAccountIds ?? []
+        idsMO.removeAll(where: { $0 as String == id })
+        orderMO.orderedAccountIds = idsMO
+        try context.save()
+    }
+    
     // MARK: - Fetch
     
     func fetchOrder() throws -> [BalanceAccountId] {
@@ -40,6 +58,16 @@ class BalanceAccountsOrderCoreDataRepo {
         }
         let ids = idsMO.map { BalanceAccountId($0) }
         return ids
+    }
+    
+    private func fetchOrCreateOrderMO(context: NSManagedObjectContext) throws -> BalanceAccountsOrderMO {
+        do {
+            return try fetchOrderMO(context: context)
+        } catch FetchError.notFound {
+            return BalanceAccountsOrderMO(context: context)
+        } catch {
+            throw error
+        }
     }
     
     private func fetchOrderMO(context: NSManagedObjectContext) throws -> BalanceAccountsOrderMO {

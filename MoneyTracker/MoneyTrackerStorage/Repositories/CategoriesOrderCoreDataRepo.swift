@@ -63,8 +63,10 @@ class CategoriesOrderCoreDataRepo {
     private func fetchOrCreateOrderMO(context: NSManagedObjectContext) throws -> CategoriesOrderMO {
         do {
             return try fetchOrderMO(context: context)
-        } catch {
+        } catch FetchError.notFound {
             return CategoriesOrderMO(context: context)
+        } catch {
+            throw error
         }
     }
     
