@@ -52,7 +52,7 @@ class CategoriesOrderCoreDataRepo {
     func fetchOrder() throws -> [CategoryId] {
         let context = accessor.viewContext
         
-        let orderMO = try fetchOrderMO(context: context)
+        let orderMO = try fetchOrCreateOrderMO(context: context)
         guard let idsMO = orderMO.orderedCategoryIds else {
             throw FetchError.notFound
         }

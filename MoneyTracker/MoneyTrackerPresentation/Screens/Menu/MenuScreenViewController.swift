@@ -72,7 +72,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         screenController = categoriesScreenViewController
     }
     
-    @objc private func label3() {
+    @objc func label3() {
         self.screenController?.willMove(toParent: nil)
         menuScreenView.setScreenView(nil)
         self.screenController?.removeFromParent()
@@ -86,7 +86,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     
     private func setContent() {
         menuScreenView.mainTabBarItem.textLabel.text = localizer.localizeText("main")
-        menuScreenView.categoriesTabBarItem.textLabel.text = localizer.localizeText("categories")
+        menuScreenView.categoriesTabBarItem.textLabel.text = localizer.localizeText("statistic")
         menuScreenView.label3TabBarItem.textLabel.text = localizer.localizeText("settings")
     }
     

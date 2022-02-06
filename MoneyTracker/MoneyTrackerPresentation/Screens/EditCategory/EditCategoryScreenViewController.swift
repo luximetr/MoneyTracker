@@ -28,11 +28,11 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
     // MARK: View
     
     override func loadView() {
-        view = AddCategoryScreenView()
+        view = EditCategoryScreenView()
     }
     
-    private var addCategoryScreenView: AddCategoryScreenView! {
-        return view as? AddCategoryScreenView
+    private var editCategoryScreenView: EditCategoryScreenView! {
+        return view as? EditCategoryScreenView
     }
     
     // MARK: Localizer
@@ -46,13 +46,13 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addCategoryScreenView.titleLabel.text = localizer.localizeText("title")
+        editCategoryScreenView.titleLabel.text = localizer.localizeText("title")
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        addCategoryScreenView.addButton.addTarget(self, action: #selector(add), for: .touchUpInside)
-        addCategoryScreenView.addButton.setTitle(localizer.localizeText("save"), for: .normal)
-        addCategoryScreenView.nameTextField.text = category.name
-        addCategoryScreenView.nameTextField.becomeFirstResponder()
+        editCategoryScreenView.addButton.addTarget(self, action: #selector(add), for: .touchUpInside)
+        editCategoryScreenView.addButton.setTitle(localizer.localizeText("save"), for: .normal)
+        editCategoryScreenView.nameTextField.text = category.name
+        editCategoryScreenView.nameTextField.becomeFirstResponder()
     }
     
     // MARK: Events
@@ -61,15 +61,15 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardFrame = keyboardFrameEndUser.cgRectValue
-        addCategoryScreenView.setKeyboardFrame(keyboardFrame)
+        editCategoryScreenView.setKeyboardFrame(keyboardFrame)
     }
 
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        addCategoryScreenView.setKeyboardFrame(nil)
+        editCategoryScreenView.setKeyboardFrame(nil)
     }
     
     @objc private func add() {
-        let name = addCategoryScreenView.nameTextField.text ?? "????"
+        let name = editCategoryScreenView.nameTextField.text ?? "????"
         let addingCategory = Category(id: category.id, name: name)
         editCategoryClosure?(addingCategory)
     }

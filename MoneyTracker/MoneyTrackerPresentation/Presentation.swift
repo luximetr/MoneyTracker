@@ -29,25 +29,24 @@ public final class Presentation: AUIWindowPresentation {
         mainViewController.view.backgroundColor = .green
         let mainNavigationController = AUINavigationBarHiddenNavigationController()
         mainNavigationController.viewControllers = [mainViewController]
-        let categoriesViewController = createCategoriesViewController()
+        let categoriesViewController = UIViewController()
+        categoriesViewController.view.backgroundColor = .yellow
         let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
         categoriesNavigationController.viewControllers = [categoriesViewController]
-        let label3ViewController = UIViewController()
-        label3ViewController.view.backgroundColor = .yellow
-        let label3NavigationController = AUINavigationBarHiddenNavigationController()
-        label3NavigationController.viewControllers = [label3ViewController]
-        let menuViewController = MenuScreenViewController(mainScreenViewController: mainNavigationController, categoriesScreenViewController: categoriesNavigationController, label3ScreenViewController: label3NavigationController)
-        menuViewController.categories()
+        let settingsViewController = createSettingsScreenViewController()
+        let settingsNavigationController = AUINavigationBarHiddenNavigationController()
+        settingsNavigationController.viewControllers = [settingsViewController]
+        let menuViewController = MenuScreenViewController(mainScreenViewController: mainNavigationController, categoriesScreenViewController: categoriesNavigationController, label3ScreenViewController: settingsNavigationController)
+        menuViewController.label3()
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
         self.menuViewController = menuViewController
         self.mainViewController = mainViewController
         self.mainNavigationController = mainNavigationController
-        self.categoriesViewController = categoriesViewController
         self.categoriesNavigationController = categoriesNavigationController
-        self.label3ViewController = label3ViewController
-        self.label3NavigationController = label3NavigationController
+        self.settingsScreenViewController = settingsViewController
+        self.settingsNavigationController = settingsNavigationController
         window.rootViewController = menuNavigationController
     }
     
@@ -101,13 +100,9 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
-    // MARK: Label3 Navigation Controller
+    // MARK: Settings Navigation Controller
     
-    private var label3NavigationController: UINavigationController?
-    
-    // MARK: Label3 View Controller
-    
-    private var label3ViewController: UIViewController?
+    private var settingsNavigationController: UINavigationController?
     
     // MARK: Add Category View Controller
     
@@ -137,6 +132,21 @@ public final class Presentation: AUIWindowPresentation {
             let categories = self.delegate.presentationCategories(self)
             self.categoriesViewController?.updateCategories(categories)
             viewController.dismiss(animated: true, completion: nil)
+        }
+        return viewController
+    }
+    
+    // MARK: Settings Screen View Controller
+    
+    private var settingsScreenViewController: SettingsScreenViewController?
+    
+    private func createSettingsScreenViewController() -> SettingsScreenViewController {
+        let viewController = SettingsScreenViewController()
+        viewController.didSelectCategoriesClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createCategoriesViewController()
+            self.categoriesViewController = viewController
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         return viewController
     }

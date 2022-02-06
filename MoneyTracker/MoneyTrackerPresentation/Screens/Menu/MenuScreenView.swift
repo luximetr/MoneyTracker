@@ -35,7 +35,7 @@ final class MenuScreenView: AUIView {
         tabBarView.addSubview(mainTabBarItem)
         mainTabBarItem.pictureImageView.image = Images.card.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(categoriesTabBarItem)
-        categoriesTabBarItem.pictureImageView.image = Images.tag.withRenderingMode(.alwaysTemplate)
+        categoriesTabBarItem.pictureImageView.image = Images.statistic.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(label3TabBarItem)
         label3TabBarItem.pictureImageView.image = Images.gear.withRenderingMode(.alwaysTemplate)
     }
