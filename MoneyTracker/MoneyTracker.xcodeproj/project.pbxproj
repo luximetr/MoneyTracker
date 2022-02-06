@@ -17,6 +17,9 @@
 		2E91155027A936B100359F21 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91154F27A936B000359F21 /* Storage.swift */; };
 		2E91155327A9375300359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91155227A9375300359F21 /* Category.swift */; };
 		2E91155627A93D5C00359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91155527A93D5C00359F21 /* Category.swift */; };
+		2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */; };
+		2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */; };
+		2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */; };
 		2EB10A0727A6C30D00743416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0627A6C30D00743416 /* Assets.xcassets */; };
 		2EB10A0A27A6C30D00743416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */; };
 		2EB10A1227A6C8CB00743416 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A1127A6C8CB00743416 /* Application.swift */; };
@@ -106,6 +109,9 @@
 		2E91154F27A936B000359F21 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		2E91155227A9375300359F21 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		2E91155527A93D5C00359F21 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenViewController.swift; sourceTree = "<group>"; };
+		2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenView.swift; sourceTree = "<group>"; };
+		2E96212D27AFD94C00DF0DD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
 		2EB109FA27A6C30C00743416 /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB10A0627A6C30D00743416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EB10A0927A6C30D00743416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -246,6 +252,16 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		2E96212527AFD91B00DF0DD4 /* EditCategory */ = {
+			isa = PBXGroup;
+			children = (
+				2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */,
+				2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */,
+				2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */,
+			);
+			path = EditCategory;
+			sourceTree = "<group>";
+		};
 		2EB109F127A6C30C00743416 = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +320,7 @@
 				2EB10A2C27A6E7B500743416 /* Menu */,
 				2EC19ACC27A7F61B00E1A6FA /* Categories */,
 				2EC6292A27AC1EF600371252 /* AddCategory */,
+				2E96212527AFD91B00DF0DD4 /* EditCategory */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -598,6 +615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */,
+				2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */,
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
@@ -730,12 +748,14 @@
 				2EB10A4827A7075700743416 /* Bundle.swift in Sources */,
 				2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */,
 				2EB10A3127A6E7B500743416 /* MenuScreenTabBarItem.swift in Sources */,
+				2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */,
 				2E91153E27A92DE600359F21 /* Category.swift in Sources */,
 				2EB10A3A27A6FEAE00743416 /* Colors.swift in Sources */,
 				2EB10A2A27A6CAFF00743416 /* Presentation.swift in Sources */,
 				2EB10A3527A6FE8500743416 /* Images.swift in Sources */,
 				2EC19ACE27A7F64000E1A6FA /* CategoriesScreenViewController.swift in Sources */,
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
+				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
 				2EB10A3027A6E7B500743416 /* MenuScreenView.swift in Sources */,
@@ -767,6 +787,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E96212D27AFD94C00DF0DD4 /* en */,
+			);
+			name = EditCategoryScreenStrings.strings;
+			sourceTree = "<group>";
+		};
 		2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

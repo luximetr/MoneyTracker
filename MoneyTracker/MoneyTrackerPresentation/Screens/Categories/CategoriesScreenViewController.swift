@@ -24,6 +24,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     var didDeleteCategoryClosure: ((Category) throws -> Void)?
     var didSelectAddCategoryClosure: (() -> Void)?
+    var didSelectCategoryClosure: ((Category) -> Void)?
     var didSortCategoriesClosure: (([Category]) -> Void)?
     
     func updateCategories(_ categories: [Category]) {
@@ -106,8 +107,9 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
             cellController.canMoveCellClosure = {
                 return true
             }
-            cellController.trailingSwipeActionsConfigurationForCellClosure = {
-                let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { contextualAction, view, success in
+            cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+                guard let self = self else { return nil }
+                let deleteAction = UIContextualAction(style: .destructive, title:  self.localizer.localizeText("delete"), handler: { contextualAction, view, success in
                     do {
                         try self.didDeleteCategoryClosure?(category)
                         self.tableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
@@ -155,7 +157,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Events
     
     private func didSelectCategory(_ category: Category) {
-        print(category.name)
+        didSelectCategoryClosure?(category)
     }
     
     private func didSelectAddCategory() {

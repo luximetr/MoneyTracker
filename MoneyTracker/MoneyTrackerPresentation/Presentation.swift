@@ -13,6 +13,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory)
     func presentation(_ presentation: Presentation, deleteCategory category: Category)
     func presentation(_ presentation: Presentation, sortCategories categories: [Category])
+    func presentation(_ presentation: Presentation, editCategory editingCategory: Category)
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -91,6 +92,12 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             self.delegate.presentation(self, sortCategories: categories)
         }
+        viewController.didSelectCategoryClosure = { [weak self] category in
+            guard let self = self else { return }
+            let viewController = self.createEditCategoryScreenViewController(category: category)
+            self.editCategoryViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+        }
         return viewController
     }
     
@@ -111,6 +118,22 @@ public final class Presentation: AUIWindowPresentation {
         viewController.addCategoryClosure = { [weak self] addingCategory in
             guard let self = self else { return }
             self.delegate.presentation(self, addCategory: addingCategory)
+            let categories = self.delegate.presentationCategories(self)
+            self.categoriesViewController?.updateCategories(categories)
+            viewController.dismiss(animated: true, completion: nil)
+        }
+        return viewController
+    }
+    
+    // MARK: Add Category View Controller
+    
+    private var editCategoryViewController: EditCategoryScreenViewController?
+        
+    private func createEditCategoryScreenViewController(category: Category) -> EditCategoryScreenViewController {
+        let viewController = EditCategoryScreenViewController(category: category)
+        viewController.editCategoryClosure = { [weak self] category in
+            guard let self = self else { return }
+            self.delegate.presentation(self, editCategory: category)
             let categories = self.delegate.presentationCategories(self)
             self.categoriesViewController?.updateCategories(categories)
             viewController.dismiss(animated: true, completion: nil)

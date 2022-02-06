@@ -78,6 +78,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentation(_ presentation: Presentation, editCategory editingCategory: PresentationCategory) {
+        do {
+            let storageCategory = Category(presentationCategory: editingCategory).storageCategoty
+            try storage.updateCategory(id: storageCategory.id, newValue: storageCategory)
+        } catch {
+            print(error)
+        }
+    }
+    
     // MARK: Storage
     
     private lazy var storage: Storage = {
