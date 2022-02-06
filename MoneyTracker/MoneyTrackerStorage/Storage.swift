@@ -76,4 +76,60 @@ public class Storage {
         try repo.removeCategoryId(categoryId)
     }
     
+    // MARK: - Balance Account
+    
+    public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        let account = BalanceAccount(addingBalanceAccount: addingBalanceAccount)
+        try repo.insertAccount(account)
+        try appendToBalanceAccountOrder(balanceAccountId: account.id)
+    }
+    
+    public func removeBalanceAccount(id: String) throws {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        try repo.removeAccount(id: id)
+        try removeFromBalanceAccountOrder(balanceAccountId: id)
+    }
+    
+    public func updateBalanceAccount(id: String, newValue: BalanceAccount) throws {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        try repo.updateAccount(id: id, newValue: newValue)
+    }
+    
+    public func getBalanceAccount(id: String) throws -> BalanceAccount {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        return try repo.fetchAccount(id: id)
+    }
+    
+    public func getAllBalanceAccounts() throws -> [BalanceAccount] {
+        let repo = BalanceAccountCoreDataRepo(accessor: coreDataAccessor)
+        return try repo.fetchAllAccounts()
+    }
+    
+    // MARK: - Balance Account order
+    
+    public func saveBalanceAccountOrder(orderedIds: [String]) throws {
+        let repo = BalanceAccountsOrderCoreDataRepo(accessor: coreDataAccessor)
+        try repo.updateOrder(orderedIds: orderedIds)
+    }
+    
+    public func getOrderedBalanceAccounts() throws -> [BalanceAccount] {
+        let repo = BalanceAccountsOrderCoreDataRepo(accessor: coreDataAccessor)
+        let orderedIds = try repo.fetchOrder()
+        let accounts = try getAllBalanceAccounts()
+        let sortedAccounts = orderedIds.compactMap { id -> BalanceAccount? in
+            accounts.first(where: { $0.id == id })
+        }
+        return sortedAccounts
+    }
+    
+    private func appendToBalanceAccountOrder(balanceAccountId: BalanceAccountId) throws {
+        let repo = BalanceAccountsOrderCoreDataRepo(accessor: coreDataAccessor)
+        try repo.appendBalanceAccountId(balanceAccountId)
+    }
+    
+    private func removeFromBalanceAccountOrder(balanceAccountId: BalanceAccountId) throws {
+        let repo = BalanceAccountsOrderCoreDataRepo(accessor: coreDataAccessor)
+        try repo.removeBalanceAccountId(balanceAccountId)
+    }
 }

@@ -1,14 +1,14 @@
 //
-//  CategoriesOrderCoreDataRepo.swift
+//  BalanceAccountsOrderCoreDataRepo.swift
 //  MoneyTrackerStorage
 //
-//  Created by Oleksandr Orlov on 05.02.2022.
+//  Created by Oleksandr Orlov on 06.02.2022.
 //
 
 import Foundation
 import CoreData
 
-class CategoriesOrderCoreDataRepo {
+class BalanceAccountsOrderCoreDataRepo {
     
     // MARK: - Dependency
     
@@ -22,56 +22,56 @@ class CategoriesOrderCoreDataRepo {
     
     // MARK: - Update
     
-    func updateOrder(orderedIds: [CategoryId]) throws {
+    func updateOrder(orderedIds: [BalanceAccountId]) throws {
         let context = accessor.viewContext
-        let orderMO = try fetchOrCreateOrderMO(context: context)
-        orderMO.orderedCategoryIds = orderedIds.map { NSString(string: $0) }
+        let orderMO = try fetchOrderMO(context: context)
+        orderMO.orderedAccountIds = orderedIds.map { NSString(string: $0) }
         try context.save()
     }
     
-    func appendCategoryId(_ id: CategoryId) throws {
+    func appendBalanceAccountId(_ id: BalanceAccountId) throws {
         let context = accessor.viewContext
         let orderMO = try fetchOrderMO(context: context)
-        var idsMO = orderMO.orderedCategoryIds ?? []
-        idsMO.append(NSString(string: id))
-        orderMO.orderedCategoryIds = idsMO
+        var idsMO = orderMO.orderedAccountIds ?? []
+        idsMO.append(id as NSString)
+        orderMO.orderedAccountIds = idsMO
         try context.save()
     }
     
-    func removeCategoryId(_ id: CategoryId) throws {
+    func removeBalanceAccountId(_ id: BalanceAccountId) throws {
         let context = accessor.viewContext
         let orderMO = try fetchOrderMO(context: context)
-        var idsMO = orderMO.orderedCategoryIds ?? []
+        var idsMO = orderMO.orderedAccountIds ?? []
         idsMO.removeAll(where: { $0 as String == id })
-        orderMO.orderedCategoryIds = idsMO
+        orderMO.orderedAccountIds = idsMO
         try context.save()
     }
     
     // MARK: - Fetch
     
-    func fetchOrder() throws -> [CategoryId] {
+    func fetchOrder() throws -> [BalanceAccountId] {
         let context = accessor.viewContext
         
         let orderMO = try fetchOrderMO(context: context)
-        guard let idsMO = orderMO.orderedCategoryIds else {
+        guard let idsMO = orderMO.orderedAccountIds else {
             throw FetchError.notFound
         }
-        let ids = idsMO.map { CategoryId($0) }
+        let ids = idsMO.map { BalanceAccountId($0) }
         return ids
     }
     
-    private func fetchOrCreateOrderMO(context: NSManagedObjectContext) throws -> CategoriesOrderMO {
+    private func fetchOrCreateOrderMO(context: NSManagedObjectContext) throws -> BalanceAccountsOrderMO {
         do {
             return try fetchOrderMO(context: context)
         } catch FetchError.notFound {
-            return CategoriesOrderMO(context: context)
+            return BalanceAccountsOrderMO(context: context)
         } catch {
             throw error
         }
     }
     
-    private func fetchOrderMO(context: NSManagedObjectContext) throws -> CategoriesOrderMO {
-        let request = CategoriesOrderMO.fetchRequest()
+    private func fetchOrderMO(context: NSManagedObjectContext) throws -> BalanceAccountsOrderMO {
+        let request = BalanceAccountsOrderMO.fetchRequest()
         guard let orderMO = try context.fetch(request).first else {
             throw FetchError.notFound
         }
