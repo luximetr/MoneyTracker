@@ -21,6 +21,8 @@
 		2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9289FC27AFF9E3002F3403 /* SettingsScreenView.swift */; };
 		2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E928A0227AFF9F6002F3403 /* SettingsScreenStrings.strings */; };
 		2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E928A0627AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift */; };
+		2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */; };
+		2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2927B315B80097CA46 /* PictureButton.swift */; };
 		2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */; };
 		2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */; };
 		2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */; };
@@ -122,6 +124,8 @@
 		2E9289FC27AFF9E3002F3403 /* SettingsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenView.swift; sourceTree = "<group>"; };
 		2E928A0127AFF9F6002F3403 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SettingsScreenStrings.strings; sourceTree = "<group>"; };
 		2E928A0627AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleItemTableViewCell.swift; sourceTree = "<group>"; };
+		2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackTitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
+		2E95BB2927B315B80097CA46 /* PictureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureButton.swift; sourceTree = "<group>"; };
 		2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenViewController.swift; sourceTree = "<group>"; };
 		2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenView.swift; sourceTree = "<group>"; };
 		2E96212D27AFD94C00DF0DD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
@@ -211,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */,
+				2E95BB2927B315B80097CA46 /* PictureButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -469,6 +474,7 @@
 			children = (
 				2EC19AD527A7F78C00E1A6FA /* NavigationBarScreenView.swift */,
 				2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */,
+				2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -815,6 +821,7 @@
 				2EB10A3127A6E7B500743416 /* MenuScreenTabBarItem.swift in Sources */,
 				2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */,
 				2E91153E27A92DE600359F21 /* Category.swift in Sources */,
+				2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */,
 				2EB10A3A27A6FEAE00743416 /* Colors.swift in Sources */,
 				2EB10A2A27A6CAFF00743416 /* Presentation.swift in Sources */,
 				2EB10A3527A6FE8500743416 /* Images.swift in Sources */,
@@ -830,6 +837,7 @@
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
 				2EC6293227AC252300371252 /* AddingCategory.swift in Sources */,
+				2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */,
 				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

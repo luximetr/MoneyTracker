@@ -10,7 +10,6 @@ import UIKit
 
 private class Class {}
 private let bundle = Bundle(for: Class.self)
-
 private func _UIImage(named: String) -> UIImage {
     return UIImage(named: named, in: bundle, compatibleWith: nil) ?? UIImage()
 }
@@ -22,5 +21,6 @@ enum Images {
     static var gear: UIImage { return _UIImage(named: "gear") }
     static var forwardArrow: UIImage { return _UIImage(named: "forwardArrow") }
     static var plusInDashCircle: UIImage { return _UIImage(named: "plusInDashCircle") }
+    static var backArrow: UIImage { return _UIImage(named: "backArrow") }
     
 }

@@ -22,6 +22,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Delegation
     
+    var backClosure: (() -> Void)?
     var didDeleteCategoryClosure: ((Category) throws -> Void)?
     var didSelectAddCategoryClosure: (() -> Void)?
     var didSelectCategoryClosure: ((Category) -> Void)?
@@ -55,6 +56,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        categoriesScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         categoriesScreenView.titleLabel.text = localizer.localizeText("title")
         setupTableViewController()
     }
@@ -155,6 +157,10 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     }
     
     // MARK: Events
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
     
     private func didSelectCategory(_ category: Category) {
         didSelectCategoryClosure?(category)
