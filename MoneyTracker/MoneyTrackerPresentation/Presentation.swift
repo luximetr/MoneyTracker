@@ -77,6 +77,10 @@ public final class Presentation: AUIWindowPresentation {
     private func createCategoriesViewController() -> CategoriesScreenViewController {
         let categories = delegate.presentationCategories(self)
         let viewController = CategoriesScreenViewController(categories: categories)
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.popViewController(animated: true)
+        }
         viewController.didSelectAddCategoryClosure = { [weak self] in
             guard let self = self else { return }
             let viewController = self.createAddCategoryScreenViewController()

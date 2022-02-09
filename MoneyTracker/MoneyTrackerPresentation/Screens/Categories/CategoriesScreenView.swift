@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class CategoriesScreenView: TitleNavigationBarScreenView {
+final class CategoriesScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
