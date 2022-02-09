@@ -58,7 +58,7 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
             guard let self = self else { return 0 }
             return self.selectCurrencyScreenView.getSelectCurrencyTableViewCellEstimatedHeight()
         }
-        selectCurrencyCellController.estimatedHeightClosure = { [weak self] in
+        selectCurrencyCellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
             return self.selectCurrencyScreenView.getSelectCurrencyTableViewCellHeight()
         }

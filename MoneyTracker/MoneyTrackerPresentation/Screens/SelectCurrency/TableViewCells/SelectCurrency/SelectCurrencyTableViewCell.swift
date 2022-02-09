@@ -53,6 +53,9 @@ class SelectCurrencyTableViewCell: AUITableViewCell {
     }
     
     private func layoutCodeLabel() {
-        
+        let width: CGFloat = 60
+        let trailing: CGFloat = 28
+        let x: CGFloat = bounds.width - width - trailing
+        let y: CGFloat = bounds.height
     }
 }
