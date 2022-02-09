@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-class SelectCurrencyScreenView: TitleNavigationBarScreenView {
+class SelectCurrencyScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Subviews
     
@@ -33,8 +33,11 @@ class SelectCurrencyScreenView: TitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.primaryBackground
     }
     
+    private let selectCurrencyTableViewCellReuseIdentifier = "selectCurrencyTableViewCellReuseIdentifier"
+    
     private func setupTableView() {
         tableView.separatorStyle = .none
+        tableView.register(SelectCurrencyTableViewCell.self, forCellReuseIdentifier: selectCurrencyTableViewCellReuseIdentifier)
     }
     
     // MARK: Layout
@@ -52,5 +55,20 @@ class SelectCurrencyScreenView: TitleNavigationBarScreenView {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         tableView.frame = frame
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+    }
+    
+    // MARK: - Cells
+    
+    func makeSelectCurrencyCell(_ indexPath: IndexPath) -> SelectCurrencyTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: selectCurrencyTableViewCellReuseIdentifier, for: indexPath) as! SelectCurrencyTableViewCell
+        return cell
+    }
+    
+    func getSelectCurrencyTableViewCellEstimatedHeight() -> CGFloat {
+        return 44
+    }
+    
+    func getSelectCurrencyTableViewCellHeight() -> CGFloat {
+        return 44
     }
 }

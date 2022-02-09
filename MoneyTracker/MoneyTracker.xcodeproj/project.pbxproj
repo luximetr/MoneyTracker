@@ -70,6 +70,8 @@
 		DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */; };
 		DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */; };
 		DBD6ACE127B2A7E200389236 /* SelectCurrencyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */; };
+		DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBD6ACE627B35BF600389236 /* SelectCurrencyScreenStrings.strings */; };
+		DBD6ACEA27B35D0300389236 /* SelectCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACE927B35D0300389236 /* SelectCurrencyTableViewCell.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +182,8 @@
 		DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountsOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyScreenViewController.swift; sourceTree = "<group>"; };
 		DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyScreenView.swift; sourceTree = "<group>"; };
+		DBD6ACE527B35BF600389236 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SelectCurrencyScreenStrings.strings; sourceTree = "<group>"; };
+		DBD6ACE927B35D0300389236 /* SelectCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -532,6 +536,24 @@
 			children = (
 				DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */,
 				DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */,
+				DBD6ACE627B35BF600389236 /* SelectCurrencyScreenStrings.strings */,
+				DBD6ACE727B35CB200389236 /* TableViewCells */,
+			);
+			path = SelectCurrency;
+			sourceTree = "<group>";
+		};
+		DBD6ACE727B35CB200389236 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACE827B35CC100389236 /* SelectCurrency */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		DBD6ACE827B35CC100389236 /* SelectCurrency */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACE927B35D0300389236 /* SelectCurrencyTableViewCell.swift */,
 			);
 			path = SelectCurrency;
 			sourceTree = "<group>";
@@ -698,6 +720,7 @@
 				2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */,
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
+				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -850,6 +873,7 @@
 				2EB10A3027A6E7B500743416 /* MenuScreenView.swift in Sources */,
 				2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */,
 				DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */,
+				DBD6ACEA27B35D0300389236 /* SelectCurrencyTableViewCell.swift in Sources */,
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
 				2EC6293227AC252300371252 /* AddingCategory.swift in Sources */,
@@ -925,6 +949,14 @@
 				2EC6293827AC282100371252 /* en */,
 			);
 			name = AddCategoryScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		DBD6ACE627B35BF600389236 /* SelectCurrencyScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBD6ACE527B35BF600389236 /* en */,
+			);
+			name = SelectCurrencyScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
