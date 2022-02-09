@@ -10,18 +10,18 @@ import Foundation
 public struct BalanceAccount {
     let id: String
     let name: String
-    let currencyISOCode: String
+    let currency: Currency
     
-    init(id: String, name: String, currencyISOCode: String) {
+    init(id: String, name: String, currency: Currency) {
         self.id = id
         self.name = name
-        self.currencyISOCode = currencyISOCode
+        self.currency = currency
     }
     
     init(addingBalanceAccount: AddingBalanceAccount) {
         self.id = UUID().uuidString
         self.name = addingBalanceAccount.name
-        self.currencyISOCode = addingBalanceAccount.currencyISOCode
+        self.currency = addingBalanceAccount.currency
     }
 }
 

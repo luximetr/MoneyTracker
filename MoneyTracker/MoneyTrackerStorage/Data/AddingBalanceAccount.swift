@@ -9,5 +9,5 @@ import Foundation
 
 public struct AddingBalanceAccount {
     let name: String
-    let currencyISOCode: String
+    let currency: Currency
 }

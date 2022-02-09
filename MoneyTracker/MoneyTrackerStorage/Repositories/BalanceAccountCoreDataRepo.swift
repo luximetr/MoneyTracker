@@ -27,7 +27,7 @@ class BalanceAccountCoreDataRepo {
         let accountMO = BalanceAccountMO(context: context)
         accountMO.id = account.id
         accountMO.name = account.name
-        accountMO.currencyISOCode = account.currencyISOCode
+        accountMO.currencyISOCode = account.currency.rawValue
         try context.save()
     }
     
@@ -37,7 +37,7 @@ class BalanceAccountCoreDataRepo {
         let context = accessor.viewContext
         let accountMO = try fetchAccountMO(id: id, context: context)
         accountMO.name = newValue.name
-        accountMO.currencyISOCode = newValue.currencyISOCode
+        accountMO.currencyISOCode = newValue.currency.rawValue
         try context.save()
     }
     
@@ -77,12 +77,13 @@ class BalanceAccountCoreDataRepo {
     private func convertToAccount(_ accountMO: BalanceAccountMO) throws -> BalanceAccount {
         guard let id = accountMO.id else { throw ParseError.noId }
         guard let name = accountMO.name else { throw ParseError.noName }
-        guard let currencyISOCode = accountMO.currencyISOCode else { throw ParseError.noCurrecyISOCode }
+        guard let currencyISOCode = accountMO.currencyISOCode else { throw ParseError.noCurrencyISOCode }
+        guard let currency = Currency(rawValue: currencyISOCode) else { throw ParseError.noCurrency }
         
         return BalanceAccount(
             id: id,
             name: name,
-            currencyISOCode: currencyISOCode
+            currency: currency
         )
     }
     
@@ -101,7 +102,8 @@ class BalanceAccountCoreDataRepo {
     enum ParseError: Error {
         case noId
         case noName
-        case noCurrecyISOCode
+        case noCurrencyISOCode
+        case noCurrency
     }
     
     enum FetchError: Error {
