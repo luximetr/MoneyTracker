@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import PinLayout
 
 class SelectCurrencyTableViewCell: AUITableViewCell {
 
