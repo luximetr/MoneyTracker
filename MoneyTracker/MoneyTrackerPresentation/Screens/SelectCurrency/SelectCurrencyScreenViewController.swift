@@ -46,12 +46,21 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
         tableViewController.tableView = selectCurrencyScreenView.tableView
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
+        let currency: Currency = .sgd
+        let selectCurrencyCellController = createCurrencyCellController(currency: currency)
+        cellControllers.append(selectCurrencyCellController)
+        
+        sectionController.cellControllers = cellControllers
+        tableViewController.sectionControllers = [sectionController]
+    }
+    
+    private func createCurrencyCellController(currency: Currency) -> AUITableViewCellController {
         let selectCurrencyCellController = AUIClosuresTableViewCellController()
         selectCurrencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.selectCurrencyScreenView.makeSelectCurrencyCell(indexPath)
-            cell.nameLabel.text = "Singapore Dollar"
-            cell.codeLabel.text = "SGD"
+//            cell.nameLabel.text = currency.name
+//            cell.codeLabel.text = currency.isoCode
             return cell
         }
         selectCurrencyCellController.estimatedHeightClosure = { [weak self] in
@@ -65,10 +74,7 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
         selectCurrencyCellController.didSelectClosure = { [weak self] in
             print("did select currency")
         }
-        cellControllers.append(selectCurrencyCellController)
-        
-        sectionController.cellControllers = cellControllers
-        tableViewController.sectionControllers = [sectionController]
+        return selectCurrencyCellController
     }
     
     // MARK: - Events

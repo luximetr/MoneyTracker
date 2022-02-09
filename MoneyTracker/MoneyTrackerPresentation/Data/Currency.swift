@@ -1,6 +1,6 @@
 //
 //  Currency.swift
-//  MoneyTrackerStorage
+//  MoneyTrackerPresentation
 //
 //  Created by Oleksandr Orlov on 09.02.2022.
 //
