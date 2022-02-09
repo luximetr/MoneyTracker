@@ -13,6 +13,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Delegation
     
     var didSelectCategoriesClosure: (() -> Void)?
+    var didSelectCurrencyClosure: (() -> Void)?
     
     // MARK: View
     
@@ -67,6 +68,30 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
             self.didSelectCategories()
         }
         cellControllers.append(categoriesCellController)
+        
+        let currencyCellController = CategoriesScreenAddCategoryTableViewCellController()
+        currencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
+            cell.nameLabel.text = self.localizer.localizeText("default_currency")
+            return cell
+        }
+        currencyCellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
+            return estimatedHeight
+        }
+        currencyCellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let height = self.settingsScreenView.titleItemTableViewCellHeight()
+            return height
+        }
+        currencyCellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.didSelectCurrency()
+        }
+        cellControllers.append(currencyCellController)
+        
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
     }
@@ -75,6 +100,10 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     
     private func didSelectCategories() {
         didSelectCategoriesClosure?()
+    }
+    
+    private func didSelectCurrency() {
+        didSelectCurrencyClosure?()
     }
     
 }

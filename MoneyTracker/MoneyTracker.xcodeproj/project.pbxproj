@@ -66,6 +66,8 @@
 		DBD6ACD827AF724C00389236 /* BalanceAccountCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */; };
 		DBD6ACDA27AF73BA00389236 /* AddingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */; };
 		DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */; };
+		DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */; };
+		DBD6ACE127B2A7E200389236 /* SelectCurrencyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +174,8 @@
 		DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingBalanceAccount.swift; sourceTree = "<group>"; };
 		DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountsOrderCoreDataRepo.swift; sourceTree = "<group>"; };
+		DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyScreenViewController.swift; sourceTree = "<group>"; };
+		DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyScreenView.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -378,6 +382,7 @@
 				2EC19ACC27A7F61B00E1A6FA /* Categories */,
 				2EC6292A27AC1EF600371252 /* AddCategory */,
 				2E96212527AFD91B00DF0DD4 /* EditCategory */,
+				DBD6ACDD27B2A76600389236 /* SelectCurrency */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -514,6 +519,15 @@
 				DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		DBD6ACDD27B2A76600389236 /* SelectCurrency */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */,
+				DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */,
+			);
+			path = SelectCurrency;
 			sourceTree = "<group>";
 		};
 		F6CDF223860AC628D18B4DED /* Frameworks */ = {
@@ -812,6 +826,7 @@
 				2EC19AD827A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift in Sources */,
 				2EB10A4827A7075700743416 /* Bundle.swift in Sources */,
 				2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */,
+				DBD6ACE127B2A7E200389236 /* SelectCurrencyScreenView.swift in Sources */,
 				2EB10A3127A6E7B500743416 /* MenuScreenTabBarItem.swift in Sources */,
 				2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */,
 				2E91153E27A92DE600359F21 /* Category.swift in Sources */,
@@ -827,6 +842,7 @@
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
 				2EB10A3027A6E7B500743416 /* MenuScreenView.swift in Sources */,
 				2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */,
+				DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */,
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
 				2EC6293227AC252300371252 /* AddingCategory.swift in Sources */,

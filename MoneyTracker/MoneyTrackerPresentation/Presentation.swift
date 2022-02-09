@@ -148,6 +148,17 @@ public final class Presentation: AUIWindowPresentation {
             self.categoriesViewController = viewController
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
+        viewController.didSelectCurrencyClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createSelectCurrencyViewController()
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
+        }
+        return viewController
+    }
+    
+    private func createSelectCurrencyViewController() -> SelectCurrencyScreenViewController {
+        let viewController = SelectCurrencyScreenViewController()
+        
         return viewController
     }
     
