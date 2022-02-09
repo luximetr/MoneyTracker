@@ -152,6 +152,27 @@ public final class Presentation: AUIWindowPresentation {
             self.categoriesViewController = viewController
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
+        viewController.didSelectAccountsClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAccountsViewController()
+            self.accoutViewController = viewController
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
+        }
+        return viewController
+    }
+    
+    // MARK: Accounts Scree View Controller
+    
+    private var accoutViewController: AccountsScreenViewController?
+    
+    private func createAccountsViewController() -> AccountsScreenViewController {
+        let accounts: [Any] = [NSObject(), NSObject(), NSObject()]
+        let viewController = AccountsScreenViewController(accounts: accounts)
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.popViewController(animated: true)
+        }
+        
         return viewController
     }
     

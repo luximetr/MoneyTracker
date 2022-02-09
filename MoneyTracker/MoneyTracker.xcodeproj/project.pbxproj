@@ -23,6 +23,11 @@
 		2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E928A0627AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift */; };
 		2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */; };
 		2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2927B315B80097CA46 /* PictureButton.swift */; };
+		2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */; };
+		2E95BB2F27B31AC40097CA46 /* AccountsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2E27B31AC40097CA46 /* AccountsScreenView.swift */; };
+		2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E95BB3427B31ADC0097CA46 /* AccountsScreenStrings.strings */; };
+		2E95BB3927B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB3827B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift */; };
+		2E95BB3B27B31F720097CA46 /* AccountsScreenAccountCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB3A27B31F720097CA46 /* AccountsScreenAccountCollectionViewCellController.swift */; };
 		2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */; };
 		2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */; };
 		2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */; };
@@ -126,6 +131,11 @@
 		2E928A0627AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleItemTableViewCell.swift; sourceTree = "<group>"; };
 		2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackTitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E95BB2927B315B80097CA46 /* PictureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureButton.swift; sourceTree = "<group>"; };
+		2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenViewController.swift; sourceTree = "<group>"; };
+		2E95BB2E27B31AC40097CA46 /* AccountsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenView.swift; sourceTree = "<group>"; };
+		2E95BB3327B31ADC0097CA46 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AccountsScreenStrings.strings; sourceTree = "<group>"; };
+		2E95BB3827B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenAccountCollectionViewCell.swift; sourceTree = "<group>"; };
+		2E95BB3A27B31F720097CA46 /* AccountsScreenAccountCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenAccountCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenViewController.swift; sourceTree = "<group>"; };
 		2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenView.swift; sourceTree = "<group>"; };
 		2E96212D27AFD94C00DF0DD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
@@ -313,6 +323,42 @@
 			path = TitleIItem;
 			sourceTree = "<group>";
 		};
+		2E95BB2B27B31A990097CA46 /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */,
+				2E95BB2E27B31AC40097CA46 /* AccountsScreenView.swift */,
+				2E95BB3427B31ADC0097CA46 /* AccountsScreenStrings.strings */,
+				2E95BB3527B31E4F0097CA46 /* CollectionView */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
+		2E95BB3527B31E4F0097CA46 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2E95BB3627B31E5B0097CA46 /* Cells */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		2E95BB3627B31E5B0097CA46 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2E95BB3727B31E610097CA46 /* Account */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2E95BB3727B31E610097CA46 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				2E95BB3A27B31F720097CA46 /* AccountsScreenAccountCollectionViewCellController.swift */,
+				2E95BB3827B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		2E96212527AFD91B00DF0DD4 /* EditCategory */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,6 +429,7 @@
 				2EC19ACC27A7F61B00E1A6FA /* Categories */,
 				2EC6292A27AC1EF600371252 /* AddCategory */,
 				2E96212527AFD91B00DF0DD4 /* EditCategory */,
+				2E95BB2B27B31A990097CA46 /* Accounts */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -683,6 +730,7 @@
 				2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */,
 				2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */,
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
+				2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 			);
@@ -814,17 +862,21 @@
 				2EB10A3D27A7034400743416 /* Fonts.swift in Sources */,
 				2EB10A4A27A707A300743416 /* Language.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesScreenView.swift in Sources */,
+				2E95BB3927B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift in Sources */,
 				2EC19ADA27A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift in Sources */,
 				2EC19AD827A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift in Sources */,
 				2EB10A4827A7075700743416 /* Bundle.swift in Sources */,
 				2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */,
 				2EB10A3127A6E7B500743416 /* MenuScreenTabBarItem.swift in Sources */,
+				2E95BB2F27B31AC40097CA46 /* AccountsScreenView.swift in Sources */,
+				2E95BB3B27B31F720097CA46 /* AccountsScreenAccountCollectionViewCellController.swift in Sources */,
 				2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */,
 				2E91153E27A92DE600359F21 /* Category.swift in Sources */,
 				2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */,
 				2EB10A3A27A6FEAE00743416 /* Colors.swift in Sources */,
 				2EB10A2A27A6CAFF00743416 /* Presentation.swift in Sources */,
 				2EB10A3527A6FE8500743416 /* Images.swift in Sources */,
+				2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */,
 				2EC19ACE27A7F64000E1A6FA /* CategoriesScreenViewController.swift in Sources */,
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
 				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
@@ -869,6 +921,14 @@
 				2E928A0127AFF9F6002F3403 /* en */,
 			);
 			name = SettingsScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2E95BB3427B31ADC0097CA46 /* AccountsScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E95BB3327B31ADC0097CA46 /* en */,
+			);
+			name = AccountsScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */ = {
