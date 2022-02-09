@@ -20,7 +20,6 @@ class SelectCurrencyTableViewCell: AUITableViewCell {
     
     override func setup() {
         super.setup()
-        backgroundColor = .green
         selectionStyle = .none
         contentView.addSubview(nameLabel)
         setupNameLabel()
@@ -40,23 +39,24 @@ class SelectCurrencyTableViewCell: AUITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutNameLabel()
         layoutCodeLabel()
+        layoutNameLabel()
     }
     
     private func layoutNameLabel() {
-        let x: CGFloat = 28
-        let y: CGFloat = 12
-        let width = bounds.width - x - 40
-        let height = bounds.height - 2 * y
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        nameLabel.frame = frame
+        nameLabel.pin
+            .vCenter()
+            .left()
+            .right(to: codeLabel.edge.left)
+            .sizeToFit(.width)
+            .marginLeft(28)
     }
     
     private func layoutCodeLabel() {
-        let width: CGFloat = 60
-        let trailing: CGFloat = 28
-        let x: CGFloat = bounds.width - width - trailing
-        let y: CGFloat = bounds.height
+        codeLabel.pin
+            .vCenter()
+            .right(pin.safeArea)
+            .sizeToFit()
+            .marginRight(28)
     }
 }
