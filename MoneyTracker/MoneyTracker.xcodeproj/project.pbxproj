@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */; };
 		2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */; };
-		2E0DB4D227AD79C800A92682 /* NavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
+		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
 		2E91153E27A92DE600359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91153D27A92DE600359F21 /* Category.swift */; };
 		2E91154727A9308B00359F21 /* MoneyTrackerStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */; };
@@ -32,6 +32,11 @@
 		2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */; };
 		2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */; };
 		2EA18A7227B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA18A7127B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift */; };
+		2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7066A27B5BA4300FF08B2 /* AddAccountScreenView.swift */; };
+		2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7066C27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift */; };
+		2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EA7067227B5BA7B00FF08B2 /* AddAccountScreenStrings.strings */; };
+		2EA7067727B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7067627B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift */; };
+		2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7067827B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift */; };
 		2EB10A0727A6C30D00743416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0627A6C30D00743416 /* Assets.xcassets */; };
 		2EB10A0A27A6C30D00743416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */; };
 		2EB10A1227A6C8CB00743416 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A1127A6C8CB00743416 /* Application.swift */; };
@@ -146,6 +151,11 @@
 		2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenView.swift; sourceTree = "<group>"; };
 		2E96212D27AFD94C00DF0DD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
 		2EA18A7127B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyTableViewCellController.swift; sourceTree = "<group>"; };
+		2EA7066A27B5BA4300FF08B2 /* AddAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenView.swift; sourceTree = "<group>"; };
+		2EA7066C27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenViewController.swift; sourceTree = "<group>"; };
+		2EA7067127B5BA7B00FF08B2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddAccountScreenStrings.strings; sourceTree = "<group>"; };
+		2EA7067627B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		2EA7067827B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenColorCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2EB109FA27A6C30C00743416 /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB10A0627A6C30D00743416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EB10A0927A6C30D00743416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -381,6 +391,42 @@
 			path = EditCategory;
 			sourceTree = "<group>";
 		};
+		2EA7066927B5BA0100FF08B2 /* AddAccount */ = {
+			isa = PBXGroup;
+			children = (
+				2EA7066C27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift */,
+				2EA7066A27B5BA4300FF08B2 /* AddAccountScreenView.swift */,
+				2EA7067227B5BA7B00FF08B2 /* AddAccountScreenStrings.strings */,
+				2EA7067327B5C29B00FF08B2 /* CollectionView */,
+			);
+			path = AddAccount;
+			sourceTree = "<group>";
+		};
+		2EA7067327B5C29B00FF08B2 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2EA7067427B5C2A500FF08B2 /* Cells */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		2EA7067427B5C2A500FF08B2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2EA7067527B5C2AE00FF08B2 /* Color */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2EA7067527B5C2AE00FF08B2 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				2EA7067827B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift */,
+				2EA7067627B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
 		2EB109F127A6C30C00743416 = {
 			isa = PBXGroup;
 			children = (
@@ -443,6 +489,7 @@
 				2E96212527AFD91B00DF0DD4 /* EditCategory */,
 				DBD6ACDD27B2A76600389236 /* SelectCurrency */,
 				2E95BB2B27B31A990097CA46 /* Accounts */,
+				2EA7066927B5BA0100FF08B2 /* AddAccount */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -774,6 +821,7 @@
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
 				2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
+				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 			);
@@ -922,6 +970,7 @@
 				2EB10A3527A6FE8500743416 /* Images.swift in Sources */,
 				2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */,
 				2EC19ACE27A7F64000E1A6FA /* CategoriesScreenViewController.swift in Sources */,
+				2EA7067727B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift in Sources */,
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
 				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
 				2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */,
@@ -933,9 +982,12 @@
 				2EB10A3027A6E7B500743416 /* MenuScreenView.swift in Sources */,
 				2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */,
 				DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */,
+				2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */,
 				DBD6ACEA27B35D0300389236 /* SelectCurrencyTableViewCell.swift in Sources */,
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
+				2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */,
+				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
 				2EC6293227AC252300371252 /* AddingCategory.swift in Sources */,
 				2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */,
 				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
@@ -985,6 +1037,14 @@
 				2E96212D27AFD94C00DF0DD4 /* en */,
 			);
 			name = EditCategoryScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2EA7067227B5BA7B00FF08B2 /* AddAccountScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2EA7067127B5BA7B00FF08B2 /* en */,
+			);
+			name = AddAccountScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */ = {

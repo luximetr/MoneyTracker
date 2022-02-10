@@ -61,7 +61,7 @@ final class AccountsScreenView: BackTitleNavigationBarScreenView {
         let height = bounds.height - y
         let frame = CGRect(x: x, y: y, width: width, height: height)
         collectionView.frame = frame
-        collectionViewFlowLayout.minimumLineSpacing = 1
+        collectionViewFlowLayout.minimumLineSpacing = 13
         collectionView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     }
     

@@ -47,8 +47,8 @@ final class AccountCollectionViewCell: AUICollectionViewCell {
     }
     
     private func layoutContainerView() {
-        let x: CGFloat = 16
-        let y: CGFloat = 6
+        let x: CGFloat = 0
+        let y: CGFloat = 0
         let width = bounds.width - 2 * x
         let height = bounds.height - 2 * y
         let frame = CGRect(x: x, y: y, width: width, height: height)
@@ -64,6 +64,6 @@ final class AccountCollectionViewCell: AUICollectionViewCell {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         nameLabel.frame = frame
     }
-    
+        
 }
 }

@@ -185,6 +185,21 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             self.menuNavigationController?.popViewController(animated: true)
         }
+        viewController.addClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddAccountViewController()
+            self.addAccoutScreenViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+        }
+        return viewController
+    }
+    
+    // MARK: Add Accounts Screen View Controller
+    
+    private var addAccoutScreenViewController: AddAccountScreenViewController?
+    
+    private func createAddAccountViewController() -> AddAccountScreenViewController {
+        let viewController = AddAccountScreenViewController()
         return viewController
     }
     

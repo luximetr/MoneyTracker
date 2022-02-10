@@ -23,6 +23,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Delegation
     
     var backClosure: (() -> Void)?
+    var addClosure: (() -> Void)?
     
     // MARK: View
     
@@ -89,6 +90,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
     
     private func didSelectAccount(_ account: Any) {
         print("didSelectAccount")
+        addClosure?()
     }
     
 }
