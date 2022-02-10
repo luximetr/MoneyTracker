@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */; };
 		2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */; };
-		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
+		2E0DB4D227AD79C800A92682 /* NavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
 		2E91153E27A92DE600359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91153D27A92DE600359F21 /* Category.swift */; };
 		2E91154727A9308B00359F21 /* MoneyTrackerStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */; };
@@ -31,6 +31,7 @@
 		2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */; };
 		2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */; };
 		2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */; };
+		2EA18A7227B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA18A7127B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift */; };
 		2EB10A0727A6C30D00743416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0627A6C30D00743416 /* Assets.xcassets */; };
 		2EB10A0A27A6C30D00743416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */; };
 		2EB10A1227A6C8CB00743416 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A1127A6C8CB00743416 /* Application.swift */; };
@@ -148,6 +149,7 @@
 		2E96212627AFD93200DF0DD4 /* EditCategoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenViewController.swift; sourceTree = "<group>"; };
 		2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenView.swift; sourceTree = "<group>"; };
 		2E96212D27AFD94C00DF0DD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
+		2EA18A7127B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyTableViewCellController.swift; sourceTree = "<group>"; };
 		2EB109FA27A6C30C00743416 /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB10A0627A6C30D00743416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EB10A0927A6C30D00743416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 		DBD6ACE827B35CC100389236 /* SelectCurrency */ = {
 			isa = PBXGroup;
 			children = (
+				2EA18A7127B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift */,
 				DBD6ACE927B35D0300389236 /* SelectCurrencyTableViewCell.swift */,
 			);
 			path = SelectCurrency;
@@ -946,6 +949,7 @@
 				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
 				2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */,
 				DBD6ACF327B4C24500389236 /* CurrencyNameProvider.swift in Sources */,
+				2EA18A7227B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
 				2E9289FB27AFF9CA002F3403 /* SettingsScreenViewController.swift in Sources */,

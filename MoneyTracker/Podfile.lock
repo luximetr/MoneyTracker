@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AFoundation:
-    :commit: 1c74f44e34c7d771a97a4e4e09b9e22634b5766f
+    :commit: df527d34e20fa325187756c322c18d711587fe70
     :git: https://github.com/ihormyroniuk/AFoundation.git
   AUIKit:
     :commit: 65d0cee92f65b1df4fe752a5750e65e1017bd48b
