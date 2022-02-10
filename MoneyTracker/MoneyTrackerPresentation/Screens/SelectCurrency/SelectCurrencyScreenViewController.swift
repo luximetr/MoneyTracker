@@ -10,24 +10,24 @@ import AUIKit
 
 class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
     
-    // MARK: - Data
-    
-    private let currencies: [Currency]
-    
     // MARK: - Delegation
     
     var backClosure: (() -> Void)?
     var didSelectCurrencyClosure: ((Currency) -> Void)?
     
-    // MARK: - Dependencies
-    
-    private let currencyNameProvider = CurrencyNameProvider()
-    
     // MARK: - Initializer
     
-    init(currencies: [Currency]) {
+    init(currencies: [Currency], selectedCurrency: Currency) {
         self.currencies = currencies
+        self.selectedCurrency = selectedCurrency
     }
+    
+    // MARK: Localizer
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "SelectCurrencyScreenStrings")
+        return localizer
+    }()
     
     // MARK: - View
     
@@ -39,13 +39,6 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
         return view as? SelectCurrencyScreenView
     }
     
-    private let tableViewController = AUIEmptyTableViewController()
-    private func tableViewCellControllerForCurrency(_ currency: Currency) -> SelectCurrencyTableViewCellController? {
-        let cellControllers = tableViewController.sectionControllers.map({ $0.cellControllers }).reduce([], +)
-        let selectCurrencyTableViewCellController = cellControllers.first(where: { ($0 as? SelectCurrencyTableViewCellController)?.currency == currency }) as? SelectCurrencyTableViewCellController
-        return selectCurrencyTableViewCellController
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         selectCurrencyScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
@@ -53,14 +46,9 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
         setupTableViewController()
     }
     
-    // MARK: Localizer
+    // MARK: - TableView
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "SelectCurrencyScreenStrings")
-        return localizer
-    }()
-    
-    // MARK: - Table View
+    private let tableViewController = AUIEmptyTableViewController()
     
     private func setupTableViewController() {
         tableViewController.tableView = selectCurrencyScreenView.tableView
@@ -70,17 +58,27 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
         tableViewController.sectionControllers = [sectionController]
     }
     
+    // MARK: - Currency - Data
+    
+    private let currencies: [Currency]
+    private var selectedCurrency: Currency
+    private let currencyNameProvider = CurrencyNameProvider()
+    
+    // MARK: - Currency - Cell
+    
     private func createCurrenciesCellControllers(currencies: [Currency]) -> [AUITableViewCellController] {
         return currencies.map { createCurrencyCellController(currency: $0) }
     }
     
     private func createCurrencyCellController(currency: Currency) -> AUITableViewCellController {
-        let selectCurrencyCellController = SelectCurrencyTableViewCellController(currency: currency)
+        let isSelected = currency == selectedCurrency
+        let selectCurrencyCellController = SelectCurrencyTableViewCellController(currency: currency, isSelected: isSelected)
         selectCurrencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.selectCurrencyScreenView.makeSelectCurrencyCell(indexPath)
             cell.nameLabel.text = self.currencyNameProvider.getCurrencyName(currency: currency)
             cell.codeLabel.text = currency.rawValue
+            cell.isSelected = isSelected
             return cell
         }
         selectCurrencyCellController.estimatedHeightClosure = { [weak self] in
@@ -98,6 +96,22 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
         return selectCurrencyCellController
     }
     
+    private func findCellControllerForCurrency(_ currency: Currency) -> SelectCurrencyTableViewCellController? {
+        let cellControllers = tableViewController.sectionControllers.map({ $0.cellControllers }).reduce([], +)
+        let selectCurrencyTableViewCellController = cellControllers.first(where: { ($0 as? SelectCurrencyTableViewCellController)?.currency == currency }) as? SelectCurrencyTableViewCellController
+        return selectCurrencyTableViewCellController
+    }
+    
+    private func showSelectedCurrency(_ currency: Currency) {
+        guard let cellController = findCellControllerForCurrency(currency) else { return }
+        cellController.isSelected = true
+    }
+    
+    private func showDeselectedCurrency(_ currency: Currency) {
+        guard let cellController = findCellControllerForCurrency(currency) else { return }
+        cellController.isSelected = false
+    }
+    
     // MARK: - Events
     
     @objc
@@ -106,10 +120,9 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private func didSelectCurrency(_ currency: Currency) {
-        //didSelectCurrencyClosure?(currency)
-        let newSelectedCurrencyTableViewCellController = tableViewCellControllerForCurrency(currency)
-        let selectCurrencyTableViewCell = newSelectedCurrencyTableViewCellController?.tableViewCell as? SelectCurrencyTableViewCell
-        selectCurrencyTableViewCell?.nameLabel.textColor = .red
-        print(selectCurrencyTableViewCell)
+        showDeselectedCurrency(selectedCurrency)
+        showSelectedCurrency(currency)
+        selectedCurrency = currency
+        didSelectCurrencyClosure?(currency)
     }
 }

@@ -171,7 +171,8 @@ public final class Presentation: AUIWindowPresentation {
     
     private func createSelectCurrencyViewController() -> SelectCurrencyScreenViewController {
         let currencies = delegate.presentationCurrencies(self)
-        let viewController = SelectCurrencyScreenViewController(currencies: currencies)
+        let selectedCurrency = delegate.presentationSelectedCurrency(self)
+        let viewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
         viewController.backClosure = { [weak self] in
             self?.menuNavigationController?.popViewController(animated: true)
         }

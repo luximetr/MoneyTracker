@@ -16,8 +16,6 @@ class SelectCurrencyTableViewCell: AUITableViewCell {
     let nameLabel = UILabel()
     let codeLabel = UILabel()
     
-    
-    
     // MARK: - Setup
     
     override func setup() {
@@ -60,5 +58,23 @@ class SelectCurrencyTableViewCell: AUITableViewCell {
             .right(pin.safeArea)
             .sizeToFit()
             .marginRight(28)
+    }
+    
+    // MARK: - Update
+    
+    override var isSelected: Bool {
+        get { return super.isSelected }
+        set {
+            codeLabel.textColor = getCodeLabelColor(isSelected: isSelected)
+            super.isSelected = newValue
+        }
+    }
+    
+    private func getCodeLabelColor(isSelected: Bool) -> UIColor {
+        if isSelected {
+            return Colors.accent
+        } else {
+            return Colors.primaryText
+        }
     }
 }
