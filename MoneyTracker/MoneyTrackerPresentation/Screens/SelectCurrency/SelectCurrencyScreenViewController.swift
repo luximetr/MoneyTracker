@@ -10,9 +10,24 @@ import AUIKit
 
 class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
     
+    // MARK: - Data
+    
+    private let currencies: [Currency]
+    
     // MARK: - Delegation
     
     var backClosure: (() -> Void)?
+    var didSelectCurrencyClosure: ((Currency) -> Void)?
+    
+    // MARK: - Dependencies
+    
+    private let currencyNameProvider = CurrencyNameProvider()
+    
+    // MARK: - Initializer
+    
+    init(currencies: [Currency]) {
+        self.currencies = currencies
+    }
     
     // MARK: - View
     
@@ -45,13 +60,13 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
     private func setupTableViewController() {
         tableViewController.tableView = selectCurrencyScreenView.tableView
         let sectionController = AUIEmptyTableViewSectionController()
-        var cellControllers: [AUITableViewCellController] = []
-        let currency: Currency = .sgd
-        let selectCurrencyCellController = createCurrencyCellController(currency: currency)
-        cellControllers.append(selectCurrencyCellController)
-        
+        let cellControllers = createCurrenciesCellControllers(currencies: currencies)
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
+    }
+    
+    private func createCurrenciesCellControllers(currencies: [Currency]) -> [AUITableViewCellController] {
+        return currencies.map { createCurrencyCellController(currency: $0) }
     }
     
     private func createCurrencyCellController(currency: Currency) -> AUITableViewCellController {
@@ -59,8 +74,8 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
         selectCurrencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.selectCurrencyScreenView.makeSelectCurrencyCell(indexPath)
-//            cell.nameLabel.text = currency.name
-//            cell.codeLabel.text = currency.isoCode
+            cell.nameLabel.text = self.currencyNameProvider.getCurrencyName(currency: currency)
+            cell.codeLabel.text = currency.rawValue
             return cell
         }
         selectCurrencyCellController.estimatedHeightClosure = { [weak self] in
@@ -72,7 +87,7 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
             return self.selectCurrencyScreenView.getSelectCurrencyTableViewCellHeight()
         }
         selectCurrencyCellController.didSelectClosure = { [weak self] in
-            print("did select currency")
+            self?.didSelectCurrency(currency)
         }
         return selectCurrencyCellController
     }
@@ -82,5 +97,9 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
     @objc
     private func didTapOnBackButton() {
         backClosure?()
+    }
+    
+    private func didSelectCurrency(_ currency: Currency) {
+        didSelectCurrencyClosure?(currency)
     }
 }

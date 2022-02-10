@@ -14,6 +14,9 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, deleteCategory category: Category)
     func presentation(_ presentation: Presentation, sortCategories categories: [Category])
     func presentation(_ presentation: Presentation, editCategory editingCategory: Category)
+    func presentationCurrencies(_ presentation: Presentation) -> [Currency]
+    func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
+    func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -167,9 +170,14 @@ public final class Presentation: AUIWindowPresentation {
     }
     
     private func createSelectCurrencyViewController() -> SelectCurrencyScreenViewController {
-        let viewController = SelectCurrencyScreenViewController()
+        let currencies = delegate.presentationCurrencies(self)
+        let viewController = SelectCurrencyScreenViewController(currencies: currencies)
         viewController.backClosure = { [weak self] in
             self?.menuNavigationController?.popViewController(animated: true)
+        }
+        viewController.didSelectCurrencyClosure = { [weak self] currency in
+            guard let self = self else { return }
+            self.delegate.presentation(self, updateSelectedCurrency: currency)
         }
         return viewController
     }

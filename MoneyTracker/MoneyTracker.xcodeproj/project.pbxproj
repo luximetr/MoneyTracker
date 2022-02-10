@@ -78,6 +78,10 @@
 		DBD6ACEA27B35D0300389236 /* SelectCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACE927B35D0300389236 /* SelectCurrencyTableViewCell.swift */; };
 		DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACEE27B3CEA300389236 /* Currency.swift */; };
 		DBD6ACF127B4097100389236 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF027B4097100389236 /* Currency.swift */; };
+		DBD6ACF327B4C24500389236 /* CurrencyNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF227B4C24500389236 /* CurrencyNameProvider.swift */; };
+		DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */; };
+		DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */; };
+		DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +200,10 @@
 		DBD6ACE927B35D0300389236 /* SelectCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		DBD6ACEE27B3CEA300389236 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		DBD6ACF027B4097100389236 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		DBD6ACF227B4C24500389236 /* CurrencyNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNameProvider.swift; sourceTree = "<group>"; };
+		DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCurrencyUserDefaultRepo.swift; sourceTree = "<group>"; };
+		DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAccessor.swift; sourceTree = "<group>"; };
+		DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAdapter.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -271,6 +279,7 @@
 				2E91154F27A936B000359F21 /* Storage.swift */,
 				2E91155127A9373E00359F21 /* Data */,
 				DBB7CF7F27AC0E39002C2EAE /* CoreData */,
+				DBD6ACF627B4FB9F00389236 /* UserDefaults */,
 				DBB7CF7C27AC0DD4002C2EAE /* Repositories */,
 				2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */,
 			);
@@ -294,6 +303,7 @@
 			children = (
 				2E91155527A93D5C00359F21 /* Category.swift */,
 				2EC6293527AC267D00371252 /* AddingCategory.swift */,
+				DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -504,6 +514,7 @@
 				2E91153D27A92DE600359F21 /* Category.swift */,
 				2EC6293127AC252300371252 /* AddingCategory.swift */,
 				DBD6ACEE27B3CEA300389236 /* Currency.swift */,
+				DBD6ACF227B4C24500389236 /* CurrencyNameProvider.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -568,6 +579,7 @@
 				DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */,
 				DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */,
 				DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */,
+				DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -606,6 +618,14 @@
 				DBD6ACE927B35D0300389236 /* SelectCurrencyTableViewCell.swift */,
 			);
 			path = SelectCurrency;
+			sourceTree = "<group>";
+		};
+		DBD6ACF627B4FB9F00389236 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		F6CDF223860AC628D18B4DED /* Frameworks */ = {
@@ -872,7 +892,9 @@
 				DBD6ACF127B4097100389236 /* Currency.swift in Sources */,
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
+				DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */,
 				2EC6293427AC262000371252 /* AddingCategory.swift in Sources */,
+				DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */,
 				2E91155327A9375300359F21 /* Category.swift in Sources */,
 				DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */,
 				DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */,
@@ -892,6 +914,7 @@
 				2EB10A1227A6C8CB00743416 /* Application.swift in Sources */,
 				2EB10A1427A6C8D400743416 /* main.swift in Sources */,
 				2E91155627A93D5C00359F21 /* Category.swift in Sources */,
+				DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,6 +945,7 @@
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
 				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
 				2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */,
+				DBD6ACF327B4C24500389236 /* CurrencyNameProvider.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
 				2E9289FB27AFF9CA002F3403 /* SettingsScreenViewController.swift in Sources */,

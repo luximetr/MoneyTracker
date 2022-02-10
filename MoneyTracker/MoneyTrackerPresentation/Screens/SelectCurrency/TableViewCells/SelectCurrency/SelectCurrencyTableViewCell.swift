@@ -16,6 +16,8 @@ class SelectCurrencyTableViewCell: AUITableViewCell {
     let nameLabel = UILabel()
     let codeLabel = UILabel()
     
+    
+    
     // MARK: - Setup
     
     override func setup() {
