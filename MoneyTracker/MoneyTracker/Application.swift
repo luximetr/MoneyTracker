@@ -90,4 +90,37 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    // MARK: - Currencies
+    
+    func presentationCurrencies(_ presentation: Presentation) -> [PresentationCurrency] {
+        return [.sgd, .usd, .uah]
+    }
+    
+    // MARK: - Selected currency
+    
+    private var selectedCurrency: StorageCurrency?
+    
+    private func fetchSelectedCurrency() -> StorageCurrency? {
+        do {
+            return try storage.getSelectedCurrency()
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    func presentationSelectedCurrency(_ presentation: Presentation) -> PresentationCurrency {
+        let adapter = CurrencyAdapter()
+        let selectedCurrency = self.selectedCurrency ?? fetchSelectedCurrency() ?? .sgd
+        self.selectedCurrency = selectedCurrency
+        return adapter.adaptToPresentationCurrency(storageCurrency: selectedCurrency)
+    }
+    
+    func presentation(_ presentation: Presentation, updateSelectedCurrency currency: PresentationCurrency) {
+        let adapter = CurrencyAdapter()
+        let storageCurrency = adapter.adaptToStorageCurrency(presentationCurrency: currency)
+        self.selectedCurrency = storageCurrency
+        storage.saveSelectedCurrency(storageCurrency)
+    }
+    
 }

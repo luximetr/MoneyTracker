@@ -12,11 +12,13 @@ public class Storage {
     // MARK: - Dependencies
     
     private let coreDataAccessor: CoreDataAccessor
+    private let userDefautlsAccessor: UserDefaultsAccessor
     
     // MARK: Initiaizer
     
     public init() {
         coreDataAccessor = CoreDataAccessor(storageName: "CoreDataModel", storeURL: nil)
+        userDefautlsAccessor = UserDefaultsAccessor()
     }
     
     // MARK: Categories
@@ -131,5 +133,17 @@ public class Storage {
     private func removeFromBalanceAccountOrder(balanceAccountId: BalanceAccountId) throws {
         let repo = BalanceAccountsOrderCoreDataRepo(accessor: coreDataAccessor)
         try repo.removeBalanceAccountId(balanceAccountId)
+    }
+    
+    // MARK: - Selected Currency
+    
+    public func saveSelectedCurrency(_ currency: Currency) {
+        let repo = SelectedCurrencyUserDefaultRepo(userDefautlsAccessor: userDefautlsAccessor)
+        repo.save(currency: currency)
+    }
+    
+    public func getSelectedCurrency() throws -> Currency {
+        let repo = SelectedCurrencyUserDefaultRepo(userDefautlsAccessor: userDefautlsAccessor)
+        return try repo.fetch()
     }
 }
