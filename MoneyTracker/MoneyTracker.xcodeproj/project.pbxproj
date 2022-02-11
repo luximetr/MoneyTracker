@@ -75,7 +75,7 @@
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
 		DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */; };
 		DBD6ACD627AF719000389236 /* BalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD527AF719000389236 /* BalanceAccount.swift */; };
-		DBD6ACD827AF724C00389236 /* BalanceAccountCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */; };
+		DBD6ACD827AF724C00389236 /* BalanceAccountsCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD727AF724C00389236 /* BalanceAccountsCoreDataRepo.swift */; };
 		DBD6ACDA27AF73BA00389236 /* AddingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */; };
 		DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */; };
 		DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */; };
@@ -88,6 +88,9 @@
 		DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */; };
 		DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */; };
 		DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */; };
+		DBD6ACFE27B5F5D900389236 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACFD27B5F5D900389236 /* Expense.swift */; };
+		DBD6AD0027B5F60B00389236 /* Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACFF27B5F60B00389236 /* Amount.swift */; };
+		DBD6AD0327B5FA2D00389236 /* ExpensesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6AD0227B5FA2D00389236 /* ExpensesCoreDataRepo.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -203,7 +206,7 @@
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBD6ACD527AF719000389236 /* BalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccount.swift; sourceTree = "<group>"; };
-		DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountCoreDataRepo.swift; sourceTree = "<group>"; };
+		DBD6ACD727AF724C00389236 /* BalanceAccountsCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountsCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingBalanceAccount.swift; sourceTree = "<group>"; };
 		DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountsOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyScreenViewController.swift; sourceTree = "<group>"; };
@@ -216,6 +219,9 @@
 		DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCurrencyUserDefaultRepo.swift; sourceTree = "<group>"; };
 		DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAccessor.swift; sourceTree = "<group>"; };
 		DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAdapter.swift; sourceTree = "<group>"; };
+		DBD6ACFD27B5F5D900389236 /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
+		DBD6ACFF27B5F60B00389236 /* Amount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amount.swift; sourceTree = "<group>"; };
+		DBD6AD0227B5FA2D00389236 /* ExpensesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesCoreDataRepo.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -306,6 +312,8 @@
 				DBD6ACD527AF719000389236 /* BalanceAccount.swift */,
 				DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */,
 				DBD6ACF027B4097100389236 /* Currency.swift */,
+				DBD6ACFD27B5F5D900389236 /* Expense.swift */,
+				DBD6ACFF27B5F60B00389236 /* Amount.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -626,8 +634,9 @@
 			children = (
 				DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */,
 				DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */,
-				DBD6ACD727AF724C00389236 /* BalanceAccountCoreDataRepo.swift */,
+				DBD6ACD727AF724C00389236 /* BalanceAccountsCoreDataRepo.swift */,
 				DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */,
+				DBD6AD0227B5FA2D00389236 /* ExpensesCoreDataRepo.swift */,
 				DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */,
 			);
 			path = Repositories;
@@ -941,6 +950,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBD6ACF127B4097100389236 /* Currency.swift in Sources */,
+				DBD6AD0327B5FA2D00389236 /* ExpensesCoreDataRepo.swift in Sources */,
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
 				DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */,
@@ -949,7 +959,9 @@
 				2E91155327A9375300359F21 /* Category.swift in Sources */,
 				DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */,
 				DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */,
-				DBD6ACD827AF724C00389236 /* BalanceAccountCoreDataRepo.swift in Sources */,
+				DBD6ACFE27B5F5D900389236 /* Expense.swift in Sources */,
+				DBD6ACD827AF724C00389236 /* BalanceAccountsCoreDataRepo.swift in Sources */,
+				DBD6AD0027B5F60B00389236 /* Amount.swift in Sources */,
 				DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */,
 				DBD6ACDA27AF73BA00389236 /* AddingBalanceAccount.swift in Sources */,
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,

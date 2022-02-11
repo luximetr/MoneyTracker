@@ -1,5 +1,5 @@
 //
-//  BalanceAccountCoreDataRepo.swift
+//  BalanceAccountsCoreDataRepo.swift
 //  MoneyTrackerStorage
 //
 //  Created by Oleksandr Orlov on 06.02.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class BalanceAccountCoreDataRepo {
+class BalanceAccountsCoreDataRepo {
     
     // MARK: - Dependencies
     

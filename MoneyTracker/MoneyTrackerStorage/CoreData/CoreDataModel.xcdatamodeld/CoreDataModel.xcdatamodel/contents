@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Amount" representedClassName="AmountMO" syncable="YES" codeGenerationType="class">
+        <attribute name="currencyISOCode" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <relationship name="expense" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expense" inverseName="amount" inverseEntity="Expense"/>
+    </entity>
     <entity name="BalanceAccount" representedClassName="BalanceAccountMO" syncable="YES" codeGenerationType="class">
         <attribute name="currencyISOCode" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="expenses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="balanceAccount" inverseEntity="Expense"/>
     </entity>
     <entity name="BalanceAccountsOrder" representedClassName="BalanceAccountsOrderMO" syncable="YES" codeGenerationType="class">
         <attribute name="orderedAccountIds" optional="YES" attributeType="Transformable" customClassName="[NSString]"/>
@@ -14,11 +20,21 @@
     <entity name="Category" representedClassName="CategoryMO" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="expenses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="category" inverseEntity="Expense"/>
+    </entity>
+    <entity name="Expense" representedClassName="ExpenseMO" syncable="YES" codeGenerationType="class">
+        <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="amount" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Amount" inverseName="expense" inverseEntity="Amount"/>
+        <relationship name="balanceAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BalanceAccount" inverseName="expenses" inverseEntity="BalanceAccount"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="expenses" inverseEntity="Category"/>
     </entity>
     <elements>
-        <element name="BalanceAccount" positionX="-54" positionY="9" width="128" height="74"/>
-        <element name="CategoriesOrder" positionX="-63" positionY="0" width="128" height="44"/>
-        <element name="Category" positionX="-63" positionY="-18" width="128" height="59"/>
-        <element name="BalanceAccountsOrder" positionX="-36" positionY="36" width="128" height="44"/>
+        <element name="BalanceAccount" positionX="-140.185791015625" positionY="-275.8368835449219" width="128" height="103"/>
+        <element name="BalanceAccountsOrder" positionX="-335.3576049804688" positionY="-213.2310943603516" width="128" height="44"/>
+        <element name="CategoriesOrder" positionX="-337.4794311523438" positionY="-107.8228149414062" width="128" height="44"/>
+        <element name="Category" positionX="-142.9267578125" positionY="-111.4128112792969" width="128" height="88"/>
+        <element name="Expense" positionX="119.6439819335938" positionY="-245.2716369628906" width="128" height="104"/>
+        <element name="Amount" positionX="336.950927734375" positionY="-245.1533660888672" width="128" height="88"/>
     </elements>
 </model>
