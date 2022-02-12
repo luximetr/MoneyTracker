@@ -48,22 +48,6 @@ class ExpensesCoreDataRepo {
     
     // MARK: - Update
     
-    func updateExpense(id: ExpenseId, newValue: Expense) throws {
-        let request = NSBatchUpdateRequest(entityName: ExpenseMO.description())
-        let propertiesToUpdate: [String : Any] = [
-            #keyPath(ExpenseMO.amount): newValue.amount,
-            #keyPath(ExpenseMO.date): newValue.date,
-            #keyPath(ExpenseMO.comment): newValue.comment ?? "",
-            #keyPath(ExpenseMO.balanceAccountId): newValue.balanceAccountId,
-            #keyPath(ExpenseMO.categoryId): newValue.categoryId
-        ]
-        request.propertiesToUpdate = propertiesToUpdate
-        request.affectedStores = coreDataAccessor.viewContext.persistentStoreCoordinator?.persistentStores
-        request.resultType = .updatedObjectsCountResultType
-        
-        try coreDataAccessor.viewContext.execute(request)
-    }
-    
     func updateExpense(id: ExpenseId, editingExpense: EditingExpense) throws {
         let context = coreDataAccessor.viewContext
         let request = NSBatchUpdateRequest(entityName: ExpenseMO.description())
