@@ -12,11 +12,11 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Data
     
-    private var accounts: [Any]
+    private var accounts: [Account]
     
     // MARK: Initializer
     
-    init(accounts: [Any]) {
+    init(accounts: [Account]) {
         self.accounts = accounts
     }
     
@@ -24,6 +24,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
     
     var backClosure: (() -> Void)?
     var addClosure: (() -> Void)?
+    var deleteAccountClosure: ((Account) -> Void)?
     
     // MARK: View
     
@@ -62,7 +63,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
             cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
                 guard let self = self else { return UICollectionViewCell() }
                 let cell = self.accountsScreenView.accountCollectionViewCell(indexPath)
-                cell?.containerView.backgroundColor = .green
+                cell?.accountView.backgroundColor = .green
                 cell?.nameLabel.text = "ffgdfgdfg"
                 return cell!
             }
@@ -75,6 +76,11 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
                 guard let self = self else { return }
                 self.didSelectAccount(account)
             }
+            cellController.didDeleteClosure = { [weak self] in
+                guard let self = self else { return }
+                self.didDeleteAccount(account, cellController: cellController)
+            }
+            
             cellControllers.append(cellController)
         }
         
@@ -88,9 +94,14 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
         backClosure?()
     }
     
-    private func didSelectAccount(_ account: Any) {
+    private func didSelectAccount(_ account: Account) {
         print("didSelectAccount")
         addClosure?()
+    }
+    
+    private func didDeleteAccount(_ account: Account, cellController: AUICollectionViewCellController) {
+        deleteAccountClosure?(account)
+        collectionViewController.deleteCellController(cellController)
     }
     
 }

@@ -22,5 +22,6 @@ enum Images {
     static var forwardArrow: UIImage { return _UIImage(named: "forwardArrow") }
     static var plusInDashCircle: UIImage { return _UIImage(named: "plusInDashCircle") }
     static var backArrow: UIImage { return _UIImage(named: "backArrow") }
+    static var check: UIImage { return _UIImage(named: "check") }
     
 }

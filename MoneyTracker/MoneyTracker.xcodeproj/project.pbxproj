@@ -21,6 +21,8 @@
 		2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9289FC27AFF9E3002F3403 /* SettingsScreenView.swift */; };
 		2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E928A0227AFF9F6002F3403 /* SettingsScreenStrings.strings */; };
 		2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E928A0627AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift */; };
+		2E92FF5B27B6AB9A00A7306A /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92FF5A27B6AB9A00A7306A /* Account.swift */; };
+		2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92FF5C27B6AD5100A7306A /* AddingAccount.swift */; };
 		2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */; };
 		2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2927B315B80097CA46 /* PictureButton.swift */; };
 		2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */; };
@@ -144,6 +146,8 @@
 		2E9289FC27AFF9E3002F3403 /* SettingsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenView.swift; sourceTree = "<group>"; };
 		2E928A0127AFF9F6002F3403 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SettingsScreenStrings.strings; sourceTree = "<group>"; };
 		2E928A0627AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleItemTableViewCell.swift; sourceTree = "<group>"; };
+		2E92FF5A27B6AB9A00A7306A /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		2E92FF5C27B6AD5100A7306A /* AddingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingAccount.swift; sourceTree = "<group>"; };
 		2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackTitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E95BB2927B315B80097CA46 /* PictureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureButton.swift; sourceTree = "<group>"; };
 		2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenViewController.swift; sourceTree = "<group>"; };
@@ -355,6 +359,15 @@
 			path = TitleIItem;
 			sourceTree = "<group>";
 		};
+		2E92FF5927B6AB8200A7306A /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				2E92FF5A27B6AB9A00A7306A /* Account.swift */,
+				2E92FF5C27B6AD5100A7306A /* AddingAccount.swift */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
 		2E95BB2B27B31A990097CA46 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,6 +572,7 @@
 		2EB10A4B27A7083200743416 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2E92FF5927B6AB8200A7306A /* Accounts */,
 				2EB10A4927A707A300743416 /* Language.swift */,
 				2E91153D27A92DE600359F21 /* Category.swift */,
 				2EC6293127AC252300371252 /* AddingCategory.swift */,
@@ -998,6 +1012,8 @@
 				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
 				2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */,
 				DBD6ACF327B4C24500389236 /* CurrencyNameProvider.swift in Sources */,
+				2E92FF5B27B6AB9A00A7306A /* Account.swift in Sources */,
+				2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */,
 				2EA18A7227B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,

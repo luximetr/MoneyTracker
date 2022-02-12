@@ -8,12 +8,15 @@
 import UIKit
 import AUIKit
 
-final class AddAccountScreenView: TitleNavigationBarScreenView {
+final class AddAccountScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
     let scrollView = UIScrollView()
     let backgroundView = UIView()
+    let nameInputView = TextField()
+    let currencyInputView = UIButton()
+    let amountInputView = TextField()
     let colorsTitleLabel = UILabel()
     private let colorsCollectionViewFlowLayout = UICollectionViewFlowLayout()
     let colorsCollectionView: UICollectionView
@@ -34,6 +37,9 @@ final class AddAccountScreenView: TitleNavigationBarScreenView {
         addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         setupBackgroundView()
+        backgroundView.addSubview(nameInputView)
+        backgroundView.addSubview(currencyInputView)
+        backgroundView.addSubview(amountInputView)
         scrollView.addSubview(colorsTitleLabel)
         setupColorsTitleLabel()
         scrollView.addSubview(colorsCollectionView)
@@ -52,7 +58,7 @@ final class AddAccountScreenView: TitleNavigationBarScreenView {
     }
     
     private func setupBackgroundView() {
-        backgroundView.backgroundColor = .red
+
     }
     
     private func setupColorsTitleLabel() {
@@ -71,9 +77,11 @@ final class AddAccountScreenView: TitleNavigationBarScreenView {
         super.layoutSubviews()
         layoutScrollView()
         layoutBackgroundView()
+        layoutNameInputView()
+        layoutCurrencyInputView()
+        layoutAmountInputView()
         layoutColorsTitleLabel()
         layoutColorsCollectionView()
-        layoutBackgroundView()
         layoutAddButton()
         setScrollViewContentSize()
     }
@@ -98,6 +106,33 @@ final class AddAccountScreenView: TitleNavigationBarScreenView {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         backgroundView.frame = frame
         backgroundView.layer.cornerRadius = 10
+    }
+    
+    private func layoutNameInputView() {
+        let x: CGFloat = 20
+        let y: CGFloat = 20
+        let width = backgroundView.bounds.width - 2 * x
+        let height: CGFloat = 46
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        nameInputView.frame = frame
+    }
+    
+    private func layoutCurrencyInputView() {
+        let width: CGFloat = 44
+        let height: CGFloat = 44
+        let x: CGFloat = backgroundView.bounds.width - 20 - width
+        let y: CGFloat = nameInputView.frame.origin.y + nameInputView.frame.size.height + 20
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        currencyInputView.frame = frame
+    }
+    
+    private func layoutAmountInputView() {
+        let x: CGFloat = 20
+        let y: CGFloat = nameInputView.frame.origin.y + nameInputView.frame.size.height + 20
+        let width = backgroundView.bounds.width - x - (backgroundView.frame.size.width - currencyInputView.frame.origin.x) - 14
+        let height: CGFloat = 46
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        amountInputView.frame = frame
     }
     
     private func layoutColorsTitleLabel() {
@@ -150,6 +185,12 @@ final class AddAccountScreenView: TitleNavigationBarScreenView {
         self.keyboardFrame = keyboardFrame
         setNeedsLayout()
         layoutIfNeeded()
+    }
+    
+    // MARK: BackgroundColor
+    
+    func setBackgroundColor(_ backgroundColor: UIColor, animated: Bool) {
+        backgroundView.backgroundColor = backgroundColor
     }
     
     // MARK: Color Cell

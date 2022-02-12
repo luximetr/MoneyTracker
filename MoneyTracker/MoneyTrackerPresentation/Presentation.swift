@@ -17,6 +17,10 @@ public protocol PresentationDelegate: AnyObject {
     func presentationCurrencies(_ presentation: Presentation) -> [Currency]
     func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
+    func presentationAccounts(_ presentation: Presentation) -> [Account]
+    func presentation(_ presentation: Presentation, deleteAccount category: Account)
+    func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
+    func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount)
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -188,7 +192,7 @@ public final class Presentation: AUIWindowPresentation {
     private var accoutViewController: AccountsScreenViewController?
     
     private func createAccountsViewController() -> AccountsScreenViewController {
-        let accounts: [Any] = [NSObject(), NSObject(), NSObject()]
+        let accounts = delegate.presentationAccounts(self)
         let viewController = AccountsScreenViewController(accounts: accounts)
         viewController.backClosure = { [weak self] in
             guard let self = self else { return }
@@ -198,7 +202,11 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             let viewController = self.createAddAccountViewController()
             self.addAccoutScreenViewController = viewController
-            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
+        }
+        viewController.deleteAccountClosure = { [weak self] account in
+            guard let self = self else { return }
+            self.delegate.presentation(self, deleteAccount: account)
         }
         return viewController
     }
@@ -208,7 +216,34 @@ public final class Presentation: AUIWindowPresentation {
     private var addAccoutScreenViewController: AddAccountScreenViewController?
     
     private func createAddAccountViewController() -> AddAccountScreenViewController {
-        let viewController = AddAccountScreenViewController()
+        let backgroundColors = delegate.presentationAccountBackgroundColors(self)
+        let selectedCurrency = delegate.presentationSelectedCurrency(self)
+        let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.popViewController(animated: true)
+        }
+        viewController.selectCurrencyClosure = { [weak self] in
+            guard let self = self else { return }
+            let currencies = self.delegate.presentationCurrencies(self)
+            let selectedCurrency = viewController.selectedCurrency
+            let selectCurrencyViewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
+            selectCurrencyViewController.backClosure = { [weak self] in
+                guard let self = self else { return }
+                self.menuNavigationController?.popViewController(animated: true)
+            }
+            selectCurrencyViewController.didSelectCurrencyClosure = { [weak self] currency in
+                guard let self = self else { return }
+                viewController.setSelectedCurrency(currency, animated: true)
+                self.menuNavigationController?.popViewController(animated: true)
+            }
+            self.menuNavigationController?.pushViewController(selectCurrencyViewController, animated: true)
+        }
+        viewController.addAccountClosure = { [weak self] addingAccount in
+            guard let self = self else { return }
+            self.delegate.presentation(self, addAccount: addingAccount)
+            self.menuNavigationController?.popViewController(animated: true)
+        }
         return viewController
     }
     

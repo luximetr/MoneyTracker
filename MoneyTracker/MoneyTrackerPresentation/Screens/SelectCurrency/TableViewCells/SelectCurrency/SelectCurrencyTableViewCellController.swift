@@ -20,20 +20,8 @@ final class SelectCurrencyTableViewCellController: AUIClosuresTableViewCellContr
         self.isSelected = isSelected
     }
     
-    var tableViewCell: UITableViewCell?
     private var selectCurrencyTableViewCell: SelectCurrencyTableViewCell? {
         return tableViewCell as? SelectCurrencyTableViewCell
     }
     
-    // MARK: -
-    override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
-        let tableViewCell = super.cellForRowAtIndexPath(indexPath)
-        self.tableViewCell = tableViewCell
-        return tableViewCell
-    }
-    
-    override func didEndDisplayingCell() {
-        self.tableViewCell = nil
-        super.didEndDisplayingCell()
-    }
 }

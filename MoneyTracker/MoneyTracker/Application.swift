@@ -90,6 +90,26 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentationAccounts(_ presentation: Presentation) -> [Account] {
+        let account1 = Account(id: "1", name: "name1", balance: Decimal(1), currency: .sgd, backgroundColor: .green)
+        let account2 = Account(id: "2", name: "name2", balance: Decimal(2), currency: .usd, backgroundColor: .blue)
+        let accounts = [account1, account2]
+        return accounts
+    }
+    
+    func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor] {
+        let backgroundColors: [UIColor] = [.red, .green, .yellow, .blue, .brown, .cyan]
+        return backgroundColors
+    }
+    
+    func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) {
+        print(addingAccount)
+    }
+    
+    func presentation(_ presentation: Presentation, deleteAccount category: Account) {
+        
+    }
+    
     // MARK: - Currencies
     
     func presentationCurrencies(_ presentation: Presentation) -> [PresentationCurrency] {
