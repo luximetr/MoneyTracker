@@ -35,8 +35,10 @@ class BalanceAccountsCoreDataRepo {
     
     func updateAccount(id: BalanceAccountId, editingBalanceAccount: EditingBalanceAccount) throws {
         let context = accessor.viewContext
-        let request = NSBatchUpdateRequest(entityName: BalanceAccountMO.description())
+        let request = NSBatchUpdateRequest(entityName: String(describing: BalanceAccount.self))
         let propertiesToUpdate = createPropertiesToUpdate(editingBalanceAccount: editingBalanceAccount)
+        let predicate = NSPredicate(format: "id == %@", id)
+        request.predicate = predicate
         request.propertiesToUpdate = propertiesToUpdate
         request.affectedStores = context.persistentStoreCoordinator?.persistentStores
         request.resultType = .updatedObjectsCountResultType

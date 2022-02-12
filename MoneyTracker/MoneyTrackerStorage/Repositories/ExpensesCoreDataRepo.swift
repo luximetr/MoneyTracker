@@ -50,8 +50,10 @@ class ExpensesCoreDataRepo {
     
     func updateExpense(id: ExpenseId, editingExpense: EditingExpense) throws {
         let context = coreDataAccessor.viewContext
-        let request = NSBatchUpdateRequest(entityName: ExpenseMO.description())
+        let request = NSBatchUpdateRequest(entityName: String(describing: Expense.self))
         let propertiesToUpdate = createPropertiesToUpdate(editingExpense: editingExpense)
+        let predicate = NSPredicate(format: "id == %@", id)
+        request.predicate = predicate
         request.propertiesToUpdate = propertiesToUpdate
         request.affectedStores = context.persistentStoreCoordinator?.persistentStores
         request.resultType = .updatedObjectsCountResultType

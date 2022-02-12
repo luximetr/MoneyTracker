@@ -78,7 +78,9 @@ class CategoriesCoreDataRepo {
     
     func updateCategory(id: CategoryId, editingCategory: EditingCategory) throws {
         let context = accessor.viewContext
-        let request = NSBatchUpdateRequest(entityName: CategoryMO.description())
+        let request = NSBatchUpdateRequest(entityName: String(describing: Category.self))
+        let predicate = NSPredicate(format: "id == %@", id)
+        request.predicate = predicate
         request.propertiesToUpdate = [#keyPath(CategoryMO.name): editingCategory.name]
         request.affectedStores = context.persistentStoreCoordinator?.persistentStores
         request.resultType = .updatedObjectsCountResultType
