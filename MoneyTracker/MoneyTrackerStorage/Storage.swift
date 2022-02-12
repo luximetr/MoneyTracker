@@ -195,6 +195,11 @@ public class Storage {
         return try repo.fetchExpenses(startDate: startDate, endDate: endDate)
     }
     
+    public func updateExpense(expenseId: String, editingExpense: EditingExpense) throws {
+        let repo = createExpensesRepo()
+        try repo.updateExpense(id: expenseId, editingExpense: editingExpense)
+    }
+    
     private func createExpensesRepo() -> ExpensesCoreDataRepo {
         return ExpensesCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }

@@ -28,7 +28,6 @@ class ExpensesCoreDataRepo {
         let expenseMO = ExpenseMO(context: context)
         expenseMO.id = expense.id
         expenseMO.amount = NSDecimalNumber(decimal: expense.amount)
-        expenseMO.currencyISOCode = expense.currency.rawValue
         expenseMO.comment = expense.comment
         expenseMO.date = expense.date
         expenseMO.categoryId = expense.categoryId
@@ -49,8 +48,47 @@ class ExpensesCoreDataRepo {
     
     // MARK: - Update
     
-    func updateExpense(id: ExpenseId) {
+    func updateExpense(id: ExpenseId, newValue: Expense) throws {
+        let request = NSBatchUpdateRequest(entityName: ExpenseMO.description())
+        let propertiesToUpdate: [String : Any] = [
+            #keyPath(ExpenseMO.amount): newValue.amount,
+            #keyPath(ExpenseMO.date): newValue.date,
+            #keyPath(ExpenseMO.comment): newValue.comment ?? "",
+            #keyPath(ExpenseMO.balanceAccountId): newValue.balanceAccountId,
+            #keyPath(ExpenseMO.categoryId): newValue.categoryId
+        ]
+        request.propertiesToUpdate = propertiesToUpdate
+        request.affectedStores = coreDataAccessor.viewContext.persistentStoreCoordinator?.persistentStores
+        request.resultType = .updatedObjectsCountResultType
         
+        try coreDataAccessor.viewContext.execute(request)
+    }
+    
+    func updateExpense(id: ExpenseId, editingExpense: EditingExpense) throws {
+        let request = NSBatchUpdateRequest(entityName: ExpenseMO.description())
+        let propertiesToUpdate = createPropertiesToUpdate(editingExpense: editingExpense)
+        request.propertiesToUpdate = propertiesToUpdate
+        request.affectedStores = coreDataAccessor.viewContext.persistentStoreCoordinator?.persistentStores
+        request.resultType = .updatedObjectsCountResultType
+        try coreDataAccessor.viewContext.execute(request)
+    }
+    
+    private func createPropertiesToUpdate(editingExpense: EditingExpense) -> [String : Any] {
+        var propertiesToUpdate: [String : Any] = [:]
+        if let amount = editingExpense.amount {
+            propertiesToUpdate[#keyPath(ExpenseMO.amount)] = amount
+        }
+        if let date = editingExpense.date {
+            propertiesToUpdate[#keyPath(ExpenseMO.date)] = date
+        }
+        propertiesToUpdate[#keyPath(ExpenseMO.comment)] = editingExpense.comment ?? ""
+        if let balanceAccountId = editingExpense.balanceAccountId {
+            propertiesToUpdate[#keyPath(ExpenseMO.balanceAccountId)] = balanceAccountId
+        }
+        if let categoryId = editingExpense.categoryId {
+            propertiesToUpdate[#keyPath(ExpenseMO.categoryId)] = categoryId
+        }
+        return propertiesToUpdate
     }
     
     // MARK: - Fetch
@@ -106,14 +144,11 @@ class ExpensesCoreDataRepo {
         guard let date = expenseMO.date else { throw ParseError.noDate }
         guard let balanceAccountId = expenseMO.balanceAccountId else { throw ParseError.noBalanceAccountId }
         guard let categoryId = expenseMO.categoryId else { throw ParseError.noCategoryId }
-        
         let comment = expenseMO.comment
-        let currency = try Currency(expenseMO.currencyISOCode ?? "")
         
         return Expense(
             id: id,
             amount: amount,
-            currency: currency,
             date: date,
             comment: comment,
             balanceAccountId: balanceAccountId,
