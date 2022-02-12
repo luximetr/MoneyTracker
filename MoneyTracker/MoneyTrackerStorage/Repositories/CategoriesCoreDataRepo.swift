@@ -47,7 +47,7 @@ class CategoriesCoreDataRepo {
         return categories
     }
     
-    private func fetchCategoryMO(id: CategoryId, context: NSManagedObjectContext) throws -> CategoryMO {
+    func fetchCategoryMO(id: CategoryId, context: NSManagedObjectContext) throws -> CategoryMO {
         let request = CategoryMO.fetchRequest()
         request.fetchLimit = 1
         request.predicate = NSPredicate(format: "id == %@", id)        
@@ -57,7 +57,7 @@ class CategoriesCoreDataRepo {
         return categoryMO
     }
     
-    private func convertToCategory(categoryMO: CategoryMO) throws -> Category {
+    func convertToCategory(categoryMO: CategoryMO) throws -> Category {
         guard let id = categoryMO.id else { throw ParseError.noId }
         guard let name = categoryMO.name else { throw ParseError.noName }
         

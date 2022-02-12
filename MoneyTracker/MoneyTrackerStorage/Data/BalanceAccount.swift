@@ -8,17 +8,17 @@
 import Foundation
 
 public struct BalanceAccount {
-    let id: String
-    let name: String
-    let currency: Currency
+    public let id: String
+    public let name: String
+    public let currency: Currency
     
-    init(id: String, name: String, currency: Currency) {
+    public init(id: String, name: String, currency: Currency) {
         self.id = id
         self.name = name
         self.currency = currency
     }
     
-    init(addingBalanceAccount: AddingBalanceAccount) {
+    public init(addingBalanceAccount: AddingBalanceAccount) {
         self.id = UUID().uuidString
         self.name = addingBalanceAccount.name
         self.currency = addingBalanceAccount.currency

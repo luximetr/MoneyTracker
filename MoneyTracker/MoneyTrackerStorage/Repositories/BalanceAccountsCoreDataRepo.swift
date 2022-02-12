@@ -65,7 +65,7 @@ class BalanceAccountsCoreDataRepo {
         return convertToAccounts(accountsMO)
     }
     
-    private func fetchAccountMO(id: BalanceAccountId, context: NSManagedObjectContext) throws -> BalanceAccountMO {
+    func fetchAccountMO(id: BalanceAccountId, context: NSManagedObjectContext) throws -> BalanceAccountMO {
         let request = BalanceAccountMO.fetchRequest()
         request.fetchLimit = 1
         request.predicate = NSPredicate(format: "id == %@", id)
@@ -74,7 +74,7 @@ class BalanceAccountsCoreDataRepo {
         return accountMO
     }
     
-    private func convertToAccount(_ accountMO: BalanceAccountMO) throws -> BalanceAccount {
+    func convertToAccount(_ accountMO: BalanceAccountMO) throws -> BalanceAccount {
         guard let id = accountMO.id else { throw ParseError.noId }
         guard let name = accountMO.name else { throw ParseError.noName }
         guard let currencyISOCode = accountMO.currencyISOCode else { throw ParseError.noCurrencyISOCode }

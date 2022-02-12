@@ -8,6 +8,11 @@
 import Foundation
 
 public struct AddingBalanceAccount {
-    let name: String
-    let currency: Currency
+    public let name: String
+    public let currency: Currency
+    
+    public init(name: String, currency: Currency) {
+        self.name = name
+        self.currency = currency
+    }
 }

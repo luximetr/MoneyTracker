@@ -7,10 +7,42 @@
 
 import Foundation
 
-struct Expense {
-    let id: String
-    let amount: Amount
-    let balanceAccount: BalanceAccount
-    let category: Category
-    let comment: String?
+public struct Expense {
+    public let id: String
+    public let amount: Decimal
+    public let currency: Currency
+    public let date: Date
+    public let comment: String?
+    public let balanceAccountId: String
+    public let categoryId: String
+    
+    init(
+        id: String,
+        amount: Decimal,
+        currency: Currency,
+        date: Date,
+        comment: String?,
+        balanceAccountId: String,
+        categoryId: String
+    ) {
+        self.id = id
+        self.amount = amount
+        self.currency = currency
+        self.balanceAccountId = balanceAccountId
+        self.categoryId = categoryId
+        self.date = date
+        self.comment = comment
+    }
+    
+    public init(addingExpense: AddingExpense) {
+        self.id = UUID().uuidString
+        self.amount = addingExpense.amount
+        self.currency = addingExpense.currency
+        self.date = addingExpense.date
+        self.comment = addingExpense.comment
+        self.balanceAccountId = addingExpense.balanceAccountId
+        self.categoryId = addingExpense.categoryId
+    }
 }
+
+typealias ExpenseId = String
