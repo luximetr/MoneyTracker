@@ -15,11 +15,11 @@ public struct EditingExpense {
     public let categoryId: String?
     
     public init(
-        amount: Decimal?,
-        date: Date?,
-        comment: String?,
-        balanceAccountId: String?,
-        categoryId: String?
+        amount: Decimal? = nil,
+        date: Date? = nil,
+        comment: String? = nil,
+        balanceAccountId: String? = nil,
+        categoryId: String? = nil
     ) {
         self.amount = amount
         self.date = date

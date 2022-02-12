@@ -101,9 +101,9 @@ public class Storage {
         try removeFromBalanceAccountOrder(balanceAccountId: id)
     }
     
-    public func updateBalanceAccount(id: String, newValue: BalanceAccount) throws {
+    public func updateBalanceAccount(id: String, editingBalanceAccount: EditingBalanceAccount) throws {
         let repo = createBalanceAccountsRepo()
-        try repo.updateAccount(id: id, newValue: newValue)
+        try repo.updateAccount(id: id, editingBalanceAccount: editingBalanceAccount)
     }
     
     public func getBalanceAccount(id: String) throws -> BalanceAccount {

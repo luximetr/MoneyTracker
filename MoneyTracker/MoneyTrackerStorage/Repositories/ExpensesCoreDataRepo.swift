@@ -65,12 +65,13 @@ class ExpensesCoreDataRepo {
     }
     
     func updateExpense(id: ExpenseId, editingExpense: EditingExpense) throws {
+        let context = coreDataAccessor.viewContext
         let request = NSBatchUpdateRequest(entityName: ExpenseMO.description())
         let propertiesToUpdate = createPropertiesToUpdate(editingExpense: editingExpense)
         request.propertiesToUpdate = propertiesToUpdate
-        request.affectedStores = coreDataAccessor.viewContext.persistentStoreCoordinator?.persistentStores
+        request.affectedStores = context.persistentStoreCoordinator?.persistentStores
         request.resultType = .updatedObjectsCountResultType
-        try coreDataAccessor.viewContext.execute(request)
+        try context.execute(request)
     }
     
     private func createPropertiesToUpdate(editingExpense: EditingExpense) -> [String : Any] {
