@@ -70,7 +70,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     
     var didDeleteClosure: (() -> Void)?
     @objc private func deleteButtonTouchUpInsideEventAction() {
-        print("dfgfg")
+        didDeleteClosure?()
     }
     
     private var panBeganPoint: CGPoint?

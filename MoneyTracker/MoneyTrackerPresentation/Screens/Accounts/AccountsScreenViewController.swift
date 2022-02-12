@@ -101,7 +101,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
     
     private func didDeleteAccount(_ account: Account, cellController: AUICollectionViewCellController) {
         deleteAccountClosure?(account)
-        collectionViewController.deleteCellController(cellController)
+        collectionViewController.deleteCellControllerAnimated(cellController, completion: nil)
     }
     
 }
