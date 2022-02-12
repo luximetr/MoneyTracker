@@ -199,10 +199,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editCategory editingCategory: PresentationCategory) {
+    func presentation(_ presentation: Presentation, editCategory presentationCategory: PresentationCategory) {
         do {
-            let storageCategory = Category(presentationCategory: editingCategory).storageCategoty
-            try storage.updateCategory(id: storageCategory.id, newValue: storageCategory)
+            let editingCategory = EditingCategory(name: presentationCategory.name)
+            try storage.updateCategory(id: presentationCategory.id, editingCategory: editingCategory)
         } catch {
             print(error)
         }

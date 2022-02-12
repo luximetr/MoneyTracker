@@ -76,11 +76,13 @@ class CategoriesCoreDataRepo {
     
     // MARK: - Update
     
-    func updateCategory(id: CategoryId, newValue: Category) throws {
+    func updateCategory(id: CategoryId, editingCategory: EditingCategory) throws {
         let context = accessor.viewContext
-        let categoryMO = try fetchCategoryMO(id: id, context: context)
-        categoryMO.name = newValue.name
-        try context.save()
+        let request = NSBatchUpdateRequest(entityName: CategoryMO.description())
+        request.propertiesToUpdate = [#keyPath(CategoryMO.name): editingCategory.name]
+        request.affectedStores = context.persistentStoreCoordinator?.persistentStores
+        request.resultType = .updatedObjectsCountResultType
+        try context.execute(request)
     }
     
     // MARK: - Delete
