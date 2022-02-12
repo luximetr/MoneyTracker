@@ -1,5 +1,5 @@
 //
-//  BalanceAccountCoreDataRepo.swift
+//  BalanceAccountsCoreDataRepo.swift
 //  MoneyTrackerStorage
 //
 //  Created by Oleksandr Orlov on 06.02.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class BalanceAccountCoreDataRepo {
+class BalanceAccountsCoreDataRepo {
     
     // MARK: - Dependencies
     
@@ -33,21 +33,39 @@ class BalanceAccountCoreDataRepo {
     
     // MARK: - Update
     
-    func updateAccount(id: BalanceAccountId, newValue: BalanceAccount) throws {
+    func updateAccount(id: BalanceAccountId, editingBalanceAccount: EditingBalanceAccount) throws {
         let context = accessor.viewContext
-        let accountMO = try fetchAccountMO(id: id, context: context)
-        accountMO.name = newValue.name
-        accountMO.currencyISOCode = newValue.currency.rawValue
-        try context.save()
+        let request = NSBatchUpdateRequest(entityName: String(describing: BalanceAccount.self))
+        let propertiesToUpdate = createPropertiesToUpdate(editingBalanceAccount: editingBalanceAccount)
+        let predicate = NSPredicate(format: "id == %@", id)
+        request.predicate = predicate
+        request.propertiesToUpdate = propertiesToUpdate
+        request.affectedStores = context.persistentStoreCoordinator?.persistentStores
+        request.resultType = .updatedObjectsCountResultType
+        try context.execute(request)
+    }
+    
+    private func createPropertiesToUpdate(editingBalanceAccount: EditingBalanceAccount) -> [String : Any] {
+        var propertiesToUpdate: [String : Any] = [:]
+        if let name = editingBalanceAccount.name {
+            propertiesToUpdate[#keyPath(BalanceAccountMO.name)] =  name
+        }
+        if let currency = editingBalanceAccount.currency {
+            propertiesToUpdate[#keyPath(BalanceAccountMO.currencyISOCode)] = currency.rawValue
+        }
+        return propertiesToUpdate
     }
     
     // MARK: - Remove
     
     func removeAccount(id: BalanceAccountId) throws {
         let context = accessor.viewContext
-        let accountMO = try fetchAccountMO(id: id, context: context)
-        context.delete(accountMO)
-        try context.save()
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = BalanceAccountMO.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.fetchLimit = 1
+        let request = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        request.affectedStores = context.persistentStoreCoordinator?.persistentStores
+        try context.execute(request)
     }
     
     // MARK: - Fetch
@@ -65,7 +83,7 @@ class BalanceAccountCoreDataRepo {
         return convertToAccounts(accountsMO)
     }
     
-    private func fetchAccountMO(id: BalanceAccountId, context: NSManagedObjectContext) throws -> BalanceAccountMO {
+    func fetchAccountMO(id: BalanceAccountId, context: NSManagedObjectContext) throws -> BalanceAccountMO {
         let request = BalanceAccountMO.fetchRequest()
         request.fetchLimit = 1
         request.predicate = NSPredicate(format: "id == %@", id)
@@ -74,7 +92,7 @@ class BalanceAccountCoreDataRepo {
         return accountMO
     }
     
-    private func convertToAccount(_ accountMO: BalanceAccountMO) throws -> BalanceAccount {
+    func convertToAccount(_ accountMO: BalanceAccountMO) throws -> BalanceAccount {
         guard let id = accountMO.id else { throw ParseError.noId }
         guard let name = accountMO.name else { throw ParseError.noName }
         guard let currencyISOCode = accountMO.currencyISOCode else { throw ParseError.noCurrencyISOCode }

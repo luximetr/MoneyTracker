@@ -31,7 +31,7 @@ class CategoriesOrderCoreDataRepo {
     
     func appendCategoryId(_ id: CategoryId) throws {
         let context = accessor.viewContext
-        let orderMO = try fetchOrderMO(context: context)
+        let orderMO = try fetchOrCreateOrderMO(context: context)
         var idsMO = orderMO.orderedCategoryIds ?? []
         idsMO.append(NSString(string: id))
         orderMO.orderedCategoryIds = idsMO

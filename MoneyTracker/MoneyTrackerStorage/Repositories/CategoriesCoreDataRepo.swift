@@ -47,7 +47,7 @@ class CategoriesCoreDataRepo {
         return categories
     }
     
-    private func fetchCategoryMO(id: CategoryId, context: NSManagedObjectContext) throws -> CategoryMO {
+    func fetchCategoryMO(id: CategoryId, context: NSManagedObjectContext) throws -> CategoryMO {
         let request = CategoryMO.fetchRequest()
         request.fetchLimit = 1
         request.predicate = NSPredicate(format: "id == %@", id)        
@@ -57,7 +57,7 @@ class CategoriesCoreDataRepo {
         return categoryMO
     }
     
-    private func convertToCategory(categoryMO: CategoryMO) throws -> Category {
+    func convertToCategory(categoryMO: CategoryMO) throws -> Category {
         guard let id = categoryMO.id else { throw ParseError.noId }
         guard let name = categoryMO.name else { throw ParseError.noName }
         
@@ -76,11 +76,15 @@ class CategoriesCoreDataRepo {
     
     // MARK: - Update
     
-    func updateCategory(id: CategoryId, newValue: Category) throws {
+    func updateCategory(id: CategoryId, editingCategory: EditingCategory) throws {
         let context = accessor.viewContext
-        let categoryMO = try fetchCategoryMO(id: id, context: context)
-        categoryMO.name = newValue.name
-        try context.save()
+        let request = NSBatchUpdateRequest(entityName: String(describing: Category.self))
+        let predicate = NSPredicate(format: "id == %@", id)
+        request.predicate = predicate
+        request.propertiesToUpdate = [#keyPath(CategoryMO.name): editingCategory.name]
+        request.affectedStores = context.persistentStoreCoordinator?.persistentStores
+        request.resultType = .updatedObjectsCountResultType
+        try context.execute(request)
     }
     
     // MARK: - Delete

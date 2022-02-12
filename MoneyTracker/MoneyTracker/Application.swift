@@ -22,6 +22,88 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         presentation.display()
     }
     
+    private func getUOBBalanceAccount() -> BalanceAccount {
+        return findBalanceAccount(name: "UOB")
+    }
+    
+    private func getDBSBalanceAccount() -> BalanceAccount {
+        return findBalanceAccount(name: "DBS")
+    }
+    
+    private func findBalanceAccount(name: String) -> BalanceAccount {
+        if let account = fetchBalanceAccount(name: name) {
+            return account
+        } else {
+            return BalanceAccount(id: "mockUOBId", name: name, currency: .sgd)
+        }
+    }
+    
+    private func fetchBalanceAccount(name: String) -> BalanceAccount? {
+        do {
+            let accounts = try storage.getAllBalanceAccounts()
+            return accounts.first(where: { $0.name == name })
+        } catch {
+            return nil
+        }
+    }
+    
+    private func getTransportCategory() -> StorageCategory {
+        return findCategory(name: "Transport")
+    }
+    
+    private func getGroceriesCategory() -> StorageCategory {
+        return findCategory(name: "Groceries")
+    }
+    
+    private func getHouseCategory() -> StorageCategory {
+        return findCategory(name: "House")
+    }
+    
+    private func findCategory(name: String) -> StorageCategory {
+        if let category = fetchCategory(name: name) {
+            return category
+        } else {
+            return StorageCategory(id: "mockHouseId", name: name)
+        }
+    }
+    
+    private func fetchCategory(name: String) -> StorageCategory? {
+        do {
+            let categories = try storage.getCategories()
+            return categories.first(where: { $0.name == name })
+        } catch {
+            return nil
+        }
+    }
+    
+    private func saveCategory(_ category: StorageCategory) {
+        try? storage.addCategory(MoneyTrackerStorage.AddingCategory(name: category.name))
+    }
+    
+    private func saveAccount(_ account: BalanceAccount) {
+        try? storage.addBalanceAccount(AddingBalanceAccount(name: account.name, currency: account.currency))
+    }
+    
+    private func saveExpense(amount: Decimal, comment: String? = nil, date: Date, account: BalanceAccount, category: StorageCategory) {
+        let addingExpense = AddingExpense(
+            amount: amount,
+            date: date,
+            comment: comment,
+            balanceAccountId: account.id,
+            categoryId: category.id
+        )
+        try? storage.addExpense(addingExpense: addingExpense)
+    }
+    
+    private func create2022Date(month: Int, day: Int) -> Date {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2022
+        dateComponents.month = month
+        dateComponents.day = day
+        let calendar = Calendar.current
+        return calendar.date(from: dateComponents)!
+    }
+    
     // MARK: Storage
     
     private lazy var storage: Storage = {
@@ -44,14 +126,23 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }()
     
     func presentationCategories(_ presentation: Presentation) -> [PresentationCategory] {
+        let storageCategories = fetchCategories()
+        let categories = storageCategories.map({ Category(storageCategoty: $0) })
+        let presentationCategories = categories.map({ $0.presentationCategory })
+        return presentationCategories
+    }
+    
+    private func fetchCategories() -> [StorageCategory] {
         do {
-            let storageCategories = try storage.getOrderedCategories()
-            let categories = storageCategories.map({ Category(storageCategoty: $0) })
-            let presentationCategories = categories.map({ $0.presentationCategory })
-            return presentationCategories
+            return try storage.getOrderedCategories()
         } catch {
             print(error)
-            return []
+            do {
+                return try storage.getCategories()
+            } catch {
+                print(error)
+                return []
+            }
         }
     }
     
@@ -81,10 +172,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editCategory editingCategory: PresentationCategory) {
+    func presentation(_ presentation: Presentation, editCategory presentationCategory: PresentationCategory) {
         do {
-            let storageCategory = Category(presentationCategory: editingCategory).storageCategoty
-            try storage.updateCategory(id: storageCategory.id, newValue: storageCategory)
+            let editingCategory = EditingCategory(name: presentationCategory.name)
+            try storage.updateCategory(id: presentationCategory.id, editingCategory: editingCategory)
         } catch {
             print(error)
         }

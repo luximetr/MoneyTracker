@@ -24,14 +24,14 @@ class BalanceAccountsOrderCoreDataRepo {
     
     func updateOrder(orderedIds: [BalanceAccountId]) throws {
         let context = accessor.viewContext
-        let orderMO = try fetchOrderMO(context: context)
+        let orderMO = try fetchOrCreateOrderMO(context: context)
         orderMO.orderedAccountIds = orderedIds.map { NSString(string: $0) }
         try context.save()
     }
     
     func appendBalanceAccountId(_ id: BalanceAccountId) throws {
         let context = accessor.viewContext
-        let orderMO = try fetchOrderMO(context: context)
+        let orderMO = try fetchOrCreateOrderMO(context: context)
         var idsMO = orderMO.orderedAccountIds ?? []
         idsMO.append(id as NSString)
         orderMO.orderedAccountIds = idsMO
