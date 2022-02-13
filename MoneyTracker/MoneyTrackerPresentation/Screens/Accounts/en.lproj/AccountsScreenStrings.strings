@@ -1,1 +1,3 @@
-"title" = "Accounts";
+"screenTitle" = "Accounts";
+"addAccount" = "Create account";
+"deleteAccount" = "Delete";

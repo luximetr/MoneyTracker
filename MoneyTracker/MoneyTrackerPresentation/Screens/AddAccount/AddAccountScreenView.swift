@@ -14,9 +14,9 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
     
     let scrollView = UIScrollView()
     let backgroundView = UIView()
-    let nameInputView = TextField()
+    let nameInputView: UITextField = TextField()
     let currencyInputView = UIButton()
-    let amountInputView = TextField()
+    let amountInputView: UITextField = TextField()
     let colorsTitleLabel = UILabel()
     private let colorsCollectionViewFlowLayout = UICollectionViewFlowLayout()
     let colorsCollectionView: UICollectionView
@@ -39,6 +39,7 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
         setupBackgroundView()
         backgroundView.addSubview(nameInputView)
         backgroundView.addSubview(currencyInputView)
+        setupCurrencyInputView()
         backgroundView.addSubview(amountInputView)
         scrollView.addSubview(colorsTitleLabel)
         setupColorsTitleLabel()
@@ -55,6 +56,10 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
     override func setupNavigationBarView() {
         super.setupNavigationBarView()
         navigationBarView.backgroundColor = Colors.white
+    }
+    
+    private func setupCurrencyInputView() {
+        currencyInputView.backgroundColor = Colors.black.withAlphaComponent(0.15)
     }
     
     private func setupBackgroundView() {
@@ -124,6 +129,7 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
         let y: CGFloat = nameInputView.frame.origin.y + nameInputView.frame.size.height + 20
         let frame = CGRect(x: x, y: y, width: width, height: height)
         currencyInputView.frame = frame
+        currencyInputView.layer.cornerRadius = 22
     }
     
     private func layoutAmountInputView() {
@@ -207,4 +213,32 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
         return size
     }
     
+}
+
+private final class TextField: AUITextField {
+    
+    // MARK: Setup
+    
+    override func setup() {
+        super.setup()
+        backgroundColor = Colors.black.withAlphaComponent(0.15)
+        layer.cornerRadius = 10
+        textColor = Colors.white
+    }
+    
+    // MARK: Layout
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        var editingRect = super.editingRect(forBounds: bounds)
+        editingRect.origin.x += 16
+        editingRect.size.width -= 32
+        return editingRect
+    }
+    
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        var textRect = super.editingRect(forBounds: bounds)
+        textRect.origin.x += 16
+        textRect.size.width -= 32
+        return textRect
+    }
 }

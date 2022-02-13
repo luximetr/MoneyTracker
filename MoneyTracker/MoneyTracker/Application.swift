@@ -201,6 +201,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         
     }
     
+    func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) {
+        
+    }
+    
     // MARK: - Currencies
     
     func presentationCurrencies(_ presentation: Presentation) -> [PresentationCurrency] {

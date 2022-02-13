@@ -45,6 +45,8 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
         return view as? AddAccountScreenView
     }
     
+    private let balanceTextFieldInputController = AUITextInputFilterValidatorFormatterTextFieldController()
+    
     private let colorsCollectionViewController = AUIEmptyCollectionViewController()
     private func backgroundColorCellController(_ backgroundColor: UIColor) -> ColorCollectionViewCellController? {
         let cellControllers = colorsCollectionViewController.sectionControllers.map({ $0.cellControllers }).reduce([], +)
@@ -82,6 +84,9 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
         addAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
         addAccountScreenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
         addAccountScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        balanceTextFieldInputController.textField = addAccountScreenView.amountInputView
+        balanceTextFieldInputController.keyboardType = .decimalPad
+        balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
@@ -160,5 +165,3 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
     }
     
 }
-
-

@@ -41,9 +41,11 @@ final class AccountsScreenView: BackTitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.white
     }
     
+    private let addAccountCollectionViewCellReuseIdentifier = "addAccountCollectionViewCellReuseIdentifier"
     private let accountCollectionViewCellReuseIdentifier = "accountCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
         collectionView.alwaysBounceVertical = true
+        collectionView.register(AddAccountCollectionViewCell.self, forCellWithReuseIdentifier: addAccountCollectionViewCellReuseIdentifier)
         collectionView.register(AccountCollectionViewCell.self, forCellWithReuseIdentifier: accountCollectionViewCellReuseIdentifier)
     }
     
@@ -65,11 +67,25 @@ final class AccountsScreenView: BackTitleNavigationBarScreenView {
         collectionView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     }
     
-    // MARK: Cells
+    // MARK: AddAccountCollectionViewCell
     
-    func accountCollectionViewCell(_ indexPath: IndexPath) -> AccountCollectionViewCell! {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: accountCollectionViewCellReuseIdentifier, for: indexPath) as? AccountCollectionViewCell
-        return cell
+    func addAccountCollectionViewCell(_ indexPath: IndexPath) -> AddAccountCollectionViewCell {
+        let addAccountCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: addAccountCollectionViewCellReuseIdentifier, for: indexPath) as! AddAccountCollectionViewCell
+        return addAccountCollectionViewCell
+    }
+
+    func addAccountCollectionViewCellSize() -> CGSize {
+        let width = bounds.width - 16 * 2
+        let height: CGFloat = 44
+        let size = CGSize(width: width, height: height)
+        return size
+    }
+    
+    // MARK: AccountCollectionViewCell
+    
+    func accountCollectionViewCell(_ indexPath: IndexPath) -> AccountCollectionViewCell {
+        let accountCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: accountCollectionViewCellReuseIdentifier, for: indexPath) as! AccountCollectionViewCell
+        return accountCollectionViewCell
     }
 
     func accountCollectionViewCellSize() -> CGSize {

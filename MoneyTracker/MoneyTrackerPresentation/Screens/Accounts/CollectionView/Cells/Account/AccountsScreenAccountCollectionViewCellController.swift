@@ -17,27 +17,19 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     
     // MARK: Initializer
         
-    init(account: Account) {
+    init(account: Account, localizer: ScreenLocalizer) {
         self.account = account
+        self.localizer = localizer
         super.init()
     }
     
-    // MARK: Events
+    // MARK: Setup
     
-    override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
-        let collectionViewCell = super.cellForItemAtIndexPath(indexPath) as! AccountsScreenView.AccountCollectionViewCell
-        self.collectionViewCell = collectionViewCell
-        collectionViewCell.nameLabel.text = account.name
-        collectionViewCell.balanceLabel.text = account.balance.description
-        collectionViewCell.accountView.backgroundColor = account.backgroundColor
-        setupCollectionViewCell()
-        return collectionViewCell
-    }
-    
-    override func didEndDisplayingCell() {
-        super.didEndDisplayingCell()
-        unsetupCollectionViewCell()
-        collectionViewCell = nil
+    override func setup() {
+        super.setup()
+        panGestureRecognizer.addTarget(self, action: #selector(panGestureRecognizerAction))
+        panGestureRecognizerDelegate.accountCollectionViewCellController = self
+        panGestureRecognizer.delegate = panGestureRecognizerDelegate
     }
     
     // MARK Collection View Cell
@@ -46,73 +38,87 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         return collectionViewCell as? AccountsScreenView.AccountCollectionViewCell
     }
     private let panGestureRecognizer = UIPanGestureRecognizer()
-    private let swipeGestureRecognizer = UISwipeGestureRecognizer()
+    private let panGestureRecognizerDelegate = UIGestureRecognizerDelegateProxy()
     
     override func setupCollectionViewCell() {
         super.setupCollectionViewCell()
-        accountCollectionViewCell?.deleteView.addTarget(self, action: #selector(deleteButtonTouchUpInsideEventAction), for: .touchUpInside)
-        //panGestureRecognizer.require(toFail: swipeGestureRecognizer)
+        accountCollectionViewCell?.deleteButton.addTarget(self, action: #selector(deleteButtonTouchUpInsideEventAction), for: .touchUpInside)
         accountCollectionViewCell?.accountView.addGestureRecognizer(panGestureRecognizer)
-        panGestureRecognizer.addTarget(self, action: #selector(panGestureRecognizerAction))
-        
-        //collectionViewCell?.accountView.addGestureRecognizer(swipeGestureRecognizer)
-        swipeGestureRecognizer.addTarget(self, action: #selector(swipeGestureRecognizerAction))
-        
-        accountCollectionViewCell?.deleteView.addTarget(self, action: #selector(deleteButtonTouchUpInsideEventAction), for: .touchUpInside)
+        setContent()
     }
     
     override func unsetupCollectionViewCell() {
-        accountCollectionViewCell?.deleteView.removeTarget(self, action: #selector(deleteButtonTouchUpInsideEventAction), for: .touchUpInside)
+        accountCollectionViewCell?.deleteButton.removeTarget(self, action: #selector(deleteButtonTouchUpInsideEventAction), for: .touchUpInside)
         accountCollectionViewCell?.accountView.removeGestureRecognizer(panGestureRecognizer)
-        accountCollectionViewCell?.accountView.removeGestureRecognizer(swipeGestureRecognizer)
         super.unsetupCollectionViewCell()
     }
+    
+    // MARK: Localizer
+    
+    private let localizer: ScreenLocalizer
+    
+    // MARK: Conten
+    
+    private func setContent() {
+        accountCollectionViewCell?.nameLabel.text = account.name
+        accountCollectionViewCell?.balanceLabel.text = "\(account.balance.description) \(account.currency.rawValue)"
+        accountCollectionViewCell?.accountView.backgroundColor = account.backgroundColor
+        accountCollectionViewCell?.deleteButton.setTitle(localizer.localizeText("deleteAccount"), for: .normal)
+    }
+    
+    // MARK: Events
     
     var didDeleteClosure: (() -> Void)?
     @objc private func deleteButtonTouchUpInsideEventAction() {
         didDeleteClosure?()
     }
     
-    private var panBeganPoint: CGPoint?
+    private var previousPanGestureRecognizerTranslation: CGPoint?
     @objc private func panGestureRecognizerAction() {
         guard let accountCollectionViewCell = accountCollectionViewCell else { return }
         let state = panGestureRecognizer.state
         switch state {
         case .began:
-            panBeganPoint = panGestureRecognizer.view?.center
+            previousPanGestureRecognizerTranslation = panGestureRecognizer.translation(in: collectionViewCell)
         case .possible:
             break
         case .changed:
-            let translation = panGestureRecognizer.translation(in: collectionViewCell)
-            accountCollectionViewCell.xOffset = translation.x
-            print(translation)
+            if let previousPanGestureRecognizerTranslation = previousPanGestureRecognizerTranslation {
+                let translation = panGestureRecognizer.translation(in: collectionViewCell)
+                let j = translation.x - previousPanGestureRecognizerTranslation.x
+                accountCollectionViewCell.moveAccountViewIfPossible(j)
+                self.previousPanGestureRecognizerTranslation = translation
+            }
         case .ended:
-            break
+            accountCollectionViewCell.finishMove()
         case .cancelled:
-            break
+            accountCollectionViewCell.finishMove()
         case .failed:
-            break
+            accountCollectionViewCell.finishMove()
         @unknown default:
-            break
+            accountCollectionViewCell.finishMove()
         }
     }
     
-    @objc private func swipeGestureRecognizerAction() {
-        guard let accountCollectionViewCell = accountCollectionViewCell else { return }
-        let direction = swipeGestureRecognizer.direction
-        switch direction {
-        case .left:
-             print("left")
-        case .right:
-            print("right")
-        case .down:
-            break
-        case .up:
-            break
-        default:
-            break
+    // MARK: UIGestureRecognizerDelegate
+    
+    fileprivate func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if panGestureRecognizer == gestureRecognizer, let accountView = accountCollectionViewCell?.accountView {
+            let velocity = panGestureRecognizer.velocity(in: accountView)
+            return abs(velocity.x) > abs(velocity.y)
         }
+        return true
     }
 
+}
+
+private class UIGestureRecognizerDelegateProxy: NSObject, UIGestureRecognizerDelegate {
+    
+    weak var accountCollectionViewCellController: AccountCollectionViewCellController?
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return accountCollectionViewCellController?.gestureRecognizerShouldBegin(gestureRecognizer) ?? false
+    }
+    
 }
 }

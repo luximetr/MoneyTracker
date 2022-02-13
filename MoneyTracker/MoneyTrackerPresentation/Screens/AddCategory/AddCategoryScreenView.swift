@@ -13,7 +13,7 @@ final class AddCategoryScreenView: TitleNavigationBarScreenView {
     // MARK: Subviews
     
     let scrollView = UIScrollView()
-    let nameTextField = TextField()
+    let nameTextField: UITextField = TextField()
     let addButton = TextFilledButton()
     
     // MARK: Setup
@@ -103,7 +103,7 @@ final class AddCategoryScreenView: TitleNavigationBarScreenView {
     
 }
 
-final class TextField: AUITextField {
+private final class TextField: AUITextField {
     
     // MARK: Setup
     
