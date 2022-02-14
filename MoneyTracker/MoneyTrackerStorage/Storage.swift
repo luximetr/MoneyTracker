@@ -210,6 +210,7 @@ public class Storage {
         let template = ExpenseTemplate(addingExpenseTemplate: addingExpenseTemplate)
         let repo = createExpenseTemplateRepo()
         try repo.insert(expenseTemplate: template)
+        try appendToExpenseTemplatesOrder(expenseTemplateId: template.id)
     }
     
     public func getAllExpenseTemplates() throws -> [ExpenseTemplate] {
@@ -228,11 +229,43 @@ public class Storage {
     }
     
     public func removeExpenseTemplate(expenseTemplateId id: String) throws {
-        let repo =  createExpenseTemplateRepo()
+        let repo = createExpenseTemplateRepo()
         try repo.removeTemplate(expenseTemplateId: id)
+        try removeFromExpenseTemplatesOrder(expenseTemplateId: id)
     }
     
     private func createExpenseTemplateRepo() -> ExpenseTemplateCoreDataRepo {
         return ExpenseTemplateCoreDataRepo(coreDataAccessor: coreDataAccessor)
+    }
+    
+    // MARK: - ExpenseTemplates order
+    
+    public func saveExpenseTemplatesOrder(orderedIds: [String]) throws {
+        let repo = createExpenseTemplatesOrderRepo()
+        try repo.updateOrder(orderedIds: orderedIds)
+    }
+    
+    public func getOrderedExpenseTemplates() throws -> [ExpenseTemplate] {
+        let repo = createExpenseTemplatesOrderRepo()
+        let orderedIds = try repo.fetchOrder()
+        let templates = try getAllExpenseTemplates()
+        let sortedTemplates = orderedIds.compactMap { id -> ExpenseTemplate? in
+            return templates.first(where: { $0.id == id })
+        }
+        return sortedTemplates
+    }
+    
+    private func appendToExpenseTemplatesOrder(expenseTemplateId id: ExpenseTemplateId) throws {
+        let repo = createExpenseTemplatesOrderRepo()
+        try repo.appendExpenseTemplateId(id)
+    }
+    
+    private func removeFromExpenseTemplatesOrder(expenseTemplateId id: ExpenseTemplateId) throws {
+        let repo = createExpenseTemplatesOrderRepo()
+        try repo.removeExpenseTemplateId(id)
+    }
+    
+    private func createExpenseTemplatesOrderRepo() -> ExpenseTemplatesOrderCoreDataRepo {
+        return ExpenseTemplatesOrderCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }
 }
