@@ -203,4 +203,36 @@ public class Storage {
     private func createExpensesRepo() -> ExpensesCoreDataRepo {
         return ExpensesCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }
+    
+    // MARK: - ExpenseTemplate
+    
+    public func addExpenseTemplate(addingExpenseTemplate: AddingExpenseTemplate) throws {
+        let template = ExpenseTemplate(addingExpenseTemplate: addingExpenseTemplate)
+        let repo = createExpenseTemplateRepo()
+        try repo.insert(expenseTemplate: template)
+    }
+    
+    public func getAllExpenseTemplates() throws -> [ExpenseTemplate] {
+        let repo = createExpenseTemplateRepo()
+        return try repo.fetchAllTemplates()
+    }
+    
+    public func getExpenseTemplate(expenseTemplateId id: String) throws -> ExpenseTemplate {
+        let repo = createExpenseTemplateRepo()
+        return try repo.fetchTemplate(expenseTemplateId: id)
+    }
+    
+    public func updateExpenseTemplate(expenseTemplateId id: String, editingExpenseTemplate: EditingExpenseTemplate) throws {
+        let repo = createExpenseTemplateRepo()
+        try repo.updateTemplate(expenseTemplateId: id, editingExpenseTemplate: editingExpenseTemplate)
+    }
+    
+    public func removeExpenseTemplate(expenseTemplateId id: String) throws {
+        let repo =  createExpenseTemplateRepo()
+        try repo.removeTemplate(expenseTemplateId: id)
+    }
+    
+    private func createExpenseTemplateRepo() -> ExpenseTemplateCoreDataRepo {
+        return ExpenseTemplateCoreDataRepo(coreDataAccessor: coreDataAccessor)
+    }
 }
