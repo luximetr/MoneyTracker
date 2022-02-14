@@ -329,19 +329,11 @@
 		2E91155127A9373E00359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2E91155227A9375300359F21 /* Category.swift */,
-				2EC6293327AC262000371252 /* AddingCategory.swift */,
-				DB74861E27B7E06D004DF67B /* EditingCategory.swift */,
-				DBD6ACD527AF719000389236 /* BalanceAccount.swift */,
-				DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */,
-				DB74861C27B7DA34004DF67B /* EditingBalanceAccount.swift */,
-				DBD6ACF027B4097100389236 /* Currency.swift */,
-				DBD6ACFD27B5F5D900389236 /* Expense.swift */,
-				DB74861827B7C086004DF67B /* AddingExpense.swift */,
-				DB74861A27B7D66C004DF67B /* EditingExpense.swift */,
-				DB74862027BA4609004DF67B /* ExpenseTemplate.swift */,
-				DB74862227BA46A7004DF67B /* AddingExpenseTemplate.swift */,
-				DB74862427BA4737004DF67B /* EditingExpenseTemplate.swift */,
+				DB74862627BA478C004DF67B /* Category */,
+				DB74862727BA4795004DF67B /* BalanceAccount */,
+				DB74862927BA47A7004DF67B /* Currency */,
+				DB74862827BA479E004DF67B /* Expense */,
+				DB74862A27BA47AB004DF67B /* ExpenseTemplate */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -692,6 +684,54 @@
 				B5FBC1001C9260CDC0F2D88C /* Pods-MoneyTrackerStorage.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DB74862627BA478C004DF67B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				2E91155227A9375300359F21 /* Category.swift */,
+				2EC6293327AC262000371252 /* AddingCategory.swift */,
+				DB74861E27B7E06D004DF67B /* EditingCategory.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		DB74862727BA4795004DF67B /* BalanceAccount */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACD527AF719000389236 /* BalanceAccount.swift */,
+				DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */,
+				DB74861C27B7DA34004DF67B /* EditingBalanceAccount.swift */,
+			);
+			path = BalanceAccount;
+			sourceTree = "<group>";
+		};
+		DB74862827BA479E004DF67B /* Expense */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACFD27B5F5D900389236 /* Expense.swift */,
+				DB74861827B7C086004DF67B /* AddingExpense.swift */,
+				DB74861A27B7D66C004DF67B /* EditingExpense.swift */,
+			);
+			path = Expense;
+			sourceTree = "<group>";
+		};
+		DB74862927BA47A7004DF67B /* Currency */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACF027B4097100389236 /* Currency.swift */,
+			);
+			path = Currency;
+			sourceTree = "<group>";
+		};
+		DB74862A27BA47AB004DF67B /* ExpenseTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				DB74862027BA4609004DF67B /* ExpenseTemplate.swift */,
+				DB74862227BA46A7004DF67B /* AddingExpenseTemplate.swift */,
+				DB74862427BA4737004DF67B /* EditingExpenseTemplate.swift */,
+			);
+			path = ExpenseTemplate;
 			sourceTree = "<group>";
 		};
 		DBB7CF7C27AC0DD4002C2EAE /* Repositories */ = {
