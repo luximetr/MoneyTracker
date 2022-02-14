@@ -12,7 +12,7 @@ public struct ExpenseTemplate {
     public let name: String
     public let balanceAccountId: String
     public let categoryId: String
-    public let amount: String
+    public let amount: Decimal
     public let comment: String?
     
     public init(
@@ -20,7 +20,7 @@ public struct ExpenseTemplate {
         name: String,
         balanceAccountId: String,
         categoryId: String,
-        amount: String,
+        amount: Decimal,
         comment: String?
     ) {
         self.id = id

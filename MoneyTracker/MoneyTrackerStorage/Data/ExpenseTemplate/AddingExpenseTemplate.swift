@@ -11,14 +11,14 @@ public struct AddingExpenseTemplate {
     public let name: String
     public let balanceAccountId: String
     public let categoryId: String
-    public let amount: String
+    public let amount: Decimal
     public let comment: String?
     
     public init(
         name: String,
         balanceAccountId: String,
         categoryId: String,
-        amount: String,
+        amount: Decimal,
         comment: String?
     ) {
         self.name = name
