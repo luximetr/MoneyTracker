@@ -31,6 +31,9 @@
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="ExpenseTemplatesOrder" representedClassName="ExpenseTemplatesOrderMO" syncable="YES" codeGenerationType="class">
+        <attribute name="expenseTemplatesOrderedIds" optional="YES" attributeType="Transformable" customClassName="[NSString]"/>
+    </entity>
     <elements>
         <element name="BalanceAccount" positionX="-140.185791015625" positionY="-275.8368835449219" width="128" height="74"/>
         <element name="BalanceAccountsOrder" positionX="-335.3576049804688" positionY="-213.2310943603516" width="128" height="44"/>
@@ -38,5 +41,6 @@
         <element name="Category" positionX="-142.9267578125" positionY="-111.4128112792969" width="128" height="59"/>
         <element name="Expense" positionX="119.6439819335938" positionY="-245.2716369628906" width="128" height="119"/>
         <element name="ExpenseTemplate" positionX="-135" positionY="-180" width="128" height="119"/>
+        <element name="ExpenseTemplatesOrder" positionX="-126" positionY="-171" width="128" height="44"/>
     </elements>
 </model>
