@@ -20,7 +20,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationAccounts(_ presentation: Presentation) -> [Account]
     func presentation(_ presentation: Presentation, deleteAccount category: Account)
     func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
-    func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount)
+    func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account])
 }
 
@@ -168,7 +168,7 @@ public final class Presentation: AUIWindowPresentation {
         viewController.didSelectAccountsClosure = { [weak self] in
             guard let self = self else { return }
             let viewController = self.createAccountsViewController()
-            self.accoutViewController = viewController
+            self.accoutsViewController = viewController
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         return viewController
@@ -190,7 +190,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Accounts Screen View Controller
     
-    private var accoutViewController: AccountsScreenViewController?
+    private var accoutsViewController: AccountsScreenViewController?
     
     private func createAccountsViewController() -> AccountsScreenViewController {
         let accounts = delegate.presentationAccounts(self)
@@ -246,8 +246,15 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.addAccountClosure = { [weak self] addingAccount in
             guard let self = self else { return }
-            self.delegate.presentation(self, addAccount: addingAccount)
-            self.menuNavigationController?.popViewController(animated: true)
+            do {
+                let addedAccount = try self.delegate.presentation(self, addAccount: addingAccount)
+                self.menuNavigationController?.popViewController(animated: true)
+                if let accountsViewController = self.accoutsViewController {
+                    accountsViewController.addAccount(addedAccount)
+                }
+            } catch {
+                
+            }
         }
         return viewController
     }

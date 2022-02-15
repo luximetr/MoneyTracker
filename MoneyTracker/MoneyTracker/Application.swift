@@ -181,11 +181,14 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentationAccounts(_ presentation: Presentation) -> [Account] {
-        let account1 = Account(id: "1", name: "name1", balance: Decimal(1), currency: .sgd, backgroundColor: .green)
-        let account2 = Account(id: "2", name: "name2", balance: Decimal(2), currency: .usd, backgroundColor: .blue)
-        let accounts = [account1, account2]
-        return accounts
+    func presentationAccounts(_ presentation: Presentation) -> [PresentationAccount] {
+        do {
+            let storageAccounts = storage.accounts()
+            let presentationAccounts = try storageAccounts.map({ try Account(storageAccount: $0).presentationAccount() })
+            return presentationAccounts
+        } catch {
+            fatalError()
+        }
     }
     
     func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor] {
@@ -193,15 +196,27 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return backgroundColors
     }
     
-    func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) {
-        print(addingAccount)
+    func presentation(_ presentation: Presentation, addAccount addingAccount: MoneyTrackerPresentation.AddingAccount) throws -> PresentationAccount {
+        do {
+            let storageAddingAccount = AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
+            let addedStorageAccount = try storage.addAccount(storageAddingAccount)
+            let addedPresentationAccount = try Account(storageAccount: addedStorageAccount).presentationAccount()
+            return addedPresentationAccount
+        } catch {
+            throw error
+        }
     }
     
-    func presentation(_ presentation: Presentation, deleteAccount category: Account) {
-        
+    func presentation(_ presentation: Presentation, deleteAccount account: PresentationAccount) {
+        do {
+            let storageAccount = try Account(presentationAccount: account).storageAccount
+            try storage.deleteAccount(storageAccount)
+        } catch {
+            fatalError()
+        }
     }
     
-    func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) {
+    func presentation(_ presentation: Presentation, orderAccounts accounts: [PresentationAccount]) {
         
     }
     

@@ -203,4 +203,20 @@ public class Storage {
     private func createExpensesRepo() -> ExpensesCoreDataRepo {
         return ExpensesCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }
+    
+    public func accounts() -> [Account] {
+        let g = AccountCoreDataRepository(accessor: coreDataAccessor)
+        return try! g.fetchAllAccounts()
+    }
+    
+    public func addAccount(_ account: AddingAccount) throws -> Account {
+        let g = AccountCoreDataRepository(accessor: coreDataAccessor)
+        let addedAccount = try g.createAccount(account)
+        return addedAccount
+    }
+    
+    public func deleteAccount(_ account: Account) throws {
+        let g = AccountCoreDataRepository(accessor: coreDataAccessor)
+        try g.removeAccount(account: account)
+    }
 }
