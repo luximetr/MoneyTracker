@@ -283,6 +283,5 @@ public class Storage {
     
     private func createExpenseTemplatesOrderRepo() -> ExpenseTemplatesOrderCoreDataRepo {
         return ExpenseTemplatesOrderCoreDataRepo(coreDataAccessor: coreDataAccessor)
->>>>>>> afcaa37bb078dfcd6dea76d126861d6a92a1ec22
     }
 }

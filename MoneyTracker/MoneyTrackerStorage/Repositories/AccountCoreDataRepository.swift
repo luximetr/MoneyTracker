@@ -27,14 +27,14 @@ class AccountCoreDataRepository {
         let categoryMO = AccountMO(context: context)
         categoryMO.id = UUID().uuidString
         categoryMO.name = account.name
-        categoryMO.balance = NSDecimalNumber(decimal: account.balance)
+        categoryMO.amount = NSDecimalNumber(decimal: account.balance)
         categoryMO.currencyCode = account.currency.rawValue
         categoryMO.backgroundColor = account.backgroundColor
         categoryMO.serialNumber = 1
         
         try context.save()
         
-        let account = Account(id: categoryMO.id ?? "", name: account.name, balance: account.balance, currency: account.currency, backgroundColor: account.backgroundColor)
+        let account = Account(id: categoryMO.id ?? "", name: account.name, amount: account.balance, currency: account.currency, backgroundColor: account.backgroundColor)
         return account
     }
 
@@ -53,10 +53,10 @@ class AccountCoreDataRepository {
         let accounts: [Account] = accountMOs.map { mo in
             let id = mo.id!
             let name = mo.name!
-            let balance = mo.balance!.decimalValue
+            let balance = mo.amount!.decimalValue
             let currency = try! Currency(mo.currencyCode!)
             let backgroundColor = mo.backgroundColor!
-            return Account(id: id, name: name, balance: balance, currency: currency, backgroundColor: backgroundColor)
+            return Account(id: id, name: name, amount: balance, currency: currency, backgroundColor: backgroundColor)
         }
         return accounts
     }

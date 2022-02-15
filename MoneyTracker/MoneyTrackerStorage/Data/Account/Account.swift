@@ -10,14 +10,14 @@ import Foundation
 public struct Account {
     public let id: String
     public let name: String
-    public let balance: Decimal
+    public let amount: Decimal
     public let currency: Currency
     public let backgroundColor: Data
     
-    public init(id: String, name: String, balance: Decimal, currency: Currency, backgroundColor: Data) {
+    public init(id: String, name: String, amount: Decimal, currency: Currency, backgroundColor: Data) {
         self.id = id
         self.name = name
-        self.balance = balance
+        self.amount = amount
         self.currency = currency
         self.backgroundColor = backgroundColor
     }

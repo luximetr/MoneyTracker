@@ -25,6 +25,7 @@ final class AddAccountCollectionViewCellController: AUIClosuresCollectionViewCel
     }
     
     override func setupCollectionViewCell() {
+        super.setupCollectionViewCell()
         setContent()
     }
     

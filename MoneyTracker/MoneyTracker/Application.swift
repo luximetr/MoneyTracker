@@ -196,7 +196,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return backgroundColors
     }
     
-    func presentation(_ presentation: Presentation, addAccount addingAccount: MoneyTrackerPresentation.AddingAccount) throws -> PresentationAccount {
+    func presentation(_ presentation: Presentation, addAccount addingAccount: PresentationAddingAccount) throws -> PresentationAccount {
         do {
             let storageAddingAccount = AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
             let addedStorageAccount = try storage.addAccount(storageAddingAccount)
@@ -207,12 +207,12 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, deleteAccount account: PresentationAccount) {
+    func presentation(_ presentation: Presentation, deleteAccount account: PresentationAccount) throws {
         do {
             let storageAccount = try Account(presentationAccount: account).storageAccount
             try storage.deleteAccount(storageAccount)
         } catch {
-            fatalError()
+            throw error
         }
     }
     

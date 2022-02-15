@@ -18,7 +18,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
     func presentationAccounts(_ presentation: Presentation) -> [Account]
-    func presentation(_ presentation: Presentation, deleteAccount category: Account)
+    func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
     func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
     func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account])
@@ -207,7 +207,11 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.deleteAccountClosure = { [weak self] account in
             guard let self = self else { return }
-            self.delegate.presentation(self, deleteAccount: account)
+            do {
+                try self.delegate.presentation(self, deleteAccount: account)
+            } catch {
+                
+            }
         }
         viewController.orderAccountsClosure = { [weak self] accounts in
             guard let self = self else { return }

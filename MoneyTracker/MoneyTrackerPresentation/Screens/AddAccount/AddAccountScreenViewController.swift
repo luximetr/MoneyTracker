@@ -109,8 +109,7 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
         guard let balanceString = addAccountScreenView.amountInputView.text else { return }
         guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
         guard let backgroundColor = selectedBackgroundColor else { return }
-        let balance = Balance(amount: amount, currency: selectedCurrency)
-        let addingAccount = AddingAccount(name: name, balance: balance, backgroundColor: backgroundColor)
+        let addingAccount = AddingAccount(name: name, amount: amount, currency: selectedCurrency, backgroundColor: backgroundColor)
         addAccountClosure?(addingAccount)
     }
     
