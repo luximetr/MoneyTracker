@@ -91,6 +91,9 @@
 		DB74863B27BA6716004DF67B /* AddTemplateScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863A27BA6716004DF67B /* AddTemplateScreenView.swift */; };
 		DB74863D27BAB1BF004DF67B /* AddingExpenseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863C27BAB1BF004DF67B /* AddingExpenseTemplate.swift */; };
 		DB74863F27BB551A004DF67B /* AddingExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863E27BB551A004DF67B /* AddingExpenseTemplateAdapter.swift */; };
+		DB74864127BB5806004DF67B /* TemplatesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864027BB5806004DF67B /* TemplatesScreenView.swift */; };
+		DB74864627BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864527BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift */; };
+		DB74864827BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864727BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
@@ -242,6 +245,9 @@
 		DB74863A27BA6716004DF67B /* AddTemplateScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTemplateScreenView.swift; sourceTree = "<group>"; };
 		DB74863C27BAB1BF004DF67B /* AddingExpenseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingExpenseTemplate.swift; sourceTree = "<group>"; };
 		DB74863E27BB551A004DF67B /* AddingExpenseTemplateAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingExpenseTemplateAdapter.swift; sourceTree = "<group>"; };
+		DB74864027BB5806004DF67B /* TemplatesScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenView.swift; sourceTree = "<group>"; };
+		DB74864527BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenAddTemplateTableViewCell.swift; sourceTree = "<group>"; };
+		DB74864727BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenAddTemplateTableViewCellController.swift; sourceTree = "<group>"; };
 		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
 		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -762,6 +768,8 @@
 			isa = PBXGroup;
 			children = (
 				DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */,
+				DB74864027BB5806004DF67B /* TemplatesScreenView.swift */,
+				DB74864227BB5DE3004DF67B /* TableViewCells */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -773,6 +781,31 @@
 				DB74863A27BA6716004DF67B /* AddTemplateScreenView.swift */,
 			);
 			path = AddTemplate;
+			sourceTree = "<group>";
+		};
+		DB74864227BB5DE3004DF67B /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				DB74864427BB5DF4004DF67B /* Template */,
+				DB74864327BB5DED004DF67B /* AddTemplate */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		DB74864327BB5DED004DF67B /* AddTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				DB74864527BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift */,
+				DB74864727BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift */,
+			);
+			path = AddTemplate;
+			sourceTree = "<group>";
+		};
+		DB74864427BB5DF4004DF67B /* Template */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Template;
 			sourceTree = "<group>";
 		};
 		DBB7CF7C27AC0DD4002C2EAE /* Repositories */ = {
@@ -1170,7 +1203,9 @@
 				2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */,
 				DBD6ACF327B4C24500389236 /* CurrencyNameProvider.swift in Sources */,
 				2E92FF5B27B6AB9A00A7306A /* Account.swift in Sources */,
+				DB74864627BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift in Sources */,
 				2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */,
+				DB74864827BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift in Sources */,
 				2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */,
 				DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */,
 				2EA18A7227B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift in Sources */,
@@ -1188,6 +1223,7 @@
 				2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */,
 				2EC1BDC227B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift in Sources */,
 				DBD6ACEA27B35D0300389236 /* SelectCurrencyTableViewCell.swift in Sources */,
+				DB74864127BB5806004DF67B /* TemplatesScreenView.swift in Sources */,
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
 				2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */,

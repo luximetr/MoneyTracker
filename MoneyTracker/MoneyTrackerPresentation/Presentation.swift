@@ -175,8 +175,8 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.didSelectTemplatesClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddTemplateScreenViewController()
-            self.menuNavigationController?.present(viewController, animated: true)
+            let viewController = self.createTemplatesScreenViewController()
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         return viewController
     }
@@ -255,6 +255,22 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             self.delegate.presentation(self, addAccount: addingAccount)
             self.menuNavigationController?.popViewController(animated: true)
+        }
+        return viewController
+    }
+    
+    // MARK: - Templates Screen View Controller
+    
+    private func createTemplatesScreenViewController() -> TemplatesScreenViewController {
+        let templates = delegate.presentationExpenseTemplates(self)
+        let viewController = TemplatesScreenViewController(templates: templates)
+        viewController.addTemplateClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddTemplateScreenViewController()
+            self.menuNavigationController?.present(viewController, animated: true)
+        }
+        viewController.backClosure = { [weak self] in
+            self?.menuNavigationController?.popViewController(animated: true)
         }
         return viewController
     }
