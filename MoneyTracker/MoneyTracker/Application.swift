@@ -238,4 +238,32 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         storage.saveSelectedCurrency(storageCurrency)
     }
     
+    // MARK: - ExpenseTemplates
+    
+    func presentationExpenseTemplates(_ presentation: Presentation) -> [PresentationExpenseTemplate] {
+        let adapter = ExpenseTemplateAdapter()
+        let storageTemplates = fetchAllStorageExpenseTemplates()
+        let presentationTemplates = storageTemplates.map { adapter.adaptToPresentation(storageExpenseTemplate: $0) }
+        return presentationTemplates
+    }
+    
+    private func fetchAllStorageExpenseTemplates() -> [StorageExpenseTemplate] {
+        do {
+            return try storage.getAllExpenseTemplatesOrdered()
+        } catch {
+            print(error)
+            return []
+        }
+    }
+    
+    func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: PresentationAddingExpenseTemplate) {
+        let adapter = AddingExpenseTemplateAdapter()
+        let storageAddingTemplate = adapter.adaptToStorage(presentationAddingExpenseTemplate: addingExpenseTemplate)
+        do {
+            try storage.addExpenseTemplate(addingExpenseTemplate: storageAddingTemplate)
+        } catch {
+            print(error)
+        }
+    }
+    
 }

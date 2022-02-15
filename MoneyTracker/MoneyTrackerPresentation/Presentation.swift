@@ -22,6 +22,8 @@ public protocol PresentationDelegate: AnyObject {
     func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
     func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount)
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account])
+    func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
+    func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -171,6 +173,11 @@ public final class Presentation: AUIWindowPresentation {
             self.accoutViewController = viewController
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
+        viewController.didSelectTemplatesClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddTemplateScreenViewController()
+            self.menuNavigationController?.present(viewController, animated: true)
+        }
         return viewController
     }
     
@@ -252,4 +259,20 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
+    // MARK: - Add Template Screen View Controller
+    
+    private func createAddTemplateScreenViewController() -> AddTemplateScreenViewController {
+        let categories = delegate.presentationCategories(self)
+        let balanceAccounts = delegate.presentationAccounts(self)
+        let viewController = AddTemplateScreenViewController(categories: categories, balanceAccounts: balanceAccounts)
+        viewController.addTemplateClosure = { [weak self] addingExpenseTemplate in
+            guard let self = self else { return }
+            self.delegate.presentation(self, addExpenseTemplate: addingExpenseTemplate)
+            self.menuNavigationController?.dismiss(animated: true)
+        }
+        viewController.backClosure = { [weak self] in
+            self?.menuNavigationController?.dismiss(animated: true)
+        }
+        return viewController
+    }
 }

@@ -15,6 +15,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     var didSelectCategoriesClosure: (() -> Void)?
     var didSelectCurrencyClosure: (() -> Void)?
     var didSelectAccountsClosure: (() -> Void)?
+    var didSelectTemplatesClosure: (() -> Void)?
     
     // MARK: View
     
@@ -116,6 +117,29 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(accountsCellController)
         
+        let templatesCellController = CategoriesScreenAddCategoryTableViewCellController()
+        templatesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
+            cell.nameLabel.text = self.localizer.localizeText("templates")
+            return cell
+        }
+        templatesCellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
+            return estimatedHeight
+        }
+        templatesCellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let height = self.settingsScreenView.titleItemTableViewCellHeight()
+            return height
+        }
+        templatesCellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.didSelectTemplates()
+        }
+        cellControllers.append(templatesCellController)
+        
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
     }
@@ -132,6 +156,10 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
             
     private func didSelectAccounts() {
         didSelectAccountsClosure?()
+    }
+    
+    private func didSelectTemplates() {
+        didSelectTemplatesClosure?()
     }
     
 }
