@@ -219,4 +219,70 @@ public class Storage {
         let g = AccountCoreDataRepository(accessor: coreDataAccessor)
         try g.removeAccount(account: account)
     }
+
+    // MARK: - ExpenseTemplate
+    
+    public func addExpenseTemplate(addingExpenseTemplate: AddingExpenseTemplate) throws {
+        let template = ExpenseTemplate(addingExpenseTemplate: addingExpenseTemplate)
+        let repo = createExpenseTemplateRepo()
+        try repo.insert(expenseTemplate: template)
+        try appendToExpenseTemplatesOrder(expenseTemplateId: template.id)
+    }
+    
+    public func getAllExpenseTemplates() throws -> [ExpenseTemplate] {
+        let repo = createExpenseTemplateRepo()
+        return try repo.fetchAllTemplates()
+    }
+    
+    public func getExpenseTemplate(expenseTemplateId id: String) throws -> ExpenseTemplate {
+        let repo = createExpenseTemplateRepo()
+        return try repo.fetchTemplate(expenseTemplateId: id)
+    }
+    
+    public func updateExpenseTemplate(expenseTemplateId id: String, editingExpenseTemplate: EditingExpenseTemplate) throws {
+        let repo = createExpenseTemplateRepo()
+        try repo.updateTemplate(expenseTemplateId: id, editingExpenseTemplate: editingExpenseTemplate)
+    }
+    
+    public func removeExpenseTemplate(expenseTemplateId id: String) throws {
+        let repo = createExpenseTemplateRepo()
+        try repo.removeTemplate(expenseTemplateId: id)
+        try removeFromExpenseTemplatesOrder(expenseTemplateId: id)
+    }
+    
+    private func createExpenseTemplateRepo() -> ExpenseTemplateCoreDataRepo {
+        return ExpenseTemplateCoreDataRepo(coreDataAccessor: coreDataAccessor)
+    }
+    
+    // MARK: - ExpenseTemplates order
+    
+    public func saveExpenseTemplatesOrder(orderedIds: [String]) throws {
+        let repo = createExpenseTemplatesOrderRepo()
+        try repo.updateOrder(orderedIds: orderedIds)
+    }
+    
+    public func getOrderedExpenseTemplates() throws -> [ExpenseTemplate] {
+        let repo = createExpenseTemplatesOrderRepo()
+        let orderedIds = try repo.fetchOrder()
+        let templates = try getAllExpenseTemplates()
+        let sortedTemplates = orderedIds.compactMap { id -> ExpenseTemplate? in
+            return templates.first(where: { $0.id == id })
+        }
+        return sortedTemplates
+    }
+    
+    private func appendToExpenseTemplatesOrder(expenseTemplateId id: ExpenseTemplateId) throws {
+        let repo = createExpenseTemplatesOrderRepo()
+        try repo.appendExpenseTemplateId(id)
+    }
+    
+    private func removeFromExpenseTemplatesOrder(expenseTemplateId id: ExpenseTemplateId) throws {
+        let repo = createExpenseTemplatesOrderRepo()
+        try repo.removeExpenseTemplateId(id)
+    }
+    
+    private func createExpenseTemplatesOrderRepo() -> ExpenseTemplatesOrderCoreDataRepo {
+        return ExpenseTemplatesOrderCoreDataRepo(coreDataAccessor: coreDataAccessor)
+>>>>>>> afcaa37bb078dfcd6dea76d126861d6a92a1ec22
+    }
 }

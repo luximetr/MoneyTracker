@@ -31,6 +31,17 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="ExpenseTemplate" representedClassName="ExpenseTemplateMO" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="balanceAccountId" optional="YES" attributeType="String"/>
+        <attribute name="categoryId" optional="YES" attributeType="String"/>
+        <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="ExpenseTemplatesOrder" representedClassName="ExpenseTemplatesOrderMO" syncable="YES" codeGenerationType="class">
+        <attribute name="expenseTemplatesOrderedIds" optional="YES" attributeType="Transformable" customClassName="[NSString]"/>
+    </entity>
     <elements>
         <element name="Account" positionX="57.134521484375" positionY="-29.94320678710938" width="128" height="133"/>
         <element name="BalanceAccount" positionX="-140.185791015625" positionY="-275.8368835449219" width="128" height="74"/>
@@ -38,5 +49,7 @@
         <element name="CategoriesOrder" positionX="-337.4794311523438" positionY="-107.8228149414062" width="128" height="44"/>
         <element name="Category" positionX="-142.9267578125" positionY="-111.4128112792969" width="128" height="73"/>
         <element name="Expense" positionX="119.6439819335938" positionY="-245.2716369628906" width="128" height="119"/>
+        <element name="ExpenseTemplate" positionX="-135" positionY="-180" width="128" height="119"/>
+        <element name="ExpenseTemplatesOrder" positionX="-126" positionY="-171" width="128" height="44"/>
     </elements>
 </model>

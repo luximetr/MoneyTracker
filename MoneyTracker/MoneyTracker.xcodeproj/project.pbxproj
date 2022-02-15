@@ -86,6 +86,11 @@
 		DB74861B27B7D66C004DF67B /* EditingExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74861A27B7D66C004DF67B /* EditingExpense.swift */; };
 		DB74861D27B7DA34004DF67B /* EditingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74861C27B7DA34004DF67B /* EditingBalanceAccount.swift */; };
 		DB74861F27B7E06D004DF67B /* EditingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74861E27B7E06D004DF67B /* EditingCategory.swift */; };
+		DB74862127BA4609004DF67B /* ExpenseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862027BA4609004DF67B /* ExpenseTemplate.swift */; };
+		DB74862327BA46A7004DF67B /* AddingExpenseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862227BA46A7004DF67B /* AddingExpenseTemplate.swift */; };
+		DB74862527BA4737004DF67B /* EditingExpenseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862427BA4737004DF67B /* EditingExpenseTemplate.swift */; };
+		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
+		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
@@ -232,6 +237,11 @@
 		DB74861A27B7D66C004DF67B /* EditingExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingExpense.swift; sourceTree = "<group>"; };
 		DB74861C27B7DA34004DF67B /* EditingBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingBalanceAccount.swift; sourceTree = "<group>"; };
 		DB74861E27B7E06D004DF67B /* EditingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingCategory.swift; sourceTree = "<group>"; };
+		DB74862027BA4609004DF67B /* ExpenseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplate.swift; sourceTree = "<group>"; };
+		DB74862227BA46A7004DF67B /* AddingExpenseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingExpenseTemplate.swift; sourceTree = "<group>"; };
+		DB74862427BA4737004DF67B /* EditingExpenseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingExpenseTemplate.swift; sourceTree = "<group>"; };
+		DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateCoreDataRepo.swift; sourceTree = "<group>"; };
+		DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplatesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
 		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -349,6 +359,11 @@
 				DB74861A27B7D66C004DF67B /* EditingExpense.swift */,
 				2EB6E0CC27BAED7500D0C4E1 /* Account.swift */,
 				2EB6E0D627BB08D800D0C4E1 /* AddingAccount.swift */,
+				DB74862627BA478C004DF67B /* Category */,
+				DB74862727BA4795004DF67B /* BalanceAccount */,
+				DB74862927BA47A7004DF67B /* Currency */,
+				DB74862827BA479E004DF67B /* Expense */,
+				DB74862A27BA47AB004DF67B /* ExpenseTemplate */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -697,6 +712,54 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DB74862627BA478C004DF67B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				2E91155227A9375300359F21 /* Category.swift */,
+				2EC6293327AC262000371252 /* AddingCategory.swift */,
+				DB74861E27B7E06D004DF67B /* EditingCategory.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		DB74862727BA4795004DF67B /* BalanceAccount */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACD527AF719000389236 /* BalanceAccount.swift */,
+				DBD6ACD927AF73BA00389236 /* AddingBalanceAccount.swift */,
+				DB74861C27B7DA34004DF67B /* EditingBalanceAccount.swift */,
+			);
+			path = BalanceAccount;
+			sourceTree = "<group>";
+		};
+		DB74862827BA479E004DF67B /* Expense */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACFD27B5F5D900389236 /* Expense.swift */,
+				DB74861827B7C086004DF67B /* AddingExpense.swift */,
+				DB74861A27B7D66C004DF67B /* EditingExpense.swift */,
+			);
+			path = Expense;
+			sourceTree = "<group>";
+		};
+		DB74862927BA47A7004DF67B /* Currency */ = {
+			isa = PBXGroup;
+			children = (
+				DBD6ACF027B4097100389236 /* Currency.swift */,
+			);
+			path = Currency;
+			sourceTree = "<group>";
+		};
+		DB74862A27BA47AB004DF67B /* ExpenseTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				DB74862027BA4609004DF67B /* ExpenseTemplate.swift */,
+				DB74862227BA46A7004DF67B /* AddingExpenseTemplate.swift */,
+				DB74862427BA4737004DF67B /* EditingExpenseTemplate.swift */,
+			);
+			path = ExpenseTemplate;
+			sourceTree = "<group>";
+		};
 		DBB7CF7C27AC0DD4002C2EAE /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -707,6 +770,8 @@
 				DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */,
 				DBD6AD0227B5FA2D00389236 /* ExpensesCoreDataRepo.swift */,
 				2EB6E0CF27BAEFFA00D0C4E1 /* AccountCoreDataRepository.swift */,
+				DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */,
+				DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1024,10 +1089,12 @@
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
 				DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */,
+				DB74862327BA46A7004DF67B /* AddingExpenseTemplate.swift in Sources */,
 				2EC6293427AC262000371252 /* AddingCategory.swift in Sources */,
 				DB74861F27B7E06D004DF67B /* EditingCategory.swift in Sources */,
 				DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */,
 				2E91155327A9375300359F21 /* Category.swift in Sources */,
+				DB74862527BA4737004DF67B /* EditingExpenseTemplate.swift in Sources */,
 				DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */,
 				DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */,
 				DBD6ACFE27B5F5D900389236 /* Expense.swift in Sources */,
@@ -1037,10 +1104,13 @@
 				DBD6ACD827AF724C00389236 /* BalanceAccountsCoreDataRepo.swift in Sources */,
 				DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */,
 				DBD6ACDA27AF73BA00389236 /* AddingBalanceAccount.swift in Sources */,
+				DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */,
+				DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */,
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
 				DBD6ACD627AF719000389236 /* BalanceAccount.swift in Sources */,
 				DB74861D27B7DA34004DF67B /* EditingBalanceAccount.swift in Sources */,
 				2EB6E0CD27BAED7500D0C4E1 /* Account.swift in Sources */,
+				DB74862127BA4609004DF67B /* ExpenseTemplate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
