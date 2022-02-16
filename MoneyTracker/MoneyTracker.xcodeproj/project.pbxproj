@@ -10,6 +10,9 @@
 		291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */; };
 		2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */; };
 		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
+		2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */; };
+		2E30391A27BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E30391927BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift */; };
+		2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E30391F27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings */; };
 		2E91153E27A92DE600359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91153D27A92DE600359F21 /* Category.swift */; };
 		2E91154727A9308B00359F21 /* MoneyTrackerStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */; };
@@ -73,10 +76,7 @@
 		2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A4527A7068E00743416 /* MenuScreenStrings.strings */; };
 		2EB10A4827A7075700743416 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4727A7075700743416 /* Bundle.swift */; };
 		2EB10A4A27A707A300743416 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4927A707A300743416 /* Language.swift */; };
-		2EB6E0CD27BAED7500D0C4E1 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0CC27BAED7500D0C4E1 /* Account.swift */; };
-		2EB6E0D027BAEFFA00D0C4E1 /* AccountCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0CF27BAEFFA00D0C4E1 /* AccountCoreDataRepository.swift */; };
 		2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D127BAF24200D0C4E1 /* Account.swift */; };
-		2EB6E0D727BB08D800D0C4E1 /* AddingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D627BB08D800D0C4E1 /* AddingAccount.swift */; };
 		2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */; };
 		2EC19ACE27A7F64000E1A6FA /* CategoriesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19ACD27A7F64000E1A6FA /* CategoriesScreenViewController.swift */; };
 		2EC19AD027A7F65200E1A6FA /* CategoriesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19ACF27A7F65200E1A6FA /* CategoriesScreenView.swift */; };
@@ -92,6 +92,8 @@
 		2EC6293227AC252300371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293127AC252300371252 /* AddingCategory.swift */; };
 		2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293527AC267D00371252 /* AddingCategory.swift */; };
 		2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */; };
+		2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */; };
+		2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */; };
 		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
 		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
 		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
@@ -157,6 +159,9 @@
 		03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFilledButton.swift; sourceTree = "<group>"; };
 		2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
+		2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorDetailsScreenViewController.swift; sourceTree = "<group>"; };
+		2E30391927BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorDetailsScreenView.swift; sourceTree = "<group>"; };
+		2E30391E27BDAF690084B96C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorDetailsScreenStrings.strings; sourceTree = "<group>"; };
 		2E91153D27A92DE600359F21 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerStorage.h; sourceTree = "<group>"; };
@@ -219,10 +224,7 @@
 		2EB10A4427A7068E00743416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MenuScreenStrings.strings; sourceTree = "<group>"; };
 		2EB10A4727A7075700743416 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		2EB10A4927A707A300743416 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
-		2EB6E0CC27BAED7500D0C4E1 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		2EB6E0CF27BAEFFA00D0C4E1 /* AccountCoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoreDataRepository.swift; sourceTree = "<group>"; };
 		2EB6E0D127BAF24200D0C4E1 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		2EB6E0D627BB08D800D0C4E1 /* AddingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingAccount.swift; sourceTree = "<group>"; };
 		2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingAccount.swift; sourceTree = "<group>"; };
 		2EC19ACD27A7F64000E1A6FA /* CategoriesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScreenViewController.swift; sourceTree = "<group>"; };
 		2EC19ACF27A7F65200E1A6FA /* CategoriesScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScreenView.swift; sourceTree = "<group>"; };
@@ -238,6 +240,8 @@
 		2EC6293127AC252300371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
 		2EC6293527AC267D00371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
 		2EC6293827AC282100371252 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
+		2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorAlertScreenViewController.swift; sourceTree = "<group>"; };
+		2ECF015127BDA36D008469E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
 		3BF952E2EAD51B56319BC964 /* Pods-MoneyTrackerPresentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.release.xcconfig"; sourceTree = "<group>"; };
 		419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -306,6 +310,25 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		2E30391527BDAE6C0084B96C /* UnexpectedError */ = {
+			isa = PBXGroup;
+			children = (
+				2E30391627BDAF110084B96C /* Details */,
+				2ECF014927BDA300008469E0 /* Alert */,
+			);
+			path = UnexpectedError;
+			sourceTree = "<group>";
+		};
+		2E30391627BDAF110084B96C /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */,
+				2E30391927BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift */,
+				2E30391F27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
 		2E8FF0FC27AEF1B900DA033F /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,7 +371,6 @@
 			isa = PBXGroup;
 			children = (
 				2E926EA227BC58B00081E3AE /* ExpenseTemplate */,
-				2E926EA127BC58190081E3AE /* Account */,
 				2E926E8927BC58130081E3AE /* BalanceAccount */,
 				2E926E9327BC58140081E3AE /* Category */,
 				2E926E8D27BC58130081E3AE /* Currency */,
@@ -464,15 +486,6 @@
 				2E926E9627BC58140081E3AE /* Category.swift */,
 			);
 			path = Category;
-			sourceTree = "<group>";
-		};
-		2E926EA127BC58190081E3AE /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				2EB6E0CC27BAED7500D0C4E1 /* Account.swift */,
-				2EB6E0D627BB08D800D0C4E1 /* AddingAccount.swift */,
-			);
-			path = Account;
 			sourceTree = "<group>";
 		};
 		2E926EA227BC58B00081E3AE /* ExpenseTemplate */ = {
@@ -660,6 +673,7 @@
 		2EB10A2B27A6E1F800743416 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				2E30391527BDAE6C0084B96C /* UnexpectedError */,
 				2EB10A2C27A6E7B500743416 /* Menu */,
 				2E9289F927AFF9A7002F3403 /* Settings */,
 				2EC19ACC27A7F61B00E1A6FA /* Categories */,
@@ -801,6 +815,15 @@
 			path = AddCategory;
 			sourceTree = "<group>";
 		};
+		2ECF014927BDA300008469E0 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */,
+				2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		51E3EA472CC8324F4826A8AD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -823,7 +846,6 @@
 				DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */,
 				DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */,
 				DBD6AD0227B5FA2D00389236 /* ExpensesCoreDataRepo.swift */,
-				2EB6E0CF27BAEFFA00D0C4E1 /* AccountCoreDataRepository.swift */,
 				DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */,
 				DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */,
 			);
@@ -1036,11 +1058,13 @@
 				2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */,
 				2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */,
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
+				2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */,
 				2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
 				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
+				2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1141,7 +1165,6 @@
 				DBD6AD0327B5FA2D00389236 /* ExpensesCoreDataRepo.swift in Sources */,
 				2E926E9F27BC58140081E3AE /* EditingCategory.swift in Sources */,
 				2E926E9827BC58140081E3AE /* BalanceAccount.swift in Sources */,
-				2EB6E0D727BB08D800D0C4E1 /* AddingAccount.swift in Sources */,
 				2E926EAA27BC59030081E3AE /* Balance.swift in Sources */,
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
@@ -1151,7 +1174,6 @@
 				DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */,
 				2E926E9B27BC58140081E3AE /* AddingExpense.swift in Sources */,
 				2E926EA727BC59030081E3AE /* ExpenseTemplate.swift in Sources */,
-				2EB6E0D027BAEFFA00D0C4E1 /* AccountCoreDataRepository.swift in Sources */,
 				2E926E9A27BC58140081E3AE /* Currency.swift in Sources */,
 				DBD6ACD827AF724C00389236 /* BalanceAccountsCoreDataRepo.swift in Sources */,
 				2E926E9927BC58140081E3AE /* EditingBalanceAccount.swift in Sources */,
@@ -1162,7 +1184,6 @@
 				DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */,
 				DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */,
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
-				2EB6E0CD27BAED7500D0C4E1 /* Account.swift in Sources */,
 				2E926E9727BC58140081E3AE /* AddingBalanceAccount.swift in Sources */,
 				2E926E9C27BC58140081E3AE /* EditingExpense.swift in Sources */,
 				2E926E9E27BC58140081E3AE /* AddingCategory.swift in Sources */,
@@ -1190,6 +1211,7 @@
 			files = (
 				2EB10A3D27A7034400743416 /* Fonts.swift in Sources */,
 				2EB10A4A27A707A300743416 /* Language.swift in Sources */,
+				2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesScreenView.swift in Sources */,
 				2E95BB3927B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift in Sources */,
 				2EC19ADA27A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift in Sources */,
@@ -1212,6 +1234,7 @@
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
 				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
 				2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */,
+				2E30391A27BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift in Sources */,
 				DBD6ACF327B4C24500389236 /* CurrencyNameProvider.swift in Sources */,
 				2E92FF5B27B6AB9A00A7306A /* Account.swift in Sources */,
 				2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */,
@@ -1232,6 +1255,7 @@
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
 				2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */,
 				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
+				2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */,
 				2EC6293227AC252300371252 /* AddingCategory.swift in Sources */,
 				2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */,
 				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
@@ -1259,6 +1283,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2E30391F27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E30391E27BDAF690084B96C /* en */,
+			);
+			name = UnexpectedErrorDetailsScreenStrings.strings;
+			sourceTree = "<group>";
+		};
 		2E928A0227AFF9F6002F3403 /* SettingsScreenStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1321,6 +1353,14 @@
 				2EC6293827AC282100371252 /* en */,
 			);
 			name = AddCategoryScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ECF015127BDA36D008469E0 /* en */,
+			);
+			name = UnexpectedErrorAlertScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		DBD6ACE627B35BF600389236 /* SelectCurrencyScreenStrings.strings */ = {

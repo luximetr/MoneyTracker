@@ -257,10 +257,47 @@ public final class Presentation: AUIWindowPresentation {
                     accountsViewController.addAccount(addedAccount)
                 }
             } catch {
-                
+                self.displayUnexpectedErrorAlertScreen(error)
             }
         }
         return viewController
+    }
+    
+    // MARK: Unexpected Error Alert Screen
+    
+    private var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
+    
+    private func displayUnexpectedErrorAlertScreen(_ error: Error) {
+        let viewController = UnexpectedErrorAlertScreenViewController(title: nil, message: nil, preferredStyle: .alert)
+        viewController.seeDetailsClosure = { [weak self] in
+            guard let self = self else { return }
+            viewController.dismiss(animated: true) { [weak self] in
+                guard let self = self else { return }
+                self.displayUnexpectedErrorDetailsScreen(error)
+            }
+            self.unexpectedErrorAlertScreenViewController = nil
+        }
+        viewController.okClosure = { [weak self] in
+            guard let self = self else { return }
+            viewController.dismiss(animated: true, completion: nil)
+            self.unexpectedErrorAlertScreenViewController = nil
+        }
+        unexpectedErrorAlertScreenViewController = viewController
+        self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+    }
+    
+    // MARK: Unexpected Error Details Screen
+    
+    private var unexpectedErrorDetailsScreenViewController: UnexpectedErrorDetailsScreenViewController?
+    
+    private func displayUnexpectedErrorDetailsScreen(_ error: Error) {
+        let viewController = UnexpectedErrorDetailsScreenViewController(error: error)
+        viewController.modalPresentationStyle = .fullScreen
+        viewController.backClosure = {
+            viewController.dismiss(animated: true, completion: nil)
+        }
+        unexpectedErrorDetailsScreenViewController = viewController
+        self.menuNavigationController?.present(viewController, animated: true, completion: nil)
     }
     
 }

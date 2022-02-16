@@ -10,7 +10,7 @@ import UIKit
 import MoneyTrackerPresentation
 typealias PresentationAddingAccount = MoneyTrackerPresentation.AddingAccount
 import MoneyTrackerStorage
-typealias StorageAddingAccount = MoneyTrackerStorage.AddingAccount
+typealias StorageAddingAccount = MoneyTrackerStorage.AddingBalanceAccount
 
 struct AddingAccount: Equatable, Hashable {
     
@@ -46,14 +46,14 @@ struct AddingAccount: Equatable, Hashable {
     
     init(storageAddingAccount: StorageAddingAccount) {
         self.name = storageAddingAccount.name
-        self.amount = storageAddingAccount.balance
+        self.amount = storageAddingAccount.amount
         self.currency = Currency(storageCurrency: storageAddingAccount.currency)
         self.backgroundColor = storageAddingAccount.backgroundColor
     }
     
     var storageAddingAccount: StorageAddingAccount {
         let currency = currency.storageCurrency
-        let storageAddingCategoty = StorageAddingAccount(name: name, balance: amount, currency: currency, backgroundColor: backgroundColor)
+        let storageAddingCategoty = StorageAddingAccount(name: name, amount: amount, currency: currency, backgroundColor: backgroundColor)
         return storageAddingCategoty
     }
 }

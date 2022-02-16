@@ -10,7 +10,7 @@ import MoneyTrackerPresentation
 typealias PresentationAccount = MoneyTrackerPresentation.Account
 import MoneyTrackerStorage
 import UIKit
-typealias StorageAccount = MoneyTrackerStorage.Account
+typealias StorageAccount = MoneyTrackerStorage.BalanceAccount
 
 struct Account: Equatable, Hashable {
     

@@ -34,7 +34,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         if let account = fetchBalanceAccount(name: name) {
             return account
         } else {
-            return BalanceAccount(id: "mockUOBId", name: name, currency: .sgd)
+            return BalanceAccount(id: "mockUOBId", name: name, amount: Decimal(0), currency: .sgd, backgroundColor: Data())
         }
     }
     
@@ -81,7 +81,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     private func saveAccount(_ account: BalanceAccount) {
-        try? storage.addBalanceAccount(AddingBalanceAccount(name: account.name, currency: account.currency))
+        try? storage.addBalanceAccount(AddingBalanceAccount(name: account.name, amount: account.amount, currency: account.currency, backgroundColor: account.backgroundColor))
     }
     
     private func saveExpense(amount: Decimal, comment: String? = nil, date: Date, account: BalanceAccount, category: StorageCategory) {
@@ -183,7 +183,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentationAccounts(_ presentation: Presentation) -> [PresentationAccount] {
         do {
-            let storageAccounts = storage.accounts()
+            let storageAccounts = try storage.getAllBalanceAccounts()
             let presentationAccounts = try storageAccounts.map({ try Account(storageAccount: $0).presentationAccount() })
             return presentationAccounts
         } catch {
@@ -199,7 +199,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, addAccount addingAccount: PresentationAddingAccount) throws -> PresentationAccount {
         do {
             let storageAddingAccount = AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
-            let addedStorageAccount = try storage.addAccount(storageAddingAccount)
+            let addedStorageAccount = try storage.addBalanceAccount(storageAddingAccount)
             let addedPresentationAccount = try Account(storageAccount: addedStorageAccount).presentationAccount()
             return addedPresentationAccount
         } catch {
@@ -210,7 +210,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, deleteAccount account: PresentationAccount) throws {
         do {
             let storageAccount = try Account(presentationAccount: account).storageAccount
-            try storage.deleteAccount(storageAccount)
+            try storage.removeBalanceAccount(id: storageAccount.id)
         } catch {
             throw error
         }
