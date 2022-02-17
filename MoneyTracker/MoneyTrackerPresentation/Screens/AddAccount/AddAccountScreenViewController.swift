@@ -107,9 +107,9 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
     @objc private func addButtonTouchUpInsideEventAction() {
         guard let name = addAccountScreenView.nameInputView.text else { return }
         guard let balanceString = addAccountScreenView.amountInputView.text else { return }
-        guard let balance = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
+        guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
         guard let backgroundColor = selectedBackgroundColor else { return }
-        let addingAccount = AddingAccount(name: name, balance: balance, currency: selectedCurrency, backgroundColor: backgroundColor)
+        let addingAccount = AddingAccount(name: name, amount: amount, currency: selectedCurrency, backgroundColor: backgroundColor)
         addAccountClosure?(addingAccount)
     }
     

@@ -95,13 +95,17 @@ class BalanceAccountsCoreDataRepo {
     func convertToAccount(_ accountMO: BalanceAccountMO) throws -> BalanceAccount {
         guard let id = accountMO.id else { throw ParseError.noId }
         guard let name = accountMO.name else { throw ParseError.noName }
+        guard let amount = accountMO.amount?.decimalValue else { throw ParseError.noAmount }
         guard let currencyISOCode = accountMO.currencyISOCode else { throw ParseError.noCurrencyISOCode }
         guard let currency = Currency(rawValue: currencyISOCode) else { throw ParseError.noCurrency }
+        guard let backgroundColor = accountMO.backgroundColor else { throw ParseError.noBackgroundColor }
         
         return BalanceAccount(
             id: id,
             name: name,
-            currency: currency
+            amount: amount,
+            currency: currency,
+            backgroundColor: backgroundColor
         )
     }
     
@@ -120,8 +124,10 @@ class BalanceAccountsCoreDataRepo {
     enum ParseError: Error {
         case noId
         case noName
+        case noAmount
         case noCurrencyISOCode
         case noCurrency
+        case noBackgroundColor
     }
     
     enum FetchError: Error {

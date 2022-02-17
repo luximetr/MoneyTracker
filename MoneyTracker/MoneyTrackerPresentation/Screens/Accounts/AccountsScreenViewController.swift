@@ -102,12 +102,11 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
         let sectionController = AUIEmptyCollectionViewSectionController()
         var cellControllers: [AUICollectionViewCellController] = []
         for account in accounts {
-            let cellController = createAccountCollectionViewCellController(account: account)
-            cellControllers.append(cellController)
+            let accountCellController = createAccountCollectionViewCellController(account: account)
+            cellControllers.append(accountCellController)
         }
-        
-        let cellController = createAddAccountCollectionViewCellController()
-        cellControllers.append(cellController)
+        let addAccountCellController = createAddAccountCollectionViewCellController()
+        cellControllers.append(addAccountCellController)
         
         sectionController.cellControllers = cellControllers
         collectionViewController.sectionControllers = [sectionController]

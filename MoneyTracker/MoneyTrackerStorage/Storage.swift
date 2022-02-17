@@ -88,11 +88,12 @@ public class Storage {
     
     // MARK: - Balance Account
     
-    public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws {
+    public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws -> BalanceAccount {
         let repo = createBalanceAccountsRepo()
         let account = BalanceAccount(addingBalanceAccount: addingBalanceAccount)
         try repo.insertAccount(account)
         try appendToBalanceAccountOrder(balanceAccountId: account.id)
+        return account
     }
     
     public func removeBalanceAccount(id: String) throws {
@@ -203,7 +204,7 @@ public class Storage {
     private func createExpensesRepo() -> ExpensesCoreDataRepo {
         return ExpensesCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }
-    
+
     // MARK: - ExpenseTemplate
     
     public func addExpenseTemplate(addingExpenseTemplate: AddingExpenseTemplate) throws {

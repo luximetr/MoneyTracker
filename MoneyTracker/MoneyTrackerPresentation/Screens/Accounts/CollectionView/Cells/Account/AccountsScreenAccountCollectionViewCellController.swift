@@ -61,7 +61,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     
     private func setContent() {
         accountCollectionViewCell?.nameLabel.text = account.name
-        accountCollectionViewCell?.balanceLabel.text = "\(account.balance.description) \(account.currency.rawValue)"
+        accountCollectionViewCell?.balanceLabel.text = "\(account.amount.description) \(account.currency.rawValue)"
         accountCollectionViewCell?.accountView.backgroundColor = account.backgroundColor
         accountCollectionViewCell?.deleteButton.setTitle(localizer.localizeText("deleteAccount"), for: .normal)
     }
@@ -112,7 +112,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
 
 }
 
-private class UIGestureRecognizerDelegateProxy: NSObject, UIGestureRecognizerDelegate {
+fileprivate class UIGestureRecognizerDelegateProxy: NSObject, UIGestureRecognizerDelegate {
     
     weak var accountCollectionViewCellController: AccountCollectionViewCellController?
     

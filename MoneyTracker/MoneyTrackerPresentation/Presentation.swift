@@ -18,9 +18,9 @@ public protocol PresentationDelegate: AnyObject {
     func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
     func presentationAccounts(_ presentation: Presentation) -> [Account]
-    func presentation(_ presentation: Presentation, deleteAccount category: Account)
+    func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
     func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
-    func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount)
+    func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account])
     func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
@@ -170,7 +170,7 @@ public final class Presentation: AUIWindowPresentation {
         viewController.didSelectAccountsClosure = { [weak self] in
             guard let self = self else { return }
             let viewController = self.createAccountsViewController()
-            self.accoutViewController = viewController
+            self.accoutsViewController = viewController
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         viewController.didSelectTemplatesClosure = { [weak self] in
@@ -197,7 +197,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Accounts Screen View Controller
     
-    private var accoutViewController: AccountsScreenViewController?
+    private var accoutsViewController: AccountsScreenViewController?
     
     private func createAccountsViewController() -> AccountsScreenViewController {
         let accounts = delegate.presentationAccounts(self)
@@ -214,7 +214,11 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.deleteAccountClosure = { [weak self] account in
             guard let self = self else { return }
-            self.delegate.presentation(self, deleteAccount: account)
+            do {
+                try self.delegate.presentation(self, deleteAccount: account)
+            } catch {
+                
+            }
         }
         viewController.orderAccountsClosure = { [weak self] accounts in
             guard let self = self else { return }
@@ -253,8 +257,15 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.addAccountClosure = { [weak self] addingAccount in
             guard let self = self else { return }
-            self.delegate.presentation(self, addAccount: addingAccount)
-            self.menuNavigationController?.popViewController(animated: true)
+            do {
+                let addedAccount = try self.delegate.presentation(self, addAccount: addingAccount)
+                self.menuNavigationController?.popViewController(animated: true)
+                if let accountsViewController = self.accoutsViewController {
+                    accountsViewController.addAccount(addedAccount)
+                }
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
         }
         return viewController
     }
@@ -291,4 +302,42 @@ public final class Presentation: AUIWindowPresentation {
         }
         return viewController
     }
+    
+    // MARK: Unexpected Error Alert Screen
+    
+    private var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
+    
+    private func displayUnexpectedErrorAlertScreen(_ error: Error) {
+        let viewController = UnexpectedErrorAlertScreenViewController(title: nil, message: nil, preferredStyle: .alert)
+        viewController.seeDetailsClosure = { [weak self] in
+            guard let self = self else { return }
+            viewController.dismiss(animated: true) { [weak self] in
+                guard let self = self else { return }
+                self.displayUnexpectedErrorDetailsScreen(error)
+            }
+            self.unexpectedErrorAlertScreenViewController = nil
+        }
+        viewController.okClosure = { [weak self] in
+            guard let self = self else { return }
+            viewController.dismiss(animated: true, completion: nil)
+            self.unexpectedErrorAlertScreenViewController = nil
+        }
+        unexpectedErrorAlertScreenViewController = viewController
+        self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+    }
+    
+    // MARK: Unexpected Error Details Screen
+    
+    private var unexpectedErrorDetailsScreenViewController: UnexpectedErrorDetailsScreenViewController?
+    
+    private func displayUnexpectedErrorDetailsScreen(_ error: Error) {
+        let viewController = UnexpectedErrorDetailsScreenViewController(error: error)
+        viewController.modalPresentationStyle = .fullScreen
+        viewController.backClosure = {
+            viewController.dismiss(animated: true, completion: nil)
+        }
+        unexpectedErrorDetailsScreenViewController = viewController
+        self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+    }
+    
 }
