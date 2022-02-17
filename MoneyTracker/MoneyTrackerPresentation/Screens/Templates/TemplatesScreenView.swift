@@ -16,6 +16,7 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
     let tableView = UITableView()
     
     private let addTemplateTableViewCellReuseIdentifier = "addTemplateTableViewCellReuseIdentifier"
+    private let templateTableViewCellReuseIdentifier = "templateTableViewCellReuseIdentifier"
     
     // MARK: - Setup
     
@@ -38,6 +39,7 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
     
     private func setupTableView() {
         tableView.register(TemplatesScreenAddTemplateTableViewCell.self, forCellReuseIdentifier: addTemplateTableViewCellReuseIdentifier)
+        tableView.register(TemplatesScreenTemplateTableViewCell.self, forCellReuseIdentifier: templateTableViewCellReuseIdentifier)
     }
     
     // MARK: - Layout
@@ -52,6 +54,21 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
             .horizontally()
             .below(of: navigationBarView)
             .bottom()
+    }
+    
+    // MARK: - Template cell
+    
+    func templateTableViewCell(_ indexPath: IndexPath) -> TemplatesScreenTemplateTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: templateTableViewCellReuseIdentifier, for: indexPath) as! TemplatesScreenTemplateTableViewCell
+        return cell
+    }
+    
+    func templateTableViewCellEstimatedHeight() -> CGFloat {
+        return 74
+    }
+    
+    func templateTableViewCellHeight() -> CGFloat {
+        return 74
     }
     
     // MARK: - Add template cell

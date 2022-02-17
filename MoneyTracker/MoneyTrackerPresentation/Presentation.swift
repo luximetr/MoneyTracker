@@ -281,13 +281,13 @@ public final class Presentation: AUIWindowPresentation {
         let categories = delegate.presentationCategories(self)
         let balanceAccounts = delegate.presentationAccounts(self)
         let viewController = AddTemplateScreenViewController(categories: categories, balanceAccounts: balanceAccounts)
+        viewController.backClosure = { [weak self] in
+            self?.menuNavigationController?.dismiss(animated: true)
+        }
         viewController.addTemplateClosure = { [weak self] addingExpenseTemplate in
             guard let self = self else { return }
             self.delegate.presentation(self, addExpenseTemplate: addingExpenseTemplate)
             self.menuNavigationController?.dismiss(animated: true)
-        }
-        viewController.backClosure = { [weak self] in
-            self?.menuNavigationController?.dismiss(animated: true)
         }
         return viewController
     }

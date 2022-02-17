@@ -241,10 +241,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     // MARK: - ExpenseTemplates
     
     func presentationExpenseTemplates(_ presentation: Presentation) -> [PresentationExpenseTemplate] {
-        let adapter = ExpenseTemplateAdapter()
-        let storageTemplates = fetchAllStorageExpenseTemplates()
-        let presentationTemplates = storageTemplates.map { adapter.adaptToPresentation(storageExpenseTemplate: $0) }
-        return presentationTemplates
+//        let adapter = ExpenseTemplateAdapter()
+//        let storageTemplates = fetchAllStorageExpenseTemplates()
+//        let presentationTemplates = storageTemplates.map { adapter.adaptToPresentation(storageExpenseTemplate: $0) }
+//        return presentationTemplates
+        return []
     }
     
     private func fetchAllStorageExpenseTemplates() -> [StorageExpenseTemplate] {

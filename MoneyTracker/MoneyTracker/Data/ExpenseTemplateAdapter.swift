@@ -14,25 +14,29 @@ typealias StorageExpenseTemplate = MoneyTrackerStorage.ExpenseTemplate
 
 class ExpenseTemplateAdapter {
     
-    func adaptToStorage(presentationExpenseTemplate: PresentationExpenseTemplate) -> StorageExpenseTemplate {
+    func adaptToStorage(presentationExpenseTemplate: PresentationExpenseTemplate, balanceAccount: BalanceAccount, category: StorageCategory) -> StorageExpenseTemplate {
         return StorageExpenseTemplate(
             id: presentationExpenseTemplate.id,
             name: presentationExpenseTemplate.name,
             amount: presentationExpenseTemplate.amount,
             comment: presentationExpenseTemplate.comment,
-            balanceAccountId: presentationExpenseTemplate.balanceAccountId,
-            categoryId: presentationExpenseTemplate.categoryId
+            balanceAccountId: presentationExpenseTemplate.balanceAccount.id,
+            categoryId: presentationExpenseTemplate.category.id
         )
     }
     
-    func adaptToPresentation(storageExpenseTemplate: StorageExpenseTemplate) -> PresentationExpenseTemplate {
+    func adaptToPresentation(
+        storageExpenseTemplate: StorageExpenseTemplate,
+        presentationBalanceAccount: BalanceAccount,
+        presentationCategory: PresentationCategory
+    ) -> PresentationExpenseTemplate {
         return PresentationExpenseTemplate(
             id: storageExpenseTemplate.id,
             name: storageExpenseTemplate.name,
             amount: storageExpenseTemplate.amount,
             comment: storageExpenseTemplate.comment,
-            balanceAccountId: storageExpenseTemplate.balanceAccountId,
-            categoryId: storageExpenseTemplate.categoryId
+            balanceAccount: Account(id: "", name: "", balance: 0, currency: .sgd, backgroundColor: .black),
+            category: presentationCategory
         )
     }
 }

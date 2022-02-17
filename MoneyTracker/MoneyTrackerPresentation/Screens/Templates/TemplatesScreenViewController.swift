@@ -30,6 +30,10 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Localizer
     
+    private lazy var localizer: ScreenLocalizer = {
+        return ScreenLocalizer(language: .english, stringsTableName: "TemplatesScreenStrings")
+    }()
+    
     // MARK: - View
     
     private var templatesScreenView: TemplatesScreenView {
@@ -42,6 +46,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        templatesScreenView.titleLabel.text = localizer.localizeText("title")
         templatesScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         setupTableViewController()
     }
@@ -55,11 +60,49 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
         
+        let templatesCellControllers = createTemplatesCellControllers(templates: templates)
+        cellControllers.append(contentsOf: templatesCellControllers)
         let addTemplateCellController = createAddTemplateCellController()
         cellControllers.append(addTemplateCellController)
         
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
+    }
+    
+    // MARK: - Template
+    
+    private func createTemplatesCellControllers(templates: [ExpenseTemplate]) -> [TemplatesScreenTemplateTableViewCellController] {
+        return templates.map { createTemplateCellController(template: $0) }
+    }
+    
+    private func createTemplateCellController(template: ExpenseTemplate) -> TemplatesScreenTemplateTableViewCellController {
+        let cellController = TemplatesScreenTemplateTableViewCellController()
+        cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.templatesScreenView.templateTableViewCell(indexPath)
+            cell.nameLabel.text = "long template name to test the UI" //template.name
+            cell.amountLabel.text = "100 000.00 SGD" //"\(template.amount) SGD"
+            cell.balanceAccountPrefixLabel.text = "from"
+            cell.balanceAccountLabel.text = "long long long account balance name"//template.balanceAccountId
+            cell.categoryPrefixLabel.text = "to"
+            cell.categoryLabel.text = "long long pretty long category name" //template.categoryId
+            cell.commentLabel.text = "potentially very long comment that might be here" //template.comment
+            return cell
+        }
+        cellController.estimatedHeightClosure = { [weak self] in
+            return self?.templatesScreenView.templateTableViewCellEstimatedHeight() ?? 0
+        }
+        cellController.heightClosure = { [weak self] in
+            return self?.templatesScreenView.templateTableViewCellHeight() ?? 0
+        }
+        cellController.didSelectClosure = { [weak self] in
+            self?.didSelectTemplate(template)
+        }
+        return cellController
+    }
+    
+    private func didSelectTemplate(_ template: ExpenseTemplate) {
+        
     }
     
     // MARK: - Add template
@@ -69,7 +112,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.templatesScreenView.addTemplateTableViewCell(indexPath)
-            cell._textLabel.text = "Add template"
+            cell._textLabel.text = self.localizer.localizeText("addTemplate")
             return cell
         }
         cellController.estimatedHeightClosure = { [weak self] in

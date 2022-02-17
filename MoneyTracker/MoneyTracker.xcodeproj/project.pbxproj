@@ -94,6 +94,9 @@
 		DB74864127BB5806004DF67B /* TemplatesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864027BB5806004DF67B /* TemplatesScreenView.swift */; };
 		DB74864627BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864527BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift */; };
 		DB74864827BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864727BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift */; };
+		DB74864B27BBABB2004DF67B /* TemplatesScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB74864D27BBABB2004DF67B /* TemplatesScreenStrings.strings */; };
+		DB74864F27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864E27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift */; };
+		DB74865127BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
@@ -248,6 +251,9 @@
 		DB74864027BB5806004DF67B /* TemplatesScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenView.swift; sourceTree = "<group>"; };
 		DB74864527BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenAddTemplateTableViewCell.swift; sourceTree = "<group>"; };
 		DB74864727BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenAddTemplateTableViewCellController.swift; sourceTree = "<group>"; };
+		DB74864C27BBABB2004DF67B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplatesScreenStrings.strings; sourceTree = "<group>"; };
+		DB74864E27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenTemplateTableViewCell.swift; sourceTree = "<group>"; };
+		DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenTemplateTableViewCellController.swift; sourceTree = "<group>"; };
 		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
 		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -769,6 +775,7 @@
 			children = (
 				DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */,
 				DB74864027BB5806004DF67B /* TemplatesScreenView.swift */,
+				DB74864D27BBABB2004DF67B /* TemplatesScreenStrings.strings */,
 				DB74864227BB5DE3004DF67B /* TableViewCells */,
 			);
 			path = Templates;
@@ -804,6 +811,8 @@
 		DB74864427BB5DF4004DF67B /* Template */ = {
 			isa = PBXGroup;
 			children = (
+				DB74864E27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift */,
+				DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */,
 			);
 			path = Template;
 			sourceTree = "<group>";
@@ -1026,6 +1035,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
+				DB74864B27BBABB2004DF67B /* TemplatesScreenStrings.strings in Resources */,
 				2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */,
 				2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */,
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
@@ -1211,6 +1221,7 @@
 				2EA18A7227B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift in Sources */,
 				DB74863B27BA6716004DF67B /* AddTemplateScreenView.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
+				DB74864F27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
 				2E9289FB27AFF9CA002F3403 /* SettingsScreenViewController.swift in Sources */,
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
@@ -1225,6 +1236,7 @@
 				DBD6ACEA27B35D0300389236 /* SelectCurrencyTableViewCell.swift in Sources */,
 				DB74864127BB5806004DF67B /* TemplatesScreenView.swift in Sources */,
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
+				DB74865127BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
 				2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */,
 				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
@@ -1317,6 +1329,14 @@
 				2EC6293827AC282100371252 /* en */,
 			);
 			name = AddCategoryScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		DB74864D27BBABB2004DF67B /* TemplatesScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB74864C27BBABB2004DF67B /* en */,
+			);
+			name = TemplatesScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		DBD6ACE627B35BF600389236 /* SelectCurrencyScreenStrings.strings */ = {
