@@ -246,7 +246,7 @@ public class Storage {
         try repo.updateOrder(orderedIds: orderedIds)
     }
     
-    public func getOrderedExpenseTemplates() throws -> [ExpenseTemplate] {
+    public func getAllExpenseTemplatesOrdered() throws -> [ExpenseTemplate] {
         let repo = createExpenseTemplatesOrderRepo()
         let orderedIds = try repo.fetchOrder()
         let templates = try getAllExpenseTemplates()
