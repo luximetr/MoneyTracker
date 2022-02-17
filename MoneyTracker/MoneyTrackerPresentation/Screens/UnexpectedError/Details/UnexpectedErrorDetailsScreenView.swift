@@ -12,6 +12,7 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
+    let shareButton = PictureButton()
     let textView = UITextView()
     
     // MARK: Setup
@@ -19,6 +20,8 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         backgroundColor = Colors.white
+        navigationBarView.addSubview(shareButton)
+        setupShareButton()
         insertSubview(textView, belowSubview: navigationBarView)
         setupTextView()
     }
@@ -33,6 +36,10 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.white
     }
     
+    private func setupShareButton() {
+        shareButton.setImage(UIImage(systemName: "share"), for: .normal)
+    }
+    
     private func setupTextView() {
         textView.isEditable = false
     }
@@ -41,7 +48,27 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutShareButton()
         layoutTextView()
+    }
+    
+    func layoutShareButton() {
+        let width: CGFloat = 18
+        let height: CGFloat = 24
+        let x = navigationBarView.bounds.width - (12 + width)
+        let y: CGFloat = 8
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        shareButton.frame = frame
+    }
+    
+    override func layoutTitleLabel() {
+        let x = backButton.frame.origin.x + backButton.frame.size.width + 8
+        let y: CGFloat = 0
+        let width: CGFloat = navigationBarView.frame.width - 2 * x
+        let height: CGFloat = navigationBarView.frame.height
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        titleLabel.frame = frame
+        titleLabel.textAlignment = .center
     }
     
     private func layoutTextView() {

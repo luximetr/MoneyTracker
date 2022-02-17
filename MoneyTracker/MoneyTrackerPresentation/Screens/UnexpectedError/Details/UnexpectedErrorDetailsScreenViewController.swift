@@ -24,6 +24,7 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
     // MARK: Delegation
     
     var backClosure: (() -> Void)?
+    var shareClosire: ((Data) -> Void)?
     
     // MARK: View
     
@@ -47,20 +48,25 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         unexpectedErrorDetailsScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        unexpectedErrorDetailsScreenView.shareButton.addTarget(self, action: #selector(shareButtonTouchUpInsideEventAction), for: .touchUpInside)
         unexpectedErrorDetailsScreenView.titleLabel.text = localizer.localizeText("title")
         unexpectedErrorDetailsScreenView.textView.text = String(reflecting: error)
+    }
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
+    
+    @objc private func shareButtonTouchUpInsideEventAction() {
+        let errorString = String(reflecting: error)
+        guard let errorStringData = errorString.data(using: .utf8) else { return }
+        shareClosire?(errorStringData)
     }
     
     // MARK: Content
     
     private func setContent() {
         
-    }
-    
-    // MARK: Events
-    
-    @objc private func backButtonTouchUpInsideEventAction() {
-        backClosure?()
     }
     
 }

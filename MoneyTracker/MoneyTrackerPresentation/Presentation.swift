@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import MessageUI
 
 public protocol PresentationDelegate: AnyObject {
     func presentationCategories(_ presentation: Presentation) -> [Category]
@@ -295,6 +296,15 @@ public final class Presentation: AUIWindowPresentation {
         viewController.modalPresentationStyle = .fullScreen
         viewController.backClosure = {
             viewController.dismiss(animated: true, completion: nil)
+        }
+        viewController.shareClosire = { [weak self] data in
+            guard let self = self else { return }
+            //let activityViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+            //viewController.present(activityViewController, animated: true, completion: nil)
+            guard MFMailComposeViewController.canSendMail() else { return }
+            let mfMailComposeViewController = MFMailComposeViewController()
+            mfMailComposeViewController.addAttachmentData(data, mimeType: "text/plain;charset=UTF-8", fileName: "errorDebugDescription.txt")
+            viewController.present(mfMailComposeViewController, animated: true, completion: nil)
         }
         unexpectedErrorDetailsScreenViewController = viewController
         self.menuNavigationController?.present(viewController, animated: true, completion: nil)
