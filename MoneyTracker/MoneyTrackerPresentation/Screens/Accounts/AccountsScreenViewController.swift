@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class AccountsScreenViewController: AUIStatusBarScreenViewController {
+final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
     
     // MARK: Data
     
@@ -99,6 +99,10 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
     
     private func setCollectionViewControllerContent() {
         collectionViewController.collectionView = accountsScreenView.collectionView
+        accountsScreenView.collectionView.dragInteractionEnabled = true
+        accountsScreenView.collectionView.dropDelegate = self
+        accountsScreenView.collectionView.dragDelegate = self
+        accountsScreenView.collectionView.reorderingCadence = .fast
         let sectionController = AUIEmptyCollectionViewSectionController()
         var cellControllers: [AUICollectionViewCellController] = []
         for account in accounts {
@@ -152,6 +156,48 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController {
             self.didSelectAddAccount()
         }
         return cellController
+    }
+    
+    // MARK: UICollectionViewDropDelegate, UICollectionViewDragDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        if indexPath.item == accounts.count {
+            return []
+        }
+        let string = "\(indexPath)"
+        let provider = NSItemProvider(object: string as NSItemProviderWriting)
+        provider.suggestedName = string
+        let dragItem = UIDragItem(itemProvider: provider)
+        return [dragItem]
+    }
+
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        if destinationIndexPath == nil {
+            return UICollectionViewDropProposal(operation: .forbidden, intent: .insertAtDestinationIndexPath)
+        }
+        if destinationIndexPath?.item == accounts.count {
+            return UICollectionViewDropProposal(operation: .forbidden, intent: .insertAtDestinationIndexPath)
+        } else {
+            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        let sourceIndexPath = coordinator.items.first!.sourceIndexPath!
+        let destinationIndexPath = coordinator.destinationIndexPath!
+        collectionView.performBatchUpdates {
+            let mo = self.collectionViewController.sectionControllers.first!.cellControllers.remove(at: sourceIndexPath.item)
+            self.collectionViewController.sectionControllers.first!.cellControllers.insert(mo, at: destinationIndexPath.item)
+            let ac = self.accounts.remove(at: sourceIndexPath.item)
+            self.accounts.insert(ac, at: destinationIndexPath.item)
+            collectionView.deleteItems(at: [sourceIndexPath])
+            collectionView.insertItems(at: [destinationIndexPath])
+        } completion: { [weak self] finished in
+            guard let self = self else { return }
+            self.orderAccountsClosure?(self.accounts)
+        }
+        coordinator.drop(coordinator.items.first!.dragItem, toItemAt: coordinator.destinationIndexPath!)
     }
     
 }

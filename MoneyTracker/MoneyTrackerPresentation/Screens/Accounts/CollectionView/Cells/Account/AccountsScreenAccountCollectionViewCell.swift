@@ -48,6 +48,7 @@ final class AccountCollectionViewCell: AUICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layer.cornerRadius = 10
         layoutDeleteButton()
         layoutAccountView()
     }

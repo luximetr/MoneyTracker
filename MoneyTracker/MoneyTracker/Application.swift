@@ -215,9 +215,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             throw error
         }
     }
-    
-    func presentation(_ presentation: Presentation, orderAccounts accounts: [PresentationAccount]) {
-        
+
+    func presentation(_ presentation: Presentation, orderAccounts accounts: [PresentationAccount]) throws {
+        do {
+            let storageAccounts = try accounts.map({ try Account(presentationAccount: $0).storageAccount })
+            let orderedIds = storageAccounts.map({ $0.id })
+            try storage.saveBalanceAccountOrder(orderedIds: orderedIds)
+        } catch {
+            throw error
+        }
     }
     
     // MARK: - Currencies

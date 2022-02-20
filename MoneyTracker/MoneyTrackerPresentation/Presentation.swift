@@ -22,7 +22,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
     func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
     func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
-    func presentation(_ presentation: Presentation, orderAccounts accounts: [Account])
+    func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
     func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
 }
@@ -223,7 +223,12 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.orderAccountsClosure = { [weak self] accounts in
             guard let self = self else { return }
-            self.delegate.presentation(self, orderAccounts: accounts)
+            do {
+                try self.delegate.presentation(self, orderAccounts: accounts)
+                print("kkkkkkkkkk0000000000")
+            } catch {
+                self.displayUnexpectedErrorDetailsScreen(error)
+            }
         }
         return viewController
     }
@@ -339,8 +344,8 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.shareClosire = { [weak self] data in
             guard let self = self else { return }
-            //let activityViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
-            //viewController.present(activityViewController, animated: true, completion: nil)
+            let activityViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+            viewController.present(activityViewController, animated: true, completion: nil)
             guard MFMailComposeViewController.canSendMail() else { return }
             let mfMailComposeViewController = MFMailComposeViewController()
             mfMailComposeViewController.addAttachmentData(data, mimeType: "text/plain;charset=UTF-8", fileName: "errorDebugDescription.txt")
