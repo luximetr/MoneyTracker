@@ -31,14 +31,14 @@ final class AccountCollectionViewCell: AUICollectionViewCell {
     
     private func setupDeleteButton() {
         deleteButton.backgroundColor = Colors.dangerousActionBackground
-        deleteButton.layer.shadowColor = Colors.black.withAlphaComponent(0.25).cgColor
-        deleteButton.layer.shadowOpacity = 1
-        deleteButton.layer.shadowRadius = 6
-        deleteButton.layer.shadowOffset = CGSize(width: 0, height: 4)
+//        deleteButton.layer.shadowColor = Colors.black.withAlphaComponent(0.85).cgColor
+//        deleteButton.layer.shadowOpacity = 1
+//        deleteButton.layer.shadowRadius = 6
+//        deleteButton.layer.shadowOffset = CGSize(width: 0, height: 4)
     }
     
     private func setupContainerView() {
-        _accountView.layer.shadowColor = Colors.black.withAlphaComponent(0.25).cgColor
+        _accountView.layer.shadowColor = Colors.black.withAlphaComponent(0.35).cgColor
         _accountView.layer.shadowOpacity = 1
         _accountView.layer.shadowRadius = 6
         _accountView.layer.shadowOffset = CGSize(width: 0, height: 4)

@@ -183,7 +183,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentationAccounts(_ presentation: Presentation) -> [PresentationAccount] {
         do {
-            let storageAccounts = try storage.getAllBalanceAccounts()
+            let storageAccounts = try storage.getOrderedBalanceAccounts()
             let presentationAccounts = try storageAccounts.map({ try Account(storageAccount: $0).presentationAccount() })
             return presentationAccounts
         } catch {

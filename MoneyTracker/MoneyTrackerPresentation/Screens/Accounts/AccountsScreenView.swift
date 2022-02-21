@@ -64,7 +64,7 @@ final class AccountsScreenView: BackTitleNavigationBarScreenView {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         collectionView.frame = frame
         collectionViewFlowLayout.minimumLineSpacing = 13
-        collectionView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+        collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     }
     
     // MARK: AddAccountCollectionViewCell

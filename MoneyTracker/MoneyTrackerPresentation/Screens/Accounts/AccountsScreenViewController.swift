@@ -41,17 +41,8 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     // MARK: Subcomponents
     
     private let collectionViewController = AUIEmptyCollectionViewController()
-    
-    // MARK: Setup
-    
-    override func setup() {
-        super.setup()
-        setupCollectionViewController()
-    }
-    
-    private func setupCollectionViewController() {
-        collectionViewController.collectionView = accountsScreenView.collectionView
-    }
+    private let accountsSectionController = AUIEmptyCollectionViewSectionController()
+    private let addAccountSectionController = AUIEmptyCollectionViewSectionController()
     
     // MARK: Localizer
     
@@ -65,7 +56,15 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         accountsScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        setupCollectionViewController()
         setContent()
+    }
+    
+    private func setupCollectionViewController() {
+        collectionViewController.collectionView = accountsScreenView.collectionView
+        accountsScreenView.collectionView.dragInteractionEnabled = true
+        accountsScreenView.collectionView.dropDelegate = self
+        accountsScreenView.collectionView.dragDelegate = self
     }
     
     @objc private func backButtonTouchUpInsideEventAction() {
@@ -87,7 +86,8 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     
     func addAccount(_ account: Account) {
         accounts.append(account)
-        setCollectionViewControllerContent()
+        let cellController = createAccountCollectionViewCellController(account: account)
+        collectionViewController.appendCellController(cellController, toSectionController: accountsSectionController, completion: nil)
     }
     
     // MARK: Content
@@ -98,22 +98,21 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     }
     
     private func setCollectionViewControllerContent() {
-        collectionViewController.collectionView = accountsScreenView.collectionView
-        accountsScreenView.collectionView.dragInteractionEnabled = true
-        accountsScreenView.collectionView.dropDelegate = self
-        accountsScreenView.collectionView.dragDelegate = self
-        accountsScreenView.collectionView.reorderingCadence = .fast
-        let sectionController = AUIEmptyCollectionViewSectionController()
-        var cellControllers: [AUICollectionViewCellController] = []
+        var accountCellControllers: [AUICollectionViewCellController] = []
         for account in accounts {
             let accountCellController = createAccountCollectionViewCellController(account: account)
-            cellControllers.append(accountCellController)
+            accountCellControllers.append(accountCellController)
         }
-        let addAccountCellController = createAddAccountCollectionViewCellController()
-        cellControllers.append(addAccountCellController)
+        accountsSectionController.cellControllers = accountCellControllers
         
-        sectionController.cellControllers = cellControllers
-        collectionViewController.sectionControllers = [sectionController]
+        var addAccountCellControllers: [AUICollectionViewCellController] = []
+        let addAccountCellController = createAddAccountCollectionViewCellController()
+        addAccountCellControllers.append(addAccountCellController)
+        addAccountSectionController.cellControllers = addAccountCellControllers
+        
+        let sectionControllers = [accountsSectionController, addAccountSectionController]
+        collectionViewController.sectionControllers = sectionControllers
+        collectionViewController.reload()
     }
     
     private func createAccountCollectionViewCellController(account: Account) -> AccountCollectionViewCellController {
@@ -182,10 +181,12 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let sourceIndexPath = coordinator.items.first!.sourceIndexPath!
         let destinationIndexPath = coordinator.destinationIndexPath!
+//        let sourceCellController = collectionViewController.cellControllerForIndexPath(sourceIndexPath)
+//        let destinationCellController = collectionViewController.cellControllerForIndexPath(destinationIndexPath)
+        
         collectionView.performBatchUpdates {
             let mo = self.collectionViewController.sectionControllers.first!.cellControllers.remove(at: sourceIndexPath.item)
             self.collectionViewController.sectionControllers.first!.cellControllers.insert(mo, at: destinationIndexPath.item)
