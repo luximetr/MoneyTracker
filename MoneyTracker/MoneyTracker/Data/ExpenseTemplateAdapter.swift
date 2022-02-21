@@ -35,7 +35,7 @@ class ExpenseTemplateAdapter {
             name: storageExpenseTemplate.name,
             amount: storageExpenseTemplate.amount,
             comment: storageExpenseTemplate.comment,
-            balanceAccount: Account(id: "", name: "", balance: 0, currency: .sgd, backgroundColor: .black),
+            balanceAccount: PresentationAccount(id: "", name: "", amount: 0, currency: .sgd, backgroundColor: .black),
             category: presentationCategory
         )
     }
