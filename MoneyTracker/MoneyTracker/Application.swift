@@ -226,6 +226,17 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentation(_ presentation: Presentation, editAccount editingAccount: PresentationAccount) throws -> PresentationAccount {
+        do {
+            let storageAccount = try Account(presentationAccount: editingAccount).storageAccount
+            let editingBalanceAccount = EditingBalanceAccount(name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, backgroundColor: storageAccount.backgroundColor)
+            try storage.updateBalanceAccount(id: editingAccount.id, editingBalanceAccount: editingBalanceAccount)
+            return editingAccount
+        } catch {
+            throw error
+        }
+    }
+    
     // MARK: - Currencies
     
     func presentationCurrencies(_ presentation: Presentation) -> [PresentationCurrency] {

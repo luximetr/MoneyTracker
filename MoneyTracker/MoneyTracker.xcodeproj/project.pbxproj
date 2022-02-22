@@ -91,6 +91,9 @@
 		2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */; };
 		2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293527AC267D00371252 /* AddingCategory.swift */; };
 		2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */; };
+		2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */; };
+		2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */; };
+		2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECAB30427C593F50028CB0D /* EditAccountScreenStrings.strings */; };
 		2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */; };
 		2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */; };
 		2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDB3EEE27C43FB5003A9FDD /* ExpenseTemplateAdapter.swift */; };
@@ -252,6 +255,9 @@
 		2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryScreenView.swift; sourceTree = "<group>"; };
 		2EC6293527AC267D00371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
 		2EC6293827AC282100371252 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
+		2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenViewController.swift; sourceTree = "<group>"; };
+		2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenView.swift; sourceTree = "<group>"; };
+		2ECAB30327C593F50028CB0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditAccountScreenStrings.strings; sourceTree = "<group>"; };
 		2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorAlertScreenViewController.swift; sourceTree = "<group>"; };
 		2ECF015127BDA36D008469E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
 		2EDB3EEE27C43FB5003A9FDD /* ExpenseTemplateAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateAdapter.swift; sourceTree = "<group>"; };
@@ -710,6 +716,7 @@
 				DBD6ACDD27B2A76600389236 /* SelectCurrency */,
 				2E95BB2B27B31A990097CA46 /* Accounts */,
 				2EA7066927B5BA0100FF08B2 /* AddAccount */,
+				2ECAB2FB27C593620028CB0D /* EditAccount */,
 				DB74863027BA5B08004DF67B /* Templates */,
 				DB74863727BA6024004DF67B /* AddTemplate */,
 			);
@@ -844,6 +851,16 @@
 				2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */,
 			);
 			path = AddCategory;
+			sourceTree = "<group>";
+		};
+		2ECAB2FB27C593620028CB0D /* EditAccount */ = {
+			isa = PBXGroup;
+			children = (
+				2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */,
+				2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */,
+				2ECAB30427C593F50028CB0D /* EditAccountScreenStrings.strings */,
+			);
+			path = EditAccount;
 			sourceTree = "<group>";
 		};
 		2ECF014927BDA300008469E0 /* Alert */ = {
@@ -1141,6 +1158,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */,
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
 				DB74864B27BBABB2004DF67B /* TemplatesScreenStrings.strings in Resources */,
 				2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */,
@@ -1345,6 +1363,7 @@
 				DB74863427BA5B81004DF67B /* ExpenseTemplate.swift in Sources */,
 				2EB10A3027A6E7B500743416 /* MenuScreenView.swift in Sources */,
 				2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */,
+				2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */,
 				2EC1BDC427B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift in Sources */,
 				DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */,
 				2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */,
@@ -1358,6 +1377,7 @@
 				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
 				2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */,
 				2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */,
+				2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */,
 				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1453,6 +1473,14 @@
 				2EC6293827AC282100371252 /* en */,
 			);
 			name = AddCategoryScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2ECAB30427C593F50028CB0D /* EditAccountScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ECAB30327C593F50028CB0D /* en */,
+			);
+			name = EditAccountScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */ = {

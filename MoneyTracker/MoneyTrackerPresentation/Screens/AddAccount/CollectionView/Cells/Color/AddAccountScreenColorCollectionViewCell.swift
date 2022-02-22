@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension AddAccountScreenView {
+//extension AddAccountScreenView {
 final class ColorCollectionViewCell: AUICollectionViewCell {
     
     // MARK: Subviews
@@ -68,4 +68,4 @@ final class ColorCollectionViewCell: AUICollectionViewCell {
     }
         
 }
-}
+//}

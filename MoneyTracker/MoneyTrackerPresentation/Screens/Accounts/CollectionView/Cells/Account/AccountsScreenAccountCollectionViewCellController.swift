@@ -13,7 +13,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         
     // MARK: Data
         
-    let account: Account
+    var account: Account
     
     // MARK: Initializer
         
@@ -64,6 +64,8 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         accountCollectionViewCell?.balanceLabel.text = "\(account.amount.description) \(account.currency.rawValue)"
         accountCollectionViewCell?.accountView.backgroundColor = account.backgroundColor
         accountCollectionViewCell?.deleteButton.setTitle(localizer.localizeText("deleteAccount"), for: .normal)
+        accountCollectionViewCell?.accountView.setNeedsLayout()
+        accountCollectionViewCell?.accountView.layoutIfNeeded()
     }
     
     // MARK: Events
@@ -98,6 +100,11 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         @unknown default:
             accountCollectionViewCell.finishMove()
         }
+    }
+    
+    func editAccount(_ editedAccount: Account) {
+        account = editedAccount
+        setContent()
     }
     
     // MARK: UIGestureRecognizerDelegate

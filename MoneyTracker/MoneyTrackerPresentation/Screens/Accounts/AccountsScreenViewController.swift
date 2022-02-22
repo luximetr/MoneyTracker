@@ -24,7 +24,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
-    var updateAccountClosure: ((Account) -> Void)?
+    var editAccountClosure: ((Account) -> Void)?
     var deleteAccountClosure: ((Account) -> Void)?
     var orderAccountsClosure: (([Account]) -> Void)?
     
@@ -72,7 +72,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     }
     
     private func didSelectAccount(_ account: Account) {
-        updateAccountClosure?(account)
+        editAccountClosure?(account)
     }
     
     private func didDeleteAccount(_ account: Account, cellController: AUICollectionViewCellController) {
@@ -88,6 +88,13 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
         accounts.append(account)
         let cellController = createAccountCollectionViewCellController(account: account)
         collectionViewController.appendCellController(cellController, toSectionController: accountsSectionController, completion: nil)
+    }
+    
+    func editAccount(_ editedAccount: Account) {
+        guard let index = accounts.firstIndex(where: { $0.id == editedAccount.id }) else { return }
+        accounts[index] = editedAccount
+        guard let cellController = accountsSectionController.cellControllers.first(where: { ($0 as? AccountCollectionViewCellController)?.account.id == editedAccount.id }) as? AccountCollectionViewCellController else { return }
+        cellController.editAccount(editedAccount)
     }
     
     // MARK: Content
@@ -129,7 +136,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
         }
         cellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectAccount(account)
+            self.didSelectAccount(cellController.account)
         }
         cellController.didDeleteClosure = { [weak self] in
             guard let self = self else { return }
@@ -160,7 +167,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     // MARK: UICollectionViewDropDelegate, UICollectionViewDragDelegate
     
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        if indexPath.item == accounts.count {
+        if indexPath.section == 1 {
             return []
         }
         let string = "\(indexPath)"
@@ -172,10 +179,10 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
 
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         if destinationIndexPath == nil {
-            return UICollectionViewDropProposal(operation: .forbidden, intent: .insertAtDestinationIndexPath)
+            return UICollectionViewDropProposal(operation: .cancel, intent: .insertAtDestinationIndexPath)
         }
-        if destinationIndexPath?.item == accounts.count {
-            return UICollectionViewDropProposal(operation: .forbidden, intent: .insertAtDestinationIndexPath)
+        if destinationIndexPath?.section == 1 {
+            return UICollectionViewDropProposal(operation: .cancel, intent: .insertAtDestinationIndexPath)
         } else {
             return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
         }
@@ -192,8 +199,7 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
             self.collectionViewController.sectionControllers.first!.cellControllers.insert(mo, at: destinationIndexPath.item)
             let ac = self.accounts.remove(at: sourceIndexPath.item)
             self.accounts.insert(ac, at: destinationIndexPath.item)
-            collectionView.deleteItems(at: [sourceIndexPath])
-            collectionView.insertItems(at: [destinationIndexPath])
+            collectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
         } completion: { [weak self] finished in
             guard let self = self else { return }
             self.orderAccountsClosure?(self.accounts)

@@ -54,6 +54,12 @@ class BalanceAccountsCoreDataRepo {
         if let currency = editingBalanceAccount.currency {
             propertiesToUpdate[#keyPath(BalanceAccountMO.currencyISOCode)] = currency.rawValue
         }
+        if let amount = editingBalanceAccount.amount {
+            propertiesToUpdate[#keyPath(BalanceAccountMO.amount)] = amount
+        }
+        if let backgroundColor = editingBalanceAccount.backgroundColor {
+            propertiesToUpdate[#keyPath(BalanceAccountMO.backgroundColor)] = backgroundColor
+        }
         return propertiesToUpdate
     }
     

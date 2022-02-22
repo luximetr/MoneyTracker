@@ -22,6 +22,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
     func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
     func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
+    func presentation(_ presentation: Presentation, editAccount editingAccount: Account) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
     func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
@@ -218,14 +219,19 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 try self.delegate.presentation(self, deleteAccount: account)
             } catch {
-                
+                self.displayUnexpectedErrorDetailsScreen(error)
             }
+        }
+        viewController.editAccountClosure = { [weak self] editingAccount in
+            guard let self = self else { return }
+            let viewController = self.createEditAccountViewController(editingAccount: editingAccount)
+            self.editAccoutScreenViewController = viewController
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         viewController.orderAccountsClosure = { [weak self] accounts in
             guard let self = self else { return }
             do {
                 try self.delegate.presentation(self, orderAccounts: accounts)
-                print("kkkkkkkkkk0000000000")
             } catch {
                 self.displayUnexpectedErrorDetailsScreen(error)
             }
@@ -268,6 +274,48 @@ public final class Presentation: AUIWindowPresentation {
                 self.menuNavigationController?.popViewController(animated: true)
                 if let accountsViewController = self.accoutsViewController {
                     accountsViewController.addAccount(addedAccount)
+                }
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
+        }
+        return viewController
+    }
+    
+    // MARK: Edit Accounts Screen View Controller
+    
+    private var editAccoutScreenViewController: EditAccountScreenViewController?
+    
+    private func createEditAccountViewController(editingAccount: Account) -> EditAccountScreenViewController {
+        let backgroundColors = delegate.presentationAccountBackgroundColors(self)
+        let viewController = EditAccountScreenViewController(editingAccount: editingAccount, backgroundColors: backgroundColors)
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.popViewController(animated: true)
+        }
+        viewController.selectCurrencyClosure = { [weak self] in
+            guard let self = self else { return }
+            let currencies = self.delegate.presentationCurrencies(self)
+            let selectedCurrency = viewController.selectedCurrency
+            let selectCurrencyViewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
+            selectCurrencyViewController.backClosure = { [weak self] in
+                guard let self = self else { return }
+                self.menuNavigationController?.popViewController(animated: true)
+            }
+            selectCurrencyViewController.didSelectCurrencyClosure = { [weak self] currency in
+                guard let self = self else { return }
+                viewController.setSelectedCurrency(currency, animated: true)
+                self.menuNavigationController?.popViewController(animated: true)
+            }
+            self.menuNavigationController?.pushViewController(selectCurrencyViewController, animated: true)
+        }
+        viewController.editAccountClosure = { [weak self] editingAccount in
+            guard let self = self else { return }
+            do {
+                let editedAccount = try self.delegate.presentation(self, editAccount: editingAccount)
+                self.menuNavigationController?.popViewController(animated: true)
+                if let accountsViewController = self.accoutsViewController {
+                    accountsViewController.editAccount(editedAccount)
                 }
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)

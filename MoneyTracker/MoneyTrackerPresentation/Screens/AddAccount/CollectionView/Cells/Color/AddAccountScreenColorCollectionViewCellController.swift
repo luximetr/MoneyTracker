@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension AddAccountScreenViewController {
+//extension AddAccountScreenViewController {
 final class ColorCollectionViewCellController: AUIClosuresCollectionViewCellController {
         
     // MARK: Data
@@ -24,14 +24,14 @@ final class ColorCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     // MARK:
     
-    private var colorCollectionViewCell: AddAccountScreenView.ColorCollectionViewCell? {
-        return collectionViewCell as? AddAccountScreenView.ColorCollectionViewCell
+    private var colorCollectionViewCell: ColorCollectionViewCell? {
+        return collectionViewCell as? ColorCollectionViewCell
     }
     
     // MARK: Events
 
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
-        let collectionViewCell = super.cellForItemAtIndexPath(indexPath) as! AddAccountScreenView.ColorCollectionViewCell
+        let collectionViewCell = super.cellForItemAtIndexPath(indexPath) as! ColorCollectionViewCell
         collectionViewCell.colorView.backgroundColor = backgroundColor
         collectionViewCell.setIsSelected(isSelected, animated: false)
         self.collectionViewCell = collectionViewCell
@@ -52,4 +52,4 @@ final class ColorCollectionViewCellController: AUIClosuresCollectionViewCellCont
     }
     
 }
-}
+//}
