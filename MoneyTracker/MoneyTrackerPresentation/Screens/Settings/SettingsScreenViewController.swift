@@ -16,6 +16,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     var didSelectCurrencyClosure: (() -> Void)?
     var didSelectAccountsClosure: (() -> Void)?
     var didSelectTemplatesClosure: (() -> Void)?
+    var didSelectImportCSVClosure: (() -> Void)?
     
     // MARK: View
     
@@ -140,6 +141,29 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(templatesCellController)
         
+        let importCSVCellController = CategoriesScreenAddCategoryTableViewCellController()
+        importCSVCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
+            cell.nameLabel.text = self.localizer.localizeText("importCSV")
+            return cell
+        }
+        importCSVCellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
+            return estimatedHeight
+        }
+        importCSVCellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let height = self.settingsScreenView.titleItemTableViewCellHeight()
+            return height
+        }
+        importCSVCellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.didSelectImportCSV()
+        }
+        cellControllers.append(importCSVCellController)
+        
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
     }
@@ -160,6 +184,10 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     
     private func didSelectTemplates() {
         didSelectTemplatesClosure?()
+    }
+    
+    private func didSelectImportCSV() {
+        didSelectImportCSVClosure?()
     }
     
 }

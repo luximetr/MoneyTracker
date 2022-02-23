@@ -180,6 +180,11 @@ public final class Presentation: AUIWindowPresentation {
             let viewController = self.createTemplatesScreenViewController()
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
+        viewController.didSelectImportCSVClosure = { [weak self] in
+            let controller = UIDocumentPickerViewController()
+            self?.menuNavigationController?.present(controller, animated: true)
+            print("import csv file")
+        }
         return viewController
     }
     
