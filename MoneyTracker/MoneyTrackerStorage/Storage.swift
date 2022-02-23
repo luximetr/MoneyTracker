@@ -129,13 +129,21 @@ public class Storage {
     }
     
     public func getOrderedBalanceAccounts() throws -> [BalanceAccount] {
-        let repo = createBalanceAccountsOrderRepo()
-        let orderedIds = try repo.fetchOrder()
+        let orderedIds = getBalanceAccountsOrderedIds()
         let accounts = try getAllBalanceAccounts()
         let sortedAccounts = orderedIds.compactMap { id -> BalanceAccount? in
             accounts.first(where: { $0.id == id })
         }
         return sortedAccounts
+    }
+    
+    private func getBalanceAccountsOrderedIds() -> [BalanceAccountId] {
+        let repo = createBalanceAccountsOrderRepo()
+        do {
+            return try repo.fetchOrder()
+        } catch {
+            return []
+        }
     }
     
     private func appendToBalanceAccountOrder(balanceAccountId: BalanceAccountId) throws {

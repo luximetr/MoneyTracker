@@ -187,7 +187,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationAccounts = try storageAccounts.map({ try Account(storageAccount: $0).presentationAccount() })
             return presentationAccounts
         } catch {
-            fatalError()
+            print(error)
+            return []
         }
     }
     
