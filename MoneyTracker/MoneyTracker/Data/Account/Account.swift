@@ -37,7 +37,7 @@ struct Account: Equatable, Hashable {
         self.name = presentationAccount.name
         self.amount = presentationAccount.amount
         self.currency = Currency(presentationCurrency: presentationAccount.currency)
-        self.backgroundColor = try NSKeyedArchiver.archivedData(withRootObject: presentationAccount.backgroundColor, requiringSecureCoding: false)
+        self.backgroundColor = try NSKeyedArchiver.archivedData(withRootObject: presentationAccount.backgroundColor, requiringSecureCoding: true)
     }
     
     func presentationAccount() throws -> PresentationAccount {

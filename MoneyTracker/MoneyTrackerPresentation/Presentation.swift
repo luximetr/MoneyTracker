@@ -18,7 +18,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationCurrencies(_ presentation: Presentation) -> [Currency]
     func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
-    func presentationAccounts(_ presentation: Presentation) -> [Account]
+    func presentationAccounts(_ presentation: Presentation) throws -> [Account]
     func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
     func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
     func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
@@ -171,9 +171,14 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.didSelectAccountsClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAccountsViewController()
-            self.accoutsViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            do {
+                let viewController = try self.createAccountsViewController()
+                self.accoutsViewController = viewController
+                self.menuNavigationController?.pushViewController(viewController, animated: true)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
+            
         }
         viewController.didSelectTemplatesClosure = { [weak self] in
             guard let self = self else { return }
@@ -201,8 +206,8 @@ public final class Presentation: AUIWindowPresentation {
     
     private var accoutsViewController: AccountsScreenViewController?
     
-    private func createAccountsViewController() -> AccountsScreenViewController {
-        let accounts = delegate.presentationAccounts(self)
+    private func createAccountsViewController() throws -> AccountsScreenViewController {
+        let accounts = try delegate.presentationAccounts(self)
         let viewController = AccountsScreenViewController(accounts: accounts)
         viewController.backClosure = { [weak self] in
             guard let self = self else { return }
@@ -344,7 +349,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private func createAddTemplateScreenViewController() -> AddTemplateScreenViewController {
         let categories = delegate.presentationCategories(self)
-        let balanceAccounts = delegate.presentationAccounts(self)
+        let balanceAccounts = try! delegate.presentationAccounts(self)
         let viewController = AddTemplateScreenViewController(categories: categories, balanceAccounts: balanceAccounts)
         viewController.backClosure = { [weak self] in
             self?.menuNavigationController?.dismiss(animated: true)

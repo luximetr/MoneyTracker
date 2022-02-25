@@ -52,7 +52,7 @@ class BalanceAccountsOrderCoreDataRepo {
     func fetchOrder() throws -> [BalanceAccountId] {
         let context = accessor.viewContext
         
-        let orderMO = try fetchOrderMO(context: context)
+        let orderMO = try fetchOrCreateOrderMO(context: context)
         guard let idsMO = orderMO.orderedAccountIds else {
             throw FetchError.notFound
         }
@@ -64,7 +64,9 @@ class BalanceAccountsOrderCoreDataRepo {
         do {
             return try fetchOrderMO(context: context)
         } catch FetchError.notFound {
-            return BalanceAccountsOrderMO(context: context)
+            let jj = BalanceAccountsOrderMO(context: context)
+            jj.orderedAccountIds = []
+            return jj
         } catch {
             throw error
         }

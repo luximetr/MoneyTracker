@@ -38,6 +38,20 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
         return view as? AccountsScreenView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        accountsScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        setupCollectionViewController()
+        setContent()
+    }
+    
+    private func setupCollectionViewController() {
+        collectionViewController.collectionView = accountsScreenView.collectionView
+        accountsScreenView.collectionView.dragInteractionEnabled = true
+        accountsScreenView.collectionView.dropDelegate = self
+        accountsScreenView.collectionView.dragDelegate = self
+    }
+    
     // MARK: Subcomponents
     
     private let collectionViewController = AUIEmptyCollectionViewController()
@@ -52,20 +66,6 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     }()
     
     // MARK: Events
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        accountsScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        setupCollectionViewController()
-        setContent()
-    }
-    
-    private func setupCollectionViewController() {
-        collectionViewController.collectionView = accountsScreenView.collectionView
-        accountsScreenView.collectionView.dragInteractionEnabled = true
-        accountsScreenView.collectionView.dropDelegate = self
-        accountsScreenView.collectionView.dragDelegate = self
-    }
     
     @objc private func backButtonTouchUpInsideEventAction() {
         backClosure?()
@@ -191,16 +191,12 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let sourceIndexPath = coordinator.items.first!.sourceIndexPath!
         let destinationIndexPath = coordinator.destinationIndexPath!
-//        let sourceCellController = collectionViewController.cellControllerForIndexPath(sourceIndexPath)
-//        let destinationCellController = collectionViewController.cellControllerForIndexPath(destinationIndexPath)
-        
-        collectionView.performBatchUpdates {
-            let mo = self.collectionViewController.sectionControllers.first!.cellControllers.remove(at: sourceIndexPath.item)
-            self.collectionViewController.sectionControllers.first!.cellControllers.insert(mo, at: destinationIndexPath.item)
-            let ac = self.accounts.remove(at: sourceIndexPath.item)
-            self.accounts.insert(ac, at: destinationIndexPath.item)
-            collectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
-        } completion: { [weak self] finished in
+        let mo = collectionViewController.sectionControllers.first!.cellControllers.remove(at: sourceIndexPath.item)
+        collectionViewController.sectionControllers.first!.cellControllers.insert(mo, at: destinationIndexPath.item)
+        let ac = accounts.remove(at: sourceIndexPath.item)
+        accounts.insert(ac, at: destinationIndexPath.item)
+        collectionViewController.movedIndexPath = sourceIndexPath
+        collectionViewController.moveItem(at: sourceIndexPath, to: destinationIndexPath) { [weak self] finished in
             guard let self = self else { return }
             self.orderAccountsClosure?(self.accounts)
         }

@@ -32,7 +32,7 @@ struct AddingAccount: Equatable, Hashable {
         self.name = presentationAddingAccount.name
         self.amount = presentationAddingAccount.amount
         self.currency = Currency(presentationCurrency: presentationAddingAccount.currency)
-        self.backgroundColor = try! NSKeyedArchiver.archivedData(withRootObject: presentationAddingAccount.backgroundColor, requiringSecureCoding: false)
+        self.backgroundColor = try! NSKeyedArchiver.archivedData(withRootObject: presentationAddingAccount.backgroundColor, requiringSecureCoding: true)
     }
     
     var presentationAddingAccount: PresentationAddingAccount {
