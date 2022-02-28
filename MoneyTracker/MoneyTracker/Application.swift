@@ -300,4 +300,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    // MARK: - Documents
+    
+    func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) {
+        
+    }
+    
 }

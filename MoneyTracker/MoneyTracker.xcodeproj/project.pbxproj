@@ -114,6 +114,7 @@
 		DB74865127BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */; };
 		DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74868E27BE91E6004DF67B /* AddingCategory.swift */; };
 		DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74869027BE91F6004DF67B /* CurrencyNameProvider.swift */; };
+		DB74869527CA1533004DF67B /* ImportCSVScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74869427CA1533004DF67B /* ImportCSVScreenViewController.swift */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
@@ -283,6 +284,7 @@
 		DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenTemplateTableViewCellController.swift; sourceTree = "<group>"; };
 		DB74868E27BE91E6004DF67B /* AddingCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
 		DB74869027BE91F6004DF67B /* CurrencyNameProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyNameProvider.swift; sourceTree = "<group>"; };
+		DB74869427CA1533004DF67B /* ImportCSVScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCSVScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
 		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -707,6 +709,7 @@
 		2EB10A2B27A6E1F800743416 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				DB74869327CA1518004DF67B /* ImportCSV */,
 				2E30391527BDAE6C0084B96C /* UnexpectedError */,
 				2EB10A2C27A6E7B500743416 /* Menu */,
 				2E9289F927AFF9A7002F3403 /* Settings */,
@@ -939,6 +942,14 @@
 				DB74863C27BAB1BF004DF67B /* AddingExpenseTemplate.swift */,
 			);
 			path = Template;
+			sourceTree = "<group>";
+		};
+		DB74869327CA1518004DF67B /* ImportCSV */ = {
+			isa = PBXGroup;
+			children = (
+				DB74869427CA1533004DF67B /* ImportCSVScreenViewController.swift */,
+			);
+			path = ImportCSV;
 			sourceTree = "<group>";
 		};
 		DBB7CF7C27AC0DD4002C2EAE /* Repositories */ = {
@@ -1368,6 +1379,7 @@
 				DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */,
 				2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */,
 				2EC1BDC227B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift in Sources */,
+				DB74869527CA1533004DF67B /* ImportCSVScreenViewController.swift in Sources */,
 				DBD6ACEA27B35D0300389236 /* SelectCurrencyTableViewCell.swift in Sources */,
 				DB74864127BB5806004DF67B /* TemplatesScreenView.swift in Sources */,
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
