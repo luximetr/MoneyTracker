@@ -39,6 +39,18 @@ public struct Expense {
         self.balanceAccountId = addingExpense.balanceAccountId
         self.categoryId = addingExpense.categoryId
     }
+    
+    init(coinKeeperExpense: CoinKeeperExpense,
+         balanceAccountId: BalanceAccountId,
+         categoryId: CategoryId
+    ) {
+        self.id = UUID().uuidString
+        self.amount = coinKeeperExpense.amount
+        self.date = coinKeeperExpense.date
+        self.comment = coinKeeperExpense.comment
+        self.balanceAccountId = balanceAccountId
+        self.categoryId = categoryId
+    }
 }
 
 typealias ExpenseId = String

@@ -310,16 +310,26 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }()
     
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) {
-        let expenses = parseCoinKeeperCSV(url: url)
-        print(expenses.count)
+        let filesExpenses = parseCoinKeeperCSV(url: url)
+        let adapter = CoinKeeperExpenseAdapter()
+        let expenses = filesExpenses.map { adapter.adaptToStorage(filesCoinKeeperExpense: $0) }
+        addToStorage(coinKeeperExpenses: expenses)
     }
     
-    private func parseCoinKeeperCSV(url: URL) -> [CoinKeeperExpense] {
+    private func parseCoinKeeperCSV(url: URL) -> [FilesCoinKeeperExpense] {
         do {
             return try files.parseCoinKeeperCSV(url: url)
         } catch {
             print(error)
             return []
+        }
+    }
+    
+    private func addToStorage(coinKeeperExpenses expenses: [StorageCoinKeeperExpense]) {
+        do {
+            try storage.addExpenses(coinKeeperExpenses: expenses)
+        } catch {
+            print(error)
         }
     }
     
