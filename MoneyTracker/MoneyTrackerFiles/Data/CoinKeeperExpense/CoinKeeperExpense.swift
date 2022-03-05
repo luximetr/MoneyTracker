@@ -9,6 +9,7 @@ import Foundation
 
 public struct CoinKeeperExpense {
     public let date: Date
+    public let type: CoinKeeperExpenseType
     public let balanceAccount: String
     public let category: String
     public let amount: Decimal

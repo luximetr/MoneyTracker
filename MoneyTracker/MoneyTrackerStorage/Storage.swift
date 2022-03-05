@@ -35,6 +35,16 @@ public class Storage {
         try appendToCategoriesOrder(categoryId: category.id)
     }
     
+    public func addCategories(_ addingCategories: [AddingCategory]) {
+        addingCategories.forEach {
+            do {
+                try addCategory($0)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     public func getCategory(id: String) throws -> Category {
         let repo = createCategoriesRepo()
         return try repo.fetchCategory(id: id)

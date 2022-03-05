@@ -24,11 +24,19 @@ class CategoriesCoreDataRepo {
     
     func createCategory(_ category: Category) throws {
         let context = accessor.viewContext
-        let categoryMO = CategoryMO(context: context)
+        let categoryMO = try tryCreateCategory(category, context: context)
         categoryMO.id = category.id
         categoryMO.name = category.name
-        
         try context.save()
+    }
+    
+    private func tryCreateCategory(_ category: Category, context: NSManagedObjectContext) throws -> CategoryMO {
+        do {
+            _ = try fetchCategoryMO(name: category.name, context: context)
+            throw FetchError.alreadyExist
+        } catch FetchError.notFound {
+            return CategoryMO(context: context)
+        }
     }
     
     // MARK: - Read
@@ -52,6 +60,15 @@ class CategoriesCoreDataRepo {
         request.fetchLimit = 1
         request.predicate = NSPredicate(format: "id == %@", id)        
         
+        let result = try context.fetch(request)
+        guard let categoryMO = result.first else { throw FetchError.notFound }
+        return categoryMO
+    }
+    
+    private func fetchCategoryMO(name: String, context: NSManagedObjectContext) throws -> CategoryMO {
+        let request = CategoryMO.fetchRequest()
+        request.fetchLimit = 1
+        request.predicate = NSPredicate(format: "name == %@", name)
         let result = try context.fetch(request)
         guard let categoryMO = result.first else { throw FetchError.notFound }
         return categoryMO
@@ -105,5 +122,6 @@ class CategoriesCoreDataRepo {
 
     enum FetchError: Error {
         case notFound
+        case alreadyExist
     }
 }

@@ -49,18 +49,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    private func getTransportCategory() -> StorageCategory {
-        return findCategory(name: "Transport")
-    }
-    
-    private func getGroceriesCategory() -> StorageCategory {
-        return findCategory(name: "Groceries")
-    }
-    
-    private func getHouseCategory() -> StorageCategory {
-        return findCategory(name: "House")
-    }
-    
     private func findCategory(name: String) -> StorageCategory {
         if let category = fetchCategory(name: name) {
             return category
@@ -83,27 +71,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     private func saveAccount(_ account: BalanceAccount) {
-        try? storage.addBalanceAccount(AddingBalanceAccount(name: account.name, amount: account.amount, currency: account.currency, backgroundColor: account.backgroundColor))
-    }
-    
-    private func saveExpense(amount: Decimal, comment: String? = nil, date: Date, account: BalanceAccount, category: StorageCategory) {
-        let addingExpense = AddingExpense(
-            amount: amount,
-            date: date,
-            comment: comment,
-            balanceAccountId: account.id,
-            categoryId: category.id
-        )
-        try? storage.addExpense(addingExpense: addingExpense)
-    }
-    
-    private func create2022Date(month: Int, day: Int) -> Date {
-        var dateComponents = DateComponents()
-        dateComponents.year = 2022
-        dateComponents.month = month
-        dateComponents.day = day
-        let calendar = Calendar.current
-        return calendar.date(from: dateComponents)!
+        _ = try? storage.addBalanceAccount(AddingBalanceAccount(name: account.name, amount: account.amount, currency: account.currency, backgroundColor: account.backgroundColor))
     }
     
     // MARK: Storage
@@ -239,6 +207,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    private func fetchAllBalanceAccounts() -> [BalanceAccount] {
+        do {
+            return try storage.getAllBalanceAccounts()
+        } catch {
+            print(error)
+            return []
+        }
+    }
+    
     // MARK: - Currencies
     
     func presentationCurrencies(_ presentation: Presentation) -> [PresentationCurrency] {
@@ -270,6 +247,25 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let storageCurrency = adapter.adaptToStorageCurrency(presentationCurrency: currency)
         self.selectedCurrency = storageCurrency
         storage.saveSelectedCurrency(storageCurrency)
+    }
+    
+    // MARK: - Expenses
+    
+    func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date) {
+        let expenses = fetchExpenses(from: fromDate, to: toDate)
+        let result = expenses.reduce(0) { partialResult, expense in
+            partialResult + expense.amount
+        }
+        presentation.showStatisticTotalSpent(result)
+    }
+    
+    private func fetchExpenses(from startDate: Date, to endDate: Date) -> [Expense] {
+        do {
+            return try storage.getExpenses(startDate: startDate, endDate: endDate)
+        } catch {
+            print(error)
+            return []
+        }
     }
     
     // MARK: - ExpenseTemplates
@@ -312,7 +308,26 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let filesExpenses = parseCoinKeeperCSV(url: url)
         let adapter = CoinKeeperExpenseAdapter()
         let expenses = filesExpenses.map { adapter.adaptToStorage(filesCoinKeeperExpense: $0) }
+        addToStorageMissingCategories(coinKeeperExpenses: expenses)
         addToStorage(coinKeeperExpenses: expenses)
+    }
+    
+    private func addToStorageMissingCategories(coinKeeperExpenses: [StorageCoinKeeperExpense]) {
+        let missingCategoryNames = getMissingCategoriesNames(coinKeeperExpenses: coinKeeperExpenses)
+        let addingCategories = missingCategoryNames.map { StorageAddingCategory(name: $0) }
+        storage.addCategories(addingCategories)
+    }
+    
+    private func getMissingCategoriesNames(coinKeeperExpenses: [StorageCoinKeeperExpense]) -> [String] {
+        let categories = fetchCategories()
+        var missingCategoryNames: [String] = []
+        coinKeeperExpenses.forEach { expense in
+            let isCategoryMissing = !categories.contains(where: { $0.name == expense.category })
+            if isCategoryMissing && !missingCategoryNames.contains(expense.category) {
+                missingCategoryNames.append(expense.category)
+            }
+        }
+        return missingCategoryNames
     }
     
     private func parseCoinKeeperCSV(url: URL) -> [FilesCoinKeeperExpense] {
