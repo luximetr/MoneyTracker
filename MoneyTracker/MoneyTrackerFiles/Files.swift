@@ -14,11 +14,9 @@ public final class Files {
     public init() {
     }
     
-    public func parseCoinKeeperCSV(url: URL) throws -> [CoinKeeperExpense] {
+    public func parseCoinKeeperCSV(url: URL) throws -> CoinKeeperFile {
         let csvString = try String(contentsOf: url)
         let parser = CoinKeeperFileCSVParser()
-        let file = try parser.parse(csvString: csvString)
-        let converter = CoinKeeperCSVParser()
-        return try converter.parseCoinKeeperCSV(url: url)
+        return try parser.parse(csvString: csvString)
     }
 }

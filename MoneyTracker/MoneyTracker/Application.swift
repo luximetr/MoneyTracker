@@ -305,37 +305,24 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }()
     
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) {
-        let filesExpenses = parseCoinKeeperCSV(url: url)
-        let adapter = CoinKeeperExpenseAdapter()
-        let expenses = filesExpenses.map { adapter.adaptToStorage(filesCoinKeeperExpense: $0) }
-        addToStorageMissingCategories(coinKeeperExpenses: expenses)
+        guard let file = parseCoinKeeperCSV(url: url) else { return }
+        let categoryAdapter = CoinKeeperCategoryAdapter()
+        let addingCategories = file.categories.map { categoryAdapter.adaptToStorageAdding(filesCoinKeeperCategory: $0) }
+        storage.addCategories(addingCategories)
+        let balanceAccountAdapter = CoinKeeperBalanceAccountAdapter()
+        let addingAccounts = balanceAccountAdapter.adaptToStorageAddings(filesCoinKeeperBalanceAccounts: file.balanceAccounts)
+        storage.addBalanceAccounts(addingAccounts)
+        let expensesAdapter = CoinKeeperExpenseAdapter()
+        let expenses = file.expenses.map { expensesAdapter.adaptToStorage(filesCoinKeeperExpense: $0) }
         addToStorage(coinKeeperExpenses: expenses)
     }
     
-    private func addToStorageMissingCategories(coinKeeperExpenses: [StorageCoinKeeperExpense]) {
-        let missingCategoryNames = getMissingCategoriesNames(coinKeeperExpenses: coinKeeperExpenses)
-        let addingCategories = missingCategoryNames.map { StorageAddingCategory(name: $0) }
-        storage.addCategories(addingCategories)
-    }
-    
-    private func getMissingCategoriesNames(coinKeeperExpenses: [StorageCoinKeeperExpense]) -> [String] {
-        let categories = fetchCategories()
-        var missingCategoryNames: [String] = []
-        coinKeeperExpenses.forEach { expense in
-            let isCategoryMissing = !categories.contains(where: { $0.name == expense.category })
-            if isCategoryMissing && !missingCategoryNames.contains(expense.category) {
-                missingCategoryNames.append(expense.category)
-            }
-        }
-        return missingCategoryNames
-    }
-    
-    private func parseCoinKeeperCSV(url: URL) -> [FilesCoinKeeperExpense] {
+    private func parseCoinKeeperCSV(url: URL) -> CoinKeeperFile? {
         do {
             return try files.parseCoinKeeperCSV(url: url)
         } catch {
             print(error)
-            return []
+            return nil
         }
     }
     

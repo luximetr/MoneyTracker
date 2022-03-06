@@ -106,6 +106,8 @@
 		DB0CE6E227D22ED30063CB65 /* CoinKeeperFileCSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6E127D22ED30063CB65 /* CoinKeeperFileCSVParser.swift */; };
 		DB0CE6E627D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6E527D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift */; };
 		DB0CE6E827D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6E727D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift */; };
+		DB0CE6EA27D463690063CB65 /* CoinKeeperCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6E927D463690063CB65 /* CoinKeeperCategoryAdapter.swift */; };
+		DB0CE6EC27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */; };
 		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
 		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
 		DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */; };
@@ -306,6 +308,8 @@
 		DB0CE6E127D22ED30063CB65 /* CoinKeeperFileCSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperFileCSVParser.swift; sourceTree = "<group>"; };
 		DB0CE6E527D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperBalanceAccountCSVLineParser.swift; sourceTree = "<group>"; };
 		DB0CE6E727D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperCategoryCSVLineParser.swift; sourceTree = "<group>"; };
+		DB0CE6E927D463690063CB65 /* CoinKeeperCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperCategoryAdapter.swift; sourceTree = "<group>"; };
+		DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperBalanceAccountAdapter.swift; sourceTree = "<group>"; };
 		DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplatesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewController.swift; sourceTree = "<group>"; };
@@ -490,6 +494,7 @@
 			children = (
 				2E91155527A93D5C00359F21 /* Category.swift */,
 				2EC6293527AC267D00371252 /* AddingCategory.swift */,
+				DB0CE6E927D463690063CB65 /* CoinKeeperCategoryAdapter.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 			children = (
 				2EB6E0D127BAF24200D0C4E1 /* Account.swift */,
 				2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */,
+				DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1507,6 +1513,7 @@
 			files = (
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
+				DB0CE6EA27D463690063CB65 /* CoinKeeperCategoryAdapter.swift in Sources */,
 				2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */,
 				2EB10A1227A6C8CB00743416 /* Application.swift in Sources */,
 				DB7486DD27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift in Sources */,
@@ -1516,6 +1523,7 @@
 				2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */,
 				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
+				DB0CE6EC27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,6 +27,7 @@ class BalanceAccountsCoreDataRepo {
         let accountMO = BalanceAccountMO(context: context)
         accountMO.id = account.id
         accountMO.name = account.name
+        accountMO.amount = NSDecimalNumber(decimal: account.amount)
         accountMO.currencyISOCode = account.currency.rawValue
         accountMO.backgroundColor = account.backgroundColor
         try context.save()

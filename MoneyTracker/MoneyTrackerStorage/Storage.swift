@@ -98,12 +98,23 @@ public class Storage {
     
     // MARK: - Balance Account
     
+    @discardableResult
     public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws -> BalanceAccount {
         let repo = createBalanceAccountsRepo()
         let account = BalanceAccount(addingBalanceAccount: addingBalanceAccount)
         try repo.insertAccount(account)
         try appendToBalanceAccountOrder(balanceAccountId: account.id)
         return account
+    }
+    
+    public func addBalanceAccounts(_ addingBalanceAccounts: [AddingBalanceAccount]) {
+        addingBalanceAccounts.forEach {
+            do {
+                try addBalanceAccount($0)
+            } catch {
+                print(error)
+            }
+        }
     }
     
     public func removeBalanceAccount(id: String) throws {
