@@ -82,6 +82,7 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
         setupColorsCollectionViewController()
         setColorsCollectionViewControllerContent()
         if let selectedBackgroundColor = self.selectedBackgroundColor, let selectedBackgroundColorCellController = backgroundColorCellController(selectedBackgroundColor) {
+            editAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
             selectedBackgroundColorCellController.setSelected(true, animated: false)
             editAccountScreenView.setBackgroundColor(selectedBackgroundColor, animated: false)
         }
@@ -132,6 +133,7 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
             selectedBackgroundColorCellController.setSelected(true, animated: true)
             self.editAccountScreenView.setBackgroundColor(selectedBackgroundColor, animated: true)
         }
+        editAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
     }
     
     func setSelectedCurrency(_ selectedCurrency: Currency, animated: Bool) {

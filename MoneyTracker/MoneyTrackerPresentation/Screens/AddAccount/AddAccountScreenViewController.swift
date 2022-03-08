@@ -82,6 +82,7 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
             self.addAccountScreenView.setBackgroundColor(selectedBackgroundColor, animated: false)
         }
         addAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
+        addAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
         addAccountScreenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
         addAccountScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceTextFieldInputController.textField = addAccountScreenView.amountInputView
@@ -127,6 +128,7 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
             selectedBackgroundColorCellController.setSelected(true, animated: true)
             self.addAccountScreenView.setBackgroundColor(selectedBackgroundColor, animated: true)
         }
+        addAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
     }
     
     func setSelectedCurrency(_ selectedCurrency: Currency, animated: Bool) {
