@@ -178,6 +178,15 @@ public class Storage {
     
     // MARK: - Expenses
     
+    public func addExpenses(coinKeeperExpenses: [CoinKeeperExpense]) throws {
+        let repo = createExpensesRepo()
+        let categories = try getCategories()
+        let accounts = try getAllBalanceAccounts()
+        let converter = CoinKeeperExpenseToExpenseConverter()
+        let expenses = converter.convert(coinKeeperExpenses: coinKeeperExpenses, categories: categories, balanceAccounts: accounts)
+        repo.insertExpenses(expenses)
+    }
+    
     public func addExpense(addingExpense: AddingExpense) throws {
         let expense = Expense(addingExpense: addingExpense)
         let repo = createExpensesRepo()

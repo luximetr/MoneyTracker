@@ -3,3 +3,4 @@
 "default_currency" = "Default currency";
 "accounts" = "Accounts";
 "templates" = "Templates";
+"importCSV" = "Import from CSV";

@@ -26,6 +26,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
     func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
+    func presentation(_ presentation: Presentation, didPickDocumentAt url: URL)
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -152,7 +153,7 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
-    // MARK: Settings Screen View Controller
+    // MARK: - Settings Screen View Controller
     
     private var settingsScreenViewController: SettingsScreenViewController?
     
@@ -184,6 +185,11 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             let viewController = self.createTemplatesScreenViewController()
             self.menuNavigationController?.pushViewController(viewController, animated: true)
+        }
+        viewController.didSelectImportCSVClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createImportCSVScreen()
+            self.menuNavigationController?.present(viewController, animated: true)
         }
         return viewController
     }
@@ -362,7 +368,18 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
-    // MARK: Unexpected Error Alert Screen
+    // MARK: - Import CSV Screen
+    
+    private func createImportCSVScreen() -> UIDocumentPickerViewController {
+        let controller = ImportCSVScreenViewController()
+        controller.didPickDocument = { [weak self] url in
+            guard let self = self else { return }
+            self.delegate.presentation(self, didPickDocumentAt: url)
+        }
+        return controller
+    }
+    
+    // MARK: - Unexpected Error Alert Screen
     
     private var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
     

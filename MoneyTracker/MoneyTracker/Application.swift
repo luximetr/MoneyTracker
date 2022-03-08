@@ -12,6 +12,8 @@ typealias Presentation = MoneyTrackerPresentation.Presentation
 typealias PresentationDelegate = MoneyTrackerPresentation.PresentationDelegate
 import MoneyTrackerStorage
 typealias Storage = MoneyTrackerStorage.Storage
+import MoneyTrackerFiles
+typealias Files = MoneyTrackerFiles.Files
 
 class Application: AUIEmptyApplication, PresentationDelegate {
     
@@ -300,6 +302,37 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let storageAddingTemplate = adapter.adaptToStorage(presentationAddingExpenseTemplate: addingExpenseTemplate)
         do {
             try storage.addExpenseTemplate(addingExpenseTemplate: storageAddingTemplate)
+        } catch {
+            print(error)
+        }
+    }
+    
+    // MARK: - Files
+    
+    private lazy var files: Files = {
+        let files = Files()
+        return files
+    }()
+    
+    func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) {
+        let filesExpenses = parseCoinKeeperCSV(url: url)
+        let adapter = CoinKeeperExpenseAdapter()
+        let expenses = filesExpenses.map { adapter.adaptToStorage(filesCoinKeeperExpense: $0) }
+        addToStorage(coinKeeperExpenses: expenses)
+    }
+    
+    private func parseCoinKeeperCSV(url: URL) -> [FilesCoinKeeperExpense] {
+        do {
+            return try files.parseCoinKeeperCSV(url: url)
+        } catch {
+            print(error)
+            return []
+        }
+    }
+    
+    private func addToStorage(coinKeeperExpenses expenses: [StorageCoinKeeperExpense]) {
+        do {
+            try storage.addExpenses(coinKeeperExpenses: expenses)
         } catch {
             print(error)
         }
