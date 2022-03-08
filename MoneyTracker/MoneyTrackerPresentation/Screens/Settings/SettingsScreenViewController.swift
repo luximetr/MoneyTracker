@@ -76,7 +76,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         currencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
-            cell.nameLabel.text = self.localizer.localizeText("default_currency")
+            cell.nameLabel.text = self.localizer.localizeText("defaultCurrency")
             return cell
         }
         currencyCellController.estimatedHeightClosure = { [weak self] in

@@ -39,10 +39,9 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: Display
     
     public func display() {
-        let mainViewController = UIViewController()
-        mainViewController.view.backgroundColor = .green
-        let mainNavigationController = AUINavigationBarHiddenNavigationController()
-        mainNavigationController.viewControllers = [mainViewController]
+        let dashboardViewController = createDashboardViewController()
+        let dashboardNavigationController = AUINavigationBarHiddenNavigationController()
+        dashboardNavigationController.viewControllers = [dashboardViewController]
         let categoriesViewController = UIViewController()
         categoriesViewController.view.backgroundColor = .yellow
         let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
@@ -53,14 +52,14 @@ public final class Presentation: AUIWindowPresentation {
         let settingsViewController = createSettingsScreenViewController()
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
         settingsNavigationController.viewControllers = [settingsViewController]
-        let menuViewController = MenuScreenViewController(mainScreenViewController: mainNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
+        let menuViewController = MenuScreenViewController(dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
         menuViewController.statistic()
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
-        self.mainViewController = mainViewController
-        self.mainNavigationController = mainNavigationController
+        self.dashboardViewController = dashboardViewController
+        self.dashboardNavigationController = dashboardNavigationController
         self.categoriesNavigationController = categoriesNavigationController
         self.settingsScreenViewController = settingsViewController
         self.settingsNavigationController = settingsNavigationController
@@ -75,13 +74,18 @@ public final class Presentation: AUIWindowPresentation {
     
     private var menuScreenViewController: MenuScreenViewController?
     
-    // MARK: Main Navigation Controller
+    // MARK: Dashboard Navigation Controller
     
-    private var mainNavigationController: UINavigationController?
+    private var dashboardNavigationController: UINavigationController?
     
-    // MARK: Main View Controller
+    // MARK: Dashboard View Controller
     
-    private var mainViewController: UIViewController?
+    private var dashboardViewController: UIViewController?
+    
+    private func createDashboardViewController() -> DashboardScreenViewController {
+        let viewController = DashboardScreenViewController()
+        return viewController
+    }
     
     // MARK: Categories Navigation Controller
     

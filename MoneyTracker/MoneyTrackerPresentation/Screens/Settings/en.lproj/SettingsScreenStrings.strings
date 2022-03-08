@@ -1,6 +1,6 @@
 "title" = "Settings";
 "categories" = "Categories";
-"default_currency" = "Default currency";
+"defaultCurrency" = "Default currency";
 "accounts" = "Accounts";
 "templates" = "Templates";
 "importCSV" = "Import from CSV";
