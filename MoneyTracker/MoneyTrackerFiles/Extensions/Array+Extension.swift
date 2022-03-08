@@ -13,3 +13,20 @@ extension Array {
         return indices.contains(index) ? self[index] : nil
     }
 }
+
+extension Array where Element: Equatable {
+
+    func findIndex(of element: Element, skipFirst: Int) -> Array.Index? {
+        if skipFirst == 0 {
+            return self.firstIndex(of: element)
+        } else {
+            var indexes: [Array.Index] = []
+            for (index, arrayElement) in self.enumerated() {
+                if arrayElement == element {
+                    indexes.append(index)
+                }
+            }
+            return indexes[safe: skipFirst]
+        }
+    }
+}

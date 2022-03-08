@@ -27,6 +27,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL)
+    func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date)
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -46,11 +47,14 @@ public final class Presentation: AUIWindowPresentation {
         categoriesViewController.view.backgroundColor = .yellow
         let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
         categoriesNavigationController.viewControllers = [categoriesViewController]
+        let statisticViewController = createStatisticScreen()
+        let statisticNavigationController = AUINavigationBarHiddenNavigationController()
+        statisticNavigationController.viewControllers = [statisticViewController]
         let settingsViewController = createSettingsScreenViewController()
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
         settingsNavigationController.viewControllers = [settingsViewController]
-        let menuViewController = MenuScreenViewController(mainScreenViewController: mainNavigationController, categoriesScreenViewController: categoriesNavigationController, settingsScreenViewController: settingsNavigationController)
-        menuViewController.label3()
+        let menuViewController = MenuScreenViewController(mainScreenViewController: mainNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
+        menuViewController.statistic()
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
@@ -418,6 +422,24 @@ public final class Presentation: AUIWindowPresentation {
         }
         unexpectedErrorDetailsScreenViewController = viewController
         self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+    }
+    
+    // MARK: - Statistic Screen
+    
+    private var statisticScreen: StatisticScreenViewController?
+    
+    private func createStatisticScreen() -> StatisticScreenViewController {
+        let viewController = StatisticScreenViewController()
+        viewController.didPressSearch = { [weak self] fromDate, toDate in
+            guard let self = self else { return }
+            self.delegate.presentation(self, searchExpensesFrom: fromDate, toDate: toDate)
+        }
+        statisticScreen = viewController
+        return viewController
+    }
+    
+    public func showStatisticTotalSpent(_ spent: Decimal) {
+        statisticScreen?.showResult(spent)
     }
     
 }

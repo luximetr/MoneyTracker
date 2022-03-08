@@ -99,6 +99,15 @@
 		2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDB3EEE27C43FB5003A9FDD /* ExpenseTemplateAdapter.swift */; };
 		2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDB3EEF27C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift */; };
 		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
+		DB0CE6D827D115360063CB65 /* CoinKeeperCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6D727D115360063CB65 /* CoinKeeperCategory.swift */; };
+		DB0CE6DB27D1157B0063CB65 /* CoinKeeperBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6DA27D1157B0063CB65 /* CoinKeeperBalanceAccount.swift */; };
+		DB0CE6DE27D115E70063CB65 /* CoinKeeperFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6DD27D115E70063CB65 /* CoinKeeperFile.swift */; };
+		DB0CE6E027D117220063CB65 /* CoinKeeperExpenseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6DF27D117220063CB65 /* CoinKeeperExpenseType.swift */; };
+		DB0CE6E227D22ED30063CB65 /* CoinKeeperFileCSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6E127D22ED30063CB65 /* CoinKeeperFileCSVParser.swift */; };
+		DB0CE6E627D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6E527D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift */; };
+		DB0CE6E827D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6E727D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift */; };
+		DB0CE6EA27D463690063CB65 /* CoinKeeperCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6E927D463690063CB65 /* CoinKeeperCategoryAdapter.swift */; };
+		DB0CE6EC27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */; };
 		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
 		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
 		DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */; };
@@ -121,12 +130,15 @@
 		DB7486C927CCE410004DF67B /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486C827CCE410004DF67B /* Files.swift */; };
 		DB7486CC27CD1A74004DF67B /* CoinKeeperExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486CB27CD1A74004DF67B /* CoinKeeperExpense.swift */; };
 		DB7486D127CD20D9004DF67B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486D027CD20D9004DF67B /* Array+Extension.swift */; };
-		DB7486D327CD21D7004DF67B /* CSVToCoinKeeperExpenseConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486D227CD21D7004DF67B /* CSVToCoinKeeperExpenseConverter.swift */; };
+		DB7486D327CD21D7004DF67B /* CoinKeeperExpenseCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486D227CD21D7004DF67B /* CoinKeeperExpenseCSVLineParser.swift */; };
 		DB7486D527CDBDA1004DF67B /* CoinKeeperCSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486D427CDBDA1004DF67B /* CoinKeeperCSVParser.swift */; };
 		DB7486D827CDC668004DF67B /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486D727CDC668004DF67B /* Collection+Extension.swift */; };
 		DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486D927CDD1FA004DF67B /* CoinKeeperExpense.swift */; };
 		DB7486DD27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486DC27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift */; };
 		DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E027CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift */; };
+		DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */; };
+		DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E627D065EA004DF67B /* StatisticScreenView.swift */; };
+		DB7486E927D06624004DF67B /* StatisticScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB7486E827D06624004DF67B /* StatisticScreenStrings.strings */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
@@ -289,6 +301,15 @@
 		91DB6CD061BC073A2D2C4504 /* Pods-MoneyTrackerStorage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerStorage.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerStorage/Pods-MoneyTrackerStorage.debug.xcconfig"; sourceTree = "<group>"; };
 		920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.release.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.release.xcconfig"; sourceTree = "<group>"; };
 		B5FBC1001C9260CDC0F2D88C /* Pods-MoneyTrackerStorage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerStorage.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerStorage/Pods-MoneyTrackerStorage.release.xcconfig"; sourceTree = "<group>"; };
+		DB0CE6D727D115360063CB65 /* CoinKeeperCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperCategory.swift; sourceTree = "<group>"; };
+		DB0CE6DA27D1157B0063CB65 /* CoinKeeperBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperBalanceAccount.swift; sourceTree = "<group>"; };
+		DB0CE6DD27D115E70063CB65 /* CoinKeeperFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperFile.swift; sourceTree = "<group>"; };
+		DB0CE6DF27D117220063CB65 /* CoinKeeperExpenseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpenseType.swift; sourceTree = "<group>"; };
+		DB0CE6E127D22ED30063CB65 /* CoinKeeperFileCSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperFileCSVParser.swift; sourceTree = "<group>"; };
+		DB0CE6E527D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperBalanceAccountCSVLineParser.swift; sourceTree = "<group>"; };
+		DB0CE6E727D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperCategoryCSVLineParser.swift; sourceTree = "<group>"; };
+		DB0CE6E927D463690063CB65 /* CoinKeeperCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperCategoryAdapter.swift; sourceTree = "<group>"; };
+		DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperBalanceAccountAdapter.swift; sourceTree = "<group>"; };
 		DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplatesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewController.swift; sourceTree = "<group>"; };
@@ -310,12 +331,15 @@
 		DB7486C827CCE410004DF67B /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		DB7486CB27CD1A74004DF67B /* CoinKeeperExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpense.swift; sourceTree = "<group>"; };
 		DB7486D027CD20D9004DF67B /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		DB7486D227CD21D7004DF67B /* CSVToCoinKeeperExpenseConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVToCoinKeeperExpenseConverter.swift; sourceTree = "<group>"; };
+		DB7486D227CD21D7004DF67B /* CoinKeeperExpenseCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpenseCSVLineParser.swift; sourceTree = "<group>"; };
 		DB7486D427CDBDA1004DF67B /* CoinKeeperCSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperCSVParser.swift; sourceTree = "<group>"; };
 		DB7486D727CDC668004DF67B /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		DB7486D927CDD1FA004DF67B /* CoinKeeperExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpense.swift; sourceTree = "<group>"; };
 		DB7486DC27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpenseAdapter.swift; sourceTree = "<group>"; };
 		DB7486E027CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpenseToExpenseConverter.swift; sourceTree = "<group>"; };
+		DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticScreenViewController.swift; sourceTree = "<group>"; };
+		DB7486E627D065EA004DF67B /* StatisticScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticScreenView.swift; sourceTree = "<group>"; };
+		DB7486E827D06624004DF67B /* StatisticScreenStrings.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = StatisticScreenStrings.strings; sourceTree = "<group>"; };
 		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
 		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -470,6 +494,7 @@
 			children = (
 				2E91155527A93D5C00359F21 /* Category.swift */,
 				2EC6293527AC267D00371252 /* AddingCategory.swift */,
+				DB0CE6E927D463690063CB65 /* CoinKeeperCategoryAdapter.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -479,6 +504,7 @@
 			children = (
 				2EB6E0D127BAF24200D0C4E1 /* Account.swift */,
 				2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */,
+				DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -753,6 +779,7 @@
 		2EB10A2B27A6E1F800743416 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				DB7486E327D0658F004DF67B /* Statistic */,
 				DB74869327CA1518004DF67B /* ImportCSV */,
 				2E30391527BDAE6C0084B96C /* UnexpectedError */,
 				2EB10A2C27A6E7B500743416 /* Menu */,
@@ -932,6 +959,33 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DB0CE6D527D115130063CB65 /* CoinKeeperCategory */ = {
+			isa = PBXGroup;
+			children = (
+				DB0CE6D727D115360063CB65 /* CoinKeeperCategory.swift */,
+				DB0CE6E727D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift */,
+			);
+			path = CoinKeeperCategory;
+			sourceTree = "<group>";
+		};
+		DB0CE6D927D115690063CB65 /* CoinKeeperBalanceAccount */ = {
+			isa = PBXGroup;
+			children = (
+				DB0CE6DA27D1157B0063CB65 /* CoinKeeperBalanceAccount.swift */,
+				DB0CE6E527D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift */,
+			);
+			path = CoinKeeperBalanceAccount;
+			sourceTree = "<group>";
+		};
+		DB0CE6DC27D115CE0063CB65 /* CoinKeeperFile */ = {
+			isa = PBXGroup;
+			children = (
+				DB0CE6DD27D115E70063CB65 /* CoinKeeperFile.swift */,
+				DB0CE6E127D22ED30063CB65 /* CoinKeeperFileCSVParser.swift */,
+			);
+			path = CoinKeeperFile;
+			sourceTree = "<group>";
+		};
 		DB74863027BA5B08004DF67B /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1010,6 +1064,9 @@
 		DB7486CA27CD1822004DF67B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DB0CE6DC27D115CE0063CB65 /* CoinKeeperFile */,
+				DB0CE6D927D115690063CB65 /* CoinKeeperBalanceAccount */,
+				DB0CE6D527D115130063CB65 /* CoinKeeperCategory */,
 				DB7486D627CDBDF2004DF67B /* CoinKeeperExpense */,
 			);
 			path = Data;
@@ -1028,7 +1085,8 @@
 			isa = PBXGroup;
 			children = (
 				DB7486CB27CD1A74004DF67B /* CoinKeeperExpense.swift */,
-				DB7486D227CD21D7004DF67B /* CSVToCoinKeeperExpenseConverter.swift */,
+				DB0CE6DF27D117220063CB65 /* CoinKeeperExpenseType.swift */,
+				DB7486D227CD21D7004DF67B /* CoinKeeperExpenseCSVLineParser.swift */,
 				DB7486D427CDBDA1004DF67B /* CoinKeeperCSVParser.swift */,
 			);
 			path = CoinKeeperExpense;
@@ -1040,6 +1098,16 @@
 				DB7486DC27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift */,
 			);
 			path = Expense;
+			sourceTree = "<group>";
+		};
+		DB7486E327D0658F004DF67B /* Statistic */ = {
+			isa = PBXGroup;
+			children = (
+				DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */,
+				DB7486E627D065EA004DF67B /* StatisticScreenView.swift */,
+				DB7486E827D06624004DF67B /* StatisticScreenStrings.strings */,
+			);
+			path = Statistic;
 			sourceTree = "<group>";
 		};
 		DBB7CF7C27AC0DD4002C2EAE /* Repositories */ = {
@@ -1299,6 +1367,7 @@
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
 				2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */,
 				2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */,
+				DB7486E927D06624004DF67B /* StatisticScreenStrings.strings in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
 				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
@@ -1444,6 +1513,7 @@
 			files = (
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
+				DB0CE6EA27D463690063CB65 /* CoinKeeperCategoryAdapter.swift in Sources */,
 				2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */,
 				2EB10A1227A6C8CB00743416 /* Application.swift in Sources */,
 				DB7486DD27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift in Sources */,
@@ -1453,6 +1523,7 @@
 				2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */,
 				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
+				DB0CE6EC27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1478,6 +1549,7 @@
 				2E91153E27A92DE600359F21 /* Category.swift in Sources */,
 				2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */,
 				2EB10A3A27A6FEAE00743416 /* Colors.swift in Sources */,
+				DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */,
 				2EB10A2A27A6CAFF00743416 /* Presentation.swift in Sources */,
 				2EB10A3527A6FE8500743416 /* Images.swift in Sources */,
 				2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */,
@@ -1521,6 +1593,7 @@
 				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
 				2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */,
 				2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */,
+				DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */,
 				2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */,
 				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
 			);
@@ -1531,11 +1604,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB7486CC27CD1A74004DF67B /* CoinKeeperExpense.swift in Sources */,
+				DB0CE6DB27D1157B0063CB65 /* CoinKeeperBalanceAccount.swift in Sources */,
+				DB0CE6D827D115360063CB65 /* CoinKeeperCategory.swift in Sources */,
+				DB0CE6E627D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift in Sources */,
+				DB0CE6E227D22ED30063CB65 /* CoinKeeperFileCSVParser.swift in Sources */,
+				DB0CE6E027D117220063CB65 /* CoinKeeperExpenseType.swift in Sources */,
 				DB7486D827CDC668004DF67B /* Collection+Extension.swift in Sources */,
 				DB7486C927CCE410004DF67B /* Files.swift in Sources */,
 				DB7486D127CD20D9004DF67B /* Array+Extension.swift in Sources */,
-				DB7486D327CD21D7004DF67B /* CSVToCoinKeeperExpenseConverter.swift in Sources */,
+				DB0CE6E827D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift in Sources */,
+				DB7486D327CD21D7004DF67B /* CoinKeeperExpenseCSVLineParser.swift in Sources */,
 				DB7486D527CDBDA1004DF67B /* CoinKeeperCSVParser.swift in Sources */,
+				DB0CE6DE27D115E70063CB65 /* CoinKeeperFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

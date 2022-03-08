@@ -9,7 +9,7 @@ import Foundation
 
 class CoinKeeperCSVParser {
     
-    private let converter = CSVToCoinKeeperExpenseConverter()
+    private let expenseParser = CoinKeeperExpenseCSVLineParser()
     
     func parseCoinKeeperCSV(url: URL) throws -> [CoinKeeperExpense] {
         let csvContent = try String(contentsOf: url)
@@ -22,8 +22,10 @@ class CoinKeeperCSVParser {
     private func removeNonExpenseLines(_ csvLines: [String]) -> [String] {
         let amountOfExpenseComponents = 11
         let expensesLines = csvLines.filter {
-            let componentsAmount = $0.components(separatedBy: ",").count
-            return componentsAmount == amountOfExpenseComponents
+            let components = $0.components(separatedBy: ",")
+            let isExpense = components.contains("\"Expense\"")
+            let componentsAmount = components.count
+            return componentsAmount == amountOfExpenseComponents && isExpense
         }
         let linesWithoutHeader = removeHeaderLines(expensesLines: expensesLines)
         return linesWithoutHeader
@@ -36,7 +38,7 @@ class CoinKeeperCSVParser {
     
     private func parseExpense(csvLine line: String) -> CoinKeeperExpense? {
         do {
-            return try converter.convert(csvLine: line)
+            return try expenseParser.parse(csvLine: line)
         } catch {
             print(error)
             return nil

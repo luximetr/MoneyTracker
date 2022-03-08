@@ -12,7 +12,7 @@ public enum Currency: String {
     case usd = "USD"
     case uah = "UAH"
     
-    init(_ rawValue: String) throws {
+    public init(_ rawValue: String) throws {
         switch rawValue {
             case "SGD": self = .sgd
             case "USD": self = .usd

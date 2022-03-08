@@ -12,9 +12,9 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(mainScreenViewController: UIViewController, categoriesScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
+    init(mainScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
         self.mainScreenViewController = mainScreenViewController
-        self.categoriesScreenViewController = categoriesScreenViewController
+        self.statisticScreenViewController = statisticScreenViewController
         self.settingsScreenViewController = settingsScreenViewController
         super.init()
     }
@@ -31,7 +31,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     
     private var screenController: UIViewController?
     let mainScreenViewController: UIViewController
-    let categoriesScreenViewController: UIViewController
+    let statisticScreenViewController: UIViewController
     let settingsScreenViewController: UIViewController
     
     // MARK: Localizer
@@ -46,7 +46,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         menuScreenView.mainTabBarItem.addTarget(self, action: #selector(main), for: .touchUpInside)
-        menuScreenView.statisticTabBarItem.addTarget(self, action: #selector(categories), for: .touchUpInside)
+        menuScreenView.statisticTabBarItem.addTarget(self, action: #selector(statistic), for: .touchUpInside)
         menuScreenView.settingsTabBarItem.addTarget(self, action: #selector(label3), for: .touchUpInside)
         main()
         setContent()
@@ -62,14 +62,14 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         screenController = mainScreenViewController
     }
     
-    @objc func categories() {
+    @objc func statistic() {
         self.screenController?.willMove(toParent: nil)
         menuScreenView.setScreenView(nil)
         self.screenController?.removeFromParent()
-        addChild(categoriesScreenViewController)
-        menuScreenView.setStatisticScreenView(categoriesScreenViewController.view)
-        categoriesScreenViewController.didMove(toParent: self)
-        screenController = categoriesScreenViewController
+        addChild(statisticScreenViewController)
+        menuScreenView.setStatisticScreenView(statisticScreenViewController.view)
+        statisticScreenViewController.didMove(toParent: self)
+        screenController = statisticScreenViewController
     }
     
     @objc func label3() {
