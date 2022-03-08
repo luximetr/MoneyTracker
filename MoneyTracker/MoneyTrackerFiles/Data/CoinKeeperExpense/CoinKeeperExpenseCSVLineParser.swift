@@ -10,8 +10,7 @@ import Foundation
 class CoinKeeperExpenseCSVLineParser {
     
     func parse(csvLine: String) throws -> CoinKeeperExpense {
-        let normalizedCSVLine = csvLine.replacingOccurrences(of: "\"", with: "")
-        let components = normalizedCSVLine.components(separatedBy: ",")
+        let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
         let type = try parseType(components: components)
         let date = try parseDate(components: components)
         let amount = try parseAmount(components: components)

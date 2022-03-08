@@ -12,8 +12,7 @@ class CoinKeeperCategoryCSVLineParser {
     // MARK: - Parse
     
     func parse(csvLine: String) throws -> CoinKeeperCategory {
-        let normalizedCSVLine = csvLine.replacingOccurrences(of: "\"", with: "")
-        let components = normalizedCSVLine.components(separatedBy: ",")
+        let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
         let name = try parseName(components: components)
         return CoinKeeperCategory(name: name)
     }

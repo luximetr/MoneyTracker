@@ -313,7 +313,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let addingAccounts = balanceAccountAdapter.adaptToStorageAddings(filesCoinKeeperBalanceAccounts: file.balanceAccounts)
         storage.addBalanceAccounts(addingAccounts)
         let expensesAdapter = CoinKeeperExpenseAdapter()
-        let expenses = file.expenses.map { expensesAdapter.adaptToStorage(filesCoinKeeperExpense: $0) }
+        let coinKeeperExpenses = file.expenses.filter { $0.type == .expense }
+        let expenses = coinKeeperExpenses.map { expensesAdapter.adaptToStorage(filesCoinKeeperExpense: $0) }
         addToStorage(coinKeeperExpenses: expenses)
     }
     
