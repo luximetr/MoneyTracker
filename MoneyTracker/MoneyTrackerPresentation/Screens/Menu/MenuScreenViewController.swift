@@ -52,7 +52,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         setContent()
     }
     
-    @objc private func dashboard() {
+    @objc func dashboard() {
         screenController?.willMove(toParent: nil)
         menuScreenView.setScreenView(nil)
         screenController?.removeFromParent()

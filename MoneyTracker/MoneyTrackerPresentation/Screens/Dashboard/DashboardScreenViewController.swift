@@ -32,5 +32,6 @@ class DashboardScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dashboardScreenView.titleLabel.text = localizer.localizeText("title")
+        dashboardScreenView.templatesHeaderLabel.text = localizer.localizeText("fastRecordTitle")
     }
 }
