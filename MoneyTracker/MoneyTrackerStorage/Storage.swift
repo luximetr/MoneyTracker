@@ -102,6 +102,22 @@ public class Storage {
     
     // MARK: - Balance Account
     
+    public func getAllBalanceAccounts() throws -> [BalanceAccount] {
+        let repo = createBalanceAccountsRepo()
+        return try repo.fetchAllAccounts()
+    }
+    
+    public func getAllBalanceAccountsOrdered() throws -> [BalanceAccount] {
+        let orderedIds = getBalanceAccountsOrderedIds()
+        let accounts = try getAllBalanceAccounts()
+        return orderBalanceAccounts(accounts, orderedIds: orderedIds)
+    }
+    
+    public func getBalanceAccount(id: String) throws -> BalanceAccount {
+        let repo = createBalanceAccountsRepo()
+        return try repo.fetchAccount(id: id)
+    }
+    
     @discardableResult
     public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws -> BalanceAccount {
         let repo = createBalanceAccountsRepo()
@@ -132,16 +148,6 @@ public class Storage {
         try repo.updateAccount(id: id, editingBalanceAccount: editingBalanceAccount)
     }
     
-    public func getBalanceAccount(id: String) throws -> BalanceAccount {
-        let repo = createBalanceAccountsRepo()
-        return try repo.fetchAccount(id: id)
-    }
-    
-    public func getAllBalanceAccounts() throws -> [BalanceAccount] {
-        let repo = createBalanceAccountsRepo()
-        return try repo.fetchAllAccounts()
-    }
-    
     private func createBalanceAccountsRepo() -> BalanceAccountsCoreDataRepo {
         return BalanceAccountsCoreDataRepo(accessor: coreDataAccessor)
     }
@@ -153,15 +159,6 @@ public class Storage {
         try repo.updateOrder(orderedIds: orderedIds)
     }
     
-    public func getOrderedBalanceAccounts() throws -> [BalanceAccount] {
-        let orderedIds = getBalanceAccountsOrderedIds()
-        let accounts = try getAllBalanceAccounts()
-        let sortedAccounts = orderedIds.compactMap { id -> BalanceAccount? in
-            accounts.first(where: { $0.id == id })
-        }
-        return sortedAccounts
-    }
-    
     private func getBalanceAccountsOrderedIds() -> [BalanceAccountId] {
         let repo = createBalanceAccountsOrderRepo()
         do {
@@ -169,6 +166,13 @@ public class Storage {
         } catch {
             return []
         }
+    }
+    
+    private func orderBalanceAccounts(_ balanceAccounts: [BalanceAccount], orderedIds: [BalanceAccountId]) -> [BalanceAccount] {
+        let sortedAccounts = orderedIds.compactMap { id -> BalanceAccount? in
+            balanceAccounts.first(where: { $0.id == id })
+        }
+        return sortedAccounts
     }
     
     private func appendToBalanceAccountOrder(balanceAccountId: BalanceAccountId) throws {
