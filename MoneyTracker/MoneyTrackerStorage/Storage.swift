@@ -257,6 +257,21 @@ public class Storage {
         return try repo.fetchAllTemplates()
     }
     
+    public func getAllExpenseTemplatesOrdered() throws -> [ExpenseTemplate] {
+        let orderRepo = createExpenseTemplatesOrderRepo()
+        let orderedIds = try orderRepo.fetchOrder()
+        let templates = try getAllExpenseTemplates()
+        return orderExpenseTemplates(templates, orderedIds: orderedIds)
+    }
+    
+    public func getExpenseTemplatesOrdered(limit: Int) throws -> [ExpenseTemplate] {
+        let orderRepo = createExpenseTemplatesOrderRepo()
+        let orderedIds = try orderRepo.fetchOrder(limit: limit)
+        let templatesRepo = createExpenseTemplateRepo()
+        let templates = try templatesRepo.fetchTemplates(ids: orderedIds)
+        return orderExpenseTemplates(templates, orderedIds: orderedIds)
+    }
+    
     public func getExpenseTemplate(expenseTemplateId id: String) throws -> ExpenseTemplate {
         let repo = createExpenseTemplateRepo()
         return try repo.fetchTemplate(expenseTemplateId: id)
@@ -284,12 +299,9 @@ public class Storage {
         try repo.updateOrder(orderedIds: orderedIds)
     }
     
-    public func getAllExpenseTemplatesOrdered() throws -> [ExpenseTemplate] {
-        let repo = createExpenseTemplatesOrderRepo()
-        let orderedIds = try repo.fetchOrder()
-        let templates = try getAllExpenseTemplates()
+    private func orderExpenseTemplates(_ expenseTemplates: [ExpenseTemplate], orderedIds: [ExpenseTemplateId]) -> [ExpenseTemplate] {
         let sortedTemplates = orderedIds.compactMap { id -> ExpenseTemplate? in
-            return templates.first(where: { $0.id == id })
+            return expenseTemplates.first(where: { $0.id == id })
         }
         return sortedTemplates
     }

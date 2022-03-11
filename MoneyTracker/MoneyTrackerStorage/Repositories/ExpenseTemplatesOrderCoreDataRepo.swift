@@ -49,6 +49,17 @@ class ExpenseTemplatesOrderCoreDataRepo {
     
     // MARK: - Fetch
     
+    func fetchOrder(limit: Int) throws -> [ExpenseTemplateId] {
+        let context = coreDataAccessor.viewContext
+        let orderMO = try fetchOrCreateOrderMO(context: context)
+        guard let idsMO = orderMO.expenseTemplatesOrderedIds else {
+            throw FetchError.notFound
+        }
+        let limitedIdsMO = idsMO.prefix(limit)
+        let ids = limitedIdsMO.map { $0 as ExpenseTemplateId }
+        return ids
+    }
+    
     func fetchOrder() throws -> [ExpenseTemplateId] {
         let context = coreDataAccessor.viewContext
         let orderMO = try fetchOrCreateOrderMO(context: context)

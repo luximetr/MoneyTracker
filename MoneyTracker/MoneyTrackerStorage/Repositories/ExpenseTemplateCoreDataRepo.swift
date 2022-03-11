@@ -43,6 +43,23 @@ class ExpenseTemplateCoreDataRepo {
         return convertToTemplates(templatesMO: templatesMO)
     }
     
+    func fetchTemplates(limit: Int) throws -> [ExpenseTemplate] {
+        let context = coreDataAccessor.viewContext
+        let fetchRequest = ExpenseTemplateMO.fetchRequest()
+        fetchRequest.fetchLimit = limit
+        let templatesMO = try context.fetch(fetchRequest)
+        return convertToTemplates(templatesMO: templatesMO)
+    }
+    
+    func fetchTemplates(ids: [ExpenseTemplateId]) throws -> [ExpenseTemplate] {
+        let context = coreDataAccessor.viewContext
+        let fetchRequest = ExpenseTemplateMO.fetchRequest()
+        let predicate = NSPredicate(format: "id IN %@", ids)
+        fetchRequest.predicate = predicate
+        let templatesMO = try context.fetch(fetchRequest)
+        return convertToTemplates(templatesMO: templatesMO)
+    }
+    
     func fetchTemplate(expenseTemplateId id: ExpenseTemplateId) throws -> ExpenseTemplate {
         let context = coreDataAccessor.viewContext
         let fetchRequest = ExpenseTemplateMO.fetchRequest()
