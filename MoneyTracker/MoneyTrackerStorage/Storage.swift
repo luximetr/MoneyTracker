@@ -14,18 +14,30 @@ public class Storage {
     private let coreDataAccessor: CoreDataAccessor
     private let userDefautlsAccessor: UserDefaultsAccessor
     
-    // MARK: Initiaizer
+    // MARK: - Initiaizer
     
     public init() {
         coreDataAccessor = CoreDataAccessor(storageName: "CoreDataModel", storeURL: nil)
         userDefautlsAccessor = UserDefaultsAccessor()
     }
     
-    // MARK: Categories
+    // MARK: - Categories
     
     public func getCategories() throws -> [Category] {
         let repo = createCategoriesRepo()
         return try repo.fetchAllCategories()
+    }
+    
+    public func getCategoriesOrdered() throws -> [Category] {
+        let repo = createCategoriesOrderRepo()
+        let orderedIds = try repo.fetchOrder()
+        let categories = try getCategories()
+        return orderCategories(categories, orderedIds: orderedIds)
+    }
+    
+    public func getCategory(id: String) throws -> Category {
+        let repo = createCategoriesRepo()
+        return try repo.fetchCategory(id: id)
     }
     
     public func addCategory(_ addingCategory: AddingCategory) throws {
@@ -43,11 +55,6 @@ public class Storage {
                 print(error)
             }
         }
-    }
-    
-    public func getCategory(id: String) throws -> Category {
-        let repo = createCategoriesRepo()
-        return try repo.fetchCategory(id: id)
     }
     
     public func updateCategory(id: String, editingCategory: EditingCategory) throws {
@@ -72,10 +79,7 @@ public class Storage {
         try repo.updateOrder(orderedIds: orderedIds)
     }
     
-    public func getOrderedCategories() throws -> [Category] {
-        let repo = createCategoriesOrderRepo()
-        let orderedIds = try repo.fetchOrder()
-        let categories = try getCategories()
+    private func orderCategories(_ categories: [Category], orderedIds: [CategoryId]) -> [Category] {
         let sortedCategories = orderedIds.compactMap { id -> Category? in
             categories.first(where: { $0.id == id })
         }

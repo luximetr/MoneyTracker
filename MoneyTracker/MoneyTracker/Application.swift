@@ -104,7 +104,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     private func fetchCategories() -> [StorageCategory] {
         do {
-            return try storage.getOrderedCategories()
+            return try storage.getCategoriesOrdered()
         } catch {
             print(error)
             do {
