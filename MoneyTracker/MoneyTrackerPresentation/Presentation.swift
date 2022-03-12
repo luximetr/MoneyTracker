@@ -80,10 +80,11 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Dashboard View Controller
     
-    private var dashboardViewController: UIViewController?
+    private var dashboardViewController: DashboardScreenViewController?
     
     private func createDashboardViewController() -> DashboardScreenViewController {
-        let viewController = DashboardScreenViewController()
+        let templates = delegate.presentationExpenseTemplates(self)
+        let viewController = DashboardScreenViewController(templates: templates)
         return viewController
     }
     

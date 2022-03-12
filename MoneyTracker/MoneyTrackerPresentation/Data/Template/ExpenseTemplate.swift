@@ -33,3 +33,5 @@ public struct ExpenseTemplate {
     }
     
 }
+
+typealias ExpenseTemplateId = String

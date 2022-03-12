@@ -67,4 +67,16 @@ class DashboardScreenView: TitleNavigationBarScreenView {
             .bottom(to: templatesCollectionView.edge.top).marginBottom(16)
             .sizeToFit()
     }
+    
+    // MARK: - Template cell
+    
+    func createTemplateCell(indexPath: IndexPath, template: ExpenseTemplate) -> DashboardTemplateCollectionCell {
+        let cell = templatesCollectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath) as! DashboardTemplateCollectionCell
+        cell.titleLabel.text = template.name
+        return cell
+    }
+    
+    func getTemplateCellSize() -> CGSize {
+        return CGSize(width: 100, height: 40)
+    }
 }

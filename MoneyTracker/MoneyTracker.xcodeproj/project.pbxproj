@@ -142,6 +142,7 @@
 		DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */; };
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
+		DBB7BD1927DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD1827DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
@@ -346,6 +347,7 @@
 		DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
+		DBB7BD1827DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTemplateCollectionCell.swift; sourceTree = "<group>"; };
 		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
 		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -1123,8 +1125,25 @@
 				DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */,
 				DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */,
 				DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */,
+				DBB7BD1627DC42BF004EF5B7 /* Components */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		DBB7BD1627DC42BF004EF5B7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				DBB7BD1727DC42CD004EF5B7 /* TemplateCell */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DBB7BD1727DC42CD004EF5B7 /* TemplateCell */ = {
+			isa = PBXGroup;
+			children = (
+				DBB7BD1827DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift */,
+			);
+			path = TemplateCell;
 			sourceTree = "<group>";
 		};
 		DBB7CF7C27AC0DD4002C2EAE /* Repositories */ = {
@@ -1613,6 +1632,7 @@
 				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
 				2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */,
 				2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */,
+				DBB7BD1927DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift in Sources */,
 				DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */,
 				2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */,
 				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
