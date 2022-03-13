@@ -143,6 +143,11 @@
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
 		DBB7BD1927DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD1827DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift */; };
+		DBB7BD1E27DC5929004EF5B7 /* AddTemplateScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD2027DC5929004EF5B7 /* AddTemplateScreenStrings.strings */; };
+		DBB7BD2427DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD2327DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift */; };
+		DBB7BD2727DC765B004EF5B7 /* BalanceAccountHorizontalPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD2627DC765B004EF5B7 /* BalanceAccountHorizontalPickerController.swift */; };
+		DBB7BD2927DC8D60004EF5B7 /* BalanceAccountHorizontalPickerItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD2827DC8D60004EF5B7 /* BalanceAccountHorizontalPickerItemCell.swift */; };
+		DBB7BD2B27DDA874004EF5B7 /* BalanceAccountHorizontalPickerItemCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD2A27DDA874004EF5B7 /* BalanceAccountHorizontalPickerItemCellController.swift */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
 		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
@@ -348,6 +353,11 @@
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
 		DBB7BD1827DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTemplateCollectionCell.swift; sourceTree = "<group>"; };
+		DBB7BD1F27DC5929004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddTemplateScreenStrings.strings; sourceTree = "<group>"; };
+		DBB7BD2327DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountHorizontalPickerView.swift; sourceTree = "<group>"; };
+		DBB7BD2627DC765B004EF5B7 /* BalanceAccountHorizontalPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountHorizontalPickerController.swift; sourceTree = "<group>"; };
+		DBB7BD2827DC8D60004EF5B7 /* BalanceAccountHorizontalPickerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountHorizontalPickerItemCell.swift; sourceTree = "<group>"; };
+		DBB7BD2A27DDA874004EF5B7 /* BalanceAccountHorizontalPickerItemCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountHorizontalPickerItemCellController.swift; sourceTree = "<group>"; };
 		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
 		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -884,6 +894,7 @@
 		2EC19AD327A7F75600E1A6FA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				DBB7BD2527DC7635004EF5B7 /* Pickers */,
 				2EC1BDC527B99A3400C4A054 /* TextInput */,
 				2E0DB4CE27AD778300A92682 /* Buttons */,
 				2EC19AD427A7F78200E1A6FA /* Screens */,
@@ -1011,6 +1022,8 @@
 			children = (
 				DB74863827BA6042004DF67B /* AddTemplateScreenViewController.swift */,
 				DB74863A27BA6716004DF67B /* AddTemplateScreenView.swift */,
+				DBB7BD2027DC5929004EF5B7 /* AddTemplateScreenStrings.strings */,
+				DBB7BD2127DC75F8004EF5B7 /* Components */,
 			);
 			path = AddTemplate;
 			sourceTree = "<group>";
@@ -1144,6 +1157,32 @@
 				DBB7BD1827DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift */,
 			);
 			path = TemplateCell;
+			sourceTree = "<group>";
+		};
+		DBB7BD2127DC75F8004EF5B7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DBB7BD2227DC75FF004EF5B7 /* BalanceAccountHorizontalPicker */ = {
+			isa = PBXGroup;
+			children = (
+				DBB7BD2627DC765B004EF5B7 /* BalanceAccountHorizontalPickerController.swift */,
+				DBB7BD2327DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift */,
+				DBB7BD2A27DDA874004EF5B7 /* BalanceAccountHorizontalPickerItemCellController.swift */,
+				DBB7BD2827DC8D60004EF5B7 /* BalanceAccountHorizontalPickerItemCell.swift */,
+			);
+			path = BalanceAccountHorizontalPicker;
+			sourceTree = "<group>";
+		};
+		DBB7BD2527DC7635004EF5B7 /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				DBB7BD2227DC75FF004EF5B7 /* BalanceAccountHorizontalPicker */,
+			);
+			path = Pickers;
 			sourceTree = "<group>";
 		};
 		DBB7CF7C27AC0DD4002C2EAE /* Repositories */ = {
@@ -1409,6 +1448,7 @@
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 				2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */,
+				DBB7BD1E27DC5929004EF5B7 /* AddTemplateScreenStrings.strings in Resources */,
 				DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1575,6 +1615,7 @@
 				2EC19AD027A7F65200E1A6FA /* CategoriesScreenView.swift in Sources */,
 				2E95BB3927B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift in Sources */,
 				2EC19ADA27A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift in Sources */,
+				DBB7BD2B27DDA874004EF5B7 /* BalanceAccountHorizontalPickerItemCellController.swift in Sources */,
 				2EC19AD827A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift in Sources */,
 				2EB10A4827A7075700743416 /* Bundle.swift in Sources */,
 				2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */,
@@ -1605,6 +1646,7 @@
 				DB74864827BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift in Sources */,
 				DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */,
 				2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */,
+				DBB7BD2427DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift in Sources */,
 				DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */,
 				2EA18A7227B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift in Sources */,
 				DB74863B27BA6716004DF67B /* AddTemplateScreenView.swift in Sources */,
@@ -1623,6 +1665,7 @@
 				2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */,
 				2EC1BDC227B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift in Sources */,
 				DB74869527CA1533004DF67B /* ImportCSVScreenViewController.swift in Sources */,
+				DBB7BD2927DC8D60004EF5B7 /* BalanceAccountHorizontalPickerItemCell.swift in Sources */,
 				DBD6ACEA27B35D0300389236 /* SelectCurrencyTableViewCell.swift in Sources */,
 				DB74864127BB5806004DF67B /* TemplatesScreenView.swift in Sources */,
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
@@ -1633,6 +1676,7 @@
 				2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */,
 				2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */,
 				DBB7BD1927DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift in Sources */,
+				DBB7BD2727DC765B004EF5B7 /* BalanceAccountHorizontalPickerController.swift in Sources */,
 				DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */,
 				2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */,
 				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
@@ -1787,6 +1831,14 @@
 				DBB7BD1427D78FDE004EF5B7 /* en */,
 			);
 			name = DashboardScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		DBB7BD2027DC5929004EF5B7 /* AddTemplateScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBB7BD1F27DC5929004EF5B7 /* en */,
+			);
+			name = AddTemplateScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		DBD6ACE627B35BF600389236 /* SelectCurrencyScreenStrings.strings */ = {

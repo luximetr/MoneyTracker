@@ -13,6 +13,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Subviews
     
+    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
     let addButton = TextFilledButton()
     
     // MARK: - Setup
@@ -20,7 +21,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         backgroundColor = Colors.primaryBackground
-        addSubview(addButton)
         setupAddButton()
     }
     
@@ -34,6 +34,10 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.primaryBackground
     }
     
+    private func setupBalanceAccountPickerView() {
+        
+    }
+    
     private func setupAddButton() {
         addButton.backgroundColor = Colors.primaryActionBackground
     }
@@ -42,7 +46,18 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        addSubview(balanceAccountPickerView)
+        addSubview(addButton)
+        layoutBalanceAccountPickerView()
         layoutAddButton()
+    }
+    
+    private func layoutBalanceAccountPickerView() {
+        balanceAccountPickerView.pin
+            .top(to: navigationBarView.edge.bottom).marginTop(24)
+            .left(24)
+            .right(24)
+            .height(30)
     }
     
     private func layoutAddButton() {

@@ -25,3 +25,5 @@ public struct Account {
     }
     
 }
+
+typealias AccountId = String
