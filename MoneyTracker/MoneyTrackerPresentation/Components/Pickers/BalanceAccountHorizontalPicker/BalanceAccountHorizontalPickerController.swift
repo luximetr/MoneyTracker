@@ -42,6 +42,7 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
     }
     
     func showOptions(accounts: [Account], selectedAccount: Account) {
+        self.selectedAccount = selectedAccount
         let sectionController = AUIEmptyCollectionViewSectionController()
         let cellControllers = createItemCellControllers(accounts: accounts, selectedAccount: selectedAccount)
         sectionController.cellControllers = cellControllers
@@ -59,7 +60,7 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
         let cellController = BalanceAccountHorizontalPickerItemCellController(accountId: account.id, isSelected: isSelected)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
-            return self.balanceAccountHorizontalPickerView.createItemCell(indexPath: indexPath, account: account)
+            return self.balanceAccountHorizontalPickerView.createItemCell(indexPath: indexPath, account: account, isSelected: isSelected)
         }
         cellController.sizeForCellClosure = { [weak self] in
             guard let self = self else { return .zero }
@@ -94,10 +95,9 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
     // MARK: - Item cell controller - Actions
     
     private func didSelectAccount(_ account: Account) {
-        if let selectedAccount = selectedAccount {
-            showAccountDeselected(selectedAccount)
-        }
-        selectedAccount = account
+        guard let selectedAccount = selectedAccount, selectedAccount.id != account.id else { return }
+        showAccountDeselected(selectedAccount)
+        self.selectedAccount = account
         showAccountSelected(account)
         didSelectAccountClosure?(account)
     }

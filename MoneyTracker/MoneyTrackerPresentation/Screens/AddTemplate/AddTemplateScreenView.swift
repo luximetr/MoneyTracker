@@ -13,6 +13,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Subviews
     
+    let balanceAccountPickerHeaderLabel = UILabel()
     let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
     let addButton = TextFilledButton()
     
@@ -21,6 +22,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         backgroundColor = Colors.primaryBackground
+        setupBalanceAccountPickerHeaderLabel()
         setupAddButton()
     }
     
@@ -34,8 +36,10 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.primaryBackground
     }
     
-    private func setupBalanceAccountPickerView() {
-        
+    private func setupBalanceAccountPickerHeaderLabel() {
+        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.textColor = Colors.primaryText
+        balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     
     private func setupAddButton() {
@@ -46,15 +50,25 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        addSubview(balanceAccountPickerHeaderLabel)
         addSubview(balanceAccountPickerView)
         addSubview(addButton)
+        layoutBalanceAccountPickerHeaderLabel()
         layoutBalanceAccountPickerView()
         layoutAddButton()
     }
     
+    private func layoutBalanceAccountPickerHeaderLabel() {
+        balanceAccountPickerHeaderLabel.pin
+            .left(24)
+            .top(to: navigationBarView.edge.bottom).marginTop(20)
+            .right(24)
+            .sizeToFit(.width)
+    }
+    
     private func layoutBalanceAccountPickerView() {
         balanceAccountPickerView.pin
-            .top(to: navigationBarView.edge.bottom).marginTop(24)
+            .top(to: balanceAccountPickerHeaderLabel.edge.bottom).marginTop(10)
             .left(24)
             .right(24)
             .height(30)

@@ -50,6 +50,7 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
         super.viewDidLoad()
         setupBalanceAccountPickerController()
         addTemplateScreenView.titleLabel.text = localizer.localizeText("title")
+        addTemplateScreenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
         addTemplateScreenView.addButton.addTarget(self, action: #selector(didTapOnAddButton), for: .touchUpInside)
         addTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
     }
@@ -81,7 +82,14 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
     
     private func setupBalanceAccountPickerController() {
         balanceAccountPickerController.balanceAccountHorizontalPickerView = addTemplateScreenView.balanceAccountPickerView
+        balanceAccountPickerController.didSelectAccountClosure = { [weak self] account in
+            self?.didSelectBalanceAccount(account)
+        }
         guard let firstAccount = balanceAccounts.first else { return }
         balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: firstAccount)
+    }
+    
+    private func didSelectBalanceAccount(_ account: Account) {
+        print(account.name)
     }
 }

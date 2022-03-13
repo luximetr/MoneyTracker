@@ -21,7 +21,7 @@ class BalanceAccountHorizontalPickerItemCellController: AUIClosuresCollectionVie
     // MARK: - View
     
     var pickerItemCell: BalanceAccountHorizontalPickerItemCell? {
-        return nil
+        return collectionViewCell as? BalanceAccountHorizontalPickerItemCell
     }
     
     // MARK: - Life cycle
