@@ -46,7 +46,7 @@ public final class Presentation: AUIWindowPresentation {
         categoriesViewController.view.backgroundColor = .yellow
         let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
         categoriesNavigationController.viewControllers = [categoriesViewController]
-        let statisticViewController = createStatisticScreen()
+        let statisticViewController = createAddExpenseViewController()//createStatisticScreen()
         let statisticNavigationController = AUINavigationBarHiddenNavigationController()
         statisticNavigationController.viewControllers = [statisticViewController]
         let settingsViewController = createSettingsScreenViewController()
@@ -84,6 +84,17 @@ public final class Presentation: AUIWindowPresentation {
     
     private func createDashboardViewController() -> DashboardScreenViewController {
         let viewController = DashboardScreenViewController()
+        return viewController
+    }
+    
+    // MARK: Add Expense View Controller
+    
+    private var addExpenseViewController: AddExpenseScreenViewController?
+    
+    private func createAddExpenseViewController() -> AddExpenseScreenViewController {
+        let categories = delegate.presentationCategories(self)
+        let viewController = AddExpenseScreenViewController(categories: categories)
+        addExpenseViewController = viewController
         return viewController
     }
     
