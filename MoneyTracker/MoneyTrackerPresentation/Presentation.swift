@@ -53,7 +53,7 @@ public final class Presentation: AUIWindowPresentation {
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
         settingsNavigationController.viewControllers = [settingsViewController]
         let menuViewController = MenuScreenViewController(dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
-        menuViewController.statistic()
+        menuViewController.settings()
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
@@ -80,10 +80,11 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Dashboard View Controller
     
-    private var dashboardViewController: UIViewController?
+    private var dashboardViewController: DashboardScreenViewController?
     
     private func createDashboardViewController() -> DashboardScreenViewController {
-        let viewController = DashboardScreenViewController()
+        let templates = delegate.presentationExpenseTemplates(self)
+        let viewController = DashboardScreenViewController(templates: templates)
         return viewController
     }
     

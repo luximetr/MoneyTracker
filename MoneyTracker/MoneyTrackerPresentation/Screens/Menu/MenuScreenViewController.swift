@@ -47,12 +47,12 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         super.viewDidLoad()
         menuScreenView.mainTabBarItem.addTarget(self, action: #selector(dashboard), for: .touchUpInside)
         menuScreenView.statisticTabBarItem.addTarget(self, action: #selector(statistic), for: .touchUpInside)
-        menuScreenView.settingsTabBarItem.addTarget(self, action: #selector(label3), for: .touchUpInside)
+        menuScreenView.settingsTabBarItem.addTarget(self, action: #selector(settings), for: .touchUpInside)
         dashboard()
         setContent()
     }
     
-    @objc private func dashboard() {
+    @objc func dashboard() {
         screenController?.willMove(toParent: nil)
         menuScreenView.setScreenView(nil)
         screenController?.removeFromParent()
@@ -72,7 +72,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         screenController = statisticScreenViewController
     }
     
-    @objc func label3() {
+    @objc func settings() {
         self.screenController?.willMove(toParent: nil)
         menuScreenView.setScreenView(nil)
         self.screenController?.removeFromParent()

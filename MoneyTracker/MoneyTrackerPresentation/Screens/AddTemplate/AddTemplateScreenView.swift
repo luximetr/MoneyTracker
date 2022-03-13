@@ -13,6 +13,8 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Subviews
     
+    let balanceAccountPickerHeaderLabel = UILabel()
+    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
     let addButton = TextFilledButton()
     
     // MARK: - Setup
@@ -20,7 +22,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         backgroundColor = Colors.primaryBackground
-        addSubview(addButton)
+        setupBalanceAccountPickerHeaderLabel()
         setupAddButton()
     }
     
@@ -34,6 +36,12 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.primaryBackground
     }
     
+    private func setupBalanceAccountPickerHeaderLabel() {
+        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.textColor = Colors.primaryText
+        balanceAccountPickerHeaderLabel.numberOfLines = 1
+    }
+    
     private func setupAddButton() {
         addButton.backgroundColor = Colors.primaryActionBackground
     }
@@ -42,7 +50,28 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        addSubview(balanceAccountPickerHeaderLabel)
+        addSubview(balanceAccountPickerView)
+        addSubview(addButton)
+        layoutBalanceAccountPickerHeaderLabel()
+        layoutBalanceAccountPickerView()
         layoutAddButton()
+    }
+    
+    private func layoutBalanceAccountPickerHeaderLabel() {
+        balanceAccountPickerHeaderLabel.pin
+            .left(24)
+            .top(to: navigationBarView.edge.bottom).marginTop(20)
+            .right(24)
+            .sizeToFit(.width)
+    }
+    
+    private func layoutBalanceAccountPickerView() {
+        balanceAccountPickerView.pin
+            .top(to: balanceAccountPickerHeaderLabel.edge.bottom).marginTop(10)
+            .left(24)
+            .right(24)
+            .height(30)
     }
     
     private func layoutAddButton() {

@@ -10,6 +10,18 @@ import AUIKit
 
 class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
     
+    // MARK: - Delegation
+    
+    var backClosure: (() -> Void)?
+    var addTemplateClosure: ((AddingExpenseTemplate) -> Void)?
+    
+    // MARK: Localizer
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "AddTemplateScreenStrings")
+        return localizer
+    }()
+    
     // MARK: - Data
     
     private let categories: [Category]
@@ -22,18 +34,13 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
         self.balanceAccounts = balanceAccounts
     }
     
-    // MARK: - Delegation
-    
-    var backClosure: (() -> Void)?
-    var addTemplateClosure: ((AddingExpenseTemplate) -> Void)?
-    
-    // MARK: - Localizer
-    
     // MARK: - View
     
     private var addTemplateScreenView: AddTemplateScreenView {
         return view as! AddTemplateScreenView
     }
+    
+    // MARK: - View - Life cycle
     
     override func loadView() {
         view = AddTemplateScreenView()
@@ -41,9 +48,14 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBalanceAccountPickerController()
+        addTemplateScreenView.titleLabel.text = localizer.localizeText("title")
+        addTemplateScreenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
         addTemplateScreenView.addButton.addTarget(self, action: #selector(didTapOnAddButton), for: .touchUpInside)
         addTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
     }
+    
+    // MARK: - View - Actions
     
     @objc
     private func didTapOnBackButton() {
@@ -62,5 +74,22 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
             categoryId: category.id
         )
         addTemplateClosure?(addingTemplate)
+    }
+    
+    // MARK: - Balance account picker
+    
+    private let balanceAccountPickerController = BalanceAccountHorizontalPickerController()
+    
+    private func setupBalanceAccountPickerController() {
+        balanceAccountPickerController.balanceAccountHorizontalPickerView = addTemplateScreenView.balanceAccountPickerView
+        balanceAccountPickerController.didSelectAccountClosure = { [weak self] account in
+            self?.didSelectBalanceAccount(account)
+        }
+        guard let firstAccount = balanceAccounts.first else { return }
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: firstAccount)
+    }
+    
+    private func didSelectBalanceAccount(_ account: Account) {
+        print(account.name)
     }
 }
