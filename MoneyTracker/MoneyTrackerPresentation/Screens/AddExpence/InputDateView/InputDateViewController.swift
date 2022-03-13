@@ -36,7 +36,6 @@ final class InputDateViewController: AUIEmptyViewController {
     
     func setupInputDateView() {
         datePickerController.datePicker = inputDateView?.datePicker
-        inputDateView?.button.addTarget(self, action: #selector(buttonTouchUpInsideEventAction), for: .touchUpInside)
     }
 
     override func unsetupView() {
@@ -46,13 +45,6 @@ final class InputDateViewController: AUIEmptyViewController {
   
     func unsetupInputDateView() {
         datePickerController.datePicker = nil
-        inputDateView?.button.removeTarget(self, action: #selector(buttonTouchUpInsideEventAction), for: .touchUpInside)
-    }
-    
-    // MARK: Actions
-    
-    @objc func buttonTouchUpInsideEventAction() {
-        datePickerController.becomeFirstResponder()
     }
     
 }

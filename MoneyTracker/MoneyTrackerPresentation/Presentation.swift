@@ -53,7 +53,7 @@ public final class Presentation: AUIWindowPresentation {
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
         settingsNavigationController.viewControllers = [settingsViewController]
         let menuViewController = MenuScreenViewController(dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
-        menuViewController.settings()
+        menuViewController.statistic()
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
@@ -93,8 +93,9 @@ public final class Presentation: AUIWindowPresentation {
     private var addExpenseViewController: AddExpenseScreenViewController?
     
     private func createAddExpenseViewController() -> AddExpenseScreenViewController {
+        let accounts = try! delegate.presentationAccounts(self)
         let categories = delegate.presentationCategories(self)
-        let viewController = AddExpenseScreenViewController(categories: categories)
+        let viewController = AddExpenseScreenViewController(accounts: accounts, categories: categories)
         addExpenseViewController = viewController
         return viewController
     }

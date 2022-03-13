@@ -12,11 +12,13 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     // MARK: Data
     
+    private let accounts: [Account]
     private let categories: [Category]
     
     // MARK: Initializer
     
-    init(categories: [Category]) {
+    init(accounts: [Account], categories: [Category]) {
+        self.accounts = accounts
         self.categories = categories
     }
     
@@ -37,6 +39,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         view = AddExpenseScreenView()
     }
     
+    private let balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController()
     private let inputDateViewController = InputDateViewController()
     private let commentTextFieldController = AUIEmptyTextFieldController()
     private let inputAmountViewController = InputAmountViewController()
@@ -55,6 +58,9 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         commentTextFieldController.placeholder = localizer.localizeText("commentPlaceholder")
         addExpenseScreenView.addButton.setTitle("✓", for: .normal)
         addExpenseScreenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+        
+        balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = addExpenseScreenView.selectAccountView
+        balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: accounts.first!)
     }
     
     func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {

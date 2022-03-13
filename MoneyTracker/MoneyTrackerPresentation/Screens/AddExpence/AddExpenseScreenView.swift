@@ -16,7 +16,7 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
     let tableView = UITableView()
     let commentTextField: UITextField = CommentTextField()
     let addButton: UIButton = TextFilledButton()
-    let selectAccountView = UIView()
+    let selectAccountView = BalanceAccountHorizontalPickerView()
     let inputAmountView = InputAmountView()
     let selectCategoryView = SelectCategoryView()
     
@@ -90,12 +90,13 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
     }
     
     private func layoutSelectAccountView() {
-        let x: CGFloat = 16
-        let width = bounds.width - 2 * x
+        let x: CGFloat = 0
+        let width = bounds.width
         let height: CGFloat = 26
         let y = inputAmountView.frame.origin.y - 14 - height
         let frame = CGRect(x: x, y: y, width: width, height: height)
         selectAccountView.frame = frame
+        selectAccountView.collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
     
     private func layoutAddButton() {

@@ -12,40 +12,30 @@ final class InputDateView: AUIView {
     
     // MARK: Subviews
     
-    let button = UIButton()
     let datePicker = UIDatePicker()
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        addSubview(button)
         addSubview(datePicker)
-        datePicker.alpha = 0.1
     }
     
     // MARK: Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutButton()
         layoutDatePicker()
     }
     
-    private func layoutButton() {
-        let x: CGFloat = 0
-        let y: CGFloat = 0
-        let width = bounds.width
-        let height = bounds.height
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        button.frame = frame
-    }
-    
     private func layoutDatePicker() {
-        let x: CGFloat = 0
-        let y: CGFloat = 0
-        let width = bounds.width
-        let height = bounds.height
+        let x: CGFloat = 16
+        let possibleWidth = bounds.width - 2 * x
+        let possibleHeight = bounds.height
+        let sizeThatFits = datePicker.sizeThatFits(CGSize(width: possibleWidth, height: possibleHeight))
+        let width = sizeThatFits.width
+        let height = sizeThatFits.height
+        let y: CGFloat = (bounds.size.height - height) / 2
         let frame = CGRect(x: x, y: y, width: width, height: height)
         datePicker.frame = frame
     }
