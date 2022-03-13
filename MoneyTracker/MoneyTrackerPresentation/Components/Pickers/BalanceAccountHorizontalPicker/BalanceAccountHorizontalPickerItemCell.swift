@@ -21,6 +21,9 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
     
     override func setup() {
         super.setup()
+        addSubview(coloredView)
+        addSubview(selectedMarkView)
+        addSubview(titleLabel)
         setupColoredView()
         setupTitleLabel()
         setupSelectedMarkView()
@@ -78,9 +81,6 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        addSubview(coloredView)
-        addSubview(selectedMarkView)
-        addSubview(titleLabel)
         layoutColoredView()
         layoutTitleLabel()
         layoutSelectedMarkView()
