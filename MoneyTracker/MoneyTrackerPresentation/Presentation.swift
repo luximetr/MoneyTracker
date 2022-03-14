@@ -28,6 +28,8 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL)
     func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date)
+    func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
+    func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -96,6 +98,16 @@ public final class Presentation: AUIWindowPresentation {
         let accounts = try! delegate.presentationAccounts(self)
         let categories = delegate.presentationCategories(self)
         let viewController = AddExpenseScreenViewController(accounts: accounts, categories: categories)
+        viewController.dayExpensesClosure = { [weak self] day in
+            guard let self = self else { return [] }
+            let expenses: [Expense] = try! self.delegate.presentationDayExpenses(self, day: day)
+            return expenses
+        }
+        viewController.addExpenseClosure = { [weak self] addingExpense in
+            guard let self = self else { return }
+            let addedExpense = try! self.delegate.presentation(self, addExpense: addingExpense)
+            viewController.addExpense(addedExpense)
+        }
         addExpenseViewController = viewController
         return viewController
     }

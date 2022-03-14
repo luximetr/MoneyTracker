@@ -265,13 +265,27 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         presentation.showStatisticTotalSpent(result)
     }
     
-    private func fetchExpenses(from startDate: Date, to endDate: Date) -> [Expense] {
+    private func fetchExpenses(from startDate: Date, to endDate: Date) -> [MoneyTrackerStorage.Expense] {
         do {
             return try storage.getExpenses(startDate: startDate, endDate: endDate)
         } catch {
             print(error)
             return []
         }
+    }
+    
+    func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [PresentationExpense] {
+        let account = PresentationAccount(id: "1", name: "name1", amount: Decimal(1), currency: .usd, backgroundColor: .blue)
+        let category = PresentationCategory(id: "1", name: "category1")
+        let expense = PresentationExpense(id: "1", amount: Decimal(1), date: Date(), comment: "comment", account: account, category: category)
+        return [expense]
+    }
+    
+    func presentation(_ presentation: Presentation, addExpense presentationAddingExpense: PresentationAddingExpense) throws -> PresentationExpense {
+        let addingExpence = try AddingExpense(presentationAddingExpense: presentationAddingExpense)
+        let storageAddingExpense = addingExpence.storageAddingExpense
+        let storageAddedExpense = try storage.addExpense(addingExpense: storageAddingExpense)
+        fatalError()
     }
     
     // MARK: - ExpenseTemplates

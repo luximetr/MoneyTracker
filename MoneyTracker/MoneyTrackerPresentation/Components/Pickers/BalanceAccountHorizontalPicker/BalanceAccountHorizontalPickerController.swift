@@ -16,7 +16,7 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
     
     // MARK: - Data
     
-    private var selectedAccount: Account?
+    var selectedAccount: Account?
     
     // MARK: - Controllers
     

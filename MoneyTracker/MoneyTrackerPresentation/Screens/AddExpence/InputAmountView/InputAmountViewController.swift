@@ -11,6 +11,20 @@ import AUIKit
 extension AddExpenseScreenViewController {
 final class InputAmountViewController: AUIEmptyViewController {
     
+    // MARK: Amount
+    
+    var amount: Decimal? {
+        let amountNumber = amountNumberFormatter.number(from: input)
+        let amount = amountNumber?.decimalValue
+        return amount
+    }
+    
+    lazy var amountNumberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        
+        return numberFormatter
+    }()
+    
     // MARK: Input
     
     var input: String = "" {

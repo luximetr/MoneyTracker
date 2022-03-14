@@ -216,10 +216,11 @@ public class Storage {
         repo.insertExpenses(expenses)
     }
     
-    public func addExpense(addingExpense: AddingExpense) throws {
+    public func addExpense(addingExpense: AddingExpense) throws -> Expense {
         let expense = Expense(addingExpense: addingExpense)
         let repo = createExpensesRepo()
         try repo.insertExpense(expense)
+        return expense
     }
     
     public func getAllExpenses() throws -> [Expense] {

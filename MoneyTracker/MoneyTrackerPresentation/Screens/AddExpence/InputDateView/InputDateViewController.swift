@@ -13,7 +13,7 @@ final class InputDateViewController: AUIEmptyViewController {
     
     // MARK:
     
-    private let datePickerController = AUIEmptyDateTimePickerController()
+    let datePickerController = AUIEmptyDateTimePickerController()
     
     // MARK: Setup
     

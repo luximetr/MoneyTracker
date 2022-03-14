@@ -12,8 +12,14 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     // MARK: Data
     
+    private var expenses: [Expense] = []
     private let accounts: [Account]
     private let categories: [Category]
+    
+    // MARK: Delegation
+    
+    var addExpenseClosure: ((AddingExpense) -> Void)?
+    var dayExpensesClosure: ((Date) -> [Expense])?
     
     // MARK: Initializer
     
@@ -31,7 +37,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     // MARK: View
     
-    private var addExpenseScreenView: AddExpenseScreenView {
+    private var screenView: AddExpenseScreenView {
         return view as! AddExpenseScreenView
     }
     
@@ -44,23 +50,27 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     private let commentTextFieldController = AUIEmptyTextFieldController()
     private let inputAmountViewController = InputAmountViewController()
     private let selectCategoryViewController = SelectCategoryViewController()
+    private let expensesTableViewController = AUIEmptyTableViewController()
+    private let expensesSectionController = AUIEmptyTableViewSectionController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addExpenseScreenView.titleLabel.text = localizer.localizeText("title")
-        inputDateViewController.inputDateView = addExpenseScreenView.inputDateView
-        inputAmountViewController.inputAmountView = addExpenseScreenView.inputAmountView
+        screenView.titleLabel.text = localizer.localizeText("title")
+        inputDateViewController.inputDateView = screenView.inputDateView
+        inputAmountViewController.inputAmountView = screenView.inputAmountView
         selectCategoryViewController.categories = categories
-        selectCategoryViewController.selectCategoryView = addExpenseScreenView.selectCategoryView
-        commentTextFieldController.textField = addExpenseScreenView.commentTextField
+        selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
+        commentTextFieldController.textField = screenView.commentTextField
         commentTextFieldController.returnKeyType = .done
         commentTextFieldController.addDidTapReturnKeyObserver(self)
         commentTextFieldController.placeholder = localizer.localizeText("commentPlaceholder")
-        addExpenseScreenView.addButton.setTitle("✓", for: .normal)
-        addExpenseScreenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
-        
-        balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = addExpenseScreenView.selectAccountView
+        screenView.addButton.setTitle("✓", for: .normal)
+        screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+        balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
         balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: accounts.first!)
+        expensesTableViewController.tableView = screenView.expensesTableView
+        expenses = dayExpensesClosure?(Date()) ?? []
+        setExpensesTableViewControllerContent()
     }
     
     func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {
@@ -70,8 +80,48 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     // MARK: Events
     
     @objc func addButtonTouchUpInsideEventAction() {
-        let amount = inputAmountViewController.input
+        let date = inputDateViewController.datePickerController.date
+        guard let amount = inputAmountViewController.amount else { return }
         guard let category = selectCategoryViewController.selectedCategory else { return }
+        guard let account = balanceAccountHorizontalPickerController.selectedAccount else { return }
+        let comment = screenView.commentTextField.text
+        let addingExpense = AddingExpense(amount: amount, date: date, comment: comment, account: account, category: category)
+        addExpenseClosure?(addingExpense)
+    }
+    
+    func addExpense(_ expense: Expense) {
+        
+    }
+    
+    // MARK: Content
+    
+    private func setExpensesTableViewControllerContent() {
+        expensesSectionController.cellControllers = []
+        var cellControllers: [AUITableViewCellController] = []
+        for expense in expenses {
+            let cellController = AUIClosuresTableViewCellController()
+            cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+                guard let self = self else { return UITableViewCell() }
+                let cell = self.screenView.expenseTableViewCell(indexPath)
+                cell.accountLabel.text = expense.account.name
+                cell.categoryLabel.text = expense.category.name
+                cell.amountLabel.text = "24.12 SGD"
+                cell.commentLabel.text = expense.comment
+                return cell
+            }
+            cellController.estimatedHeightClosure = { [weak self] in
+                guard let self = self else { return 0 }
+                return self.screenView.expenseTableViewCellEstimatedHeight()
+            }
+            cellController.heightClosure = { [weak self] in
+                guard let self = self else { return 0 }
+                return self.screenView.expenseTableViewCellHeight()
+            }
+            cellControllers.append(cellController)
+        }
+        expensesSectionController.cellControllers = cellControllers
+        expensesTableViewController.sectionControllers = [expensesSectionController]
+        expensesTableViewController.reload()
     }
     
 }

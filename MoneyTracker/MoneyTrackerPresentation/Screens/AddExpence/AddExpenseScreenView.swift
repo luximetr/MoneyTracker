@@ -8,12 +8,13 @@
 import UIKit
 import AUIKit
 
+extension AddExpenseScreenViewController {
 final class AddExpenseScreenView: TitleNavigationBarScreenView {
     
     // MARK: Subviews
     
     let inputDateView = InputDateView()
-    let tableView = UITableView()
+    let expensesTableView = UITableView()
     let commentTextField: UITextField = CommentTextField()
     let addButton: UIButton = TextFilledButton()
     let selectAccountView = BalanceAccountHorizontalPickerView()
@@ -27,8 +28,8 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
         backgroundColor = Colors.primaryBackground
         addSubview(inputDateView)
         setupInputDateView()
-        addSubview(tableView)
-        setupTableView()
+        addSubview(expensesTableView)
+        setupExpenseTableView()
         addSubview(commentTextField)
         setupCommentTextField()
         addSubview(addButton)
@@ -42,9 +43,10 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
         
     }
     
-    private func setupTableView() {
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = Colors.secondaryBackground
+    private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
+    private func setupExpenseTableView() {
+        expensesTableView.separatorStyle = .none
+        expensesTableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: expenseTableViewCellReuseIdentifier)
     }
     
     private func setupCommentTextField() {
@@ -68,7 +70,7 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
         layoutAddButton()
         layoutCommentTextField()
         layoutInputDateView()
-        layoutTableView()
+        layoutExpenseTableView()
     }
     
     private func layoutInputAmountView() {
@@ -127,15 +129,31 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
         inputDateView.frame = frame
     }
     
-    private func layoutTableView() {
+    private func layoutExpenseTableView() {
         let x: CGFloat = 0
         let width = bounds.width
         let y = inputDateView.frame.origin.y + inputDateView.frame.size.height
         let height = commentTextField.frame.origin.y - inputDateView.frame.origin.y - inputDateView.frame.size.height - 14
         let frame = CGRect(x: x, y: y, width: width, height: height)
-        tableView.frame = frame
+        expensesTableView.frame = frame
     }
     
+    // MARK: ExpensesTableView
+    
+    func expenseTableViewCell(_ indexPath: IndexPath) -> ExpenseTableViewCell {
+        let cell = expensesTableView.dequeueReusableCell(withIdentifier: expenseTableViewCellReuseIdentifier, for: indexPath) as! ExpenseTableViewCell
+        return cell
+    }
+    
+    func expenseTableViewCellEstimatedHeight() -> CGFloat {
+        return 53
+    }
+    
+    func expenseTableViewCellHeight() -> CGFloat {
+        return 53
+    }
+    
+}
 }
 
 private final class CommentTextField: AUITextField {
