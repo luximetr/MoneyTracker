@@ -17,7 +17,27 @@ struct Expense: Equatable, Hashable {
     let amount: Decimal
     let date: Date
     let comment: String?
-    let balanceAccountId: String
-    let categoryId: String
+    let account: Account
+    let category: Category
+    
+    // MARK: StorageExpense
+    
+    init(storageExpense: StorageExpense, account: StorageAccount, category: StorageCategory) {
+        self.id = storageExpense.id
+        self.amount = storageExpense.amount
+        self.date = storageExpense.date
+        self.comment = storageExpense.comment
+        self.account = Account(storageAccount: account)
+        self.category = Category(storageCategoty: category)
+    }
+    
+    // MARK: PresentationStorage
+    
+    func presentationExpense() throws -> PresentationExpense {
+        let presentationAccount = try account.presentationAccount()
+        let presentationCategory = category.presentationCategory
+        let presentationExpense = PresentationExpense(id: id, amount: amount, date: date, comment: comment, account: presentationAccount, category: presentationCategory)
+        return presentationExpense
+    }
     
 }

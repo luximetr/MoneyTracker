@@ -67,7 +67,9 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         screenView.addButton.setTitle("✓", for: .normal)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
-        balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: accounts.first!)
+        if let firstAccount = accounts.first {
+            balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
+        }
         expensesTableViewController.tableView = screenView.expensesTableView
         expenses = dayExpensesClosure?(Date()) ?? []
         setExpensesTableViewControllerContent()
@@ -90,7 +92,9 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     func addExpense(_ expense: Expense) {
-        
+        expenses.insert(expense, at: 0)
+        let cellController = createExpenseTableViewController(expense: expense)
+        expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .fade, completion: nil)
     }
     
     // MARK: Content
@@ -99,29 +103,34 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         expensesSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
         for expense in expenses {
-            let cellController = AUIClosuresTableViewCellController()
-            cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
-                guard let self = self else { return UITableViewCell() }
-                let cell = self.screenView.expenseTableViewCell(indexPath)
-                cell.accountLabel.text = expense.account.name
-                cell.categoryLabel.text = expense.category.name
-                cell.amountLabel.text = "24.12 SGD"
-                cell.commentLabel.text = expense.comment
-                return cell
-            }
-            cellController.estimatedHeightClosure = { [weak self] in
-                guard let self = self else { return 0 }
-                return self.screenView.expenseTableViewCellEstimatedHeight()
-            }
-            cellController.heightClosure = { [weak self] in
-                guard let self = self else { return 0 }
-                return self.screenView.expenseTableViewCellHeight()
-            }
+            let cellController = createExpenseTableViewController(expense: expense)
             cellControllers.append(cellController)
         }
         expensesSectionController.cellControllers = cellControllers
         expensesTableViewController.sectionControllers = [expensesSectionController]
         expensesTableViewController.reload()
+    }
+    
+    private func createExpenseTableViewController(expense: Expense) -> AUITableViewCellController {
+        let cellController = AUIClosuresTableViewCellController()
+        cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.screenView.expenseTableViewCell(indexPath)
+            cell.accountLabel.text = expense.account.name
+            cell.categoryLabel.text = expense.category.name
+            cell.amountLabel.text = "24.12 SGD"
+            cell.commentLabel.text = expense.comment
+            return cell
+        }
+        cellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            return self.screenView.expenseTableViewCellEstimatedHeight()
+        }
+        cellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            return self.screenView.expenseTableViewCellHeight()
+        }
+        return cellController
     }
     
 }

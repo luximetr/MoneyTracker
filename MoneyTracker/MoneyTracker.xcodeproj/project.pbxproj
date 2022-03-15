@@ -1205,9 +1205,9 @@
 		DB7486DB27CDD30C004DF67B /* Expense */ = {
 			isa = PBXGroup;
 			children = (
-				DB7486DC27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift */,
-				2ED60BD527DE830800EC11D4 /* Expense.swift */,
 				2ED60BD727DE851900EC11D4 /* AddingExpense.swift */,
+				2ED60BD527DE830800EC11D4 /* Expense.swift */,
+				DB7486DC27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift */,
 			);
 			path = Expense;
 			sourceTree = "<group>";

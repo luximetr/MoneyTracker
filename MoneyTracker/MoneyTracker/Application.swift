@@ -275,17 +275,29 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [PresentationExpense] {
-        let account = PresentationAccount(id: "1", name: "name1", amount: Decimal(1), currency: .usd, backgroundColor: .blue)
-        let category = PresentationCategory(id: "1", name: "category1")
-        let expense = PresentationExpense(id: "1", amount: Decimal(1), date: Date(), comment: "comment", account: account, category: category)
-        return [expense]
+        let categories = try storage.getCategories()
+        let accounts = try storage.getAllBalanceAccounts()
+        let startDate = day.startOfDay
+        let endDate = day.endOfDay
+        let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+        let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
+            guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { fatalError() }
+            guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { fatalError() }
+            return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+        }
+        return presentationExpenses.reversed()
     }
     
     func presentation(_ presentation: Presentation, addExpense presentationAddingExpense: PresentationAddingExpense) throws -> PresentationExpense {
+        let categories = try storage.getCategories()
+        let accounts = try storage.getAllBalanceAccounts()
         let addingExpence = try AddingExpense(presentationAddingExpense: presentationAddingExpense)
         let storageAddingExpense = addingExpence.storageAddingExpense
         let storageAddedExpense = try storage.addExpense(addingExpense: storageAddingExpense)
-        fatalError()
+        guard let storageCategory = categories.first(where: { $0.id == storageAddedExpense.categoryId }) else { fatalError() }
+        guard let storageAccount = accounts.first(where: { $0.id == storageAddedExpense.balanceAccountId }) else { fatalError() }
+        let presentationExpense = try Expense(storageExpense: storageAddedExpense, account: storageAccount, category: storageCategory).presentationExpense()
+        return presentationExpense
     }
     
     // MARK: - ExpenseTemplates
@@ -355,4 +367,29 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+}
+
+extension Date {
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+
+    var endOfDay: Date {
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfDay)!
+    }
+
+    var startOfMonth: Date {
+        let components = Calendar.current.dateComponents([.year, .month], from: startOfDay)
+        return Calendar.current.date(from: components)!
+    }
+
+    var endOfMonth: Date {
+        var components = DateComponents()
+        components.month = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfMonth)!
+    }
 }
