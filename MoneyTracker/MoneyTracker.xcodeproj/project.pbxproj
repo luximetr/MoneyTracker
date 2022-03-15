@@ -56,6 +56,8 @@
 		2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EA7067227B5BA7B00FF08B2 /* AddAccountScreenStrings.strings */; };
 		2EA7067727B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7067627B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift */; };
 		2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7067827B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift */; };
+		2EADAD9B27E131690013DEEC /* CommentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EADAD9A27E131690013DEEC /* CommentTextField.swift */; };
+		2EADAD9D27E133860013DEEC /* ExpenseTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EADAD9C27E133860013DEEC /* ExpenseTableViewCellController.swift */; };
 		2EB10A0727A6C30D00743416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0627A6C30D00743416 /* Assets.xcassets */; };
 		2EB10A0A27A6C30D00743416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */; };
 		2EB10A1227A6C8CB00743416 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A1127A6C8CB00743416 /* Application.swift */; };
@@ -276,6 +278,8 @@
 		2EA7067127B5BA7B00FF08B2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddAccountScreenStrings.strings; sourceTree = "<group>"; };
 		2EA7067627B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		2EA7067827B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenColorCollectionViewCellController.swift; sourceTree = "<group>"; };
+		2EADAD9A27E131690013DEEC /* CommentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextField.swift; sourceTree = "<group>"; };
+		2EADAD9C27E133860013DEEC /* ExpenseTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCellController.swift; sourceTree = "<group>"; };
 		2EB109FA27A6C30C00743416 /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB10A0627A6C30D00743416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EB10A0927A6C30D00743416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -767,6 +771,14 @@
 			path = Color;
 			sourceTree = "<group>";
 		};
+		2EADAD9927E1315C0013DEEC /* CommentTextField */ = {
+			isa = PBXGroup;
+			children = (
+				2EADAD9A27E131690013DEEC /* CommentTextField.swift */,
+			);
+			path = CommentTextField;
+			sourceTree = "<group>";
+		};
 		2EB109F127A6C30C00743416 = {
 			isa = PBXGroup;
 			children = (
@@ -993,10 +1005,11 @@
 				2ECB218627DCA957006D6558 /* AddExpenseScreenViewController.swift */,
 				2ECB218827DCA960006D6558 /* AddExpenseScreenView.swift */,
 				2ECB218E27DCA9FD006D6558 /* AddExpenseScreenStrings.strings */,
-				2ED60BD027DE775600EC11D4 /* ExpenseTableViewCell */,
 				2ED1D16327DDCCA40001D5A6 /* InputDateView */,
-				2ECB218F27DCAEF1006D6558 /* InputAmountView */,
+				2ED60BD027DE775600EC11D4 /* ExpenseTableViewCell */,
+				2EADAD9927E1315C0013DEEC /* CommentTextField */,
 				2ECB219627DD2AD4006D6558 /* SelectCategoryView */,
+				2ECB218F27DCAEF1006D6558 /* InputAmountView */,
 			);
 			path = AddExpence;
 			sourceTree = "<group>";
@@ -1049,6 +1062,7 @@
 		2ED60BD027DE775600EC11D4 /* ExpenseTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				2EADAD9C27E133860013DEEC /* ExpenseTableViewCellController.swift */,
 				2ED60BD127DE776F00EC11D4 /* ExpenseTableViewCell.swift */,
 			);
 			path = ExpenseTableViewCell;
@@ -1706,6 +1720,8 @@
 				2ED60BD227DE776F00EC11D4 /* ExpenseTableViewCell.swift in Sources */,
 				2EB10A4A27A707A300743416 /* Language.swift in Sources */,
 				2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */,
+				2EADAD9B27E131690013DEEC /* CommentTextField.swift in Sources */,
+				2EADAD9D27E133860013DEEC /* ExpenseTableViewCellController.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesScreenView.swift in Sources */,
 				2E95BB3927B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift in Sources */,
 				2EC19ADA27A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift in Sources */,

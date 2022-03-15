@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension AddExpenseScreenViewController {
-final class AddExpenseScreenView: TitleNavigationBarScreenView {
+final class ScreenView: TitleNavigationBarScreenView {
     
     // MARK: Subviews
     
@@ -27,11 +27,9 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
         super.setup()
         backgroundColor = Colors.primaryBackground
         addSubview(inputDateView)
-        setupInputDateView()
         addSubview(expensesTableView)
         setupExpenseTableView()
         addSubview(commentTextField)
-        setupCommentTextField()
         addSubview(addButton)
         setupAddButton()
         addSubview(selectAccountView)
@@ -39,18 +37,10 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
         addSubview(selectCategoryView)
     }
     
-    private func setupInputDateView() {
-        
-    }
-    
     private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
     private func setupExpenseTableView() {
         expensesTableView.separatorStyle = .none
         expensesTableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: expenseTableViewCellReuseIdentifier)
-    }
-    
-    private func setupCommentTextField() {
-        commentTextField.backgroundColor = Colors.secondaryBackground
     }
     
     private func setupAddButton() {
@@ -154,56 +144,4 @@ final class AddExpenseScreenView: TitleNavigationBarScreenView {
     }
     
 }
-}
-
-private final class CommentTextField: AUITextField {
-    
-    // MARK: Placeholder
-    
-    override var placeholder: String? {
-        get {
-            return attributedPlaceholder?.string
-        }
-        set {
-            guard let string = newValue else { return }
-            let attributes: [NSAttributedString.Key : Any] = [
-                .font: Fonts.default(size: 17, weight: .regular),
-                .foregroundColor: Colors.secondaryText
-            ]
-            let attributedString = NSAttributedString(string: string, attributes: attributes)
-            attributedPlaceholder = attributedString
-        }
-    }
-    
-    // MARK: Setup
-    
-    override func setup() {
-        super.setup()
-        clipsToBounds = true
-        tintColor = Colors.primaryText
-        textColor = Colors.primaryText
-        font = Fonts.default(size: 17, weight: .regular)
-    }
-    
-    // MARK: Layout
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = 10
-    }
-    
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        var textRect = super.textRect(forBounds: bounds)
-        textRect.origin.x = 16
-        textRect.size.width -= 16 * 2
-        return textRect
-    }
-    
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        var editingRect = super.editingRect(forBounds: bounds)
-        editingRect.origin.x = 16
-        editingRect.size.width -= 16 * 2
-        return editingRect
-    }
-    
 }

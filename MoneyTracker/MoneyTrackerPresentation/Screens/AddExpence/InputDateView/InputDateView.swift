@@ -19,13 +19,26 @@ final class InputDateView: AUIView {
     override func setup() {
         super.setup()
         addSubview(datePicker)
+        autoLayout()
+    }
+    
+    // MARK: AutoLayout
+    
+    private func autoLayout() {
+        autoLayoutDatePicker()
+    }
+    
+    private func autoLayoutDatePicker() {
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        datePicker.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
     }
     
     // MARK: Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutDatePicker()
+        //layoutDatePicker()
     }
     
     private func layoutDatePicker() {

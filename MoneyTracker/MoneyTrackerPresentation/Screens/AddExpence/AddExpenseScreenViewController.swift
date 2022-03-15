@@ -37,12 +37,12 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     // MARK: View
     
-    private var screenView: AddExpenseScreenView {
-        return view as! AddExpenseScreenView
+    private var screenView: ScreenView {
+        return view as! ScreenView
     }
     
     override func loadView() {
-        view = AddExpenseScreenView()
+        view = ScreenView()
     }
     
     private let balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController()
@@ -57,6 +57,10 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         super.viewDidLoad()
         screenView.titleLabel.text = localizer.localizeText("title")
         inputDateViewController.inputDateView = screenView.inputDateView
+        inputDateViewController.didSelectDayClosure = { [weak self] day in
+            guard let self = self else { return }
+            self.selectDay(day)
+        }
         inputAmountViewController.inputAmountView = screenView.inputAmountView
         selectCategoryViewController.categories = categories
         selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
@@ -81,6 +85,11 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     // MARK: Events
     
+    func selectDay(_ day: Date) {
+        expenses = dayExpensesClosure?(day) ?? []
+        setExpensesTableViewControllerContent()
+    }
+    
     @objc func addButtonTouchUpInsideEventAction() {
         let date = inputDateViewController.datePickerController.date
         guard let amount = inputAmountViewController.amount else { return }
@@ -94,7 +103,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     func addExpense(_ expense: Expense) {
         expenses.insert(expense, at: 0)
         let cellController = createExpenseTableViewController(expense: expense)
-        expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .fade, completion: nil)
+        expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
     }
     
     // MARK: Content
@@ -112,14 +121,10 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     private func createExpenseTableViewController(expense: Expense) -> AUITableViewCellController {
-        let cellController = AUIClosuresTableViewCellController()
+        let cellController = ExpenseTableViewCellController(expense: expense)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.expenseTableViewCell(indexPath)
-            cell.accountLabel.text = expense.account.name
-            cell.categoryLabel.text = expense.category.name
-            cell.amountLabel.text = "24.12 SGD"
-            cell.commentLabel.text = expense.comment
             return cell
         }
         cellController.estimatedHeightClosure = { [weak self] in

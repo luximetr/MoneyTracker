@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension AddExpenseScreenViewController {
-final class InputDateViewController: AUIEmptyViewController {
+final class InputDateViewController: AUIEmptyViewController, AUIControlControllerDidValueChangedObserver {
     
     // MARK:
     
@@ -20,6 +20,7 @@ final class InputDateViewController: AUIEmptyViewController {
     override func setup() {
         super.setup()
         datePickerController.mode = .date
+        datePickerController.addDidValueChangedObserver(self)
     }
     
     // MARK: InputDateView
@@ -45,6 +46,11 @@ final class InputDateViewController: AUIEmptyViewController {
   
     func unsetupInputDateView() {
         datePickerController.datePicker = nil
+    }
+    
+    var didSelectDayClosure: ((Date) -> Void)?
+    func controlControllerDidValueChanged(_ controlController: AUIControlController) {
+        didSelectDayClosure?(datePickerController.date)
     }
     
 }
