@@ -529,9 +529,9 @@
 		2E91155427A93D4800359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				DB7486DB27CDD30C004DF67B /* Expense */,
 				2EDB3EEF27C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift */,
 				2EDB3EEE27C43FB5003A9FDD /* ExpenseTemplateAdapter.swift */,
+				DB7486DB27CDD30C004DF67B /* Expense */,
 				2E926E8827BC55AD0081E3AE /* Currency */,
 				2E926E8227BC537D0081E3AE /* Category */,
 				2E926E8327BC538F0081E3AE /* Account */,
