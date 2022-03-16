@@ -45,6 +45,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         view = ScreenView()
     }
     
+    private let tapGestureRecognizer = UITapGestureRecognizer()
     private let balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController()
     private let inputDateViewController = InputDateViewController()
     private let commentTextFieldController = AUIEmptyTextFieldController()
@@ -55,37 +56,54 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        screenView.titleLabel.text = localizer.localizeText("title")
-        inputDateViewController.inputDateView = screenView.inputDateView
-        inputDateViewController.didSelectDayClosure = { [weak self] day in
-            guard let self = self else { return }
-            self.selectDay(day)
-        }
+        setupTapGestureRecognizer()
+        setupInputDateViewController()
+        setupCommentTextFieldController()
         inputAmountViewController.inputAmountView = screenView.inputAmountView
         selectCategoryViewController.categories = categories
         selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
-        commentTextFieldController.textField = screenView.commentTextField
-        commentTextFieldController.returnKeyType = .done
-        commentTextFieldController.addDidTapReturnKeyObserver(self)
-        commentTextFieldController.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.addButton.setTitle("✓", for: .normal)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
         if let firstAccount = accounts.first {
             balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
         }
-        expensesTableViewController.tableView = screenView.expensesTableView
+        setupExpensesTableViewController()
         expenses = dayExpensesClosure?(Date()) ?? []
+        setContent()
         setExpensesTableViewControllerContent()
     }
     
-    func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {
-        view.endEditing(true)
+    private func setupTapGestureRecognizer() {
+        screenView.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerAction))
+    }
+    
+    private func setupExpensesTableViewController() {
+        expensesTableViewController.tableView = screenView.expensesTableView
+    }
+    
+    private func setupInputDateViewController() {
+        inputDateViewController.inputDateView = screenView.inputDateView
+        inputDateViewController.didSelectDayClosure = { [weak self] day in
+            guard let self = self else { return }
+            self.selectDay(day)
+        }
+    }
+    
+    private func setupCommentTextFieldController() {
+        commentTextFieldController.textField = screenView.commentTextField
+        commentTextFieldController.returnKeyType = .done
+        commentTextFieldController.addDidTapReturnKeyObserver(self)
     }
     
     // MARK: Events
     
-    func selectDay(_ day: Date) {
+    @objc private func tapGestureRecognizerAction() {
+        view.endEditing(true)
+    }
+    
+    private func selectDay(_ day: Date) {
         expenses = dayExpensesClosure?(day) ?? []
         setExpensesTableViewControllerContent()
     }
@@ -98,6 +116,8 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         let comment = screenView.commentTextField.text
         let addingExpense = AddingExpense(amount: amount, date: date, comment: comment, account: account, category: category)
         addExpenseClosure?(addingExpense)
+        inputAmountViewController.input = ""
+        view.endEditing(true)
     }
     
     func addExpense(_ expense: Expense) {
@@ -106,7 +126,16 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
     }
     
+    func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {
+        view.endEditing(true)
+    }
+    
     // MARK: Content
+    
+    private func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+        commentTextFieldController.placeholder = localizer.localizeText("commentPlaceholder")
+    }
     
     private func setExpensesTableViewControllerContent() {
         expensesSectionController.cellControllers = []
