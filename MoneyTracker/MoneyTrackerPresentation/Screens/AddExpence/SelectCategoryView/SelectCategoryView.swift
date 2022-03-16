@@ -8,6 +8,7 @@
 import UIKit
 import AUIKit
 
+extension AddExpenseScreenViewController {
 final class SelectCategoryView: AUIView {
     
     // MARK: Subviews
@@ -40,4 +41,5 @@ final class SelectCategoryView: AUIView {
         pickerView.frame = frame
     }
     
+}
 }

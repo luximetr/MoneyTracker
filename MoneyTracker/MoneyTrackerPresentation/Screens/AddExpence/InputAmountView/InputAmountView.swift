@@ -8,6 +8,7 @@
 import UIKit
 import AUIKit
 
+extension AddExpenseScreenViewController {
 final class InputAmountView: AUIView {
     
     // MARK: Subviews
@@ -228,6 +229,7 @@ final class InputAmountView: AUIView {
         return size
     }
     
+}
 }
 
 final class KeyButton: AUIButton {
