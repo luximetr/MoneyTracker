@@ -15,14 +15,22 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     let balanceAccountPickerHeaderLabel = UILabel()
     let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
+    let categoryPickerHeaderLabel = UILabel()
+    let categoryPickerView = CategoryHorizontalPickerView()
     let addButton = TextFilledButton()
     
     // MARK: - Setup
     
     override func setup() {
         super.setup()
+        addSubview(balanceAccountPickerHeaderLabel)
+        addSubview(balanceAccountPickerView)
+        addSubview(categoryPickerHeaderLabel)
+        addSubview(categoryPickerView)
+        addSubview(addButton)
         backgroundColor = Colors.primaryBackground
         setupBalanceAccountPickerHeaderLabel()
+        
         setupAddButton()
     }
     
@@ -50,11 +58,10 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        addSubview(balanceAccountPickerHeaderLabel)
-        addSubview(balanceAccountPickerView)
-        addSubview(addButton)
         layoutBalanceAccountPickerHeaderLabel()
         layoutBalanceAccountPickerView()
+        layoutCategoryPickerHeaderLabel()
+        layoutCategoryPickerView()
         layoutAddButton()
     }
     
@@ -72,6 +79,22 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .left(24)
             .right(24)
             .height(30)
+    }
+    
+    private func layoutCategoryPickerHeaderLabel() {
+        categoryPickerHeaderLabel.pin
+            .left(24)
+            .right(24)
+            .top(to: balanceAccountPickerView.edge.bottom).marginTop(32)
+            .sizeToFit(.width)
+    }
+    
+    private func layoutCategoryPickerView() {
+        categoryPickerView.pin
+            .left(24)
+            .right(24)
+            .top(to: categoryPickerHeaderLabel.edge.bottom).marginTop(10)
+            .height(24)
     }
     
     private func layoutAddButton() {

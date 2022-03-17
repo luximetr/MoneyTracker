@@ -22,10 +22,16 @@ class CategoryHorizontalPickerView: AUIView {
     
     override func setup() {
         super.setup()
+        addSubview(collectionView)
         setupCollectionView()
     }
     
     // MARK: - Layout
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutCollectionView()
+    }
     
     // MARK: - Collection view
     
@@ -40,9 +46,23 @@ class CategoryHorizontalPickerView: AUIView {
         collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
     }
     
+    private func layoutCollectionView() {
+        collectionView.pin.all()
+    }
+    
     // MARK: - Item cell
     
     private let itemCellIdentifier = "itemCellIdentifier"
     
+    func createItemCell(indexPath: IndexPath, category: Category, isSelected: Bool) -> CategoryHorizontalPickerItemCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as! CategoryHorizontalPickerItemCell
+        cell.titleLabel.text = category.name
+        cell.update(isSelected: isSelected)
+        return cell
+    }
     
+    func getItemCellSize() -> CGSize {
+        let minCellWidth: CGFloat = 1
+        return CGSize(width: minCellWidth, height: collectionView.frame.height)
+    }
 }

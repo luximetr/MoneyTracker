@@ -44,7 +44,7 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     
     // MARK: - TitleLabel
     
-    private let titleLabel = UILabel()
+    let titleLabel = UILabel()
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 11, weight: .regular)

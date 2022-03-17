@@ -64,6 +64,7 @@ class BalanceAccountHorizontalPickerView: AUIView {
     }
     
     func getItemCellSize() -> CGSize {
-        return CGSize(width: 0, height: collectionView.frame.height)
+        let minCellWidth: CGFloat = 1
+        return CGSize(width: minCellWidth, height: collectionView.frame.height)
     }
 }
