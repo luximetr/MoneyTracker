@@ -41,6 +41,8 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
         collectionController.collectionView = nil
     }
     
+    // MARK: - Configuration
+    
     func showOptions(accounts: [Account], selectedAccount: Account) {
         self.selectedAccount = selectedAccount
         let sectionController = AUIEmptyCollectionViewSectionController()

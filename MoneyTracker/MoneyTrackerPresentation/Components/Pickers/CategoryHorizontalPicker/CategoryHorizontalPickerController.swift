@@ -1,0 +1,105 @@
+//
+//  CategoryHorizontalPickerController.swift
+//  MoneyTrackerPresentation
+//
+//  Created by Oleksandr Orlov on 13.03.2022.
+//
+
+import UIKit
+import AUIKit
+
+class CategoryHorizontalPickerController: AUIEmptyViewController {
+    
+    // MARK: - Delegations
+    
+    var didSelectCategoryClosure: ((Category) -> Void)?
+    
+    // MARK: - Data
+    
+    private var selectedCategory: Category?
+    
+    // MARK: - Controllers
+    
+    private let collectionController = AUIEmptyCollectionViewController()
+    
+    // MARK: - View
+    
+    var categoryHorizontalPickerView: CategoryHorizontalPickerView {
+        set { view = newValue }
+        get { return view as! CategoryHorizontalPickerView }
+    }
+    
+    // MARK: - View - Setup
+    
+    override func setupView() {
+        super.setupView()
+        collectionController.collectionView = categoryHorizontalPickerView.collectionView
+    }
+    
+    override func unsetupView() {
+        super.unsetupView()
+        collectionController.collectionView = nil
+    }
+    
+    // MARK: - Configuration
+    
+    func showOptions(categories: [Category], selectedCategory: Category) {
+        self.selectedCategory = selectedCategory
+        let sectionController = AUIEmptyCollectionViewSectionController()
+        let cellControllers = createItemCellControllers(categories: categories, selectedCategory: selectedCategory)
+        sectionController.cellControllers = cellControllers
+        collectionController.sectionControllers = [sectionController]
+    }
+    
+    // MARK: - Item cell controller - Create
+    
+    private func createItemCellControllers(categories: [Category], selectedCategory: Category) -> [AUICollectionViewCellController] {
+        return categories.map { createItemCellController(category: $0, isSelected: $0.id == selectedCategory.id) }
+    }
+    
+    private func createItemCellController(category: Category, isSelected: Bool) -> AUICollectionViewCellController {
+        let cellController = CategoryHorizontalPickerItemCellController(categoryId: category.id, isSelected: isSelected)
+        cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UICollectionViewCell() }
+            return self.categoryHorizontalPickerView.createItemCell(indexPath: indexPath, category: category, isSelected: isSelected)
+        }
+        cellController.sizeForCellClosure = { [weak self] in
+            guard let self = self else { return .zero }
+            return self.categoryHorizontalPickerView.getItemCellSize()
+        }
+        cellController.didSelectClosure = { [weak self] in
+            self?.didSelectCategoryCell(category)
+        }
+        return cellController
+    }
+    
+    // MARK: - Item cell controller - Find
+    
+    private func findCellController(forCategoryId categoryId: CategoryId) -> CategoryHorizontalPickerItemCellController? {
+        let cellControllers = collectionController.sectionControllers.map({ $0.cellControllers }).reduce([], +).compactMap { $0 as? CategoryHorizontalPickerItemCellController }
+        let foundCellController = cellControllers.first(where: { $0.categoryId == categoryId })
+        return foundCellController
+    }
+    
+    // MARK: - Item cell controller - Update
+    
+    private func showCategorySelected(_ category: Category) {
+        guard let cellController = findCellController(forCategoryId: category.id) else { return }
+        cellController.isSelected = true
+    }
+    
+    private func showCategoryDeselected(_ category: Category) {
+        guard let cellController = findCellController(forCategoryId: category.id) else { return }
+        cellController.isSelected = false
+    }
+    
+    // MARK: - Item cell controller - Actions
+    
+    private func didSelectCategoryCell(_ category: Category) {
+        guard let selectedCategory = selectedCategory else { return }
+        showCategoryDeselected(selectedCategory)
+        self.selectedCategory = category
+        showCategorySelected(category)
+        didSelectCategoryClosure?(category)
+    }
+}

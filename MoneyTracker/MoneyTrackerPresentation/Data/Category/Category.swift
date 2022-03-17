@@ -16,3 +16,5 @@ public struct Category: Equatable, Hashable {
         self.name = name
     }
 }
+
+typealias CategoryId = String
