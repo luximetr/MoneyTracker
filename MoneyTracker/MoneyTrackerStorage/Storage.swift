@@ -251,6 +251,11 @@ public class Storage {
     private func createExpensesRepo() -> ExpensesCoreDataRepo {
         return ExpensesCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }
+    
+    public func removeExpense(expenseId: String) throws {
+        let repo = createExpensesRepo()
+        try repo.removeExpense(id: expenseId)
+    }
 
     // MARK: - ExpenseTemplate
     

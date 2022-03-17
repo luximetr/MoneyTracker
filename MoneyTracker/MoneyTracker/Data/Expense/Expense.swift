@@ -33,6 +33,15 @@ struct Expense: Equatable, Hashable {
     
     // MARK: PresentationStorage
     
+    init(presentationExpense: PresentationExpense) throws {
+        self.id = presentationExpense.id
+        self.amount = presentationExpense.amount
+        self.date = presentationExpense.date
+        self.comment = presentationExpense.comment
+        self.account = try Account(presentationAccount: presentationExpense.account)
+        self.category = Category(presentationCategory: presentationExpense.category)
+    }
+    
     func presentationExpense() throws -> PresentationExpense {
         let presentationAccount = try account.presentationAccount()
         let presentationCategory = category.presentationCategory

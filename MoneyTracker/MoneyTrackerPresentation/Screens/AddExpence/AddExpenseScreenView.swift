@@ -14,6 +14,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     // MARK: Subviews
     
     let inputDateView = InputDateView()
+    let dayExpensesLabel = UILabel()
     let expensesTableView = UITableView()
     let commentTextField: UITextField = CommentTextField()
     let addButton: UIButton = TextFilledButton()
@@ -27,6 +28,8 @@ final class ScreenView: TitleNavigationBarScreenView {
         super.setup()
         backgroundColor = Colors.primaryBackground
         addSubview(inputDateView)
+        addSubview(dayExpensesLabel)
+        setupDayExpensesLabel()
         addSubview(expensesTableView)
         setupExpenseTableView()
         addSubview(commentTextField)
@@ -35,6 +38,11 @@ final class ScreenView: TitleNavigationBarScreenView {
         addSubview(selectAccountView)
         addSubview(inputAmountView)
         addSubview(selectCategoryView)
+    }
+    
+    private func setupDayExpensesLabel() {
+        dayExpensesLabel.font = Fonts.default(size: 14, weight: .bold)
+        dayExpensesLabel.textColor = Colors.primaryText
     }
     
     private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
@@ -55,6 +63,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutInputAmountView()
+        layoutDayExpensesLabel()
         layoutSelectCategoryView()
         layoutSelectAccountView()
         layoutAddButton()
@@ -117,6 +126,16 @@ final class ScreenView: TitleNavigationBarScreenView {
         let height: CGFloat = 44
         let frame = CGRect(x: x, y: y, width: width, height: height)
         inputDateView.frame = frame
+    }
+    
+    private func layoutDayExpensesLabel() {
+        let x: CGFloat = 0
+        let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
+        let width = bounds.width
+        let height: CGFloat = 44
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        dayExpensesLabel.frame = frame
+        dayExpensesLabel.textAlignment = .right
     }
     
     private func layoutExpenseTableView() {

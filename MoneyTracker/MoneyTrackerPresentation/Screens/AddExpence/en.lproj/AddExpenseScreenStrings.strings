@@ -1,2 +1,3 @@
 "title" = "Add expense";
 "commentPlaceholder" = "Comment (optional)";
+"delete" = "Delete";

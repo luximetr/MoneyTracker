@@ -30,6 +30,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date)
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
     func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
+    func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws -> Expense
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -107,6 +108,10 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             let addedExpense = try! self.delegate.presentation(self, addExpense: addingExpense)
             viewController.addExpense(addedExpense)
+        }
+        viewController.deleteExpenseClosure = { [weak self] expense in
+            guard let self = self else { return }
+            _ = try! self.delegate.presentation(self, deleteExpense: expense)
         }
         addExpenseViewController = viewController
         return viewController

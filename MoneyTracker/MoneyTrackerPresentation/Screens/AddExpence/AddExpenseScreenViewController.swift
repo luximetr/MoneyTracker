@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import MoneyTrackerStorage
 
 final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
@@ -20,6 +21,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     var addExpenseClosure: ((AddingExpense) -> Void)?
     var dayExpensesClosure: ((Date) -> [Expense])?
+    var deleteExpenseClosure: ((Expense) -> Void)?
     
     // MARK: Initializer
     
@@ -65,6 +67,9 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         screenView.addButton.setTitle("✓", for: .normal)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
+        balanceAccountHorizontalPickerController.didSelectAccountClosure = { account in
+            
+        }
         if let firstAccount = accounts.first {
             balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
         }
@@ -72,6 +77,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         expenses = dayExpensesClosure?(Date()) ?? []
         setContent()
         setExpensesTableViewControllerContent()
+        setDayExpensesContent()
     }
     
     private func setupTapGestureRecognizer() {
@@ -137,6 +143,23 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         commentTextFieldController.placeholder = localizer.localizeText("commentPlaceholder")
     }
     
+    private func setDayExpensesContent() {
+        var currencyAmount: [Currency: Decimal] = [:]
+        for expense in expenses {
+            let currency = expense.account.currency
+            let amount = expense.amount
+            let dayCurrencyAmount = (currencyAmount[currency] ?? Decimal()) + amount
+            currencyAmount[currency] = dayCurrencyAmount
+        }
+        var strings: [String] = []
+        for (currency, amount) in currencyAmount {
+            let str = "\(amount) \(currency.rawValue.uppercased())"
+            strings.append(str)
+        }
+        let dd = strings.joined(separator: " + ")
+        screenView.dayExpensesLabel.text = dd
+    }
+    
     private func setExpensesTableViewControllerContent() {
         expensesSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
@@ -163,6 +186,17 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         cellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
             return self.screenView.expenseTableViewCellHeight()
+        }
+        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+            guard let self = self else { return nil }
+            let deleteAction = UIContextualAction(style: .destructive, title:  self.localizer.localizeText("delete"), handler: { [weak self] contextualAction, view, success in
+                guard let self = self else { return }
+                self.deleteExpenseClosure?(expense)
+                self.expensesTableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
+                    success(true)
+                }
+            })
+            return UISwipeActionsConfiguration(actions: [deleteAction])
         }
         return cellController
     }

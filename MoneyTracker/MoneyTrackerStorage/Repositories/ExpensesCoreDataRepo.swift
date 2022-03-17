@@ -172,6 +172,18 @@ class ExpensesCoreDataRepo {
         }
     }
     
+    // MARK: - Remove
+    
+    func removeExpense(id: String) throws {
+        let context = coreDataAccessor.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ExpenseMO.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.fetchLimit = 1
+        let request = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        request.affectedStores = context.persistentStoreCoordinator?.persistentStores
+        try context.execute(request)
+    }
+    
     // MARK: - Errors
     
     enum FetchError: Error {
