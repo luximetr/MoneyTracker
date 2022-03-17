@@ -129,9 +129,9 @@ final class ScreenView: TitleNavigationBarScreenView {
     }
     
     private func layoutDayExpensesLabel() {
-        let x: CGFloat = 0
+        let x: CGFloat = 16
         let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
-        let width = bounds.width
+        let width = bounds.width - 2 * x
         let height: CGFloat = 44
         let frame = CGRect(x: x, y: y, width: width, height: height)
         dayExpensesLabel.frame = frame

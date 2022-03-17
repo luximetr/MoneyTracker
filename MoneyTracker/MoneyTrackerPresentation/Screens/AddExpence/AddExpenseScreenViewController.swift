@@ -67,9 +67,6 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         screenView.addButton.setTitle("✓", for: .normal)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
-        balanceAccountHorizontalPickerController.didSelectAccountClosure = { account in
-            
-        }
         if let firstAccount = accounts.first {
             balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
         }
@@ -81,7 +78,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     private func setupTapGestureRecognizer() {
-        screenView.addGestureRecognizer(tapGestureRecognizer)
+        //screenView.addGestureRecognizer(tapGestureRecognizer)
         tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerAction))
     }
     
@@ -112,6 +109,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     private func selectDay(_ day: Date) {
         expenses = dayExpensesClosure?(day) ?? []
         setExpensesTableViewControllerContent()
+        setDayExpensesContent()
     }
     
     @objc func addButtonTouchUpInsideEventAction() {
@@ -128,6 +126,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     func addExpense(_ expense: Expense) {
         expenses.insert(expense, at: 0)
+        setDayExpensesContent()
         let cellController = createExpenseTableViewController(expense: expense)
         expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
     }
@@ -152,7 +151,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
             currencyAmount[currency] = dayCurrencyAmount
         }
         var strings: [String] = []
-        for (currency, amount) in currencyAmount {
+        for (currency, amount) in currencyAmount.sorted(by: { $0.1 < $1.1 }) {
             let str = "\(amount) \(currency.rawValue.uppercased())"
             strings.append(str)
         }
@@ -192,6 +191,10 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
             let deleteAction = UIContextualAction(style: .destructive, title:  self.localizer.localizeText("delete"), handler: { [weak self] contextualAction, view, success in
                 guard let self = self else { return }
                 self.deleteExpenseClosure?(expense)
+                if let index = self.expenses.firstIndex(where: { $0.id == expense.id }) {
+                    self.expenses.remove(at: index)
+                }
+                self.setDayExpensesContent()
                 self.expensesTableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
                     success(true)
                 }
