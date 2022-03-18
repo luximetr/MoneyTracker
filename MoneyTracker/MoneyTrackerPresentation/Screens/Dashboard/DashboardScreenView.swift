@@ -28,6 +28,8 @@ class DashboardScreenView: TitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
+        addSubview(templatesCollectionView)
+        addSubview(templatesHeaderLabel)
         backgroundColor = Colors.primaryBackground
         setupTemplatesHeaderLabel()
         setupTemplatesCollectionView()
@@ -41,14 +43,13 @@ class DashboardScreenView: TitleNavigationBarScreenView {
     
     private func setupTemplatesCollectionView() {
         templatesCollectionView.backgroundColor = .green
+        templatesCollectionView.register(DashboardTemplateCollectionCell.self, forCellWithReuseIdentifier: templateCellId)
     }
     
     // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        addSubview(templatesCollectionView)
-        addSubview(templatesHeaderLabel)
         layoutTemplatesCollectionView()
         layoutTemplatesHeaderLabel()
     }
@@ -70,8 +71,10 @@ class DashboardScreenView: TitleNavigationBarScreenView {
     
     // MARK: - Template cell
     
+    private let templateCellId = "templateCellId"
+    
     func createTemplateCell(indexPath: IndexPath, template: ExpenseTemplate) -> DashboardTemplateCollectionCell {
-        let cell = templatesCollectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath) as! DashboardTemplateCollectionCell
+        let cell = templatesCollectionView.dequeueReusableCell(withReuseIdentifier: templateCellId, for: indexPath) as! DashboardTemplateCollectionCell
         cell.titleLabel.text = template.name
         return cell
     }

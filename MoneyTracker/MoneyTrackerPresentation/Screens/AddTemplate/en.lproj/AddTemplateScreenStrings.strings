@@ -1,2 +1,7 @@
 "title" = "Create template";
 "accountPickerHeader" = "Account";
+"categoryPickerHeader" = "Category";
+"addButtonTitle" = "Done";
+"namePlaceholder" = "Name";
+"amountPlaceholder" = "Amount";
+"commentPlaceholder" = "Comment (optional)";

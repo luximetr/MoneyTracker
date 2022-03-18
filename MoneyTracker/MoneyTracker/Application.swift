@@ -303,11 +303,21 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     // MARK: - ExpenseTemplates
     
     func presentationExpenseTemplates(_ presentation: Presentation) -> [PresentationExpenseTemplate] {
-//        let adapter = ExpenseTemplateAdapter()
-//        let storageTemplates = fetchAllStorageExpenseTemplates()
-//        let presentationTemplates = storageTemplates.map { adapter.adaptToPresentation(storageExpenseTemplate: $0) }
-//        return presentationTemplates
-        return []
+        let adapter = ExpenseTemplateAdapter()
+        let storageTemplates = fetchAllStorageExpenseTemplates()
+        let storageCategoriesIds = storageTemplates.map { $0.categoryId }
+        let storageBalanceAccountsIds = storageTemplates.map { $0.balanceAccountId }
+        let storageCategories = (try? storage.getCategories(ids: storageCategoriesIds)) ?? []
+        let storageBalanceAccounts = (try? storage.getBalanceAccounts(ids: storageBalanceAccountsIds)) ?? []
+        
+        let presentationTemplates = storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
+            guard let storageCategory = storageCategories.first(where: { $0.id == storageTemplate.categoryId }) else { return nil }
+            guard let storageBalanceAccount = storageBalanceAccounts.first(where: { $0.id == storageTemplate.balanceAccountId }) else { return nil }
+            guard let account = try? Account(storageAccount: storageBalanceAccount).presentationAccount() else { return nil }
+            let category = Category(storageCategoty: storageCategory).presentationCategory
+            return adapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: account, presentationCategory: category)
+        }
+        return presentationTemplates
     }
     
     private func fetchAllStorageExpenseTemplates() -> [StorageExpenseTemplate] {

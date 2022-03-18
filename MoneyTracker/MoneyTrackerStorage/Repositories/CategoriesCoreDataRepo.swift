@@ -47,6 +47,12 @@ class CategoriesCoreDataRepo {
         return try convertToCategory(categoryMO: categoryMO)
     }
     
+    func fetchCategories(ids: [CategoryId]) throws -> [Category] {
+        let context = accessor.viewContext
+        let categoriesMO = try fetchCategoriesMO(ids: ids, context: context)
+        return convertToCategories(categoriesMO: categoriesMO)
+    }
+    
     func fetchAllCategories() throws -> [Category] {
         let context = accessor.viewContext
         let request = CategoryMO.fetchRequest()
@@ -63,6 +69,12 @@ class CategoriesCoreDataRepo {
         let result = try context.fetch(request)
         guard let categoryMO = result.first else { throw FetchError.notFound }
         return categoryMO
+    }
+    
+    private func fetchCategoriesMO(ids: [CategoryId], context: NSManagedObjectContext) throws -> [CategoryMO] {
+        let request = CategoryMO.fetchRequest()
+        request.predicate = NSPredicate(format: "id IN %@", ids)
+        return try context.fetch(request)
     }
     
     private func fetchCategoryMO(name: String, context: NSManagedObjectContext) throws -> CategoryMO {

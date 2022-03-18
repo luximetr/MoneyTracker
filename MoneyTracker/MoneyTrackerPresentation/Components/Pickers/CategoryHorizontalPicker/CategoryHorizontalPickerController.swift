@@ -16,7 +16,7 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
     
     // MARK: - Data
     
-    private var selectedCategory: Category?
+    var selectedCategory: Category?
     
     // MARK: - Controllers
     

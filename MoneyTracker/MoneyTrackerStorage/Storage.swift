@@ -40,6 +40,11 @@ public class Storage {
         return try repo.fetchCategory(id: id)
     }
     
+    public func getCategories(ids: [String]) throws -> [Category] {
+        let repo = createCategoriesRepo()
+        return try repo.fetchCategories(ids: ids)
+    }
+    
     public func addCategory(_ addingCategory: AddingCategory) throws {
         let repo = createCategoriesRepo()
         let category = Category(id: UUID().uuidString, name: addingCategory.name)
@@ -116,6 +121,11 @@ public class Storage {
     public func getBalanceAccount(id: String) throws -> BalanceAccount {
         let repo = createBalanceAccountsRepo()
         return try repo.fetchAccount(id: id)
+    }
+    
+    public func getBalanceAccounts(ids: [String]) throws -> [BalanceAccount] {
+        let repo = createBalanceAccountsRepo()
+        return try  repo.fetchAccounts(ids: ids)
     }
     
     @discardableResult
