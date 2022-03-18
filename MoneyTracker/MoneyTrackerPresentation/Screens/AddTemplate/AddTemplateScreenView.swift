@@ -17,6 +17,9 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
     let categoryPickerHeaderLabel = UILabel()
     let categoryPickerView = CategoryHorizontalPickerView()
+    let nameTextField = AddExpenseScreenViewController.CommentTextField()
+    let amountInputView = SingleLineTextInputView()
+    let commentTextField = AddExpenseScreenViewController.CommentTextField()
     let addButton = TextFilledButton()
     
     // MARK: - Setup
@@ -27,6 +30,9 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(balanceAccountPickerView)
         addSubview(categoryPickerHeaderLabel)
         addSubview(categoryPickerView)
+        addSubview(nameTextField)
+        addSubview(amountInputView)
+        addSubview(commentTextField)
         addSubview(addButton)
         backgroundColor = Colors.primaryBackground
         setupBalanceAccountPickerHeaderLabel()
@@ -56,45 +62,75 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Layout
     
+    private let marginLeft: CGFloat = 24
+    private let marginRight: CGFloat = 24
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutBalanceAccountPickerHeaderLabel()
         layoutBalanceAccountPickerView()
         layoutCategoryPickerHeaderLabel()
         layoutCategoryPickerView()
+        layoutNameTextField()
+        layoutAmountInputView()
+        layoutCommentTextField()
         layoutAddButton()
     }
     
     private func layoutBalanceAccountPickerHeaderLabel() {
         balanceAccountPickerHeaderLabel.pin
-            .left(24)
+            .left(marginLeft)
             .top(to: navigationBarView.edge.bottom).marginTop(20)
-            .right(24)
+            .right(marginRight)
             .sizeToFit(.width)
     }
     
     private func layoutBalanceAccountPickerView() {
         balanceAccountPickerView.pin
             .top(to: balanceAccountPickerHeaderLabel.edge.bottom).marginTop(10)
-            .left(24)
-            .right(24)
+            .left(marginLeft)
+            .right(marginRight)
             .height(30)
     }
     
     private func layoutCategoryPickerHeaderLabel() {
         categoryPickerHeaderLabel.pin
-            .left(24)
-            .right(24)
+            .left(marginLeft)
+            .right(marginRight)
             .top(to: balanceAccountPickerView.edge.bottom).marginTop(32)
             .sizeToFit(.width)
     }
     
     private func layoutCategoryPickerView() {
         categoryPickerView.pin
-            .left(24)
-            .right(24)
+            .left(marginLeft)
+            .right(marginRight)
             .top(to: categoryPickerHeaderLabel.edge.bottom).marginTop(10)
             .height(24)
+    }
+    
+    private func layoutNameTextField() {
+        nameTextField.pin
+            .left(marginLeft)
+            .right(marginRight)
+            .top(to: categoryPickerView.edge.bottom).marginTop(24)
+            .height(44)
+    }
+    
+    private func layoutAmountInputView() {
+        amountInputView.pin
+            .left(marginLeft)
+            .right(marginRight)
+            .top(to: nameTextField.edge.bottom).marginTop(24)
+            .height(44)
+    }
+    
+    private func layoutCommentTextField() {
+        commentTextField.pin
+            .left(marginLeft)
+            .right(marginRight)
+            .top(to: amountInputView.edge.bottom).marginTop(30)
+            .height(44)
     }
     
     private func layoutAddButton() {

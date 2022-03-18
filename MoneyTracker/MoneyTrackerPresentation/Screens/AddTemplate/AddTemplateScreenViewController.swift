@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
+class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
     // MARK: - Delegation
     
@@ -50,10 +50,20 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
         super.viewDidLoad()
         setupBalanceAccountPickerController()
         setupCategoryPickerController()
+        setupNameTextFieldController()
+        setupCommentTextFieldController()
+        setupAmountTextFieldController()
         addTemplateScreenView.titleLabel.text = localizer.localizeText("title")
         addTemplateScreenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
+        addTemplateScreenView.categoryPickerHeaderLabel.text = localizer.localizeText("categoryPickerHeader")
+        addTemplateScreenView.nameTextField.placeholder = localizer.localizeText("namePlaceholder")
+        addTemplateScreenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
+        addTemplateScreenView.amountInputView.label.text = balanceAccountPickerController.selectedAccount?.currency.rawValue
+        addTemplateScreenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
+        addTemplateScreenView.addButton.setTitle(localizer.localizeText("addButtonTitle"), for: .normal)
         addTemplateScreenView.addButton.addTarget(self, action: #selector(didTapOnAddButton), for: .touchUpInside)
         addTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
+        showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
     }
     
     // MARK: - View - Actions
@@ -61,20 +71,6 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
     @objc
     private func didTapOnBackButton() {
         backClosure?()
-    }
-    
-    @objc
-    private func didTapOnAddButton() {
-        guard let balanceAccount = balanceAccounts.first else { return }
-        guard let category = categories.first else { return }
-        let addingTemplate = AddingExpenseTemplate(
-            name: "testName",
-            amount: 2,
-            comment: "Bus",
-            balanceAccountId: balanceAccount.id,
-            categoryId: category.id
-        )
-        addTemplateClosure?(addingTemplate)
     }
     
     // MARK: - Balance account picker
@@ -90,8 +86,12 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
         balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: firstAccount)
     }
     
+    private var selectedBalanceAccount: Account? {
+        return balanceAccountPickerController.selectedAccount
+    }
+    
     private func didSelectBalanceAccount(_ account: Account) {
-        print(account.name)
+        showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
     }
     
     // MARK: - Category picker
@@ -102,5 +102,88 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController {
         categoryPickerController.categoryHorizontalPickerView = addTemplateScreenView.categoryPickerView
         guard let firstCategory = categories.first else { return }
         categoryPickerController.showOptions(categories: categories, selectedCategory: firstCategory)
+    }
+    
+    // MARK: - Name input
+    
+    private let nameTextFieldController = AUIEmptyTextFieldController()
+    
+    private func setupNameTextFieldController() {
+        nameTextFieldController.textField = addTemplateScreenView.nameTextField
+        nameTextFieldController.keyboardType = .asciiCapable
+        nameTextFieldController.returnKeyType = .done
+    }
+    
+    private func nameTextFieldDidTapReturnKey() {
+        view.endEditing(true)
+    }
+    
+    // MARK: - Amount input
+    
+    private let amountInputController = TextFieldLabelController()
+    
+    private func setupAmountTextFieldController() {
+        amountInputController.textFieldLabelView = addTemplateScreenView.amountInputView
+        let textFieldController = amountInputController.textFieldController
+        textFieldController.keyboardType = .decimalPad
+    }
+    
+    // MARK: - Amount input - Currency
+    
+    private func showAmountInputCurrencyCode(_ currencyCode: String?) {
+        addTemplateScreenView.amountInputView.label.text = currencyCode
+        addTemplateScreenView.amountInputView.layoutSubviews()
+    }
+    
+    // MARK: - Comment input
+    
+    private let commentTextFieldController = AUIEmptyTextFieldController()
+    
+    private func setupCommentTextFieldController() {
+        commentTextFieldController.textField = addTemplateScreenView.commentTextField
+        commentTextFieldController.keyboardType = .asciiCapable
+        commentTextFieldController.returnKeyType = .done
+        commentTextFieldController.addDidTapReturnKeyObserver(self)
+    }
+    
+    // MARK: - Comment input - Return Key
+    
+    private func commentTextFieldDidTapReturnKey() {
+        view.endEditing(true)
+    }
+    
+    // MARK: - AUITextFieldControllerDidTapReturnKeyObserver
+    
+    func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {
+        if textFieldController === commentTextFieldController {
+            commentTextFieldDidTapReturnKey()
+        } else if textFieldController === nameTextFieldController {
+            nameTextFieldDidTapReturnKey()
+        }
+    }
+    
+    // MARK: - Add button
+    
+    @objc
+    private func didTapOnAddButton() {
+        guard let name = nameTextFieldController.text, !name.isEmpty else { return }
+        guard let selectedAccount = balanceAccountPickerController.selectedAccount else { return }
+        guard let selectedCategory = categoryPickerController.selectedCategory else { return }
+        guard let amount = getInputAmount() else { return }
+        let comment = commentTextFieldController.text
+        let addingTemplate = AddingExpenseTemplate(
+            name: name,
+            amount: amount,
+            comment: comment,
+            balanceAccountId: selectedAccount.id,
+            categoryId: selectedCategory.id
+        )
+        addTemplateClosure?(addingTemplate)
+    }
+    
+    private func getInputAmount() -> Decimal? {
+        guard let amountText = amountInputController.textFieldController.text else { return nil }
+        let numberFormatter = NumberFormatter()
+        return numberFormatter.number(from: amountText)?.decimalValue
     }
 }
