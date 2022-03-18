@@ -84,6 +84,12 @@ class BalanceAccountsCoreDataRepo {
         return try convertToAccount(accountMO)
     }
     
+    func fetchAccounts(ids: [BalanceAccountId]) throws -> [BalanceAccount] {
+        let context = accessor.viewContext
+        let accountsMO = try fetchAccountsMO(ids: ids, context: context)
+        return convertToAccounts(accountsMO)
+    }
+    
     func fetchAllAccounts() throws -> [BalanceAccount] {
         let context = accessor.viewContext
         let request = BalanceAccountMO.fetchRequest()
@@ -98,6 +104,12 @@ class BalanceAccountsCoreDataRepo {
         let result = try context.fetch(request)
         guard let accountMO = result.first else { throw FetchError.notFound }
         return accountMO
+    }
+    
+    private func fetchAccountsMO(ids: [BalanceAccountId], context: NSManagedObjectContext) throws -> [BalanceAccountMO] {
+        let request = BalanceAccountMO.fetchRequest()
+        request.predicate = NSPredicate(format: "id IN %@", ids)
+        return try context.fetch(request)
     }
     
     func convertToAccount(_ accountMO: BalanceAccountMO) throws -> BalanceAccount {

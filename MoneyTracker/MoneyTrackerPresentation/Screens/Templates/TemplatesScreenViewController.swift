@@ -80,13 +80,13 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.templatesScreenView.templateTableViewCell(indexPath)
-            cell.nameLabel.text = "long template name to test the UI" //template.name
-            cell.amountLabel.text = "100 000.00 SGD" //"\(template.amount) SGD"
+            cell.nameLabel.text = template.name
+            cell.amountLabel.text = "\(template.amount) SGD"
             cell.balanceAccountPrefixLabel.text = "from"
-            cell.balanceAccountLabel.text = "long long long account balance name"//template.balanceAccountId
+            cell.balanceAccountLabel.text = template.balanceAccount.name
             cell.categoryPrefixLabel.text = "to"
-            cell.categoryLabel.text = "long long pretty long category name" //template.categoryId
-            cell.commentLabel.text = "potentially very long comment that might be here" //template.comment
+            cell.categoryLabel.text = template.category.name
+            cell.commentLabel.text = template.comment
             return cell
         }
         cellController.estimatedHeightClosure = { [weak self] in

@@ -94,7 +94,9 @@ class DashboardScreenViewController: AUIStatusBarScreenViewController {
         let cellController = AUIClosuresCollectionViewCellController()
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
-            return self.dashboardScreenView.createTemplateCell(indexPath: indexPath, template: template)
+            let cell = self.dashboardScreenView.createTemplateCell(indexPath: indexPath, template: template)
+            cell.titleLabel.text = template.name
+            return cell
         }
         cellController.sizeForCellClosure = { [weak self] in
             guard let self = self else { return .zero }
