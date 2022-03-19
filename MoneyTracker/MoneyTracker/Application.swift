@@ -281,8 +281,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let endDate = day.endOfDay
         let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
         let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
-            guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { fatalError() }
-            guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { fatalError() }
+            guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
+            guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
             return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
         }
         return presentationExpenses.reversed()
@@ -294,8 +294,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let addingExpence = try AddingExpense(presentationAddingExpense: presentationAddingExpense)
         let storageAddingExpense = addingExpence.storageAddingExpense
         let storageAddedExpense = try storage.addExpense(addingExpense: storageAddingExpense)
-        guard let storageCategory = categories.first(where: { $0.id == storageAddedExpense.categoryId }) else { fatalError() }
-        guard let storageAccount = accounts.first(where: { $0.id == storageAddedExpense.balanceAccountId }) else { fatalError() }
+        guard let storageCategory = categories.first(where: { $0.id == storageAddedExpense.categoryId }) else { throw Error("") }
+        guard let storageAccount = accounts.first(where: { $0.id == storageAddedExpense.balanceAccountId }) else { throw Error("") }
         let presentationExpense = try Expense(storageExpense: storageAddedExpense, account: storageAccount, category: storageCategory).presentationExpense()
         return presentationExpense
     }
