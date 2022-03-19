@@ -13,15 +13,15 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     // MARK: Data
     
-    private var expenses: [Expense] = []
+    private var dayExpenses: [Expense] = []
     private let accounts: [Account]
     private let categories: [Category]
     
     // MARK: Delegation
     
-    var addExpenseClosure: ((AddingExpense) -> Void)?
-    var dayExpensesClosure: ((Date) -> [Expense])?
-    var deleteExpenseClosure: ((Expense) -> Void)?
+    var addExpenseClosure: ((AddingExpense) throws -> Expense)?
+    var dayExpensesClosure: ((Date) throws -> [Expense])?
+    var deleteExpenseClosure: ((Expense) throws -> Void)?
     
     // MARK: Initializer
     
@@ -71,7 +71,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
             balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
         }
         setupExpensesTableViewController()
-        expenses = dayExpensesClosure?(Date()) ?? []
+        dayExpenses = try! dayExpensesClosure?(Date()) ?? []
         setContent()
         setExpensesTableViewControllerContent()
         setDayExpensesContent()
@@ -107,9 +107,14 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     private func selectDay(_ day: Date) {
-        expenses = dayExpensesClosure?(day) ?? []
-        setExpensesTableViewControllerContent()
-        setDayExpensesContent()
+        guard let dayExpensesClosure = dayExpensesClosure else { return }
+        do {
+            dayExpenses = try dayExpensesClosure(day)
+            setExpensesTableViewControllerContent()
+            setDayExpensesContent()
+        } catch {
+            
+        }
     }
     
     @objc func addButtonTouchUpInsideEventAction() {
@@ -119,13 +124,19 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         guard let account = balanceAccountHorizontalPickerController.selectedAccount else { return }
         let comment = screenView.commentTextField.text
         let addingExpense = AddingExpense(amount: amount, date: date, comment: comment, account: account, category: category)
-        addExpenseClosure?(addingExpense)
-        inputAmountViewController.input = ""
-        view.endEditing(true)
+        guard let addExpenseClosure = addExpenseClosure else { return }
+        do {
+            let addedExpense = try addExpenseClosure(addingExpense)
+            addExpense(addedExpense)
+            inputAmountViewController.input = ""
+            view.endEditing(true)
+        } catch {
+            
+        }
     }
     
     func addExpense(_ expense: Expense) {
-        expenses.insert(expense, at: 0)
+        dayExpenses.insert(expense, at: 0)
         setDayExpensesContent()
         let cellController = createExpenseTableViewController(expense: expense)
         expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
@@ -144,7 +155,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     private func setDayExpensesContent() {
         var currencyAmount: [Currency: Decimal] = [:]
-        for expense in expenses {
+        for expense in dayExpenses {
             let currency = expense.account.currency
             let amount = expense.amount
             let dayCurrencyAmount = (currencyAmount[currency] ?? Decimal()) + amount
@@ -162,7 +173,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     private func setExpensesTableViewControllerContent() {
         expensesSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        for expense in expenses {
+        for expense in dayExpenses {
             let cellController = createExpenseTableViewController(expense: expense)
             cellControllers.append(cellController)
         }
@@ -188,15 +199,26 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         }
         cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
             guard let self = self else { return nil }
-            let deleteAction = UIContextualAction(style: .destructive, title:  self.localizer.localizeText("delete"), handler: { [weak self] contextualAction, view, success in
+            let title = self.localizer.localizeText("delete")
+            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
                 guard let self = self else { return }
-                self.deleteExpenseClosure?(expense)
-                if let index = self.expenses.firstIndex(where: { $0.id == expense.id }) {
-                    self.expenses.remove(at: index)
+                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
+                    success(false)
+                    return
                 }
-                self.setDayExpensesContent()
-                self.expensesTableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
-                    success(true)
+                do {
+                    try deleteExpenseClosure(expense)
+                    guard let index = self.dayExpenses.firstIndex(where: { expense == $0  }) else {
+                        success(false)
+                        return
+                    }
+                    self.dayExpenses.remove(at: index)
+                    self.setDayExpensesContent()
+                    self.expensesTableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
+                        success(true)
+                    }
+                } catch {
+                    success(false)
                 }
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])

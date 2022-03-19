@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public struct Account {
+public struct Account: Hashable, Equatable {
     
     public let id: String
     public let name: String

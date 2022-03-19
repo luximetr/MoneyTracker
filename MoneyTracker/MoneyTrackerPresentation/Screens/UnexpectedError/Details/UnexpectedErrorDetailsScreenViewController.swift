@@ -12,11 +12,11 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
     
     // MARK: Data
     
-    private let error: Error
+    private let error: Swift.Error
     
     // MARK: Initializer
     
-    init(error: Error) {
+    init(error: Swift.Error) {
         self.error = error
         super.init()
     }

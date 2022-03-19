@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */; };
+		2E04279D27E66712005F342D /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04279C27E66712005F342D /* Error.swift */; };
 		2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */; };
 		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
 		2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */; };
@@ -237,6 +238,7 @@
 
 /* Begin PBXFileReference section */
 		03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E04279C27E66712005F342D /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFilledButton.swift; sourceTree = "<group>"; };
 		2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorDetailsScreenViewController.swift; sourceTree = "<group>"; };
@@ -583,8 +585,8 @@
 		2E926E8527BC55670081E3AE /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				2E92FF5A27B6AB9A00A7306A /* Account.swift */,
 				2E92FF5C27B6AD5100A7306A /* AddingAccount.swift */,
+				2E92FF5A27B6AB9A00A7306A /* Account.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -841,6 +843,7 @@
 				2EB10A3B27A7032F00743416 /* Fonts */,
 				2EB10A3827A6FE9D00743416 /* Colors */,
 				2EB10A4627A7074A00743416 /* Bundle */,
+				2E04279C27E66712005F342D /* Error.swift */,
 				2EB10A1C27A6CAE500743416 /* MoneyTrackerPresentation.h */,
 			);
 			path = MoneyTrackerPresentation;
@@ -1797,6 +1800,7 @@
 				DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */,
 				2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */,
 				DBB7BD2427DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift in Sources */,
+				2E04279D27E66712005F342D /* Error.swift in Sources */,
 				DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */,
 				2EA18A7227B51F7B00C512BE /* SelectCurrencyTableViewCellController.swift in Sources */,
 				DB74863B27BA6716004DF67B /* AddTemplateScreenView.swift in Sources */,

@@ -339,9 +339,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, deleteExpense deletingExpense: PresentationExpense) throws -> PresentationExpense {
+    func presentation(_ presentation: Presentation, deleteExpense deletingExpense: PresentationExpense) throws {
         try storage.removeExpense(expenseId: deletingExpense.id)
-        return deletingExpense
     }
     
     // MARK: - Files

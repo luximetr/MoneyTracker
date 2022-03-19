@@ -5,7 +5,7 @@
 //  Created by Job Ihor Myroniuk on 13.03.2022.
 //
 
-public struct Expense {
+public struct Expense: Hashable, Equatable {
     
     public let id: String
     public let amount: Decimal
