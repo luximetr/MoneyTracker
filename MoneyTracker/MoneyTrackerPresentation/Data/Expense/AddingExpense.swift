@@ -7,10 +7,12 @@
 
 import Foundation
 
-public struct AddingExpense {
+public struct AddingExpense: Hashable, Equatable {
+    
     public let amount: Decimal
     public let date: Date
     public let comment: String?
     public let account: Account
     public let category: Category
+    
 }

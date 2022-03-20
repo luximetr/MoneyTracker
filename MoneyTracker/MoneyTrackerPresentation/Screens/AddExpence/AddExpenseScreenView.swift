@@ -17,7 +17,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     let dayExpensesLabel = UILabel()
     let expensesTableView = UITableView()
     let commentTextField: UITextField = CommentTextField()
-    let addButton: UIButton = TextFilledButton()
+    let addButton = PictureButton()
     let selectAccountView = BalanceAccountHorizontalPickerView()
     let inputAmountView = InputAmountView()
     let selectCategoryView = SelectCategoryView()
@@ -38,11 +38,13 @@ final class ScreenView: TitleNavigationBarScreenView {
         addSubview(selectAccountView)
         addSubview(inputAmountView)
         addSubview(selectCategoryView)
+        autoLayout()
     }
     
     private func setupDayExpensesLabel() {
         dayExpensesLabel.font = Fonts.default(size: 14, weight: .bold)
         dayExpensesLabel.textColor = Colors.primaryText
+        dayExpensesLabel.adjustsFontSizeToFitWidth = true
     }
     
     private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
@@ -53,9 +55,21 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     private func setupAddButton() {
         addButton.backgroundColor = Colors.secondaryBackground
-        addButton.setTitleColor(Colors.primaryText, for: .normal)
-        addButton.titleLabel?.font = Fonts.default(size: 26, weight: .regular)
-        addButton.clipsToBounds = true
+        addButton.setImage(Images.check.withRenderingMode(.alwaysTemplate), for: .normal)
+        addButton.tintColor = Colors.secondaryText
+    }
+    
+    // MARK: AutoLayout
+    
+    private func autoLayout() {
+        autoLayoutInputDateView()
+    }
+    
+    private func autoLayoutInputDateView() {
+        inputDateView.translatesAutoresizingMaskIntoConstraints = false
+        inputDateView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        inputDateView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        inputDateView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor).isActive = true
     }
     
     // MARK: Layout
@@ -68,7 +82,6 @@ final class ScreenView: TitleNavigationBarScreenView {
         layoutSelectAccountView()
         layoutAddButton()
         layoutCommentTextField()
-        layoutInputDateView()
         layoutExpenseTableView()
     }
     
@@ -119,19 +132,10 @@ final class ScreenView: TitleNavigationBarScreenView {
         commentTextField.frame = frame
     }
     
-    private func layoutInputDateView() {
-        let x: CGFloat = 0
-        let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
-        let width = bounds.width
-        let height: CGFloat = 44
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        inputDateView.frame = frame
-    }
-    
     private func layoutDayExpensesLabel() {
-        let x: CGFloat = 16
+        let x = inputDateView.frame.origin.x + inputDateView.frame.size.width
         let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
-        let width = bounds.width - 2 * x
+        let width = bounds.width - x - 16
         let height: CGFloat = 44
         let frame = CGRect(x: x, y: y, width: width, height: height)
         dayExpensesLabel.frame = frame

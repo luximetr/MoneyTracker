@@ -36,6 +36,7 @@ class BalanceAccountHorizontalPickerView: AUIView {
         collectionViewLayout.scrollDirection = .horizontal
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.alwaysBounceHorizontal = true
         collectionView.register(BalanceAccountHorizontalPickerItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
     }
     

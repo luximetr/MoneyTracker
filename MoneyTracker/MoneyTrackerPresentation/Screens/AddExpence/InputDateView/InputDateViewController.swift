@@ -11,9 +11,9 @@ import AUIKit
 extension AddExpenseScreenViewController {
 final class InputDateViewController: AUIEmptyViewController, AUIControlControllerDidValueChangedObserver {
     
-    // MARK:
+    // MARK: Components
     
-    let datePickerController = AUIEmptyDateTimePickerController()
+    private let datePickerController = AUIEmptyDateTimePickerController()
     
     // MARK: Setup
     
@@ -51,6 +51,10 @@ final class InputDateViewController: AUIEmptyViewController, AUIControlControlle
     var didSelectDayClosure: ((Date) -> Void)?
     func controlControllerDidValueChanged(_ controlController: AUIControlController) {
         didSelectDayClosure?(datePickerController.date)
+    }
+    
+    var selectedDay: Date {
+        return datePickerController.date
     }
     
 }

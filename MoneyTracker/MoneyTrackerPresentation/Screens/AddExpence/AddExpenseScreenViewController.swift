@@ -64,7 +64,6 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         inputAmountViewController.inputAmountView = screenView.inputAmountView
         selectCategoryViewController.categories = categories
         selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
-        screenView.addButton.setTitle("✓", for: .normal)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
         if let firstAccount = accounts.first {
@@ -78,7 +77,8 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     private func setupTapGestureRecognizer() {
-        //screenView.addGestureRecognizer(tapGestureRecognizer)
+        screenView.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer.cancelsTouchesInView = false
         tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerAction))
     }
     
@@ -118,7 +118,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     @objc func addButtonTouchUpInsideEventAction() {
-        let date = inputDateViewController.datePickerController.date
+        let date = inputDateViewController.selectedDay
         guard let amount = inputAmountViewController.amount else { return }
         guard let category = selectCategoryViewController.selectedCategory else { return }
         guard let account = balanceAccountHorizontalPickerController.selectedAccount else { return }
@@ -154,20 +154,21 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     private func setDayExpensesContent() {
-        var currencyAmount: [Currency: Decimal] = [:]
+        var currenciesAmounts: [Currency: Decimal] = [:]
         for expense in dayExpenses {
             let currency = expense.account.currency
             let amount = expense.amount
-            let dayCurrencyAmount = (currencyAmount[currency] ?? Decimal()) + amount
-            currencyAmount[currency] = dayCurrencyAmount
+            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+            currenciesAmounts[currency] = currencyAmount
         }
-        var strings: [String] = []
-        for (currency, amount) in currencyAmount.sorted(by: { $0.1 < $1.1 }) {
-            let str = "\(amount) \(currency.rawValue.uppercased())"
-            strings.append(str)
+        var currenciesAmountsStrings: [String] = []
+        let sortedCurrencyAmount = currenciesAmounts.sorted(by: { $0.1 < $1.1 })
+        for (currency, amount) in sortedCurrencyAmount {
+            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
+            currenciesAmountsStrings.append(currencyAmountString)
         }
-        let dd = strings.joined(separator: " + ")
-        screenView.dayExpensesLabel.text = dd
+        let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
+        screenView.dayExpensesLabel.text = currenciesAmountsStringsJoined
     }
     
     private func setExpensesTableViewControllerContent() {
