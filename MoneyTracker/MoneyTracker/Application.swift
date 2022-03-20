@@ -352,6 +352,18 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: PresentationExpenseTemplate) {
+        tryRemoveExpenseTemplate(expenseTemplateId: expenseTemplate.id)
+    }
+    
+    private func tryRemoveExpenseTemplate(expenseTemplateId: String) {
+        do {
+            try storage.removeExpenseTemplate(expenseTemplateId: expenseTemplateId)
+        } catch {
+            print(error)
+        }
+    }
+    
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: PresentationExpense) throws {
         try storage.removeExpense(expenseId: deletingExpense.id)
     }

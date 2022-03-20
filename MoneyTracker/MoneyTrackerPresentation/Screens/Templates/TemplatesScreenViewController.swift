@@ -25,7 +25,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     var backClosure: (() -> Void)?
     var addTemplateClosure: (() -> Void)?
     var didSelectTemplateClosure: (() -> Void)?
-    var didDeleteTemplateClosure: (() -> Void)?
+    var didDeleteTemplateClosure: ((ExpenseTemplate) -> Void)?
     var didReorderTemplatesClosure: (([ExpenseTemplate]) -> Void)?
     
     // MARK: - Localizer
@@ -108,6 +108,16 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
         }
         cellController.canMoveCellClosure = {
             return true
+        }
+        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+            guard let self = self else { return nil }
+            let deleteAction = UIContextualAction(style: .destructive, title:  self.localizer.localizeText("delete"), handler: { contextualAction, view, success in
+                self.didDeleteTemplateClosure?(template)
+                self.tableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
+                    success(true)
+                }
+            })
+            return UISwipeActionsConfiguration(actions: [deleteAction])
         }
         cellController.estimatedHeightClosure = { [weak self] in
             return self?.templatesScreenView.templateTableViewCellEstimatedHeight() ?? 0
