@@ -25,6 +25,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, editAccount editingAccount: Account) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
     func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
+    func presentation(_ presentation: Presentation, reorderExpenseTemplates: [ExpenseTemplate])
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL)
     func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date)
@@ -396,6 +397,10 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             let viewController = self.createAddTemplateScreenViewController()
             self.menuNavigationController?.present(viewController, animated: true)
+        }
+        viewController.didReorderTemplatesClosure = { [weak self] reorderedTemplates in
+            guard let self = self else { return }
+            self.delegate.presentation(self, reorderExpenseTemplates: reorderedTemplates)
         }
         viewController.backClosure = { [weak self] in
             self?.menuNavigationController?.popViewController(animated: true)

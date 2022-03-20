@@ -10,4 +10,9 @@ import AUIKit
 
 final class TemplatesScreenTemplateTableViewCellController: AUIClosuresTableViewCellController {
     
+    let templateId: String
+    
+    init(templateId: String) {
+        self.templateId = templateId
+    }
 }

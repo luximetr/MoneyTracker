@@ -339,6 +339,19 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentation(_ presentation: Presentation, reorderExpenseTemplates: [PresentationExpenseTemplate]) {
+        let orderedIds = reorderExpenseTemplates.map { $0.id }
+        trySaveExpenseTemplatesOrder(orderedIds: orderedIds)
+    }
+    
+    private func trySaveExpenseTemplatesOrder(orderedIds: [String]) {
+        do {
+            try storage.saveExpenseTemplatesOrder(orderedIds: orderedIds)
+        } catch {
+            print(error)
+        }
+    }
+    
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: PresentationExpense) throws {
         try storage.removeExpense(expenseId: deletingExpense.id)
     }

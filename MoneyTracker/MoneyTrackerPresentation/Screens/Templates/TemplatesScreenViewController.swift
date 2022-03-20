@@ -25,8 +25,8 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     var backClosure: (() -> Void)?
     var addTemplateClosure: (() -> Void)?
     var didSelectTemplateClosure: (() -> Void)?
-    var deleteTemplateClosure: (() -> Void)?
-    var orderTemplateClosure: (([ExpenseTemplate]) -> Void)?
+    var didDeleteTemplateClosure: (() -> Void)?
+    var didReorderTemplatesClosure: (([ExpenseTemplate]) -> Void)?
     
     // MARK: - Localizer
     
@@ -57,6 +57,23 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     
     private func setupTableViewController() {
         tableViewController.tableView = templatesScreenView.tableView
+        tableViewController.targetIndexPathForMoveFromRowAtClosure = { sourceCellController, destinationCellController in
+            if destinationCellController is TemplatesScreenAddTemplateTableViewCellController {
+                return sourceCellController
+            } else {
+                return destinationCellController
+            }
+        }
+        tableViewController.moveCellControllerClosure = { [weak self] sourceCellController, destinationCellController in
+            guard let self = self else { return }
+            guard let templateId1 = (sourceCellController as? TemplatesScreenTemplateTableViewCellController)?.templateId else { return }
+            guard let templateId2 = (destinationCellController as? TemplatesScreenTemplateTableViewCellController)?.templateId else { return }
+            guard let i = self.templates.firstIndex(where: { $0.id == templateId1 }) else { return }
+            guard let j = self.templates.firstIndex(where: { $0.id == templateId2 }) else { return }
+            self.templates.swapAt(i, j)
+            self.didReorderTemplatesClosure?(self.templates)
+        }
+        tableViewController.dragInteractionEnabled = true
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
         
@@ -76,7 +93,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private func createTemplateCellController(template: ExpenseTemplate) -> TemplatesScreenTemplateTableViewCellController {
-        let cellController = TemplatesScreenTemplateTableViewCellController()
+        let cellController = TemplatesScreenTemplateTableViewCellController(templateId: template.id)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.templatesScreenView.templateTableViewCell(indexPath)
@@ -88,6 +105,9 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
             cell.categoryLabel.text = template.category.name
             cell.commentLabel.text = template.comment
             return cell
+        }
+        cellController.canMoveCellClosure = {
+            return true
         }
         cellController.estimatedHeightClosure = { [weak self] in
             return self?.templatesScreenView.templateTableViewCellEstimatedHeight() ?? 0
