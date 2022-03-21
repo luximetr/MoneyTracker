@@ -55,6 +55,13 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     private let selectCategoryViewController = SelectCategoryViewController()
     private let expensesTableViewController = AUIEmptyTableViewController()
     private let expensesSectionController = AUIEmptyTableViewSectionController()
+    private func expenseCellControllerForExpense(_ expense: Expense) -> AUITableViewCellController? {
+        let cellController = expensesSectionController.cellControllers.first { cellController in
+            guard let expenseCellController = cellController as? AddExpenseScreenViewController.ExpenseTableViewCellController else { return false }
+            return expenseCellController.expense == expense
+        }
+        return cellController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,6 +151,16 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {
         view.endEditing(true)
+    }
+    
+    func deleteExpense(_ deletingExpense: Expense) {
+        if let index = dayExpenses.firstIndex(of: deletingExpense) {
+            dayExpenses.remove(at: index)
+            if let cellController = expenseCellControllerForExpense(deletingExpense) {
+                expensesTableViewController.deleteCellControllerAnimated(cellController, .left, completion: nil)
+            }
+        }
+        setDayExpensesContent()
     }
     
     // MARK: Content

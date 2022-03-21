@@ -31,6 +31,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
     func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws
+    func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -42,31 +43,36 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: Display
     
     public func display() {
+        // Dashboard
         let dashboardViewController = createDashboardViewController()
         let dashboardNavigationController = AUINavigationBarHiddenNavigationController()
         dashboardNavigationController.viewControllers = [dashboardViewController]
-        let categoriesViewController = UIViewController()
-        categoriesViewController.view.backgroundColor = .yellow
-        let categoriesNavigationController = AUINavigationBarHiddenNavigationController()
-        categoriesNavigationController.viewControllers = [categoriesViewController]
+        self.dashboardViewController = dashboardViewController
+        self.dashboardNavigationController = dashboardNavigationController
+        // History
+        let historyViewController = createHistoryViewController()
+        let historyNavigationController = AUINavigationBarHiddenNavigationController()
+        historyNavigationController.viewControllers = [historyViewController]
+        self.historyViewController = historyViewController
+        self.historyNavigationController = historyNavigationController
+        // Statistic
         let statisticViewController = createAddExpenseViewController()//createStatisticScreen()
         let statisticNavigationController = AUINavigationBarHiddenNavigationController()
         statisticNavigationController.viewControllers = [statisticViewController]
+        // Settings
         let settingsViewController = createSettingsScreenViewController()
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
         settingsNavigationController.viewControllers = [settingsViewController]
-        let menuViewController = MenuScreenViewController(dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
-        menuViewController.statistic()
+        self.settingsScreenViewController = settingsViewController
+        self.settingsNavigationController = settingsNavigationController
+        // Menu
+        let menuViewController = MenuScreenViewController(dashboardScreenViewController: dashboardNavigationController, historyScreenViewController: historyNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
-        self.dashboardViewController = dashboardViewController
-        self.dashboardNavigationController = dashboardNavigationController
-        self.categoriesNavigationController = categoriesNavigationController
-        self.settingsScreenViewController = settingsViewController
-        self.settingsNavigationController = settingsNavigationController
         window.rootViewController = menuNavigationController
+        menuViewController.statistic()
     }
     
     // MARK: Menu Navigation Controller
@@ -88,6 +94,30 @@ public final class Presentation: AUIWindowPresentation {
     private func createDashboardViewController() -> DashboardScreenViewController {
         let templates = delegate.presentationExpenseTemplates(self)
         let viewController = DashboardScreenViewController(templates: templates)
+        return viewController
+    }
+    
+    // MARK: History Navigation Controller
+    
+    private var historyNavigationController: UINavigationController?
+    
+    // MARK: History View Controller
+    
+    private var historyViewController: HistoryScreenViewController?
+    
+    private func createHistoryViewController() -> HistoryScreenViewController {
+        let expenses = (try? delegate.presentationExpenses(self)) ?? []
+        let viewController = HistoryScreenViewController(expenses: expenses)
+        viewController.deleteExpenseClosure = { [weak self] deletingExpense in
+            guard let self = self else { return }
+            do {
+                try self.delegate.presentation(self, deleteExpense: deletingExpense)
+                self.addExpenseViewController?.deleteExpense(deletingExpense)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
+        }
+        historyViewController = viewController
         return viewController
     }
     
@@ -113,6 +143,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { throw Error("") }
             do {
                 let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
+                self.historyViewController?.insertExpense(addedExpense)
                 return addedExpense
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
@@ -122,7 +153,8 @@ public final class Presentation: AUIWindowPresentation {
         viewController.deleteExpenseClosure = { [weak self] expense in
             guard let self = self else { return }
             do {
-                _ = try self.delegate.presentation(self, deleteExpense: expense)
+                try self.delegate.presentation(self, deleteExpense: expense)
+                self.historyViewController?.deleteExpense(expense)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
             }

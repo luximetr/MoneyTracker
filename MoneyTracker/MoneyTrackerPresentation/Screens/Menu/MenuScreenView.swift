@@ -14,6 +14,7 @@ final class MenuScreenView: AUIView {
     private var screenView: UIView?
     private let tabBarView = UIView()
     let mainTabBarItem = MenuScreenTabBarItem()
+    let historyTabBarItem = MenuScreenTabBarItem()
     let statisticTabBarItem = MenuScreenTabBarItem()
     let settingsTabBarItem = MenuScreenTabBarItem()
     private var selectedTabBarItem: MenuScreenTabBarItem?
@@ -34,6 +35,8 @@ final class MenuScreenView: AUIView {
         tabBarView.layer.shadowOffset = CGSize(width: 0, height: -12)
         tabBarView.addSubview(mainTabBarItem)
         mainTabBarItem.pictureImageView.image = Images.card.withRenderingMode(.alwaysTemplate)
+        tabBarView.addSubview(historyTabBarItem)
+        historyTabBarItem.pictureImageView.image = Images.expensesHistory.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(statisticTabBarItem)
         statisticTabBarItem.pictureImageView.image = Images.statistic.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(settingsTabBarItem)
@@ -58,7 +61,7 @@ final class MenuScreenView: AUIView {
         tabBarView.frame = frame
         var itemHeight = tabBarView.bounds.height
         if #available(iOS 11.0, *) { itemHeight -= safeAreaInsets.bottom }
-        let items = [mainTabBarItem, statisticTabBarItem, settingsTabBarItem]
+        let items = [mainTabBarItem, historyTabBarItem, statisticTabBarItem, settingsTabBarItem]
         let itemWidth = tabBarView.bounds.width * 0.9 / CGFloat(items.count)
         var itemX: CGFloat = tabBarView.bounds.width * 0.1 / 2
         let itemY: CGFloat = 0
@@ -87,6 +90,13 @@ final class MenuScreenView: AUIView {
         selectedTabBarItem = mainTabBarItem
         mainTabBarItem.isSelected = true
         setScreenView(homeScreenView)
+    }
+    
+    func setHistoryScreenView(_ historyScreenView: UIView) {
+        selectedTabBarItem?.isSelected = false
+        selectedTabBarItem = historyTabBarItem
+        historyTabBarItem.isSelected = true
+        setScreenView(historyScreenView)
     }
     
     func setStatisticScreenView(_ homeScreenView: UIView) {

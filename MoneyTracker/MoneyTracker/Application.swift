@@ -288,6 +288,20 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return presentationExpenses.reversed()
     }
     
+    func presentationExpenses(_ presentation: Presentation) throws -> [PresentationExpense] {
+        let categories = try storage.getCategories()
+        let accounts = try storage.getAllBalanceAccounts()
+        let startDate = Date(timeIntervalSince1970: 0)
+        let endDate = Date(timeIntervalSince1970: 100000000000)
+        let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+        let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
+            guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
+            guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
+            return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+        }
+        return presentationExpenses.reversed()
+    }
+    
     func presentation(_ presentation: Presentation, addExpense presentationAddingExpense: PresentationAddingExpense) throws -> PresentationExpense {
         let categories = try storage.getCategories()
         let accounts = try storage.getAllBalanceAccounts()
