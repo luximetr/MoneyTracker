@@ -63,6 +63,7 @@ extension TemplatesScreenViewController {
         
         private func updateName(to name: String, in cell: CellType) {
             cell.nameLabel.text = name
+            cell.layoutSubviews()
         }
         
         // MARK: - Amount
@@ -75,6 +76,7 @@ extension TemplatesScreenViewController {
             let formatter = SumTextFormatter(textPattern: "# ###.## \(currencyCode)")
             let amountString = formatter.format(NSDecimalNumber(decimal: amount))
             cell.amountLabel.text = amountString
+            cell.layoutSubviews()
         }
         
         // MARK: - Balance account name
@@ -85,6 +87,7 @@ extension TemplatesScreenViewController {
         
         private func updateBalanceAccountName(to balanceAccountName: String, in cell: CellType) {
             cell.balanceAccountLabel.text = balanceAccountName
+            cell.layoutSubviews()
         }
         
         // MARK: - Currency
@@ -101,6 +104,7 @@ extension TemplatesScreenViewController {
         
         private func updateCategoryName(to categoryName: String, in cell: CellType) {
             cell.categoryLabel.text = categoryName
+            cell.layoutSubviews()
         }
         
         // MARK: - Comment
@@ -109,6 +113,7 @@ extension TemplatesScreenViewController {
         
         private func updateComment(to comment: String?, in cell: CellType) {
             cell.commentLabel.text = comment
+            cell.layoutSubviews()
         }
     }
 }

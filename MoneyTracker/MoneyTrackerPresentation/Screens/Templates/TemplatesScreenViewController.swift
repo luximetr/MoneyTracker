@@ -129,7 +129,9 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
             return self?.templatesScreenView.templateTableViewCellHeight() ?? 0
         }
         cellController.didSelectClosure = { [weak self] in
-            self?.didSelectTemplate(template)
+            guard let self = self else { return }
+            guard let selectedTemplate = self.templates.first(where: { $0.id == template.id }) else { return }
+            self.didSelectTemplate(selectedTemplate)
         }
         return cellController
     }
@@ -140,6 +142,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     
     func showTemplateAdded(_ template: ExpenseTemplate) {
         let cellController = createTemplateCellController(template: template)
+        templates.append(template)
         guard let lastTemplateCellController = sectionController.cellControllers.reversed().first(where: { $0 is TemplateTableViewCellController }) else { return }
         tableViewController.insertCellControllers([cellController], afterCellController: lastTemplateCellController, inSection: sectionController)
     }
@@ -153,6 +156,8 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
         updatingTemplateCellController?.currencyCode = updatedTemplate.balanceAccount.currency.rawValue
         updatingTemplateCellController?.categoryName = updatedTemplate.category.name
         updatingTemplateCellController?.comment = updatedTemplate.comment
+        guard let updatingTemplateIndex = templates.firstIndex(where: { $0.id == updatedTemplate.id }) else { return }
+        templates[updatingTemplateIndex] = updatedTemplate
     }
     
     // MARK: - Add template
