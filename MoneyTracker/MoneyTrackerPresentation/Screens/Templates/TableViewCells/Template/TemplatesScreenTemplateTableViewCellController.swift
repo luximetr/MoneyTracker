@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import AnyFormatKit
 
 extension TemplatesScreenViewController {
     
@@ -22,6 +23,7 @@ extension TemplatesScreenViewController {
              name: String,
              amount: Decimal,
              balanceAccountName: String,
+             currencyCode: String,
              categoryName: String,
              comment: String?
         ) {
@@ -29,6 +31,7 @@ extension TemplatesScreenViewController {
             self.name = name
             self.amount = amount
             self.balanceAccountName = balanceAccountName
+            self.currencyCode = currencyCode
             self.categoryName = categoryName
             self.comment = comment
         }
@@ -45,7 +48,7 @@ extension TemplatesScreenViewController {
         override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
             guard let cell = super.cellForRowAtIndexPath(indexPath) as? CellType else { return UITableViewCell() }
             updateName(to: name, in: cell)
-            updateAmount(to: amount, in: cell)
+            updateAmount(to: amount, currencyCode: currencyCode, in: cell)
             updateBalanceAccountName(to: balanceAccountName, in: cell)
             updateCategoryName(to: categoryName, in: cell)
             updateComment(to: comment, in: cell)
@@ -65,15 +68,12 @@ extension TemplatesScreenViewController {
         // MARK: - Amount
         
         var amount: Decimal {
-            didSet { updateAmount(to: amount, in: templateCell) }
+            didSet { updateAmount(to: amount, currencyCode: currencyCode, in: templateCell) }
         }
         
-        private func updateAmount(to amount: Decimal, in cell: CellType) {
-            let formatter = NumberFormatter()
-            formatter.maximumFractionDigits = 2
-            formatter.minimumFractionDigits = 2
-            formatter.currencySymbol = "SGD"
-            let amountString = formatter.string(from: NSDecimalNumber(decimal: amount))
+        private func updateAmount(to amount: Decimal, currencyCode: String, in cell: CellType) {
+            let formatter = SumTextFormatter(textPattern: "# ###.## \(currencyCode)")
+            let amountString = formatter.format(NSDecimalNumber(decimal: amount))
             cell.amountLabel.text = amountString
         }
         
@@ -85,6 +85,12 @@ extension TemplatesScreenViewController {
         
         private func updateBalanceAccountName(to balanceAccountName: String, in cell: CellType) {
             cell.balanceAccountLabel.text = balanceAccountName
+        }
+        
+        // MARK: - Currency
+        
+        var currencyCode: String {
+            didSet { updateAmount(to: amount, currencyCode: currencyCode, in: templateCell) }
         }
         
         // MARK: - Category name

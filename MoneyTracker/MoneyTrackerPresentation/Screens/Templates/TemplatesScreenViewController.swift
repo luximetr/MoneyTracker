@@ -98,6 +98,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
             name: template.name,
             amount: template.amount,
             balanceAccountName: template.balanceAccount.name,
+            currencyCode: template.balanceAccount.currency.rawValue,
             categoryName: template.category.name,
             comment: template.comment
         )
@@ -149,6 +150,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
         updatingTemplateCellController?.name = updatedTemplate.name
         updatingTemplateCellController?.amount = updatedTemplate.amount
         updatingTemplateCellController?.balanceAccountName = updatedTemplate.balanceAccount.name
+        updatingTemplateCellController?.currencyCode = updatedTemplate.balanceAccount.currency.rawValue
         updatingTemplateCellController?.categoryName = updatedTemplate.category.name
         updatingTemplateCellController?.comment = updatedTemplate.comment
     }
