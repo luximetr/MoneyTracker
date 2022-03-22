@@ -24,7 +24,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     
     var backClosure: (() -> Void)?
     var addTemplateClosure: (() -> Void)?
-    var didSelectTemplateClosure: (() -> Void)?
+    var didSelectTemplateClosure: ((ExpenseTemplate) -> Void)?
     var didDeleteTemplateClosure: ((ExpenseTemplate) -> Void)?
     var didReorderTemplatesClosure: (([ExpenseTemplate]) -> Void)?
     
@@ -54,6 +54,7 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     // MARK: - TableView
     
     private let tableViewController = AUIClosuresTableViewController()
+    private let sectionController = AUIEmptyTableViewSectionController()
     
     private func setupTableViewController() {
         tableViewController.tableView = templatesScreenView.tableView
@@ -66,15 +67,14 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
         }
         tableViewController.moveCellControllerClosure = { [weak self] sourceCellController, destinationCellController in
             guard let self = self else { return }
-            guard let templateId1 = (sourceCellController as? TemplatesScreenTemplateTableViewCellController)?.templateId else { return }
-            guard let templateId2 = (destinationCellController as? TemplatesScreenTemplateTableViewCellController)?.templateId else { return }
+            guard let templateId1 = (sourceCellController as? TemplateTableViewCellController)?.templateId else { return }
+            guard let templateId2 = (destinationCellController as? TemplateTableViewCellController)?.templateId else { return }
             guard let i = self.templates.firstIndex(where: { $0.id == templateId1 }) else { return }
             guard let j = self.templates.firstIndex(where: { $0.id == templateId2 }) else { return }
             self.templates.swapAt(i, j)
             self.didReorderTemplatesClosure?(self.templates)
         }
         tableViewController.dragInteractionEnabled = true
-        let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
         
         let templatesCellControllers = createTemplatesCellControllers(templates: templates)
@@ -88,22 +88,24 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Template
     
-    private func createTemplatesCellControllers(templates: [ExpenseTemplate]) -> [TemplatesScreenTemplateTableViewCellController] {
+    private func createTemplatesCellControllers(templates: [ExpenseTemplate]) -> [TemplateTableViewCellController] {
         return templates.map { createTemplateCellController(template: $0) }
     }
     
-    private func createTemplateCellController(template: ExpenseTemplate) -> TemplatesScreenTemplateTableViewCellController {
-        let cellController = TemplatesScreenTemplateTableViewCellController(templateId: template.id)
+    private func createTemplateCellController(template: ExpenseTemplate) -> TemplateTableViewCellController {
+        let cellController = TemplateTableViewCellController(
+            templateId: template.id,
+            name: template.name,
+            amount: template.amount,
+            balanceAccountName: template.balanceAccount.name,
+            categoryName: template.category.name,
+            comment: template.comment
+        )
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.templatesScreenView.templateTableViewCell(indexPath)
-            cell.nameLabel.text = template.name
-            cell.amountLabel.text = "\(template.amount) SGD"
-            cell.balanceAccountPrefixLabel.text = "from"
-            cell.balanceAccountLabel.text = template.balanceAccount.name
-            cell.categoryPrefixLabel.text = "to"
-            cell.categoryLabel.text = template.category.name
-            cell.commentLabel.text = template.comment
+            cell.balanceAccountPrefixLabel.text = self.localizer.localizeText("balanceAccountPrefix")
+            cell.categoryPrefixLabel.text = self.localizer.localizeText("categoryPrefix")
             return cell
         }
         cellController.canMoveCellClosure = {
@@ -132,7 +134,23 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private func didSelectTemplate(_ template: ExpenseTemplate) {
-        
+        didSelectTemplateClosure?(template)
+    }
+    
+    func showTemplateAdded(_ template: ExpenseTemplate) {
+        let cellController = createTemplateCellController(template: template)
+        guard let lastTemplateCellController = sectionController.cellControllers.reversed().first(where: { $0 is TemplateTableViewCellController }) else { return }
+        tableViewController.insertCellControllers([cellController], afterCellController: lastTemplateCellController, inSection: sectionController)
+    }
+    
+    func showTemplateUpdated(_ updatedTemplate: ExpenseTemplate) {
+        let templatesCellControllers = sectionController.cellControllers.compactMap { $0 as? TemplateTableViewCellController }
+        let updatingTemplateCellController = templatesCellControllers.first(where: { $0.templateId == updatedTemplate.id })
+        updatingTemplateCellController?.name = updatedTemplate.name
+        updatingTemplateCellController?.amount = updatedTemplate.amount
+        updatingTemplateCellController?.balanceAccountName = updatedTemplate.balanceAccount.name
+        updatingTemplateCellController?.categoryName = updatedTemplate.category.name
+        updatingTemplateCellController?.comment = updatedTemplate.comment
     }
     
     // MARK: - Add template

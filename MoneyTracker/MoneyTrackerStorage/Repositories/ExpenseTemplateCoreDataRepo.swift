@@ -102,12 +102,11 @@ class ExpenseTemplateCoreDataRepo {
     // MARK: - Update
 
     func updateTemplate(
-        expenseTemplateId id: ExpenseTemplateId,
         editingExpenseTemplate editingTemplate: EditingExpenseTemplate
     ) throws {
         let context = coreDataAccessor.viewContext
         let request = NSBatchUpdateRequest(entityName: String(describing: ExpenseTemplate.self))
-        let predicate = NSPredicate(format: "id == %@", id)
+        let predicate = NSPredicate(format: "id == %@", editingTemplate.id)
         let propertiesToUpdate = createPropertiesToUpdate(editingTemplate: editingTemplate)
         request.predicate = predicate
         request.propertiesToUpdate = propertiesToUpdate

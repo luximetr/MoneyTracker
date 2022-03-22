@@ -39,7 +39,7 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
     
     private func setupTableView() {
         tableView.register(TemplatesScreenAddTemplateTableViewCell.self, forCellReuseIdentifier: addTemplateTableViewCellReuseIdentifier)
-        tableView.register(TemplatesScreenTemplateTableViewCell.self, forCellReuseIdentifier: templateTableViewCellReuseIdentifier)
+        tableView.register(TemplateTableViewCell.self, forCellReuseIdentifier: templateTableViewCellReuseIdentifier)
     }
     
     // MARK: - Layout
@@ -58,8 +58,8 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Template cell
     
-    func templateTableViewCell(_ indexPath: IndexPath) -> TemplatesScreenTemplateTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: templateTableViewCellReuseIdentifier, for: indexPath) as! TemplatesScreenTemplateTableViewCell
+    func templateTableViewCell(_ indexPath: IndexPath) -> TemplateTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: templateTableViewCellReuseIdentifier, for: indexPath) as! TemplateTableViewCell
         return cell
     }
     

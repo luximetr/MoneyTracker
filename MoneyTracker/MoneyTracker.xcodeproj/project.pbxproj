@@ -127,6 +127,11 @@
 		DB0CE6EC27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */; };
 		DB45FACF27E4B5B70073C677 /* TextFieldLabelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FACE27E4B5B70073C677 /* TextFieldLabelController.swift */; };
 		DB45FAD127E4B8BE0073C677 /* SingleLineTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD027E4B8BE0073C677 /* SingleLineTextInputView.swift */; };
+		DB45FAD427E6EFAC0073C677 /* EditTemplateScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD327E6EFAC0073C677 /* EditTemplateScreenViewController.swift */; };
+		DB45FAD627E6EFC00073C677 /* EditTemplateScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD527E6EFC00073C677 /* EditTemplateScreenView.swift */; };
+		DB45FAD927E6EFE80073C677 /* EditTemplateScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB45FADB27E6EFE80073C677 /* EditTemplateScreenStrings.strings */; };
+		DB45FADD27E6F0950073C677 /* EditingExpenseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FADC27E6F0950073C677 /* EditingExpenseTemplate.swift */; };
+		DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FADF27E6F3440073C677 /* EditingExpenseTemplateAdapter.swift */; };
 		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
 		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
 		DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */; };
@@ -138,7 +143,7 @@
 		DB74864627BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864527BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift */; };
 		DB74864827BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864727BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift */; };
 		DB74864B27BBABB2004DF67B /* TemplatesScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB74864D27BBABB2004DF67B /* TemplatesScreenStrings.strings */; };
-		DB74864F27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864E27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift */; };
+		DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864E27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift */; };
 		DB74865127BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */; };
 		DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74868E27BE91E6004DF67B /* AddingCategory.swift */; };
 		DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74869027BE91F6004DF67B /* CurrencyNameProvider.swift */; };
@@ -361,6 +366,11 @@
 		DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperBalanceAccountAdapter.swift; sourceTree = "<group>"; };
 		DB45FACE27E4B5B70073C677 /* TextFieldLabelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldLabelController.swift; sourceTree = "<group>"; };
 		DB45FAD027E4B8BE0073C677 /* SingleLineTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineTextInputView.swift; sourceTree = "<group>"; };
+		DB45FAD327E6EFAC0073C677 /* EditTemplateScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTemplateScreenViewController.swift; sourceTree = "<group>"; };
+		DB45FAD527E6EFC00073C677 /* EditTemplateScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTemplateScreenView.swift; sourceTree = "<group>"; };
+		DB45FADA27E6EFE80073C677 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditTemplateScreenStrings.strings; sourceTree = "<group>"; };
+		DB45FADC27E6F0950073C677 /* EditingExpenseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingExpenseTemplate.swift; sourceTree = "<group>"; };
+		DB45FADF27E6F3440073C677 /* EditingExpenseTemplateAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingExpenseTemplateAdapter.swift; sourceTree = "<group>"; };
 		DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplatesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewController.swift; sourceTree = "<group>"; };
@@ -372,7 +382,7 @@
 		DB74864527BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenAddTemplateTableViewCell.swift; sourceTree = "<group>"; };
 		DB74864727BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenAddTemplateTableViewCellController.swift; sourceTree = "<group>"; };
 		DB74864C27BBABB2004DF67B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TemplatesScreenStrings.strings; sourceTree = "<group>"; };
-		DB74864E27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenTemplateTableViewCell.swift; sourceTree = "<group>"; };
+		DB74864E27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewTemplateTableViewCell.swift; sourceTree = "<group>"; };
 		DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenTemplateTableViewCellController.swift; sourceTree = "<group>"; };
 		DB74868E27BE91E6004DF67B /* AddingCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
 		DB74869027BE91F6004DF67B /* CurrencyNameProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyNameProvider.swift; sourceTree = "<group>"; };
@@ -543,8 +553,7 @@
 		2E91155427A93D4800359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2EDB3EEF27C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift */,
-				2EDB3EEE27C43FB5003A9FDD /* ExpenseTemplateAdapter.swift */,
+				DB45FADE27E6F3290073C677 /* ExpenseTemplate */,
 				DB7486DB27CDD30C004DF67B /* Expense */,
 				2E926E8827BC55AD0081E3AE /* Currency */,
 				2E926E8227BC537D0081E3AE /* Category */,
@@ -868,6 +877,7 @@
 				2ECAB2FB27C593620028CB0D /* EditAccount */,
 				DB74863027BA5B08004DF67B /* Templates */,
 				DB74863727BA6024004DF67B /* AddTemplate */,
+				DB45FAD227E6EF7F0073C677 /* EditTemplate */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1133,6 +1143,26 @@
 			path = TextFieldLabel;
 			sourceTree = "<group>";
 		};
+		DB45FAD227E6EF7F0073C677 /* EditTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				DB45FAD327E6EFAC0073C677 /* EditTemplateScreenViewController.swift */,
+				DB45FAD527E6EFC00073C677 /* EditTemplateScreenView.swift */,
+				DB45FADB27E6EFE80073C677 /* EditTemplateScreenStrings.strings */,
+			);
+			path = EditTemplate;
+			sourceTree = "<group>";
+		};
+		DB45FADE27E6F3290073C677 /* ExpenseTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				2EDB3EEE27C43FB5003A9FDD /* ExpenseTemplateAdapter.swift */,
+				2EDB3EEF27C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift */,
+				DB45FADF27E6F3440073C677 /* EditingExpenseTemplateAdapter.swift */,
+			);
+			path = ExpenseTemplate;
+			sourceTree = "<group>";
+		};
 		DB74863027BA5B08004DF67B /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1176,7 +1206,7 @@
 		DB74864427BB5DF4004DF67B /* Template */ = {
 			isa = PBXGroup;
 			children = (
-				DB74864E27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift */,
+				DB74864E27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift */,
 				DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */,
 			);
 			path = Template;
@@ -1187,6 +1217,7 @@
 			children = (
 				DB74863327BA5B81004DF67B /* ExpenseTemplate.swift */,
 				DB74863C27BAB1BF004DF67B /* AddingExpenseTemplate.swift */,
+				DB45FADC27E6F0950073C677 /* EditingExpenseTemplate.swift */,
 			);
 			path = Template;
 			sourceTree = "<group>";
@@ -1584,6 +1615,7 @@
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
 				2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */,
 				2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */,
+				DB45FAD927E6EFE80073C677 /* EditTemplateScreenStrings.strings in Resources */,
 				DB7486E927D06624004DF67B /* StatisticScreenStrings.strings in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
 				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
@@ -1745,6 +1777,7 @@
 				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
 				DB0CE6EC27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift in Sources */,
+				DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1752,6 +1785,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB45FADD27E6F0950073C677 /* EditingExpenseTemplate.swift in Sources */,
 				2EB10A3D27A7034400743416 /* Fonts.swift in Sources */,
 				DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */,
 				2ED60BD227DE776F00EC11D4 /* ExpenseTableViewCell.swift in Sources */,
@@ -1780,6 +1814,7 @@
 				2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */,
 				2EB10A3A27A6FEAE00743416 /* Colors.swift in Sources */,
 				DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */,
+				DB45FAD627E6EFC00073C677 /* EditTemplateScreenView.swift in Sources */,
 				2EB10A2A27A6CAFF00743416 /* Presentation.swift in Sources */,
 				2EB10A3527A6FE8500743416 /* Images.swift in Sources */,
 				2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */,
@@ -1806,7 +1841,7 @@
 				DB74863B27BA6716004DF67B /* AddTemplateScreenView.swift in Sources */,
 				DBB7BD2E27DDDF04004EF5B7 /* CategoryHorizontalPickerView.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
-				DB74864F27BBAD34004DF67B /* TemplatesScreenTemplateTableViewCell.swift in Sources */,
+				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
 				2ECB218927DCA961006D6558 /* AddExpenseScreenView.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
 				2E9289FB27AFF9CA002F3403 /* SettingsScreenViewController.swift in Sources */,
@@ -1842,6 +1877,7 @@
 				2ED60BD427DE7CA400EC11D4 /* Expense.swift in Sources */,
 				DBB7BD2727DC765B004EF5B7 /* BalanceAccountHorizontalPickerController.swift in Sources */,
 				DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */,
+				DB45FAD427E6EFAC0073C677 /* EditTemplateScreenViewController.swift in Sources */,
 				2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */,
 				2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */,
 			);
@@ -1987,6 +2023,14 @@
 				2ECF015127BDA36D008469E0 /* en */,
 			);
 			name = UnexpectedErrorAlertScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		DB45FADB27E6EFE80073C677 /* EditTemplateScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB45FADA27E6EFE80073C677 /* en */,
+			);
+			name = EditTemplateScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		DB74864D27BBABB2004DF67B /* TemplatesScreenStrings.strings */ = {
