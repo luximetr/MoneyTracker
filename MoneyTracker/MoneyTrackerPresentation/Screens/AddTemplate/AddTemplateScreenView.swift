@@ -11,17 +11,6 @@ import PinLayout
 
 final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
-    // MARK: - Subviews
-    
-    let balanceAccountPickerHeaderLabel = UILabel()
-    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
-    let categoryPickerHeaderLabel = UILabel()
-    let categoryPickerView = CategoryHorizontalPickerView()
-    let nameTextField = AddExpenseScreenViewController.CommentTextField()
-    let amountInputView = SingleLineTextInputView()
-    let commentTextField = AddExpenseScreenViewController.CommentTextField()
-    let addButton = TextFilledButton()
-    
     // MARK: - Setup
     
     override func setup() {
@@ -36,7 +25,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(addButton)
         backgroundColor = Colors.primaryBackground
         setupBalanceAccountPickerHeaderLabel()
-        
         setupAddButton()
     }
     
@@ -50,16 +38,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.primaryBackground
     }
     
-    private func setupBalanceAccountPickerHeaderLabel() {
-        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
-        balanceAccountPickerHeaderLabel.textColor = Colors.primaryText
-        balanceAccountPickerHeaderLabel.numberOfLines = 1
-    }
-    
-    private func setupAddButton() {
-        addButton.backgroundColor = Colors.primaryActionBackground
-    }
-    
     // MARK: - Layout
     
     private let marginLeft: CGFloat = 24
@@ -67,23 +45,37 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutNameTextField()
+        layoutAmountInputView()
+        layoutCommentTextField()
         layoutBalanceAccountPickerHeaderLabel()
         layoutBalanceAccountPickerView()
         layoutCategoryPickerHeaderLabel()
         layoutCategoryPickerView()
-        layoutNameTextField()
-        layoutAmountInputView()
-        layoutCommentTextField()
         layoutAddButton()
+    }
+    
+    // MARK: - BalanceAccountPickerHeaderLabel
+    
+    let balanceAccountPickerHeaderLabel = UILabel()
+    
+    private func setupBalanceAccountPickerHeaderLabel() {
+        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.textColor = Colors.primaryText
+        balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     
     private func layoutBalanceAccountPickerHeaderLabel() {
         balanceAccountPickerHeaderLabel.pin
             .left(marginLeft)
-            .top(to: navigationBarView.edge.bottom).marginTop(20)
+            .top(to: commentTextField.edge.bottom).marginTop(15)
             .right(marginRight)
             .sizeToFit(.width)
     }
+    
+    // MARK: - BalanceAccountPickerView
+    
+    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
     
     private func layoutBalanceAccountPickerView() {
         balanceAccountPickerView.pin
@@ -93,13 +85,21 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(30)
     }
     
+    // MARK: - CategoryPickerHeaderLabel
+    
+    let categoryPickerHeaderLabel = UILabel()
+    
     private func layoutCategoryPickerHeaderLabel() {
         categoryPickerHeaderLabel.pin
             .left(marginLeft)
             .right(marginRight)
-            .top(to: balanceAccountPickerView.edge.bottom).marginTop(32)
+            .top(to: balanceAccountPickerView.edge.bottom).marginTop(15)
             .sizeToFit(.width)
     }
+    
+    // MARK: - CategoryPickerView
+    
+    let categoryPickerView = CategoryHorizontalPickerView()
     
     private func layoutCategoryPickerView() {
         categoryPickerView.pin
@@ -109,28 +109,48 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(24)
     }
     
+    // MARK: - NameTextField
+    
+    let nameTextField = AddExpenseScreenViewController.CommentTextField()
+    
     private func layoutNameTextField() {
         nameTextField.pin
             .left(marginLeft)
             .right(marginRight)
-            .top(to: categoryPickerView.edge.bottom).marginTop(24)
+            .top(to: navigationBarView.edge.bottom).marginTop(24)
             .height(44)
     }
+    
+    // MARK: - AmountInputView
+    
+    let amountInputView = SingleLineTextInputView()
     
     private func layoutAmountInputView() {
         amountInputView.pin
             .left(marginLeft)
             .right(marginRight)
-            .top(to: nameTextField.edge.bottom).marginTop(24)
+            .top(to: nameTextField.edge.bottom).marginTop(15)
             .height(44)
     }
+    
+    // MARK: - CommentTextField
+    
+    let commentTextField = AddExpenseScreenViewController.CommentTextField()
     
     private func layoutCommentTextField() {
         commentTextField.pin
             .left(marginLeft)
             .right(marginRight)
-            .top(to: amountInputView.edge.bottom).marginTop(30)
+            .top(to: amountInputView.edge.bottom).marginTop(15)
             .height(44)
+    }
+    
+    // MARK: - AddButton
+    
+    let addButton = TextFilledButton()
+    
+    private func setupAddButton() {
+        addButton.backgroundColor = Colors.primaryActionBackground
     }
     
     private func layoutAddButton() {
