@@ -1,15 +1,15 @@
 //
-//  AddTemplateScreenView.swift
+//  EditTemplateScreenView.swift
 //  MoneyTrackerPresentation
 //
-//  Created by Oleksandr Orlov on 14.02.2022.
+//  Created by Oleksandr Orlov on 20.03.2022.
 //
 
 import UIKit
 import AUIKit
 import PinLayout
 
-final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
+final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Setup
     
@@ -22,10 +22,10 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(nameTextField)
         addSubview(amountInputView)
         addSubview(commentTextField)
-        addSubview(addButton)
+        addSubview(saveButton)
         backgroundColor = Colors.primaryBackground
         setupBalanceAccountPickerHeaderLabel()
-        setupAddButton()
+        setupSaveButton()
     }
     
     override func setupStatusBarView() {
@@ -52,7 +52,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         layoutBalanceAccountPickerView()
         layoutCategoryPickerHeaderLabel()
         layoutCategoryPickerView()
-        layoutAddButton()
+        layoutSaveButton()
     }
     
     // MARK: - BalanceAccountPickerHeaderLabel
@@ -145,16 +145,16 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(44)
     }
     
-    // MARK: - AddButton
+    // MARK: - SaveButton
     
-    let addButton = TextFilledButton()
+    let saveButton = TextFilledButton()
     
-    private func setupAddButton() {
-        addButton.backgroundColor = Colors.primaryActionBackground
+    private func setupSaveButton() {
+        saveButton.backgroundColor = Colors.primaryActionBackground
     }
     
-    private func layoutAddButton() {
-        addButton.pin
+    private func layoutSaveButton() {
+        saveButton.pin
             .hCenter()
             .bottom(pin.safeArea).marginBottom(24)
             .width(150)

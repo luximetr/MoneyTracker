@@ -19,18 +19,8 @@ class AddingExpenseTemplateAdapter {
             name: presentationAddingExpenseTemplate.name,
             amount: presentationAddingExpenseTemplate.amount,
             comment: presentationAddingExpenseTemplate.comment,
-            balanceAccountId: presentationAddingExpenseTemplate.balanceAccountId,
-            categoryId: presentationAddingExpenseTemplate.categoryId
-        )
-    }
-    
-    func adaptToPresentation(storageAddingExpenseTemplate: StorageAddingExpenseTemplate) -> PresentationAddingExpenseTemplate {
-        return PresentationAddingExpenseTemplate(
-            name: storageAddingExpenseTemplate.name,
-            amount: storageAddingExpenseTemplate.amount,
-            comment: storageAddingExpenseTemplate.comment,
-            balanceAccountId: storageAddingExpenseTemplate.balanceAccountId,
-            categoryId: storageAddingExpenseTemplate.categoryId
+            balanceAccountId: presentationAddingExpenseTemplate.balanceAccount.id,
+            categoryId: presentationAddingExpenseTemplate.category.id
         )
     }
 }

@@ -25,7 +25,10 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, editAccount editingAccount: Account) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
     func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
+    func presentation(_ presentation: Presentation, reorderExpenseTemplates reorderedExpenseTemplates: [ExpenseTemplate])
+    func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: ExpenseTemplate)
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
+    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: EditingExpenseTemplate)
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL)
     func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date)
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
@@ -268,6 +271,7 @@ public final class Presentation: AUIWindowPresentation {
         viewController.didSelectTemplatesClosure = { [weak self] in
             guard let self = self else { return }
             let viewController = self.createTemplatesScreenViewController()
+            self.templatesScreenViewController = viewController
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         viewController.didSelectImportCSVClosure = { [weak self] in
@@ -421,6 +425,8 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Templates Screen View Controller
     
+    private var templatesScreenViewController: TemplatesScreenViewController?
+    
     private func createTemplatesScreenViewController() -> TemplatesScreenViewController {
         let templates = delegate.presentationExpenseTemplates(self)
         let viewController = TemplatesScreenViewController(templates: templates)
@@ -429,10 +435,32 @@ public final class Presentation: AUIWindowPresentation {
             let viewController = self.createAddTemplateScreenViewController()
             self.menuNavigationController?.present(viewController, animated: true)
         }
+        viewController.didSelectTemplateClosure = { [weak self] template in
+            guard let self = self else { return }
+            let viewController = self.createEditTemplateScreenViewController(expenseTemplate: template)
+            self.menuNavigationController?.present(viewController, animated: true)
+        }
+        viewController.didReorderTemplatesClosure = { [weak self] reorderedTemplates in
+            guard let self = self else { return }
+            self.delegate.presentation(self, reorderExpenseTemplates: reorderedTemplates)
+        }
+        viewController.didDeleteTemplateClosure = { [weak self] template in
+            guard let self = self else { return }
+            self.delegate.presentation(self, deleteExpenseTemplate: template)
+        }
         viewController.backClosure = { [weak self] in
+            self?.templatesScreenViewController = nil
             self?.menuNavigationController?.popViewController(animated: true)
         }
         return viewController
+    }
+    
+    public func showExpenseTemplateAdded(_ expenseTemplate: ExpenseTemplate) {
+        templatesScreenViewController?.showTemplateAdded(expenseTemplate)
+    }
+    
+    public func showExpenseTemplateUpdated(_ updatedTemplate: ExpenseTemplate) {
+        templatesScreenViewController?.showTemplateUpdated(updatedTemplate)
     }
     
     // MARK: - Add Template Screen View Controller
@@ -447,6 +475,23 @@ public final class Presentation: AUIWindowPresentation {
         viewController.addTemplateClosure = { [weak self] addingExpenseTemplate in
             guard let self = self else { return }
             self.delegate.presentation(self, addExpenseTemplate: addingExpenseTemplate)
+            self.menuNavigationController?.dismiss(animated: true)
+        }
+        return viewController
+    }
+    
+    // MARK: - Edit Template Screen View Controller
+    
+    private func createEditTemplateScreenViewController(expenseTemplate: ExpenseTemplate) -> EditTemplateScreenViewController {
+        let categories = delegate.presentationCategories(self)
+        let balanceAccounts = try! delegate.presentationAccounts(self)
+        let viewController = EditTemplateScreenViewController(expenseTemplate: expenseTemplate, categories: categories, balanceAccounts: balanceAccounts)
+        viewController.backClosure = { [weak self] in
+            self?.menuNavigationController?.dismiss(animated: true)
+        }
+        viewController.editTemplateClosure = { [weak self] editingTemplate in
+            guard let self = self else { return }
+            self.delegate.presentation(self, editExpenseTemplate: editingTemplate)
             self.menuNavigationController?.dismiss(animated: true)
         }
         return viewController

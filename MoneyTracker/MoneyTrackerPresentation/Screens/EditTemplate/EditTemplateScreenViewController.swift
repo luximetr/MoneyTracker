@@ -1,49 +1,51 @@
 //
-//  AddTemplateScreenViewController.swift
+//  EditTemplateScreenViewController.swift
 //  MoneyTrackerPresentation
 //
-//  Created by Oleksandr Orlov on 14.02.2022.
+//  Created by Oleksandr Orlov on 20.03.2022.
 //
 
 import UIKit
 import AUIKit
 
-class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
+class EditTemplateScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
     // MARK: - Delegation
     
     var backClosure: (() -> Void)?
-    var addTemplateClosure: ((AddingExpenseTemplate) -> Void)?
+    var editTemplateClosure: ((EditingExpenseTemplate) -> Void)?
     
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "AddTemplateScreenStrings")
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "EditTemplateScreenStrings")
         return localizer
     }()
     
     // MARK: - Data
     
+    private let expenseTemplate: ExpenseTemplate
     private let categories: [Category]
     private let balanceAccounts: [Account]
     
     // MARK: - Life cycle
     
-    init(categories: [Category], balanceAccounts: [Account]) {
+    init(expenseTemplate: ExpenseTemplate, categories: [Category], balanceAccounts: [Account]) {
+        self.expenseTemplate = expenseTemplate
         self.categories = categories
         self.balanceAccounts = balanceAccounts
     }
     
     // MARK: - View
     
-    private var addTemplateScreenView: AddTemplateScreenView {
-        return view as! AddTemplateScreenView
+    private var editTemplateScreenView: EditTemplateScreenView {
+        return view as! EditTemplateScreenView
     }
     
     // MARK: - View - Life cycle
     
     override func loadView() {
-        view = AddTemplateScreenView()
+        view = EditTemplateScreenView()
     }
     
     override func viewDidLoad() {
@@ -53,16 +55,16 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
         setupNameTextFieldController()
         setupCommentTextFieldController()
         setupAmountTextFieldController()
-        addTemplateScreenView.titleLabel.text = localizer.localizeText("title")
-        addTemplateScreenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
-        addTemplateScreenView.categoryPickerHeaderLabel.text = localizer.localizeText("categoryPickerHeader")
-        addTemplateScreenView.nameTextField.placeholder = localizer.localizeText("namePlaceholder")
-        addTemplateScreenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
-        addTemplateScreenView.amountInputView.label.text = balanceAccountPickerController.selectedAccount?.currency.rawValue
-        addTemplateScreenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
-        addTemplateScreenView.addButton.setTitle(localizer.localizeText("addButtonTitle"), for: .normal)
-        addTemplateScreenView.addButton.addTarget(self, action: #selector(didTapOnAddButton), for: .touchUpInside)
-        addTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
+        editTemplateScreenView.titleLabel.text = localizer.localizeText("title")
+        editTemplateScreenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
+        editTemplateScreenView.categoryPickerHeaderLabel.text = localizer.localizeText("categoryPickerHeader")
+        editTemplateScreenView.nameTextField.placeholder = localizer.localizeText("namePlaceholder")
+        editTemplateScreenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
+        editTemplateScreenView.amountInputView.label.text = balanceAccountPickerController.selectedAccount?.currency.rawValue
+        editTemplateScreenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
+        editTemplateScreenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
+        editTemplateScreenView.saveButton.addTarget(self, action: #selector(didTapOnSaveButton), for: .touchUpInside)
+        editTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
     }
     
@@ -78,12 +80,11 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
     private let balanceAccountPickerController = BalanceAccountHorizontalPickerController()
     
     private func setupBalanceAccountPickerController() {
-        balanceAccountPickerController.balanceAccountHorizontalPickerView = addTemplateScreenView.balanceAccountPickerView
+        balanceAccountPickerController.balanceAccountHorizontalPickerView = editTemplateScreenView.balanceAccountPickerView
         balanceAccountPickerController.didSelectAccountClosure = { [weak self] account in
             self?.didSelectBalanceAccount(account)
         }
-        guard let firstAccount = balanceAccounts.first else { return }
-        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: firstAccount)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: expenseTemplate.balanceAccount)
     }
     
     private var selectedBalanceAccount: Account? {
@@ -99,9 +100,8 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
     private let categoryPickerController = CategoryHorizontalPickerController()
     
     private func setupCategoryPickerController() {
-        categoryPickerController.categoryHorizontalPickerView = addTemplateScreenView.categoryPickerView
-        guard let firstCategory = categories.first else { return }
-        categoryPickerController.showOptions(categories: categories, selectedCategory: firstCategory)
+        categoryPickerController.categoryHorizontalPickerView = editTemplateScreenView.categoryPickerView
+        categoryPickerController.showOptions(categories: categories, selectedCategory: expenseTemplate.category)
     }
     
     // MARK: - Name input
@@ -109,9 +109,10 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
     private let nameTextFieldController = AUIEmptyTextFieldController()
     
     private func setupNameTextFieldController() {
-        nameTextFieldController.textField = addTemplateScreenView.nameTextField
+        nameTextFieldController.textField = editTemplateScreenView.nameTextField
         nameTextFieldController.keyboardType = .asciiCapable
         nameTextFieldController.returnKeyType = .done
+        nameTextFieldController.text = expenseTemplate.name
     }
     
     private func nameTextFieldDidTapReturnKey() {
@@ -123,16 +124,19 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
     private let amountInputController = TextFieldLabelController()
     
     private func setupAmountTextFieldController() {
-        amountInputController.textFieldLabelView = addTemplateScreenView.amountInputView
+        amountInputController.textFieldLabelView = editTemplateScreenView.amountInputView
         let textFieldController = amountInputController.textFieldController
         textFieldController.keyboardType = .decimalPad
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = 2
+        textFieldController.text = numberFormatter.string(from: NSDecimalNumber(decimal: expenseTemplate.amount))
     }
     
     // MARK: - Amount input - Currency
     
     private func showAmountInputCurrencyCode(_ currencyCode: String?) {
-        addTemplateScreenView.amountInputView.label.text = currencyCode
-        addTemplateScreenView.amountInputView.layoutSubviews()
+        editTemplateScreenView.amountInputView.label.text = currencyCode
+        editTemplateScreenView.amountInputView.layoutSubviews()
     }
     
     // MARK: - Comment input
@@ -140,10 +144,11 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
     private let commentTextFieldController = AUIEmptyTextFieldController()
     
     private func setupCommentTextFieldController() {
-        commentTextFieldController.textField = addTemplateScreenView.commentTextField
+        commentTextFieldController.textField = editTemplateScreenView.commentTextField
         commentTextFieldController.keyboardType = .asciiCapable
         commentTextFieldController.returnKeyType = .done
         commentTextFieldController.addDidTapReturnKeyObserver(self)
+        commentTextFieldController.text = expenseTemplate.comment
     }
     
     // MARK: - Comment input - Return Key
@@ -162,23 +167,24 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
         }
     }
     
-    // MARK: - Add button
+    // MARK: - Save button
     
     @objc
-    private func didTapOnAddButton() {
+    private func didTapOnSaveButton() {
         guard let name = nameTextFieldController.text, !name.isEmpty else { return }
         guard let selectedAccount = balanceAccountPickerController.selectedAccount else { return }
         guard let selectedCategory = categoryPickerController.selectedCategory else { return }
         guard let amount = getInputAmount() else { return }
         let comment = commentTextFieldController.text
-        let addingTemplate = AddingExpenseTemplate(
+        let editingTemplate = EditingExpenseTemplate(
+            id: expenseTemplate.id,
             name: name,
             amount: amount,
             comment: comment,
-            balanceAccount: selectedAccount,
-            category: selectedCategory
+            balanceAccountId: selectedAccount.id,
+            categoryId: selectedCategory.id
         )
-        addTemplateClosure?(addingTemplate)
+        editTemplateClosure?(editingTemplate)
     }
     
     private func getInputAmount() -> Decimal? {

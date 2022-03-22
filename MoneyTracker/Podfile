@@ -13,6 +13,7 @@ target 'MoneyTrackerPresentation' do
   pod "AFoundation", :git => 'https://github.com/ihormyroniuk/AFoundation.git', :branch => 'development'
   pod "AUIKit", :git => 'https://github.com/ihormyroniuk/AUIKit.git', :branch => 'development'
   pod 'PinLayout'
+  pod 'AnyFormatKit', '~> 2.5.2'
 end
 
 target 'MoneyTrackerStorage' do

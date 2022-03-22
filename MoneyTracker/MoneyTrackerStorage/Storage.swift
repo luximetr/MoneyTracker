@@ -269,11 +269,12 @@ public class Storage {
 
     // MARK: - ExpenseTemplate
     
-    public func addExpenseTemplate(addingExpenseTemplate: AddingExpenseTemplate) throws {
+    public func addExpenseTemplate(addingExpenseTemplate: AddingExpenseTemplate) throws -> ExpenseTemplate {
         let template = ExpenseTemplate(addingExpenseTemplate: addingExpenseTemplate)
         let repo = createExpenseTemplateRepo()
         try repo.insert(expenseTemplate: template)
         try appendToExpenseTemplatesOrder(expenseTemplateId: template.id)
+        return template
     }
     
     public func getAllExpenseTemplates() throws -> [ExpenseTemplate] {
@@ -301,9 +302,9 @@ public class Storage {
         return try repo.fetchTemplate(expenseTemplateId: id)
     }
     
-    public func updateExpenseTemplate(expenseTemplateId id: String, editingExpenseTemplate: EditingExpenseTemplate) throws {
+    public func updateExpenseTemplate(editingExpenseTemplate: EditingExpenseTemplate) throws {
         let repo = createExpenseTemplateRepo()
-        try repo.updateTemplate(expenseTemplateId: id, editingExpenseTemplate: editingExpenseTemplate)
+        try repo.updateTemplate(editingExpenseTemplate: editingExpenseTemplate)
     }
     
     public func removeExpenseTemplate(expenseTemplateId id: String) throws {

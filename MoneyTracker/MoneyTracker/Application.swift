@@ -347,7 +347,79 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let adapter = AddingExpenseTemplateAdapter()
         let storageAddingTemplate = adapter.adaptToStorage(presentationAddingExpenseTemplate: addingExpenseTemplate)
         do {
-            try storage.addExpenseTemplate(addingExpenseTemplate: storageAddingTemplate)
+            let storageTemplate = try storage.addExpenseTemplate(addingExpenseTemplate: storageAddingTemplate)
+            let templateAdapter = ExpenseTemplateAdapter()
+            let template = templateAdapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: addingExpenseTemplate.balanceAccount, presentationCategory: addingExpenseTemplate.category)
+            presentation.showExpenseTemplateAdded(template)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: PresentationEditingExpenseTemplate) {
+        let adapter = EditingExpenseTemplateAdapter()
+        let storageEditingTemplate = adapter.adaptToStorage(presentationEditingExpenseTemplate: editingExpenseTemplate)
+        tryUpdateExpenseTemplate(editingExpenseTemplate: storageEditingTemplate)
+        guard let updatedTemplate = tryFetchPresentationExpenseTemplate(id: editingExpenseTemplate.id) else { return }
+        presentation.showExpenseTemplateUpdated(updatedTemplate)
+    }
+    
+    private func tryUpdateExpenseTemplate(editingExpenseTemplate: StorageEditingExpenseTemplate) {
+        do {
+            try storage.updateExpenseTemplate(editingExpenseTemplate: editingExpenseTemplate)
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func tryFetchPresentationExpenseTemplate(id: String) -> PresentationExpenseTemplate? {
+        do {
+            return try fetchPresentationExpenseTemplate(id: id)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    private func fetchPresentationExpenseTemplate(id: String) throws -> PresentationExpenseTemplate {
+        let storageExpenseTemplate = try storage.getExpenseTemplate(expenseTemplateId: id)
+        let storageCategory = try storage.getCategory(id: storageExpenseTemplate.categoryId)
+        let storageBalanceAccount = try storage.getBalanceAccount(id: storageExpenseTemplate.balanceAccountId)
+        let presentationCategory = Category(storageCategoty: storageCategory).presentationCategory
+        let presentationBalanceAccount = try Account(storageAccount: storageBalanceAccount).presentationAccount()
+        let presentationExpenseTemplate = ExpenseTemplateAdapter().adaptToPresentation(storageExpenseTemplate: storageExpenseTemplate, presentationBalanceAccount: presentationBalanceAccount, presentationCategory: presentationCategory)
+        return presentationExpenseTemplate
+    }
+    
+    private func tryFetchStorageExpenseTemplate(id: String) -> StorageExpenseTemplate? {
+        do {
+            return try storage.getExpenseTemplate(expenseTemplateId: id)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    func presentation(_ presentation: Presentation, reorderExpenseTemplates: [PresentationExpenseTemplate]) {
+        let orderedIds = reorderExpenseTemplates.map { $0.id }
+        trySaveExpenseTemplatesOrder(orderedIds: orderedIds)
+    }
+    
+    private func trySaveExpenseTemplatesOrder(orderedIds: [String]) {
+        do {
+            try storage.saveExpenseTemplatesOrder(orderedIds: orderedIds)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: PresentationExpenseTemplate) {
+        tryRemoveExpenseTemplate(expenseTemplateId: expenseTemplate.id)
+    }
+    
+    private func tryRemoveExpenseTemplate(expenseTemplateId: String) {
+        do {
+            try storage.removeExpenseTemplate(expenseTemplateId: expenseTemplateId)
         } catch {
             print(error)
         }
