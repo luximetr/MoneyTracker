@@ -109,12 +109,43 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
                 self.historyViewController?.insertExpense(addedExpense)
+                return addedExpense
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
                 throw error
             }
         }
+        viewController.displayExpenseAddedSnackbarClosure = { [weak self] addedExpense in
+            guard let self = self else { return }
+            self.displayExpenseAddedSnackbarViewController(expense: addedExpense)
+        }
         return viewController
+    }
+    
+    // MARK: ExpenseAddedSnackbarView
+    
+    private var expenseAddedSnackbarViewControllers: [ExpenseAddedSnackbarViewController] = []
+    
+    private func createExpenseAddedSnackbarViewController(expense: Expense) -> ExpenseAddedSnackbarViewController {
+        let viewController = ExpenseAddedSnackbarViewController(expense: expense)
+        let view = ExpenseAddedSnackbarView()
+        viewController.expenseAddedSnackbarView = view
+        return viewController
+    }
+    
+    private func displayExpenseAddedSnackbarViewController(expense: Expense) {
+        let viewController = createExpenseAddedSnackbarViewController(expense: expense)
+        guard let view = viewController.view else{ return }
+        expenseAddedSnackbarViewControllers.append(viewController)
+        window.showSnackbarViewAnimated(view) { [weak self] _ in
+            guard let self = self else { return }
+            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { [weak self] timer in
+                guard let self = self else { return }
+                self.window.hideSnackbarViewAnimated(view) { _ in
+                    timer.invalidate()
+                }
+            }
+        }
     }
     
     // MARK: History Navigation Controller
@@ -594,6 +625,37 @@ public final class Presentation: AUIWindowPresentation {
     
     public func showStatisticTotalSpent(_ spent: Decimal) {
         statisticScreen?.showResult(spent)
+    }
+    
+}
+
+extension UIWindow {
+    
+    func showSnackbarViewAnimated(_ view: UIView, completionHandler: ((Bool) -> ())?) {
+        addSubview(view)
+        let x: CGFloat = 16
+        let width = bounds.width - 2 * x
+        let height = view.sizeThatFits(CGSize(width: width, height: bounds.height)).height
+        let y = bounds.height - height - safeAreaInsets.bottom - 16
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        view.frame = frame
+        setNeedsLayout()
+        layoutIfNeeded()
+        view.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            view.alpha = 1
+        } completion: { finished in
+            completionHandler?(finished)
+        }
+    }
+    
+    func hideSnackbarViewAnimated(_ view: UIView, completionHandler: ((Bool) -> ())?) {
+        UIView.animate(withDuration: 0.3) {
+            view.alpha = 0
+        } completion: { finished in
+            view.removeFromSuperview()
+            completionHandler?(finished)
+        }
     }
     
 }

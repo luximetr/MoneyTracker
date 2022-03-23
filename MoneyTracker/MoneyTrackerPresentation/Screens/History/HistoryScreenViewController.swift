@@ -82,7 +82,7 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
     private func setTableViewControllerContent() {
         expensesSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        let daysExpenses = Dictionary(grouping: expenses) { Calendar.current.startOfDay(for: $0.date) }.sorted(by: { $0.0 < $1.0 })
+        let daysExpenses = Dictionary(grouping: expenses) { Calendar.current.startOfDay(for: $0.date) }.sorted(by: { $0.0 > $1.0 })
         for (day, expenses) in daysExpenses {
             let dayCellController = createDayTableViewController(day: day, expenses: expenses)
             cellControllers.append(dayCellController)

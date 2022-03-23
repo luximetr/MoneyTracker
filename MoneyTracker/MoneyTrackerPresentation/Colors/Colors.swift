@@ -20,4 +20,5 @@ enum Colors {
     static let secondaryBackground = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
     static let dangerousActionBackground = UIColor(red: 0.922, green: 0.341, blue: 0.341, alpha: 1)
     static let darkCardPrimaryText = UIColor(red: 1, green: 1, blue: 1)
+    static let greenCardSecondaryBackground = UIColor(red: 0.195, green: 0.742, blue: 0.316, alpha: 1)
 }

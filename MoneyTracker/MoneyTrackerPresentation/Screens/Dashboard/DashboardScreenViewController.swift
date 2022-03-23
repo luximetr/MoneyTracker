@@ -13,7 +13,8 @@ class DashboardScreenViewController: AUIStatusBarScreenViewController {
     // MARK: - Delegation
     
     var didTapOnAddExpenseClosure: (() -> Void)?
-    var addExpenseClosure: ((AddingExpense) throws -> Void)?
+    var addExpenseClosure: ((AddingExpense) throws -> Expense)?
+    var displayExpenseAddedSnackbarClosure: ((Expense) -> Void)?
     
     // MARK: Localizer
     
@@ -141,6 +142,7 @@ class DashboardScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private func didSelectTemplate(_ template: ExpenseTemplate) {
+        guard let addExpenseClosure = addExpenseClosure else { return }
         do {
             let amount = template.amount
             let date = Date()
@@ -148,7 +150,8 @@ class DashboardScreenViewController: AUIStatusBarScreenViewController {
             let account = template.balanceAccount
             let category = template.category
             let addingExpense = AddingExpense(amount: amount, date: date, comment: component, account: account, category: category)
-            try addExpenseClosure?(addingExpense)
+            let addedExpense = try addExpenseClosure(addingExpense)
+            displayExpenseAddedSnackbarClosure?(addedExpense)
         } catch {
             
         }
