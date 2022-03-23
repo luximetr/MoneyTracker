@@ -56,10 +56,9 @@ final class HistoryScreenView: TitleNavigationBarScreenView {
         let height = bounds.height - y
         let frame = CGRect(x: x, y: y, width: width, height: height)
         tableView.frame = frame
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     }
     
-    // MARK: ExpensesTableView
+    // MARK: DayTableViewCell
     
     func dayTableViewCell(_ indexPath: IndexPath) -> DayTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: dayTableViewCellReuseIdentifier, for: indexPath) as! DayTableViewCell
@@ -74,7 +73,7 @@ final class HistoryScreenView: TitleNavigationBarScreenView {
         return 34
     }
     
-    // MARK: ExpensesTableView
+    // MARK: ExpensesTableViewCell
     
     func expenseTableViewCell(_ indexPath: IndexPath) -> AddExpenseScreenViewController.ExpenseTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: expenseTableViewCellReuseIdentifier, for: indexPath) as! AddExpenseScreenViewController.ExpenseTableViewCell

@@ -24,16 +24,30 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: View
     
-    override func loadView() {
-        view = HistoryScreenView()
-    }
-    
     private var screenView: HistoryScreenView! {
         return view as? HistoryScreenView
     }
     
+    override func loadView() {
+        view = HistoryScreenView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableViewController.tableView = screenView.tableView
+        screenView.titleLabel.text = localizer.localizeText("title")
+        setTableViewControllerContent()
+    }
+    
     private let tableViewController = AUIEmptyTableViewController()
     private let expensesSectionController = AUIEmptyTableViewSectionController()
+    private func dayCellControllerForDay(_ day: Date) -> AUITableViewCellController? {
+        let cellController = expensesSectionController.cellControllers.first { cellController in
+            guard let dayCellController = cellController as? DayTableViewCellController else { return false }
+            return dayCellController.day == Calendar.current.startOfDay(for: day)
+        }
+        return cellController
+    }
     private func expenseCellControllerForExpense(_ expense: Expense) -> AUITableViewCellController? {
         let cellController = expensesSectionController.cellControllers.first { cellController in
             guard let expenseCellController = cellController as? AddExpenseScreenViewController.ExpenseTableViewCellController else { return false }
@@ -51,27 +65,15 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Events
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableViewController.tableView = screenView.tableView
-        screenView.titleLabel.text = localizer.localizeText("title")
-        setTableViewControllerContent()
-    }
-    
     func deleteExpense(_ deletingExpense: Expense) {
         if let index = expenses.firstIndex(of: deletingExpense) {
             expenses.remove(at: index)
-//            if let cellController = expenseCellControllerForExpense(deletingExpense) {
-//                tableViewController.deleteCellControllerAnimated(cellController, .left, completion: nil)
-//            }
             setTableViewControllerContent()
         }
     }
     
     func insertExpense(_ expense: Expense) {
         expenses.append(expense)
-//        let cellController = createExpenseTableViewController(expense: expense)
-//        tableViewController.insertCellControllerAtSectionEndAnimated(expensesSectionController, cellController: cellController, .automatic, completion: nil)
         setTableViewControllerContent()
     }
     
@@ -138,12 +140,16 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
                 }
                 do {
                     try deleteExpenseClosure(expense)
-                    guard let index = self.expenses.firstIndex(where: { expense == $0  }) else {
+                    guard let index = self.expenses.firstIndex(where: { expense == $0 }) else {
                         success(false)
                         return
                     }
                     self.expenses.remove(at: index)
-                    self.tableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
+                    let cellControllers: [AUITableViewCellController] = [cellController]
+//                    if self.expenses.contains(where: { Calendar.current.startOfDay(for: $0.date) == Calendar.current.startOfDay(for: expense.date) }), let dayCellController = self.dayCellControllerForDay(cellController.expense.date) {
+//                        cellControllers.append(dayCellController)
+//                    }
+                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
                         success(true)
                     }
                 } catch {
