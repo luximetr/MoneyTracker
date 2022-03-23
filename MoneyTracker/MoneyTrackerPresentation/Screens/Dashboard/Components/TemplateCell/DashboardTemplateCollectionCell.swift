@@ -11,29 +11,53 @@ import PinLayout
 
 class DashboardTemplateCollectionCell: AUICollectionViewCell {
     
-    // MARK: - Subviews
-    
-    let titleLabel = UILabel()
-    
     // MARK: - Setup
     
     override func setup() {
         super.setup()
+        addSubview(coloredView)
+        addSubview(titleLabel)
+        setupColoredView()
         setupTitleLabel()
-    }
-    
-    private func setupTitleLabel() {
-        titleLabel.textColor = Colors.primaryText
     }
     
     // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutColoredView()
         layoutTitleLabel()
     }
     
+    // MARK: - ColoredView
+    
+    private let coloredView = UIView()
+    
+    private func setupColoredView() {
+        coloredView.backgroundColor = Colors.secondaryBackground
+        coloredView.layer.cornerRadius = 10
+    }
+    
+    private func layoutColoredView() {
+        coloredView.pin.all()
+    }
+    
+    // MARK: - TitleLabel
+    
+    let titleLabel = UILabel()
+    
+    private func setupTitleLabel() {
+        titleLabel.numberOfLines = 1
+        titleLabel.textAlignment = .center
+        titleLabel.font = Fonts.default(size: 18, weight: .regular)
+        titleLabel.textColor = Colors.primaryText
+    }
+    
     private func layoutTitleLabel() {
-        
+        titleLabel.pin
+            .left(5)
+            .right(5)
+            .vCenter()
+            .sizeToFit(.width)
     }
 }

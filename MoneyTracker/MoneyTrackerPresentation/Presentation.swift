@@ -25,6 +25,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, editAccount editingAccount: Account) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
     func presentationExpenseTemplates(_ presentation: Presentation) -> [ExpenseTemplate]
+    func presentationExpenseTemplates(_ presentation: Presentation, limit: Int) -> [ExpenseTemplate]
     func presentation(_ presentation: Presentation, reorderExpenseTemplates reorderedExpenseTemplates: [ExpenseTemplate])
     func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: ExpenseTemplate)
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
@@ -92,11 +93,17 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Dashboard View Controller
     
-    private var dashboardViewController: DashboardScreenViewController?
+    private weak var dashboardViewController: DashboardScreenViewController?
     
     private func createDashboardViewController() -> DashboardScreenViewController {
-        let templates = delegate.presentationExpenseTemplates(self)
+        let templates = delegate.presentationExpenseTemplates(self, limit: 5)
         let viewController = DashboardScreenViewController(templates: templates)
+        viewController.didTapOnAddExpenseClosure = {
+            print("add expense")
+        }
+        viewController.didSelectTemplateClosure = { template in
+            print("did select template")
+        }
         return viewController
     }
     
@@ -461,6 +468,15 @@ public final class Presentation: AUIWindowPresentation {
     
     public func showExpenseTemplateUpdated(_ updatedTemplate: ExpenseTemplate) {
         templatesScreenViewController?.showTemplateUpdated(updatedTemplate)
+        dashboardViewController?.showTemplateUpdated(updatedTemplate)
+    }
+    
+    public func showExpenseTemplatesReordered(_ reorderedExpenseTemplates: [ExpenseTemplate]) {
+        dashboardViewController?.showTemplatesReordered(reorderedExpenseTemplates)
+    }
+    
+    public func showExpenseTemplateRemoved(_ expenseTemplate: ExpenseTemplate) {
+        dashboardViewController?.showTemplateRemoved(templateId: expenseTemplate.id)
     }
     
     // MARK: - Add Template Screen View Controller
