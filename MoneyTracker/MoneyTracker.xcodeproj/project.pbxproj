@@ -137,6 +137,7 @@
 		DB45FAD927E6EFE80073C677 /* EditTemplateScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB45FADB27E6EFE80073C677 /* EditTemplateScreenStrings.strings */; };
 		DB45FADD27E6F0950073C677 /* EditingExpenseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FADC27E6F0950073C677 /* EditingExpenseTemplate.swift */; };
 		DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FADF27E6F3440073C677 /* EditingExpenseTemplateAdapter.swift */; };
+		DB62AEB227EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEB127EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift */; };
 		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
 		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
 		DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */; };
@@ -381,6 +382,7 @@
 		DB45FADA27E6EFE80073C677 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditTemplateScreenStrings.strings; sourceTree = "<group>"; };
 		DB45FADC27E6F0950073C677 /* EditingExpenseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingExpenseTemplate.swift; sourceTree = "<group>"; };
 		DB45FADF27E6F3440073C677 /* EditingExpenseTemplateAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingExpenseTemplateAdapter.swift; sourceTree = "<group>"; };
+		DB62AEB127EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTemplateCollectionCellController.swift; sourceTree = "<group>"; };
 		DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplatesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewController.swift; sourceTree = "<group>"; };
@@ -1346,6 +1348,7 @@
 			isa = PBXGroup;
 			children = (
 				DBB7BD1827DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift */,
+				DB62AEB127EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift */,
 			);
 			path = TemplateCell;
 			sourceTree = "<group>";
@@ -1905,6 +1908,7 @@
 				2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */,
 				2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */,
 				2ECB219127DD0588006D6558 /* InputAmountViewController.swift in Sources */,
+				DB62AEB227EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift in Sources */,
 				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
 				2ED8BD7C27E91A520007F60B /* DayTableViewCell.swift in Sources */,
 				2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */,
@@ -2067,8 +2071,8 @@
 				2ED8BD7827E909150007F60B /* en */,
 			);
 			name = HistoryScreenStrings.strings;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		DB45FADB27E6EFE80073C677 /* EditTemplateScreenStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

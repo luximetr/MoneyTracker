@@ -343,6 +343,33 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentationExpenseTemplates(_ presentation: Presentation, limit: Int) -> [PresentationExpenseTemplate] {
+        let adapter = ExpenseTemplateAdapter()
+        let storageTemplates = tryFetchStorageExpenseTemplates(limit: limit)
+        let storageCategoriesIds = storageTemplates.map { $0.categoryId }
+        let storageBalanceAccountsIds = storageTemplates.map { $0.balanceAccountId }
+        let storageCategories = (try? storage.getCategories(ids: storageCategoriesIds)) ?? []
+        let storageBalanceAccounts = (try? storage.getBalanceAccounts(ids: storageBalanceAccountsIds)) ?? []
+        
+        let presentationTemplates = storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
+            guard let storageCategory = storageCategories.first(where: { $0.id == storageTemplate.categoryId }) else { return nil }
+            guard let storageBalanceAccount = storageBalanceAccounts.first(where: { $0.id == storageTemplate.balanceAccountId }) else { return nil }
+            guard let account = try? Account(storageAccount: storageBalanceAccount).presentationAccount() else { return nil }
+            let category = Category(storageCategoty: storageCategory).presentationCategory
+            return adapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: account, presentationCategory: category)
+        }
+        return presentationTemplates
+    }
+    
+    private func tryFetchStorageExpenseTemplates(limit: Int) -> [StorageExpenseTemplate] {
+        do {
+            return try storage.getExpenseTemplatesOrdered(limit: limit)
+        } catch {
+            print(error)
+            return []
+        }
+    }
+    
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: PresentationAddingExpenseTemplate) {
         let adapter = AddingExpenseTemplateAdapter()
         let storageAddingTemplate = adapter.adaptToStorage(presentationAddingExpenseTemplate: addingExpenseTemplate)
@@ -403,6 +430,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, reorderExpenseTemplates: [PresentationExpenseTemplate]) {
         let orderedIds = reorderExpenseTemplates.map { $0.id }
         trySaveExpenseTemplatesOrder(orderedIds: orderedIds)
+        presentation.showExpenseTemplatesReordered(reorderExpenseTemplates)
     }
     
     private func trySaveExpenseTemplatesOrder(orderedIds: [String]) {
@@ -415,6 +443,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: PresentationExpenseTemplate) {
         tryRemoveExpenseTemplate(expenseTemplateId: expenseTemplate.id)
+        presentation.showExpenseTemplateRemoved(expenseTemplate)
     }
     
     private func tryRemoveExpenseTemplate(expenseTemplateId: String) {

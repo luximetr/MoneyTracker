@@ -11,12 +11,6 @@ import PinLayout
 
 class DashboardScreenView: TitleNavigationBarScreenView {
     
-    // MARK: - UI elements
-    
-    let templatesHeaderLabel = UILabel()
-    private let templatesCollectionLayout: UICollectionViewFlowLayout
-    let templatesCollectionView: UICollectionView
-    
     // MARK: - Life cycle
     
     init() {
@@ -28,22 +22,13 @@ class DashboardScreenView: TitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
+        addSubview(addExpenseButton)
         addSubview(templatesCollectionView)
         addSubview(templatesHeaderLabel)
         backgroundColor = Colors.primaryBackground
+        setupAddExpenseButton()
         setupTemplatesHeaderLabel()
         setupTemplatesCollectionView()
-    }
-    
-    private func setupTemplatesHeaderLabel() {
-        templatesHeaderLabel.font = Fonts.default(size: 24, weight: .regular)
-        templatesHeaderLabel.textColor = Colors.primaryText
-        templatesHeaderLabel.numberOfLines = 1
-    }
-    
-    private func setupTemplatesCollectionView() {
-        templatesCollectionView.backgroundColor = .green
-        templatesCollectionView.register(DashboardTemplateCollectionCell.self, forCellWithReuseIdentifier: templateCellId)
     }
     
     // MARK: - Layout
@@ -52,14 +37,35 @@ class DashboardScreenView: TitleNavigationBarScreenView {
         super.layoutSubviews()
         layoutTemplatesCollectionView()
         layoutTemplatesHeaderLabel()
+        layoutAddExpenseButton()
     }
     
-    private func layoutTemplatesCollectionView() {
-        templatesCollectionView.pin
-            .left(18)
-            .right(18)
-            .bottom(pin.safeArea).marginBottom(24)
-            .height(140)
+    // MARK: - AddExpenseButton
+    
+    let addExpenseButton = UIButton()
+    
+    private func setupAddExpenseButton() {
+        addExpenseButton.backgroundColor = Colors.secondaryBackground
+        addExpenseButton.setTitleColor(Colors.primaryText, for: .normal)
+        addExpenseButton.layer.cornerRadius = 10
+    }
+    
+    private func layoutAddExpenseButton() {
+        addExpenseButton.pin
+            .left(24)
+            .right(24)
+            .bottom(to: templatesHeaderLabel.edge.top).marginBottom(24)
+            .height(44)
+    }
+    
+    // MARK: - TemplatesHeaderLabel
+    
+    let templatesHeaderLabel = UILabel()
+    
+    private func setupTemplatesHeaderLabel() {
+        templatesHeaderLabel.font = Fonts.default(size: 24, weight: .regular)
+        templatesHeaderLabel.textColor = Colors.primaryText
+        templatesHeaderLabel.numberOfLines = 1
     }
     
     private func layoutTemplatesHeaderLabel() {
@@ -67,6 +73,28 @@ class DashboardScreenView: TitleNavigationBarScreenView {
             .left(to: templatesCollectionView.edge.left)
             .bottom(to: templatesCollectionView.edge.top).marginBottom(16)
             .sizeToFit()
+    }
+    
+    // MARK: - TemplateCollectionView
+    
+    private let templatesCollectionLayout: UICollectionViewFlowLayout
+    let templatesCollectionView: UICollectionView
+    
+    private func setupTemplatesCollectionView() {
+        templatesCollectionView.register(DashboardTemplateCollectionCell.self, forCellWithReuseIdentifier: templateCellId)
+    }
+    
+    private let templatesCollectionLeft: CGFloat = 24
+    private let templatesCollectionRight: CGFloat = 24
+    private let templatesCollectionItemsHorizontalSpace: CGFloat = 18
+    private let templatesCollectionNumberOfItemsInRow: CGFloat = 2
+    
+    private func layoutTemplatesCollectionView() {
+        templatesCollectionView.pin
+            .left(templatesCollectionLeft)
+            .right(templatesCollectionRight)
+            .bottom(pin.safeArea).marginBottom(24)
+            .height(140)
     }
     
     // MARK: - Template cell
@@ -80,6 +108,9 @@ class DashboardScreenView: TitleNavigationBarScreenView {
     }
     
     func getTemplateCellSize() -> CGSize {
-        return CGSize(width: 100, height: 40)
+        let availableRowWidth = templatesCollectionView.frame.width
+        let totalHorizontalSpace = templatesCollectionItemsHorizontalSpace * (templatesCollectionNumberOfItemsInRow - 1)
+        let cellWidth = (availableRowWidth - totalHorizontalSpace) / templatesCollectionNumberOfItemsInRow
+        return CGSize(width: cellWidth, height: 40)
     }
 }
