@@ -13,7 +13,7 @@ class DashboardScreenViewController: AUIStatusBarScreenViewController {
     // MARK: - Delegation
     
     var didTapOnAddExpenseClosure: (() -> Void)?
-    var didSelectTemplateClosure: ((ExpenseTemplate) -> Void)?
+    var addExpenseClosure: ((AddingExpense) throws -> Void)?
     
     // MARK: Localizer
     
@@ -141,7 +141,17 @@ class DashboardScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private func didSelectTemplate(_ template: ExpenseTemplate) {
-        didSelectTemplateClosure?(template)
+        do {
+            let amount = template.amount
+            let date = Date()
+            let component = template.comment
+            let account = template.balanceAccount
+            let category = template.category
+            let addingExpense = AddingExpense(amount: amount, date: date, comment: component, account: account, category: category)
+            try addExpenseClosure?(addingExpense)
+        } catch {
+            
+        }
     }
     
     private func findTemplateCellController(templateId: ExpenseTemplateId) -> DashboardTemplateCollectionCellController? {

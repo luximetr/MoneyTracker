@@ -19,6 +19,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     // MARK: Delegation
     
+    var backClosure: (() -> Void)?
     var addExpenseClosure: ((AddingExpense) throws -> Expense)?
     var dayExpensesClosure: ((Date) throws -> [Expense])?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
@@ -72,6 +73,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         selectCategoryViewController.categories = categories
         selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
         if let firstAccount = accounts.first {
             balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
@@ -111,6 +113,10 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     @objc private func tapGestureRecognizerAction() {
         view.endEditing(true)
+    }
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
     }
     
     private func selectDay(_ day: Date) {

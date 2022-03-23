@@ -60,4 +60,21 @@ class DashboardTemplateCollectionCell: AUICollectionViewCell {
             .vCenter()
             .sizeToFit(.width)
     }
+    
+    // MARK: States
+    
+    override var isHighlighted: Bool {
+        willSet {
+            willSetIsHighlighted(newValue)
+        }
+    }
+    func willSetIsHighlighted(_ newValue: Bool) {
+        if newValue {
+            coloredView.alpha = 0.6
+            titleLabel.alpha = 0.6
+        } else {
+            coloredView.alpha = 1
+            titleLabel.alpha = 1
+        }
+    }
 }

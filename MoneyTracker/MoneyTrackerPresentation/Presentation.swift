@@ -60,7 +60,7 @@ public final class Presentation: AUIWindowPresentation {
         self.historyViewController = historyViewController
         self.historyNavigationController = historyNavigationController
         // Statistic
-        let statisticViewController = createAddExpenseViewController()//createStatisticScreen()
+        let statisticViewController = createStatisticScreen()
         let statisticNavigationController = AUINavigationBarHiddenNavigationController()
         statisticNavigationController.viewControllers = [statisticViewController]
         // Settings
@@ -81,15 +81,15 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Menu Navigation Controller
     
-    private var menuNavigationController: UINavigationController?
+    private weak var menuNavigationController: UINavigationController?
     
     // MARK: Menu View Controller
     
-    private var menuScreenViewController: MenuScreenViewController?
+    private weak var menuScreenViewController: MenuScreenViewController?
     
     // MARK: Dashboard Navigation Controller
     
-    private var dashboardNavigationController: UINavigationController?
+    private weak var dashboardNavigationController: UINavigationController?
     
     // MARK: Dashboard View Controller
     
@@ -98,22 +98,32 @@ public final class Presentation: AUIWindowPresentation {
     private func createDashboardViewController() -> DashboardScreenViewController {
         let templates = delegate.presentationExpenseTemplates(self, limit: 5)
         let viewController = DashboardScreenViewController(templates: templates)
-        viewController.didTapOnAddExpenseClosure = {
-            print("add expense")
+        viewController.didTapOnAddExpenseClosure = { [weak self] in
+            guard let self = self else { return }
+            let addExpenseViewController = self.createAddExpenseViewController()
+            self.addExpenseViewController = addExpenseViewController
+            self.menuNavigationController?.pushViewController(addExpenseViewController, animated: true)
         }
-        viewController.didSelectTemplateClosure = { template in
-            print("did select template")
+        viewController.addExpenseClosure = { [weak self] addingExpense in
+            guard let self = self else { throw Error("") }
+            do {
+                let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
+                self.historyViewController?.insertExpense(addedExpense)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+                throw error
+            }
         }
         return viewController
     }
     
     // MARK: History Navigation Controller
     
-    private var historyNavigationController: UINavigationController?
+    private weak var historyNavigationController: UINavigationController?
     
     // MARK: History View Controller
     
-    private var historyViewController: HistoryScreenViewController?
+    private weak var historyViewController: HistoryScreenViewController?
     
     private func createHistoryViewController() -> HistoryScreenViewController {
         let expenses = (try? delegate.presentationExpenses(self)) ?? []
@@ -122,7 +132,6 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             do {
                 try self.delegate.presentation(self, deleteExpense: deletingExpense)
-                self.addExpenseViewController?.deleteExpense(deletingExpense)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
             }
@@ -133,12 +142,16 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Add Expense View Controller
     
-    private var addExpenseViewController: AddExpenseScreenViewController?
+    private weak var addExpenseViewController: AddExpenseScreenViewController?
     
     private func createAddExpenseViewController() -> AddExpenseScreenViewController {
         let accounts = try! delegate.presentationAccounts(self)
         let categories = delegate.presentationCategories(self)
         let viewController = AddExpenseScreenViewController(accounts: accounts, categories: categories)
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.popViewController(animated: true)
+        }
         viewController.dayExpensesClosure = { [weak self] day in
             guard let self = self else { return [] }
             do {
@@ -175,11 +188,11 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Categories Navigation Controller
     
-    private var categoriesNavigationController: UINavigationController?
+    private weak var categoriesNavigationController: UINavigationController?
     
     // MARK: Categories View Controller
     
-    private var categoriesViewController: CategoriesScreenViewController?
+    private weak var categoriesViewController: CategoriesScreenViewController?
     
     private func createCategoriesViewController() -> CategoriesScreenViewController {
         let categories = delegate.presentationCategories(self)
@@ -213,7 +226,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Settings Navigation Controller
     
-    private var settingsNavigationController: UINavigationController?
+    private weak var settingsNavigationController: UINavigationController?
     
     // MARK: Add Category View Controller
     
@@ -233,7 +246,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Add Category View Controller
     
-    private var editCategoryViewController: EditCategoryScreenViewController?
+    private weak var editCategoryViewController: EditCategoryScreenViewController?
         
     private func createEditCategoryScreenViewController(category: Category) -> EditCategoryScreenViewController {
         let viewController = EditCategoryScreenViewController(category: category)
@@ -249,7 +262,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Settings Screen View Controller
     
-    private var settingsScreenViewController: SettingsScreenViewController?
+    private weak var settingsScreenViewController: SettingsScreenViewController?
     
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
         let viewController = SettingsScreenViewController()
@@ -305,7 +318,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Accounts Screen View Controller
     
-    private var accoutsViewController: AccountsScreenViewController?
+    private weak var accoutsViewController: AccountsScreenViewController?
     
     private func createAccountsViewController() throws -> AccountsScreenViewController {
         let accounts = try delegate.presentationAccounts(self)
@@ -347,7 +360,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Add Accounts Screen View Controller
     
-    private var addAccoutScreenViewController: AddAccountScreenViewController?
+    private weak var addAccoutScreenViewController: AddAccountScreenViewController?
     
     private func createAddAccountViewController() -> AddAccountScreenViewController {
         let backgroundColors = delegate.presentationAccountBackgroundColors(self)
@@ -390,7 +403,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Edit Accounts Screen View Controller
     
-    private var editAccoutScreenViewController: EditAccountScreenViewController?
+    private weak var editAccoutScreenViewController: EditAccountScreenViewController?
     
     private func createEditAccountViewController(editingAccount: Account) -> EditAccountScreenViewController {
         let backgroundColors = delegate.presentationAccountBackgroundColors(self)
@@ -432,7 +445,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Templates Screen View Controller
     
-    private var templatesScreenViewController: TemplatesScreenViewController?
+    private weak var templatesScreenViewController: TemplatesScreenViewController?
     
     private func createTemplatesScreenViewController() -> TemplatesScreenViewController {
         let templates = delegate.presentationExpenseTemplates(self)
@@ -526,7 +539,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Unexpected Error Alert Screen
     
-    private var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
+    private weak var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
     
     private func displayUnexpectedErrorAlertScreen(_ error: Swift.Error) {
         let viewController = UnexpectedErrorAlertScreenViewController(title: nil, message: nil, preferredStyle: .alert)
@@ -549,7 +562,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Unexpected Error Details Screen
     
-    private var unexpectedErrorDetailsScreenViewController: UnexpectedErrorDetailsScreenViewController?
+    private weak var unexpectedErrorDetailsScreenViewController: UnexpectedErrorDetailsScreenViewController?
     
     private func displayUnexpectedErrorDetailsScreen(_ error: Swift.Error) {
         let viewController = UnexpectedErrorDetailsScreenViewController(error: error)
@@ -567,7 +580,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Statistic Screen
     
-    private var statisticScreen: StatisticScreenViewController?
+    private weak var statisticScreen: StatisticScreenViewController?
     
     private func createStatisticScreen() -> StatisticScreenViewController {
         let viewController = StatisticScreenViewController()

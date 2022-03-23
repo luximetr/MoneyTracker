@@ -42,12 +42,11 @@ class DashboardScreenView: TitleNavigationBarScreenView {
     
     // MARK: - AddExpenseButton
     
-    let addExpenseButton = UIButton()
+    let addExpenseButton = TextFilledButton()
     
     private func setupAddExpenseButton() {
         addExpenseButton.backgroundColor = Colors.secondaryBackground
         addExpenseButton.setTitleColor(Colors.primaryText, for: .normal)
-        addExpenseButton.layer.cornerRadius = 10
     }
     
     private func layoutAddExpenseButton() {

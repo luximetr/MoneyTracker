@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension AddExpenseScreenViewController {
-final class ScreenView: TitleNavigationBarScreenView {
+final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
