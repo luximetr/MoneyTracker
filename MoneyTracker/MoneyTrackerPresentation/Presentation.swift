@@ -64,6 +64,7 @@ public final class Presentation: AUIWindowPresentation {
         let statisticViewController = createStatisticScreen()
         let statisticNavigationController = AUINavigationBarHiddenNavigationController()
         statisticNavigationController.viewControllers = [statisticViewController]
+        self.statisticScreen = statisticViewController
         // Settings
         let settingsViewController = createSettingsScreenViewController()
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
@@ -77,7 +78,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.history()
+        menuViewController.statistic()
     }
     
     // MARK: Menu Navigation Controller
@@ -646,16 +647,12 @@ public final class Presentation: AUIWindowPresentation {
     
     private func createStatisticScreen() -> StatisticScreenViewController {
         let viewController = StatisticScreenViewController()
-        viewController.didPressSearch = { [weak self] fromDate, toDate in
-            guard let self = self else { return }
-            self.delegate.presentation(self, searchExpensesFrom: fromDate, toDate: toDate)
+        viewController.expensesClosure = { [weak self] month in
+            guard let self = self else { return [] }
+            let expenses = try! self.delegate.presentationExpenses(self)
+            return expenses
         }
-        statisticScreen = viewController
         return viewController
-    }
-    
-    public func showStatisticTotalSpent(_ spent: Decimal) {
-        statisticScreen?.showResult(spent)
     }
     
 }

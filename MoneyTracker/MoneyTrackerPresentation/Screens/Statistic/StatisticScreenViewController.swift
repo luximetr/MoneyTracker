@@ -10,72 +10,88 @@ import AUIKit
 
 final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     
-    // MARK: - Delegations
-    
-    var didPressSearch: ((_ fromDate: Date, _ toDate: Date) -> Void)?
-    
     // MARK: - Data
     
-    private var fromDate = Date()
-    private var toDate = Date()
+    private var expenses: [Expense] = []
+    
+    var expensesClosure: ((Date) -> [Expense])?
+    
+    // MARK: Localizer
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "StatisticScreenStrings")
+        return localizer
+    }()
     
     // MARK: - View
     
-    private var statisticScreenView: StatisticScreenView {
-        return view as! StatisticScreenView
+    private var screenView: ScreenView {
+        return view as! ScreenView
     }
     
     override func loadView() {
-        view = StatisticScreenView()
+        view = ScreenView()
     }
+    
+    private let monthCategoryExpensesTableViewController = AUIEmptyTableViewController()
+    private let monthCategoryExpensesTableViewSectionController = AUIEmptyTableViewSectionController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        statisticScreenView.titleLabel.text = "Statistic"
-        statisticScreenView.fromDateLabel.text = "01.01.2022"
-        statisticScreenView.toDateLabel.text = "31.01.2022"
-        statisticScreenView.fromDateButton.addTarget(self, action: #selector(didTapOnFromDateButton), for: .touchUpInside)
-        statisticScreenView.toDateButton.addTarget(self, action: #selector(didTapOnToDateButton), for: .touchUpInside)
-        statisticScreenView.resultLabel.text = "Result: "
-        statisticScreenView.searchButton.setTitle("Search", for: .normal)
-        statisticScreenView.searchButton.addTarget(self, action: #selector(didTapOnSearchButton), for: .touchUpInside)
-        statisticScreenView.datePicker.addTarget(self, action: #selector(fromDatePickerDateChanged), for: .valueChanged)
-        statisticScreenView.toDatePicker.addTarget(self, action: #selector(toDatePickerDateChanged), for: .valueChanged)
+        screenView.titleLabel.text = localizer.localizeText("title")
+        expenses = expensesClosure?(Date()) ?? []
+        monthCategoryExpensesTableViewController.tableView = screenView.monthCategoriesExpensesTableView
+        setMonthCategoryExpensesTableViewControllerContent()
+        setMonthExpensesLabelContent()
     }
     
-    @objc
-    private func didTapOnFromDateButton() {
+    private func setMonthCategoryExpensesTableViewControllerContent() {
+        monthCategoryExpensesTableViewSectionController.cellControllers = []
+        var cellControllers: [AUITableViewCellController] = []
+        let categoriesExpenses = Dictionary(grouping: expenses) { $0.category }.values
+        for categoryExpenses in categoriesExpenses {
+            let cellController = createMonthCategoryExpensesTableViewController(expenses: categoryExpenses)
+            cellControllers.append(cellController)
+        }
+        monthCategoryExpensesTableViewSectionController.cellControllers = cellControllers
+        monthCategoryExpensesTableViewController.sectionControllers = [monthCategoryExpensesTableViewSectionController]
+        monthCategoryExpensesTableViewController.reload()
     }
     
-    @objc
-    private func didTapOnToDateButton() {
+    private func createMonthCategoryExpensesTableViewController(expenses: [Expense]) -> AUITableViewCellController {
+        let cellController = MonthCategoryExpensesTableViewCellController(expenses: expenses)
+        cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.screenView.monthCategoryExpensesTableViewCell(indexPath)
+            return cell
+        }
+        cellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            return self.screenView.monthCategoryExpensesTableViewCellEstimatedHeight()
+        }
+        cellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            return self.screenView.monthCategoryExpensesTableViewCellHeight()
+        }
+        return cellController
     }
     
-    @objc
-    private func didTapOnSearchButton() {
-        didPressSearch?(fromDate, toDate)
+    private func setMonthExpensesLabelContent() {
+        var currenciesAmounts: [Currency: Decimal] = [:]
+        for expense in expenses {
+            let currency = expense.account.currency
+            let amount = expense.amount
+            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+            currenciesAmounts[currency] = currencyAmount
+        }
+        var currenciesAmountsStrings: [String] = []
+        let sortedCurrencyAmount = currenciesAmounts.sorted(by: { $0.1 > $1.1 })
+        for (currency, amount) in sortedCurrencyAmount {
+            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
+            currenciesAmountsStrings.append(currencyAmountString)
+        }
+        let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
+        screenView.monthExpensesLabel.text = currenciesAmountsStringsJoined
     }
     
-    @objc
-    private func fromDatePickerDateChanged() {
-        fromDate = statisticScreenView.datePicker.date
-    }
-    
-    @objc
-    private func toDatePickerDateChanged() {
-        toDate = statisticScreenView.toDatePicker.date
-    }
-    
-    func showResult(_ result: Decimal) {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.allowsFloats = true
-        numberFormatter.alwaysShowsDecimalSeparator = true
-        numberFormatter.decimalSeparator = "."
-        numberFormatter.groupingSeparator = " "
-        numberFormatter.maximumFractionDigits = 2
-        numberFormatter.minimumFractionDigits = 2
-        guard let string = numberFormatter.string(from: NSDecimalNumber(decimal: result)) else { return }
-        statisticScreenView.resultLabel.text = string + " SGD"
-        statisticScreenView.layoutSubviews()
-    }
 }

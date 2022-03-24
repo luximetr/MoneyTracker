@@ -262,7 +262,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let result = expenses.reduce(0) { partialResult, expense in
             partialResult + expense.amount
         }
-        presentation.showStatisticTotalSpent(result)
     }
     
     private func fetchExpenses(from startDate: Date, to endDate: Date) -> [MoneyTrackerStorage.Expense] {

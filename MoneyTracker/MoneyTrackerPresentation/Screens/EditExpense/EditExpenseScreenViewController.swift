@@ -66,6 +66,7 @@ class EditExpenseScreenViewController: AUIStatusBarScreenViewController, AUIText
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
         dayDatePickerViewController.datePicker = screenView.dayDatePickerView
         dayDatePickerViewController.mode = .date
+        dayDatePickerViewController.setDate(expense.date, animated: false)
     }
     
     // MARK: - View - Actions
