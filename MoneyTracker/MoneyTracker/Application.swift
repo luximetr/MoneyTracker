@@ -314,6 +314,12 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return presentationExpense
     }
     
+    func presentation(_ presentation: Presentation, editExpense editingExpense: PresentationExpense) throws -> PresentationExpense {
+        let storageEditingExpense = MoneyTrackerStorage.EditingExpense(amount: editingExpense.amount, date: editingExpense.date, comment: editingExpense.comment, balanceAccountId: editingExpense.account.id, categoryId: editingExpense.category.id)
+        try storage.updateExpense(expenseId: editingExpense.id, editingExpense: storageEditingExpense)
+        return editingExpense
+    }
+    
     // MARK: - ExpenseTemplates
     
     func presentationExpenseTemplates(_ presentation: Presentation) -> [PresentationExpenseTemplate] {

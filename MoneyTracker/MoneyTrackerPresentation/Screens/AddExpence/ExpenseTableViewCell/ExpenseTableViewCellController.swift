@@ -21,7 +21,7 @@ final class ExpenseTableViewCellController: AUIClosuresTableViewCellController {
     
     // MARK: Data
     
-    let expense: Expense
+    var expense: Expense
     
     // MARK: Initializer
     
@@ -36,7 +36,7 @@ final class ExpenseTableViewCellController: AUIClosuresTableViewCellController {
     }
     
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = cellForRowAtIndexPathClosure?(indexPath) as? ExpenseTableViewCell else { return UITableViewCell() }
+        guard let cell = super.cellForRowAtIndexPath(indexPath) as? ExpenseTableViewCell else { return UITableViewCell() }
         cell.accountLabel.text = expense.account.name
         cell.categoryLabel.text = expense.category.name
         cell.amountLabel.text = "\(Self.amountNumberFormatter.string(for: expense.amount) ?? "") \(expense.account.currency.rawValue.uppercased())"
@@ -44,5 +44,14 @@ final class ExpenseTableViewCellController: AUIClosuresTableViewCellController {
         return cell
     }
     
+    func editExpense(_ expense: Expense) {
+        self.expense = expense
+        expenseTableViewCell?.accountLabel.text = expense.account.name
+        expenseTableViewCell?.categoryLabel.text = expense.category.name
+        expenseTableViewCell?.amountLabel.text = "\(Self.amountNumberFormatter.string(for: expense.amount) ?? "") \(expense.account.currency.rawValue.uppercased())"
+        expenseTableViewCell?.commentLabel.text = expense.comment
+        expenseTableViewCell?.setNeedsLayout()
+        expenseTableViewCell?.layoutIfNeeded()
+    }
 }
 }

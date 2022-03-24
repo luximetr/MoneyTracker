@@ -15,6 +15,7 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
     private var expenses: [Expense]
     
     var deleteExpenseClosure: ((Expense) throws -> Void)?
+    var selectExpenseClosure: ((Expense) -> Void)?
     
     // MARK: Initializer
     
@@ -48,12 +49,12 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
         }
         return cellController
     }
-    private func expenseCellControllerForExpense(_ expense: Expense) -> AUITableViewCellController? {
+    private func expenseCellControllerForExpense(_ expense: Expense) -> AddExpenseScreenViewController.ExpenseTableViewCellController? {
         let cellController = expensesSectionController.cellControllers.first { cellController in
             guard let expenseCellController = cellController as? AddExpenseScreenViewController.ExpenseTableViewCellController else { return false }
-            return expenseCellController.expense == expense
+            return expenseCellController.expense.id == expense.id
         }
-        return cellController
+        return cellController as? AddExpenseScreenViewController.ExpenseTableViewCellController
     }
     
     // MARK: Localizer
@@ -70,6 +71,12 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
             expenses.remove(at: index)
             setTableViewControllerContent()
         }
+    }
+    
+    func editExpense(_ editedExpense: Expense) {
+        guard let index = expenses.firstIndex(where: { $0.id == editedExpense.id }) else { return }
+        expenses[index] = editedExpense
+        setTableViewControllerContent()
     }
     
     func insertExpense(_ expense: Expense) {
@@ -157,6 +164,10 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
                 }
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
+        cellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.selectExpenseClosure?(expense)
         }
         return cellController
     }

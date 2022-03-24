@@ -1,0 +1,7 @@
+"title" = "Edit expense";
+"accountPickerHeader" = "Account";
+"categoryPickerHeader" = "Category";
+"saveButtonTitle" = "Save";
+"namePlaceholder" = "Name";
+"amountPlaceholder" = "Amount";
+"commentPlaceholder" = "Comment (optional)";

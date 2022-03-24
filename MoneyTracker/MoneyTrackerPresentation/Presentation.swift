@@ -34,6 +34,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date)
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
     func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
+    func presentation(_ presentation: Presentation, editExpense editingExpense: Expense) throws -> Expense
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws
     func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
 }
@@ -76,7 +77,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.statistic()
+        menuViewController.history()
     }
     
     // MARK: Menu Navigation Controller
@@ -167,7 +168,37 @@ public final class Presentation: AUIWindowPresentation {
                 self.displayUnexpectedErrorAlertScreen(error)
             }
         }
+        viewController.selectExpenseClosure = { [weak self] expense in
+            guard let self = self else { return }
+            let editExpenseViewController = self.createEditExpenseViewController(expense: expense)
+            self.editExpenseViewController = editExpenseViewController
+            self.menuNavigationController?.pushViewController(editExpenseViewController, animated: true)
+        }
         historyViewController = viewController
+        return viewController
+    }
+    
+    // MARK: Edit Expense View Controller
+    
+    private weak var editExpenseViewController: EditExpenseScreenViewController?
+    
+    private func createEditExpenseViewController(expense: Expense) -> EditExpenseScreenViewController {
+        let accounts = try! delegate.presentationAccounts(self)
+        let categories = delegate.presentationCategories(self)
+        let viewController = EditExpenseScreenViewController(expense: expense, categories: categories, balanceAccounts: accounts)
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.popViewController(animated: true)
+        }
+        viewController.editExpenseClosure = { [weak self] expense in
+            guard let self = self else { return }
+            do {
+                let editedExpense = try self.delegate.presentation(self, editExpense: expense)
+                self.historyViewController?.editExpense(editedExpense)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
+        }
         return viewController
     }
     
