@@ -7,7 +7,8 @@
 
 import AUIKit
 
-final class MenuScreenTabBarItem: AUIButton {
+extension MenuScreenViewController {
+final class TabBarItem: AUIButton {
     
     // MARK: Settigns
     
@@ -75,4 +76,5 @@ final class MenuScreenTabBarItem: AUIButton {
         textLabel.textAlignment = .center
     }
     
+}
 }

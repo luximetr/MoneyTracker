@@ -7,32 +7,26 @@
 
 import AUIKit
 
-final class MenuScreenView: AUIView {
+extension MenuScreenViewController {
+final class ScreenView: AUIView {
     
     // MARK: Subviews
     
     private var screenView: UIView?
     private let tabBarView = UIView()
-    let mainTabBarItem = MenuScreenTabBarItem()
-    let historyTabBarItem = MenuScreenTabBarItem()
-    let statisticTabBarItem = MenuScreenTabBarItem()
-    let settingsTabBarItem = MenuScreenTabBarItem()
-    private var selectedTabBarItem: MenuScreenTabBarItem?
+    let mainTabBarItem = TabBarItem()
+    let historyTabBarItem = TabBarItem()
+    let statisticTabBarItem = TabBarItem()
+    let settingsTabBarItem = TabBarItem()
+    var tabBarItems: [TabBarItem] { [mainTabBarItem, historyTabBarItem, statisticTabBarItem, settingsTabBarItem] }
+    private var selectedTabBarItem: TabBarItem?
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
         addSubview(tabBarView)
-        setuptTabBarView()
-    }
-    
-    private func setuptTabBarView() {
-        tabBarView.backgroundColor = .white
-        tabBarView.layer.shadowColor = Colors.black.withAlphaComponent(0.12).cgColor
-        tabBarView.layer.shadowOpacity = 0.6
-        tabBarView.layer.shadowRadius = 12
-        tabBarView.layer.shadowOffset = CGSize(width: 0, height: -12)
+        setupTabBarView()
         tabBarView.addSubview(mainTabBarItem)
         mainTabBarItem.pictureImageView.image = Images.card.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(historyTabBarItem)
@@ -43,32 +37,41 @@ final class MenuScreenView: AUIView {
         settingsTabBarItem.pictureImageView.image = Images.gear.withRenderingMode(.alwaysTemplate)
     }
     
+    private func setupTabBarView() {
+        tabBarView.backgroundColor = .white
+        tabBarView.layer.shadowColor = Colors.black.withAlphaComponent(0.12).cgColor
+        tabBarView.layer.shadowOpacity = 0.6
+        tabBarView.layer.shadowRadius = 12
+        tabBarView.layer.shadowOffset = CGSize(width: 0, height: -12)
+    }
+    
     // MARK: Layut
     
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutTabBarView()
+        layoutTabBarItems()
         layoutScreenView()
     }
     
     private func layoutTabBarView() {
         let x: CGFloat = 0
-        var height: CGFloat = 64
-        if #available(iOS 11.0, *) { height += safeAreaInsets.bottom }
+        let height: CGFloat = 64 + safeAreaInsets.bottom
         let y = bounds.height - height
         let width = bounds.width
         let frame = CGRect(x: x, y: y, width: width, height: height)
         tabBarView.frame = frame
-        var itemHeight = tabBarView.bounds.height
-        if #available(iOS 11.0, *) { itemHeight -= safeAreaInsets.bottom }
-        let items = [mainTabBarItem, historyTabBarItem, statisticTabBarItem, settingsTabBarItem]
-        let itemWidth = tabBarView.bounds.width * 0.9 / CGFloat(items.count)
-        var itemX: CGFloat = tabBarView.bounds.width * 0.1 / 2
-        let itemY: CGFloat = 0
-        for item in items {
-            let frame = CGRect(x: itemX, y: itemY, width: itemWidth, height: itemHeight)
-            itemX += itemWidth
-            item.frame = frame
+    }
+    
+    private func layoutTabBarItems() {
+        let y: CGFloat = 0
+        let height = tabBarView.bounds.height - safeAreaInsets.bottom
+        let width = tabBarView.bounds.width * 0.9 / CGFloat(tabBarItems.count)
+        var x: CGFloat = tabBarView.bounds.width * 0.1 / 2
+        for tabBarItem in tabBarItems {
+            let frame = CGRect(x: x, y: y, width: width, height: height)
+            x += width
+            tabBarItem.frame = frame
         }
     }
     
@@ -121,4 +124,5 @@ final class MenuScreenView: AUIView {
         }
     }
     
+}
 }

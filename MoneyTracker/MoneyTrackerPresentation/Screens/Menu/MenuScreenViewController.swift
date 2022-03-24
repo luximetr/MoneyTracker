@@ -23,11 +23,11 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     // MARK: View
     
     override func loadView() {
-        view = MenuScreenView()
+        view = ScreenView()
     }
     
-    private var menuScreenView: MenuScreenView! {
-        return view as? MenuScreenView
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
     
     private var screenController: UIViewController?
@@ -47,50 +47,50 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        menuScreenView.mainTabBarItem.addTarget(self, action: #selector(dashboard), for: .touchUpInside)
-        menuScreenView.historyTabBarItem.addTarget(self, action: #selector(history), for: .touchUpInside)
-        menuScreenView.statisticTabBarItem.addTarget(self, action: #selector(statistic), for: .touchUpInside)
-        menuScreenView.settingsTabBarItem.addTarget(self, action: #selector(settings), for: .touchUpInside)
+        screenView.mainTabBarItem.addTarget(self, action: #selector(dashboard), for: .touchUpInside)
+        screenView.historyTabBarItem.addTarget(self, action: #selector(history), for: .touchUpInside)
+        screenView.statisticTabBarItem.addTarget(self, action: #selector(statistic), for: .touchUpInside)
+        screenView.settingsTabBarItem.addTarget(self, action: #selector(settings), for: .touchUpInside)
         dashboard()
         setContent()
     }
     
     @objc func dashboard() {
         screenController?.willMove(toParent: nil)
-        menuScreenView.setScreenView(nil)
+        screenView.setScreenView(nil)
         screenController?.removeFromParent()
         addChild(dashboardScreenViewController)
-        menuScreenView.setMainScreenView(dashboardScreenViewController.view)
+        screenView.setMainScreenView(dashboardScreenViewController.view)
         dashboardScreenViewController.didMove(toParent: self)
         screenController = dashboardScreenViewController
     }
     
     @objc func history() {
         screenController?.willMove(toParent: nil)
-        menuScreenView.setScreenView(nil)
+        screenView.setScreenView(nil)
         screenController?.removeFromParent()
         addChild(historyScreenViewController)
-        menuScreenView.setHistoryScreenView(historyScreenViewController.view)
+        screenView.setHistoryScreenView(historyScreenViewController.view)
         historyScreenViewController.didMove(toParent: self)
         screenController = historyScreenViewController
     }
     
     @objc func statistic() {
         self.screenController?.willMove(toParent: nil)
-        menuScreenView.setScreenView(nil)
+        screenView.setScreenView(nil)
         self.screenController?.removeFromParent()
         addChild(statisticScreenViewController)
-        menuScreenView.setStatisticScreenView(statisticScreenViewController.view)
+        screenView.setStatisticScreenView(statisticScreenViewController.view)
         statisticScreenViewController.didMove(toParent: self)
         screenController = statisticScreenViewController
     }
     
     @objc func settings() {
         self.screenController?.willMove(toParent: nil)
-        menuScreenView.setScreenView(nil)
+        screenView.setScreenView(nil)
         self.screenController?.removeFromParent()
         addChild(settingsScreenViewController)
-        menuScreenView.setSettingsScreenView(settingsScreenViewController.view)
+        screenView.setSettingsScreenView(settingsScreenViewController.view)
         settingsScreenViewController.didMove(toParent: self)
         screenController = settingsScreenViewController
     }
@@ -98,10 +98,10 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Content
     
     private func setContent() {
-        menuScreenView.mainTabBarItem.textLabel.text = localizer.localizeText("dashboard")
-        menuScreenView.historyTabBarItem.textLabel.text = localizer.localizeText("history")
-        menuScreenView.statisticTabBarItem.textLabel.text = localizer.localizeText("statistic")
-        menuScreenView.settingsTabBarItem.textLabel.text = localizer.localizeText("settings")
+        screenView.mainTabBarItem.textLabel.text = localizer.localizeText("dashboard")
+        screenView.historyTabBarItem.textLabel.text = localizer.localizeText("history")
+        screenView.statisticTabBarItem.textLabel.text = localizer.localizeText("statistic")
+        screenView.settingsTabBarItem.textLabel.text = localizer.localizeText("settings")
     }
     
 }
