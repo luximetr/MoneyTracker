@@ -1327,6 +1327,67 @@
 			path = ExportBalanceAccount;
 			sourceTree = "<group>";
 		};
+		DB62AECF27EDFE0400F8CA55 /* ImportExpensesFile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImportExpensesFile;
+			sourceTree = "<group>";
+		};
+		DB62AED027EDFE1000F8CA55 /* ImportCategory */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImportCategory;
+			sourceTree = "<group>";
+		};
+		DB62AED127EDFE1900F8CA55 /* ImportBalanceAccount */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImportBalanceAccount;
+			sourceTree = "<group>";
+		};
+		DB62AED227EDFE1F00F8CA55 /* ImportExpense */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImportExpense;
+			sourceTree = "<group>";
+		};
+		DB62AED327EDFE2600F8CA55 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AED227EDFE1F00F8CA55 /* ImportExpense */,
+				DB62AED127EDFE1900F8CA55 /* ImportBalanceAccount */,
+				DB62AED027EDFE1000F8CA55 /* ImportCategory */,
+				DB62AECF27EDFE0400F8CA55 /* ImportExpensesFile */,
+			);
+			path = Import;
+			sourceTree = "<group>";
+		};
+		DB62AED427EDFE2D00F8CA55 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AEB327EDB92600F8CA55 /* ExportExpensesFile */,
+				DB62AEB827EDB97300F8CA55 /* ExportBalanceAccount */,
+				DB62AEB727EDB96C00F8CA55 /* ExportCategory */,
+				DB62AEB627EDB95400F8CA55 /* ExportExpense */,
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
+		DB62AED527EDFE3600F8CA55 /* CoinKeeper */ = {
+			isa = PBXGroup;
+			children = (
+				DB0CE6DC27D115CE0063CB65 /* CoinKeeperFile */,
+				DB0CE6D927D115690063CB65 /* CoinKeeperBalanceAccount */,
+				DB0CE6D527D115130063CB65 /* CoinKeeperCategory */,
+				DB7486D627CDBDF2004DF67B /* CoinKeeperExpense */,
+			);
+			path = CoinKeeper;
+			sourceTree = "<group>";
+		};
 		DB74863027BA5B08004DF67B /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1408,14 +1469,9 @@
 		DB7486CA27CD1822004DF67B /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				DB62AEB327EDB92600F8CA55 /* ExportExpensesFile */,
-				DB62AEB827EDB97300F8CA55 /* ExportBalanceAccount */,
-				DB62AEB727EDB96C00F8CA55 /* ExportCategory */,
-				DB62AEB627EDB95400F8CA55 /* ExportExpense */,
-				DB0CE6DC27D115CE0063CB65 /* CoinKeeperFile */,
-				DB0CE6D927D115690063CB65 /* CoinKeeperBalanceAccount */,
-				DB0CE6D527D115130063CB65 /* CoinKeeperCategory */,
-				DB7486D627CDBDF2004DF67B /* CoinKeeperExpense */,
+				DB62AED327EDFE2600F8CA55 /* Import */,
+				DB62AED427EDFE2D00F8CA55 /* Export */,
+				DB62AED527EDFE3600F8CA55 /* CoinKeeper */,
 			);
 			path = Data;
 			sourceTree = "<group>";
