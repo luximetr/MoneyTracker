@@ -31,13 +31,14 @@ final class MonthCategoryExpensesTableViewCell: AUITableViewCell {
     }
     
     private func setupCategoryLabel() {
-        categoryLabel.font = Fonts.default(size: 16, weight: .regular)
+        categoryLabel.font = Fonts.default(size: 17, weight: .regular)
         categoryLabel.textColor = Colors.primaryText
     }
     
     private func setupAmountLabel() {
-        amountLabel.font = Fonts.default(size: 12, weight: .semibold)
+        amountLabel.font = Fonts.default(size: 17, weight: .regular)
         amountLabel.textColor = Colors.primaryText
+        amountLabel.adjustsFontSizeToFitWidth = true
     }
     
     private func setupSeparatorView() {

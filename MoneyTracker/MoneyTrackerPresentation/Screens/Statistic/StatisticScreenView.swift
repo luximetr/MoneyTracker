@@ -14,7 +14,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     // MARK: - UI elements
     
-    let monthPickerView = UIView()
+    let monthPickerView = MonthPickerView()
     let monthExpensesLabel = UILabel()
     let monthCategoriesExpensesTableView = UITableView()
     
@@ -55,7 +55,7 @@ final class ScreenView: TitleNavigationBarScreenView {
         let x: CGFloat = 0
         let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
         let width = bounds.width
-        let height: CGFloat = 64
+        let height: CGFloat = 28
         let frame = CGRect(x: x, y: y, width: width, height: height)
         monthPickerView.frame = frame
     }

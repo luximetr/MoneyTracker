@@ -33,6 +33,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         view = ScreenView()
     }
     
+    private let monthPickerViewConroller = MonthPickerViewController(months: [Date(), Date(), Date(), Date(), Date(), Date(), Date(), Date(), Date()])
     private let monthCategoryExpensesTableViewController = AUIEmptyTableViewController()
     private let monthCategoryExpensesTableViewSectionController = AUIEmptyTableViewSectionController()
     
@@ -43,6 +44,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         monthCategoryExpensesTableViewController.tableView = screenView.monthCategoriesExpensesTableView
         setMonthCategoryExpensesTableViewControllerContent()
         setMonthExpensesLabelContent()
+        monthPickerViewConroller.monthPickerView = screenView.monthPickerView
     }
     
     private func setMonthCategoryExpensesTableViewControllerContent() {
