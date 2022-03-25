@@ -273,6 +273,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    private func fetchAllExpenses() -> [MoneyTrackerStorage.Expense] {
+        do {
+            return try storage.getAllExpenses()
+        } catch {
+            print(error)
+            return []
+        }
+    }
+    
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [PresentationExpense] {
         let categories = try storage.getCategories()
         let accounts = try storage.getAllBalanceAccounts()
@@ -499,6 +508,29 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         } catch {
             print(error)
         }
+    }
+    
+    func presentationDidStartExpensesCSVExport(_ presentation: Presentation) throws -> URL {
+        let categoriesAdapter = ExportCategoryAdapter()
+        let storageCategories = fetchCategories()
+        let filesCategories = storageCategories.map { categoriesAdapter.adaptToFiles(storageCategory: $0) }
+        let balanceAccountsAdapter = ExportBalanceAccountAdapter()
+        let storageBalanceAccounts = fetchAllBalanceAccounts()
+        let filesBalanceAccounts = storageBalanceAccounts.map { balanceAccountsAdapter.adaptToFiles(storageAccount: $0) }
+        let expensesAdapter = ExportExpenseAdapter()
+        let storageExpenses = fetchAllExpenses()
+        let filesExpenses = storageExpenses.compactMap { storageExpense -> FilesExportExpense? in
+            guard let category = filesCategories.first(where: { $0.id == storageExpense.categoryId }) else { return nil }
+            guard let account = filesBalanceAccounts.first(where: { $0.id == storageExpense.balanceAccountId }) else { return nil }
+            return expensesAdapter.adaptToFiles(storageExpense: storageExpense, balanceAccount: account, category: category)
+        }
+        let exportFile = ExportExpensesFile(
+            balanceAccounts: filesBalanceAccounts,
+            categories: filesCategories,
+            expenses: filesExpenses
+        )
+        let fileURL = try files.createCSVFile(exportExpensesFile: exportFile)
+        return fileURL
     }
     
 }

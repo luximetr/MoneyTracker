@@ -4,3 +4,4 @@
 "accounts" = "Accounts";
 "templates" = "Templates";
 "importCSV" = "Import from CSV";
+"exportCSV" = "Export to CSV";

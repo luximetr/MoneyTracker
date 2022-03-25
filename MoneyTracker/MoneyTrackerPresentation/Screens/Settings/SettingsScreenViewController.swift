@@ -17,6 +17,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     var didSelectAccountsClosure: (() -> Void)?
     var didSelectTemplatesClosure: (() -> Void)?
     var didSelectImportCSVClosure: (() -> Void)?
+    var didSelectExportCSVClosure: (() -> Void)?
     
     // MARK: View
     
@@ -164,6 +165,29 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(importCSVCellController)
         
+        let exportCSVCellController = CategoriesScreenAddCategoryTableViewCellController()
+        exportCSVCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
+            cell.nameLabel.text = self.localizer.localizeText("exportCSV")
+            return cell
+        }
+        exportCSVCellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
+            return estimatedHeight
+        }
+        exportCSVCellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let height = self.settingsScreenView.titleItemTableViewCellHeight()
+            return height
+        }
+        exportCSVCellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.didSelectExportCSV()
+        }
+        cellControllers.append(exportCSVCellController)
+        
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
     }
@@ -190,4 +214,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         didSelectImportCSVClosure?()
     }
     
+    private func didSelectExportCSV() {
+        didSelectExportCSVClosure?()
+    }
 }

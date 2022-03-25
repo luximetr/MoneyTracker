@@ -31,6 +31,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate)
     func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: EditingExpenseTemplate)
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL)
+    func presentationDidStartExpensesCSVExport(_ presentation: Presentation) throws -> URL
     func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date)
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
     func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
@@ -361,6 +362,16 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             let viewController = self.createImportCSVScreen()
             self.menuNavigationController?.present(viewController, animated: true)
+        }
+        viewController.didSelectExportCSVClosure = { [weak self] in
+            guard let self = self else { return }
+            do {
+                let url = try self.delegate.presentationDidStartExpensesCSVExport(self)
+                let viewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                self.menuNavigationController?.present(viewController, animated: true)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
         }
         return viewController
     }

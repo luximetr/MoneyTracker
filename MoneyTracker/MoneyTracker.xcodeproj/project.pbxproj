@@ -147,6 +147,17 @@
 		DB45FADD27E6F0950073C677 /* EditingExpenseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FADC27E6F0950073C677 /* EditingExpenseTemplate.swift */; };
 		DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FADF27E6F3440073C677 /* EditingExpenseTemplateAdapter.swift */; };
 		DB62AEB227EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEB127EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift */; };
+		DB62AEBA27EDB98100F8CA55 /* ExportBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEB927EDB98100F8CA55 /* ExportBalanceAccount.swift */; };
+		DB62AEBC27EDC94F00F8CA55 /* ExportCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEBB27EDC94F00F8CA55 /* ExportCategory.swift */; };
+		DB62AEBE27EDC97F00F8CA55 /* ExportExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEBD27EDC97F00F8CA55 /* ExportExpense.swift */; };
+		DB62AEC027EDCA8600F8CA55 /* ExportExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEBF27EDCA8600F8CA55 /* ExportExpensesFile.swift */; };
+		DB62AEC227EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC127EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift */; };
+		DB62AEC427EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC327EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift */; };
+		DB62AEC627EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC527EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift */; };
+		DB62AEC827EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC727EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift */; };
+		DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */; };
+		DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */; };
+		DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */; };
 		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
 		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
 		DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */; };
@@ -400,6 +411,17 @@
 		DB45FADC27E6F0950073C677 /* EditingExpenseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingExpenseTemplate.swift; sourceTree = "<group>"; };
 		DB45FADF27E6F3440073C677 /* EditingExpenseTemplateAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingExpenseTemplateAdapter.swift; sourceTree = "<group>"; };
 		DB62AEB127EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTemplateCollectionCellController.swift; sourceTree = "<group>"; };
+		DB62AEB927EDB98100F8CA55 /* ExportBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBalanceAccount.swift; sourceTree = "<group>"; };
+		DB62AEBB27EDC94F00F8CA55 /* ExportCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCategory.swift; sourceTree = "<group>"; };
+		DB62AEBD27EDC97F00F8CA55 /* ExportExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpense.swift; sourceTree = "<group>"; };
+		DB62AEBF27EDCA8600F8CA55 /* ExportExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpensesFile.swift; sourceTree = "<group>"; };
+		DB62AEC127EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpensesFileCSVComposer.swift; sourceTree = "<group>"; };
+		DB62AEC327EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCategoryCSVComposer.swift; sourceTree = "<group>"; };
+		DB62AEC527EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBalanceAccountCSVComposer.swift; sourceTree = "<group>"; };
+		DB62AEC727EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpenseCSVComposer.swift; sourceTree = "<group>"; };
+		DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCategoryAdapter.swift; sourceTree = "<group>"; };
+		DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBalanceAccountAdapter.swift; sourceTree = "<group>"; };
+		DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpenseAdapter.swift; sourceTree = "<group>"; };
 		DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplatesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewController.swift; sourceTree = "<group>"; };
@@ -623,6 +645,7 @@
 				2E91155527A93D5C00359F21 /* Category.swift */,
 				2EC6293527AC267D00371252 /* AddingCategory.swift */,
 				DB0CE6E927D463690063CB65 /* CoinKeeperCategoryAdapter.swift */,
+				DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -633,6 +656,7 @@
 				2EB6E0D127BAF24200D0C4E1 /* Account.swift */,
 				2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */,
 				DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */,
+				DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1267,6 +1291,42 @@
 			path = ExpenseTemplate;
 			sourceTree = "<group>";
 		};
+		DB62AEB327EDB92600F8CA55 /* ExportExpensesFile */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AEBF27EDCA8600F8CA55 /* ExportExpensesFile.swift */,
+				DB62AEC127EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift */,
+			);
+			path = ExportExpensesFile;
+			sourceTree = "<group>";
+		};
+		DB62AEB627EDB95400F8CA55 /* ExportExpense */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AEBD27EDC97F00F8CA55 /* ExportExpense.swift */,
+				DB62AEC727EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift */,
+			);
+			path = ExportExpense;
+			sourceTree = "<group>";
+		};
+		DB62AEB727EDB96C00F8CA55 /* ExportCategory */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AEBB27EDC94F00F8CA55 /* ExportCategory.swift */,
+				DB62AEC327EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift */,
+			);
+			path = ExportCategory;
+			sourceTree = "<group>";
+		};
+		DB62AEB827EDB97300F8CA55 /* ExportBalanceAccount */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AEB927EDB98100F8CA55 /* ExportBalanceAccount.swift */,
+				DB62AEC527EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift */,
+			);
+			path = ExportBalanceAccount;
+			sourceTree = "<group>";
+		};
 		DB74863027BA5B08004DF67B /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1348,6 +1408,10 @@
 		DB7486CA27CD1822004DF67B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DB62AEB327EDB92600F8CA55 /* ExportExpensesFile */,
+				DB62AEB827EDB97300F8CA55 /* ExportBalanceAccount */,
+				DB62AEB727EDB96C00F8CA55 /* ExportCategory */,
+				DB62AEB627EDB95400F8CA55 /* ExportExpense */,
 				DB0CE6DC27D115CE0063CB65 /* CoinKeeperFile */,
 				DB0CE6D927D115690063CB65 /* CoinKeeperBalanceAccount */,
 				DB0CE6D527D115130063CB65 /* CoinKeeperCategory */,
@@ -1382,6 +1446,7 @@
 				2ED60BD727DE851900EC11D4 /* AddingExpense.swift */,
 				2ED60BD527DE830800EC11D4 /* Expense.swift */,
 				DB7486DC27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift */,
+				DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */,
 			);
 			path = Expense;
 			sourceTree = "<group>";
@@ -1873,6 +1938,7 @@
 				2ED60BD627DE830800EC11D4 /* Expense.swift in Sources */,
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
+				DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */,
 				DB0CE6EA27D463690063CB65 /* CoinKeeperCategoryAdapter.swift in Sources */,
 				2ED60BD827DE851900EC11D4 /* AddingExpense.swift in Sources */,
 				2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */,
@@ -1881,8 +1947,10 @@
 				2EB10A1427A6C8D400743416 /* main.swift in Sources */,
 				2E91155627A93D5C00359F21 /* Category.swift in Sources */,
 				DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */,
+				DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */,
 				2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */,
 				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
+				DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
 				DB0CE6EC27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift in Sources */,
 				DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */,
@@ -2007,19 +2075,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB62AEC427EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift in Sources */,
 				DB7486CC27CD1A74004DF67B /* CoinKeeperExpense.swift in Sources */,
 				DB0CE6DB27D1157B0063CB65 /* CoinKeeperBalanceAccount.swift in Sources */,
 				DB0CE6D827D115360063CB65 /* CoinKeeperCategory.swift in Sources */,
 				DB0CE6E627D36D450063CB65 /* CoinKeeperBalanceAccountCSVLineParser.swift in Sources */,
+				DB62AEC627EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift in Sources */,
 				DB0CE6E227D22ED30063CB65 /* CoinKeeperFileCSVParser.swift in Sources */,
 				DB0CE6E027D117220063CB65 /* CoinKeeperExpenseType.swift in Sources */,
 				DB7486D827CDC668004DF67B /* Collection+Extension.swift in Sources */,
 				DB7486C927CCE410004DF67B /* Files.swift in Sources */,
+				DB62AEC827EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift in Sources */,
+				DB62AEBE27EDC97F00F8CA55 /* ExportExpense.swift in Sources */,
 				DB7486D127CD20D9004DF67B /* Array+Extension.swift in Sources */,
 				DB0CE6E827D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift in Sources */,
+				DB62AEBA27EDB98100F8CA55 /* ExportBalanceAccount.swift in Sources */,
 				DB7486D327CD21D7004DF67B /* CoinKeeperExpenseCSVLineParser.swift in Sources */,
+				DB62AEC227EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift in Sources */,
+				DB62AEC027EDCA8600F8CA55 /* ExportExpensesFile.swift in Sources */,
 				DB7486D527CDBDA1004DF67B /* CoinKeeperCSVParser.swift in Sources */,
 				DB0CE6DE27D115E70063CB65 /* CoinKeeperFile.swift in Sources */,
+				DB62AEBC27EDC94F00F8CA55 /* ExportCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
