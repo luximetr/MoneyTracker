@@ -1,13 +1,13 @@
 //
-//  CoinKeeperBalanceAccountCSVLineParser.swift
+//  ImportingCoinKeeperBalanceAccountCSVLineParser.swift
 //  MoneyTrackerFiles
 //
-//  Created by Oleksandr Orlov on 05.03.2022.
+//  Created by Oleksandr Orlov on 26.03.2022.
 //
 
 import Foundation
 
-class CoinKeeperBalanceAccountCSVLineParser {
+class ImportingCoinKeeperBalanceAccountCSVLineParser {
     
     // MARK: - Parse
     
@@ -17,18 +17,6 @@ class CoinKeeperBalanceAccountCSVLineParser {
         let amount = try parseAmount(components: components)
         let currency = try parseCurrency(components: components)
         return ImportingBalanceAccount(
-            name: name,
-            amount: amount,
-            currency: currency
-        )
-    }
-    
-    func parse(csvLine: String) throws -> CoinKeeperBalanceAccount {
-        let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
-        let name = try parseName(components: components)
-        let amount = try parseAmount(components: components)
-        let currency = try parseCurrency(components: components)
-        return CoinKeeperBalanceAccount(
             name: name,
             amount: amount,
             currency: currency

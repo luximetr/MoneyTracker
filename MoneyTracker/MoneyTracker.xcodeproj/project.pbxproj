@@ -158,6 +158,26 @@
 		DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */; };
 		DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */; };
 		DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */; };
+		DB62AED727EEA18B00F8CA55 /* ImportingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AED627EEA18B00F8CA55 /* ImportingCategory.swift */; };
+		DB62AED927EEA21800F8CA55 /* ImportingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AED827EEA21800F8CA55 /* ImportingBalanceAccount.swift */; };
+		DB62AEDB27EEA23300F8CA55 /* ImportingExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEDA27EEA23300F8CA55 /* ImportingExpense.swift */; };
+		DB62AEDD27EEA37300F8CA55 /* ImportingExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEDC27EEA37300F8CA55 /* ImportingExpensesFile.swift */; };
+		DB62AEE127EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE027EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift */; };
+		DB62AEE327EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE227EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift */; };
+		DB62AEE527EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE427EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift */; };
+		DB62AEE727EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift */; };
+		DB62AEE927EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE827EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift */; };
+		DB62AEEB27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift */; };
+		DB62AEED27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEEC27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift */; };
+		DB62AEEF27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEEE27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift */; };
+		DB62AEF127EEB78500F8CA55 /* ImportingCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEF027EEB78500F8CA55 /* ImportingCategoryAdapter.swift */; };
+		DB62AEF327EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEF227EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift */; };
+		DB62AEF527EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEF427EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift */; };
+		DB62AEF927EEFCCB00F8CA55 /* ImportingExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEF827EEFCCB00F8CA55 /* ImportingExpense.swift */; };
+		DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEFA27EF025E00F8CA55 /* ImportingCategory.swift */; };
+		DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEFC27EF029500F8CA55 /* ImportingBalanceAccount.swift */; };
+		DB62AF0027EF02E500F8CA55 /* ImportingExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEFF27EF02E500F8CA55 /* ImportingExpensesFile.swift */; };
+		DB62AF0327EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AF0227EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift */; };
 		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
 		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
 		DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */; };
@@ -422,6 +442,26 @@
 		DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCategoryAdapter.swift; sourceTree = "<group>"; };
 		DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBalanceAccountAdapter.swift; sourceTree = "<group>"; };
 		DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpenseAdapter.swift; sourceTree = "<group>"; };
+		DB62AED627EEA18B00F8CA55 /* ImportingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCategory.swift; sourceTree = "<group>"; };
+		DB62AED827EEA21800F8CA55 /* ImportingBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingBalanceAccount.swift; sourceTree = "<group>"; };
+		DB62AEDA27EEA23300F8CA55 /* ImportingExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpense.swift; sourceTree = "<group>"; };
+		DB62AEDC27EEA37300F8CA55 /* ImportingExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpensesFile.swift; sourceTree = "<group>"; };
+		DB62AEE027EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperExpensesFileCSVParser.swift; sourceTree = "<group>"; };
+		DB62AEE227EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperCategoryCSVLineParser.swift; sourceTree = "<group>"; };
+		DB62AEE427EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperBalanceAccountCSVLineParser.swift; sourceTree = "<group>"; };
+		DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperExpenseCSVLineParser.swift; sourceTree = "<group>"; };
+		DB62AEE827EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerCategoryCSVLineParser.swift; sourceTree = "<group>"; };
+		DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerExpenseCSVLineParser.swift; sourceTree = "<group>"; };
+		DB62AEEC27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerBalanceAccountCSVLineParser.swift; sourceTree = "<group>"; };
+		DB62AEEE27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerExpensesFileCSVParser.swift; sourceTree = "<group>"; };
+		DB62AEF027EEB78500F8CA55 /* ImportingCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCategoryAdapter.swift; sourceTree = "<group>"; };
+		DB62AEF227EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingBalanceAccountAdapter.swift; sourceTree = "<group>"; };
+		DB62AEF427EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpenseAdapter.swift; sourceTree = "<group>"; };
+		DB62AEF827EEFCCB00F8CA55 /* ImportingExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpense.swift; sourceTree = "<group>"; };
+		DB62AEFA27EF025E00F8CA55 /* ImportingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCategory.swift; sourceTree = "<group>"; };
+		DB62AEFC27EF029500F8CA55 /* ImportingBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingBalanceAccount.swift; sourceTree = "<group>"; };
+		DB62AEFF27EF02E500F8CA55 /* ImportingExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpensesFile.swift; sourceTree = "<group>"; };
+		DB62AF0227EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpensesFileAdapter.swift; sourceTree = "<group>"; };
 		DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplatesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewController.swift; sourceTree = "<group>"; };
@@ -618,6 +658,7 @@
 		2E91155127A9373E00359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DB62AEFE27EF02D500F8CA55 /* ExpensesFile */,
 				2E926EA227BC58B00081E3AE /* ExpenseTemplate */,
 				2E926E8927BC58130081E3AE /* BalanceAccount */,
 				2E926E9327BC58140081E3AE /* Category */,
@@ -630,6 +671,7 @@
 		2E91155427A93D4800359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DB62AF0127EF03D200F8CA55 /* ExpensesFile */,
 				DB45FADE27E6F3290073C677 /* ExpenseTemplate */,
 				DB7486DB27CDD30C004DF67B /* Expense */,
 				2E926E8827BC55AD0081E3AE /* Currency */,
@@ -646,6 +688,7 @@
 				2EC6293527AC267D00371252 /* AddingCategory.swift */,
 				DB0CE6E927D463690063CB65 /* CoinKeeperCategoryAdapter.swift */,
 				DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */,
+				DB62AEF027EEB78500F8CA55 /* ImportingCategoryAdapter.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -657,6 +700,7 @@
 				2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */,
 				DB0CE6EB27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift */,
 				DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */,
+				DB62AEF227EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -710,6 +754,7 @@
 				2E926E8A27BC58130081E3AE /* AddingBalanceAccount.swift */,
 				2E926E8B27BC58130081E3AE /* BalanceAccount.swift */,
 				2E926E8C27BC58130081E3AE /* EditingBalanceAccount.swift */,
+				DB62AEFC27EF029500F8CA55 /* ImportingBalanceAccount.swift */,
 			);
 			path = BalanceAccount;
 			sourceTree = "<group>";
@@ -730,6 +775,7 @@
 				2E926E9227BC58140081E3AE /* Expense.swift */,
 				DB7486D927CDD1FA004DF67B /* CoinKeeperExpense.swift */,
 				DB7486E027CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift */,
+				DB62AEF827EEFCCB00F8CA55 /* ImportingExpense.swift */,
 			);
 			path = Expense;
 			sourceTree = "<group>";
@@ -740,6 +786,7 @@
 				2E926E9427BC58140081E3AE /* AddingCategory.swift */,
 				2E926E9527BC58140081E3AE /* EditingCategory.swift */,
 				2E926E9627BC58140081E3AE /* Category.swift */,
+				DB62AEFA27EF025E00F8CA55 /* ImportingCategory.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1330,20 +1377,29 @@
 		DB62AECF27EDFE0400F8CA55 /* ImportExpensesFile */ = {
 			isa = PBXGroup;
 			children = (
+				DB62AEDC27EEA37300F8CA55 /* ImportingExpensesFile.swift */,
+				DB62AEE027EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift */,
+				DB62AEEE27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift */,
 			);
 			path = ImportExpensesFile;
 			sourceTree = "<group>";
 		};
-		DB62AED027EDFE1000F8CA55 /* ImportCategory */ = {
+		DB62AED027EDFE1000F8CA55 /* ImportingCategory */ = {
 			isa = PBXGroup;
 			children = (
+				DB62AED627EEA18B00F8CA55 /* ImportingCategory.swift */,
+				DB62AEE227EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift */,
+				DB62AEE827EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift */,
 			);
-			path = ImportCategory;
+			path = ImportingCategory;
 			sourceTree = "<group>";
 		};
 		DB62AED127EDFE1900F8CA55 /* ImportBalanceAccount */ = {
 			isa = PBXGroup;
 			children = (
+				DB62AED827EEA21800F8CA55 /* ImportingBalanceAccount.swift */,
+				DB62AEE427EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift */,
+				DB62AEEC27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift */,
 			);
 			path = ImportBalanceAccount;
 			sourceTree = "<group>";
@@ -1351,6 +1407,9 @@
 		DB62AED227EDFE1F00F8CA55 /* ImportExpense */ = {
 			isa = PBXGroup;
 			children = (
+				DB62AEDA27EEA23300F8CA55 /* ImportingExpense.swift */,
+				DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift */,
+				DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift */,
 			);
 			path = ImportExpense;
 			sourceTree = "<group>";
@@ -1358,10 +1417,10 @@
 		DB62AED327EDFE2600F8CA55 /* Import */ = {
 			isa = PBXGroup;
 			children = (
-				DB62AED227EDFE1F00F8CA55 /* ImportExpense */,
-				DB62AED127EDFE1900F8CA55 /* ImportBalanceAccount */,
-				DB62AED027EDFE1000F8CA55 /* ImportCategory */,
 				DB62AECF27EDFE0400F8CA55 /* ImportExpensesFile */,
+				DB62AED127EDFE1900F8CA55 /* ImportBalanceAccount */,
+				DB62AED027EDFE1000F8CA55 /* ImportingCategory */,
+				DB62AED227EDFE1F00F8CA55 /* ImportExpense */,
 			);
 			path = Import;
 			sourceTree = "<group>";
@@ -1386,6 +1445,22 @@
 				DB7486D627CDBDF2004DF67B /* CoinKeeperExpense */,
 			);
 			path = CoinKeeper;
+			sourceTree = "<group>";
+		};
+		DB62AEFE27EF02D500F8CA55 /* ExpensesFile */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AEFF27EF02E500F8CA55 /* ImportingExpensesFile.swift */,
+			);
+			path = ExpensesFile;
+			sourceTree = "<group>";
+		};
+		DB62AF0127EF03D200F8CA55 /* ExpensesFile */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AF0227EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift */,
+			);
+			path = ExpensesFile;
 			sourceTree = "<group>";
 		};
 		DB74863027BA5B08004DF67B /* Templates */ = {
@@ -1503,6 +1578,7 @@
 				2ED60BD527DE830800EC11D4 /* Expense.swift */,
 				DB7486DC27CDD330004DF67B /* CoinKeeperExpenseAdapter.swift */,
 				DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */,
+				DB62AEF427EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift */,
 			);
 			path = Expense;
 			sourceTree = "<group>";
@@ -1977,11 +2053,15 @@
 				2E926EA927BC59030081E3AE /* EditingExpenseTemplate.swift in Sources */,
 				DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */,
 				DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */,
+				DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */,
 				DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */,
+				DB62AEF927EEFCCB00F8CA55 /* ImportingExpense.swift in Sources */,
 				DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */,
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
+				DB62AF0027EF02E500F8CA55 /* ImportingExpensesFile.swift in Sources */,
 				2E926E9727BC58140081E3AE /* AddingBalanceAccount.swift in Sources */,
 				2E926E9C27BC58140081E3AE /* EditingExpense.swift in Sources */,
+				DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */,
 				2E926E9E27BC58140081E3AE /* AddingCategory.swift in Sources */,
 			);
@@ -1992,6 +2072,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ED60BD627DE830800EC11D4 /* Expense.swift in Sources */,
+				DB62AEF127EEB78500F8CA55 /* ImportingCategoryAdapter.swift in Sources */,
+				DB62AF0327EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift in Sources */,
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
 				DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */,
@@ -2006,9 +2088,11 @@
 				DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */,
 				2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */,
 				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
+				DB62AEF327EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift in Sources */,
 				DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
 				DB0CE6EC27D464DB0063CB65 /* CoinKeeperBalanceAccountAdapter.swift in Sources */,
+				DB62AEF527EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift in Sources */,
 				DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2131,7 +2215,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB62AEE727EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift in Sources */,
+				DB62AEEB27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift in Sources */,
+				DB62AED727EEA18B00F8CA55 /* ImportingCategory.swift in Sources */,
+				DB62AEE327EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift in Sources */,
 				DB62AEC427EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift in Sources */,
+				DB62AEEF27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift in Sources */,
 				DB7486CC27CD1A74004DF67B /* CoinKeeperExpense.swift in Sources */,
 				DB0CE6DB27D1157B0063CB65 /* CoinKeeperBalanceAccount.swift in Sources */,
 				DB0CE6D827D115360063CB65 /* CoinKeeperCategory.swift in Sources */,
@@ -2139,15 +2228,22 @@
 				DB62AEC627EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift in Sources */,
 				DB0CE6E227D22ED30063CB65 /* CoinKeeperFileCSVParser.swift in Sources */,
 				DB0CE6E027D117220063CB65 /* CoinKeeperExpenseType.swift in Sources */,
+				DB62AED927EEA21800F8CA55 /* ImportingBalanceAccount.swift in Sources */,
+				DB62AEDB27EEA23300F8CA55 /* ImportingExpense.swift in Sources */,
 				DB7486D827CDC668004DF67B /* Collection+Extension.swift in Sources */,
+				DB62AEE527EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift in Sources */,
 				DB7486C927CCE410004DF67B /* Files.swift in Sources */,
 				DB62AEC827EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift in Sources */,
+				DB62AEED27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift in Sources */,
 				DB62AEBE27EDC97F00F8CA55 /* ExportExpense.swift in Sources */,
 				DB7486D127CD20D9004DF67B /* Array+Extension.swift in Sources */,
 				DB0CE6E827D371F90063CB65 /* CoinKeeperCategoryCSVLineParser.swift in Sources */,
+				DB62AEE127EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift in Sources */,
+				DB62AEE927EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift in Sources */,
 				DB62AEBA27EDB98100F8CA55 /* ExportBalanceAccount.swift in Sources */,
 				DB7486D327CD21D7004DF67B /* CoinKeeperExpenseCSVLineParser.swift in Sources */,
 				DB62AEC227EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift in Sources */,
+				DB62AEDD27EEA37300F8CA55 /* ImportingExpensesFile.swift in Sources */,
 				DB62AEC027EDCA8600F8CA55 /* ExportExpensesFile.swift in Sources */,
 				DB7486D527CDBDA1004DF67B /* CoinKeeperCSVParser.swift in Sources */,
 				DB0CE6DE27D115E70063CB65 /* CoinKeeperFile.swift in Sources */,

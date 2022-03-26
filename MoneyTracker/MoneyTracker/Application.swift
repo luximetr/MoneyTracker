@@ -480,22 +480,32 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }()
     
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) {
-        guard let file = parseCoinKeeperCSV(url: url) else { return }
-        let categoryAdapter = CoinKeeperCategoryAdapter()
-        let addingCategories = file.categories.map { categoryAdapter.adaptToStorageAdding(filesCoinKeeperCategory: $0) }
-        storage.addCategories(addingCategories)
-        let balanceAccountAdapter = CoinKeeperBalanceAccountAdapter()
-        let addingAccounts = balanceAccountAdapter.adaptToStorageAddings(filesCoinKeeperBalanceAccounts: file.balanceAccounts)
-        storage.addBalanceAccounts(addingAccounts)
-        let expensesAdapter = CoinKeeperExpenseAdapter()
-        let coinKeeperExpenses = file.expenses.filter { $0.type == .expense }
-        let expenses = coinKeeperExpenses.map { expensesAdapter.adaptToStorage(filesCoinKeeperExpense: $0) }
-        addToStorage(coinKeeperExpenses: expenses)
+        guard let importingFile = tryParseExpensesCSV(url: url) else { return }
+        let fileAdapter = ImportingExpensesFileAdapter()
+        let storageFile = fileAdapter.adaptToStorage(filesImportingExpensesFile: importingFile)
+        trySaveImportingExpensesFile(storageFile)
     }
     
     private func parseCoinKeeperCSV(url: URL) -> CoinKeeperFile? {
         do {
             return try files.parseCoinKeeperCSV(url: url)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    private func trySaveImportingExpensesFile(_ file: StorageImportingExpensesFile) {
+        do {
+            try storage.saveImportingExpensesFile(file)
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func tryParseExpensesCSV(url: URL) -> MoneyTrackerFiles.ImportingExpensesFile? {
+        do {
+            return try files.parseExpensesCSV(url: url)
         } catch {
             print(error)
             return nil

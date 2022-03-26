@@ -23,7 +23,8 @@ class ExportExpensesFileCSVComposer {
         let expensesCSV = expenseCSVComposer.composeCSV(expenses: file.expenses)
         let balanceAccountsCSV = balanceAccountCSVComposer.composeCSV(balanceAccounts: file.balanceAccounts)
         let categoriesCSV = categoryCSVComposer.composeCSV(categories: file.categories)
-        let components = [expensesCSV, balanceAccountsCSV, categoriesCSV]
+        let formatIDLine = "\"Exported from MoneyTracker\""
+        let components = [expensesCSV, balanceAccountsCSV, categoriesCSV, formatIDLine]
         return components.joined(separator: filePartsSeparator)
     }
     

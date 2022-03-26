@@ -226,11 +226,22 @@ public class Storage {
         repo.insertExpenses(expenses)
     }
     
+    @discardableResult
     public func addExpense(addingExpense: AddingExpense) throws -> Expense {
         let expense = Expense(addingExpense: addingExpense)
         let repo = createExpensesRepo()
         try repo.insertExpense(expense)
         return expense
+    }
+    
+    public func addExpenses(addingExpenses: [AddingExpense]) {
+        addingExpenses.forEach {
+            do {
+                try addExpense(addingExpense: $0)
+            } catch {
+                print(error)
+            }
+        }
     }
     
     public func getAllExpenses() throws -> [Expense] {
@@ -265,6 +276,43 @@ public class Storage {
     public func removeExpense(expenseId: String) throws {
         let repo = createExpensesRepo()
         try repo.removeExpense(id: expenseId)
+    }
+    
+    // MARK: - ExpensesFile
+    
+    public func saveImportingExpensesFile(_ file: ImportingExpensesFile) throws {
+        let categories = try getCategories()
+        let uniqueImportingCategories = file.categories.filter { importingCategory in
+            return !categories.contains(where: { findIfCategoriesEqual(importingCategory: importingCategory, category: $0) })
+        }
+        let addingCategories = uniqueImportingCategories.map { AddingCategory(name: $0.name) }
+        addCategories(addingCategories)
+        
+        let balanceAccounts = try getAllBalanceAccounts()
+        let uniqueImportingBalanceAccounts = file.balanceAccounts.filter { importingBalanceAccount in
+            return !balanceAccounts.contains(where: { findIfBalanceAccountsEqual(importingBalanceAccount: importingBalanceAccount, balanceAccount: $0) })
+        }
+        let addingBalanceAccounts = try uniqueImportingBalanceAccounts.map { AddingBalanceAccount(name: $0.name, amount: $0.amount, currency: try Currency($0.currency), backgroundColor: Data()) }
+        addBalanceAccounts(addingBalanceAccounts)
+        
+        let allCategories = try getCategories()
+        let allBalanceAccounts = try getAllBalanceAccounts()
+        
+        let addingExpenses = file.expenses.compactMap { importingExpense -> AddingExpense? in
+            guard let category = allCategories.first(where: { $0.name == importingExpense.category }) else { return nil }
+            guard let balanceAccount = allBalanceAccounts.first(where: { $0.name == importingExpense.balanceAccount }) else { return nil }
+            return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
+        }
+        addExpenses(addingExpenses: addingExpenses)
+    }
+    
+    private func findIfCategoriesEqual(importingCategory: ImportingCategory, category: Category) -> Bool {
+        return importingCategory.name.lowercased() == category.name.lowercased()
+    }
+    
+    private func findIfBalanceAccountsEqual(importingBalanceAccount: ImportingBalanceAccount, balanceAccount: BalanceAccount) -> Bool {
+        return importingBalanceAccount.name.lowercased() == balanceAccount.name.lowercased() &&
+               importingBalanceAccount.currency.lowercased() == balanceAccount.currency.rawValue.lowercased()
     }
 
     // MARK: - ExpenseTemplate
