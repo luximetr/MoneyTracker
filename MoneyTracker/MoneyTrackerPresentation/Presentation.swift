@@ -37,6 +37,8 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, editExpense editingExpense: Expense) throws -> Expense
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws
     func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
+    func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [Expense]
+    func presentationExpensesMonths(_ presentation: Presentation) -> [Date]
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -647,9 +649,14 @@ public final class Presentation: AUIWindowPresentation {
     
     private func createStatisticScreen() -> StatisticScreenViewController {
         let viewController = StatisticScreenViewController()
+        viewController.monthsClosure = { [weak self] in
+            guard let self = self else { return [] }
+            let months = self.delegate.presentationExpensesMonths(self)
+            return months
+        }
         viewController.expensesClosure = { [weak self] month in
             guard let self = self else { return [] }
-            let expenses = try! self.delegate.presentationExpenses(self)
+            let expenses = try! self.delegate.presentationMonthExpenses(self, month: month)
             return expenses
         }
         return viewController

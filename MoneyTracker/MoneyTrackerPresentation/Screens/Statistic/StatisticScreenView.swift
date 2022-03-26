@@ -67,6 +67,7 @@ final class ScreenView: TitleNavigationBarScreenView {
         let height = monthExpensesLabel.sizeThatFits(CGSize(width: width, height: bounds.height)).height
         let frame = CGRect(x: x, y: y, width: width, height: height)
         monthExpensesLabel.frame = frame
+        monthExpensesLabel.textAlignment = .center
     }
     
     private func layoutMonthCategoriesExpensesTableView() {

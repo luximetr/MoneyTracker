@@ -14,6 +14,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     
     private var expenses: [Expense] = []
     
+    var monthsClosure: (() -> [Date])?
     var expensesClosure: ((Date) -> [Expense])?
     
     // MARK: Localizer
@@ -33,7 +34,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         view = ScreenView()
     }
     
-    private let monthPickerViewConroller = MonthPickerViewController(months: [Date(), Date(), Date(), Date(), Date(), Date(), Date(), Date(), Date()])
+    private let monthPickerViewConroller = MonthPickerViewController()
     private let monthCategoryExpensesTableViewController = AUIEmptyTableViewController()
     private let monthCategoryExpensesTableViewSectionController = AUIEmptyTableViewSectionController()
     
@@ -45,12 +46,26 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         setMonthCategoryExpensesTableViewControllerContent()
         setMonthExpensesLabelContent()
         monthPickerViewConroller.monthPickerView = screenView.monthPickerView
+        let months = monthsClosure?() ?? []
+        monthPickerViewConroller.months = months
+        monthPickerViewConroller.selectMonth(months.first!, animated: false)
+        monthPickerViewConroller.didSelectMonthClosure = { [weak self] month in
+            guard let self = self else { return }
+            self.didSelectMonth(month)
+        }
+    }
+    
+    private func didSelectMonth(_ month: Date) {
+        expenses = expensesClosure?(month) ?? []
+        setMonthExpensesLabelContent()
+        setMonthCategoryExpensesTableViewControllerContent()
     }
     
     private func setMonthCategoryExpensesTableViewControllerContent() {
         monthCategoryExpensesTableViewSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        let categoriesExpenses = Dictionary(grouping: expenses) { $0.category }.values
+        let ggg = Dictionary(grouping: expenses) { $0.category }
+        let categoriesExpenses = ggg.values.sorted(by: { $0.first?.category.name ?? "" < $1.first?.category.name ?? "" })
         for categoryExpenses in categoriesExpenses {
             let cellController = createMonthCategoryExpensesTableViewController(expenses: categoryExpenses)
             cellControllers.append(cellController)

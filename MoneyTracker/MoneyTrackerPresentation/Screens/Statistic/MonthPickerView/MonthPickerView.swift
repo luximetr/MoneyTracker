@@ -31,6 +31,7 @@ final class MonthPickerView: AUIView {
     
     private let monthCollectionViewCellReuseIdentifier = "monthCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
+        collectionViewFlowLayout.scrollDirection = .horizontal
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
         collectionView.register(MonthCollectionViewCell.self, forCellWithReuseIdentifier: monthCollectionViewCellReuseIdentifier)
@@ -45,9 +46,8 @@ final class MonthPickerView: AUIView {
     
     private func layoutCollectionView() {
         collectionView.frame = bounds
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 20)
-        collectionViewFlowLayout.scrollDirection = .horizontal
-        collectionViewFlowLayout.minimumInteritemSpacing = 16
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        collectionViewFlowLayout.minimumInteritemSpacing = 12
     }
     
     // MARK: MonthCollectionViewCell

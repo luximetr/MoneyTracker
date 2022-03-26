@@ -32,8 +32,12 @@ class MonthCollectionViewCell: AUICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.layer.cornerRadius = bounds.height / 2
         layoutMonthLabel()
+    }
+    
+    override func layoutContentView() {
+        super.layoutContentView()
+        contentView.layer.cornerRadius = bounds.height / 2
     }
     
     private func layoutMonthLabel() {
@@ -53,7 +57,14 @@ class MonthCollectionViewCell: AUICollectionViewCell {
         }
     }
     
-    // MARK: - Size
+    // MARK: Size
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var sizeThatFits = monthLabel.sizeThatFits(size)
+        sizeThatFits.width += 12 * 2
+        sizeThatFits.height = size.height
+        return sizeThatFits
+    }
     
     private static let monthCollectionViewCell = MonthCollectionViewCell(frame: .zero)
     static func sizeThatFits(_ size: CGSize, month: String) -> CGSize {
@@ -62,11 +73,5 @@ class MonthCollectionViewCell: AUICollectionViewCell {
         return sizeThatFits
     }
     
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var sizeThatFits = monthLabel.sizeThatFits(size)
-        sizeThatFits.width += 10 * 2
-        sizeThatFits.height = size.height
-        return sizeThatFits
-    }
 }
 }

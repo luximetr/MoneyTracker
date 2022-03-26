@@ -13,16 +13,23 @@ final class MonthPickerViewController: AUIEmptyViewController {
     
     // MARK: Data
     
-    let months: [Date]
-    
-    // MARK: Initializer
-    
-    init(months: [Date]) {
-        self.months = months
-        super.init()
+    var months: [Date] = [] {
+        didSet {
+            setCollectionViewControllerContent()
+        }
     }
     
     // MARK: MonthPickerView
+    
+    private let collectionViewController = AUIEmptyCollectionViewController()
+    private let sectionController = AUIEmptyCollectionViewSectionController()
+    private func cellControllerForMonth(_ month: Date) -> MonthCollectionViewCellController? {
+        guard let cellController = sectionController.cellControllers.first(where: { cellController in
+            guard let monthCollectionViewCellController = cellController as? MonthCollectionViewCellController else { return false }
+            return monthCollectionViewCellController.month == month
+        }) as? MonthCollectionViewCellController else { return nil }
+        return cellController
+    }
   
     var monthPickerView: MonthPickerView? {
         set { view = newValue }
@@ -50,9 +57,6 @@ final class MonthPickerViewController: AUIEmptyViewController {
         collectionViewController.reload()
     }
     
-    private let collectionViewController = AUIEmptyCollectionViewController()
-    private let sectionController = AUIEmptyCollectionViewSectionController()
-    
     private func setCollectionViewControllerContent() {
         var cellControllers: [AUICollectionViewCellController] = []
         for month in months {
@@ -65,7 +69,7 @@ final class MonthPickerViewController: AUIEmptyViewController {
     }
     
     private func createMonthCollectionViewCellController(month: Date) -> MonthCollectionViewCellController {
-        let cellController = MonthCollectionViewCellController(month: month)
+        let cellController = MonthCollectionViewCellController(month: month, isSelected: false)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             let monthCollectionViewCell = self.monthPickerView!.monthCollectionViewCell(indexPath)
@@ -78,19 +82,40 @@ final class MonthPickerViewController: AUIEmptyViewController {
         }
         cellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectMonth(cellController)
+            self.didSelectMonthCellController(cellController)
         }
         return cellController
     }
     
     private var selectedCellController: MonthCollectionViewCellController?
-    private func didSelectMonth(_ cellController: MonthCollectionViewCellController) {
+    private func didSelectMonthCellController(_ cellController: MonthCollectionViewCellController) {
         guard selectedCellController !== cellController else { return }
-        selectedCellController?.isSelected = false
+        selectedCellController?.setSelected(false)
         selectedCellController = cellController
         if let indexPath = collectionViewController.indexPathForCellController(cellController) {
             monthPickerView?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            cellController.isSelected = true
+            cellController.setSelected(true)
+        }
+        didSelectMonthClosure?(cellController.month)
+    }
+    var didSelectMonthClosure: ((Date) -> ())?
+    
+    // MARK: States
+    
+    var selectedMonth: Date? {
+        guard let selectedCellController = selectedCellController else { return nil }
+        let selectedMonth = selectedCellController.month
+        return selectedMonth
+    }
+    
+    func selectMonth(_ month: Date, animated: Bool) {
+        guard let cellController = cellControllerForMonth(month) else { return }
+        guard selectedCellController !== cellController else { return }
+        selectedCellController?.setSelected(false)
+        selectedCellController = cellController
+        if let indexPath = collectionViewController.indexPathForCellController(cellController) {
+            monthPickerView?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            cellController.setSelected(true)
         }
     }
     

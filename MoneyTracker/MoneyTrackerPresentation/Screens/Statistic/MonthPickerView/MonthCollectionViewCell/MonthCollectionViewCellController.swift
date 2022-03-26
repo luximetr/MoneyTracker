@@ -11,40 +11,29 @@ import AUIKit
 extension StatisticScreenViewController {
 final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellController {
         
-    private static let dayDateFormatter: DateFormatter = {
+    private static let monthDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(language: .english, script: nil, region: nil)
-        dateFormatter.dateFormat = "dd MMMM yyyy"
+        dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter
     }()
     
     static func month(_ month: Date) -> String {
-        let startOfMonth = Self.dayDateFormatter.string(from: month.startOfMonth())
-        let endOfMonth = Self.dayDateFormatter.string(from: month.endOfMonth())
-        let month = "\(startOfMonth) - \(endOfMonth)"
+        let month = Self.monthDateFormatter.string(from: month)
         return month
     }
     
     // MARK: Data
         
     let month: Date
-    var isSelected: Bool = false {
-        didSet {
-            monthCollectionViewCell?.setSelected(isSelected)
-        }
-    }
+    var isSelected: Bool
     
     // MARK: Initializer
         
-    init(month: Date) {
+    init(month: Date, isSelected: Bool) {
         self.month = month
+        self.isSelected = isSelected
         super.init()
-    }
-    
-    // MARK: Setup
-    
-    override func setup() {
-        super.setup()
     }
     
     // MARK: Collection View Cell
@@ -55,23 +44,18 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.cellForItemAtIndexPath(indexPath) as! MonthCollectionViewCell
-        let startOfMonth = Self.dayDateFormatter.string(from: month.startOfMonth())
-        let endOfMonth = Self.dayDateFormatter.string(from: month.endOfMonth())
-        let month = "\(startOfMonth) - \(endOfMonth)"
+        let month = Self.monthDateFormatter.string(from: month)
         cell.monthLabel.text = month
         cell.setSelected(isSelected)
         return cell
     }
-
-}
-}
-
-extension Date {
-    func startOfMonth() -> Date {
-        return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
-    }
     
-    func endOfMonth() -> Date {
-        return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
+    // MARK: States
+    
+    func setSelected(_ isSelected: Bool) {
+        self.isSelected = isSelected
+        monthCollectionViewCell?.setSelected(isSelected)
     }
+
+}
 }

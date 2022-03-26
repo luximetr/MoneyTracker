@@ -287,6 +287,29 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return presentationExpenses.reversed()
     }
     
+    func presentationExpensesMonths(_ presentation: Presentation) -> [Date] {
+        let startDate = Date(timeIntervalSince1970: 0)
+        let endDate = Date(timeIntervalSince1970: 100000000000)
+        let expenses = try! storage.getExpenses(startDate: startDate, endDate: endDate)
+        let monthsExpenses = Dictionary(grouping: expenses) { $0.date.startOfMonth }
+        let months = monthsExpenses.keys.sorted(by: <)
+        return months
+    }
+    
+    func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [PresentationExpense] {
+        let categories = try storage.getCategories()
+        let accounts = try storage.getAllBalanceAccounts()
+        let startDate = month.startOfMonth
+        let endDate = month.endOfMonth
+        let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+        let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
+            guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
+            guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
+            return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+        }
+        return presentationExpenses
+    }
+    
     func presentationExpenses(_ presentation: Presentation) throws -> [PresentationExpense] {
         let categories = try storage.getCategories()
         let accounts = try storage.getAllBalanceAccounts()

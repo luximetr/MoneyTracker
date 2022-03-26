@@ -67,7 +67,7 @@ final class MonthCategoryExpensesTableViewCell: AUITableViewCell {
         let x: CGFloat = categoryLabel.frame.origin.x + categoryLabel.frame.size.width + 16
         let y: CGFloat = 0
         let height: CGFloat = bounds.height - 1
-        let width = bounds.width - x - 20
+        let width = bounds.width - x - 24
         let frame = CGRect(x: x, y: y, width: width, height: height)
         amountLabel.frame = frame
         amountLabel.textAlignment = .right
