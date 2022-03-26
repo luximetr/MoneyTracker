@@ -644,29 +644,20 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
-		2E8FF0FC27AEF1B900DA033F /* TableViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				2E8FF0FD27AEF1CA00DA033F /* Category */,
-				2E8FF0FE27AEF1DE00DA033F /* AddCategory */,
-			);
-			path = TableViewCells;
-			sourceTree = "<group>";
-		};
-		2E8FF0FD27AEF1CA00DA033F /* Category */ = {
+		2E8FF0FD27AEF1CA00DA033F /* CategoryTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				2EC19AD727A8110600E1A6FA /* CategoriesScreenCategoryTableViewCell.swift */,
 			);
-			path = Category;
+			path = CategoryTableViewCell;
 			sourceTree = "<group>";
 		};
-		2E8FF0FE27AEF1DE00DA033F /* AddCategory */ = {
+		2E8FF0FE27AEF1DE00DA033F /* AddCategoryTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				2EC19AD927A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift */,
 			);
-			path = AddCategory;
+			path = AddCategoryTableViewCell;
 			sourceTree = "<group>";
 		};
 		2E91154527A9308B00359F21 /* MoneyTrackerStorage */ = {
@@ -1135,7 +1126,8 @@
 				2EC19ACD27A7F64000E1A6FA /* CategoriesScreenViewController.swift */,
 				2EC19ACF27A7F65200E1A6FA /* CategoriesScreenView.swift */,
 				2EC19ADD27A8238F00E1A6FA /* CategoriesScreenStrings.strings */,
-				2E8FF0FC27AEF1B900DA033F /* TableViewCells */,
+				2E8FF0FD27AEF1CA00DA033F /* CategoryTableViewCell */,
+				2E8FF0FE27AEF1DE00DA033F /* AddCategoryTableViewCell */,
 			);
 			path = Categories;
 			sourceTree = "<group>";

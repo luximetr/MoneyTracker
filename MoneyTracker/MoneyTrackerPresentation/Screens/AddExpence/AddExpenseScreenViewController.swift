@@ -7,7 +7,6 @@
 
 import UIKit
 import AUIKit
-import MoneyTrackerStorage
 
 final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
@@ -72,7 +71,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         inputAmountViewController.inputAmountView = screenView.inputAmountView
         selectCategoryViewController.categories = categories
         selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
-        screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
         if let firstAccount = accounts.first {
@@ -130,7 +129,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         }
     }
     
-    @objc func addButtonTouchUpInsideEventAction() {
+    @objc func editButtonTouchUpInsideEventAction() {
         let date = inputDateViewController.selectedDay
         guard let amount = inputAmountViewController.amount else { return }
         guard let category = selectCategoryViewController.selectedCategory else { return }

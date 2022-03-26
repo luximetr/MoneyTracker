@@ -11,10 +11,10 @@ import MessageUI
 
 public protocol PresentationDelegate: AnyObject {
     func presentationCategories(_ presentation: Presentation) -> [Category]
-    func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory)
+    func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory) throws
     func presentation(_ presentation: Presentation, deleteCategory category: Category)
     func presentation(_ presentation: Presentation, sortCategories categories: [Category])
-    func presentation(_ presentation: Presentation, editCategory editingCategory: Category)
+    func presentation(_ presentation: Presentation, editCategory editingCategory: Category) throws
     func presentationCurrencies(_ presentation: Presentation) -> [Currency]
     func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
@@ -251,9 +251,9 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
-    // MARK: Categories Navigation Controller
+    // MARK: Settings Navigation Controller
     
-    private weak var categoriesNavigationController: UINavigationController?
+    private weak var settingsNavigationController: UINavigationController?
     
     // MARK: Categories View Controller
     
@@ -270,7 +270,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             let viewController = self.createAddCategoryScreenViewController()
             self.addCategoryViewController = viewController
-            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         viewController.didDeleteCategoryClosure = { [weak self] category in
             guard let self = self else { return }
@@ -284,14 +284,10 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             let viewController = self.createEditCategoryScreenViewController(category: category)
             self.editCategoryViewController = viewController
-            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         return viewController
     }
-    
-    // MARK: Settings Navigation Controller
-    
-    private weak var settingsNavigationController: UINavigationController?
     
     // MARK: Add Category View Controller
     
@@ -299,12 +295,20 @@ public final class Presentation: AUIWindowPresentation {
         
     private func createAddCategoryScreenViewController() -> AddCategoryScreenViewController {
         let viewController = AddCategoryScreenViewController()
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.popViewController(animated: true)
+        }
         viewController.addCategoryClosure = { [weak self] addingCategory in
             guard let self = self else { return }
-            self.delegate.presentation(self, addCategory: addingCategory)
-            let categories = self.delegate.presentationCategories(self)
-            self.categoriesViewController?.updateCategories(categories)
-            viewController.dismiss(animated: true, completion: nil)
+            do {
+                try self.delegate.presentation(self, addCategory: addingCategory)
+                let categories = self.delegate.presentationCategories(self)
+                self.categoriesViewController?.updateCategories(categories)
+                self.menuNavigationController?.popViewController(animated: true)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
         }
         return viewController
     }
@@ -315,12 +319,20 @@ public final class Presentation: AUIWindowPresentation {
         
     private func createEditCategoryScreenViewController(category: Category) -> EditCategoryScreenViewController {
         let viewController = EditCategoryScreenViewController(category: category)
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.popViewController(animated: true)
+        }
         viewController.editCategoryClosure = { [weak self] category in
             guard let self = self else { return }
-            self.delegate.presentation(self, editCategory: category)
-            let categories = self.delegate.presentationCategories(self)
-            self.categoriesViewController?.updateCategories(categories)
-            viewController.dismiss(animated: true, completion: nil)
+            do {
+                try self.delegate.presentation(self, editCategory: category)
+                let categories = self.delegate.presentationCategories(self)
+                self.categoriesViewController?.updateCategories(categories)
+                self.menuNavigationController?.popViewController(animated: true)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
         }
         return viewController
     }

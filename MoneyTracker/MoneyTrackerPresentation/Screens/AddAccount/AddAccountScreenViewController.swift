@@ -71,7 +71,7 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
         addAccountScreenView.titleLabel.text = localizer.localizeText("title")
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        addAccountScreenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+        addAccountScreenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         addAccountScreenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
         addAccountScreenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
         setupColorsCollectionViewController()
@@ -105,7 +105,7 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
         backClosure?()
     }
     
-    @objc private func addButtonTouchUpInsideEventAction() {
+    @objc private func editButtonTouchUpInsideEventAction() {
         guard let name = addAccountScreenView.nameInputView.text else { return }
         guard let balanceString = addAccountScreenView.amountInputView.text else { return }
         guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }

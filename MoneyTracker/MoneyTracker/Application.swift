@@ -116,7 +116,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, addCategory addingCategory: PresentationAddingCategory) {
+    func presentation(_ presentation: Presentation, addCategory addingCategory: PresentationAddingCategory) throws {
         do {
             let storageAddingCategory = AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty
             try storage.addCategory(storageAddingCategory)
@@ -142,7 +142,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editCategory presentationCategory: PresentationCategory) {
+    func presentation(_ presentation: Presentation, editCategory presentationCategory: PresentationCategory) throws {
         do {
             let editingCategory = EditingCategory(name: presentationCategory.name)
             try storage.updateCategory(id: presentationCategory.id, editingCategory: editingCategory)

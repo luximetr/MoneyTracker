@@ -8,13 +8,14 @@
 import UIKit
 import AUIKit
 
-final class EditCategoryScreenView: TitleNavigationBarScreenView {
+extension EditCategoryScreenViewController {
+final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
     let scrollView = UIScrollView()
     let nameTextField: UITextField = TextField()
-    let addButton = TextFilledButton()
+    let editButton = TextFilledButton()
     
     // MARK: Setup
     
@@ -23,7 +24,7 @@ final class EditCategoryScreenView: TitleNavigationBarScreenView {
         backgroundColor = Colors.white
         addSubview(scrollView)
         scrollView.addSubview(nameTextField)
-        addSubview(addButton)
+        addSubview(editButton)
         setupNameTextField()
     }
     
@@ -47,7 +48,7 @@ final class EditCategoryScreenView: TitleNavigationBarScreenView {
         super.layoutSubviews()
         layoutScrollView()
         layoutNameTextField()
-        layoutAddButton()
+        layoutEditButton()
         setScrollViewContentSize()
     }
     
@@ -79,7 +80,7 @@ final class EditCategoryScreenView: TitleNavigationBarScreenView {
         scrollView.contentSize = contentSize
     }
     
-    private func layoutAddButton() {
+    private func layoutEditButton() {
         let x: CGFloat = 44
         let width = bounds.width - 2 * x
         let height: CGFloat = 44
@@ -88,12 +89,12 @@ final class EditCategoryScreenView: TitleNavigationBarScreenView {
         if let keyboardFrame = keyboardFrame {
             frame.origin.y -= keyboardFrame.size.height
         }
-        addButton.frame = frame
+        editButton.frame = frame
     }
     
     // MARK: Keyboard
     
-    var keyboardFrame: CGRect?
+    private var keyboardFrame: CGRect?
     
     func setKeyboardFrame(_ keyboardFrame: CGRect?) {
         self.keyboardFrame = keyboardFrame
@@ -128,4 +129,5 @@ private final class TextField: AUITextField {
         textRect.size.width -= 32
         return textRect
     }
+}
 }

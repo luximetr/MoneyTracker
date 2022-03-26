@@ -13,6 +13,8 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Data
     
     private let category: Category
+    var backClosure: (() -> Void)?
+    var editCategoryClosure: ((Category) throws -> Void)?
     
     // MARK: Initializer
     
@@ -21,18 +23,23 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
         super.init()
     }
     
-    // MARK: Delegation
-    
-    var editCategoryClosure: ((Category) -> Void)?
-    
     // MARK: View
     
-    override func loadView() {
-        view = EditCategoryScreenView()
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
     
-    private var editCategoryScreenView: EditCategoryScreenView! {
-        return view as? EditCategoryScreenView
+    override func loadView() {
+        view = ScreenView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.editButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        setContent()
     }
     
     // MARK: Localizer
@@ -44,34 +51,45 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Events
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        editCategoryScreenView.titleLabel.text = localizer.localizeText("title")
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        editCategoryScreenView.addButton.addTarget(self, action: #selector(add), for: .touchUpInside)
-        editCategoryScreenView.addButton.setTitle(localizer.localizeText("save"), for: .normal)
-        editCategoryScreenView.nameTextField.text = category.name
-        editCategoryScreenView.nameTextField.becomeFirstResponder()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        screenView.nameTextField.becomeFirstResponder()
     }
     
-    // MARK: Events
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.endEditing(true)
+    }
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
+    
+    @objc private func editButtonTouchUpInsideEventAction() {
+        do {
+            guard let name = screenView.nameTextField.text, !name.isEmpty else { return }
+            let addingCategory = Category(id: category.id, name: name)
+            try editCategoryClosure?(addingCategory)
+        } catch {}
+    }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardFrame = keyboardFrameEndUser.cgRectValue
-        editCategoryScreenView.setKeyboardFrame(keyboardFrame)
+        screenView.setKeyboardFrame(keyboardFrame)
     }
 
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        editCategoryScreenView.setKeyboardFrame(nil)
+        screenView.setKeyboardFrame(nil)
     }
     
-    @objc private func add() {
-        let name = editCategoryScreenView.nameTextField.text ?? "????"
-        let addingCategory = Category(id: category.id, name: name)
-        editCategoryClosure?(addingCategory)
+    // MARK: Content
+    
+    private func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+        screenView.nameTextField.text = category.name
+        screenView.editButton.setTitle(localizer.localizeText("save"), for: .normal)
     }
     
 }

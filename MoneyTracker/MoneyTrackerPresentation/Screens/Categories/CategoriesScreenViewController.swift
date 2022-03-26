@@ -13,15 +13,6 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Data
     
     private var categories: [Category]
-    
-    // MARK: Initializer
-    
-    init(categories: [Category]) {
-        self.categories = categories
-    }
-    
-    // MARK: Delegation
-    
     var backClosure: (() -> Void)?
     var didDeleteCategoryClosure: ((Category) throws -> Void)?
     var didSelectAddCategoryClosure: (() -> Void)?
@@ -33,17 +24,30 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         setupTableViewController()
     }
     
+    // MARK: Initializer
+    
+    init(categories: [Category]) {
+        self.categories = categories
+    }
+    
     // MARK: View
+    
+    private var screenView: CategoriesScreenView! {
+        return view as? CategoriesScreenView
+    }
     
     override func loadView() {
         view = CategoriesScreenView()
     }
     
-    private var categoriesScreenView: CategoriesScreenView! {
-        return view as? CategoriesScreenView
-    }
-    
     private let tableViewController = AUIClosuresTableViewController()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.titleLabel.text = localizer.localizeText("title")
+        setupTableViewController()
+    }
     
     // MARK: Localizer
     
@@ -54,15 +58,8 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Events
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        categoriesScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        categoriesScreenView.titleLabel.text = localizer.localizeText("title")
-        setupTableViewController()
-    }
-    
     private func setupTableViewController() {
-        tableViewController.tableView = categoriesScreenView.tableView
+        tableViewController.tableView = screenView.tableView
         tableViewController.targetIndexPathForMoveFromRowAtClosure = { sourceCellController, destinationCellController in
             if destinationCellController is CategoriesScreenAddCategoryTableViewCellController {
                 return sourceCellController
@@ -85,18 +82,18 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
             let cellController = CategoriesScreenCategoryTableViewCellController(category: category)
             cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
                 guard let self = self else { return UITableViewCell() }
-                let cell = self.categoriesScreenView.categoryTableViewCell(indexPath)
+                let cell = self.screenView.categoryTableViewCell(indexPath)
                 cell?.nameLabel.text = category.name
                 return cell!
             }
             cellController.estimatedHeightClosure = { [weak self] in
                 guard let self = self else { return 0 }
-                let estimatedHeight = self.categoriesScreenView.categoryTableViewCellEstimatedHeight()
+                let estimatedHeight = self.screenView.categoryTableViewCellEstimatedHeight()
                 return estimatedHeight
             }
             cellController.heightClosure = { [weak self] in
                 guard let self = self else { return 0 }
-                let height = self.categoriesScreenView.categoryTableViewCellHeight()
+                let height = self.screenView.categoryTableViewCellHeight()
                 return height
             }
             cellController.didSelectClosure = { [weak self] in
@@ -126,21 +123,29 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
             cellControllers.append(cellController)
         }
         
+        let addCategoryCellController = createAddCategoryTableViewCellController()
+        cellControllers.append(addCategoryCellController)
+        
+        sectionController.cellControllers = cellControllers
+        tableViewController.sectionControllers = [sectionController]
+    }
+    
+    private func createAddCategoryTableViewCellController() -> CategoriesScreenAddCategoryTableViewCellController {
         let addCategoryCellController = CategoriesScreenAddCategoryTableViewCellController()
         addCategoryCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.categoriesScreenView.addCategoryTableViewCell(indexPath)!
+            let cell = self.screenView.addCategoryTableViewCell(indexPath)!
             cell._textLabel.text = self.localizer.localizeText("addCategory")
             return cell
         }
         addCategoryCellController.estimatedHeightClosure = { [weak self] in
             guard let self = self else { return 0 }
-            let estimatedHeight = self.categoriesScreenView.addCategoryTableViewCellEstimatedHeight()
+            let estimatedHeight = self.screenView.addCategoryTableViewCellEstimatedHeight()
             return estimatedHeight
         }
         addCategoryCellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
-            let height = self.categoriesScreenView.addCategoryTableViewCellHeight()
+            let height = self.screenView.addCategoryTableViewCellHeight()
             return height
         }
         addCategoryCellController.didSelectClosure = { [weak self] in
@@ -150,10 +155,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         addCategoryCellController.canMoveCellClosure = {
             return false
         }
-        cellControllers.append(addCategoryCellController)
-        
-        sectionController.cellControllers = cellControllers
-        tableViewController.sectionControllers = [sectionController]
+        return addCategoryCellController
     }
     
     // MARK: Events

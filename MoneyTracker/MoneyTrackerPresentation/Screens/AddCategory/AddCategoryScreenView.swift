@@ -8,7 +8,8 @@
 import UIKit
 import AUIKit
 
-final class AddCategoryScreenView: TitleNavigationBarScreenView {
+extension AddCategoryScreenViewController {
+final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
@@ -93,7 +94,7 @@ final class AddCategoryScreenView: TitleNavigationBarScreenView {
     
     // MARK: Keyboard
     
-    var keyboardFrame: CGRect?
+    private var keyboardFrame: CGRect?
     
     func setKeyboardFrame(_ keyboardFrame: CGRect?) {
         self.keyboardFrame = keyboardFrame
@@ -128,4 +129,5 @@ private final class TextField: AUITextField {
         textRect.size.width -= 32
         return textRect
     }
+}
 }

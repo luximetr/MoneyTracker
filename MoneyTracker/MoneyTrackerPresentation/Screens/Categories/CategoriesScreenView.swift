@@ -8,6 +8,7 @@
 import UIKit
 import AUIKit
 
+extension CategoriesScreenViewController {
 final class CategoriesScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
@@ -58,7 +59,7 @@ final class CategoriesScreenView: BackTitleNavigationBarScreenView {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     }
     
-    // MARK: Cells
+    // MARK: CategoryTableViewCell
     
     func categoryTableViewCell(_ indexPath: IndexPath) -> CategoriesScreenCategoryTableViewCell! {
         let cell = tableView.dequeueReusableCell(withIdentifier: categoryTableViewCellReuseIdentifier, for: indexPath) as? CategoriesScreenCategoryTableViewCell
@@ -66,12 +67,14 @@ final class CategoriesScreenView: BackTitleNavigationBarScreenView {
     }
     
     func categoryTableViewCellEstimatedHeight() -> CGFloat {
-        return 76
+        return 75
     }
     
     func categoryTableViewCellHeight() -> CGFloat {
-        return 76
+        return 75
     }
+    
+    // MARK: AddCategoryTableViewCell
     
     func addCategoryTableViewCell(_ indexPath: IndexPath) -> CategoriesScreenAddCategoryTableViewCell! {
         let cell = tableView.dequeueReusableCell(withIdentifier: addCategoryTableViewCellReuseIdentifier, for: indexPath) as? CategoriesScreenAddCategoryTableViewCell
@@ -80,11 +83,12 @@ final class CategoriesScreenView: BackTitleNavigationBarScreenView {
     }
     
     func addCategoryTableViewCellEstimatedHeight() -> CGFloat {
-        return 76
+        return 75
     }
     
     func addCategoryTableViewCellHeight() -> CGFloat {
-        return 76
+        return 75
     }
     
+}
 }

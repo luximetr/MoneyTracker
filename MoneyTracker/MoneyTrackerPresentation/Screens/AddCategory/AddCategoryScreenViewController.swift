@@ -10,18 +10,28 @@ import AUIKit
 
 final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     
-    // MARK: Delegation
+    // MARK: Data
     
-    var addCategoryClosure: ((AddingCategory) -> Void)?
+    var backClosure: (() -> Void)?
+    var addCategoryClosure: ((AddingCategory) throws -> Void)?
     
     // MARK: View
     
-    override func loadView() {
-        view = AddCategoryScreenView()
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
     
-    private var addCategoryScreenView: AddCategoryScreenView! {
-        return view as? AddCategoryScreenView
+    override func loadView() {
+        view = ScreenView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        setContent()
     }
     
     // MARK: Localizer
@@ -33,33 +43,44 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Events
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addCategoryScreenView.titleLabel.text = localizer.localizeText("title")
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        addCategoryScreenView.addButton.addTarget(self, action: #selector(add), for: .touchUpInside)
-        addCategoryScreenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
-        addCategoryScreenView.nameTextField.becomeFirstResponder()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        screenView.nameTextField.becomeFirstResponder()
     }
     
-    // MARK: Events
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.endEditing(true)
+    }
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
+    
+    @objc private func editButtonTouchUpInsideEventAction() {
+        do {
+            guard let name = screenView.nameTextField.text, !name.isEmpty else { return }
+            let addingCategory = AddingCategory(name: name)
+            try addCategoryClosure?(addingCategory)
+        } catch { }
+    }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardFrame = keyboardFrameEndUser.cgRectValue
-        addCategoryScreenView.setKeyboardFrame(keyboardFrame)
+        screenView.setKeyboardFrame(keyboardFrame)
     }
 
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        addCategoryScreenView.setKeyboardFrame(nil)
+        screenView.setKeyboardFrame(nil)
     }
     
-    @objc private func add() {
-        let name = addCategoryScreenView.nameTextField.text ?? "????"
-        let addingCategory = AddingCategory(name: name)
-        addCategoryClosure?(addingCategory)
+    // MARK: Content
+    
+    private func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+        screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
     }
     
 }
