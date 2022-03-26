@@ -38,7 +38,7 @@ final class CategoriesScreenView: BackTitleNavigationBarScreenView {
     private let addCategoryTableViewCellReuseIdentifier = "addCategoryTableViewCellReuseIdentifier"
     private func setupTableView() {
         tableView.separatorStyle = .none
-        tableView.register(CategoriesScreenCategoryTableViewCell.self, forCellReuseIdentifier: categoryTableViewCellReuseIdentifier)
+        tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: categoryTableViewCellReuseIdentifier)
         tableView.register(CategoriesScreenAddCategoryTableViewCell.self, forCellReuseIdentifier: addCategoryTableViewCellReuseIdentifier)
     }
     
@@ -56,13 +56,13 @@ final class CategoriesScreenView: BackTitleNavigationBarScreenView {
         let height = bounds.height - y
         let frame = CGRect(x: x, y: y, width: width, height: height)
         tableView.frame = frame
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: safeAreaInsets.bottom, right: 0)
     }
     
     // MARK: CategoryTableViewCell
     
-    func categoryTableViewCell(_ indexPath: IndexPath) -> CategoriesScreenCategoryTableViewCell! {
-        let cell = tableView.dequeueReusableCell(withIdentifier: categoryTableViewCellReuseIdentifier, for: indexPath) as? CategoriesScreenCategoryTableViewCell
+    func categoryTableViewCell(_ indexPath: IndexPath) -> CategoryTableViewCell! {
+        let cell = tableView.dequeueReusableCell(withIdentifier: categoryTableViewCellReuseIdentifier, for: indexPath) as? CategoryTableViewCell
         return cell
     }
     

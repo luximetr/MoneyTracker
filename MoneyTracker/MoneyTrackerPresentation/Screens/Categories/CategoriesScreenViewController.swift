@@ -68,8 +68,8 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         }
         tableViewController.moveCellControllerClosure = { [weak self] sourceCellController, destinationCellController in
             guard let self = self else { return }
-            guard let category1 = (sourceCellController as? CategoriesScreenCategoryTableViewCellController)?.category else { return }
-            guard let category2 = (destinationCellController as? CategoriesScreenCategoryTableViewCellController)?.category else { return }
+            guard let category1 = (sourceCellController as? CategoryTableViewCellController)?.category else { return }
+            guard let category2 = (destinationCellController as? CategoryTableViewCellController)?.category else { return }
             guard let i = self.categories.firstIndex(of: category1) else { return }
             guard let j = self.categories.firstIndex(of: category2) else { return }
             self.categories.swapAt(i, j)
@@ -79,47 +79,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
         for category in categories {
-            let cellController = CategoriesScreenCategoryTableViewCellController(category: category)
-            cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
-                guard let self = self else { return UITableViewCell() }
-                let cell = self.screenView.categoryTableViewCell(indexPath)
-                cell?.nameLabel.text = category.name
-                return cell!
-            }
-            cellController.estimatedHeightClosure = { [weak self] in
-                guard let self = self else { return 0 }
-                let estimatedHeight = self.screenView.categoryTableViewCellEstimatedHeight()
-                return estimatedHeight
-            }
-            cellController.heightClosure = { [weak self] in
-                guard let self = self else { return 0 }
-                let height = self.screenView.categoryTableViewCellHeight()
-                return height
-            }
-            cellController.didSelectClosure = { [weak self] in
-                guard let self = self else { return }
-                self.didSelectCategory(category)
-            }
-            cellController.itemsForBeginningSessionClosure = { _ in
-                return []
-            }
-            cellController.canMoveCellClosure = {
-                return true
-            }
-            cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
-                guard let self = self else { return nil }
-                let deleteAction = UIContextualAction(style: .destructive, title:  self.localizer.localizeText("delete"), handler: { contextualAction, view, success in
-                    do {
-                        try self.didDeleteCategoryClosure?(category)
-                        self.tableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
-                            success(true)
-                        }
-                    } catch {
-                        success(false)
-                    }
-                })
-                return UISwipeActionsConfiguration(actions: [deleteAction])
-            }
+            let cellController = createCategoryTableViewCellController(category: category)
             cellControllers.append(cellController)
         }
         
@@ -128,6 +88,51 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
+    }
+    
+    private func createCategoryTableViewCellController(category: Category) -> CategoryTableViewCellController {
+        let cellController = CategoryTableViewCellController(category: category)
+        cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.screenView.categoryTableViewCell(indexPath)
+            cell?.nameLabel.text = category.name
+            return cell!
+        }
+        cellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let estimatedHeight = self.screenView.categoryTableViewCellEstimatedHeight()
+            return estimatedHeight
+        }
+        cellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let height = self.screenView.categoryTableViewCellHeight()
+            return height
+        }
+        cellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.didSelectCategory(category)
+        }
+        cellController.itemsForBeginningSessionClosure = { _ in
+            return []
+        }
+        cellController.canMoveCellClosure = {
+            return true
+        }
+        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+            guard let self = self else { return nil }
+            let deleteAction = UIContextualAction(style: .destructive, title:  self.localizer.localizeText("delete"), handler: { contextualAction, view, success in
+                do {
+                    try self.didDeleteCategoryClosure?(category)
+                    self.tableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
+                        success(true)
+                    }
+                } catch {
+                    success(false)
+                }
+            })
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
+        return cellController
     }
     
     private func createAddCategoryTableViewCellController() -> CategoriesScreenAddCategoryTableViewCellController {
