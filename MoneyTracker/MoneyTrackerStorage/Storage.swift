@@ -292,18 +292,39 @@ public class Storage {
         let uniqueImportingBalanceAccounts = file.balanceAccounts.filter { importingBalanceAccount in
             return !balanceAccounts.contains(where: { findIfBalanceAccountsEqual(importingBalanceAccount: importingBalanceAccount, balanceAccount: $0) })
         }
-        let addingBalanceAccounts = try uniqueImportingBalanceAccounts.map { AddingBalanceAccount(name: $0.name, amount: $0.amount, currency: try Currency($0.currency), backgroundColor: Data()) }
+        let addingBalanceAccounts = createAddingBalanceAccounts(importingBalanceAccounts: uniqueImportingBalanceAccounts)
         addBalanceAccounts(addingBalanceAccounts)
         
         let allCategories = try getCategories()
         let allBalanceAccounts = try getAllBalanceAccounts()
         
         let addingExpenses = file.expenses.compactMap { importingExpense -> AddingExpense? in
-            guard let category = allCategories.first(where: { $0.name == importingExpense.category }) else { return nil }
-            guard let balanceAccount = allBalanceAccounts.first(where: { $0.name == importingExpense.balanceAccount }) else { return nil }
+            guard let category = allCategories.first(where: { $0.name.lowercased() == importingExpense.category.lowercased() }) else { return nil }
+            guard let balanceAccount = allBalanceAccounts.first(where: { $0.name.lowercased() == importingExpense.balanceAccount.lowercased() }) else { return nil }
             return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
         }
         addExpenses(addingExpenses: addingExpenses)
+    }
+    
+    private func createAddingBalanceAccounts(importingBalanceAccounts: [ImportingBalanceAccount]) -> [AddingBalanceAccount] {
+        return importingBalanceAccounts.compactMap { importingBalanceAccount -> AddingBalanceAccount? in
+            do {
+                return try createAddingBalanceAccount(importingBalanceAccount: importingBalanceAccount)
+            } catch {
+                print(error)
+                return nil
+            }
+        }
+    }
+    
+    private func createAddingBalanceAccount(importingBalanceAccount: ImportingBalanceAccount) throws -> AddingBalanceAccount {
+        let currency = try Currency(importingBalanceAccount.currency)
+        return AddingBalanceAccount(
+            name: importingBalanceAccount.name,
+            amount: importingBalanceAccount.amount,
+            currency: currency,
+            backgroundColor: Data()
+        )
     }
     
     private func findIfCategoriesEqual(importingCategory: ImportingCategory, category: Category) -> Bool {
