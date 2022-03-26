@@ -11,6 +11,18 @@ class CoinKeeperBalanceAccountCSVLineParser {
     
     // MARK: - Parse
     
+    func parse(csvLine: String) throws -> ImportingBalanceAccount {
+        let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
+        let name = try parseName(components: components)
+        let amount = try parseAmount(components: components)
+        let currency = try parseCurrency(components: components)
+        return ImportingBalanceAccount(
+            name: name,
+            amount: amount,
+            currency: currency
+        )
+    }
+    
     func parse(csvLine: String) throws -> CoinKeeperBalanceAccount {
         let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
         let name = try parseName(components: components)
