@@ -48,7 +48,9 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         monthPickerViewConroller.monthPickerView = screenView.monthPickerView
         let months = monthsClosure?() ?? []
         monthPickerViewConroller.months = months
-        monthPickerViewConroller.selectMonth(months.first!, animated: false)
+        if let month = months.first {
+            monthPickerViewConroller.selectMonth(month, animated: false)
+        }
         monthPickerViewConroller.didSelectMonthClosure = { [weak self] month in
             guard let self = self else { return }
             self.didSelectMonth(month)
