@@ -13,27 +13,29 @@ final class MonthPickerViewController: AUIEmptyViewController {
     
     // MARK: Data
     
-    var months: [Date] = [] {
-        didSet {
-            setCollectionViewControllerContent()
-        }
+    private var months: [Date] = []
+    
+    func setMonths(_ months: [Date]) {
+        self.months = months
+        setCollectionViewControllerContent()
     }
     
     // MARK: MonthPickerView
     
+    var monthPickerView: MonthPickerView? {
+        set { view = newValue }
+        get { return view as? MonthPickerView }
+    }
+    
     private let collectionViewController = AUIEmptyCollectionViewController()
     private let sectionController = AUIEmptyCollectionViewSectionController()
+    private var selectedCellController: MonthCollectionViewCellController?
     private func cellControllerForMonth(_ month: Date) -> MonthCollectionViewCellController? {
         guard let cellController = sectionController.cellControllers.first(where: { cellController in
             guard let monthCollectionViewCellController = cellController as? MonthCollectionViewCellController else { return false }
             return monthCollectionViewCellController.month == month
         }) as? MonthCollectionViewCellController else { return nil }
         return cellController
-    }
-  
-    var monthPickerView: MonthPickerView? {
-        set { view = newValue }
-        get { return view as? MonthPickerView }
     }
   
     override func setupView() {
@@ -87,7 +89,6 @@ final class MonthPickerViewController: AUIEmptyViewController {
         return cellController
     }
     
-    private var selectedCellController: MonthCollectionViewCellController?
     private func didSelectMonthCellController(_ cellController: MonthCollectionViewCellController) {
         guard selectedCellController !== cellController else { return }
         selectedCellController?.setSelected(false)

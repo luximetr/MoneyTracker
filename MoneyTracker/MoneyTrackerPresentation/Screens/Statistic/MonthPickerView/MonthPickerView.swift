@@ -16,6 +16,8 @@ final class MonthPickerView: AUIView {
     let collectionViewFlowLayout = UICollectionViewFlowLayout()
     let collectionView: UICollectionView
     
+    // MARK: Initializer
+    
     override init(frame: CGRect = .zero) {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         super.init(frame: frame)

@@ -32,7 +32,6 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: EditingExpenseTemplate)
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL)
     func presentationDidStartExpensesCSVExport(_ presentation: Presentation) throws -> URL
-    func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date)
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
     func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
     func presentation(_ presentation: Presentation, editExpense editingExpense: Expense) throws -> Expense

@@ -10,10 +10,9 @@ import AUIKit
 
 final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     
-    // MARK: - Data
+    // MARK: Data
     
     private var expenses: [Expense] = []
-    
     var monthsClosure: (() -> [Date])?
     var expensesClosure: ((Date) -> [Expense])?
     
@@ -24,7 +23,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         return localizer
     }()
     
-    // MARK: - View
+    // MARK: View
     
     private var screenView: ScreenView {
         return view as! ScreenView
@@ -47,7 +46,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         setMonthExpensesLabelContent()
         monthPickerViewConroller.monthPickerView = screenView.monthPickerView
         let months = monthsClosure?() ?? []
-        monthPickerViewConroller.months = months
+        monthPickerViewConroller.setMonths(months)
         if let month = months.first {
             monthPickerViewConroller.selectMonth(month, animated: false)
         }

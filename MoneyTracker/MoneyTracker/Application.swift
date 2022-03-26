@@ -257,22 +257,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Expenses
     
-    func presentation(_ presentation: Presentation, searchExpensesFrom fromDate: Date, toDate: Date) {
-        let expenses = fetchExpenses(from: fromDate, to: toDate)
-        let result = expenses.reduce(0) { partialResult, expense in
-            partialResult + expense.amount
-        }
-    }
-    
-    private func fetchExpenses(from startDate: Date, to endDate: Date) -> [MoneyTrackerStorage.Expense] {
-        do {
-            return try storage.getExpenses(startDate: startDate, endDate: endDate)
-        } catch {
-            print(error)
-            return []
-        }
-    }
-    
     private func fetchAllExpenses() -> [MoneyTrackerStorage.Expense] {
         do {
             return try storage.getAllExpenses()
