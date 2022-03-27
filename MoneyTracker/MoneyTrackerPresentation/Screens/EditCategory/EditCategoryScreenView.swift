@@ -14,7 +14,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: Subviews
     
     let scrollView = UIScrollView()
-    let nameTextField: UITextField = TextField()
+    let nameTextField: UITextField = AddExpenseScreenViewController.CommentTextField()
     let editButton = TextFilledButton()
     
     // MARK: Setup
@@ -102,32 +102,5 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutIfNeeded()
     }
     
-}
-
-private final class TextField: AUITextField {
-    
-    // MARK: Setup
-    
-    override func setup() {
-        super.setup()
-        backgroundColor = Colors.gray.withAlphaComponent(0.6)
-        layer.cornerRadius = 10
-    }
-    
-    // MARK: Layout
-    
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        var editingRect = super.editingRect(forBounds: bounds)
-        editingRect.origin.x += 16
-        editingRect.size.width -= 32
-        return editingRect
-    }
-    
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        var textRect = super.editingRect(forBounds: bounds)
-        textRect.origin.x += 16
-        textRect.size.width -= 32
-        return textRect
-    }
 }
 }
