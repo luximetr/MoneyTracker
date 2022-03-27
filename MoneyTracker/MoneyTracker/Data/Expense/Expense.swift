@@ -28,7 +28,7 @@ struct Expense: Equatable, Hashable {
         self.date = storageExpense.date
         self.comment = storageExpense.comment
         self.account = Account(storageAccount: account)
-        self.category = Category(storageCategoty: category)
+        self.category = Category(storageCategory: category)
     }
     
     // MARK: PresentationStorage

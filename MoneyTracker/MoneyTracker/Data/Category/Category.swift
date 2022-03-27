@@ -34,9 +34,9 @@ struct Category: Equatable, Hashable {
     
     // MARK: StorageCategory
     
-    init(storageCategoty: StorageCategory) {
-        self.id = storageCategoty.id
-        self.name = storageCategoty.name
+    init(storageCategory: StorageCategory) {
+        self.id = storageCategory.id
+        self.name = storageCategory.name
     }
     
     var storageCategoty: StorageCategory {

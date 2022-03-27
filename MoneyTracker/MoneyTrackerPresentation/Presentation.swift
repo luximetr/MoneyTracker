@@ -10,11 +10,11 @@ import AUIKit
 import MessageUI
 
 public protocol PresentationDelegate: AnyObject {
-    func presentationCategories(_ presentation: Presentation) -> [Category]
+    func presentationCategories(_ presentation: Presentation) throws -> [Category]
     func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory) throws
+    func presentation(_ presentation: Presentation, editCategory editingCategory: Category) throws
     func presentation(_ presentation: Presentation, deleteCategory category: Category) throws
     func presentation(_ presentation: Presentation, orderCategories categories: [Category]) throws
-    func presentation(_ presentation: Presentation, editCategory editingCategory: Category) throws
     func presentationCurrencies(_ presentation: Presentation) -> [Currency]
     func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
@@ -187,7 +187,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private func createEditExpenseViewController(expense: Expense) -> EditExpenseScreenViewController {
         let accounts = try! delegate.presentationAccounts(self)
-        let categories = delegate.presentationCategories(self)
+        let categories = try! delegate.presentationCategories(self)
         let viewController = EditExpenseScreenViewController(expense: expense, categories: categories, balanceAccounts: accounts)
         viewController.backClosure = { [weak self] in
             guard let self = self else { return }
@@ -211,7 +211,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private func createAddExpenseViewController() -> AddExpenseScreenViewController {
         let accounts = try! delegate.presentationAccounts(self)
-        let categories = delegate.presentationCategories(self)
+        let categories = try! delegate.presentationCategories(self)
         let viewController = AddExpenseScreenViewController(accounts: accounts, categories: categories)
         viewController.backClosure = { [weak self] in
             guard let self = self else { return }
@@ -259,42 +259,50 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var categoriesViewController: CategoriesScreenViewController?
     
-    private func createCategoriesViewController() -> CategoriesScreenViewController {
-        let categories = delegate.presentationCategories(self)
-        let viewController = CategoriesScreenViewController(categories: categories)
-        viewController.backClosure = { [weak self] in
-            guard let self = self else { return }
-            self.menuNavigationController?.popViewController(animated: true)
-        }
-        viewController.editCategoryClosure = { [weak self] category in
-            guard let self = self else { return }
-            let viewController = self.createEditCategoryScreenViewController(category: category)
-            self.editCategoryViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
-        }
-        viewController.deleteCategoryClosure = { [weak self] category in
-            guard let self = self else { return }
-            do {
-                try self.delegate.presentation(self, deleteCategory: category)
-            } catch {
-                self.displayUnexpectedErrorAlertScreen(error)
+    private func createCategoriesViewController() throws -> CategoriesScreenViewController {
+        do {
+            let categories: [Category] = try delegate.presentationCategories(self)
+            let viewController = CategoriesScreenViewController(categories: categories)
+            viewController.backClosure = { [weak self] in
+                guard let self = self else { return }
+                self.menuNavigationController?.popViewController(animated: true)
             }
-        }
-        viewController.orderCategoriesClosure = { [weak self] categories in
-            guard let self = self else { return }
-            do {
-                try self.delegate.presentation(self, orderCategories: categories)
-            } catch {
-                self.displayUnexpectedErrorAlertScreen(error)
+            viewController.editCategoryClosure = { [weak self] category in
+                guard let self = self else { return }
+                let viewController = self.createEditCategoryScreenViewController(category: category)
+                self.editCategoryViewController = viewController
+                self.menuNavigationController?.pushViewController(viewController, animated: true)
             }
+            viewController.deleteCategoryClosure = { [weak self] category in
+                guard let self = self else { return }
+                do {
+                    try self.delegate.presentation(self, deleteCategory: category)
+                } catch {
+                    self.displayUnexpectedErrorAlertScreen(error)
+                    throw error
+                }
+            }
+            viewController.orderCategoriesClosure = { [weak self] categories in
+                guard let self = self else { return }
+                do {
+                    try self.delegate.presentation(self, orderCategories: categories)
+                } catch {
+                    self.displayUnexpectedErrorAlertScreen(error)
+                    throw error
+                }
+            }
+            viewController.addCategoryClosure = { [weak self] in
+                guard let self = self else { return }
+                let viewController = self.createAddCategoryScreenViewController()
+                self.addCategoryViewController = viewController
+                self.menuNavigationController?.pushViewController(viewController, animated: true)
+            }
+            return viewController
+        } catch {
+            let error = Error("Cannot create CategoriesViewController\n\(error)")
+            throw error
         }
-        viewController.addCategoryClosure = { [weak self] in
-            guard let self = self else { return }
-            let viewController = self.createAddCategoryScreenViewController()
-            self.addCategoryViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
-        }
-        return viewController
+        
     }
     
     // MARK: Add Category View Controller
@@ -311,7 +319,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             do {
                 try self.delegate.presentation(self, addCategory: addingCategory)
-                let categories = self.delegate.presentationCategories(self)
+                let categories = try self.delegate.presentationCategories(self)
                 self.categoriesViewController?.updateCategories(categories)
                 self.menuNavigationController?.popViewController(animated: true)
             } catch {
@@ -335,7 +343,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             do {
                 try self.delegate.presentation(self, editCategory: category)
-                let categories = self.delegate.presentationCategories(self)
+                let categories = try! self.delegate.presentationCategories(self)
                 self.categoriesViewController?.updateCategories(categories)
                 self.menuNavigationController?.popViewController(animated: true)
             } catch {
@@ -353,9 +361,13 @@ public final class Presentation: AUIWindowPresentation {
         let viewController = SettingsScreenViewController()
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createCategoriesViewController()
-            self.categoriesViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            do {
+                let viewController = try self.createCategoriesViewController()
+                self.categoriesViewController = viewController
+                self.menuNavigationController?.pushViewController(viewController, animated: true)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
         }
         viewController.didSelectCurrencyClosure = { [weak self] in
             guard let self = self else { return }
@@ -590,7 +602,7 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Add Template Screen View Controller
     
     private func createAddTemplateScreenViewController() -> AddTemplateScreenViewController {
-        let categories = delegate.presentationCategories(self)
+        let categories = try! delegate.presentationCategories(self)
         let balanceAccounts = try! delegate.presentationAccounts(self)
         let viewController = AddTemplateScreenViewController(categories: categories, balanceAccounts: balanceAccounts)
         viewController.backClosure = { [weak self] in
@@ -607,7 +619,7 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Edit Template Screen View Controller
     
     private func createEditTemplateScreenViewController(expenseTemplate: ExpenseTemplate) -> EditTemplateScreenViewController {
-        let categories = delegate.presentationCategories(self)
+        let categories = try! delegate.presentationCategories(self)
         let balanceAccounts = try! delegate.presentationAccounts(self)
         let viewController = EditTemplateScreenViewController(expenseTemplate: expenseTemplate, categories: categories, balanceAccounts: balanceAccounts)
         viewController.backClosure = { [weak self] in
