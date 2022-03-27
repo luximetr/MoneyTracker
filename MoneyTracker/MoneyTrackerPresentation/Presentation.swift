@@ -12,8 +12,8 @@ import MessageUI
 public protocol PresentationDelegate: AnyObject {
     func presentationCategories(_ presentation: Presentation) -> [Category]
     func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory) throws
-    func presentation(_ presentation: Presentation, deleteCategory category: Category)
-    func presentation(_ presentation: Presentation, sortCategories categories: [Category])
+    func presentation(_ presentation: Presentation, deleteCategory category: Category) throws
+    func presentation(_ presentation: Presentation, orderCategories categories: [Category]) throws
     func presentation(_ presentation: Presentation, editCategory editingCategory: Category) throws
     func presentationCurrencies(_ presentation: Presentation) -> [Currency]
     func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
@@ -266,24 +266,32 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             self.menuNavigationController?.popViewController(animated: true)
         }
-        viewController.didSelectAddCategoryClosure = { [weak self] in
-            guard let self = self else { return }
-            let viewController = self.createAddCategoryScreenViewController()
-            self.addCategoryViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
-        }
-        viewController.didDeleteCategoryClosure = { [weak self] category in
-            guard let self = self else { return }
-            self.delegate.presentation(self, deleteCategory: category)
-        }
-        viewController.didSortCategoriesClosure = { [weak self] categories in
-            guard let self = self else { return }
-            self.delegate.presentation(self, sortCategories: categories)
-        }
-        viewController.didSelectCategoryClosure = { [weak self] category in
+        viewController.editCategoryClosure = { [weak self] category in
             guard let self = self else { return }
             let viewController = self.createEditCategoryScreenViewController(category: category)
             self.editCategoryViewController = viewController
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
+        }
+        viewController.deleteCategoryClosure = { [weak self] category in
+            guard let self = self else { return }
+            do {
+                try self.delegate.presentation(self, deleteCategory: category)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.orderCategoriesClosure = { [weak self] categories in
+            guard let self = self else { return }
+            do {
+                try self.delegate.presentation(self, orderCategories: categories)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.addCategoryClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddCategoryScreenViewController()
+            self.addCategoryViewController = viewController
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         return viewController

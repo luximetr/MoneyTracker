@@ -119,6 +119,7 @@
 		2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219927DD2B39006D6558 /* SelectCategoryViewController.swift */; };
 		2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */; };
 		2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */; };
+		2ECFFFC727F040BD00F338B8 /* CategoriesScreenAddCategoryTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFFFC627F040BD00F338B8 /* CategoriesScreenAddCategoryTableViewCellController.swift */; };
 		2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */; };
 		2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */; };
 		2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */; };
@@ -403,6 +404,7 @@
 		2ECB219927DD2B39006D6558 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorAlertScreenViewController.swift; sourceTree = "<group>"; };
 		2ECF015127BDA36D008469E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
+		2ECFFFC627F040BD00F338B8 /* CategoriesScreenAddCategoryTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScreenAddCategoryTableViewCellController.swift; sourceTree = "<group>"; };
 		2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateView.swift; sourceTree = "<group>"; };
 		2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateViewController.swift; sourceTree = "<group>"; };
@@ -658,6 +660,7 @@
 		2E8FF0FE27AEF1DE00DA033F /* AddCategoryTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				2ECFFFC627F040BD00F338B8 /* CategoriesScreenAddCategoryTableViewCellController.swift */,
 				2EC19AD927A8161200E1A6FA /* CategoriesScreenAddCategoryTableViewCell.swift */,
 			);
 			path = AddCategoryTableViewCell;
@@ -2126,6 +2129,7 @@
 				2EB10A4A27A707A300743416 /* Language.swift in Sources */,
 				2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */,
 				2EADAD9B27E131690013DEEC /* CommentTextField.swift in Sources */,
+				2ECFFFC727F040BD00F338B8 /* CategoriesScreenAddCategoryTableViewCellController.swift in Sources */,
 				2EADAD9D27E133860013DEEC /* ExpenseTableViewCellController.swift in Sources */,
 				2E01B2C427EDACD400013321 /* MonthCollectionViewCell.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesScreenView.swift in Sources */,

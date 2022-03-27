@@ -14,10 +14,10 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     private var categories: [Category]
     var backClosure: (() -> Void)?
-    var didDeleteCategoryClosure: ((Category) throws -> Void)?
-    var didSelectAddCategoryClosure: (() -> Void)?
-    var didSelectCategoryClosure: ((Category) -> Void)?
-    var didSortCategoriesClosure: (([Category]) -> Void)?
+    var editCategoryClosure: ((Category) -> Void)?
+    var deleteCategoryClosure: ((Category) throws -> Void)?
+    var orderCategoriesClosure: (([Category]) throws -> Void)?
+    var addCategoryClosure: (() -> Void)?
     
     func updateCategories(_ categories: [Category]) {
         self.categories = categories
@@ -45,8 +45,33 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        screenView.titleLabel.text = localizer.localizeText("title")
         setupTableViewController()
+        setContent()
+    }
+    
+    private func setupTableViewController() {
+        tableViewController.tableView = screenView.tableView
+        tableViewController.dragInteractionEnabled = true
+        tableViewController.targetIndexPathForMoveFromRowAtClosure = { sourceCellController, destinationCellController in
+            if destinationCellController is CategoriesScreenAddCategoryTableViewCellController {
+                return sourceCellController
+            }
+            return destinationCellController
+        }
+        tableViewController.moveCellControllerClosure = { [weak self] sourceCellController, destinationCellController in
+            guard let self = self else { return }
+            guard let sourceCategory = (sourceCellController as? CategoryTableViewCellController)?.category else { return }
+            guard let destinationCategory = (destinationCellController as? CategoryTableViewCellController)?.category else { return }
+            guard let sourceCategoryIndex = self.categories.firstIndex(of: sourceCategory) else { return }
+            guard let destinationCategoryIndex = self.categories.firstIndex(of: destinationCategory) else { return }
+            self.categories.swapAt(sourceCategoryIndex, destinationCategoryIndex)
+            do {
+                try self.orderCategoriesClosure?(self.categories)
+            } catch {
+                self.categories.swapAt(sourceCategoryIndex, destinationCategoryIndex)
+                self.setTableViewContent()
+            }
+        }
     }
     
     // MARK: Localizer
@@ -58,24 +83,26 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Events
     
-    private func setupTableViewController() {
-        tableViewController.tableView = screenView.tableView
-        tableViewController.targetIndexPathForMoveFromRowAtClosure = { sourceCellController, destinationCellController in
-            if destinationCellController is CategoriesScreenAddCategoryTableViewCellController {
-                return sourceCellController
-            }
-            return destinationCellController
-        }
-        tableViewController.moveCellControllerClosure = { [weak self] sourceCellController, destinationCellController in
-            guard let self = self else { return }
-            guard let category1 = (sourceCellController as? CategoryTableViewCellController)?.category else { return }
-            guard let category2 = (destinationCellController as? CategoryTableViewCellController)?.category else { return }
-            guard let i = self.categories.firstIndex(of: category1) else { return }
-            guard let j = self.categories.firstIndex(of: category2) else { return }
-            self.categories.swapAt(i, j)
-            self.didSortCategoriesClosure?(self.categories)
-        }
-        tableViewController.dragInteractionEnabled = true
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
+    
+    private func didSelectCategory(_ category: Category) {
+        editCategoryClosure?(category)
+    }
+    
+    private func didSelectAddCategory() {
+        addCategoryClosure?()
+    }
+    
+    // MARK: Content
+    
+    func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+        setTableViewContent()
+    }
+    
+    func setTableViewContent() {
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
         for category in categories {
@@ -122,7 +149,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
             guard let self = self else { return nil }
             let deleteAction = UIContextualAction(style: .destructive, title:  self.localizer.localizeText("delete"), handler: { contextualAction, view, success in
                 do {
-                    try self.didDeleteCategoryClosure?(category)
+                    try self.deleteCategoryClosure?(category)
                     self.tableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
                         success(true)
                     }
@@ -161,20 +188,6 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
             return false
         }
         return addCategoryCellController
-    }
-    
-    // MARK: Events
-    
-    @objc private func backButtonTouchUpInsideEventAction() {
-        backClosure?()
-    }
-    
-    private func didSelectCategory(_ category: Category) {
-        didSelectCategoryClosure?(category)
-    }
-    
-    private func didSelectAddCategory() {
-        didSelectAddCategoryClosure?()
     }
     
 }

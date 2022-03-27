@@ -125,7 +125,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, deleteCategory category: PresentationCategory) {
+    func presentation(_ presentation: Presentation, deleteCategory category: PresentationCategory) throws {
         do {
             let storageCategory = Category(presentationCategory: category).storageCategoty
             try storage.removeCategory(id: storageCategory.id)
@@ -134,7 +134,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, sortCategories categories: [PresentationCategory]) {
+    func presentation(_ presentation: Presentation, orderCategories categories: [PresentationCategory]) throws {
         do {
             try storage.saveCategoriesOrder(orderedIds: categories.map({ $0.id }))
         } catch {
