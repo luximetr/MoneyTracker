@@ -111,7 +111,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - NameTextField
     
-    let nameTextField = AddExpenseScreenViewController.CommentTextField()
+    let nameTextField = CommentTextField()
     
     private func layoutNameTextField() {
         nameTextField.pin
@@ -135,7 +135,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - CommentTextField
     
-    let commentTextField = AddExpenseScreenViewController.CommentTextField()
+    let commentTextField = CommentTextField()
     
     private func layoutCommentTextField() {
         commentTextField.pin

@@ -963,7 +963,6 @@
 		2EADAD9927E1315C0013DEEC /* CommentTextField */ = {
 			isa = PBXGroup;
 			children = (
-				2EADAD9A27E131690013DEEC /* CommentTextField.swift */,
 			);
 			path = CommentTextField;
 			sourceTree = "<group>";
@@ -1179,6 +1178,7 @@
 		2EC1BDC527B99A3400C4A054 /* TextInput */ = {
 			isa = PBXGroup;
 			children = (
+				2EADAD9A27E131690013DEEC /* CommentTextField.swift */,
 				DB45FACD27E4B5A80073C677 /* TextFieldLabel */,
 				2EC1BDC627B99A3D00C4A054 /* Validator */,
 			);

@@ -14,7 +14,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: Subviews
     
     let scrollView = UIScrollView()
-    let nameTextField: UITextField = AddExpenseScreenViewController.CommentTextField()
+    let nameTextField: UITextField = CommentTextField()
     let addButton = TextFilledButton()
     
     // MARK: Setup

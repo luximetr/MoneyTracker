@@ -8,7 +8,6 @@
 import UIKit
 import AUIKit
 
-extension AddExpenseScreenViewController {
 final class CommentTextField: AUITextField {
     
     // MARK: Placeholder
@@ -60,5 +59,4 @@ final class CommentTextField: AUITextField {
         return editingRect
     }
     
-}
 }
