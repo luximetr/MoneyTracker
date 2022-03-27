@@ -35,7 +35,8 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     
     private func loadData() {
         months = monthsClosure?() ?? []
-        selectedMonth = months.first ?? Date()
+        let currentMonth = (selectedMonth ?? Date()).startOfMonth
+        selectedMonth = months.min(by: { abs($0.timeIntervalSince(currentMonth)) < abs($1.timeIntervalSince(currentMonth)) }) ?? currentMonth
         expenses = expensesClosure?(Date()) ?? []
     }
     
@@ -56,7 +57,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
-        monthPickerViewConroller.setMonths(months)
+        setContent()
         monthPickerViewConroller.monthPickerView = screenView.monthPickerView
         monthPickerViewConroller.didSelectMonthClosure = { [weak self] month in
             guard let self = self else { return }
@@ -66,7 +67,6 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         if let month = selectedMonth {
             monthPickerViewConroller.selectMonth(month, animated: false)
         }
-        setContent()
     }
     
     // MARK: Localizer
@@ -79,6 +79,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Events
     
     private func didSelectMonth(_ month: Date) {
+        selectedMonth = month
         expenses = expensesClosure?(month) ?? []
         setMonthExpensesLabelContent()
         setMonthCategoryExpensesTableViewControllerContent()
@@ -88,6 +89,8 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
+        monthPickerViewConroller.setMonths(months)
+        monthPickerViewConroller.setSelectedMonth(selectedMonth)
         setMonthExpensesLabelContent()
         setMonthCategoryExpensesTableViewControllerContent()
     }
@@ -141,4 +144,29 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         return cellController
     }
     
+}
+
+extension Date {
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+
+    var endOfDay: Date {
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfDay)!
+    }
+
+    var startOfMonth: Date {
+        let components = Calendar.current.dateComponents([.year, .month], from: startOfDay)
+        return Calendar.current.date(from: components)!
+    }
+
+    var endOfMonth: Date {
+        var components = DateComponents()
+        components.month = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfMonth)!
+    }
 }

@@ -1621,8 +1621,8 @@
 				DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */,
 				DB7486E627D065EA004DF67B /* StatisticScreenView.swift */,
 				2EA7B24E27ECFFED006C2F13 /* StatisticScreenStrings.strings */,
-				2EBDF92D27ECCF24002B6C9E /* MonthCategoryExpensesTableViewCell */,
 				2E01B2BD27EDA85700013321 /* MonthPickerView */,
+				2EBDF92D27ECCF24002B6C9E /* MonthCategoryExpensesTableViewCell */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";

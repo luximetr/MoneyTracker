@@ -13,7 +13,16 @@ final class MonthPickerViewController: AUIEmptyViewController {
     
     // MARK: Data
     
+    private(set) var selectedMonth: Date?
     private var months: [Date] = []
+    
+    func setSelectedMonth(_ selectedMonth: Date?) {
+        self.selectedMonth = selectedMonth
+        selectedCellController?.setSelected(false)
+        if let selectedMonth = selectedMonth {
+            cellControllerForMonth(selectedMonth)?.setSelected(true)
+        }
+    }
     
     func setMonths(_ months: [Date]) {
         self.months = months
@@ -29,7 +38,12 @@ final class MonthPickerViewController: AUIEmptyViewController {
     
     private let collectionViewController = AUIEmptyCollectionViewController()
     private let sectionController = AUIEmptyCollectionViewSectionController()
-    private var selectedCellController: MonthCollectionViewCellController?
+    private var monthCellControllers: [MonthCollectionViewCellController]? {
+        return sectionController.cellControllers as? [MonthCollectionViewCellController]
+    }
+    private var selectedCellController: MonthCollectionViewCellController? {
+        return monthCellControllers?.first(where: { $0.isSelected })
+    }
     private func cellControllerForMonth(_ month: Date) -> MonthCollectionViewCellController? {
         guard let cellController = sectionController.cellControllers.first(where: { cellController in
             guard let monthCollectionViewCellController = cellController as? MonthCollectionViewCellController else { return false }
@@ -60,6 +74,7 @@ final class MonthPickerViewController: AUIEmptyViewController {
     }
     
     private func setCollectionViewControllerContent() {
+        collectionViewController.reload()
         var cellControllers: [AUICollectionViewCellController] = []
         for month in months {
             let accountCellController = createMonthCollectionViewCellController(month: month)
@@ -71,7 +86,7 @@ final class MonthPickerViewController: AUIEmptyViewController {
     }
     
     private func createMonthCollectionViewCellController(month: Date) -> MonthCollectionViewCellController {
-        let cellController = MonthCollectionViewCellController(month: month, isSelected: false)
+        let cellController = MonthCollectionViewCellController(month: month, isSelected: month == selectedMonth)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             let monthCollectionViewCell = self.monthPickerView!.monthCollectionViewCell(indexPath)
@@ -92,7 +107,6 @@ final class MonthPickerViewController: AUIEmptyViewController {
     private func didSelectMonthCellController(_ cellController: MonthCollectionViewCellController) {
         guard selectedCellController !== cellController else { return }
         selectedCellController?.setSelected(false)
-        selectedCellController = cellController
         if let indexPath = collectionViewController.indexPathForCellController(cellController) {
             monthPickerView?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             cellController.setSelected(true)
@@ -103,18 +117,12 @@ final class MonthPickerViewController: AUIEmptyViewController {
     
     // MARK: States
     
-    var selectedMonth: Date? {
-        guard let selectedCellController = selectedCellController else { return nil }
-        let selectedMonth = selectedCellController.month
-        return selectedMonth
-    }
-    
     func selectMonth(_ month: Date, animated: Bool) {
         guard let cellController = cellControllerForMonth(month) else { return }
         guard selectedCellController !== cellController else { return }
         selectedCellController?.setSelected(false)
-        selectedCellController = cellController
         if let indexPath = collectionViewController.indexPathForCellController(cellController) {
+            self.selectedMonth = month
             monthPickerView?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
             cellController.setSelected(true)
         }
