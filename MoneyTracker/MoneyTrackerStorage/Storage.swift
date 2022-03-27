@@ -56,7 +56,7 @@ public class Storage {
     public func addCategories(_ addingCategories: [AddingCategory]) {
         addingCategories.forEach {
             do {
-                try addCategory($0)
+                _ = try addCategory($0)
             } catch {
                 print(error)
             }

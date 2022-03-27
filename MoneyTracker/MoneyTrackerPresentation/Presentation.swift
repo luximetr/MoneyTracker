@@ -35,7 +35,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
     func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
     func presentation(_ presentation: Presentation, editExpense editingExpense: Expense) throws -> Expense
-    func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws
+    func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws -> Expense
     func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
     func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [Expense]
     func presentationExpensesMonths(_ presentation: Presentation) -> [Date]
@@ -113,6 +113,7 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
                 self.historyViewController?.insertExpense(addedExpense)
+                self.statisticScreen?.addExpense(addedExpense)
                 return addedExpense
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
@@ -166,7 +167,8 @@ public final class Presentation: AUIWindowPresentation {
         viewController.deleteExpenseClosure = { [weak self] deletingExpense in
             guard let self = self else { return }
             do {
-                try self.delegate.presentation(self, deleteExpense: deletingExpense)
+                let deletedExpense = try self.delegate.presentation(self, deleteExpense: deletingExpense)
+                self.statisticScreen?.deleteExpense(deletedExpense)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
             }
@@ -198,6 +200,7 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let editedExpense = try self.delegate.presentation(self, editExpense: expense)
                 self.historyViewController?.editExpense(editedExpense)
+                self.statisticScreen?.editExpense(editedExpense)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
             }
@@ -232,6 +235,7 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
                 self.historyViewController?.insertExpense(addedExpense)
+                self.statisticScreen?.addExpense(addedExpense)
                 return addedExpense
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
@@ -241,8 +245,8 @@ public final class Presentation: AUIWindowPresentation {
         viewController.deleteExpenseClosure = { [weak self] expense in
             guard let self = self else { return }
             do {
-                try self.delegate.presentation(self, deleteExpense: expense)
-                self.historyViewController?.deleteExpense(expense)
+                let deletedExpense = try self.delegate.presentation(self, deleteExpense: expense)
+                self.historyViewController?.deleteExpense(deletedExpense)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
             }

@@ -77,6 +77,7 @@ final class ScreenView: TitleNavigationBarScreenView {
         let height = bounds.height - y
         let frame = CGRect(x: x, y: y, width: width, height: height)
         monthCategoriesExpensesTableView.frame = frame
+        monthCategoriesExpensesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeAreaInsets.bottom, right: 0)
     }
     
     // MARK: ExpensesTableView

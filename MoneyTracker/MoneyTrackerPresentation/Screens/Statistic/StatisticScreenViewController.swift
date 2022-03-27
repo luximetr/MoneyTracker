@@ -12,16 +12,32 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Data
     
+    private var months: [Date] = []
+    private var selectedMonth: Date?
     private var expenses: [Expense] = []
     var monthsClosure: (() -> [Date])?
     var expensesClosure: ((Date) -> [Expense])?
     
-    // MARK: Localizer
+    func deleteExpense(_ expense: Expense) {
+        loadData()
+        setContent()
+    }
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "StatisticScreenStrings")
-        return localizer
-    }()
+    func editExpense(_ expense: Expense) {
+        loadData()
+        setContent()
+    }
+    
+    func addExpense(_ expense: Expense) {
+        loadData()
+        setContent()
+    }
+    
+    private func loadData() {
+        months = monthsClosure?() ?? []
+        selectedMonth = months.first ?? Date()
+        expenses = expensesClosure?(Date()) ?? []
+    }
     
     // MARK: View
     
@@ -39,22 +55,28 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        screenView.titleLabel.text = localizer.localizeText("title")
-        expenses = expensesClosure?(Date()) ?? []
-        monthCategoryExpensesTableViewController.tableView = screenView.monthCategoriesExpensesTableView
-        setMonthCategoryExpensesTableViewControllerContent()
-        setMonthExpensesLabelContent()
-        monthPickerViewConroller.monthPickerView = screenView.monthPickerView
-        let months = monthsClosure?() ?? []
+        loadData()
         monthPickerViewConroller.setMonths(months)
-        if let month = months.first {
-            monthPickerViewConroller.selectMonth(month, animated: false)
-        }
+        monthPickerViewConroller.monthPickerView = screenView.monthPickerView
         monthPickerViewConroller.didSelectMonthClosure = { [weak self] month in
             guard let self = self else { return }
             self.didSelectMonth(month)
         }
+        monthCategoryExpensesTableViewController.tableView = screenView.monthCategoriesExpensesTableView
+        if let month = selectedMonth {
+            monthPickerViewConroller.selectMonth(month, animated: false)
+        }
+        setContent()
     }
+    
+    // MARK: Localizer
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "StatisticScreenStrings")
+        return localizer
+    }()
+    
+    // MARK: Events
     
     private func didSelectMonth(_ month: Date) {
         expenses = expensesClosure?(month) ?? []
@@ -62,11 +84,36 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         setMonthCategoryExpensesTableViewControllerContent()
     }
     
+    // MARK: Content
+    
+    private func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+        setMonthExpensesLabelContent()
+        setMonthCategoryExpensesTableViewControllerContent()
+    }
+    
+    private func setMonthExpensesLabelContent() {
+        var currenciesAmounts: [Currency: Decimal] = [:]
+        for expense in expenses {
+            let currency = expense.account.currency
+            let amount = expense.amount
+            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+            currenciesAmounts[currency] = currencyAmount
+        }
+        var currenciesAmountsStrings: [String] = []
+        let sortedCurrencyAmount = currenciesAmounts.sorted(by: { $0.1 > $1.1 })
+        for (currency, amount) in sortedCurrencyAmount {
+            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
+            currenciesAmountsStrings.append(currencyAmountString)
+        }
+        let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
+        screenView.monthExpensesLabel.text = currenciesAmountsStringsJoined
+    }
+    
     private func setMonthCategoryExpensesTableViewControllerContent() {
         monthCategoryExpensesTableViewSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        let ggg = Dictionary(grouping: expenses) { $0.category }
-        let categoriesExpenses = ggg.values.sorted(by: { $0.first?.category.name ?? "" < $1.first?.category.name ?? "" })
+        let categoriesExpenses = Dictionary(grouping: expenses) { $0.category }.values.sorted(by: { $0.first?.category.name ?? "" < $1.first?.category.name ?? "" })
         for categoryExpenses in categoriesExpenses {
             let cellController = createMonthCategoryExpensesTableViewController(expenses: categoryExpenses)
             cellControllers.append(cellController)
@@ -92,24 +139,6 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
             return self.screenView.monthCategoryExpensesTableViewCellHeight()
         }
         return cellController
-    }
-    
-    private func setMonthExpensesLabelContent() {
-        var currenciesAmounts: [Currency: Decimal] = [:]
-        for expense in expenses {
-            let currency = expense.account.currency
-            let amount = expense.amount
-            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
-            currenciesAmounts[currency] = currencyAmount
-        }
-        var currenciesAmountsStrings: [String] = []
-        let sortedCurrencyAmount = currenciesAmounts.sorted(by: { $0.1 > $1.1 })
-        for (currency, amount) in sortedCurrencyAmount {
-            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
-            currenciesAmountsStrings.append(currencyAmountString)
-        }
-        let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
-        screenView.monthExpensesLabel.text = currenciesAmountsStringsJoined
     }
     
 }
