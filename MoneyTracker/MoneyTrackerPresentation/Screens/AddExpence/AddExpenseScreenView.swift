@@ -16,7 +16,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let inputDateView = InputDateView()
     let dayExpensesLabel = UILabel()
     let expensesTableView = UITableView()
-    let commentTextField: UITextField = CommentTextField()
+    let commentTextField: UITextField = TextField()
     let addButton = PictureButton()
     let selectAccountView = BalanceAccountHorizontalPickerView()
     let inputAmountView = InputAmountView()

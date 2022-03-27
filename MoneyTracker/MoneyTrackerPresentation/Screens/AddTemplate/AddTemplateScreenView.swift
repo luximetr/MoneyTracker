@@ -111,7 +111,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - NameTextField
     
-    let nameTextField = CommentTextField()
+    let nameTextField = TextField()
     
     private func layoutNameTextField() {
         nameTextField.pin
@@ -135,7 +135,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - CommentTextField
     
-    let commentTextField = CommentTextField()
+    let commentTextField = TextField()
     
     private func layoutCommentTextField() {
         commentTextField.pin

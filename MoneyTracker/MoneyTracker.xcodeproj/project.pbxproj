@@ -68,7 +68,7 @@
 		2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7067827B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift */; };
 		2EA7B24C27ECFFED006C2F13 /* StatisticScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EA7B24E27ECFFED006C2F13 /* StatisticScreenStrings.strings */; };
 		2EA7B25127ED0267006C2F13 /* NumberFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7B25027ED0267006C2F13 /* NumberFormatters.swift */; };
-		2EADAD9B27E131690013DEEC /* CommentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EADAD9A27E131690013DEEC /* CommentTextField.swift */; };
+		2EADAD9B27E131690013DEEC /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EADAD9A27E131690013DEEC /* TextField.swift */; };
 		2EADAD9D27E133860013DEEC /* ExpenseTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EADAD9C27E133860013DEEC /* ExpenseTableViewCellController.swift */; };
 		2EB10A0727A6C30D00743416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0627A6C30D00743416 /* Assets.xcassets */; };
 		2EB10A0A27A6C30D00743416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */; };
@@ -353,7 +353,7 @@
 		2EA7067827B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenColorCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2EA7B24D27ECFFED006C2F13 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StatisticScreenStrings.strings; sourceTree = "<group>"; };
 		2EA7B25027ED0267006C2F13 /* NumberFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatters.swift; sourceTree = "<group>"; };
-		2EADAD9A27E131690013DEEC /* CommentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextField.swift; sourceTree = "<group>"; };
+		2EADAD9A27E131690013DEEC /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		2EADAD9C27E133860013DEEC /* ExpenseTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCellController.swift; sourceTree = "<group>"; };
 		2EB109FA27A6C30C00743416 /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB10A0627A6C30D00743416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1178,7 +1178,7 @@
 		2EC1BDC527B99A3400C4A054 /* TextInput */ = {
 			isa = PBXGroup;
 			children = (
-				2EADAD9A27E131690013DEEC /* CommentTextField.swift */,
+				2EADAD9A27E131690013DEEC /* TextField.swift */,
 				DB45FACD27E4B5A80073C677 /* TextFieldLabel */,
 				2EC1BDC627B99A3D00C4A054 /* Validator */,
 			);
@@ -2136,7 +2136,7 @@
 				2ED8BD7427E908F50007F60B /* HistoryScreenView.swift in Sources */,
 				2EB10A4A27A707A300743416 /* Language.swift in Sources */,
 				2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */,
-				2EADAD9B27E131690013DEEC /* CommentTextField.swift in Sources */,
+				2EADAD9B27E131690013DEEC /* TextField.swift in Sources */,
 				2ECFFFC727F040BD00F338B8 /* AddTableViewCellController.swift in Sources */,
 				2EADAD9D27E133860013DEEC /* ExpenseTableViewCellController.swift in Sources */,
 				2E01B2C427EDACD400013321 /* MonthCollectionViewCell.swift in Sources */,

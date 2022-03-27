@@ -38,9 +38,15 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
         scrollView.addSubview(backgroundView)
         setupBackgroundView()
         backgroundView.addSubview(nameInputView)
+        nameInputView.backgroundColor = Colors.black.withAlphaComponent(0.15)
+        nameInputView.textColor = Colors.white
+        nameInputView.tintColor = Colors.white
         backgroundView.addSubview(currencyInputView)
         setupCurrencyInputView()
         backgroundView.addSubview(amountInputView)
+        amountInputView.backgroundColor = Colors.black.withAlphaComponent(0.15)
+        amountInputView.textColor = Colors.white
+        amountInputView.tintColor = Colors.white
         scrollView.addSubview(colorsTitleLabel)
         setupColorsTitleLabel()
         scrollView.addSubview(colorsCollectionView)
@@ -214,32 +220,3 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
     }
     
 }
-
-private final class TextField: AUITextField {
-    
-    // MARK: Setup
-    
-    override func setup() {
-        super.setup()
-        backgroundColor = Colors.black.withAlphaComponent(0.15)
-        layer.cornerRadius = 10
-        textColor = Colors.white
-    }
-    
-    // MARK: Layout
-    
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        var editingRect = super.editingRect(forBounds: bounds)
-        editingRect.origin.x += 16
-        editingRect.size.width -= 32
-        return editingRect
-    }
-    
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        var textRect = super.editingRect(forBounds: bounds)
-        textRect.origin.x += 16
-        textRect.size.width -= 32
-        return textRect
-    }
-}
-

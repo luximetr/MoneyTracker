@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class CommentTextField: AUITextField {
+final class TextField: AUITextField {
     
     // MARK: Placeholder
     
