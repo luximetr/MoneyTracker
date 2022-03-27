@@ -11,8 +11,8 @@ import MessageUI
 
 public protocol PresentationDelegate: AnyObject {
     func presentationCategories(_ presentation: Presentation) throws -> [Category]
-    func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory) throws
-    func presentation(_ presentation: Presentation, editCategory editingCategory: Category) throws
+    func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory) throws -> Category
+    func presentation(_ presentation: Presentation, editCategory editingCategory: Category) throws -> Category
     func presentation(_ presentation: Presentation, deleteCategory category: Category) throws
     func presentation(_ presentation: Presentation, orderCategories categories: [Category]) throws
     func presentationCurrencies(_ presentation: Presentation) -> [Currency]
@@ -318,9 +318,8 @@ public final class Presentation: AUIWindowPresentation {
         viewController.addCategoryClosure = { [weak self] addingCategory in
             guard let self = self else { return }
             do {
-                try self.delegate.presentation(self, addCategory: addingCategory)
-                let categories = try self.delegate.presentationCategories(self)
-                self.categoriesViewController?.updateCategories(categories)
+                let addedCategory = try self.delegate.presentation(self, addCategory: addingCategory)
+                self.categoriesViewController?.addCategory(addedCategory)
                 self.menuNavigationController?.popViewController(animated: true)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
@@ -342,9 +341,8 @@ public final class Presentation: AUIWindowPresentation {
         viewController.editCategoryClosure = { [weak self] category in
             guard let self = self else { return }
             do {
-                try self.delegate.presentation(self, editCategory: category)
-                let categories = try! self.delegate.presentationCategories(self)
-                self.categoriesViewController?.updateCategories(categories)
+                let editedCategory = try self.delegate.presentation(self, editCategory: category)
+                self.categoriesViewController?.editCategory(editedCategory)
                 self.menuNavigationController?.popViewController(animated: true)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)

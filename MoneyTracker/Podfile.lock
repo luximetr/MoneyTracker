@@ -28,7 +28,7 @@ CHECKOUT OPTIONS:
     :commit: df527d34e20fa325187756c322c18d711587fe70
     :git: https://github.com/ihormyroniuk/AFoundation.git
   AUIKit:
-    :commit: 4c2d9e89a89b5443eadc67ef90e55f93a7203d0b
+    :commit: 168eb3cdc15ac1c26bdaa82108c77fc0f445e090
     :git: https://github.com/ihormyroniuk/AUIKit.git
 
 SPEC CHECKSUMS:

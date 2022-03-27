@@ -39,7 +39,7 @@ final class CategoriesScreenView: BackTitleNavigationBarScreenView {
     private func setupTableView() {
         tableView.separatorStyle = .none
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: categoryTableViewCellReuseIdentifier)
-        tableView.register(CategoriesScreenAddCategoryTableViewCell.self, forCellReuseIdentifier: addCategoryTableViewCellReuseIdentifier)
+        tableView.register(AddTableViewCell.self, forCellReuseIdentifier: addCategoryTableViewCellReuseIdentifier)
     }
     
     // MARK: Layout
@@ -56,13 +56,13 @@ final class CategoriesScreenView: BackTitleNavigationBarScreenView {
         let height = bounds.height - y
         let frame = CGRect(x: x, y: y, width: width, height: height)
         tableView.frame = frame
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: safeAreaInsets.bottom, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeAreaInsets.bottom, right: 0)
     }
     
     // MARK: CategoryTableViewCell
     
-    func categoryTableViewCell(_ indexPath: IndexPath) -> CategoryTableViewCell! {
-        let cell = tableView.dequeueReusableCell(withIdentifier: categoryTableViewCellReuseIdentifier, for: indexPath) as? CategoryTableViewCell
+    func categoryTableViewCell(_ indexPath: IndexPath) -> CategoryTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: categoryTableViewCellReuseIdentifier, for: indexPath) as! CategoryTableViewCell
         return cell
     }
     
@@ -76,9 +76,9 @@ final class CategoriesScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: AddCategoryTableViewCell
     
-    func addCategoryTableViewCell(_ indexPath: IndexPath) -> CategoriesScreenAddCategoryTableViewCell! {
-        let cell = tableView.dequeueReusableCell(withIdentifier: addCategoryTableViewCellReuseIdentifier, for: indexPath) as? CategoriesScreenAddCategoryTableViewCell
-        cell?.pictureImageView.image = Images.plusInDashCircle
+    func addCategoryTableViewCell(_ indexPath: IndexPath) -> AddTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: addCategoryTableViewCellReuseIdentifier, for: indexPath) as! AddTableViewCell
+        cell.pictureImageView.image = Images.plusInDashCircle
         return cell
     }
     

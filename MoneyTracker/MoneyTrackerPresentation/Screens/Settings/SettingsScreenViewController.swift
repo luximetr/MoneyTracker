@@ -50,7 +50,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         tableViewController.tableView = settingsScreenView.tableView
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
-        let categoriesCellController = CategoriesScreenAddCategoryTableViewCellController()
+        let categoriesCellController = AddTableViewCellController()
         categoriesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
@@ -73,7 +73,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(categoriesCellController)
         
-        let currencyCellController = CategoriesScreenAddCategoryTableViewCellController()
+        let currencyCellController = AddTableViewCellController()
         currencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
@@ -96,7 +96,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(currencyCellController)
 
-        let accountsCellController = CategoriesScreenAddCategoryTableViewCellController()
+        let accountsCellController = AddTableViewCellController()
         accountsCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
@@ -119,7 +119,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(accountsCellController)
         
-        let templatesCellController = CategoriesScreenAddCategoryTableViewCellController()
+        let templatesCellController = AddTableViewCellController()
         templatesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
@@ -142,7 +142,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(templatesCellController)
         
-        let importCSVCellController = CategoriesScreenAddCategoryTableViewCellController()
+        let importCSVCellController = AddTableViewCellController()
         importCSVCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
@@ -165,7 +165,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(importCSVCellController)
         
-        let exportCSVCellController = CategoriesScreenAddCategoryTableViewCellController()
+        let exportCSVCellController = AddTableViewCellController()
         exportCSVCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!

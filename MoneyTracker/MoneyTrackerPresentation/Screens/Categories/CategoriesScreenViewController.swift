@@ -19,6 +19,19 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     var orderCategoriesClosure: (([Category]) throws -> Void)?
     var addCategoryClosure: (() -> Void)?
     
+    func editCategory(_ category: Category) {
+        guard let firstIndex = categories.firstIndex(where: { $0.id == category.id }) else { return }
+        categories[firstIndex] = category
+        guard let cellController = categoriesCellControllers?.first(where: { $0.category.id == category.id }) else { return }
+        cellController.editCategory(category)
+    }
+    
+    func addCategory(_ category: Category) {
+        categories.append(category)
+        let cellController = createCategoryTableViewCellController(category: category)
+        tableViewController.insertCellControllerAtSectionEndAnimated(categoriesSectionController, cellController: cellController, .automatic, completion: nil)
+    }
+    
     func updateCategories(_ categories: [Category]) {
         self.categories = categories
         setupTableViewController()
@@ -41,6 +54,11 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private let tableViewController = AUIClosuresTableViewController()
+    private let categoriesSectionController = AUIEmptyTableViewSectionController()
+    private var categoriesCellControllers: [CategoryTableViewCellController]? {
+        return categoriesSectionController.cellControllers as? [CategoryTableViewCellController]
+    }
+    private let addCategorySectionController = AUIEmptyTableViewSectionController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +71,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         tableViewController.tableView = screenView.tableView
         tableViewController.dragInteractionEnabled = true
         tableViewController.targetIndexPathForMoveFromRowAtClosure = { sourceCellController, destinationCellController in
-            if destinationCellController is CategoriesScreenAddCategoryTableViewCellController {
+            if destinationCellController is AddTableViewCellController {
                 return sourceCellController
             }
             return destinationCellController
@@ -103,18 +121,20 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     }
     
     func setTableViewContent() {
-        let sectionController = AUIEmptyTableViewSectionController()
-        var cellControllers: [AUITableViewCellController] = []
+        var categoriesCellControllers: [AUITableViewCellController] = []
         for category in categories {
             let cellController = createCategoryTableViewCellController(category: category)
-            cellControllers.append(cellController)
+            categoriesCellControllers.append(cellController)
         }
+        categoriesSectionController.cellControllers = categoriesCellControllers
         
+        var addCategoryCellControllers: [AUITableViewCellController] = []
         let addCategoryCellController = createAddCategoryTableViewCellController()
-        cellControllers.append(addCategoryCellController)
+        addCategoryCellControllers.append(addCategoryCellController)
+        addCategorySectionController.cellControllers = addCategoryCellControllers
         
-        sectionController.cellControllers = cellControllers
-        tableViewController.sectionControllers = [sectionController]
+        tableViewController.sectionControllers = [categoriesSectionController, addCategorySectionController]
+        tableViewController.reload()
     }
     
     private func createCategoryTableViewCellController(category: Category) -> CategoryTableViewCellController {
@@ -122,8 +142,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.categoryTableViewCell(indexPath)
-            cell?.nameLabel.text = category.name
-            return cell!
+            return cell
         }
         cellController.estimatedHeightClosure = { [weak self] in
             guard let self = self else { return 0 }
@@ -137,7 +156,7 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         }
         cellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectCategory(category)
+            self.didSelectCategory(cellController.category)
         }
         cellController.itemsForBeginningSessionClosure = { _ in
             return []
@@ -162,11 +181,11 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
         return cellController
     }
     
-    private func createAddCategoryTableViewCellController() -> CategoriesScreenAddCategoryTableViewCellController {
-        let addCategoryCellController = CategoriesScreenAddCategoryTableViewCellController()
+    private func createAddCategoryTableViewCellController() -> AddTableViewCellController {
+        let addCategoryCellController = AddTableViewCellController()
         addCategoryCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.screenView.addCategoryTableViewCell(indexPath)!
+            let cell = self.screenView.addCategoryTableViewCell(indexPath)
             cell._textLabel.text = self.localizer.localizeText("addCategory")
             return cell
         }

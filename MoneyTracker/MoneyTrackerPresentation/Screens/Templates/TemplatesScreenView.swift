@@ -73,7 +73,7 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Add template cell
     
-    func addTemplateTableViewCell(_ indexPath: IndexPath) -> CategoriesScreenAddCategoryTableViewCell {
+    func addTemplateTableViewCell(_ indexPath: IndexPath) -> AddTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: addTemplateTableViewCellReuseIdentifier, for: indexPath) as! TemplatesScreenAddTemplateTableViewCell
         cell.pictureImageView.image = Images.plusInDashCircle
         return cell

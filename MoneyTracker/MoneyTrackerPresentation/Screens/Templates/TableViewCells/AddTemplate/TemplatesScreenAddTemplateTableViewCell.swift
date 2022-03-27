@@ -7,4 +7,4 @@
 
 import UIKit
 
-typealias TemplatesScreenAddTemplateTableViewCell = CategoriesScreenAddCategoryTableViewCell
+typealias TemplatesScreenAddTemplateTableViewCell = AddTableViewCell

@@ -8,6 +8,6 @@
 import UIKit
 import AUIKit
 
-final class CategoriesScreenAddCategoryTableViewCellController: AUIClosuresTableViewCellController {
+final class AddTableViewCellController: AUIClosuresTableViewCellController {
 
 }

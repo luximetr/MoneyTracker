@@ -57,10 +57,12 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, addCategory addingCategory: PresentationAddingCategory) throws {
+    func presentation(_ presentation: Presentation, addCategory addingCategory: PresentationAddingCategory) throws -> PresentationCategory {
         do {
             let storageAddingCategory = AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty
-            try storage.addCategory(storageAddingCategory)
+            let storageAddedCategory = try storage.addCategory(storageAddingCategory)
+            let presentationAddedCategory = Category(storageCategory: storageAddedCategory).presentationCategory
+            return presentationAddedCategory
         } catch {
             let error = Error("Cannot add category \(addingCategory)\n\(error)")
             throw error
@@ -77,10 +79,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editCategory presentationCategory: PresentationCategory) throws {
+    func presentation(_ presentation: Presentation, editCategory presentationCategory: PresentationCategory) throws -> PresentationCategory {
         do {
             let editingCategory = EditingCategory(name: presentationCategory.name)
             try storage.updateCategory(id: presentationCategory.id, editingCategory: editingCategory)
+            return presentationCategory
         } catch {
             let error = Error("Cannot edit category \(presentationCategory)\n\(error)")
             throw error

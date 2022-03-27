@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class CategoriesScreenAddCategoryTableViewCell: AUITableViewCell {
+final class AddTableViewCell: AUITableViewCell {
     
     // MARK: Subviews
     
@@ -52,7 +52,7 @@ final class CategoriesScreenAddCategoryTableViewCell: AUITableViewCell {
     }
     
     private func layoutTextLabel() {
-        let x = pictureImageView.frame.origin.x + pictureImageView.frame.size.height + 28
+        let x = pictureImageView.frame.origin.x + pictureImageView.frame.size.height + 12
         let y: CGFloat = 12
         let width = bounds.width - x - 28 - 28
         let height = bounds.height - 2 * y
