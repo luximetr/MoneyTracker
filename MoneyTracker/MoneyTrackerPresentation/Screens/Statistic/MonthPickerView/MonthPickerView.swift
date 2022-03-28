@@ -50,6 +50,10 @@ final class MonthPickerView: AUIView {
         collectionView.frame = bounds
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
         collectionViewFlowLayout.minimumInteritemSpacing = 12
+        if let deferredScrollToItemClosure = deferredScrollToItemClosure {
+            deferredScrollToItemClosure()
+            self.deferredScrollToItemClosure = nil
+        }
     }
     
     // MARK: MonthCollectionViewCell
@@ -62,6 +66,19 @@ final class MonthPickerView: AUIView {
     func monthCollectionViewCellSize(_ month: String) -> CGSize {
         let size = MonthCollectionViewCell.sizeThatFits(collectionView.bounds.size, month: month)
         return size
+    }
+    
+    // MARK: Actions
+    
+    private var deferredScrollToItemClosure: (() -> ())?
+    func collectionViewScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
+        collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+        if frame == .zero {
+            deferredScrollToItemClosure = { [weak self] in
+                guard let self = self else { return }
+                self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+            }
+        }
     }
     
 }

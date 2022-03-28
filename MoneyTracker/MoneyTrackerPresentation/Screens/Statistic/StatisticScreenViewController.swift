@@ -18,6 +18,13 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     var monthsClosure: (() -> [Date])?
     var expensesClosure: ((Date) -> [Expense])?
     
+    private func loadData() {
+        months = monthsClosure?() ?? []
+        let currentMonth = (selectedMonth ?? Date()).startOfMonth
+        selectedMonth = months.min(by: { abs($0.timeIntervalSince(currentMonth)) < abs($1.timeIntervalSince(currentMonth)) }) ?? currentMonth
+        expenses = expensesClosure?(Date()) ?? []
+    }
+    
     func deleteExpense(_ expense: Expense) {
         loadData()
         setContent()
@@ -31,13 +38,6 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     func addExpense(_ expense: Expense) {
         loadData()
         setContent()
-    }
-    
-    private func loadData() {
-        months = monthsClosure?() ?? []
-        let currentMonth = (selectedMonth ?? Date()).startOfMonth
-        selectedMonth = months.min(by: { abs($0.timeIntervalSince(currentMonth)) < abs($1.timeIntervalSince(currentMonth)) }) ?? currentMonth
-        expenses = expensesClosure?(Date()) ?? []
     }
     
     // MARK: View
@@ -65,7 +65,7 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         }
         monthCategoryExpensesTableViewController.tableView = screenView.monthCategoriesExpensesTableView
         if let month = selectedMonth {
-            monthPickerViewConroller.selectMonth(month, animated: false)
+            monthPickerViewConroller.setSelectedMonth(month)
         }
     }
     

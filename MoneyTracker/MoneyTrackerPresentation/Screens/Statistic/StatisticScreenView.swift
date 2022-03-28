@@ -12,13 +12,13 @@ import PinLayout
 extension StatisticScreenViewController {
 final class ScreenView: TitleNavigationBarScreenView {
     
-    // MARK: - UI elements
+    // MARK: Subviews
     
     let monthPickerView = MonthPickerView()
     let monthExpensesLabel = UILabel()
     let monthCategoriesExpensesTableView = UITableView()
     
-    // MARK: - Setup
+    // MARK: Setup
     
     override func setup() {
         super.setup()

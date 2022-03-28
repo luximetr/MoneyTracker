@@ -13,20 +13,25 @@ final class MonthPickerViewController: AUIEmptyViewController {
     
     // MARK: Data
     
+    private(set) var months: [Date] = []
     private(set) var selectedMonth: Date?
-    private var months: [Date] = []
-    
-    func setSelectedMonth(_ selectedMonth: Date?) {
-        self.selectedMonth = selectedMonth
-        selectedCellController?.setSelected(false)
-        if let selectedMonth = selectedMonth {
-            cellControllerForMonth(selectedMonth)?.setSelected(true)
-        }
-    }
     
     func setMonths(_ months: [Date]) {
         self.months = months
         setCollectionViewControllerContent()
+    }
+    
+    func setSelectedMonth(_ selectedMonth: Date?) {
+        self.selectedMonth = selectedMonth
+        if let selectedCellController = selectedMonthCellController {
+            selectedCellController.setSelected(false)
+        }
+        if let selectedMonth = selectedMonth, let cellController = monthCellController(selectedMonth) {
+            if let indexPath = collectionViewController.indexPathForCellController(cellController) {
+                monthPickerView?.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                cellController.setSelected(true)
+            }
+        }
     }
     
     // MARK: MonthPickerView
@@ -38,18 +43,17 @@ final class MonthPickerViewController: AUIEmptyViewController {
     
     private let collectionViewController = AUIEmptyCollectionViewController()
     private let sectionController = AUIEmptyCollectionViewSectionController()
-    private var monthCellControllers: [MonthCollectionViewCellController]? {
-        return sectionController.cellControllers as? [MonthCollectionViewCellController]
+    private var monthsCellControllers: [MonthCollectionViewCellController]? {
+        guard let monthCellControllers = sectionController.cellControllers as? [MonthCollectionViewCellController] else { return nil }
+        return monthCellControllers
     }
-    private var selectedCellController: MonthCollectionViewCellController? {
-        return monthCellControllers?.first(where: { $0.isSelected })
+    private var selectedMonthCellController: MonthCollectionViewCellController? {
+        guard let selectedCellController = monthsCellControllers?.first(where: { $0.isSelected }) else { return nil }
+        return selectedCellController
     }
-    private func cellControllerForMonth(_ month: Date) -> MonthCollectionViewCellController? {
-        guard let cellController = sectionController.cellControllers.first(where: { cellController in
-            guard let monthCollectionViewCellController = cellController as? MonthCollectionViewCellController else { return false }
-            return monthCollectionViewCellController.month == month
-        }) as? MonthCollectionViewCellController else { return nil }
-        return cellController
+    private func monthCellController(_ month: Date) -> MonthCollectionViewCellController? {
+        guard let monthCellController = monthsCellControllers?.first(where: { $0.month == month }) else { return nil }
+        return monthCellController
     }
   
     override func setupView() {
@@ -72,6 +76,23 @@ final class MonthPickerViewController: AUIEmptyViewController {
         collectionViewController.sectionControllers = []
         collectionViewController.reload()
     }
+    
+    // MARK: Events
+    
+    var didSelectMonthClosure: ((Date) -> ())?
+    private func didSelectMonthCellController(_ monthCellController: MonthCollectionViewCellController) {
+        if let selectedMonthCellController = selectedMonthCellController {
+            selectedMonthCellController.setSelected(false)
+        }
+        monthCellController.setSelected(true)
+        if let indexPath = collectionViewController.indexPathForCellController(monthCellController) {
+            monthPickerView?.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+        let month = monthCellController.month
+        didSelectMonthClosure?(month)
+    }
+    
+    // MARK: Content
     
     private func setCollectionViewControllerContent() {
         collectionViewController.reload()
@@ -102,30 +123,6 @@ final class MonthPickerViewController: AUIEmptyViewController {
             self.didSelectMonthCellController(cellController)
         }
         return cellController
-    }
-    
-    private func didSelectMonthCellController(_ cellController: MonthCollectionViewCellController) {
-        guard selectedCellController !== cellController else { return }
-        selectedCellController?.setSelected(false)
-        if let indexPath = collectionViewController.indexPathForCellController(cellController) {
-            monthPickerView?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            cellController.setSelected(true)
-        }
-        didSelectMonthClosure?(cellController.month)
-    }
-    var didSelectMonthClosure: ((Date) -> ())?
-    
-    // MARK: States
-    
-    func selectMonth(_ month: Date, animated: Bool) {
-        guard let cellController = cellControllerForMonth(month) else { return }
-        guard selectedCellController !== cellController else { return }
-        selectedCellController?.setSelected(false)
-        if let indexPath = collectionViewController.indexPathForCellController(cellController) {
-            self.selectedMonth = month
-            monthPickerView?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-            cellController.setSelected(true)
-        }
     }
     
 }

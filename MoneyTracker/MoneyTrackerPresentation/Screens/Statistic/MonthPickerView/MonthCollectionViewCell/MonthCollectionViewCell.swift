@@ -19,7 +19,6 @@ class MonthCollectionViewCell: AUICollectionViewCell {
     
     override func setup() {
         super.setup()
-        contentView.clipsToBounds = true
         contentView.addSubview(monthLabel)
         setupMonthLabel()
     }

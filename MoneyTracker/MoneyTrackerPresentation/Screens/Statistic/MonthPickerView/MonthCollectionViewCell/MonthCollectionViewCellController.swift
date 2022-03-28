@@ -14,7 +14,7 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     // MARK: Data
         
     let month: Date
-    var isSelected: Bool
+    private(set) var isSelected: Bool
     
     func setSelected(_ isSelected: Bool) {
         self.isSelected = isSelected
@@ -36,14 +36,28 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     }
     
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = super.cellForItemAtIndexPath(indexPath) as! MonthCollectionViewCell
-        let month = Self.month(month)
-        cell.monthLabel.text = month
-        cell.setSelected(isSelected)
+        let cell = super.cellForItemAtIndexPath(indexPath)
+        setContent()
         return cell
     }
     
+    override func willDisplayCell(_ cell: UICollectionViewCell) {
+        super.willDisplayCell(cell)
+        setContent()
+    }
+    
+    override var shouldSelectCell: Bool {
+        let shouldSelectCell = !isSelected
+        return shouldSelectCell
+    }
+    
     // MARK: Content
+    
+    private func setContent() {
+        let month = Self.month(month)
+        monthCollectionViewCell?.monthLabel.text = month
+        monthCollectionViewCell?.setSelected(isSelected)
+    }
     
     private static let monthDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
