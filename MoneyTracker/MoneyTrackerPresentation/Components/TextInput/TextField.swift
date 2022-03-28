@@ -31,8 +31,7 @@ final class TextField: AUITextField {
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.secondaryBackground
-        clipsToBounds = true
+        backgroundColor = Colors.white
         tintColor = Colors.primaryText
         textColor = Colors.primaryText
         font = Fonts.default(size: 17, weight: .regular)
@@ -42,6 +41,10 @@ final class TextField: AUITextField {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 4.0
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         layer.cornerRadius = 10
     }
     

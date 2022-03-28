@@ -96,15 +96,17 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private func setMonthExpensesLabelContent() {
-        var currenciesAmounts: [Currency: Decimal] = [:]
+//        let currenciesAmounts = Dictionary(grouping: expenses, by: { $0.account.currency })
+//        let gg = Dictionary(uniqueKeysWithValues: currenciesAmounts.map({ ($0, $1.map({ $0.amount }).reduce(into: Decimal(), +)) }))
+        var currenciesAmount: [Currency: Decimal] = [:]
         for expense in expenses {
             let currency = expense.account.currency
             let amount = expense.amount
-            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
-            currenciesAmounts[currency] = currencyAmount
+            let currencyAmount = (currenciesAmount[currency] ?? .zero) + amount
+            currenciesAmount[currency] = currencyAmount
         }
         var currenciesAmountsStrings: [String] = []
-        let sortedCurrencyAmount = currenciesAmounts.sorted(by: { $0.1 > $1.1 })
+        let sortedCurrencyAmount = currenciesAmount.sorted(by: { $0.1 > $1.1 })
         for (currency, amount) in sortedCurrencyAmount {
             let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
             currenciesAmountsStrings.append(currencyAmountString)
