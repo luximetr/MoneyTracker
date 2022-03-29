@@ -58,7 +58,7 @@ class BalanceAccountHorizontalPickerView: AUIView {
     
     func createItemCell(indexPath: IndexPath, account: Account, isSelected: Bool) -> BalanceAccountHorizontalPickerItemCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerItemCell
-        cell.coloredView.backgroundColor = account.backgroundColor
+        cell.color = account.backgroundColor
         cell.titleLabel.text = account.name
         cell.update(isSelected: isSelected)
         return cell

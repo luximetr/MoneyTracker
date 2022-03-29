@@ -29,6 +29,13 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
         get { return view as! CategoryHorizontalPickerView }
     }
     
+    // MARK: Localizer
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "CategoryHorizontalPickerStrings")
+        return localizer
+    }()
+    
     // MARK: - View - Setup
     
     override func setupView() {
@@ -46,7 +53,10 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
     func showOptions(categories: [Category], selectedCategory: Category) {
         self.selectedCategory = selectedCategory
         let sectionController = AUIEmptyCollectionViewSectionController()
-        let cellControllers = createItemCellControllers(categories: categories, selectedCategory: selectedCategory)
+        var cellControllers = createItemCellControllers(categories: categories, selectedCategory: selectedCategory)
+        let text = localizer.localizeText("add")
+        let addCellController = createAddCellController(text: text)
+        cellControllers.append(addCellController)
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
     }
@@ -69,6 +79,22 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
         }
         cellController.didSelectClosure = { [weak self] in
             self?.didSelectCategoryCell(category)
+        }
+        return cellController
+    }
+    
+    private func createAddCellController(text: String) -> AddCollectionViewCellController {
+        let cellController = AddCollectionViewCellController(text: text)
+        cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UICollectionViewCell() }
+            return self.categoryHorizontalPickerView.createAddCollectionViewCell(indexPath: indexPath)
+        }
+        cellController.sizeForCellClosure = { [weak self] in
+            guard let self = self else { return .zero }
+            return self.categoryHorizontalPickerView.addCollectionViewCellSize(AddCollectionViewCellController.text(text))
+        }
+        cellController.didSelectClosure = {
+            print("add category")
         }
         return cellController
     }

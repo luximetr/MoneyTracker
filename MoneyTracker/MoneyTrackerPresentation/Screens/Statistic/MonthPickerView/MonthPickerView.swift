@@ -76,7 +76,7 @@ final class MonthPickerView: AUIView {
         if frame == .zero {
             deferredScrollToItemClosure = { [weak self] in
                 guard let self = self else { return }
-                self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+                self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
             }
         }
     }

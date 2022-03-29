@@ -15,18 +15,16 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
     
     let coloredView = UIView()
     let titleLabel = UILabel()
-    private let selectedMarkView = UIView()
+    var color: UIColor = .clear
     
     // MARK: - Setup
     
     override func setup() {
         super.setup()
         addSubview(coloredView)
-        addSubview(selectedMarkView)
         addSubview(titleLabel)
         setupColoredView()
         setupTitleLabel()
-        setupSelectedMarkView()
         update(isSelected: false)
     }
     
@@ -34,6 +32,8 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
     
     private func setupColoredView() {
         coloredView.layer.cornerRadius = 5
+        coloredView.layer.borderWidth = 1
+        coloredView.layer.borderColor = color.cgColor
     }
     
     private func layoutColoredView() {
@@ -44,7 +44,7 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
     
     private func setupTitleLabel() {
         titleLabel.textColor = Colors.darkCardPrimaryText
-        titleLabel.font = Fonts.default(size: 12, weight: .regular)
+        titleLabel.font = Fonts.default(size: 12, weight: .semibold)
         titleLabel.textAlignment = .center
     }
     
@@ -58,23 +58,15 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
     
     // MARK: - SelectedMarkView
     
-    private func setupSelectedMarkView() {
-        selectedMarkView.backgroundColor = .clear
-        selectedMarkView.layer.cornerRadius = 4
-        selectedMarkView.layer.borderColor = Colors.primaryBackground.cgColor
-        selectedMarkView.layer.borderWidth = 1
-    }
-    
-    private func layoutSelectedMarkView() {
-        selectedMarkView.pin
-            .left(to: coloredView.edge.left).marginLeft(1)
-            .right(to: coloredView.edge.right).marginRight(1)
-            .top(to: coloredView.edge.top).marginTop(1)
-            .bottom(to: coloredView.edge.bottom).marginBottom(1)
-    }
-    
     func update(isSelected: Bool) {
-        selectedMarkView.isHidden = !isSelected
+        coloredView.layer.borderColor = color.cgColor
+        if isSelected {
+            titleLabel.textColor = Colors.white
+            coloredView.backgroundColor = color
+        } else {
+            titleLabel.textColor = color
+            coloredView.backgroundColor = .clear
+        }
     }
     
     // MARK: - Layout
@@ -83,7 +75,6 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
         super.layoutSubviews()
         layoutColoredView()
         layoutTitleLabel()
-        layoutSelectedMarkView()
     }
     
     // MARK: - Size

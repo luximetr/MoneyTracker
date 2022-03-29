@@ -38,16 +38,19 @@ class CategoryHorizontalPickerView: AUIView {
     private let collectionViewLayout: UICollectionViewFlowLayout
     let collectionView: UICollectionView
     
+    private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
         collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         collectionViewLayout.scrollDirection = .horizontal
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
+        collectionView.register(CategoryHorizontalPickerController.AddCollectionViewCell.self, forCellWithReuseIdentifier: addCollectionViewCellReuseIdentifier)
     }
     
     private func layoutCollectionView() {
         collectionView.pin.all()
+        collectionViewLayout.minimumLineSpacing = 8
     }
     
     // MARK: - Item cell
@@ -64,5 +67,17 @@ class CategoryHorizontalPickerView: AUIView {
     func getItemCellSize() -> CGSize {
         let minCellWidth: CGFloat = 1
         return CGSize(width: minCellWidth, height: collectionView.frame.height)
+    }
+    
+    // MARK: - Item cell
+    
+    func createAddCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerController.AddCollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerController.AddCollectionViewCell
+        return cell
+    }
+    
+    func addCollectionViewCellSize(_ text: String) -> CGSize {
+        let size = CategoryHorizontalPickerController.AddCollectionViewCell.sizeThatFits(collectionView.bounds.size, text: text)
+        return size
     }
 }

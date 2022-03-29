@@ -36,10 +36,20 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     private func setupColoredView() {
         coloredView.backgroundColor = Colors.secondaryBackground
         coloredView.layer.cornerRadius = 12
+        coloredView.layer.borderColor = Colors.secondaryBackground.cgColor
+        coloredView.layer.borderWidth = 1
     }
     
     private func layoutColoredView() {
         coloredView.pin.all()
+    }
+    
+    private func getColoredViewBackgroundColor(isSelected: Bool) -> UIColor {
+        if isSelected {
+            return Colors.secondaryBackground
+        } else {
+            return Colors.white
+        }
     }
     
     // MARK: - TitleLabel
@@ -69,6 +79,7 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     
     func update(isSelected: Bool) {
         titleLabel.textColor = getTitleLabelTextColor(isSelected: isSelected)
+        coloredView.backgroundColor = getColoredViewBackgroundColor(isSelected: isSelected)
     }
     
     // MARK: - Size
