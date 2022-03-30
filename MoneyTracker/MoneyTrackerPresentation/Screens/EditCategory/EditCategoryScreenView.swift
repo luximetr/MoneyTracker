@@ -14,7 +14,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: Subviews
     
     let scrollView = UIScrollView()
-    let nameTextField: UITextField = TextField()
+    let nameTextField = PlainTextField()
     let editButton = TextFilledButton()
     
     // MARK: Setup

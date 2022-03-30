@@ -20,7 +20,6 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
     func presentationAccounts(_ presentation: Presentation) throws -> [Account]
     func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
-    func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor]
     func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
     func presentation(_ presentation: Presentation, editAccount editingAccount: Account) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
@@ -472,7 +471,7 @@ public final class Presentation: AUIWindowPresentation {
     private weak var addAccoutScreenViewController: AddAccountScreenViewController?
     
     private func createAddAccountViewController() -> AddAccountScreenViewController {
-        let backgroundColors = delegate.presentationAccountBackgroundColors(self)
+        let backgroundColors = AccountBackgroundColors.variants
         let selectedCurrency = delegate.presentationSelectedCurrency(self)
         let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
         viewController.backClosure = { [weak self] in
@@ -515,7 +514,7 @@ public final class Presentation: AUIWindowPresentation {
     private weak var editAccoutScreenViewController: EditAccountScreenViewController?
     
     private func createEditAccountViewController(editingAccount: Account) -> EditAccountScreenViewController {
-        let backgroundColors = delegate.presentationAccountBackgroundColors(self)
+        let backgroundColors = AccountBackgroundColors.variants
         let viewController = EditAccountScreenViewController(editingAccount: editingAccount, backgroundColors: backgroundColors)
         viewController.backClosure = { [weak self] in
             guard let self = self else { return }

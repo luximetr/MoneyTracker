@@ -82,10 +82,10 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
         setupColorsCollectionViewController()
         setColorsCollectionViewControllerContent()
         if let selectedBackgroundColor = self.selectedBackgroundColor, let selectedBackgroundColorCellController = backgroundColorCellController(selectedBackgroundColor) {
-            editAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
             selectedBackgroundColorCellController.setSelected(true, animated: false)
-            editAccountScreenView.setBackgroundColor(selectedBackgroundColor, animated: false)
         }
+        editAccountScreenView.addButton.backgroundColor = editingAccount.backgroundColor
+        editAccountScreenView.setBackgroundColor(editingAccount.backgroundColor, animated: false)
         editAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
         editAccountScreenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
         editAccountScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)

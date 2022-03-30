@@ -123,17 +123,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentationAccountBackgroundColors(_ presentation: Presentation) -> [UIColor] {
-        let backgroundColors: [UIColor] = [
-            UIColor(red: 0.231, green: 0.224, blue: 0.667, alpha: 1),
-            UIColor(red: 0.481, green: 0.471, blue: 0.983, alpha: 1),
-            UIColor(red: 0.219, green: 0.875, blue: 0.363, alpha: 1),
-            UIColor(red: 0.688, green: 0.566, blue: 0.135, alpha: 1),
-            UIColor(red: 0.925, green: 0.816, blue: 0.243, alpha: 1),
-            UIColor(red: 1, green: 0.663, blue: 0.158, alpha: 1)]
-        return backgroundColors
-    }
-    
     func presentation(_ presentation: Presentation, addAccount addingAccount: PresentationAddingAccount) throws -> PresentationAccount {
         do {
             let storageAddingAccount = AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
