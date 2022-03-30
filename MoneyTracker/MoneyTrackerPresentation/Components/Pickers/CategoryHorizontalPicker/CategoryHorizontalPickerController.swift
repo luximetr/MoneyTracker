@@ -128,4 +128,9 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
         showCategorySelected(category)
         didSelectCategoryClosure?(category)
     }
+    
+    var addCategoryClosure: (() -> Void)?
+    private func addCategory() {
+        addCategoryClosure?()
+    }
 }
