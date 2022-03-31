@@ -45,12 +45,12 @@ final class CategoriesScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: View
     
-    private var screenView: CategoriesScreenView! {
-        return view as? CategoriesScreenView
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
     
     override func loadView() {
-        view = CategoriesScreenView()
+        view = ScreenView()
     }
     
     private let tableViewController = AUIClosuresTableViewController()

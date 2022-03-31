@@ -25,7 +25,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(scrollView)
         scrollView.addSubview(nameTextField)
         addSubview(editButton)
-        setupNameTextField()
     }
     
     override func setupStatusBarView() {
@@ -36,10 +35,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func setupNavigationBarView() {
         super.setupNavigationBarView()
         navigationBarView.backgroundColor = Colors.white
-    }
-    
-    private func setupNameTextField() {
-        
     }
     
     // MARK: Layout

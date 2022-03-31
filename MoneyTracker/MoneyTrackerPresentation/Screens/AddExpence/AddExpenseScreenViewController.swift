@@ -33,13 +33,6 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         self.categories = categories
     }
     
-    // MARK: Localizer
-    
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "AddExpenseScreenStrings")
-        return localizer
-    }()
-    
     // MARK: View
     
     private var screenView: ScreenView {
@@ -180,10 +173,16 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     // MARK: Content
+
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "AddExpenseScreenStrings")
+        return localizer
+    }()
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
         commentTextFieldController.placeholder = localizer.localizeText("commentPlaceholder")
+        screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
     }
     
     private func setDayExpensesContent() {

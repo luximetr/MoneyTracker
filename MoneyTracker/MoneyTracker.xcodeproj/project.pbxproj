@@ -876,7 +876,7 @@
 			path = TitleIItem;
 			sourceTree = "<group>";
 		};
-		2E95BB2B27B31A990097CA46 /* Accounts */ = {
+		2E95BB2B27B31A990097CA46 /* AccountsList */ = {
 			isa = PBXGroup;
 			children = (
 				2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */,
@@ -884,7 +884,7 @@
 				2E95BB3427B31ADC0097CA46 /* AccountsScreenStrings.strings */,
 				2E95BB3527B31E4F0097CA46 /* CollectionView */,
 			);
-			path = Accounts;
+			path = AccountsList;
 			sourceTree = "<group>";
 		};
 		2E95BB3527B31E4F0097CA46 /* CollectionView */ = {
@@ -1041,16 +1041,10 @@
 				2E2A6ED527EC4F710084054C /* EditExpense */,
 				DB7486E327D0658F004DF67B /* Statistic */,
 				2E9289F927AFF9A7002F3403 /* Settings */,
-				2EC19ACC27A7F61B00E1A6FA /* Categories */,
-				2EC6292A27AC1EF600371252 /* AddCategory */,
-				2E96212527AFD91B00DF0DD4 /* EditCategory */,
+				2EC96DE627F609F5009A9AEA /* Categories */,
+				2EC96DE727F60A53009A9AEA /* Accounts */,
 				DBD6ACDD27B2A76600389236 /* SelectCurrency */,
-				2E95BB2B27B31A990097CA46 /* Accounts */,
-				2EA7066927B5BA0100FF08B2 /* AddAccount */,
-				2ECAB2FB27C593620028CB0D /* EditAccount */,
-				DB74863027BA5B08004DF67B /* Templates */,
-				DB74863727BA6024004DF67B /* AddTemplate */,
-				DB45FAD227E6EF7F0073C677 /* EditTemplate */,
+				2EC96DE827F60A8F009A9AEA /* Templates */,
 				DB74869327CA1518004DF67B /* ImportCSV */,
 				2E30391527BDAE6C0084B96C /* UnexpectedError */,
 			);
@@ -1139,7 +1133,7 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
-		2EC19ACC27A7F61B00E1A6FA /* Categories */ = {
+		2EC19ACC27A7F61B00E1A6FA /* CategoriesList */ = {
 			isa = PBXGroup;
 			children = (
 				2EC19ACD27A7F64000E1A6FA /* CategoriesScreenViewController.swift */,
@@ -1147,7 +1141,7 @@
 				2EC19ADD27A8238F00E1A6FA /* CategoriesScreenStrings.strings */,
 				2E8FF0FD27AEF1CA00DA033F /* CategoryTableViewCell */,
 			);
-			path = Categories;
+			path = CategoriesList;
 			sourceTree = "<group>";
 		};
 		2EC19AD327A7F75600E1A6FA /* Components */ = {
@@ -1208,6 +1202,36 @@
 				2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */,
 			);
 			path = AddCategory;
+			sourceTree = "<group>";
+		};
+		2EC96DE627F609F5009A9AEA /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				2EC19ACC27A7F61B00E1A6FA /* CategoriesList */,
+				2EC6292A27AC1EF600371252 /* AddCategory */,
+				2E96212527AFD91B00DF0DD4 /* EditCategory */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		2EC96DE727F60A53009A9AEA /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				2E95BB2B27B31A990097CA46 /* AccountsList */,
+				2EA7066927B5BA0100FF08B2 /* AddAccount */,
+				2ECAB2FB27C593620028CB0D /* EditAccount */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
+		2EC96DE827F60A8F009A9AEA /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				DB74863027BA5B08004DF67B /* TemplatesList */,
+				DB74863727BA6024004DF67B /* AddTemplate */,
+				DB45FAD227E6EF7F0073C677 /* EditTemplate */,
+			);
+			path = Templates;
 			sourceTree = "<group>";
 		};
 		2ECAB2FB27C593620028CB0D /* EditAccount */ = {
@@ -1539,7 +1563,7 @@
 			path = ExpensesFile;
 			sourceTree = "<group>";
 		};
-		DB74863027BA5B08004DF67B /* Templates */ = {
+		DB74863027BA5B08004DF67B /* TemplatesList */ = {
 			isa = PBXGroup;
 			children = (
 				DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */,
@@ -1547,7 +1571,7 @@
 				DB74864D27BBABB2004DF67B /* TemplatesScreenStrings.strings */,
 				DB74864227BB5DE3004DF67B /* TableViewCells */,
 			);
-			path = Templates;
+			path = TemplatesList;
 			sourceTree = "<group>";
 		};
 		DB74863727BA6024004DF67B /* AddTemplate */ = {

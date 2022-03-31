@@ -79,7 +79,8 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.statistic()
+        //menuViewController.statistic()
+        menuViewController.dashboard()
     }
     
     // MARK: Menu Navigation Controller

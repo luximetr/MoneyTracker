@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension CategoriesScreenViewController {
-final class CategoriesScreenView: BackTitleNavigationBarScreenView {
+final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
