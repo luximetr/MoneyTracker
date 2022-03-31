@@ -59,6 +59,7 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
         cellControllers.append(addCellController)
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
+        collectionController.reload()
     }
     
     // MARK: - Item cell controller - Create

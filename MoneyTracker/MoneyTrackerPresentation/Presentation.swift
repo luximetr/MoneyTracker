@@ -194,6 +194,18 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             self.menuNavigationController?.popViewController(animated: true)
         }
+        viewController.addAccountClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddAccountViewController()
+            self.addAccoutScreenViewController = viewController
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
+        }
+        viewController.addCategoryClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddCategoryScreenViewController()
+            self.addCategoryViewController = viewController
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
+        }
         viewController.editExpenseClosure = { [weak self] expense in
             guard let self = self else { return }
             do {
@@ -249,6 +261,12 @@ public final class Presentation: AUIWindowPresentation {
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
             }
+        }
+        viewController.addAccountClosure = { [weak self] in
+            guard let self = self else { return }
+            let viewController = self.createAddAccountViewController()
+            self.addAccoutScreenViewController = viewController
+            self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         addExpenseViewController = viewController
         return viewController
@@ -323,6 +341,7 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let addedCategory = try self.delegate.presentation(self, addCategory: addingCategory)
                 self.categoriesViewController?.addCategory(addedCategory)
+                self.editExpenseViewController?.addCategory(addedCategory)
                 self.menuNavigationController?.popViewController(animated: true)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
@@ -502,6 +521,8 @@ public final class Presentation: AUIWindowPresentation {
                 if let accountsViewController = self.accoutsViewController {
                     accountsViewController.addAccount(addedAccount)
                 }
+                self.editExpenseViewController?.addAccount(addedAccount)
+                self.addExpenseViewController?.addAccount(addedAccount)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
             }

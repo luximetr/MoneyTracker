@@ -153,9 +153,6 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
                     }
                     self.expenses.remove(at: index)
                     let cellControllers: [AUITableViewCellController] = [cellController]
-//                    if self.expenses.contains(where: { Calendar.current.startOfDay(for: $0.date) == Calendar.current.startOfDay(for: expense.date) }), let dayCellController = self.dayCellControllerForDay(cellController.expense.date) {
-//                        cellControllers.append(dayCellController)
-//                    }
                     self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
                         success(true)
                     }

@@ -10,23 +10,25 @@ import AUIKit
 
 class EditExpenseScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
-    // MARK: - Delegation
-    
-    var backClosure: (() -> Void)?
-    var editExpenseClosure: ((Expense) -> Void)?
-    
-    // MARK: Localizer
-    
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "EditExpenseScreenStrings")
-        return localizer
-    }()
-    
     // MARK: - Data
     
     private let expense: Expense
-    private let categories: [Category]
-    private let balanceAccounts: [Account]
+    private var categories: [Category]
+    private var balanceAccounts: [Account]
+    var backClosure: (() -> Void)?
+    var addCategoryClosure: (() -> Void)?
+    var addAccountClosure: (() -> Void)?
+    var editExpenseClosure: ((Expense) -> Void)?
+    
+    func addAccount(_ account: Account) {
+        balanceAccounts.append(account)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: account)
+    }
+    
+    func addCategory(_ category: Category) {
+        categories.append(category)
+        categoryPickerController.showOptions(categories: categories, selectedCategory: category)
+    }
     
     // MARK: - Life cycle
     
@@ -46,7 +48,11 @@ class EditExpenseScreenViewController: AUIStatusBarScreenViewController, AUIText
         view = ScreenView()
     }
     
+    private let balanceAccountPickerController = BalanceAccountHorizontalPickerController()
+    private let categoryPickerController = CategoryHorizontalPickerController()
     private let dayDatePickerViewController = AUIEmptyDateTimePickerController()
+    private let amountInputController = TextFieldLabelController()
+    private let commentTextFieldController = AUIEmptyTextFieldController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,49 +75,26 @@ class EditExpenseScreenViewController: AUIStatusBarScreenViewController, AUIText
         dayDatePickerViewController.setDate(expense.date, animated: false)
     }
     
-    // MARK: - View - Actions
-    
-    @objc
-    private func didTapOnBackButton() {
-        backClosure?()
-    }
-    
-    // MARK: - Balance account picker
-    
-    private let balanceAccountPickerController = BalanceAccountHorizontalPickerController()
-    
     private func setupBalanceAccountPickerController() {
         balanceAccountPickerController.balanceAccountHorizontalPickerView = screenView.balanceAccountPickerView
         balanceAccountPickerController.didSelectAccountClosure = { [weak self] account in
             self?.didSelectBalanceAccount(account)
         }
+        balanceAccountPickerController.addAccountClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addAccount()
+        }
         balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: expense.account)
     }
-    
-    private var selectedBalanceAccount: Account? {
-        return balanceAccountPickerController.selectedAccount
-    }
-    
-    private func didSelectBalanceAccount(_ account: Account) {
-        showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
-    }
-    
-    // MARK: - Category picker
-    
-    private let categoryPickerController = CategoryHorizontalPickerController()
     
     private func setupCategoryPickerController() {
         categoryPickerController.categoryHorizontalPickerView = screenView.categoryPickerView
         categoryPickerController.showOptions(categories: categories, selectedCategory: expense.category)
+        categoryPickerController.addCategoryClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addCategory()
+        }
     }
-    
-    private func nameTextFieldDidTapReturnKey() {
-        view.endEditing(true)
-    }
-    
-    // MARK: - Amount input
-    
-    private let amountInputController = TextFieldLabelController()
     
     private func setupAmountTextFieldController() {
         amountInputController.textFieldLabelView = screenView.amountInputView
@@ -122,23 +105,55 @@ class EditExpenseScreenViewController: AUIStatusBarScreenViewController, AUIText
         textFieldController.text = numberFormatter.string(from: NSDecimalNumber(decimal: expense.amount))
     }
     
-    // MARK: - Amount input - Currency
-    
-    private func showAmountInputCurrencyCode(_ currencyCode: String?) {
-        screenView.amountInputView.label.text = currencyCode
-        screenView.amountInputView.layoutSubviews()
-    }
-    
-    // MARK: - Comment input
-    
-    private let commentTextFieldController = AUIEmptyTextFieldController()
-    
     private func setupCommentTextFieldController() {
         commentTextFieldController.textField = screenView.commentTextField
         commentTextFieldController.keyboardType = .asciiCapable
         commentTextFieldController.returnKeyType = .done
         commentTextFieldController.addDidTapReturnKeyObserver(self)
         commentTextFieldController.text = expense.comment
+    }
+    
+    // MARK: Localizer
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "EditExpenseScreenStrings")
+        return localizer
+    }()
+    
+    // MARK: Events
+    
+    private func addAccount() {
+        addAccountClosure?()
+    }
+    
+    private func addCategory() {
+        addCategoryClosure?()
+    }
+    
+    @objc
+    private func didTapOnBackButton() {
+        backClosure?()
+    }
+    
+    // MARK: - Balance account picker
+    
+    private var selectedBalanceAccount: Account? {
+        return balanceAccountPickerController.selectedAccount
+    }
+    
+    private func didSelectBalanceAccount(_ account: Account) {
+        showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
+    }
+    
+    private func nameTextFieldDidTapReturnKey() {
+        view.endEditing(true)
+    }
+    
+    // MARK: - Amount input - Currency
+    
+    private func showAmountInputCurrencyCode(_ currencyCode: String?) {
+        screenView.amountInputView.label.text = currencyCode
+        screenView.amountInputView.layoutSubviews()
     }
     
     // MARK: - Comment input - Return Key

@@ -13,16 +13,19 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     // MARK: Data
     
     private var dayExpenses: [Expense] = []
-    private let accounts: [Account]
-    private let categories: [Category]
-    
-    // MARK: Delegation
-    
+    private var accounts: [Account]
+    private let categories: [Category]    
     var backClosure: (() -> Void)?
+    var addAccountClosure: (() -> Void)?
     var addExpenseClosure: ((AddingExpense) throws -> Expense)?
     var dayExpensesClosure: ((Date) throws -> [Expense])?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
     
+    func addAccount(_ account: Account) {
+        accounts.append(account)
+        balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: account)
+    }
+
     // MARK: Initializer
     
     init(accounts: [Account], categories: [Category]) {
@@ -76,6 +79,10 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
         if let firstAccount = accounts.first {
             balanceAccountHorizontalPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
+        }
+        balanceAccountHorizontalPickerController.addAccountClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addAccount()
         }
         setupExpensesTableViewController()
         dayExpenses = try! dayExpensesClosure?(Date()) ?? []
@@ -145,6 +152,10 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         } catch {
             
         }
+    }
+    
+    private func addAccount() {
+        addAccountClosure?()
     }
     
     func addExpense(_ expense: Expense) {
