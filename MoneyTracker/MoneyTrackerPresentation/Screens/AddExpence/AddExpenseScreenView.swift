@@ -50,7 +50,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupExpensesTableViewContainerView() {
-        //expensesTableViewContainerView.clipsToBounds = true
         expensesTableViewContainerView.layer.shadowOpacity = 1
         expensesTableViewContainerView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
     }
@@ -90,9 +89,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func layoutInputAmountView() {
-        let width = (bounds.width - 16 * 2 - 5 * 2) / 2
+        let width = (bounds.width - 16 * 2 - 10) * 0.6
         let height = inputAmountView.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height
-        let x = (bounds.width / 2) + 5
+        let x = bounds.width - width - 16
         let y = bounds.height - 16 - height - safeAreaInsets.bottom
         let frame = CGRect(x: x, y: y, width: width, height: height)
         inputAmountView.frame = frame
@@ -100,7 +99,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func layoutAddButton() {
         let x: CGFloat = 16
-        let width = (bounds.width - x * 2 - 5 * 2) / 2
+        let width = inputAmountView.frame.origin.x - 16 - 10
         let height: CGFloat = 44
         let y = bounds.height - 16 - height - safeAreaInsets.bottom
         let frame = CGRect(x: x, y: y, width: width, height: height)
@@ -109,7 +108,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func layoutSelectCategoryView() {
         let x: CGFloat = 16
-        let width = (bounds.width - x * 2 - 5 * 2) / 2
+        let width = addButton.frame.size.width
         let height = addButton.frame.origin.y - inputAmountView.frame.origin.y - 14
         let y: CGFloat = inputAmountView.frame.origin.y
         let frame = CGRect(x: x, y: y, width: width, height: height)

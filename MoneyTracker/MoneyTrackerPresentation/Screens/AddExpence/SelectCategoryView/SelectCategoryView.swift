@@ -19,8 +19,9 @@ final class SelectCategoryView: AUIView {
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.secondaryBackground
-        clipsToBounds = true
+        backgroundColor = Colors.white
+        layer.shadowOpacity = 1
+        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         addSubview(pickerView)
     }
     
@@ -28,7 +29,6 @@ final class SelectCategoryView: AUIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = 10
         layoutPickerView()
     }
     
@@ -39,6 +39,10 @@ final class SelectCategoryView: AUIView {
         let height = bounds.height
         let frame = CGRect(x: x, y: y, width: width, height: height)
         pickerView.frame = frame
+        layer.cornerRadius = 10
+        layer.shadowRadius = 4.0
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.cornerRadius = 10
     }
     
 }
