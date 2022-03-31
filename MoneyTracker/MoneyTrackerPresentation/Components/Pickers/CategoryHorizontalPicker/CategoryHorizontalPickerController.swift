@@ -60,6 +60,9 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
         collectionController.reload()
+        if let cellController = findCellController(forCategoryId: selectedCategory.id), let indexPath = collectionController.indexPathForCellController(cellController) {
+            categoryHorizontalPickerView.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     }
     
     // MARK: - Item cell controller - Create

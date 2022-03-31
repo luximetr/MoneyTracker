@@ -51,6 +51,10 @@ class CategoryHorizontalPickerView: AUIView {
     private func layoutCollectionView() {
         collectionView.pin.all()
         collectionViewLayout.minimumLineSpacing = 8
+        if let deferredScrollToItemClosure = deferredScrollToItemClosure {
+            deferredScrollToItemClosure()
+            self.deferredScrollToItemClosure = nil
+        }
     }
     
     // MARK: - Item cell
@@ -80,4 +84,18 @@ class CategoryHorizontalPickerView: AUIView {
         let size = CategoryHorizontalPickerController.AddCollectionViewCell.sizeThatFits(collectionView.bounds.size, text: text)
         return size
     }
+    
+    // MARK: Actions
+    
+    private var deferredScrollToItemClosure: (() -> ())?
+    func collectionViewScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
+        collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+        if frame == .zero {
+            deferredScrollToItemClosure = { [weak self] in
+                guard let self = self else { return }
+                self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
+            }
+        }
+    }
+    
 }

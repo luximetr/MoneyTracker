@@ -52,6 +52,10 @@ class BalanceAccountHorizontalPickerView: AUIView {
     
     private func layoutCollectionView() {
         collectionView.pin.all()
+        if let deferredScrollToItemClosure = deferredScrollToItemClosure {
+            deferredScrollToItemClosure()
+            self.deferredScrollToItemClosure = nil
+        }
     }
     
     // MARK: - Item cell
@@ -81,6 +85,19 @@ class BalanceAccountHorizontalPickerView: AUIView {
     func addCollectionViewCellSize(_ text: String) -> CGSize {
         let size = BalanceAccountHorizontalPickerController.AddCollectionViewCell.sizeThatFits(collectionView.bounds.size, text: text)
         return size
+    }
+    
+    // MARK: Actions
+    
+    private var deferredScrollToItemClosure: (() -> ())?
+    func collectionViewScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
+        collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+        if frame == .zero {
+            deferredScrollToItemClosure = { [weak self] in
+                guard let self = self else { return }
+                self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
+            }
+        }
     }
     
 }

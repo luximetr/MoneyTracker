@@ -60,6 +60,9 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
         collectionController.reload()
+        if let cellController = findCellControllerForAccountId(selectedAccount.id), let indexPath = collectionController.indexPathForCellController(cellController) {
+            balanceAccountHorizontalPickerView.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     }
     
     // MARK: - Item cell controller - Create
