@@ -10,10 +10,24 @@ import AUIKit
 
 class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
-    // MARK: - Delegation
+    // MARK: Data
     
+    private var categories: [Category]
+    private var balanceAccounts: [Account]
     var backClosure: (() -> Void)?
     var addTemplateClosure: ((AddingExpenseTemplate) -> Void)?
+    var addCategoryClosure: (() -> Void)?
+    var addAccountClosure: (() -> Void)?
+    
+    func addAccount(_ account: Account) {
+        balanceAccounts.append(account)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: account)
+    }
+    
+    func addCategory(_ category: Category) {
+        categories.append(category)
+        categoryPickerController.showOptions(categories: categories, selectedCategory: category)
+    }
     
     // MARK: Localizer
     
@@ -21,12 +35,7 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
         let localizer = ScreenLocalizer(language: .english, stringsTableName: "AddTemplateScreenStrings")
         return localizer
     }()
-    
-    // MARK: - Data
-    
-    private let categories: [Category]
-    private let balanceAccounts: [Account]
-    
+
     // MARK: - Life cycle
     
     init(categories: [Category], balanceAccounts: [Account]) {
@@ -84,6 +93,10 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
         }
         guard let firstAccount = balanceAccounts.first else { return }
         balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: firstAccount)
+        balanceAccountPickerController.addAccountClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addAccount()
+        }
     }
     
     private var selectedBalanceAccount: Account? {
@@ -94,6 +107,10 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
     }
     
+    private func addAccount() {
+        addAccountClosure?()
+    }
+    
     // MARK: - Category picker
     
     private let categoryPickerController = CategoryHorizontalPickerController()
@@ -102,6 +119,14 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
         categoryPickerController.categoryHorizontalPickerView = addTemplateScreenView.categoryPickerView
         guard let firstCategory = categories.first else { return }
         categoryPickerController.showOptions(categories: categories, selectedCategory: firstCategory)
+        categoryPickerController.addCategoryClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addCategory()
+        }
+    }
+    
+    private func addCategory() {
+        addCategoryClosure?()
     }
     
     // MARK: - Name input
