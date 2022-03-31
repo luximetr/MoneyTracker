@@ -22,6 +22,13 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
     
     private let collectionController = AUIEmptyCollectionViewController()
     
+    // MARK: Localizer
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "BalanceAccountHorizontalPickerStrings")
+        return localizer
+    }()
+    
     // MARK: - View
     
     var balanceAccountHorizontalPickerView: BalanceAccountHorizontalPickerView {
@@ -46,7 +53,10 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
     func showOptions(accounts: [Account], selectedAccount: Account) {
         self.selectedAccount = selectedAccount
         let sectionController = AUIEmptyCollectionViewSectionController()
-        let cellControllers = createItemCellControllers(accounts: accounts, selectedAccount: selectedAccount)
+        var cellControllers = createItemCellControllers(accounts: accounts, selectedAccount: selectedAccount)
+        let text = localizer.localizeText("add")
+        let addCellController = createAddCellController(text: text)
+        cellControllers.append(addCellController)
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
         collectionController.reload()
@@ -70,6 +80,23 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
         }
         cellController.didSelectClosure = { [weak self] in
             self?.didSelectAccount(account)
+        }
+        return cellController
+    }
+    
+    private func createAddCellController(text: String) -> AddCollectionViewCellController {
+        let cellController = AddCollectionViewCellController(text: text)
+        cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UICollectionViewCell() }
+            return self.balanceAccountHorizontalPickerView.createAddCollectionViewCell(indexPath: indexPath)
+        }
+        cellController.sizeForCellClosure = { [weak self] in
+            guard let self = self else { return .zero }
+            return self.balanceAccountHorizontalPickerView.addCollectionViewCellSize(AddCollectionViewCellController.text(text))
+        }
+        cellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addAccount()
         }
         return cellController
     }
@@ -103,4 +130,10 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
         showAccountSelected(account)
         didSelectAccountClosure?(account)
     }
+    
+    var addAccountClosure: (() -> Void)?
+    private func addAccount() {
+        addAccountClosure?()
+    }
+    
 }

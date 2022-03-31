@@ -93,8 +93,9 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
             guard let self = self else { return .zero }
             return self.categoryHorizontalPickerView.addCollectionViewCellSize(AddCollectionViewCellController.text(text))
         }
-        cellController.didSelectClosure = {
-            print("add category")
+        cellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addCategory()
         }
         return cellController
     }

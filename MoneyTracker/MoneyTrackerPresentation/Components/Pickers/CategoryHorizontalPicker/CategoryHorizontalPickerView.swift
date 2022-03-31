@@ -69,7 +69,7 @@ class CategoryHorizontalPickerView: AUIView {
         return CGSize(width: minCellWidth, height: collectionView.frame.height)
     }
     
-    // MARK: - Item cell
+    // MARK: AddCollectionViewCell
     
     func createAddCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerController.AddCollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerController.AddCollectionViewCell

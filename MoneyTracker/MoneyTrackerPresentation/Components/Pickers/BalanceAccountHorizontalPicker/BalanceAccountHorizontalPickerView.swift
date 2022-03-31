@@ -31,6 +31,7 @@ class BalanceAccountHorizontalPickerView: AUIView {
         setupCollectionView()
     }
     
+    private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
         collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         collectionViewLayout.scrollDirection = .horizontal
@@ -38,6 +39,7 @@ class BalanceAccountHorizontalPickerView: AUIView {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
         collectionView.register(BalanceAccountHorizontalPickerItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
+        collectionView.register(BalanceAccountHorizontalPickerController.AddCollectionViewCell.self, forCellWithReuseIdentifier: addCollectionViewCellReuseIdentifier)
     }
     
     // MARK: - Layout
@@ -68,4 +70,17 @@ class BalanceAccountHorizontalPickerView: AUIView {
         let minCellWidth: CGFloat = 1
         return CGSize(width: minCellWidth, height: collectionView.frame.height)
     }
+    
+    // MARK: AddCollectionViewCell
+    
+    func createAddCollectionViewCell(indexPath: IndexPath) -> BalanceAccountHorizontalPickerController.AddCollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerController.AddCollectionViewCell
+        return cell
+    }
+    
+    func addCollectionViewCellSize(_ text: String) -> CGSize {
+        let size = BalanceAccountHorizontalPickerController.AddCollectionViewCell.sizeThatFits(collectionView.bounds.size, text: text)
+        return size
+    }
+    
 }
