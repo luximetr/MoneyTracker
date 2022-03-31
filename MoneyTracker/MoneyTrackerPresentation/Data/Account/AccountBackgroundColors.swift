@@ -25,12 +25,13 @@ enum AccountBackgroundColors {
     static let variant14 = UIColor(red: 0.031, green: 0.592, blue: 0.616, alpha: 1)
     static let variant15 = UIColor(red: 0, green: 0.741, blue: 0.616, alpha: 1)
     static let variant16 = UIColor(red: 0.02, green: 0.263, blue: 0.263, alpha: 1)
-    static let variant17 = UIColor(red: 0.408, green: 0.475, blue: 0.482, alpha: 1)
-    static let variant18 = UIColor(red: 0.714, green: 0.765, blue: 0.78, alpha: 1)
-    static let variant19 = UIColor(red: 0.827, green: 0.875, blue: 0.882, alpha: 1)
+    static let variant17 = UIColor(red: 0.106, green: 0.11, blue: 0.118, alpha: 1)
+    static let variant18 = UIColor(red: 0.408, green: 0.475, blue: 0.482, alpha: 1)
+    static let variant19 = UIColor(red: 0.714, green: 0.765, blue: 0.78, alpha: 1)
+    static let variant20 = UIColor(red: 0.827, green: 0.875, blue: 0.882, alpha: 1)
     
     static var variants: [UIColor] {
-        return [variant1, variant2, variant3, variant4, variant5, variant6, variant7, variant8, variant9, variant10, variant11, variant12, variant13, variant14, variant15, variant16, variant17, variant18, variant19]
+        return [variant1, variant2, variant3, variant4, variant5, variant6, variant7, variant8, variant9, variant10, variant11, variant12, variant13, variant14, variant15, variant16, variant17, variant18, variant19, variant20]
     }
     
 }

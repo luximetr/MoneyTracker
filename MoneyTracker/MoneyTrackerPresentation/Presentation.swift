@@ -196,15 +196,15 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddAccountViewController()
-            self.addAccoutScreenViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            let viewController = self.createPresentingAddAccountViewController()
+            self.presentedAddAccoutScreenViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
         }
         viewController.addCategoryClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddCategoryScreenViewController()
-            self.addCategoryViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            let viewController = self.createPresentingAddCategoryScreenViewController()
+            self.presentedAddCategoryViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
         }
         viewController.editExpenseClosure = { [weak self] expense in
             guard let self = self else { return }
@@ -264,9 +264,9 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddAccountViewController()
-            self.addAccoutScreenViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            let viewController = self.createPresentingAddAccountViewController()
+            self.presentedAddAccoutScreenViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
         }
         addExpenseViewController = viewController
         return viewController
@@ -314,8 +314,8 @@ public final class Presentation: AUIWindowPresentation {
             }
             viewController.addCategoryClosure = { [weak self] in
                 guard let self = self else { return }
-                let viewController = self.createAddCategoryScreenViewController()
-                self.addCategoryViewController = viewController
+                let viewController = self.createPushingAddCategoryScreenViewController()
+                self.pushedAddCategoryViewController = viewController
                 self.menuNavigationController?.pushViewController(viewController, animated: true)
             }
             return viewController
@@ -328,9 +328,9 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Add Category View Controller
     
-    private var addCategoryViewController: AddCategoryScreenViewController?
+    private var pushedAddCategoryViewController: AddCategoryScreenViewController?
         
-    private func createAddCategoryScreenViewController() -> AddCategoryScreenViewController {
+    private func createPushingAddCategoryScreenViewController() -> AddCategoryScreenViewController {
         let viewController = AddCategoryScreenViewController()
         viewController.backClosure = { [weak self] in
             guard let self = self else { return }
@@ -345,6 +345,30 @@ public final class Presentation: AUIWindowPresentation {
                 self.editTemplateScreenViewController?.addCategory(addedCategory)
                 self.addTemplateScreenViewController?.addCategory(addedCategory)
                 self.menuNavigationController?.popViewController(animated: true)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
+        }
+        return viewController
+    }
+    
+    private var presentedAddCategoryViewController: AddCategoryScreenViewController?
+        
+    private func createPresentingAddCategoryScreenViewController() -> AddCategoryScreenViewController {
+        let viewController = AddCategoryScreenViewController()
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.dismiss(animated: true, completion: nil)
+        }
+        viewController.addCategoryClosure = { [weak self] addingCategory in
+            guard let self = self else { return }
+            do {
+                let addedCategory = try self.delegate.presentation(self, addCategory: addingCategory)
+                self.categoriesViewController?.addCategory(addedCategory)
+                self.editExpenseViewController?.addCategory(addedCategory)
+                self.editTemplateScreenViewController?.addCategory(addedCategory)
+                self.addTemplateScreenViewController?.addCategory(addedCategory)
+                self.menuNavigationController?.dismiss(animated: true, completion: nil)
             } catch {
                 self.displayUnexpectedErrorAlertScreen(error)
             }
@@ -458,8 +482,8 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddAccountViewController()
-            self.addAccoutScreenViewController = viewController
+            let viewController = self.createPushingAddAccountViewController()
+            self.pushedAddAccoutScreenViewController = viewController
             self.menuNavigationController?.pushViewController(viewController, animated: true)
         }
         viewController.deleteAccountClosure = { [weak self] account in
@@ -489,9 +513,9 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Add Accounts Screen View Controller
     
-    private weak var addAccoutScreenViewController: AddAccountScreenViewController?
+    private weak var pushedAddAccoutScreenViewController: AddAccountScreenViewController?
     
-    private func createAddAccountViewController() -> AddAccountScreenViewController {
+    private func createPushingAddAccountViewController() -> AddAccountScreenViewController {
         let backgroundColors = AccountBackgroundColors.variants
         let selectedCurrency = delegate.presentationSelectedCurrency(self)
         let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
@@ -520,6 +544,49 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let addedAccount = try self.delegate.presentation(self, addAccount: addingAccount)
                 self.menuNavigationController?.popViewController(animated: true)
+                if let accountsViewController = self.accoutsViewController {
+                    accountsViewController.addAccount(addedAccount)
+                }
+                self.editExpenseViewController?.addAccount(addedAccount)
+                self.addExpenseViewController?.addAccount(addedAccount)
+                self.editTemplateScreenViewController?.addAccount(addedAccount)
+                self.addTemplateScreenViewController?.addAccount(addedAccount)
+            } catch {
+                self.displayUnexpectedErrorAlertScreen(error)
+            }
+        }
+        return viewController
+    }
+    
+    private weak var presentedAddAccoutScreenViewController: AddAccountScreenViewController?
+    
+    private func createPresentingAddAccountViewController() -> AddAccountScreenViewController {
+        let backgroundColors = AccountBackgroundColors.variants
+        let selectedCurrency = delegate.presentationSelectedCurrency(self)
+        let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
+        viewController.backClosure = { [weak self] in
+            guard let self = self else { return }
+            self.menuNavigationController?.dismiss(animated: true, completion: nil)
+        }
+        viewController.selectCurrencyClosure = { [weak self] in
+            guard let self = self else { return }
+            let currencies = self.delegate.presentationCurrencies(self)
+            let selectedCurrency = viewController.selectedCurrency
+            let selectCurrencyViewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
+            selectCurrencyViewController.backClosure = {
+                viewController.dismiss(animated: true, completion: nil)
+            }
+            selectCurrencyViewController.didSelectCurrencyClosure = { currency in
+                viewController.setSelectedCurrency(currency, animated: true)
+                viewController.dismiss(animated: true, completion: nil)
+            }
+            viewController.present(selectCurrencyViewController, animated: true, completion: nil)
+        }
+        viewController.addAccountClosure = { [weak self] addingAccount in
+            guard let self = self else { return }
+            do {
+                let addedAccount = try self.delegate.presentation(self, addAccount: addingAccount)
+                self.menuNavigationController?.dismiss(animated: true, completion: nil)
                 if let accountsViewController = self.accoutsViewController {
                     accountsViewController.addAccount(addedAccount)
                 }
@@ -645,15 +712,15 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.addCategoryClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddCategoryScreenViewController()
-            self.addCategoryViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            let viewController = self.createPresentingAddCategoryScreenViewController()
+            self.presentedAddCategoryViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
         }
         viewController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddAccountViewController()
-            self.addAccoutScreenViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            let viewController = self.createPresentingAddAccountViewController()
+            self.presentedAddAccoutScreenViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
         }
         return viewController
     }
@@ -676,15 +743,15 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.addCategoryClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddCategoryScreenViewController()
-            self.addCategoryViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            let viewController = self.createPresentingAddCategoryScreenViewController()
+            self.presentedAddCategoryViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
         }
         viewController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
-            let viewController = self.createAddAccountViewController()
-            self.addAccoutScreenViewController = viewController
-            self.menuNavigationController?.pushViewController(viewController, animated: true)
+            let viewController = self.createPresentingAddAccountViewController()
+            self.presentedAddAccoutScreenViewController = viewController
+            self.menuNavigationController?.present(viewController, animated: true, completion: nil)
         }
         return viewController
     }

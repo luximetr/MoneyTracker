@@ -29,6 +29,7 @@ class AddCollectionViewCell: AUICollectionViewCell {
     
     private func setupBorderLayer() {
         borderLayer.strokeColor = Colors.secondaryBackground.cgColor
+        borderLayer.fillColor = nil
     }
     
     private func setupTextLabel() {
@@ -46,8 +47,7 @@ class AddCollectionViewCell: AUICollectionViewCell {
     }
     
     private func layoutBorderLayer() {
-        borderLayer.strokeColor = Colors.secondaryBackground.cgColor
-        borderLayer.fillColor = nil
+        borderLayer.frame = bounds
         borderLayer.lineDashPattern = [2, 2]
         let bezierPath = UIBezierPath(roundedRect: bounds, cornerRadius: 5)
         borderLayer.path = bezierPath.cgPath
