@@ -91,7 +91,6 @@ final class AccountCollectionViewCell: AUICollectionViewCell {
         } completion: { finished in
             
         }
-
     }
     
     private func layoutAccountView() {

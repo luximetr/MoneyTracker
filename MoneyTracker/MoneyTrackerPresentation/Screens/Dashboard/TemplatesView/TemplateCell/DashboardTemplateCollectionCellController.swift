@@ -8,7 +8,8 @@
 import UIKit
 import AUIKit
 
-class DashboardTemplateCollectionCellController: AUIClosuresCollectionViewCellController {
+extension DashboardScreenViewController {
+final class TemplateCollectionCellController: AUIClosuresCollectionViewCellController {
     
     // MARK: - Id
     
@@ -23,7 +24,7 @@ class DashboardTemplateCollectionCellController: AUIClosuresCollectionViewCellCo
     
     // MARK: - Cell
     
-    typealias CellType = DashboardTemplateCollectionCell
+    typealias CellType = TemplateCollectionCell
     
     private var templateCell: CellType {
         return collectionViewCell as! CellType
@@ -32,7 +33,7 @@ class DashboardTemplateCollectionCellController: AUIClosuresCollectionViewCellCo
     // MARK: - Create cell
     
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = super.cellForItemAtIndexPath(indexPath) as? DashboardTemplateCollectionCell else { return UICollectionViewCell() }
+        guard let cell = super.cellForItemAtIndexPath(indexPath) as? TemplateCollectionCell else { return UICollectionViewCell() }
         updateTitle(title, in: cell)
         return cell
     }
@@ -46,4 +47,5 @@ class DashboardTemplateCollectionCellController: AUIClosuresCollectionViewCellCo
     private func updateTitle(_ title: String, in cell: CellType) {
         cell.titleLabel.text = title
     }
+}
 }
