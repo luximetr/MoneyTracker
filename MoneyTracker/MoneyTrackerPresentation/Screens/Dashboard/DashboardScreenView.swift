@@ -14,11 +14,11 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     // MARK: Subviews
     
+    let categoryPickerView = CategoryPickerView()
+    let accountPickerView = AccountPickerView()
     var templatesCollectionView: UICollectionView {
         return templatesView.collectionView
     }
-    let addExpenseButton = TextFilledButton()
-    let templatesHeaderLabel = UILabel()
     let templatesView = TemplatesView()
     
     // MARK: - Setup
@@ -26,23 +26,10 @@ final class ScreenView: TitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         backgroundColor = Colors.primaryBackground
-        addSubview(addExpenseButton)
-        setupAddExpenseButton()
-        setupTemplatesHeaderLabel()
-        addSubview(templatesHeaderLabel)
-        setupTemplatesCollectionView()
+        addSubview(categoryPickerView)
+        addSubview(accountPickerView)
         addSubview(templatesView)
-    }
-    
-    private func setupAddExpenseButton() {
-        addExpenseButton.backgroundColor = Colors.secondaryBackground
-        addExpenseButton.setTitleColor(Colors.primaryText, for: .normal)
-    }
-    
-    private func setupTemplatesHeaderLabel() {
-        templatesHeaderLabel.font = Fonts.default(size: 24, weight: .regular)
-        templatesHeaderLabel.textColor = Colors.primaryText
-        templatesHeaderLabel.numberOfLines = 1
+        setupTemplatesCollectionView()
     }
     
     private let templateCellId = "templateCellId"
@@ -54,24 +41,9 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        layoutTemplatesHeaderLabel()
-//        layoutAddExpenseButton()
         layoutTemplatesView()
-    }
-    
-    private func layoutAddExpenseButton() {
-        addExpenseButton.pin
-            .left(24)
-            .right(24)
-            .bottom(to: templatesHeaderLabel.edge.top).marginBottom(24)
-            .height(44)
-    }
-    
-    private func layoutTemplatesHeaderLabel() {
-        templatesHeaderLabel.pin
-            .left(to: templatesCollectionView.edge.left)
-            .bottom(to: templatesCollectionView.edge.top).marginBottom(16)
-            .sizeToFit()
+        layoutCategoryPickerView()
+        layoutAccountPickerView()
     }
     
     private func layoutTemplatesView() {
@@ -117,6 +89,28 @@ final class ScreenView: TitleNavigationBarScreenView {
         } completion: { finished in
             
         }
+    }
+    
+    private func layoutCategoryPickerView() {
+        let templatePickerHeight = bounds.height - navigationBarView.frame.origin.y - navigationBarView.frame.size.height
+        let templatePickerSizeThatFits = templatesView.sizeThatFits(CGSize(width: bounds.width, height: templatePickerHeight))
+        let x: CGFloat = 0
+        let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
+        let width = bounds.width
+        let height = (bounds.height - y - templatePickerSizeThatFits.height) * 0.5
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        categoryPickerView.frame = frame
+    }
+    
+    private func layoutAccountPickerView() {
+        let templatePickerHeight = bounds.height - navigationBarView.frame.origin.y - navigationBarView.frame.size.height
+        let templatePickerSizeThatFits = templatesView.sizeThatFits(CGSize(width: bounds.width, height: templatePickerHeight))
+        let x: CGFloat = 0
+        let y = categoryPickerView.frame.origin.y + categoryPickerView.frame.size.height
+        let width = bounds.width
+        let height = bounds.height - y - templatePickerSizeThatFits.height
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        accountPickerView.frame = frame
     }
     
     // MARK: Template cell

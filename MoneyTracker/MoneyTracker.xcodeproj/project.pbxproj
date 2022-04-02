@@ -104,6 +104,10 @@
 		2EC1BDC227B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1BDC127B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift */; };
 		2EC1BDC427B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1BDC327B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift */; };
 		2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1BDC727B99AA500C4A054 /* MoneySumTextInputValidator.swift */; };
+		2EC6178927F82BFE00845E7A /* DashboardCategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6178827F82BFE00845E7A /* DashboardCategoryPickerView.swift */; };
+		2EC6178C27F82DA300845E7A /* DashboardAccountPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6178B27F82DA300845E7A /* DashboardAccountPickerView.swift */; };
+		2EC6178E27F8392200845E7A /* DashboardAccountPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6178D27F8392200845E7A /* DashboardAccountPickerViewController.swift */; };
+		2EC6179027F8393300845E7A /* DashboardCategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6178F27F8393300845E7A /* DashboardCategoryPickerViewController.swift */; };
 		2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292B27AC1F3700371252 /* AddCategoryScreenViewController.swift */; };
 		2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */; };
 		2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293527AC267D00371252 /* AddingCategory.swift */; };
@@ -399,6 +403,10 @@
 		2EC1BDC127B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenAddAccountCollectionViewCell.swift; sourceTree = "<group>"; };
 		2EC1BDC327B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenAddAccountCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2EC1BDC727B99AA500C4A054 /* MoneySumTextInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneySumTextInputValidator.swift; sourceTree = "<group>"; };
+		2EC6178827F82BFE00845E7A /* DashboardCategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCategoryPickerView.swift; sourceTree = "<group>"; };
+		2EC6178B27F82DA300845E7A /* DashboardAccountPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountPickerView.swift; sourceTree = "<group>"; };
+		2EC6178D27F8392200845E7A /* DashboardAccountPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountPickerViewController.swift; sourceTree = "<group>"; };
+		2EC6178F27F8393300845E7A /* DashboardCategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCategoryPickerViewController.swift; sourceTree = "<group>"; };
 		2EC6292B27AC1F3700371252 /* AddCategoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryScreenViewController.swift; sourceTree = "<group>"; };
 		2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryScreenView.swift; sourceTree = "<group>"; };
 		2EC6293527AC267D00371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
@@ -1201,6 +1209,24 @@
 			path = Validator;
 			sourceTree = "<group>";
 		};
+		2EC6178627F829C800845E7A /* CategoriesPicker */ = {
+			isa = PBXGroup;
+			children = (
+				2EC6178F27F8393300845E7A /* DashboardCategoryPickerViewController.swift */,
+				2EC6178827F82BFE00845E7A /* DashboardCategoryPickerView.swift */,
+			);
+			path = CategoriesPicker;
+			sourceTree = "<group>";
+		};
+		2EC6178A27F82D7F00845E7A /* AccountPicker */ = {
+			isa = PBXGroup;
+			children = (
+				2EC6178D27F8392200845E7A /* DashboardAccountPickerViewController.swift */,
+				2EC6178B27F82DA300845E7A /* DashboardAccountPickerView.swift */,
+			);
+			path = AccountPicker;
+			sourceTree = "<group>";
+		};
 		2EC6292A27AC1EF600371252 /* AddCategory */ = {
 			isa = PBXGroup;
 			children = (
@@ -1717,6 +1743,8 @@
 				DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */,
 				DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */,
 				DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */,
+				2EC6178627F829C800845E7A /* CategoriesPicker */,
+				2EC6178A27F82D7F00845E7A /* AccountPicker */,
 				2ECB165A27F77FE1009D748D /* TemplatesView */,
 			);
 			path = Dashboard;
@@ -2218,6 +2246,7 @@
 				2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */,
 				2EADAD9B27E131690013DEEC /* TextField.swift in Sources */,
 				2ECFFFC727F040BD00F338B8 /* AddTableViewCellController.swift in Sources */,
+				2EC6178E27F8392200845E7A /* DashboardAccountPickerViewController.swift in Sources */,
 				2EADAD9D27E133860013DEEC /* ExpenseTableViewCellController.swift in Sources */,
 				2E01B2C427EDACD400013321 /* MonthCollectionViewCell.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesScreenView.swift in Sources */,
@@ -2263,6 +2292,7 @@
 				2E30391A27BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift in Sources */,
 				2E92FF5B27B6AB9A00A7306A /* Account.swift in Sources */,
 				DB74864627BB5E67004DF67B /* TemplatesScreenAddTemplateTableViewCell.swift in Sources */,
+				2EC6178927F82BFE00845E7A /* DashboardCategoryPickerView.swift in Sources */,
 				2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */,
 				2ECB165927F77FD5009D748D /* DashboardTemplatesViewController.swift in Sources */,
 				DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */,
@@ -2284,11 +2314,13 @@
 				2E9289FB27AFF9CA002F3403 /* SettingsScreenViewController.swift in Sources */,
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
 				DB45FAD127E4B8BE0073C677 /* SingleLineTextInputView.swift in Sources */,
+				2EC6178C27F82DA300845E7A /* DashboardAccountPickerView.swift in Sources */,
 				DB74863927BA6042004DF67B /* AddTemplateScreenViewController.swift in Sources */,
 				DB74863427BA5B81004DF67B /* ExpenseTemplate.swift in Sources */,
 				2ED8BD7E27E91DB90007F60B /* DayTableViewCellController.swift in Sources */,
 				2EB10A3027A6E7B500743416 /* MenuScreenView.swift in Sources */,
 				2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */,
+				2EC6179027F8393300845E7A /* DashboardCategoryPickerViewController.swift in Sources */,
 				2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */,
 				2E09CC3727F4F9720015DA1E /* PlainTextField.swift in Sources */,
 				2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */,

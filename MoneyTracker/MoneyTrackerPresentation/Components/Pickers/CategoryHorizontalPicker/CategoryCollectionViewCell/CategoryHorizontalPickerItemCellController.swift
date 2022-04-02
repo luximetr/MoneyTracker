@@ -10,7 +10,7 @@ import AUIKit
 
 class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellController {
     
-    let categoryId: CategoryId
+    let category: Category
     
     var isSelected: Bool {
         didSet { pickerItemCell?.update(isSelected: isSelected) }
@@ -24,8 +24,21 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
     
     // MARK: - Life cycle
     
-    init(categoryId: CategoryId, isSelected: Bool) {
-        self.categoryId = categoryId
+    init(category: Category, isSelected: Bool) {
+        self.category = category
         self.isSelected = isSelected
+    }
+    
+    override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.cellForItemAtIndexPath(indexPath)
+        setContent()
+        return cell
+    }
+    
+    // MARK: Content
+    
+    private func setContent() {
+        pickerItemCell?.titleLabel.text = category.name
+        pickerItemCell?.update(isSelected: isSelected)
     }
 }

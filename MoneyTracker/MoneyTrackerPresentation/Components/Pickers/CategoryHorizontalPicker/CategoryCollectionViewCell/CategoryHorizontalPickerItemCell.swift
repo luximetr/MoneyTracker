@@ -84,11 +84,18 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     
     // MARK: - Size
     
+    private static let categoryHorizontalPickerItemCell = CategoryHorizontalPickerItemCell()
+    static func sizeThatFits(_ size: CGSize, name: String) -> CGSize {
+        categoryHorizontalPickerItemCell.titleLabel.text = name
+        let sizeThatFits = categoryHorizontalPickerItemCell.sizeThatFits(size)
+        return sizeThatFits
+    }
+    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let availableSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: size.height)
         let labelWidth = titleLabel.sizeThatFits(availableSize).width
         let takenWidth = titleLabelHorizontalOffset * 2 + labelWidth
-        let takenSize = CGSize(width: takenWidth, height: size.height)
+        let takenSize = CGSize(width: takenWidth, height: titleLabel.sizeThatFits(availableSize).height + 8)
         return takenSize
     }
 }

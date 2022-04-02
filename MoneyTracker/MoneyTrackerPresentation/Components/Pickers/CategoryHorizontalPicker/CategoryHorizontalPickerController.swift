@@ -72,7 +72,7 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
     }
     
     private func createItemCellController(category: Category, isSelected: Bool) -> AUICollectionViewCellController {
-        let cellController = CategoryHorizontalPickerItemCellController(categoryId: category.id, isSelected: isSelected)
+        let cellController = CategoryHorizontalPickerItemCellController(category: category, isSelected: isSelected)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.categoryHorizontalPickerView.createItemCell(indexPath: indexPath, category: category, isSelected: isSelected)
@@ -108,7 +108,7 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
     
     private func findCellController(forCategoryId categoryId: CategoryId) -> CategoryHorizontalPickerItemCellController? {
         let cellControllers = collectionController.sectionControllers.map({ $0.cellControllers }).reduce([], +).compactMap { $0 as? CategoryHorizontalPickerItemCellController }
-        let foundCellController = cellControllers.first(where: { $0.categoryId == categoryId })
+        let foundCellController = cellControllers.first(where: { $0.category.id == categoryId })
         return foundCellController
     }
     

@@ -16,11 +16,15 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     var didTapOnAddExpenseClosure: (() -> Void)?
     var addExpenseClosure: ((AddingExpense) throws -> Expense)?
     var displayExpenseAddedSnackbarClosure: ((Expense) -> Void)?
+    var addTemplateClosure: (() -> Void)?
+    var addCategoryClosure: (() -> Void)?
     
     // MARK: Initializer
     
-    init(templates: [ExpenseTemplate]) {
+    init(categories: [Category], templates: [ExpenseTemplate]) {
         self.templates = templates
+        self.categoryPickerViewController = CategoryPickerViewController(categories: categories)
+        super.init()
     }
     
     // MARK: - View
@@ -33,6 +37,7 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
         view = ScreenView()
     }
     
+    private let categoryPickerViewController: CategoryPickerViewController
     private let templatesCollectionController = AUIEmptyCollectionViewController()
     private let templatesSectionController = AUIEmptyCollectionViewSectionController()
     private func findTemplateCellController(templateId: ExpenseTemplateId) -> TemplateCollectionCellController? {
@@ -45,10 +50,20 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showTemplates(templates)
-        screenView.addExpenseButton.addTarget(self, action: #selector(didTapOnAddExpense), for: .touchUpInside)
+        categoryPickerViewController.categoryPickerView = screenView.categoryPickerView
+        categoryPickerViewController.addCategoryClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addCategoryClosure?()
+        }
+        categoryPickerViewController.selectCategoryClosure = { [weak self] category in
+            guard let self = self else { return }
+            self.didTapOnAddExpense()
+            
+        }
         templatesCollectionController.collectionView = screenView.templatesCollectionView
         screenView.templatesView.addGestureRecognizer(templatesPanGestureRecognizer)
         templatesPanGestureRecognizer.addTarget(self, action: #selector(panGestureRecognizerAction))
+        screenView.templatesView.addButton.addTarget(self, action: #selector(addTemplateButtonTouchUpInsideEventAcion), for: .touchUpInside)
         setContent()
     }
     
@@ -61,8 +76,6 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
-        screenView.templatesHeaderLabel.text = localizer.localizeText("fastRecordTitle")
-        screenView.addExpenseButton.setTitle(localizer.localizeText("addExpenseButtonTitle"), for: .normal)
         screenView.templatesView.titleLabel.text = localizer.localizeText("templatesTitle")
         screenView.templatesView.addButton.setTitle(localizer.localizeText("addTemplate"), for: .normal)
     }
@@ -97,6 +110,10 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     }
     
     // MARK: Events
+    
+    @objc private func addTemplateButtonTouchUpInsideEventAcion() {
+        addTemplateClosure?()
+    }
     
     @objc private func didTapOnAddExpense() {
         didTapOnAddExpenseClosure?()
@@ -172,6 +189,10 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
         templates.append(template)
         let cellController = createTemplateCellController(template: template)
         templatesCollectionController.appendCellController(cellController, toSectionController: templatesSectionController, completion: nil)
+    }
+    
+    func addCategory(_ category: Category) {
+        categoryPickerViewController.addCategory(category)
     }
 
 }
