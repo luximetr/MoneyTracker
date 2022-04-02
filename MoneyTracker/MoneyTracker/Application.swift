@@ -342,25 +342,26 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: PresentationAddingExpenseTemplate) {
+    func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: PresentationAddingExpenseTemplate) -> PresentationExpenseTemplate {
         let adapter = AddingExpenseTemplateAdapter()
         let storageAddingTemplate = adapter.adaptToStorage(presentationAddingExpenseTemplate: addingExpenseTemplate)
         do {
             let storageTemplate = try storage.addExpenseTemplate(addingExpenseTemplate: storageAddingTemplate)
             let templateAdapter = ExpenseTemplateAdapter()
             let template = templateAdapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: addingExpenseTemplate.balanceAccount, presentationCategory: addingExpenseTemplate.category)
-            presentation.showExpenseTemplateAdded(template)
+            return template
         } catch {
-            print(error)
+            fatalError()
         }
     }
     
-    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: PresentationEditingExpenseTemplate) {
+    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: PresentationEditingExpenseTemplate) -> PresentationExpenseTemplate {
         let adapter = EditingExpenseTemplateAdapter()
         let storageEditingTemplate = adapter.adaptToStorage(presentationEditingExpenseTemplate: editingExpenseTemplate)
         tryUpdateExpenseTemplate(editingExpenseTemplate: storageEditingTemplate)
-        guard let updatedTemplate = tryFetchPresentationExpenseTemplate(id: editingExpenseTemplate.id) else { return }
+        guard let updatedTemplate = tryFetchPresentationExpenseTemplate(id: editingExpenseTemplate.id) else { fatalError() }
         presentation.showExpenseTemplateUpdated(updatedTemplate)
+        return updatedTemplate
     }
     
     private func tryUpdateExpenseTemplate(editingExpenseTemplate: StorageEditingExpenseTemplate) {

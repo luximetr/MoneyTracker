@@ -10,7 +10,7 @@ import AUIKit
 import PinLayout
 
 extension DashboardScreenViewController {
-final class TemplateCollectionCell: AUICollectionViewCell {
+final class TemplateCollectionViewCell: AUICollectionViewCell {
     
     // MARK: Subviews
     

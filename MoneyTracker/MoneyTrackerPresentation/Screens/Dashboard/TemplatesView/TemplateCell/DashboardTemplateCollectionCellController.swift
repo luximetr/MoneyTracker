@@ -9,42 +9,35 @@ import UIKit
 import AUIKit
 
 extension DashboardScreenViewController {
-final class TemplateCollectionCellController: AUIClosuresCollectionViewCellController {
+final class TemplateCollectionViewCellController: AUIClosuresCollectionViewCellController {
     
     // MARK: - Id
     
-    let templateId: String
+    let template: ExpenseTemplate
     
     // MARK: - Life cycle
     
-    init(title: String, templateId: String) {
-        self.title = title
-        self.templateId = templateId
+    init(template: ExpenseTemplate) {
+        self.template = template
     }
     
     // MARK: - Cell
     
-    typealias CellType = TemplateCollectionCell
-    
-    private var templateCell: CellType {
-        return collectionViewCell as! CellType
+    private var templateCell: TemplateCollectionViewCell {
+        return collectionViewCell as! TemplateCollectionViewCell
     }
     
     // MARK: - Create cell
     
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = super.cellForItemAtIndexPath(indexPath) as? TemplateCollectionCell else { return UICollectionViewCell() }
-        updateTitle(title, in: cell)
+        guard let cell = super.cellForItemAtIndexPath(indexPath) as? TemplateCollectionViewCell else { return UICollectionViewCell() }
+        updateTitle(template.name, in: cell)
         return cell
     }
     
     // MARK: - Title
     
-    var title: String {
-        didSet { updateTitle(title, in: templateCell) }
-    }
-    
-    private func updateTitle(_ title: String, in cell: CellType) {
+    private func updateTitle(_ title: String, in cell: TemplateCollectionViewCell) {
         cell.titleLabel.text = title
     }
 }

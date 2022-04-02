@@ -14,7 +14,8 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     
     private var dayExpenses: [Expense] = []
     private var accounts: [Account]
-    private let categories: [Category]    
+    private let categories: [Category]
+    private var selectedCategory: Category?
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
     var addExpenseClosure: ((AddingExpense) throws -> Expense)?
@@ -28,9 +29,10 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
 
     // MARK: Initializer
     
-    init(accounts: [Account], categories: [Category]) {
+    init(accounts: [Account], categories: [Category], selectedCategory: Category?) {
         self.accounts = accounts
         self.categories = categories
+        self.selectedCategory = selectedCategory
     }
     
     // MARK: View
@@ -67,6 +69,9 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
         inputAmountViewController.inputAmountView = screenView.inputAmountView
         selectCategoryViewController.categories = categories
         selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
+        if let selectedCategory = selectedCategory {
+            selectCategoryViewController.selectCategory(selectedCategory)
+        }
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView

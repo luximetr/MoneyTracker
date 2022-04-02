@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ExpenseTemplate {
+public struct ExpenseTemplate: Equatable, Hashable {
     
     public let id: String
     public let name: String

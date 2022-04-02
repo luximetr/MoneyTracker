@@ -34,7 +34,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     private let templateCellId = "templateCellId"
     private func setupTemplatesCollectionView() {
-        templatesCollectionView.register(TemplateCollectionCell.self, forCellWithReuseIdentifier: templateCellId)
+        templatesCollectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: templateCellId)
     }
     
     // MARK: - Layout
@@ -111,19 +111,6 @@ final class ScreenView: TitleNavigationBarScreenView {
         let height = bounds.height - y - templatePickerSizeThatFits.height
         let frame = CGRect(x: x, y: y, width: width, height: height)
         accountPickerView.frame = frame
-    }
-    
-    // MARK: Template cell
-    
-    func createTemplateCell(indexPath: IndexPath, template: ExpenseTemplate) -> TemplateCollectionCell {
-        let cell = templatesCollectionView.dequeueReusableCell(withReuseIdentifier: templateCellId, for: indexPath) as! TemplateCollectionCell
-        cell.titleLabel.text = template.name
-        return cell
-    }
-    
-    func getTemplateCellSize() -> CGSize {
-        let availableRowWidth = (bounds.width - 22 * 2 - 16) * 0.5
-        return CGSize(width: availableRowWidth, height: 44)
     }
     
 }

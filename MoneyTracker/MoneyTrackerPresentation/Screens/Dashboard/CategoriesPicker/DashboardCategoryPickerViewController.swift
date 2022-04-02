@@ -37,7 +37,7 @@ final class CategoryPickerViewController: AUIEmptyViewController {
     }
     
     func setupCategoryPickerView() {
-        categoryPickerView?.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+        categoryPickerView?.addExpenseButton.addTarget(self, action: #selector(addExpenseButtonTouchUpInsideEventAction), for: .touchUpInside)
         collectionController.collectionView = categoryPickerView?.collectionView
         setContent()
     }
@@ -53,9 +53,14 @@ final class CategoryPickerViewController: AUIEmptyViewController {
     
     // MARK: Content
     
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "DashboardCategoryPickerStrings")
+        return localizer
+    }()
+    
     private func setContent() {
-        categoryPickerView?.titleLabel.text = "Add expense for category"
-        categoryPickerView?.addButton.setTitle("Add expense", for: .normal)
+        categoryPickerView?.titleLabel.text = localizer.localizeText("title")
+        categoryPickerView?.addExpenseButton.setTitle(localizer.localizeText("addExpense"), for: .normal)
         setCollectionControllerContent()
     }
     
@@ -65,6 +70,8 @@ final class CategoryPickerViewController: AUIEmptyViewController {
             let cellController = createCategoryCellController(category: category)
             cellControllers.append(cellController)
         }
+        let addCellController = createAddCellController(text: localizer.localizeText("add"))
+        cellControllers.append(addCellController)
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
         collectionController.reload()
@@ -88,6 +95,23 @@ final class CategoryPickerViewController: AUIEmptyViewController {
         return cellController
     }
     
+    private func createAddCellController(text: String) -> CategoryHorizontalPickerController.AddCollectionViewCellController {
+        let cellController = CategoryHorizontalPickerController.AddCollectionViewCellController(text: text)
+        cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UICollectionViewCell() }
+            return self.categoryPickerView!.addCollectionViewCell(indexPath: indexPath)
+        }
+        cellController.sizeForCellClosure = { [weak self] in
+            guard let self = self else { return .zero }
+            return self.categoryPickerView!.addCollectionViewCellSize(CategoryHorizontalPickerController.AddCollectionViewCellController.text(text))
+        }
+        cellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addCategory()
+        }
+        return cellController
+    }
+    
     // MARK: Events
     
     func addCategory(_ category: Category) {
@@ -95,9 +119,26 @@ final class CategoryPickerViewController: AUIEmptyViewController {
         setContent()
     }
     
-    var addCategoryClosure: (() -> Void)?
-    @objc private func addButtonTouchUpInsideEventAction() {
-        addCategoryClosure?()
+    func editCategory(_ category: Category) {
+        guard let firstIndex = categories.firstIndex(where: { $0.id == category.id }) else { return }
+        categories[firstIndex] = category
+        setContent()
+    }
+    
+    func deleteCategory(_ category: Category) {
+        guard let firstIndex = categories.firstIndex(where: { $0.id == category.id }) else { return }
+        categories.remove(at: firstIndex)
+        setContent()
+    }
+    
+    func orderCategories(_ categories: [Category]) {
+        self.categories = categories
+        setContent()
+    }
+    
+    var addExpenseClosure: (() -> Void)?
+    @objc private func addExpenseButtonTouchUpInsideEventAction() {
+        addExpenseClosure?()
     }
     
     var selectCategoryClosure: ((Category) -> Void)?
@@ -105,5 +146,11 @@ final class CategoryPickerViewController: AUIEmptyViewController {
         let category = categoryCellController.category
         selectCategoryClosure?(category)
     }
+    
+    var addCategoryClosure: (() -> Void)?
+    private func addCategory() {
+        addCategoryClosure?()
+    }
+    
 }
 }

@@ -14,7 +14,7 @@ final class CategoryPickerView: AUIView {
     // MARK: Subviews
     
     let titleLabel = UILabel()
-    let addButton = TextButton()
+    let addExpenseButton = TextButton()
     private let collectionViewFlowLayout = LeftAlignedCollectionViewFlowLayout()
     let collectionView: UICollectionView
     
@@ -32,7 +32,7 @@ final class CategoryPickerView: AUIView {
         backgroundColor = Colors.white
         addSubview(titleLabel)
         setupTitleLabel()
-        addSubview(addButton)
+        addSubview(addExpenseButton)
         addSubview(collectionView)
         setupCollectionView()
     }
@@ -42,11 +42,13 @@ final class CategoryPickerView: AUIView {
         titleLabel.textColor = Colors.primaryText
     }
         
-    private let categoryCollectionViewCellReuseIdentifier = "itemCellIdentifier"
+    private let categoryCollectionViewCellReuseIdentifier = "categoryCollectionViewCellReuseIdentifier"
+    private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: categoryCollectionViewCellReuseIdentifier)
+        collectionView.register(CategoryHorizontalPickerController.AddCollectionViewCell.self, forCellWithReuseIdentifier: addCollectionViewCellReuseIdentifier)
     }
     
     // MARK: Layout
@@ -54,7 +56,7 @@ final class CategoryPickerView: AUIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutTitleLabel()
-        layoutAddButton()
+        layoutAddExpenseButton()
         layoutCollectionView()
     }
     
@@ -68,14 +70,14 @@ final class CategoryPickerView: AUIView {
         titleLabel.frame = frame
     }
     
-    private func layoutAddButton() {
+    private func layoutAddExpenseButton() {
         let y: CGFloat = 0
-        let sizeThatFits = addButton.sizeThatFits(CGSize(width: (bounds.width - 22) * 0.5, height: titleLabel.frame.size.height))
+        let sizeThatFits = addExpenseButton.sizeThatFits(CGSize(width: (bounds.width - 22) * 0.5, height: titleLabel.frame.size.height))
         let width = sizeThatFits.width
         let x = bounds.width - 22 - width
         let height = titleLabel.frame.size.height
         let frame = CGRect(x: x, y: y, width: width, height: height)
-        addButton.frame = frame
+        addExpenseButton.frame = frame
     }
     
     private func layoutCollectionView() {
@@ -90,12 +92,6 @@ final class CategoryPickerView: AUIView {
         collectionViewFlowLayout.minimumLineSpacing = 2
     }
     
-    // MARK: Size
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return size
-    }
-    
     // MARK: CategoryCollectionViewCell
     
     func categoryCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerItemCell {
@@ -108,27 +104,17 @@ final class CategoryPickerView: AUIView {
         return size
     }
     
-}
-}
-
-private class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
-
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let attributes = super.layoutAttributesForElements(in: rect)
-
-        var leftMargin = sectionInset.left
-        var maxY: CGFloat = -1.0
-        attributes?.forEach { layoutAttribute in
-            if layoutAttribute.frame.origin.y >= maxY {
-                leftMargin = sectionInset.left
-            }
-
-            layoutAttribute.frame.origin.x = leftMargin
-
-            leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
-            maxY = max(layoutAttribute.frame.maxY , maxY)
-        }
-
-        return attributes
+    // MARK: AddCollectionViewCell
+    
+    func addCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerController.AddCollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerController.AddCollectionViewCell
+        return cell
     }
+    
+    func addCollectionViewCellSize(_ text: String) -> CGSize {
+        let size = CategoryHorizontalPickerController.AddCollectionViewCell.sizeThatFits(collectionView.bounds.size, text: text)
+        return size
+    }
+    
+}
 }
