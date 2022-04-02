@@ -30,4 +30,19 @@ class BalanceAccountHorizontalPickerItemCellController: AUIClosuresCollectionVie
         self.account = account
         self.isSelected = isSelected
     }
+    
+    override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.cellForItemAtIndexPath(indexPath)
+        setContent()
+        return cell
+    }
+    
+    // MARK: Content
+    
+    private func setContent() {
+        pickerItemCell?.titleLabel.text = account.name
+        pickerItemCell?.color = account.backgroundColor
+        pickerItemCell?.update(isSelected: isSelected)
+    }
+    
 }

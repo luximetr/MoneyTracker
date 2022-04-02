@@ -54,8 +54,7 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
         self.selectedAccount = selectedAccount
         let sectionController = AUIEmptyCollectionViewSectionController()
         var cellControllers = createItemCellControllers(accounts: accounts, selectedAccount: selectedAccount)
-        let text = localizer.localizeText("add")
-        let addCellController = createAddCellController(text: text)
+        let addCellController = createAddCellController(text: localizer.localizeText("add"))
         cellControllers.append(addCellController)
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]

@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import MoneyTrackerStorage
 
 extension DashboardScreenViewController {
 final class AccountPickerViewController: AUIEmptyViewController {
@@ -21,7 +22,7 @@ final class AccountPickerViewController: AUIEmptyViewController {
         self.accounts = accounts
     }
     
-    // MARK: CategoryPickerView
+    // MARK: AccountPickerView
   
     var accountPickerView: AccountPickerView? {
         set { view = newValue }
@@ -30,63 +31,97 @@ final class AccountPickerViewController: AUIEmptyViewController {
     
     private let collectionController = AUIEmptyCollectionViewController()
     private let sectionController = AUIEmptyCollectionViewSectionController()
+    private var accountsCellControllers: [BalanceAccountHorizontalPickerItemCellController]? {
+        let accountsCellControllers = sectionController.cellControllers.filter({ $0 is BalanceAccountHorizontalPickerItemCellController }) as? [BalanceAccountHorizontalPickerItemCellController]
+        return accountsCellControllers
+    }
+    private func accountCellController(_ account: Account) -> BalanceAccountHorizontalPickerItemCellController? {
+        let accountCellController = accountsCellControllers?.first(where: { $0.account == account })
+        return accountCellController
+    }
   
     override func setupView() {
         super.setupView()
-        setupCategoryPickerView()
+        setupAccountPickerView()
     }
     
-    func setupCategoryPickerView() {
-        accountPickerView?.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+    func setupAccountPickerView() {
+        accountPickerView?.transferButton.addTarget(self, action: #selector(transferButtonTouchUpInsideEventAction), for: .touchUpInside)
         collectionController.collectionView = accountPickerView?.collectionView
         setContent()
     }
 
     override func unsetupView() {
         super.unsetupView()
-        unsetupCategoryPickerView()
+        unsetupAccountPickerView()
     }
   
-    func unsetupCategoryPickerView() {
+    func unsetupAccountPickerView() {
         collectionController.collectionView = nil
     }
     
     // MARK: Content
     
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "DashboardAccountPickerStrings")
+        return localizer
+    }()
+    
     private func setContent() {
-        accountPickerView?.titleLabel.text = "Top up account"
-        accountPickerView?.addButton.setTitle("Add expense", for: .normal)
-//        setCollectionControllerContent()
+        accountPickerView?.titleLabel.text = localizer.localizeText("title")
+        accountPickerView?.transferButton.setTitle(localizer.localizeText("transfer"), for: .normal)
+        setCollectionControllerContent()
     }
     
-//    private func setCollectionControllerContent() {
-//        var cellControllers: [AUICollectionViewCellController] = []
-//        for account in accounts {
-//            let cellController = createCategoryCellController(category: category)
-//            cellControllers.append(cellController)
-//        }
-//        sectionController.cellControllers = cellControllers
-//        collectionController.sectionControllers = [sectionController]
-//        collectionController.reload()
-//    }
-//
-//    private func createAccountCellController(account: Account) -> CategoryHorizontalPickerItemCellController {
-//        let cellController = AccountHorizontalPickerItemCellController(category: category, isSelected: false)
-//        cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
-//            guard let self = self else { return UICollectionViewCell() }
-//            return self.categoryPickerView!.categoryCollectionViewCell(indexPath: indexPath)
-//        }
-//        cellController.sizeForCellClosure = { [weak self, cellController] in
-//            guard let self = self else { return .zero }
-//            let category = cellController.category
-//            return self.categoryPickerView!.categoryCollectionViewCellSize(name: category.name)
-//        }
-//        cellController.didSelectClosure = { [weak self, cellController] in
-//            guard let self = self else { return }
-//            self.didSelectCategoryCellController(cellController)
-//        }
-//        return cellController
-//    }
+    private func setCollectionControllerContent() {
+        var cellControllers: [AUICollectionViewCellController] = []
+        for account in accounts {
+            let cellController = createItemCellController(account: account)
+            cellControllers.append(cellController)
+        }
+        let addCellController = createAddCellController(text: localizer.localizeText("add"))
+        cellControllers.append(addCellController)
+        sectionController.cellControllers = cellControllers
+        collectionController.sectionControllers = [sectionController]
+        collectionController.reload()
+    }
+
+    private func createItemCellController(account: Account) -> BalanceAccountHorizontalPickerItemCellController {
+        let cellController = BalanceAccountHorizontalPickerItemCellController(account: account, isSelected: false)
+        cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UICollectionViewCell() }
+            return self.accountPickerView!.accountCollectionViewCell(indexPath: indexPath)
+        }
+        cellController.sizeForCellClosure = { [weak self, weak cellController] in
+            guard let self = self else { return .zero }
+            guard let cellController = cellController else { return .zero }
+            let name = cellController.account.name
+            return self.accountPickerView!.accountCollectionViewCellSize(name: name)
+        }
+        cellController.didSelectClosure = { [weak self, weak cellController] in
+            guard let self = self else { return }
+            guard let cellController = cellController else { return }
+            self.didSelectAccountCellController(cellController)
+        }
+        return cellController
+    }
+    
+    private func createAddCellController(text: String) -> BalanceAccountHorizontalPickerController.AddCollectionViewCellController {
+        let cellController = BalanceAccountHorizontalPickerController.AddCollectionViewCellController(text: text)
+        cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UICollectionViewCell() }
+            return self.accountPickerView!.addCollectionViewCell(indexPath: indexPath)
+        }
+        cellController.sizeForCellClosure = { [weak self] in
+            guard let self = self else { return .zero }
+            return self.accountPickerView!.addCollectionViewCellSize(BalanceAccountHorizontalPickerController.AddCollectionViewCellController.text(text))
+        }
+        cellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addAccount()
+        }
+        return cellController
+    }
     
     // MARK: Events
     
@@ -95,15 +130,39 @@ final class AccountPickerViewController: AUIEmptyViewController {
         setContent()
     }
     
-    var addAccountClosure: (() -> Void)?
-    @objc private func addButtonTouchUpInsideEventAction() {
-        addAccountClosure?()
+    func editAccount(_ account: Account) {
+        guard let firstIndex = accounts.firstIndex(where: { $0.id == account.id }) else { return }
+        accounts[firstIndex] = account
+        setContent()
+    }
+    
+    func deleteAccount(_ account: Account) {
+        guard let firstIndex = accounts.firstIndex(where: { $0.id == account.id }) else { return }
+        accounts.remove(at: firstIndex)
+        if let accountCellController = self.accountCellController(account) {
+            collectionController.deleteCellController(accountCellController, completion: nil)
+        }
+    }
+    
+    func orderAccounts(_ accounts: [Account]) {
+        self.accounts = accounts
+        setContent()
+    }
+    
+    var transferClosure: (() -> Void)?
+    @objc private func transferButtonTouchUpInsideEventAction() {
+        transferClosure?()
     }
     
     var selectAccountClosure: ((Account) -> Void)?
     private func didSelectAccountCellController(_ accountCellController: BalanceAccountHorizontalPickerItemCellController) {
         let account = accountCellController.account
         selectAccountClosure?(account)
+    }
+    
+    var addAccountClosure: (() -> Void)?
+    private func addAccount() {
+        addAccountClosure?()
     }
     
 }

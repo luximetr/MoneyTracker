@@ -63,7 +63,7 @@ class AddCollectionViewCell: AUICollectionViewCell {
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var sizeThatFits = textLabel.sizeThatFits(size)
         sizeThatFits.width += 12 * 2
-        sizeThatFits.height += 6
+        sizeThatFits.height += 8
         return sizeThatFits
     }
     

@@ -125,6 +125,7 @@
 		2ECB219327DD276D006D6558 /* InputAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219227DD276D006D6558 /* InputAmountView.swift */; };
 		2ECB219827DD2AE4006D6558 /* SelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219727DD2AE4006D6558 /* SelectCategoryView.swift */; };
 		2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219927DD2B39006D6558 /* SelectCategoryViewController.swift */; };
+		2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECE2DD727F8DA05006E43D0 /* DashboardAccountPickerStrings.strings */; };
 		2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */; };
 		2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */; };
 		2ECFFFC727F040BD00F338B8 /* AddTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFFFC627F040BD00F338B8 /* AddTableViewCellController.swift */; };
@@ -427,6 +428,7 @@
 		2ECB219227DD276D006D6558 /* InputAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAmountView.swift; sourceTree = "<group>"; };
 		2ECB219727DD2AE4006D6558 /* SelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryView.swift; sourceTree = "<group>"; };
 		2ECB219927DD2B39006D6558 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
+		2ECE2DD627F8DA05006E43D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardAccountPickerStrings.strings; sourceTree = "<group>"; };
 		2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorAlertScreenViewController.swift; sourceTree = "<group>"; };
 		2ECF015127BDA36D008469E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
 		2ECFFFC627F040BD00F338B8 /* AddTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTableViewCellController.swift; sourceTree = "<group>"; };
@@ -1231,6 +1233,7 @@
 			children = (
 				2EC6178D27F8392200845E7A /* DashboardAccountPickerViewController.swift */,
 				2EC6178B27F82DA300845E7A /* DashboardAccountPickerView.swift */,
+				2ECE2DD727F8DA05006E43D0 /* DashboardAccountPickerStrings.strings */,
 			);
 			path = AccountPicker;
 			sourceTree = "<group>";
@@ -2076,6 +2079,7 @@
 				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */,
+				2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 				2ED3E93D27F39BDD006C76FB /* CategoryHorizontalPickerStrings.strings in Resources */,
 				2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */,
@@ -2551,6 +2555,14 @@
 				2ECB218D27DCA9FD006D6558 /* en */,
 			);
 			name = AddExpenseScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2ECE2DD727F8DA05006E43D0 /* DashboardAccountPickerStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ECE2DD627F8DA05006E43D0 /* en */,
+			);
+			name = DashboardAccountPickerStrings.strings;
 			sourceTree = "<group>";
 		};
 		2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */ = {

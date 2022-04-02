@@ -14,10 +14,13 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     
     private var templates: [ExpenseTemplate]
     var addExpenseClosure: ((Category?) -> Void)?
+    var addCategoryClosure: (() -> Void)?
+    var transferClosure: (() -> Void)?
+    var topUpAccountClosure: ((Account) -> Void)?
+    var addAccountClosure: (() -> Void)?
+    var addTemplateClosure: (() -> Void)?
     var useTemplateClosure: ((AddingExpense) throws -> Expense)?
     var displayExpenseAddedSnackbarClosure: ((Expense) -> Void)?
-    var addTemplateClosure: (() -> Void)?
-    var addCategoryClosure: (() -> Void)?
     
     // MARK: Initializer
     
@@ -42,18 +45,10 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     private let categoryPickerViewController: CategoryPickerViewController
     private let accountPickerViewController: AccountPickerViewController
     private let templatesViewController: TemplatesViewController
-    private let templatesCollectionController = AUIEmptyCollectionViewController()
-    private let templatesSectionController = AUIEmptyCollectionViewSectionController()
-    private func findTemplateCellController(templateId: ExpenseTemplateId) -> TemplateCollectionViewCellController? {
-        return templatesSectionController.cellControllers.first(where: {
-            ($0 as? TemplateCollectionViewCellController)?.template.id == templateId
-        }) as? TemplateCollectionViewCellController
-    }
     private let templatesPanGestureRecognizer = UIPanGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showTemplates(templates)
         setupCategoryPickerViewController()
         setupAccountPickerViewController()
         setupTemplatesViewController()
@@ -80,6 +75,18 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     
     private func setupAccountPickerViewController() {
         accountPickerViewController.accountPickerView = screenView.accountPickerView
+        accountPickerViewController.transferClosure = { [weak self] in
+            guard let self = self else { return }
+            self.transferClosure?()
+        }
+        accountPickerViewController.selectAccountClosure = { [weak self] account in
+            guard let self = self else { return }
+            self.topUpAccountClosure?(account)
+        }
+        accountPickerViewController.addAccountClosure = { [weak self] in
+            guard let self = self else { return }
+            self.addAccountClosure?()
+        }
     }
     
     private func setupTemplatesViewController() {
@@ -91,7 +98,6 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
         templatesViewController.selectTemplateClosure = { [weak self] template in
             guard let self = self else { return }
             self.didSelectTemplate(template)
-            
         }
     }
     
@@ -107,10 +113,6 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     }
     
     // MARK: Events
-    
-    @objc private func didTapOnAddExpense() {
-        //didTapOnAddExpenseClosure?()
-    }
     
     private func didSelectTemplate(_ template: ExpenseTemplate) {
         guard let addExpenseClosure = useTemplateClosure else { return }
@@ -154,30 +156,6 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
         }
     }
     
-    func showTemplates(_ templates: [ExpenseTemplate]) {
-        self.templates = templates
-        //showTemplatesCells(templates: templates)
-    }
-    
-    func showTemplateUpdated(_ updatedTemplate: ExpenseTemplate) {
-        guard let cellController = findTemplateCellController(templateId: updatedTemplate.id) else { return }
-        //cellController.title = updatedTemplate.name
-        guard let templateIndex = templates.firstIndex(where: { $0.id == updatedTemplate.id }) else { return }
-        templates[templateIndex] = updatedTemplate
-    }
-    
-    func showTemplateRemoved(templateId: ExpenseTemplateId) {
-        guard let cellController = findTemplateCellController(templateId: templateId) else { return }
-        templatesCollectionController.deleteCellController(cellController, completion: nil)
-        guard let templateIndex = templates.firstIndex(where: { $0.id == templateId }) else { return }
-        templates.remove(at: templateIndex)
-    }
-    
-    func showTemplatesReordered(_ reorderedTemplates: [ExpenseTemplate]) {
-        templates = reorderedTemplates
-        //showTemplatesCells(templates: reorderedTemplates)
-    }
-    
     func addCategory(_ category: Category) {
         categoryPickerViewController.addCategory(category)
     }
@@ -192,6 +170,22 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     
     func orderCategories(_ categories: [Category]) {
         categoryPickerViewController.orderCategories(categories)
+    }
+    
+    func addAccount(_ account: Account) {
+        accountPickerViewController.addAccount(account)
+    }
+    
+    func editAccount(_ account: Account) {
+        accountPickerViewController.editAccount(account)
+    }
+    
+    func deleteAccount(_ account: Account) {
+        accountPickerViewController.deleteAccount(account)
+    }
+    
+    func orderAccounts(_ accounts: [Account]) {
+        accountPickerViewController.orderAccounts(accounts)
     }
     
     func addTemplate(_ template: ExpenseTemplate) {

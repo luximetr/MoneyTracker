@@ -83,8 +83,9 @@ final class CategoryPickerViewController: AUIEmptyViewController {
             guard let self = self else { return UICollectionViewCell() }
             return self.categoryPickerView!.categoryCollectionViewCell(indexPath: indexPath)
         }
-        cellController.sizeForCellClosure = { [weak self, cellController] in
+        cellController.sizeForCellClosure = { [weak self, weak cellController] in
             guard let self = self else { return .zero }
+            guard let cellController = cellController else { return .zero }
             let category = cellController.category
             return self.categoryPickerView!.categoryCollectionViewCellSize(name: category.name)
         }

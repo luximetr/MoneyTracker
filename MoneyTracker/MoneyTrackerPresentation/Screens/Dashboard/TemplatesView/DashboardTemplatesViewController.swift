@@ -34,7 +34,7 @@ final class TemplatesViewController: AUIEmptyViewController {
         let templatesCellControllers = sectionController.cellControllers as? [TemplateCollectionViewCellController]
         return templatesCellControllers
     }
-    private func templatesCellControllers(_ template: ExpenseTemplate) -> TemplateCollectionViewCellController? {
+    private func templateCellController(_ template: ExpenseTemplate) -> TemplateCollectionViewCellController? {
         let templateCellController = templatesCellControllers?.first(where: { $0.template == template })
         return templateCellController
     }
@@ -117,7 +117,7 @@ final class TemplatesViewController: AUIEmptyViewController {
     func deleteTemplate(_ template: ExpenseTemplate) {
         guard let firstIndex = templates.firstIndex(where: { $0.id == template.id }) else { return }
         templates.remove(at: firstIndex)
-        if let templateCellController = self.templatesCellControllers(template) {
+        if let templateCellController = self.templateCellController(template) {
             collectionController.deleteCellController(templateCellController, completion: nil)
         }
     }
