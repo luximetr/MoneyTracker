@@ -24,7 +24,7 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
     // MARK: Delegation
     
     var backClosure: (() -> Void)?
-    var shareClosire: ((Data) -> Void)?
+    var shareClosure: ((Data) -> Void)?
     
     // MARK: View
     
@@ -60,7 +60,7 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
     @objc private func shareButtonTouchUpInsideEventAction() {
         let errorString = String(reflecting: error)
         guard let errorStringData = errorString.data(using: .utf8) else { return }
-        shareClosire?(errorStringData)
+        shareClosure?(errorStringData)
     }
     
     // MARK: Content
