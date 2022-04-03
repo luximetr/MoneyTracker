@@ -22,7 +22,6 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
         self.editingAccount = editingAccount
         self.selectedCurrency = editingAccount.currency
         self.backgroundColors = backgroundColors
-        self.selectedBackgroundColor = editingAccount.backgroundColor
     }
     
     // MARK: Delegation
@@ -50,15 +49,13 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
     
     private let balanceTextFieldInputController = AUITextInputFilterValidatorFormatterTextFieldController()
     
-    private let colorsCollectionViewController = AUIEmptyCollectionViewController()
-    private func backgroundColorCellController(_ backgroundColor: UIColor) -> ColorCollectionViewCellController? {
-        let cellControllers = colorsCollectionViewController.sectionControllers.map({ $0.cellControllers }).reduce([], +)
-        let backgroundColorCellController = cellControllers.first(where: { ($0 as? ColorCollectionViewCellController)?.backgroundColor == backgroundColor }) as? ColorCollectionViewCellController
-        return backgroundColorCellController
-    }
+    private let colorPickerController = ColorHorizontalPickerController()
     
-    private func setupColorsCollectionViewController() {
-        colorsCollectionViewController.collectionView = editAccountScreenView.colorsCollectionView
+    private func setupColorPickerController() {
+        colorPickerController.pickerView = editAccountScreenView.colorPickerView
+        colorPickerController.didSelectColorClosure = { [weak self] color in
+            self?.didSelectBackgroundColor(color)
+        }
     }
     
     private var balanceNumberFormatter: NumberFormatter = {
@@ -79,13 +76,8 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
         editAccountScreenView.nameInputView.text = editingAccount.name
         editAccountScreenView.addButton.setTitle(localizer.localizeText("edit"), for: .normal)
         editAccountScreenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
-        setupColorsCollectionViewController()
-        setColorsCollectionViewControllerContent()
-        if let selectedBackgroundColor = self.selectedBackgroundColor, let selectedBackgroundColorCellController = backgroundColorCellController(selectedBackgroundColor) {
-            selectedBackgroundColorCellController.setSelected(true, animated: false)
-        }
-        editAccountScreenView.addButton.backgroundColor = editingAccount.backgroundColor
-        editAccountScreenView.setBackgroundColor(editingAccount.backgroundColor, animated: false)
+        setupColorPickerController()
+        setColorPickerControllerContent()
         editAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
         editAccountScreenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
         editAccountScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
@@ -123,16 +115,11 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
         selectCurrencyClosure?()
     }
     
-    private var selectedBackgroundColor: UIColor?
+    private var selectedBackgroundColor: UIColor? {
+        return colorPickerController.selectedColor
+    }
     private func didSelectBackgroundColor(_ backgroundColor: UIColor) {
-        if let previousSelectedBackgroundColor = selectedBackgroundColor, let previousSelectedBackgroundColorCellController = backgroundColorCellController(previousSelectedBackgroundColor) {
-            previousSelectedBackgroundColorCellController.setSelected(false, animated: true)
-        }
-        selectedBackgroundColor = backgroundColor
-        if let selectedBackgroundColor = self.selectedBackgroundColor, let selectedBackgroundColorCellController = backgroundColorCellController(selectedBackgroundColor) {
-            selectedBackgroundColorCellController.setSelected(true, animated: true)
-            self.editAccountScreenView.setBackgroundColor(selectedBackgroundColor, animated: true)
-        }
+        self.editAccountScreenView.setBackgroundColor(backgroundColor, animated: true)
         editAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
     }
     
@@ -143,32 +130,10 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Content
     
-    private func setColorsCollectionViewControllerContent() {
-        var sectionContollers: [AUICollectionViewSectionController] = []
-        let sectionContoller = AUIEmptyCollectionViewSectionController()
-        var cellControllers: [AUICollectionViewCellController] = []
-        for backgroundColor in backgroundColors {
-            let cellController = ColorCollectionViewCellController(backgroundColor: backgroundColor)
-            cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
-                guard let self = self else { return UICollectionViewCell() }
-                let cell = self.editAccountScreenView.colorCollectionViewCell(indexPath)
-                return cell
-            }
-            cellController.sizeForCellClosure = { [weak self] in
-                guard let self = self else { return .zero }
-                let size = self.editAccountScreenView.colorCollectionViewCellSize()
-                return size
-            }
-            cellController.didSelectClosure = { [weak self] in
-                guard let self = self else { return }
-                self.didSelectBackgroundColor(backgroundColor)
-            }
-            cellControllers.append(cellController)
-        }
-        sectionContoller.cellControllers = cellControllers
-        sectionContollers.append(sectionContoller)
-        colorsCollectionViewController.sectionControllers = sectionContollers
-        colorsCollectionViewController.reload()
+    private func setColorPickerControllerContent() {
+        let selectedColor = editingAccount.backgroundColor
+        colorPickerController.setColors(backgroundColors, selectedColor: selectedColor)
+        didSelectBackgroundColor(selectedColor)
     }
     
 }

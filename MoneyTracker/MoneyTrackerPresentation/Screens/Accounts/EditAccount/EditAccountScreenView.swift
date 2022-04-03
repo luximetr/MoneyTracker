@@ -18,16 +18,8 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
     let currencyInputView = UIButton()
     let amountInputView: UITextField = TextField()
     let colorsTitleLabel = UILabel()
-    private let colorsCollectionViewFlowLayout = UICollectionViewFlowLayout()
-    let colorsCollectionView: UICollectionView
+    let colorPickerView = ColorHorizontalPickerView()
     let addButton = TextFilledButton()
-    
-    // MARK: Initializer
-    
-    init() {
-        colorsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: colorsCollectionViewFlowLayout)
-        super.init()
-    }
     
     // MARK: Setup
     
@@ -49,8 +41,7 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
         amountInputView.tintColor = Colors.white
         scrollView.addSubview(colorsTitleLabel)
         setupColorsTitleLabel()
-        scrollView.addSubview(colorsCollectionView)
-        setupColorsCollectionView()
+        scrollView.addSubview(colorPickerView)
         addSubview(addButton)
     }
     
@@ -76,12 +67,6 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
         
     }
     
-    private let colorCollectionViewCellReuseIdentifier = "colorCollectionViewCellReuseIdentifier"
-    private func setupColorsCollectionView() {
-        colorsCollectionView.showsHorizontalScrollIndicator = false
-        colorsCollectionView.register(ColorCollectionViewCell.self, forCellWithReuseIdentifier: colorCollectionViewCellReuseIdentifier)
-    }
-    
     // MARK: Layout
     
     override func layoutSubviews() {
@@ -92,7 +77,7 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
         layoutCurrencyInputView()
         layoutAmountInputView()
         layoutColorsTitleLabel()
-        layoutColorsCollectionView()
+        layoutColorPickerView()
         layoutAddButton()
         setScrollViewContentSize()
     }
@@ -157,22 +142,18 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
         colorsTitleLabel.frame = frame
     }
     
-    private func layoutColorsCollectionView() {
+    private func layoutColorPickerView() {
         let x: CGFloat = 0
         let y = colorsTitleLabel.frame.origin.y + colorsTitleLabel.frame.size.height + 8
         let width = bounds.width - 2 * x
         let height: CGFloat = 36
         let frame = CGRect(x: x, y: y, width: width, height: height)
-        colorsCollectionView.frame = frame
-        colorsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 26)
-        colorsCollectionViewFlowLayout.scrollDirection = .horizontal
-        colorsCollectionView.alwaysBounceHorizontal = true
-        colorsCollectionViewFlowLayout.minimumInteritemSpacing = 16
+        colorPickerView.frame = frame
     }
     
     private func setScrollViewContentSize() {
         let width = scrollView.bounds.width
-        let height = colorsCollectionView.frame.origin.y + colorsCollectionView.frame.size.height + 8 + safeAreaInsets.bottom
+        let height = colorPickerView.frame.origin.y + colorPickerView.frame.size.height + 8 + safeAreaInsets.bottom
         let contentSize = CGSize(width: width, height: height)
         scrollView.contentSize = contentSize
     }
@@ -203,20 +184,6 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
     
     func setBackgroundColor(_ backgroundColor: UIColor, animated: Bool) {
         backgroundView.backgroundColor = backgroundColor
-    }
-    
-    // MARK: Color Cell
-    
-    func colorCollectionViewCell(_ indexPath: IndexPath) -> ColorCollectionViewCell {
-        let collectionViewCell = colorsCollectionView.dequeueReusableCell(withReuseIdentifier: colorCollectionViewCellReuseIdentifier, for: indexPath) as! ColorCollectionViewCell
-        return collectionViewCell
-    }
-
-    func colorCollectionViewCellSize() -> CGSize {
-        let width: CGFloat = 36
-        let height: CGFloat = 36
-        let size = CGSize(width: width, height: height)
-        return size
     }
     
 }

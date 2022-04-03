@@ -14,6 +14,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     var backClosure: (() -> Void)?
     var addCategoryClosure: ((AddingCategory) throws -> Void)?
+    var selectIconClosure: (() -> Void)?
     
     // MARK: View
     
@@ -29,6 +30,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
         super.viewDidLoad()
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.selectIconButton.addTarget(self, action: #selector(selectIconButtonTouchUpInsideEventAction), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         setContent()
@@ -63,6 +65,10 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
             let addingCategory = AddingCategory(name: name)
             try addCategoryClosure?(addingCategory)
         } catch { }
+    }
+    
+    @objc private func selectIconButtonTouchUpInsideEventAction() {
+        selectIconClosure?()
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {

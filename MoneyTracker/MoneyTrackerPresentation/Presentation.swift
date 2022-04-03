@@ -79,8 +79,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        //menuViewController.statistic()
-        menuViewController.dashboard()
+        menuViewController.settings()
     }
     
     // MARK: Menu Navigation Controller
@@ -376,6 +375,11 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
+        viewController.selectIconClosure = { [weak self] in
+            guard let self = self else { return }
+            let selectIconViewController = self.createSelectIconViewController()
+            self.menuNavigationController?.present(selectIconViewController, animated: true)
+        }
         self.pushedAddCategoryViewController = viewController
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -430,6 +434,16 @@ public final class Presentation: AUIWindowPresentation {
         }
         pushedEditCategoryViewController = viewController
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    // MARK: - Select Icon View Controller
+    
+    private func createSelectIconViewController() -> SelectIconScreenViewController {
+        let viewController = SelectIconScreenViewController(iconColor: Colors.greenCardSecondaryBackground)
+//        viewController.didSelectIconClosure = {
+//            
+//        }
+        return viewController
     }
     
     // MARK: - Settings Screen View Controller

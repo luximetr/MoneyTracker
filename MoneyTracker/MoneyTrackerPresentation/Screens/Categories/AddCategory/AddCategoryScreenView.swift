@@ -13,6 +13,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
+    let iconView = CategoryIconView()
+    let selectIconButton = UIButton()
     let scrollView = UIScrollView()
     let nameTextField = PlainTextField()
     let addButton = TextFilledButton()
@@ -23,6 +25,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.setup()
         backgroundColor = Colors.white
         addSubview(scrollView)
+        iconView.backgroundColor = Colors.secondaryBackground
+        scrollView.addSubview(iconView)
+        scrollView.addSubview(selectIconButton)
         scrollView.addSubview(nameTextField)
         addSubview(addButton)
     }
@@ -43,6 +48,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.layoutSubviews()
         layoutScrollView()
         layoutNameTextField()
+        layoutIconView()
+        layoutSelectIconButton()
         layoutAddButton()
         setScrollViewContentSize()
     }
@@ -60,12 +67,30 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func layoutNameTextField() {
-        let x: CGFloat = 16
+        let x: CGFloat = iconViewLeading + iconViewSide + 16
         let y: CGFloat = 32
         let width = bounds.width - 2 * x
         let height: CGFloat = 44
         let frame = CGRect(x: x, y: y, width: width, height: height)
         nameTextField.frame = frame
+    }
+    
+    private let iconViewLeading: CGFloat = 16
+    private let iconViewSide: CGFloat = 40
+    
+    private func layoutIconView() {
+        let x: CGFloat = iconViewLeading
+        let heightDifference = nameTextField.frame.height - iconViewSide
+        let y: CGFloat = nameTextField.frame.origin.y + heightDifference / 2
+        let size = CGSize(width: iconViewSide, height: iconViewSide)
+        let frame = CGRect(origin: CGPoint(x: x, y: y), size: size)
+        iconView.frame = frame
+        iconView.layer.cornerRadius = iconViewSide / 2
+    }
+    
+    private func layoutSelectIconButton() {
+        let frame = iconView.frame
+        selectIconButton.frame = frame
     }
     
     private func setScrollViewContentSize() {
