@@ -26,6 +26,14 @@ final class SelectCategoryViewController: AUIEmptyViewController {
     
     private let pickerViewController = AUIEmptyTitlePickerViewController()
     private let componentController = AUIEmptyTitlePickerViewComponentController()
+    private var categoriesItemControllers: [CategoryTitlePickerViewItemController]? {
+        let categoriesItemControllers = componentController.itemControllers as? [CategoryTitlePickerViewItemController]
+        return categoriesItemControllers
+    }
+    private func categoryItemController(_ category: Category) -> CategoryTitlePickerViewItemController? {
+        let categoryItemController = categoriesItemControllers?.first(where: { $0.category.id == category.id })
+        return categoryItemController
+    }
     
     // MARK: SelectCategoryView
   
@@ -63,6 +71,13 @@ final class SelectCategoryViewController: AUIEmptyViewController {
         }
         componentController.titleItemControllers = itemControllers
         pickerViewController.titleComponentControllers = [componentController]
+    }
+    
+    // MARK: Events
+    
+    func selectCategory(_ category: Category) {
+        guard let itemController = categoryItemController(category) else { return }
+        pickerViewController.selectItemController(itemController, atComponentController: componentController, animated: false)
     }
     
 }

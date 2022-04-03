@@ -51,8 +51,9 @@ final class TemplatesView: AUIView {
         titleLabel.textColor = Colors.primaryText
     }
         
+    private let templateCollectionViewCellReuseIdentifier = "templateCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
-        
+        collectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: templateCollectionViewCellReuseIdentifier)
     }
     
     // MARK: Layout
@@ -90,7 +91,7 @@ final class TemplatesView: AUIView {
     }
     
     private func layoutAddButton() {
-        let y: CGFloat = panGestureView.frame.origin.y + panGestureView.frame.size.height
+        let y: CGFloat = panGestureView.frame.origin.y + panGestureView.frame.size.height + 10
         let sizeThatFits = addButton.sizeThatFits(CGSize(width: (bounds.width - 22) * 0.5, height: titleLabel.frame.size.height))
         let width = sizeThatFits.width
         let x = bounds.width - 22 - width
@@ -140,6 +141,18 @@ final class TemplatesView: AUIView {
         }
         let width = size.width
         return CGSize(width: width, height: height)
+    }
+    
+    // MARK: Template cell
+    
+    func templateCollectionViewCell(indexPath: IndexPath) -> TemplateCollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: templateCollectionViewCellReuseIdentifier, for: indexPath) as! TemplateCollectionViewCell
+        return cell
+    }
+    
+    func getTemplateCellSize() -> CGSize {
+        let availableRowWidth = (bounds.width - 22 * 2 - 16) * 0.5
+        return CGSize(width: availableRowWidth, height: 44)
     }
     
 }

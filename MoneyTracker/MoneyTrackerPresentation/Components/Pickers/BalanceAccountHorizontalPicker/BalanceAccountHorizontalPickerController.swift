@@ -54,8 +54,7 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
         self.selectedAccount = selectedAccount
         let sectionController = AUIEmptyCollectionViewSectionController()
         var cellControllers = createItemCellControllers(accounts: accounts, selectedAccount: selectedAccount)
-        let text = localizer.localizeText("add")
-        let addCellController = createAddCellController(text: text)
+        let addCellController = createAddCellController(text: localizer.localizeText("add"))
         cellControllers.append(addCellController)
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
@@ -72,7 +71,7 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
     }
     
     private func createItemCellController(account: Account, isSelected: Bool) -> AUICollectionViewCellController {
-        let cellController = BalanceAccountHorizontalPickerItemCellController(accountId: account.id, isSelected: isSelected)
+        let cellController = BalanceAccountHorizontalPickerItemCellController(account: account, isSelected: isSelected)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.balanceAccountHorizontalPickerView.createItemCell(indexPath: indexPath, account: account, isSelected: isSelected)
@@ -108,7 +107,7 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
     
     private func findCellControllerForAccountId(_ accountId: AccountId) -> BalanceAccountHorizontalPickerItemCellController? {
         let cellControllers = collectionController.sectionControllers.map({ $0.cellControllers }).reduce([], +).compactMap { $0 as? BalanceAccountHorizontalPickerItemCellController }
-        let foundCellController = cellControllers.first(where: { $0.accountId == accountId })
+        let foundCellController = cellControllers.first(where: { $0.account.id == accountId })
         return foundCellController
     }
     

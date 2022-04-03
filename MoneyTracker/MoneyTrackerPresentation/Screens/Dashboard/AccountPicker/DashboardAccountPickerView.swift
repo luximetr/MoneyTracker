@@ -14,8 +14,8 @@ final class AccountPickerView: AUIView {
     // MARK: Subviews
     
     let titleLabel = UILabel()
-    let addButton = TextButton()
-    let collectionViewFlowLayout = UICollectionViewFlowLayout()
+    let transferButton = TextButton()
+    private let collectionViewFlowLayout = LeftAlignedCollectionViewFlowLayout()
     let collectionView: UICollectionView
     
     // MARK: Initializer
@@ -32,7 +32,7 @@ final class AccountPickerView: AUIView {
         backgroundColor = Colors.white
         addSubview(titleLabel)
         setupTitleLabel()
-        addSubview(addButton)
+        addSubview(transferButton)
         addSubview(collectionView)
         setupCollectionView()
     }
@@ -41,9 +41,14 @@ final class AccountPickerView: AUIView {
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
         titleLabel.textColor = Colors.primaryText
     }
-        
+    
+    private let accountCollectionViewCellReuseIdentifier = "accountCollectionViewCellReuseIdentifier"
+    private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
-        
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(BalanceAccountHorizontalPickerItemCell.self, forCellWithReuseIdentifier: accountCollectionViewCellReuseIdentifier)
+        collectionView.register(BalanceAccountHorizontalPickerController.AddCollectionViewCell.self, forCellWithReuseIdentifier: addCollectionViewCellReuseIdentifier)
     }
     
     // MARK: Layout
@@ -67,12 +72,12 @@ final class AccountPickerView: AUIView {
     
     private func layoutAddButton() {
         let y: CGFloat = 0
-        let sizeThatFits = addButton.sizeThatFits(CGSize(width: (bounds.width - 22) * 0.5, height: titleLabel.frame.size.height))
+        let sizeThatFits = transferButton.sizeThatFits(CGSize(width: (bounds.width - 22) * 0.5, height: titleLabel.frame.size.height))
         let width = sizeThatFits.width
         let x = bounds.width - 22 - width
         let height = titleLabel.frame.size.height
         let frame = CGRect(x: x, y: y, width: width, height: height)
-        addButton.frame = frame
+        transferButton.frame = frame
     }
     
     private func layoutCollectionView() {
@@ -83,12 +88,31 @@ final class AccountPickerView: AUIView {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         collectionView.frame = frame
         collectionView.contentInset = UIEdgeInsets(top: 5, left: 22, bottom: 5, right: 22)
-        collectionViewFlowLayout.minimumLineSpacing = 10
+        collectionViewFlowLayout.minimumInteritemSpacing = 2
+        collectionViewFlowLayout.minimumLineSpacing = 2
     }
     
-    // MARK: Size
+    // MARK: - AccountCollectionViewCell
     
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
+    func accountCollectionViewCell(indexPath: IndexPath) -> BalanceAccountHorizontalPickerItemCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: accountCollectionViewCellReuseIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerItemCell
+        return cell
+    }
+    
+    func accountCollectionViewCellSize(name: String) -> CGSize {
+        let size = BalanceAccountHorizontalPickerItemCell.sizeThatFits(collectionView.bounds.size, name: name)
+        return size
+    }
+    
+    // MARK: AddCollectionViewCell
+    
+    func addCollectionViewCell(indexPath: IndexPath) -> BalanceAccountHorizontalPickerController.AddCollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerController.AddCollectionViewCell
+        return cell
+    }
+    
+    func addCollectionViewCellSize(_ text: String) -> CGSize {
+        let size = BalanceAccountHorizontalPickerController.AddCollectionViewCell.sizeThatFits(collectionView.bounds.size, text: text)
         return size
     }
     

@@ -12,7 +12,7 @@ class BalanceAccountHorizontalPickerItemCellController: AUIClosuresCollectionVie
     
     // MARK: - Data
     
-    let accountId: AccountId
+    let account: Account
     
     var isSelected: Bool {
         didSet { pickerItemCell?.update(isSelected: isSelected) }
@@ -26,8 +26,23 @@ class BalanceAccountHorizontalPickerItemCellController: AUIClosuresCollectionVie
     
     // MARK: - Life cycle
     
-    init(accountId: AccountId, isSelected: Bool) {
-        self.accountId = accountId
+    init(account: Account, isSelected: Bool) {
+        self.account = account
         self.isSelected = isSelected
     }
+    
+    override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.cellForItemAtIndexPath(indexPath)
+        setContent()
+        return cell
+    }
+    
+    // MARK: Content
+    
+    private func setContent() {
+        pickerItemCell?.titleLabel.text = account.name
+        pickerItemCell?.color = account.backgroundColor
+        pickerItemCell?.update(isSelected: isSelected)
+    }
+    
 }

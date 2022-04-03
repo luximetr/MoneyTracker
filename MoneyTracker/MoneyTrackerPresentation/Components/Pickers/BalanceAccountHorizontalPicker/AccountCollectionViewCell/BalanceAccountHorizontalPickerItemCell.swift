@@ -83,7 +83,15 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
         let availableSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: size.height)
         let labelWidth = titleLabel.sizeThatFits(availableSize).width
         let takenWidth = titleLabelHorizontalOffset * 2 + labelWidth
-        let takenSize = CGSize(width: takenWidth, height: size.height)
+        let takenSize = CGSize(width: takenWidth, height: titleLabel.sizeThatFits(availableSize).height + 8)
         return takenSize
     }
+    
+    private static let balanceAccountHorizontalPickerItemCell = BalanceAccountHorizontalPickerItemCell()
+    static func sizeThatFits(_ size: CGSize, name: String) -> CGSize {
+        balanceAccountHorizontalPickerItemCell.titleLabel.text = name
+        let sizeThatFits = balanceAccountHorizontalPickerItemCell.sizeThatFits(size)
+        return sizeThatFits
+    }
+    
 }

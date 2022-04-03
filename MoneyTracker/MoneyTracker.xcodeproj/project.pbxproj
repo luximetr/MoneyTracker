@@ -125,6 +125,7 @@
 		2ECB219327DD276D006D6558 /* InputAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219227DD276D006D6558 /* InputAmountView.swift */; };
 		2ECB219827DD2AE4006D6558 /* SelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219727DD2AE4006D6558 /* SelectCategoryView.swift */; };
 		2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219927DD2B39006D6558 /* SelectCategoryViewController.swift */; };
+		2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECE2DD727F8DA05006E43D0 /* DashboardAccountPickerStrings.strings */; };
 		2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */; };
 		2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */; };
 		2ECFFFC727F040BD00F338B8 /* AddTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFFFC627F040BD00F338B8 /* AddTableViewCellController.swift */; };
@@ -147,6 +148,9 @@
 		2ED8BD7727E909150007F60B /* HistoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7927E909150007F60B /* HistoryScreenStrings.strings */; };
 		2ED8BD7C27E91A520007F60B /* DayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7B27E91A520007F60B /* DayTableViewCell.swift */; };
 		2ED8BD7E27E91DB90007F60B /* DayTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7D27E91DB90007F60B /* DayTableViewCellController.swift */; };
+		2ED9047927F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED9047B27F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings */; };
+		2ED9047E27F885DF0091FCA5 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9047D27F885DF0091FCA5 /* LeftAlignedCollectionViewFlowLayout.swift */; };
+		2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED9048327F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings */; };
 		2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDB3EEE27C43FB5003A9FDD /* ExpenseTemplateAdapter.swift */; };
 		2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDB3EEF27C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift */; };
 		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
@@ -434,6 +438,7 @@
 		2ECB219227DD276D006D6558 /* InputAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAmountView.swift; sourceTree = "<group>"; };
 		2ECB219727DD2AE4006D6558 /* SelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryView.swift; sourceTree = "<group>"; };
 		2ECB219927DD2B39006D6558 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
+		2ECE2DD627F8DA05006E43D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardAccountPickerStrings.strings; sourceTree = "<group>"; };
 		2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorAlertScreenViewController.swift; sourceTree = "<group>"; };
 		2ECF015127BDA36D008469E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
 		2ECFFFC627F040BD00F338B8 /* AddTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTableViewCellController.swift; sourceTree = "<group>"; };
@@ -456,6 +461,9 @@
 		2ED8BD7827E909150007F60B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HistoryScreenStrings.strings; sourceTree = "<group>"; };
 		2ED8BD7B27E91A520007F60B /* DayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableViewCell.swift; sourceTree = "<group>"; };
 		2ED8BD7D27E91DB90007F60B /* DayTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableViewCellController.swift; sourceTree = "<group>"; };
+		2ED9047A27F8707C0091FCA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardCategoryPickerStrings.strings; sourceTree = "<group>"; };
+		2ED9047D27F885DF0091FCA5 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		2ED9048227F8AB590091FCA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardTemplatesViewStrings.strings; sourceTree = "<group>"; };
 		2EDB3EEE27C43FB5003A9FDD /* ExpenseTemplateAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateAdapter.swift; sourceTree = "<group>"; };
 		2EDB3EEF27C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingExpenseTemplateAdapter.swift; sourceTree = "<group>"; };
 		3BF952E2EAD51B56319BC964 /* Pods-MoneyTrackerPresentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.release.xcconfig"; sourceTree = "<group>"; };
@@ -1182,6 +1190,7 @@
 		2EC19AD327A7F75600E1A6FA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2ED9047C27F885CC0091FCA5 /* CollectionView */,
 				2EBEAA3A27F07E53000480DA /* TableViewCells */,
 				DBB7BD2527DC7635004EF5B7 /* Pickers */,
 				2EC1BDC527B99A3400C4A054 /* TextInput */,
@@ -1234,6 +1243,7 @@
 			children = (
 				2EC6178F27F8393300845E7A /* DashboardCategoryPickerViewController.swift */,
 				2EC6178827F82BFE00845E7A /* DashboardCategoryPickerView.swift */,
+				2ED9047B27F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings */,
 			);
 			path = CategoriesPicker;
 			sourceTree = "<group>";
@@ -1243,6 +1253,7 @@
 			children = (
 				2EC6178D27F8392200845E7A /* DashboardAccountPickerViewController.swift */,
 				2EC6178B27F82DA300845E7A /* DashboardAccountPickerView.swift */,
+				2ECE2DD727F8DA05006E43D0 /* DashboardAccountPickerStrings.strings */,
 			);
 			path = AccountPicker;
 			sourceTree = "<group>";
@@ -1303,6 +1314,7 @@
 			children = (
 				2ECB165827F77FD5009D748D /* DashboardTemplatesViewController.swift */,
 				2ECB165B27F78056009D748D /* DashboardTemplatesView.swift */,
+				2ED9048327F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings */,
 				DBB7BD1727DC42CD004EF5B7 /* TemplateCell */,
 			);
 			path = TemplatesView;
@@ -1431,6 +1443,14 @@
 				2ED8BD7B27E91A520007F60B /* DayTableViewCell.swift */,
 			);
 			path = DayTableViewCell;
+			sourceTree = "<group>";
+		};
+		2ED9047C27F885CC0091FCA5 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2ED9047D27F885DF0091FCA5 /* LeftAlignedCollectionViewFlowLayout.swift */,
+			);
+			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		51E3EA472CC8324F4826A8AD /* Pods */ = {
@@ -2115,6 +2135,7 @@
 				2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */,
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
 				2ECB218C27DCA9FD006D6558 /* AddExpenseScreenStrings.strings in Resources */,
+				2ED9047927F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings in Resources */,
 				DB74864B27BBABB2004DF67B /* TemplatesScreenStrings.strings in Resources */,
 				2E2A6EDA27EC4FBB0084054C /* EditExpenseScreenStrings.strings in Resources */,
 				2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */,
@@ -2128,6 +2149,8 @@
 				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				DB7BA80827F87D7500A3B3BA /* SelectIconScreenStrings.strings in Resources */,
+				2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */,
+				2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 				2ED3E93D27F39BDD006C76FB /* CategoryHorizontalPickerStrings.strings in Resources */,
 				2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */,
@@ -2391,6 +2414,7 @@
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
 				DB45FAD127E4B8BE0073C677 /* SingleLineTextInputView.swift in Sources */,
 				2EC6178C27F82DA300845E7A /* DashboardAccountPickerView.swift in Sources */,
+				2ED9047E27F885DF0091FCA5 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				DB74863927BA6042004DF67B /* AddTemplateScreenViewController.swift in Sources */,
 				DB74863427BA5B81004DF67B /* ExpenseTemplate.swift in Sources */,
 				2ED8BD7E27E91DB90007F60B /* DayTableViewCellController.swift in Sources */,
@@ -2613,6 +2637,14 @@
 			name = AddExpenseScreenStrings.strings;
 			sourceTree = "<group>";
 		};
+		2ECE2DD727F8DA05006E43D0 /* DashboardAccountPickerStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ECE2DD627F8DA05006E43D0 /* en */,
+			);
+			name = DashboardAccountPickerStrings.strings;
+			sourceTree = "<group>";
+		};
 		2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2643,6 +2675,22 @@
 				2ED8BD7827E909150007F60B /* en */,
 			);
 			name = HistoryScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2ED9047B27F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ED9047A27F8707C0091FCA5 /* en */,
+			);
+			name = DashboardCategoryPickerStrings.strings;
+			sourceTree = "<group>";
+		};
+		2ED9048327F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ED9048227F8AB590091FCA5 /* en */,
+			);
+			name = DashboardTemplatesViewStrings.strings;
 			sourceTree = "<group>";
 		};
 		DB45FADB27E6EFE80073C677 /* EditTemplateScreenStrings.strings */ = {
