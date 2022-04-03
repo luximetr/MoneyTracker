@@ -441,9 +441,9 @@ public final class Presentation: AUIWindowPresentation {
     
     private func createSelectIconViewController() -> SelectIconScreenViewController {
         let viewController = SelectIconScreenViewController(iconColor: Colors.greenCardSecondaryBackground)
-        viewController.didSelectIconClosure = {
-            
-        }
+//        viewController.didSelectIconClosure = {
+//            
+//        }
         return viewController
     }
     

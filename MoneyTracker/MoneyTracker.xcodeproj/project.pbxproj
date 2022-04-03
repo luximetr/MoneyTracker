@@ -234,6 +234,10 @@
 		DB7BA80827F87D7500A3B3BA /* SelectIconScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB7BA80A27F87D7500A3B3BA /* SelectIconScreenStrings.strings */; };
 		DB7BA80D27F9482B00A3B3BA /* SelectIconScreenCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA80C27F9482B00A3B3BA /* SelectIconScreenCollectionCell.swift */; };
 		DB7BA80F27F9494800A3B3BA /* SelectIconScreenCollectionCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA80E27F9494800A3B3BA /* SelectIconScreenCollectionCellController.swift */; };
+		DB7BA81227F9831700A3B3BA /* ColorHorizontalPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA81127F9831700A3B3BA /* ColorHorizontalPickerController.swift */; };
+		DB7BA81427F983C700A3B3BA /* ColorHorizontalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA81327F983C700A3B3BA /* ColorHorizontalPickerView.swift */; };
+		DB7BA81727F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA81627F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift */; };
+		DB7BA81927F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA81827F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift */; };
 		DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */; };
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
@@ -543,6 +547,10 @@
 		DB7BA80927F87D7500A3B3BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SelectIconScreenStrings.strings; sourceTree = "<group>"; };
 		DB7BA80C27F9482B00A3B3BA /* SelectIconScreenCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconScreenCollectionCell.swift; sourceTree = "<group>"; };
 		DB7BA80E27F9494800A3B3BA /* SelectIconScreenCollectionCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconScreenCollectionCellController.swift; sourceTree = "<group>"; };
+		DB7BA81127F9831700A3B3BA /* ColorHorizontalPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHorizontalPickerController.swift; sourceTree = "<group>"; };
+		DB7BA81327F983C700A3B3BA /* ColorHorizontalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHorizontalPickerView.swift; sourceTree = "<group>"; };
+		DB7BA81627F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHorizontalPickerColorCell.swift; sourceTree = "<group>"; };
+		DB7BA81827F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHorizontalPickerColorCellController.swift; sourceTree = "<group>"; };
 		DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
@@ -1779,6 +1787,25 @@
 			path = SelectIconCollectionCell;
 			sourceTree = "<group>";
 		};
+		DB7BA81027F982D600A3B3BA /* ColorHorizontalPicker */ = {
+			isa = PBXGroup;
+			children = (
+				DB7BA81127F9831700A3B3BA /* ColorHorizontalPickerController.swift */,
+				DB7BA81327F983C700A3B3BA /* ColorHorizontalPickerView.swift */,
+				DB7BA81527F987F000A3B3BA /* ColorCell */,
+			);
+			path = ColorHorizontalPicker;
+			sourceTree = "<group>";
+		};
+		DB7BA81527F987F000A3B3BA /* ColorCell */ = {
+			isa = PBXGroup;
+			children = (
+				DB7BA81627F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift */,
+				DB7BA81827F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift */,
+			);
+			path = ColorCell;
+			sourceTree = "<group>";
+		};
 		DBB7BD0A27D78F31004EF5B7 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -1816,6 +1843,7 @@
 		DBB7BD2527DC7635004EF5B7 /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
+				DB7BA81027F982D600A3B3BA /* ColorHorizontalPicker */,
 				DBB7BD2C27DDDEDA004EF5B7 /* CategoryHorizontalPicker */,
 				DBB7BD2227DC75FF004EF5B7 /* BalanceAccountHorizontalPicker */,
 			);
@@ -2326,6 +2354,7 @@
 				2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */,
 				2EC19ACE27A7F64000E1A6FA /* CategoriesScreenViewController.swift in Sources */,
 				2E2A6EE027EC4FEC0084054C /* EditExpenseScreenViewController.swift in Sources */,
+				DB7BA81427F983C700A3B3BA /* ColorHorizontalPickerView.swift in Sources */,
 				2EA7067727B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift in Sources */,
 				2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */,
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
@@ -2340,6 +2369,7 @@
 				2EC6178927F82BFE00845E7A /* DashboardCategoryPickerView.swift in Sources */,
 				2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */,
 				2ECB165927F77FD5009D748D /* DashboardTemplatesViewController.swift in Sources */,
+				DB7BA81927F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift in Sources */,
 				DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */,
 				DB74864827BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift in Sources */,
 				2ECB218727DCA957006D6558 /* AddExpenseScreenViewController.swift in Sources */,
@@ -2355,6 +2385,7 @@
 				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
 				2ECB218927DCA961006D6558 /* AddExpenseScreenView.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
+				DB7BA81227F9831700A3B3BA /* ColorHorizontalPickerController.swift in Sources */,
 				2ED76C8927F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift in Sources */,
 				2E9289FB27AFF9CA002F3403 /* SettingsScreenViewController.swift in Sources */,
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
@@ -2369,6 +2400,7 @@
 				2EC6179027F8393300845E7A /* DashboardCategoryPickerViewController.swift in Sources */,
 				2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */,
 				2E09CC3727F4F9720015DA1E /* PlainTextField.swift in Sources */,
+				DB7BA81727F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift in Sources */,
 				DB7BA80327F87CB500A3B3BA /* SelectIconScreenView.swift in Sources */,
 				2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */,
 				2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */,
