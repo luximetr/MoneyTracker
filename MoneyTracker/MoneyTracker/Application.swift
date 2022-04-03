@@ -360,7 +360,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let storageEditingTemplate = adapter.adaptToStorage(presentationEditingExpenseTemplate: editingExpenseTemplate)
         tryUpdateExpenseTemplate(editingExpenseTemplate: storageEditingTemplate)
         guard let updatedTemplate = tryFetchPresentationExpenseTemplate(id: editingExpenseTemplate.id) else { fatalError() }
-        presentation.showExpenseTemplateUpdated(updatedTemplate)
         return updatedTemplate
     }
     
@@ -403,7 +402,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, reorderExpenseTemplates: [PresentationExpenseTemplate]) {
         let orderedIds = reorderExpenseTemplates.map { $0.id }
         trySaveExpenseTemplatesOrder(orderedIds: orderedIds)
-        presentation.showExpenseTemplatesReordered(reorderExpenseTemplates)
     }
     
     private func trySaveExpenseTemplatesOrder(orderedIds: [String]) {
@@ -416,7 +414,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: PresentationExpenseTemplate) {
         tryRemoveExpenseTemplate(expenseTemplateId: expenseTemplate.id)
-        presentation.showExpenseTemplateRemoved(expenseTemplate)
     }
     
     private func tryRemoveExpenseTemplate(expenseTemplateId: String) {
