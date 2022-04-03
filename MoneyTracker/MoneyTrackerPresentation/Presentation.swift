@@ -79,8 +79,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        //menuViewController.statistic()
-        menuViewController.dashboard()
+        menuViewController.settings()
     }
     
     // MARK: Menu Navigation Controller
@@ -359,6 +358,11 @@ public final class Presentation: AUIWindowPresentation {
                 self.displayUnexpectedErrorAlertScreen(error)
             }
         }
+        viewController.selectIconClosure = { [weak self] in
+            guard let self = self else { return }
+            let selectIconViewController = self.createSelectIconViewController()
+            self.menuNavigationController?.present(selectIconViewController, animated: true)
+        }
         return viewController
     }
     
@@ -433,6 +437,16 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
+    // MARK: - Select Icon View Controller
+    
+    private func createSelectIconViewController() -> SelectIconScreenViewController {
+        let viewController = SelectIconScreenViewController(iconColor: Colors.greenCardSecondaryBackground)
+        viewController.didSelectIconClosure = {
+            
+        }
+        return viewController
+    }
+    
     // MARK: - Settings Screen View Controller
     
     private weak var settingsScreenViewController: SettingsScreenViewController?
@@ -441,13 +455,15 @@ public final class Presentation: AUIWindowPresentation {
         let viewController = SettingsScreenViewController()
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
-            do {
-                let viewController = try self.createCategoriesViewController()
-                self.categoriesViewController = viewController
-                self.menuNavigationController?.pushViewController(viewController, animated: true)
-            } catch {
-                self.displayUnexpectedErrorAlertScreen(error)
-            }
+            let viewController = self.createSelectIconViewController()
+            self.menuNavigationController?.present(viewController, animated: true)
+//            do {
+//                let viewController = try self.createCategoriesViewController()
+//                self.categoriesViewController = viewController
+//                self.menuNavigationController?.pushViewController(viewController, animated: true)
+//            } catch {
+//                self.displayUnexpectedErrorAlertScreen(error)
+//            }
         }
         viewController.didSelectCurrencyClosure = { [weak self] in
             guard let self = self else { return }
