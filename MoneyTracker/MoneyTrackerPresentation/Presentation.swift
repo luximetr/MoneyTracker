@@ -419,7 +419,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var pushedEditCategoryViewController: EditCategoryScreenViewController?
     private func pushEditCategoryScreenViewController(_ navigationController: UINavigationController, category: Category) {
-        let viewController = EditCategoryScreenViewController(category: category)
+        let viewController = EditCategoryScreenViewController(category: category, categoryColors: CategoryBackgroundColors.variants)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)

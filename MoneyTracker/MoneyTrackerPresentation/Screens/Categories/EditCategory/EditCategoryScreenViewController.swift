@@ -12,14 +12,17 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Data
     
+    private let categoryColors: [UIColor]
     private let category: Category
     var backClosure: (() -> Void)?
     var editCategoryClosure: ((Category) throws -> Void)?
+    var selectIconClosure: ((UIColor) -> Void)?
     
     // MARK: Initializer
     
-    init(category: Category) {
+    init(category: Category, categoryColors: [UIColor]) {
         self.category = category
+        self.categoryColors = categoryColors
         super.init()
     }
     
@@ -36,9 +39,11 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.selectIconButton.addTarget(self, action: #selector(selectIconButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.editButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        setupColorPickerController()
         setContent()
     }
     
@@ -73,6 +78,11 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
         } catch {}
     }
     
+    @objc private func selectIconButtonTouchUpInsideEventAction() {
+        guard let selectedColor = colorPickerController.selectedColor else { return }
+        selectIconClosure?(selectedColor)
+    }
+    
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
@@ -84,11 +94,36 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
         screenView.setKeyboardFrame(nil)
     }
     
+    // MARK: Color picker
+    
+    private let colorPickerController = ColorHorizontalPickerController()
+    
+    private func setupColorPickerController() {
+        colorPickerController.pickerView = screenView.colorPickerView
+        colorPickerController.didSelectColorClosure = { [weak self] color in
+            self?.updateView(categoryColor: color)
+        }
+        colorPickerController.setColors(categoryColors, selectedColor: categoryColors.first!)
+    }
+    
+    private func updateView(categoryColor: UIColor) {
+        screenView.iconView.backgroundColor = categoryColor
+        screenView.nameTextField.textColor = categoryColor
+        screenView.editButton.backgroundColor = categoryColor
+    }
+    
+    // MARK: Icon
+    
+    func showCategoryIcon(iconName: String) {
+        screenView.iconView.setIcon(named: iconName)
+    }
+    
     // MARK: Content
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
         screenView.nameTextField.text = category.name
+        screenView.colorPickerTitleLabel.text = localizer.localizeText("colorPickerTitle")
         screenView.editButton.setTitle(localizer.localizeText("save"), for: .normal)
     }
     

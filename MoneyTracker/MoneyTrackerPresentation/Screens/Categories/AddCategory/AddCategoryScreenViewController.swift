@@ -111,6 +111,8 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
         screenView.addButton.backgroundColor = categoryColor
     }
     
+    // MARK: Icon
+    
     func showCategoryIcon(iconName: String) {
         screenView.iconView.setIcon(named: iconName)
     }

@@ -13,8 +13,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
+    let iconView = CategoryIconView()
+    let selectIconButton = UIButton()
     let scrollView = UIScrollView()
     let nameTextField = PlainTextField()
+    let colorPickerTitleLabel = UILabel()
+    let colorPickerView = ColorHorizontalPickerView()
     let editButton = TextFilledButton()
     
     // MARK: Setup
@@ -23,8 +27,15 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.setup()
         backgroundColor = Colors.white
         addSubview(scrollView)
+        scrollView.addSubview(iconView)
+        scrollView.addSubview(selectIconButton)
         scrollView.addSubview(nameTextField)
+        scrollView.addSubview(colorPickerTitleLabel)
+        setupColorPickerTitleLabel()
+        scrollView.addSubview(colorPickerView)
+        setupColorPickerView()
         addSubview(editButton)
+        setupEditButton()
     }
     
     override func setupStatusBarView() {
@@ -37,12 +48,29 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.white
     }
     
+    private func setupColorPickerTitleLabel() {
+        colorPickerTitleLabel.numberOfLines = 1
+        colorPickerTitleLabel.font = Fonts.default(size: 17, weight: .regular)
+    }
+    
+    private func setupEditButton() {
+        editButton.titleLabel?.font = Fonts.default(size: 17, weight: .semibold)
+    }
+    
+    private func setupColorPickerView() {
+        colorPickerView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
     // MARK: Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutScrollView()
         layoutNameTextField()
+        layoutIconView()
+        layoutSelectIconButton()
+        layoutColorPickerTitleLabel()
+        layoutColorPickerView()
         layoutEditButton()
         setScrollViewContentSize()
     }
@@ -60,7 +88,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func layoutNameTextField() {
-        let x: CGFloat = 16
+        let x: CGFloat = iconViewLeading + iconViewSide + 16
         let y: CGFloat = 32
         let width = bounds.width - 2 * x
         let height: CGFloat = 44
@@ -68,9 +96,45 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         nameTextField.frame = frame
     }
     
+    private let iconViewLeading: CGFloat = 16
+    private let iconViewSide: CGFloat = 40
+    
+    private func layoutIconView() {
+        let x: CGFloat = iconViewLeading
+        let heightDifference = nameTextField.frame.height - iconViewSide
+        let y: CGFloat = nameTextField.frame.origin.y + heightDifference / 2
+        let size = CGSize(width: iconViewSide, height: iconViewSide)
+        let frame = CGRect(origin: CGPoint(x: x, y: y), size: size)
+        iconView.frame = frame
+        iconView.layer.cornerRadius = iconViewSide / 2
+    }
+    
+    private func layoutSelectIconButton() {
+        let frame = iconView.frame
+        selectIconButton.frame = frame
+    }
+    
+    private func layoutColorPickerTitleLabel() {
+        let x: CGFloat = iconViewLeading
+        let y: CGFloat = nameTextField.frame.maxY + 24
+        let width: CGFloat = bounds.width - 2 * x
+        let availableSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let size = colorPickerTitleLabel.sizeThatFits(availableSize)
+        colorPickerTitleLabel.frame = CGRect(origin: CGPoint(x: x, y: y), size: size)
+    }
+    
+    private func layoutColorPickerView() {
+        let x: CGFloat = 0
+        let y: CGFloat = colorPickerTitleLabel.frame.maxY + 8
+        let width: CGFloat = bounds.width
+        let height: CGFloat = 36
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        colorPickerView.frame = frame
+    }
+    
     private func setScrollViewContentSize() {
         let width = scrollView.bounds.width
-        let height = nameTextField.frame.origin.y + nameTextField.frame.size.height + 16.0 + safeAreaInsets.bottom
+        let height = colorPickerView.frame.maxY + 16.0 + safeAreaInsets.bottom
         let contentSize = CGSize(width: width, height: height)
         scrollView.contentSize = contentSize
     }
