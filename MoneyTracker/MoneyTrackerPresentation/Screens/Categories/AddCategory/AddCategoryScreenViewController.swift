@@ -15,7 +15,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     private let categoryColors: [UIColor]
     var backClosure: (() -> Void)?
     var addCategoryClosure: ((AddingCategory) throws -> Void)?
-    var selectIconClosure: (() -> Void)?
+    var selectIconClosure: ((UIColor) -> Void)?
     
     // MARK: Init
     
@@ -76,7 +76,8 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     }
     
     @objc private func selectIconButtonTouchUpInsideEventAction() {
-        selectIconClosure?()
+        guard let selectedColor = colorPickerController.selectedColor else { return }
+        selectIconClosure?(selectedColor)
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
@@ -108,6 +109,10 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
         screenView.iconView.backgroundColor = categoryColor
         screenView.nameTextField.textColor = categoryColor
         screenView.addButton.backgroundColor = categoryColor
+    }
+    
+    func showCategoryIcon(iconName: String) {
+        screenView.iconView.setIcon(named: iconName)
     }
     
     // MARK: Content

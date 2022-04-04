@@ -375,9 +375,14 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.selectIconClosure = { [weak self] in
+        viewController.selectIconClosure = { [weak self] color in
             guard let self = self else { return }
-            let selectIconViewController = self.createSelectIconViewController()
+            let selectIconViewController = self.createSelectIconViewController(
+                iconColor: color,
+                onSelectIcon: { [weak viewController] iconName in
+                    viewController?.showCategoryIcon(iconName: iconName)
+                }
+            )
             self.menuNavigationController?.present(selectIconViewController, animated: true)
         }
         self.pushedAddCategoryViewController = viewController
@@ -438,11 +443,15 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Select Icon View Controller
     
-    private func createSelectIconViewController() -> SelectIconScreenViewController {
-        let viewController = SelectIconScreenViewController(iconColor: Colors.greenCardSecondaryBackground)
-//        viewController.didSelectIconClosure = {
-//            
-//        }
+    private func createSelectIconViewController(
+        iconColor: UIColor,
+        onSelectIcon: @escaping (String) -> Void
+    ) -> SelectIconScreenViewController {
+        let viewController = SelectIconScreenViewController(iconColor: iconColor)
+        viewController.didSelectIconClosure = { [weak viewController] iconName in
+            onSelectIcon(iconName)
+            viewController?.dismiss(animated: true)
+        }
         return viewController
     }
     

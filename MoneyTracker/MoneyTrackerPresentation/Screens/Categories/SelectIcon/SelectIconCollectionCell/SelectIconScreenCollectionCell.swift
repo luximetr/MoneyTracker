@@ -20,6 +20,11 @@ final class IconCell: AUICollectionViewCell {
     override func setup() {
         super.setup()
         contentView.addSubview(iconView)
+        setupIconView()
+    }
+    
+    private func setupIconView() {
+        iconView.iconImageView.tintColor = Colors.darkCardPrimaryText
     }
     
     // MARK: - Layout

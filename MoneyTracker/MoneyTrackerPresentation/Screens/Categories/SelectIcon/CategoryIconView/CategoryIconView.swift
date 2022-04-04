@@ -31,11 +31,16 @@ final class CategoryIconView: AUIView {
     
     // MARK: - IconImageView
     
-    func setupIconImageView() {
-        iconImageView.contentMode = .scaleAspectFit
+    func setIcon(named iconName: String) {
+        iconImageView.image = UIImage(systemName: iconName)
     }
     
-    func layoutIconImageView() {
+    private func setupIconImageView() {
+        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.tintColor = Colors.darkCardPrimaryText
+    }
+    
+    private func layoutIconImageView() {
         iconImageView.pin
             .height(20)
             .width(20)

@@ -40,6 +40,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private func setupCollectionView() {
         collectionViewLayout.scrollDirection = .horizontal
         collectionView.register(IconCell.self, forCellWithReuseIdentifier: iconCellId)
+        collectionView.contentInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
     }
     
     // MARK: - Layout
@@ -54,7 +55,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
             .top(to: navigationBarView.edge.bottom)
             .left()
             .right()
-            .bottom()
+            .bottom(self.pin.safeArea.bottom)
     }
     
     // MARK: - Create cell
