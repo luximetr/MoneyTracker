@@ -38,6 +38,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupCollectionView() {
+        collectionViewLayout.scrollDirection = .horizontal
         collectionView.register(IconCell.self, forCellWithReuseIdentifier: iconCellId)
     }
     

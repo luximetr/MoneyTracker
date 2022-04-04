@@ -12,9 +12,16 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Data
     
+    private let categoryColors: [UIColor]
     var backClosure: (() -> Void)?
     var addCategoryClosure: ((AddingCategory) throws -> Void)?
     var selectIconClosure: (() -> Void)?
+    
+    // MARK: Init
+    
+    init(categoryColors: [UIColor]) {
+        self.categoryColors = categoryColors
+    }
     
     // MARK: View
     
@@ -33,6 +40,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
         screenView.selectIconButton.addTarget(self, action: #selector(selectIconButtonTouchUpInsideEventAction), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        setupColorPickerController()
         setContent()
     }
     
@@ -82,10 +90,31 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
         screenView.setKeyboardFrame(nil)
     }
     
+    // MARK: - Color
+    
+    private let colorPickerController = ColorHorizontalPickerController()
+    
+    private func setupColorPickerController() {
+        colorPickerController.pickerView = screenView.colorPickerView
+        colorPickerController.didSelectColorClosure = { [weak self] color in
+            self?.updateView(categoryColor: color)
+        }
+        guard let selectedColor = categoryColors.first else { return }
+        colorPickerController.setColors(categoryColors, selectedColor: selectedColor)
+        updateView(categoryColor: selectedColor)
+    }
+    
+    private func updateView(categoryColor: UIColor) {
+        screenView.iconView.backgroundColor = categoryColor
+        screenView.nameTextField.textColor = categoryColor
+        screenView.addButton.backgroundColor = categoryColor
+    }
+    
     // MARK: Content
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
+        screenView.colorPickerTitleLabel.text = localizer.localizeText("colorPickerTitle")
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
     }
     

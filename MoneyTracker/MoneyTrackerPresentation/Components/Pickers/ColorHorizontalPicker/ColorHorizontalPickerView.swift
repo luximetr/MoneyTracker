@@ -11,6 +11,12 @@ import PinLayout
 
 final class ColorHorizontalPickerView: AUIView {
     
+    // MARK: - Data
+    
+    var contentInset = UIEdgeInsets.zero {
+        didSet { collectionView.contentInset = contentInset }
+    }
+    
     // MARK: - Subviews
     
     private let collectionViewLayout: UICollectionViewFlowLayout
@@ -36,7 +42,7 @@ final class ColorHorizontalPickerView: AUIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionViewLayout.scrollDirection = .horizontal
         collectionViewLayout.minimumInteritemSpacing = 16
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 26)
+        collectionView.contentInset = contentInset
         collectionView.register(ColorCell.self, forCellWithReuseIdentifier: colorCellId)
     }
     
