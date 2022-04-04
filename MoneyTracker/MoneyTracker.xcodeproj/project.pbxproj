@@ -242,6 +242,7 @@
 		DB7BA81427F983C700A3B3BA /* ColorHorizontalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA81327F983C700A3B3BA /* ColorHorizontalPickerView.swift */; };
 		DB7BA81727F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA81627F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift */; };
 		DB7BA81927F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA81827F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift */; };
+		DBA0545127FB0FD100DB3892 /* CategoryBackgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0545027FB0FD100DB3892 /* CategoryBackgroundColors.swift */; };
 		DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */; };
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
@@ -559,6 +560,7 @@
 		DB7BA81327F983C700A3B3BA /* ColorHorizontalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHorizontalPickerView.swift; sourceTree = "<group>"; };
 		DB7BA81627F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHorizontalPickerColorCell.swift; sourceTree = "<group>"; };
 		DB7BA81827F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHorizontalPickerColorCellController.swift; sourceTree = "<group>"; };
+		DBA0545027FB0FD100DB3892 /* CategoryBackgroundColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBackgroundColors.swift; sourceTree = "<group>"; };
 		DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
@@ -791,6 +793,7 @@
 			children = (
 				DB74868E27BE91E6004DF67B /* AddingCategory.swift */,
 				2E91153D27A92DE600359F21 /* Category.swift */,
+				DBA0545027FB0FD100DB3892 /* CategoryBackgroundColors.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2450,6 +2453,7 @@
 				2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */,
 				2ECB165C27F78056009D748D /* DashboardTemplatesView.swift in Sources */,
 				2ECB219127DD0588006D6558 /* InputAmountViewController.swift in Sources */,
+				DBA0545127FB0FD100DB3892 /* CategoryBackgroundColors.swift in Sources */,
 				2EBDF93127ECCF8B002B6C9E /* MonthCategoryExpensesTableViewCell.swift in Sources */,
 				DB62AEB227EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift in Sources */,
 				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
