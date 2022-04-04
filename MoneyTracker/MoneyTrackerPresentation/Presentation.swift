@@ -38,6 +38,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
     func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [Expense]
     func presentationExpensesMonths(_ presentation: Presentation) -> [Date]
+    func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -133,21 +134,17 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             self.presentAddTemplateScreenViewController(viewController)
         }
-        viewController.useTemplateClosure = { [weak self] addingExpense in
+        viewController.useTemplateClosure = { [weak self] template in
             guard let self = self else { throw Error("") }
             do {
-                let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
+                let addedExpense = try self.delegate.presentation(self, useTemplate: template)
+                self.displayExpenseAddedSnackbarViewController(expense: addedExpense)
                 self.historyViewController?.insertExpense(addedExpense)
                 self.statisticScreen?.addExpense(addedExpense)
-                return addedExpense
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
                 throw error
             }
-        }
-        viewController.displayExpenseAddedSnackbarClosure = { [weak self] addedExpense in
-            guard let self = self else { return }
-            self.displayExpenseAddedSnackbarViewController(expense: addedExpense)
         }
         return viewController
     }

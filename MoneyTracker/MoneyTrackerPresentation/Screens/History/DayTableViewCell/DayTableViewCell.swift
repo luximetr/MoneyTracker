@@ -29,12 +29,12 @@ final class DayTableViewCell: AUITableViewCell {
     
     private func setupDayLabel() {
         dayLabel.font = Fonts.default(size: 10, weight: .regular)
-        dayLabel.textColor = Colors.secondaryText
+        dayLabel.textColor = Colors.accent
     }
     
     private func setupExpensesLabel() {
         expensesLabel.font = Fonts.default(size: 10, weight: .regular)
-        expensesLabel.textColor = Colors.secondaryText
+        expensesLabel.textColor = Colors.accent
     }
     
     // MARK: Layout

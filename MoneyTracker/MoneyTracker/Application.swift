@@ -500,6 +500,20 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return fileURL
     }
     
+    func presentation(_ presentation: Presentation, useTemplate template: PresentationExpenseTemplate) throws -> PresentationExpense {
+        let amount = template.amount
+        let date = Date()
+        let component = template.comment
+        let account = try Account(presentationAccount: template.balanceAccount)
+        let category = Category(presentationCategory: template.category)
+        let addingExpense = AddingExpense(amount: amount, date: date, comment: component, account: account, category: category)
+        let storageaAddingExpense = addingExpense.storageAddingExpense
+        let storageExpense = try storage.addExpense(addingExpense: storageaAddingExpense)
+        let storageCategory = category.storageCategoty
+        let storageAccount = account.storageAccount
+        let expense = Expense(storageExpense: storageExpense, account: storageAccount, category: storageCategory)
+        return try expense.presentationExpense()
+    }
 }
 
 extension Date {
