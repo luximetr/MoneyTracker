@@ -32,7 +32,7 @@ final class ScreenView: TitleNavigationBarScreenView {
         setupTemplatesCollectionView()
     }
     
-    private let templateCellId = "templateCellId"
+    private let templateCellId = "templateCollectionViewCell"
     private func setupTemplatesCollectionView() {
         templatesCollectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: templateCellId)
     }

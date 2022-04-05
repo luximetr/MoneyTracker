@@ -19,6 +19,14 @@ struct AddingExpense {
     let account: Account
     let category: Category
     
+    init(amount: Decimal, date: Date, comment: String?, account: Account, category: Category) {
+        self.amount = amount
+        self.date = date
+        self.comment = comment
+        self.account = account
+        self.category = category
+    }
+    
     // MARK: PresentationAddingExpense
     
     init(presentationAddingExpense: PresentationAddingExpense) throws {

@@ -19,8 +19,7 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     var topUpAccountClosure: ((Account) -> Void)?
     var addAccountClosure: (() -> Void)?
     var addTemplateClosure: (() -> Void)?
-    var useTemplateClosure: ((AddingExpense) throws -> Expense)?
-    var displayExpenseAddedSnackbarClosure: ((Expense) -> Void)?
+    var useTemplateClosure: ((ExpenseTemplate) throws -> Void)?
     
     // MARK: Initializer
     
@@ -115,16 +114,9 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Events
     
     private func didSelectTemplate(_ template: ExpenseTemplate) {
-        guard let addExpenseClosure = useTemplateClosure else { return }
+        guard let useTemplateClosure = useTemplateClosure else { return }
         do {
-            let amount = template.amount
-            let date = Date()
-            let component = template.comment
-            let account = template.balanceAccount
-            let category = template.category
-            let addingExpense = AddingExpense(amount: amount, date: date, comment: component, account: account, category: category)
-            let addedExpense = try addExpenseClosure(addingExpense)
-            displayExpenseAddedSnackbarClosure?(addedExpense)
+            try useTemplateClosure(template)
         } catch {
             
         }
