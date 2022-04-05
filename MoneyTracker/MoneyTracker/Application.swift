@@ -412,13 +412,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentationDidStartExpensesCSVExport(_ presentation: Presentation) throws -> URL {
         let categoriesAdapter = ExportCategoryAdapter()
-        let storageCategories = fetchCategories()
+        let storageCategories = try storage.getCategoriesOrdered()
         let filesCategories = storageCategories.map { categoriesAdapter.adaptToFiles(storageCategory: $0) }
         let balanceAccountsAdapter = ExportBalanceAccountAdapter()
-        let storageBalanceAccounts = fetchAllBalanceAccounts()
+        let storageBalanceAccounts = try storage.getAllBalanceAccounts()
         let filesBalanceAccounts = storageBalanceAccounts.map { balanceAccountsAdapter.adaptToFiles(storageAccount: $0) }
         let expensesAdapter = ExportExpenseAdapter()
-        let storageExpenses = fetchAllExpenses()
+        let storageExpenses = try storage.getAllExpenses()
         let filesExpenses = storageExpenses.compactMap { storageExpense -> FilesExportExpense? in
             guard let category = filesCategories.first(where: { $0.id == storageExpense.categoryId }) else { return nil }
             guard let account = filesBalanceAccounts.first(where: { $0.id == storageExpense.balanceAccountId }) else { return nil }
@@ -431,38 +431,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         )
         let fileURL = try files.createCSVFile(exportExpensesFile: exportFile)
         return fileURL
-    }
-    
-    private func fetchAllExpenses() -> [MoneyTrackerStorage.Expense] {
-        do {
-            return try storage.getAllExpenses()
-        } catch {
-            print(error)
-            return []
-        }
-    }
-    
-    private func fetchCategories() -> [StorageCategory] {
-        do {
-            return try storage.getCategoriesOrdered()
-        } catch {
-            print(error)
-            do {
-                return try storage.getCategories()
-            } catch {
-                print(error)
-                return []
-            }
-        }
-    }
-    
-    private func fetchAllBalanceAccounts() -> [BalanceAccount] {
-        do {
-            return try storage.getAllBalanceAccounts()
-        } catch {
-            print(error)
-            return []
-        }
     }
     
     func presentation(_ presentation: Presentation, useTemplate template: PresentationExpenseTemplate) throws -> PresentationExpense {
