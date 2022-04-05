@@ -232,6 +232,9 @@
 		DBA0545127FB0FD100DB3892 /* CategoryBackgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0545027FB0FD100DB3892 /* CategoryBackgroundColors.swift */; };
 		DBA0545427FC2DBE00DB3892 /* UIColorHexConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0545327FC2DBE00DB3892 /* UIColorHexConvertor.swift */; };
 		DBA0545827FC2E5D00DB3892 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0545727FC2E5D00DB3892 /* Array+Extension.swift */; };
+		DBA0545B27FC526600DB3892 /* UIColorComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0545A27FC526600DB3892 /* UIColorComparator.swift */; };
+		DBA0545D27FC52AC00DB3892 /* UIColorHexConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0545C27FC52AC00DB3892 /* UIColorHexConvertor.swift */; };
+		DBA0546127FC545500DB3892 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546027FC545500DB3892 /* Array+Extension.swift */; };
 		DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */; };
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
@@ -539,6 +542,9 @@
 		DBA0545027FB0FD100DB3892 /* CategoryBackgroundColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBackgroundColors.swift; sourceTree = "<group>"; };
 		DBA0545327FC2DBE00DB3892 /* UIColorHexConvertor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHexConvertor.swift; sourceTree = "<group>"; };
 		DBA0545727FC2E5D00DB3892 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		DBA0545A27FC526600DB3892 /* UIColorComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorComparator.swift; sourceTree = "<group>"; };
+		DBA0545C27FC52AC00DB3892 /* UIColorHexConvertor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHexConvertor.swift; sourceTree = "<group>"; };
+		DBA0546027FC545500DB3892 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
@@ -1129,6 +1135,7 @@
 		2EB10A4B27A7083200743416 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DBA0545927FC525A00DB3892 /* System */,
 				2ED60BCD27DE534E00EC11D4 /* Expense */,
 				DB74869227BE920C004DF67B /* ExpenseTemplate */,
 				2E926E8727BC55870081E3AE /* Language */,
@@ -1766,18 +1773,44 @@
 		DBA0545527FC2E3100DB3892 /* System */ = {
 			isa = PBXGroup;
 			children = (
-				DBA0545627FC2E3F00DB3892 /* Array+Extension */,
+				DBA0545627FC2E3F00DB3892 /* Array */,
 				DBA0545227FC2DAD00DB3892 /* UIColor */,
 			);
 			path = System;
 			sourceTree = "<group>";
 		};
-		DBA0545627FC2E3F00DB3892 /* Array+Extension */ = {
+		DBA0545627FC2E3F00DB3892 /* Array */ = {
 			isa = PBXGroup;
 			children = (
 				DBA0545727FC2E5D00DB3892 /* Array+Extension.swift */,
 			);
-			path = "Array+Extension";
+			path = Array;
+			sourceTree = "<group>";
+		};
+		DBA0545927FC525A00DB3892 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				DBA0545E27FC544200DB3892 /* UIColor */,
+				DBA0545F27FC544A00DB3892 /* Array */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		DBA0545E27FC544200DB3892 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				DBA0545A27FC526600DB3892 /* UIColorComparator.swift */,
+				DBA0545C27FC52AC00DB3892 /* UIColorHexConvertor.swift */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		DBA0545F27FC544A00DB3892 /* Array */ = {
+			isa = PBXGroup;
+			children = (
+				DBA0546027FC545500DB3892 /* Array+Extension.swift */,
+			);
+			path = Array;
 			sourceTree = "<group>";
 		};
 		DBB7BD0A27D78F31004EF5B7 /* Dashboard */ = {
@@ -2288,6 +2321,7 @@
 				2EB10A3D27A7034400743416 /* Fonts.swift in Sources */,
 				DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */,
 				2ED60BD227DE776F00EC11D4 /* ExpenseTableViewCell.swift in Sources */,
+				DBA0545D27FC52AC00DB3892 /* UIColorHexConvertor.swift in Sources */,
 				2ED8BD7427E908F50007F60B /* HistoryScreenView.swift in Sources */,
 				2EB10A4A27A707A300743416 /* Language.swift in Sources */,
 				2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */,
@@ -2309,6 +2343,7 @@
 				2E09CC3527F4F3070015DA1E /* AccountBackgroundColors.swift in Sources */,
 				2ED8BD7227E908E50007F60B /* HistoryScreenViewController.swift in Sources */,
 				2E3A5D5227EFBC1E00102D69 /* CategoryTableViewCellController.swift in Sources */,
+				DBA0545B27FC526600DB3892 /* UIColorComparator.swift in Sources */,
 				DBB7BD3227DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift in Sources */,
 				2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */,
 				DBD6ACE127B2A7E200389236 /* SelectCurrencyScreenView.swift in Sources */,
@@ -2379,6 +2414,7 @@
 				2E09CC3727F4F9720015DA1E /* PlainTextField.swift in Sources */,
 				DB7BA81727F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift in Sources */,
 				DB7BA80327F87CB500A3B3BA /* SelectIconScreenView.swift in Sources */,
+				DBA0546127FC545500DB3892 /* Array+Extension.swift in Sources */,
 				2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */,
 				2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */,
 				2ECB219827DD2AE4006D6558 /* SelectCategoryView.swift in Sources */,

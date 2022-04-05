@@ -51,10 +51,12 @@ final class ColorHorizontalPickerController: AUIEmptyViewController {
     
     private let collectionController = AUIEmptyCollectionViewController()
     private let sectionController = AUIEmptyCollectionViewSectionController()
+    private let colorsComparator = UIColorComparator()
     
     private func reloadCollectionController() {
-        let cellControllers = colors.map { createColorCellController(color: $0, isSelected: selectedColor == $0) }
-        selectedColorCellController = cellControllers.first(where: { $0.color == selectedColor })
+        guard let selectedColor = selectedColor else { return }
+        let cellControllers = colors.map { createColorCellController(color: $0, isSelected: colorsComparator.findIsColorsEquals(selectedColor, $0)) }
+        selectedColorCellController = cellControllers.first(where: { colorsComparator.findIsColorsEquals($0.color, selectedColor) })
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
         collectionController.reload()

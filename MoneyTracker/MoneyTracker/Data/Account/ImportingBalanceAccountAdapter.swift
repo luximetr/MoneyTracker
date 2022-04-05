@@ -20,7 +20,7 @@ class ImportingBalanceAccountAdapter {
             name: filesImportingBalanceAccount.name,
             amount: filesImportingBalanceAccount.amount,
             currency: currency,
-            colorHex: "#333333"
+            colorHex: filesImportingBalanceAccount.colorHex ?? "#333333"
         )
     }
     
@@ -28,7 +28,8 @@ class ImportingBalanceAccountAdapter {
         return StorageImportingBalanceAccount(
             name: filesImportingBalanceAccount.name,
             amount: filesImportingBalanceAccount.amount,
-            currency: filesImportingBalanceAccount.currency
+            currency: filesImportingBalanceAccount.currency,
+            colorHex: filesImportingBalanceAccount.colorHex ?? "#333333"
         )
     }
 }

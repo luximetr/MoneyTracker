@@ -77,7 +77,7 @@ class ImportingMoneyTrackerExpensesFileCSVParser {
     private func findBalanceAccountsCSVLines(in csvLines: [String]) -> [String] {
         return findCSVLines(
             inCsvLines: csvLines,
-            afterLine: "\"Name\",\"Amount\",\"Currency\"",
+            afterLine: "\"Name\",\"Amount\",\"Currency\",\"Color\"",
             andBeforeLine: ""
         )
     }

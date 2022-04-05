@@ -324,7 +324,7 @@ public class Storage {
             name: importingBalanceAccount.name,
             amount: importingBalanceAccount.amount,
             currency: currency,
-            colorHex: ""
+            colorHex: importingBalanceAccount.colorHex
         )
     }
     
