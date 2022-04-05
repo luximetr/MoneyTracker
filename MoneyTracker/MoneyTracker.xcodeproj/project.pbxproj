@@ -17,6 +17,7 @@
 		2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */; };
 		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
 		2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */; };
+		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
 		2E2A6EDA27EC4FBB0084054C /* EditExpenseScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDC27EC4FBB0084054C /* EditExpenseScreenStrings.strings */; };
 		2E2A6EDE27EC4FD70084054C /* EditExpenseScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDD27EC4FD70084054C /* EditExpenseScreenView.swift */; };
 		2E2A6EE027EC4FEC0084054C /* EditExpenseScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDF27EC4FEC0084054C /* EditExpenseScreenViewController.swift */; };
@@ -331,6 +332,7 @@
 		2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFilledButton.swift; sourceTree = "<group>"; };
 		2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddedSnackbarView.swift; sourceTree = "<group>"; };
+		2E16BA0A27FC81F4000F2466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExpenseAddedSnackbarStrings.strings; sourceTree = "<group>"; };
 		2E2A6EDB27EC4FBB0084054C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditExpenseScreenStrings.strings; sourceTree = "<group>"; };
 		2E2A6EDD27EC4FD70084054C /* EditExpenseScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseScreenView.swift; sourceTree = "<group>"; };
 		2E2A6EDF27EC4FEC0084054C /* EditExpenseScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseScreenViewController.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 			children = (
 				2E98FF5027EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift */,
 				2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */,
+				2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */,
 			);
 			path = ExpenseAdded;
 			sourceTree = "<group>";
@@ -2150,6 +2153,7 @@
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				DB7BA80827F87D7500A3B3BA /* SelectIconScreenStrings.strings in Resources */,
 				2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */,
+				2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */,
 				2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 				2ED3E93D27F39BDD006C76FB /* CategoryHorizontalPickerStrings.strings in Resources */,
@@ -2533,6 +2537,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E16BA0A27FC81F4000F2466 /* en */,
+			);
+			name = ExpenseAddedSnackbarStrings.strings;
+			sourceTree = "<group>";
+		};
 		2E2A6EDC27EC4FBB0084054C /* EditExpenseScreenStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

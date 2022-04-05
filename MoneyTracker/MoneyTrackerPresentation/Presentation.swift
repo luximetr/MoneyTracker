@@ -145,7 +145,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { throw Error("") }
             do {
                 let addedExpense = try self.delegate.presentation(self, useTemplate: template)
-                self.displayExpenseAddedSnackbarViewController(expense: addedExpense)
+                self.displayExpenseAddedSnackbarViewController(template: template, expense: addedExpense)
                 self.historyViewController?.insertExpense(addedExpense)
                 self.statisticScreen?.addExpense(addedExpense)
             } catch {
@@ -159,24 +159,26 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: ExpenseAddedSnackbarView
     
     private var expenseAddedSnackbarViewControllers: [ExpenseAddedSnackbarViewController] = []
-    private func createExpenseAddedSnackbarViewController(expense: Expense) -> ExpenseAddedSnackbarViewController {
-        let viewController = ExpenseAddedSnackbarViewController(expense: expense)
+    private func displayExpenseAddedSnackbarViewController(template: ExpenseTemplate, expense: Expense) {
+        let viewController = ExpenseAddedSnackbarViewController(template: template, expense: expense)
         let view = ExpenseAddedSnackbarView()
         viewController.expenseAddedSnackbarView = view
-        return viewController
-    }
-    
-    private func displayExpenseAddedSnackbarViewController(expense: Expense) {
-        let viewController = createExpenseAddedSnackbarViewController(expense: expense)
-        guard let view = viewController.view else{ return }
         expenseAddedSnackbarViewControllers.append(viewController)
-        window.showSnackbarViewAnimated(view) { [weak self] _ in
+        let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self] timer in
             guard let self = self else { return }
-            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { [weak self] timer in
-                guard let self = self else { return }
-                self.window.hideSnackbarViewAnimated(view) { _ in
-                    timer.invalidate()
-                }
+            timer.invalidate()
+            self.window.hideSnackbarViewAnimated(view, completionHandler: nil)
+            if let firstIndex = self.expenseAddedSnackbarViewControllers.firstIndex(where: { $0 === viewController }) {
+                self.expenseAddedSnackbarViewControllers.remove(at: firstIndex)
+            }
+        }
+        window.showSnackbarViewAnimated(view, completionHandler: nil)
+        viewController.okClosure = { [weak self] in
+            guard let self = self else { return }
+            timer.invalidate()
+            self.window.hideSnackbarViewAnimated(view, completionHandler: nil)
+            if let firstIndex = self.expenseAddedSnackbarViewControllers.firstIndex(where: { $0 === viewController }) {
+                self.expenseAddedSnackbarViewControllers.remove(at: firstIndex)
             }
         }
     }
@@ -1017,7 +1019,7 @@ extension UIWindow {
         let x: CGFloat = 16
         let width = bounds.width - 2 * x
         let height = view.sizeThatFits(CGSize(width: width, height: bounds.height)).height
-        let y = bounds.height - height - safeAreaInsets.bottom - 16
+        let y = safeAreaInsets.top
         let frame = CGRect(x: x, y: y, width: width, height: height)
         view.frame = frame
         setNeedsLayout()
