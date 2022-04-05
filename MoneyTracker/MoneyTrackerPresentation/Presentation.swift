@@ -116,13 +116,15 @@ public final class Presentation: AUIWindowPresentation {
             guard let viewController = viewController else { return }
             self.presentAddCategoryScreenViewController(viewController)
         }
-        viewController.transferClosure = {
-            // TODO: Show transfer screen
-            print("Show transfer screen")
+        viewController.transferClosure = { [weak self] in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            self.pushTransferViewController(menuNavigationController)
         }
-        viewController.topUpAccountClosure = { account in
-            // TODO: Show top up account screen
-            print("Show top up account screen \(account.id)")
+        viewController.topUpAccountClosure = { [weak self] account in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            self.pushTopUpAccountViewController(menuNavigationController, selectedAccount: account)
         }
         viewController.addAccountClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
@@ -154,6 +156,92 @@ public final class Presentation: AUIWindowPresentation {
             }
         }
         return viewController
+    }
+    
+    // MARK: Add Expense View Controller
+    
+    private weak var pushedAddExpenseViewController: AddExpenseScreenViewController?
+    private func pushAddExpenseViewController(_ navigationController: UINavigationController, selectedCategory: Category?) throws {
+        do {
+            let accounts = try delegate.presentationAccounts(self)
+            let categories = try delegate.presentationCategories(self)
+            let viewController = AddExpenseScreenViewController(accounts: accounts, categories: categories, selectedCategory: selectedCategory)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
+            }
+            viewController.dayExpensesClosure = { [weak self] day in
+                guard let self = self else { return [] }
+                do {
+                    let dayExpenses = try self.delegate.presentationDayExpenses(self, day: day)
+                    return dayExpenses
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                    throw error
+                }
+            }
+            viewController.addExpenseClosure = { [weak self] addingExpense in
+                guard let self = self else { throw Error("") }
+                do {
+                    let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
+                    self.historyViewController?.insertExpense(addedExpense)
+                    self.statisticScreen?.addExpense(addedExpense)
+                    return addedExpense
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                    throw error
+                }
+            }
+            viewController.deleteExpenseClosure = { [weak self] expense in
+                guard let self = self else { return }
+                do {
+                    let deletedExpense = try self.delegate.presentation(self, deleteExpense: expense)
+                    self.historyViewController?.deleteExpense(deletedExpense)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.addAccountClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            pushedAddExpenseViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push AddExpenseViewController\n\(error)")
+            throw error
+        }
+    }
+    
+    // MARK: Transfer View Controller
+    
+    private weak var pushedTransferViewController: TransferScreenViewController?
+    private func pushTransferViewController(_ navigationController: UINavigationController) {
+        let viewController = TransferScreenViewController()
+        viewController.backClosure = { [weak navigationController] in
+            guard let navigationController = navigationController else { return }
+            navigationController.popViewController(animated: true)
+        }
+        pushedTransferViewController = viewController
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    // MARK: Top Up Account View Controller
+    
+    private weak var pushedTopUpAccountViewController: TopUpAccountScreenViewController?
+    private func pushTopUpAccountViewController(_ navigationController: UINavigationController, selectedAccount: Account) {
+        let viewController = TopUpAccountScreenViewController(selectedAccount: selectedAccount)
+        viewController.backClosure = { [weak navigationController] in
+            guard let navigationController = navigationController else { return }
+            navigationController.popViewController(animated: true)
+        }
+        pushedTopUpAccountViewController = viewController
+        navigationController.pushViewController(viewController, animated: true)
     }
     
     // MARK: ExpenseAddedSnackbarView
@@ -255,67 +343,6 @@ public final class Presentation: AUIWindowPresentation {
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push EditExpenseViewController\n\(error)")
-            throw error
-        }
-    }
-    
-    // MARK: Add Expense View Controller
-    
-    private weak var pushedAddExpenseViewController: AddExpenseScreenViewController?
-    
-    private func pushAddExpenseViewController(_ navigationController: UINavigationController, selectedCategory: Category?) throws {
-        do {
-            let accounts = try delegate.presentationAccounts(self)
-            let categories = try delegate.presentationCategories(self)
-            let viewController = AddExpenseScreenViewController(accounts: accounts, categories: categories, selectedCategory: selectedCategory)
-            viewController.backClosure = { [weak navigationController] in
-                guard let navigationController = navigationController else { return }
-                navigationController.popViewController(animated: true)
-            }
-            viewController.dayExpensesClosure = { [weak self] day in
-                guard let self = self else { return [] }
-                do {
-                    let dayExpenses = try self.delegate.presentationDayExpenses(self, day: day)
-                    return dayExpenses
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                    throw error
-                }
-            }
-            viewController.addExpenseClosure = { [weak self] addingExpense in
-                guard let self = self else { throw Error("") }
-                do {
-                    let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
-                    self.historyViewController?.insertExpense(addedExpense)
-                    self.statisticScreen?.addExpense(addedExpense)
-                    return addedExpense
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                    throw error
-                }
-            }
-            viewController.deleteExpenseClosure = { [weak self] expense in
-                guard let self = self else { return }
-                do {
-                    let deletedExpense = try self.delegate.presentation(self, deleteExpense: expense)
-                    self.historyViewController?.deleteExpense(deletedExpense)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                }
-            }
-            viewController.addAccountClosure = { [weak self, weak viewController] in
-                guard let self = self else { return }
-                guard let viewController = viewController else { return }
-                do {
-                    try self.presentAddAccountViewController(viewController)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                }
-            }
-            pushedAddExpenseViewController = viewController
-            navigationController.pushViewController(viewController, animated: true)
-        } catch {
-            let error = Error("Cannot push AddExpenseViewController\n\(error)")
             throw error
         }
     }

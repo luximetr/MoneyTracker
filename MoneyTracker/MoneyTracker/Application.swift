@@ -302,10 +302,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let storageBalanceAccountsIds = storageTemplates.map { $0.balanceAccountId }
             let storageCategories = try storage.getCategories(ids: storageCategoriesIds)
             let storageBalanceAccounts = try storage.getBalanceAccounts(ids: storageBalanceAccountsIds)
-            let presentationTemplates = storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
+            let presentationTemplates = try storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
                 guard let storageCategory = storageCategories.first(where: { $0.id == storageTemplate.categoryId }) else { return nil }
                 guard let storageBalanceAccount = storageBalanceAccounts.first(where: { $0.id == storageTemplate.balanceAccountId }) else { return nil }
-                guard let account = try Account(storageAccount: storageBalanceAccount).presentationAccount() else { return nil }
+                let account = try Account(storageAccount: storageBalanceAccount).presentationAccount()
                 let category = Category(storageCategory: storageCategory).presentationCategory
                 return adapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: account, presentationCategory: category)
             }
