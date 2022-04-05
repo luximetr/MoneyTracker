@@ -165,20 +165,16 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     private var selectedCurrency: StorageCurrency?
     
-    private func fetchSelectedCurrency() -> StorageCurrency? {
+    func presentationSelectedCurrency(_ presentation: Presentation) throws -> PresentationCurrency {
         do {
-            return try storage.getSelectedCurrency()
+            let adapter = CurrencyAdapter()
+            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency()
+            self.selectedCurrency = selectedCurrency
+            return adapter.adaptToPresentationCurrency(storageCurrency: selectedCurrency)
         } catch {
-            print(error)
-            return nil
+            let error = Error("Cannot get selected currency\n\(error)")
+            throw error
         }
-    }
-    
-    func presentationSelectedCurrency(_ presentation: Presentation) -> PresentationCurrency {
-        let adapter = CurrencyAdapter()
-        let selectedCurrency = self.selectedCurrency ?? fetchSelectedCurrency() ?? .sgd
-        self.selectedCurrency = selectedCurrency
-        return adapter.adaptToPresentationCurrency(storageCurrency: selectedCurrency)
     }
     
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: PresentationCurrency) {
@@ -191,72 +187,102 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     // MARK: - Expenses
     
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [PresentationExpense] {
-        let categories = try storage.getCategories()
-        let accounts = try storage.getAllBalanceAccounts()
-        let startDate = day.startOfDay
-        let endDate = day.endOfDay
-        let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
-        let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
-            guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
-            guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
-            return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+        do {
+            let categories = try storage.getCategories()
+            let accounts = try storage.getAllBalanceAccounts()
+            let startDate = day.startOfDay
+            let endDate = day.endOfDay
+            let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+            let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
+                guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
+                guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
+                return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+            }
+            return presentationExpenses.reversed()
+        } catch {
+            let error = Error("Cannot get expenses for day \(day)(\n\(error)")
+            throw error
         }
-        return presentationExpenses.reversed()
     }
     
-    func presentationExpensesMonths(_ presentation: Presentation) -> [Date] {
-        let startDate = Date(timeIntervalSince1970: 0)
-        let endDate = Date(timeIntervalSince1970: 100000000000)
-        let expenses = try! storage.getExpenses(startDate: startDate, endDate: endDate)
-        let monthsExpenses = Dictionary(grouping: expenses) { $0.date.startOfMonth }
-        let months = monthsExpenses.keys.sorted(by: <)
-        return months
+    func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date] {
+        do {
+            let startDate = Date(timeIntervalSince1970: 0)
+            let endDate = Date(timeIntervalSince1970: 100000000000)
+            let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+            let monthsExpenses = Dictionary(grouping: expenses) { $0.date.startOfMonth }
+            let months = monthsExpenses.keys.sorted(by: <)
+            return months
+        } catch {
+            let error = Error("Cannot expenses months(\n\(error)")
+            throw error
+        }
     }
     
     func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [PresentationExpense] {
-        let categories = try storage.getCategories()
-        let accounts = try storage.getAllBalanceAccounts()
-        let startDate = month.startOfMonth
-        let endDate = month.endOfMonth
-        let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
-        let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
-            guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
-            guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
-            return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+        do {
+            let categories = try storage.getCategories()
+            let accounts = try storage.getAllBalanceAccounts()
+            let startDate = month.startOfMonth
+            let endDate = month.endOfMonth
+            let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+            let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
+                guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
+                guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
+                return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+            }
+            return presentationExpenses
+        } catch {
+            let error = Error("Cannot get expenses for month \(month)\n\(error)")
+            throw error
         }
-        return presentationExpenses
     }
     
     func presentationExpenses(_ presentation: Presentation) throws -> [PresentationExpense] {
-        let categories = try storage.getCategories()
-        let accounts = try storage.getAllBalanceAccounts()
-        let startDate = Date(timeIntervalSince1970: 0)
-        let endDate = Date(timeIntervalSince1970: 100000000000)
-        let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
-        let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
-            guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
-            guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
-            return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+        do {
+            let categories = try storage.getCategories()
+            let accounts = try storage.getAllBalanceAccounts()
+            let startDate = Date(timeIntervalSince1970: 0)
+            let endDate = Date(timeIntervalSince1970: 100000000000)
+            let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+            let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
+                guard let storageCategory = categories.first(where: { $0.id == expense.categoryId }) else { throw Error("") }
+                guard let storageAccount = accounts.first(where: { $0.id == expense.balanceAccountId }) else { throw Error("") }
+                return try Expense(storageExpense: expense, account: storageAccount, category: storageCategory).presentationExpense()
+            }
+            return presentationExpenses.reversed()
+        } catch {
+            let error = Error("Cannot get expenses\n\(error)")
+            throw error
         }
-        return presentationExpenses.reversed()
     }
     
     func presentation(_ presentation: Presentation, addExpense presentationAddingExpense: PresentationAddingExpense) throws -> PresentationExpense {
-        let categories = try storage.getCategories()
-        let accounts = try storage.getAllBalanceAccounts()
-        let addingExpence = try AddingExpense(presentationAddingExpense: presentationAddingExpense)
-        let storageAddingExpense = addingExpence.storageAddingExpense
-        let storageAddedExpense = try storage.addExpense(addingExpense: storageAddingExpense)
-        guard let storageCategory = categories.first(where: { $0.id == storageAddedExpense.categoryId }) else { throw Error("") }
-        guard let storageAccount = accounts.first(where: { $0.id == storageAddedExpense.balanceAccountId }) else { throw Error("") }
-        let presentationExpense = try Expense(storageExpense: storageAddedExpense, account: storageAccount, category: storageCategory).presentationExpense()
-        return presentationExpense
+        do {
+            let categories = try storage.getCategories()
+            let accounts = try storage.getAllBalanceAccounts()
+            let addingExpence = try AddingExpense(presentationAddingExpense: presentationAddingExpense)
+            let storageAddingExpense = addingExpence.storageAddingExpense
+            let storageAddedExpense = try storage.addExpense(addingExpense: storageAddingExpense)
+            guard let storageCategory = categories.first(where: { $0.id == storageAddedExpense.categoryId }) else { throw Error("") }
+            guard let storageAccount = accounts.first(where: { $0.id == storageAddedExpense.balanceAccountId }) else { throw Error("") }
+            let presentationExpense = try Expense(storageExpense: storageAddedExpense, account: storageAccount, category: storageCategory).presentationExpense()
+            return presentationExpense
+        } catch {
+            let error = Error("Cannot add expense \(presentationAddingExpense)\n\(error)")
+            throw error
+        }
     }
     
     func presentation(_ presentation: Presentation, editExpense editingExpense: PresentationExpense) throws -> PresentationExpense {
-        let storageEditingExpense = MoneyTrackerStorage.EditingExpense(amount: editingExpense.amount, date: editingExpense.date, comment: editingExpense.comment, balanceAccountId: editingExpense.account.id, categoryId: editingExpense.category.id)
-        try storage.updateExpense(expenseId: editingExpense.id, editingExpense: storageEditingExpense)
-        return editingExpense
+        do {
+            let storageEditingExpense = MoneyTrackerStorage.EditingExpense(amount: editingExpense.amount, date: editingExpense.date, comment: editingExpense.comment, balanceAccountId: editingExpense.account.id, categoryId: editingExpense.category.id)
+            try storage.updateExpense(expenseId: editingExpense.id, editingExpense: storageEditingExpense)
+            return editingExpense
+        } catch {
+            let error = Error("Cannot edit expense \(editingExpense)\n\(error)")
+            throw error
+        }
     }
     
     // MARK: - ExpenseTemplates
@@ -297,28 +323,16 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: PresentationEditingExpenseTemplate) -> PresentationExpenseTemplate {
-        let adapter = EditingExpenseTemplateAdapter()
-        let storageEditingTemplate = adapter.adaptToStorage(presentationEditingExpenseTemplate: editingExpenseTemplate)
-        tryUpdateExpenseTemplate(editingExpenseTemplate: storageEditingTemplate)
-        guard let updatedTemplate = tryFetchPresentationExpenseTemplate(id: editingExpenseTemplate.id) else { fatalError() }
-        return updatedTemplate
-    }
-    
-    private func tryUpdateExpenseTemplate(editingExpenseTemplate: StorageEditingExpenseTemplate) {
+    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: PresentationEditingExpenseTemplate) throws -> PresentationExpenseTemplate {
         do {
-            try storage.updateExpenseTemplate(editingExpenseTemplate: editingExpenseTemplate)
+            let adapter = EditingExpenseTemplateAdapter()
+            let storageEditingTemplate = adapter.adaptToStorage(presentationEditingExpenseTemplate: editingExpenseTemplate)
+            try storage.updateExpenseTemplate(editingExpenseTemplate: storageEditingTemplate)
+            let updatedTemplate = try fetchPresentationExpenseTemplate(id: storageEditingTemplate.id)
+            return updatedTemplate
         } catch {
-            print(error)
-        }
-    }
-    
-    private func tryFetchPresentationExpenseTemplate(id: String) -> PresentationExpenseTemplate? {
-        do {
-            return try fetchPresentationExpenseTemplate(id: id)
-        } catch {
-            print(error)
-            return nil
+            let error = Error("Cannot add expense template \(editingExpenseTemplate)\n\(error)")
+            throw error
         }
     }
     
@@ -332,37 +346,22 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return presentationExpenseTemplate
     }
     
-    private func tryFetchStorageExpenseTemplate(id: String) -> StorageExpenseTemplate? {
+    func presentation(_ presentation: Presentation, reorderExpenseTemplates: [PresentationExpenseTemplate]) throws {
         do {
-            return try storage.getExpenseTemplate(expenseTemplateId: id)
-        } catch {
-            print(error)
-            return nil
-        }
-    }
-    
-    func presentation(_ presentation: Presentation, reorderExpenseTemplates: [PresentationExpenseTemplate]) {
-        let orderedIds = reorderExpenseTemplates.map { $0.id }
-        trySaveExpenseTemplatesOrder(orderedIds: orderedIds)
-    }
-    
-    private func trySaveExpenseTemplatesOrder(orderedIds: [String]) {
-        do {
+            let orderedIds = reorderExpenseTemplates.map { $0.id }
             try storage.saveExpenseTemplatesOrder(orderedIds: orderedIds)
         } catch {
-            print(error)
+            let error = Error("Cannot reorder expense templates\n\(error)")
+            throw error
         }
     }
     
-    func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: PresentationExpenseTemplate) {
-        tryRemoveExpenseTemplate(expenseTemplateId: expenseTemplate.id)
-    }
-    
-    private func tryRemoveExpenseTemplate(expenseTemplateId: String) {
+    func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: PresentationExpenseTemplate) throws {
         do {
-            try storage.removeExpenseTemplate(expenseTemplateId: expenseTemplateId)
+            try storage.removeExpenseTemplate(expenseTemplateId: expenseTemplate.id)
         } catch {
-            print(error)
+            let error = Error("Cannot delete expense template \(expenseTemplate)\n\(error)")
+            throw error
         }
     }
     
@@ -408,14 +407,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         } catch {
             print(error)
             return nil
-        }
-    }
-    
-    private func addToStorage(coinKeeperExpenses expenses: [StorageCoinKeeperExpense]) {
-        do {
-            try storage.addExpenses(coinKeeperExpenses: expenses)
-        } catch {
-            print(error)
         }
     }
     

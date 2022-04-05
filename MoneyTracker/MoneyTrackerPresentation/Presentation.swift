@@ -16,7 +16,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, deleteCategory category: Category) throws
     func presentation(_ presentation: Presentation, orderCategories categories: [Category]) throws
     func presentationCurrencies(_ presentation: Presentation) -> [Currency]
-    func presentationSelectedCurrency(_ presentation: Presentation) -> Currency
+    func presentationSelectedCurrency(_ presentation: Presentation) throws -> Currency
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
     func presentationAccounts(_ presentation: Presentation) throws -> [Account]
     func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
@@ -24,10 +24,10 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, editAccount editingAccount: Account) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
     func presentationExpenseTemplates(_ presentation: Presentation) throws -> [ExpenseTemplate]
-    func presentation(_ presentation: Presentation, reorderExpenseTemplates reorderedExpenseTemplates: [ExpenseTemplate])
-    func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: ExpenseTemplate)
+    func presentation(_ presentation: Presentation, reorderExpenseTemplates reorderedExpenseTemplates: [ExpenseTemplate]) throws
+    func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: ExpenseTemplate) throws
     func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate) throws -> ExpenseTemplate
-    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: EditingExpenseTemplate) -> ExpenseTemplate
+    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: EditingExpenseTemplate) throws -> ExpenseTemplate
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL)
     func presentationDidStartExpensesCSVExport(_ presentation: Presentation) throws -> URL
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
@@ -36,7 +36,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws -> Expense
     func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
     func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [Expense]
-    func presentationExpensesMonths(_ presentation: Presentation) -> [Date]
+    func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date]
     func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
 }
 
@@ -127,7 +127,11 @@ public final class Presentation: AUIWindowPresentation {
         viewController.addAccountClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
             guard let viewController = viewController else { return }
-            self.presentAddAccountViewController(viewController)
+            do {
+                try self.presentAddAccountViewController(viewController)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
         }
         viewController.addTemplateClosure = { [weak self] in
             guard let self = self else { return }
@@ -223,7 +227,11 @@ public final class Presentation: AUIWindowPresentation {
         viewController.addAccountClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
             guard let viewController = viewController else { return }
-            self.presentAddAccountViewController(viewController)
+            do {
+                try self.presentAddAccountViewController(viewController)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
         }
         viewController.addCategoryClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
@@ -291,11 +299,16 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addAccountClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
                 guard let viewController = viewController else { return }
-                self.presentAddAccountViewController(viewController)
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             pushedAddExpenseViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
+            let error = Error("Cannot push AddExpenseViewController\n\(error)")
             throw error
         }
     }
@@ -307,7 +320,7 @@ public final class Presentation: AUIWindowPresentation {
         let viewController = StatisticScreenViewController()
         viewController.monthsClosure = { [weak self] in
             guard let self = self else { return [] }
-            let months = self.delegate.presentationExpensesMonths(self)
+            let months = (try? self.delegate.presentationExpensesMonths(self)) ?? []
             return months
         }
         viewController.expensesClosure = { [weak self] month in
@@ -485,7 +498,11 @@ public final class Presentation: AUIWindowPresentation {
         viewController.didSelectCurrencyClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
             guard let viewController = viewController else { return }
-            self.presentSelectCurrencyViewController(viewController)
+            do {
+                try self.presentSelectCurrencyViewController(viewController, selectedCurrency: nil)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
         }
         viewController.didSelectAccountsClosure = { [weak self] in
             guard let self = self else { return }
@@ -526,19 +543,44 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Select Currency View Controller
     
-    private func presentSelectCurrencyViewController(_ presentingViewController: UIViewController) {
-        let currencies = delegate.presentationCurrencies(self)
-        let selectedCurrency = delegate.presentationSelectedCurrency(self)
-        let viewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
-        viewController.backClosure = { [weak presentingViewController] in
-            guard let presentingViewController = presentingViewController else { return }
-            presentingViewController.dismiss(animated: true, completion: nil)
+    private func presentSelectCurrencyViewController(_ presentingViewController: UIViewController, selectedCurrency: Currency?) throws {
+        do {
+            let currencies = delegate.presentationCurrencies(self)
+            let selectedCurrency = try selectedCurrency ?? delegate.presentationSelectedCurrency(self)
+            let viewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
+            viewController.backClosure = { [weak presentingViewController] in
+                guard let presentingViewController = presentingViewController else { return }
+                presentingViewController.dismiss(animated: true, completion: nil)
+            }
+            viewController.didSelectCurrencyClosure = { [weak self] currency in
+                guard let self = self else { return }
+                self.delegate.presentation(self, updateSelectedCurrency: currency)
+            }
+            presentingViewController.present(viewController, animated: true, completion: nil)
+        } catch {
+            let error = Error("Cannot present SelectCurrencyViewController\n\(error)")
+            throw error
         }
-        viewController.didSelectCurrencyClosure = { [weak self] currency in
-            guard let self = self else { return }
-            self.delegate.presentation(self, updateSelectedCurrency: currency)
+    }
+    
+    private func pushSelectCurrencyViewController(_ navigationController: UINavigationController, selectedCurrency: Currency?) throws {
+        do {
+            let currencies = delegate.presentationCurrencies(self)
+            let selectedCurrency = try selectedCurrency ?? delegate.presentationSelectedCurrency(self)
+            let viewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
+            }
+            viewController.didSelectCurrencyClosure = { [weak self] currency in
+                guard let self = self else { return }
+                self.delegate.presentation(self, updateSelectedCurrency: currency)
+            }
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push SelectCurrencyViewController\n\(error)")
+            throw error
         }
-        presentingViewController.present(viewController, animated: true, completion: nil)
     }
     
     // MARK: Accounts Screen View Controller
@@ -555,7 +597,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addAccountClosure = { [weak self, weak navigationController] in
                 guard let self = self else { return }
                 guard let navigationController = navigationController else { return }
-                self.pushAddAccountViewController(navigationController)
+                do {
+                    try self.pushAddAccountViewController(navigationController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.deleteAccountClosure = { [weak self] account in
                 guard let self = self else { return }
@@ -591,95 +637,95 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: Add Accounts Screen View Controller
     
     private weak var pushedAddAccoutScreenViewController: AddAccountScreenViewController?
-    private func pushAddAccountViewController(_ navigationController: UINavigationController) {
-        let backgroundColors = AccountBackgroundColors.variants
-        let selectedCurrency = delegate.presentationSelectedCurrency(self)
-        let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
-        viewController.backClosure = { [weak navigationController] in
-            guard let navigationController = navigationController else { return }
-            navigationController.popViewController(animated: true)
-        }
-        viewController.selectCurrencyClosure = { [weak self, weak navigationController] in
-            guard let self = self else { return }
-            guard let navigationController = navigationController else { return }
-            let currencies = self.delegate.presentationCurrencies(self)
-            let selectedCurrency = viewController.selectedCurrency
-            let selectCurrencyViewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
-            selectCurrencyViewController.backClosure = { [weak navigationController] in
+    private func pushAddAccountViewController(_ navigationController: UINavigationController) throws {
+        do {
+            let backgroundColors = AccountBackgroundColors.variants
+            let selectedCurrency = try delegate.presentationSelectedCurrency(self)
+            let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
+            viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
             }
-            selectCurrencyViewController.didSelectCurrencyClosure = { [weak navigationController] currency in
-                guard let navigationController = navigationController else { return }
-                viewController.setSelectedCurrency(currency, animated: true)
-                navigationController.popViewController(animated: true)
-            }
-            navigationController.pushViewController(selectCurrencyViewController, animated: true)
-        }
-        viewController.addAccountClosure = { [weak self, weak navigationController] addingAccount in
-            guard let self = self else { return }
-            guard let navigationController = navigationController else { return }
-            do {
-                let addedAccount = try self.delegate.presentation(self, addAccount: addingAccount)
-                navigationController.popViewController(animated: true)
-                if let accountsViewController = self.pushedAccoutsViewController {
-                    accountsViewController.addAccount(addedAccount)
+            viewController.selectCurrencyClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    let selectedCurrency = viewController.selectedCurrency
+                    try self.presentSelectCurrencyViewController(viewController, selectedCurrency: selectedCurrency)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
                 }
-                self.dashboardViewController?.addAccount(addedAccount)
-                self.pushedEditExpenseViewController?.addAccount(addedAccount)
-                self.pushedAddExpenseViewController?.addAccount(addedAccount)
-                self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
-                self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
             }
+            viewController.addAccountClosure = { [weak self, weak navigationController] addingAccount in
+                guard let self = self else { return }
+                guard let navigationController = navigationController else { return }
+                do {
+                    let addedAccount = try self.delegate.presentation(self, addAccount: addingAccount)
+                    navigationController.popViewController(animated: true)
+                    if let accountsViewController = self.pushedAccoutsViewController {
+                        accountsViewController.addAccount(addedAccount)
+                    }
+                    self.dashboardViewController?.addAccount(addedAccount)
+                    self.pushedEditExpenseViewController?.addAccount(addedAccount)
+                    self.pushedAddExpenseViewController?.addAccount(addedAccount)
+                    self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
+                    self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            pushedAddAccoutScreenViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push AddAccountViewController\n\(error)")
+            throw error
         }
-        pushedAddAccoutScreenViewController = viewController
-        navigationController.pushViewController(viewController, animated: true)
+        
     }
     
     private weak var presentedAddAccoutScreenViewController: AddAccountScreenViewController?
-    private func presentAddAccountViewController(_ presentingViewController: UIViewController) {
-        let backgroundColors = AccountBackgroundColors.variants
-        let selectedCurrency = delegate.presentationSelectedCurrency(self)
-        let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
-        viewController.backClosure = { [weak self] in
-            guard let self = self else { return }
-            self.menuNavigationController?.dismiss(animated: true, completion: nil)
-        }
-        viewController.selectCurrencyClosure = { [weak self] in
-            guard let self = self else { return }
-            let currencies = self.delegate.presentationCurrencies(self)
-            let selectedCurrency = viewController.selectedCurrency
-            let selectCurrencyViewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
-            selectCurrencyViewController.backClosure = {
-                viewController.dismiss(animated: true, completion: nil)
-            }
-            selectCurrencyViewController.didSelectCurrencyClosure = { currency in
-                viewController.setSelectedCurrency(currency, animated: true)
-                viewController.dismiss(animated: true, completion: nil)
-            }
-            viewController.present(selectCurrencyViewController, animated: true, completion: nil)
-        }
-        viewController.addAccountClosure = { [weak self] addingAccount in
-            guard let self = self else { return }
-            do {
-                let addedAccount = try self.delegate.presentation(self, addAccount: addingAccount)
+    private func presentAddAccountViewController(_ presentingViewController: UIViewController) throws {
+        do {
+            let backgroundColors = AccountBackgroundColors.variants
+            let selectedCurrency = try delegate.presentationSelectedCurrency(self)
+            let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
+            viewController.backClosure = { [weak self] in
+                guard let self = self else { return }
                 self.menuNavigationController?.dismiss(animated: true, completion: nil)
-                if let accountsViewController = self.pushedAccoutsViewController {
-                    accountsViewController.addAccount(addedAccount)
-                }
-                self.dashboardViewController?.addAccount(addedAccount)
-                self.pushedEditExpenseViewController?.addAccount(addedAccount)
-                self.pushedAddExpenseViewController?.addAccount(addedAccount)
-                self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
-                self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
             }
+            viewController.selectCurrencyClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    let selectedCurrency = viewController.selectedCurrency
+                    try self.presentSelectCurrencyViewController(viewController, selectedCurrency: selectedCurrency)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.addAccountClosure = { [weak self] addingAccount in
+                guard let self = self else { return }
+                do {
+                    let addedAccount = try self.delegate.presentation(self, addAccount: addingAccount)
+                    self.menuNavigationController?.dismiss(animated: true, completion: nil)
+                    if let accountsViewController = self.pushedAccoutsViewController {
+                        accountsViewController.addAccount(addedAccount)
+                    }
+                    self.dashboardViewController?.addAccount(addedAccount)
+                    self.pushedEditExpenseViewController?.addAccount(addedAccount)
+                    self.pushedAddExpenseViewController?.addAccount(addedAccount)
+                    self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
+                    self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            presentedAddAccoutScreenViewController = viewController
+            presentingViewController.present(viewController, animated: true, completion: nil)
+        } catch {
+            let error = Error("Cannot present AddAccountViewController\n\(error)")
+            throw error
         }
-        presentedAddAccoutScreenViewController = viewController
-        presentingViewController.present(viewController, animated: true, completion: nil)
     }
     
     // MARK: Edit Accounts Screen View Controller
@@ -749,13 +795,21 @@ public final class Presentation: AUIWindowPresentation {
             }
             viewController.didReorderTemplatesClosure = { [weak self] reorderedTemplates in
                 guard let self = self else { return }
-                self.delegate.presentation(self, reorderExpenseTemplates: reorderedTemplates)
-                self.dashboardViewController?.orderTemplates(reorderedTemplates)
+                do {
+                    try self.delegate.presentation(self, reorderExpenseTemplates: reorderedTemplates)
+                    self.dashboardViewController?.orderTemplates(reorderedTemplates)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.didDeleteTemplateClosure = { [weak self] template in
                 guard let self = self else { return }
-                self.delegate.presentation(self, deleteExpenseTemplate: template)
-                self.dashboardViewController?.deleteTemplate(template)
+                do {
+                    try self.delegate.presentation(self, deleteExpenseTemplate: template)
+                    self.dashboardViewController?.deleteTemplate(template)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
@@ -801,7 +855,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addAccountClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
                 guard let viewController = viewController else { return }
-                self.presentAddAccountViewController(viewController)
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             pushedAddTemplateScreenViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
@@ -841,7 +899,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addAccountClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
                 guard let viewController = viewController else { return }
-                self.presentAddAccountViewController(viewController)
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             self.presentedAddTemplateScreenViewController = viewController
             presentingViewController.present(viewController, animated: true, completion: nil)
@@ -865,10 +927,14 @@ public final class Presentation: AUIWindowPresentation {
         viewController.editTemplateClosure = { [weak self, weak navigationController] editingTemplate in
             guard let self = self else { return }
             guard let navigationController = navigationController else { return }
-            let editedTemplate = self.delegate.presentation(self, editExpenseTemplate: editingTemplate)
-            self.dashboardViewController?.editTemplate(editedTemplate)
-            self.pushedTemplatesScreenViewController?.showTemplateUpdated(editedTemplate)
-            navigationController.popViewController(animated: true)
+            do {
+                let editedTemplate = try self.delegate.presentation(self, editExpenseTemplate: editingTemplate)
+                self.dashboardViewController?.editTemplate(editedTemplate)
+                self.pushedTemplatesScreenViewController?.showTemplateUpdated(editedTemplate)
+                navigationController.popViewController(animated: true)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
         }
         viewController.addCategoryClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
@@ -878,7 +944,11 @@ public final class Presentation: AUIWindowPresentation {
         viewController.addAccountClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
             guard let viewController = viewController else { return }
-            self.presentAddAccountViewController(viewController)
+            do {
+                try self.presentAddAccountViewController(viewController)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
         }
         pushedEditTemplateScreenViewController = viewController
         navigationController.pushViewController(viewController, animated: true)
