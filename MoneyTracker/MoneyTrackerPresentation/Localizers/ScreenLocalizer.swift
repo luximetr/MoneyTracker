@@ -30,7 +30,7 @@ final class ScreenLocalizer {
     private var textLocalizer: TextLocalizer
     
     func localizeText(_ text: String, _ arguments: CVarArg...) -> String {
-        let text = textLocalizer.localizeText(text, arguments) ?? ""
+        let text = textLocalizer.localizeText(text, arguments: arguments) ?? ""
         return text
     }
     
