@@ -219,39 +219,44 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var pushedEditExpenseViewController: EditExpenseScreenViewController?
     private func pushEditExpenseViewController(_ navigationController: UINavigationController, expense: Expense) throws {
-        let accounts = try! delegate.presentationAccounts(self)
-        let categories = try! delegate.presentationCategories(self)
-        let viewController = EditExpenseScreenViewController(expense: expense, categories: categories, balanceAccounts: accounts)
-        viewController.backClosure = { [weak navigationController] in
-            guard let navigationController = navigationController else { return }
-            navigationController.popViewController(animated: true)
-        }
-        viewController.addAccountClosure = { [weak self, weak viewController] in
-            guard let self = self else { return }
-            guard let viewController = viewController else { return }
-            do {
-                try self.presentAddAccountViewController(viewController)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
+        do {
+            let accounts = try delegate.presentationAccounts(self)
+            let categories = try delegate.presentationCategories(self)
+            let viewController = EditExpenseScreenViewController(expense: expense, categories: categories, balanceAccounts: accounts)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
             }
-        }
-        viewController.addCategoryClosure = { [weak self, weak viewController] in
-            guard let self = self else { return }
-            guard let viewController = viewController else { return }
-            self.presentAddCategoryScreenViewController(viewController)
-        }
-        viewController.editExpenseClosure = { [weak self] expense in
-            guard let self = self else { return }
-            do {
-                let editedExpense = try self.delegate.presentation(self, editExpense: expense)
-                self.historyViewController?.editExpense(editedExpense)
-                self.statisticScreen?.editExpense(editedExpense)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
+            viewController.addAccountClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
+            viewController.addCategoryClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                self.presentAddCategoryScreenViewController(viewController)
+            }
+            viewController.editExpenseClosure = { [weak self] expense in
+                guard let self = self else { return }
+                do {
+                    let editedExpense = try self.delegate.presentation(self, editExpense: expense)
+                    self.historyViewController?.editExpense(editedExpense)
+                    self.statisticScreen?.editExpense(editedExpense)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            pushedEditExpenseViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push EditExpenseViewController\n\(error)")
+            throw error
         }
-        pushedEditExpenseViewController = viewController
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     // MARK: Add Expense View Controller
@@ -274,7 +279,7 @@ public final class Presentation: AUIWindowPresentation {
                     return dayExpenses
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
-                    return []
+                    throw error
                 }
             }
             viewController.addExpenseClosure = { [weak self] addingExpense in
@@ -327,8 +332,13 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.expensesClosure = { [weak self] month in
             guard let self = self else { return [] }
-            let expenses = try! self.delegate.presentationMonthExpenses(self, month: month)
-            return expenses
+            do {
+                let expenses = try self.delegate.presentationMonthExpenses(self, month: month)
+                return expenses
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+                return []
+            }
         }
         return viewController
     }
@@ -793,7 +803,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.didSelectTemplateClosure = { [weak self] template in
                 guard let self = self else { return }
                 guard let menuNavigationController =  self.menuNavigationController else { return }
-                self.pushEditTemplateScreenViewController(menuNavigationController, expenseTemplate: template)
+                do {
+                    try self.pushEditTemplateScreenViewController(menuNavigationController, expenseTemplate: template)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.didReorderTemplatesClosure = { [weak self] reorderedTemplates in
                 guard let self = self else { return }
@@ -918,42 +932,47 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Edit Template Screen View Controller
     
     private weak var pushedEditTemplateScreenViewController: EditTemplateScreenViewController?
-    private func pushEditTemplateScreenViewController(_ navigationController: UINavigationController, expenseTemplate: ExpenseTemplate) {
-        let categories = try! delegate.presentationCategories(self)
-        let balanceAccounts = try! delegate.presentationAccounts(self)
-        let viewController = EditTemplateScreenViewController(expenseTemplate: expenseTemplate, categories: categories, balanceAccounts: balanceAccounts)
-        viewController.backClosure = { [weak navigationController] in
-            guard let navigationController = navigationController else { return }
-            navigationController.popViewController(animated: true)
-        }
-        viewController.editTemplateClosure = { [weak self, weak navigationController] editingTemplate in
-            guard let self = self else { return }
-            guard let navigationController = navigationController else { return }
-            do {
-                let editedTemplate = try self.delegate.presentation(self, editExpenseTemplate: editingTemplate)
-                self.dashboardViewController?.editTemplate(editedTemplate)
-                self.pushedTemplatesScreenViewController?.showTemplateUpdated(editedTemplate)
+    private func pushEditTemplateScreenViewController(_ navigationController: UINavigationController, expenseTemplate: ExpenseTemplate) throws {
+        do {
+            let categories = try delegate.presentationCategories(self)
+            let balanceAccounts = try delegate.presentationAccounts(self)
+            let viewController = EditTemplateScreenViewController(expenseTemplate: expenseTemplate, categories: categories, balanceAccounts: balanceAccounts)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
             }
-        }
-        viewController.addCategoryClosure = { [weak self, weak viewController] in
-            guard let self = self else { return }
-            guard let viewController = viewController else { return }
-            self.presentAddCategoryScreenViewController(viewController)
-        }
-        viewController.addAccountClosure = { [weak self, weak viewController] in
-            guard let self = self else { return }
-            guard let viewController = viewController else { return }
-            do {
-                try self.presentAddAccountViewController(viewController)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
+            viewController.editTemplateClosure = { [weak self, weak navigationController] editingTemplate in
+                guard let self = self else { return }
+                guard let navigationController = navigationController else { return }
+                do {
+                    let editedTemplate = try self.delegate.presentation(self, editExpenseTemplate: editingTemplate)
+                    self.dashboardViewController?.editTemplate(editedTemplate)
+                    self.pushedTemplatesScreenViewController?.showTemplateUpdated(editedTemplate)
+                    navigationController.popViewController(animated: true)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
+            viewController.addCategoryClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                self.presentAddCategoryScreenViewController(viewController)
+            }
+            viewController.addAccountClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            pushedEditTemplateScreenViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push EditTemplateScreenViewController\n\(error)")
+            throw error
         }
-        pushedEditTemplateScreenViewController = viewController
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     // MARK: - Import CSV Screen

@@ -119,7 +119,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addAccount addingAccount: PresentationAddingAccount) throws -> PresentationAccount {
         do {
-            let storageAddingAccount = AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
+            let storageAddingAccount = try AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
             let addedStorageAccount = try storage.addBalanceAccount(storageAddingAccount)
             let addedPresentationAccount = try Account(storageAccount: addedStorageAccount).presentationAccount()
             return addedPresentationAccount
@@ -305,7 +305,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationTemplates = storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
                 guard let storageCategory = storageCategories.first(where: { $0.id == storageTemplate.categoryId }) else { return nil }
                 guard let storageBalanceAccount = storageBalanceAccounts.first(where: { $0.id == storageTemplate.balanceAccountId }) else { return nil }
-                guard let account = try? Account(storageAccount: storageBalanceAccount).presentationAccount() else { return nil }
+                guard let account = try Account(storageAccount: storageBalanceAccount).presentationAccount() else { return nil }
                 let category = Category(storageCategory: storageCategory).presentationCategory
                 return adapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: account, presentationCategory: category)
             }

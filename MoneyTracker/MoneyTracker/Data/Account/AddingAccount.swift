@@ -28,18 +28,16 @@ struct AddingAccount: Equatable, Hashable {
     
     // MARK: PresentationCategory
     
-    init(presentationAddingAccount: PresentationAddingAccount) {
-        self.name = presentationAddingAccount.name
-        self.amount = presentationAddingAccount.amount
-        self.currency = Currency(presentationCurrency: presentationAddingAccount.currency)
-        self.backgroundColor = try! NSKeyedArchiver.archivedData(withRootObject: presentationAddingAccount.backgroundColor, requiringSecureCoding: true)
-    }
-    
-    var presentationAddingAccount: PresentationAddingAccount {
-        let currency = currency.presentationCurrency
-        let backgroundColor = (try! NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: self.backgroundColor))!
-        let presentationAddingAccount = PresentationAddingAccount(name: name, amount: amount, currency: currency, backgroundColor: backgroundColor)
-        return presentationAddingAccount
+    init(presentationAddingAccount: PresentationAddingAccount) throws {
+        do {
+            self.name = presentationAddingAccount.name
+            self.amount = presentationAddingAccount.amount
+            self.currency = Currency(presentationCurrency: presentationAddingAccount.currency)
+            self.backgroundColor = try NSKeyedArchiver.archivedData(withRootObject: presentationAddingAccount.backgroundColor, requiringSecureCoding: true)
+        } catch {
+            let error = Error("Cannot initialize\n\(error)")
+            throw error
+        }
     }
     
     // MARK: StorageCategory

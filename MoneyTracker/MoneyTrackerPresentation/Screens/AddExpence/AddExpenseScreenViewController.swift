@@ -83,7 +83,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
             self.addAccount()
         }
         setupExpensesTableViewController()
-        dayExpenses = try! dayExpensesClosure?(Date()) ?? []
+        dayExpenses = (try? dayExpensesClosure?(Date())) ?? []
         setContent()
         setExpensesTableViewControllerContent()
         setDayExpensesContent()

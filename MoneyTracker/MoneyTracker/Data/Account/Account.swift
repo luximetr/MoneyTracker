@@ -42,7 +42,7 @@ struct Account: Equatable, Hashable {
     
     func presentationAccount() throws -> PresentationAccount {
         let currency = self.currency.presentationCurrency
-        let backgroundColor = (try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: self.backgroundColor)) ?? .lightGray
+        let backgroundColor = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: self.backgroundColor) ?? .lightGray
         let presentationAccount = PresentationAccount(id: id, name: name, amount: amount, currency: currency, backgroundColor: backgroundColor)
         return presentationAccount
     }
