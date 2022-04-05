@@ -24,6 +24,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         presentation.display()
     }
     
+    // MARK: - Files
+    
+    private lazy var files: Files = {
+        let files = Files()
+        return files
+    }()
+    
     // MARK: Storage
     
     private lazy var storage: Storage = {
@@ -370,43 +377,14 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return deletingExpense
     }
     
-    // MARK: - Files
-    
-    private lazy var files: Files = {
-        let files = Files()
-        return files
-    }()
-    
-    func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) {
-        guard let importingFile = tryParseExpensesCSV(url: url) else { return }
-        let fileAdapter = ImportingExpensesFileAdapter()
-        let storageFile = fileAdapter.adaptToStorage(filesImportingExpensesFile: importingFile)
-        trySaveImportingExpensesFile(storageFile)
-    }
-    
-    private func parseCoinKeeperCSV(url: URL) -> CoinKeeperFile? {
+    func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) throws {
         do {
-            return try files.parseCoinKeeperCSV(url: url)
+            let importingFile = try files.parseExpensesCSV(url: url)
+            let fileAdapter = ImportingExpensesFileAdapter()
+            let storageFile = fileAdapter.adaptToStorage(filesImportingExpensesFile: importingFile)
+            try storage.saveImportingExpensesFile(storageFile)
         } catch {
-            print(error)
-            return nil
-        }
-    }
-    
-    private func trySaveImportingExpensesFile(_ file: StorageImportingExpensesFile) {
-        do {
-            try storage.saveImportingExpensesFile(file)
-        } catch {
-            print(error)
-        }
-    }
-    
-    private func tryParseExpensesCSV(url: URL) -> MoneyTrackerFiles.ImportingExpensesFile? {
-        do {
-            return try files.parseExpensesCSV(url: url)
-        } catch {
-            print(error)
-            return nil
+            throw error
         }
     }
     
