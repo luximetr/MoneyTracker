@@ -13,19 +13,28 @@ typealias StorageAddingCategory = MoneyTrackerStorage.AddingCategory
 
 struct AddingCategory: Equatable, Hashable {
     let name: String
+    let colorHex: String
+    let iconName: String
     
-    init(name: String) {
+    init(name: String, colorHex: String, iconName: String) {
         self.name = name
+        self.colorHex = colorHex
+        self.iconName = iconName
     }
     
     // MARK: PresentationAddingCategory
     
-    init(presentationAddingCategory: PresentationAddingCategory) {
+    init(presentationAddingCategory: PresentationAddingCategory) throws {
         self.name = presentationAddingCategory.name
+        let colorConvertor = UIColorHexConvertor()
+        self.colorHex = try colorConvertor.convertToHexString(color: presentationAddingCategory.color)
+        self.iconName = presentationAddingCategory.iconName
     }
     
-    var presentationAddingCategory: PresentationAddingCategory {
-        let presentationAddingCategory = PresentationAddingCategory(name: name, color: .black, iconName: "")
+    func presentationAddingCategory() throws -> PresentationAddingCategory {
+        let colorConvertor = UIColorHexConvertor()
+        let color = try colorConvertor.convertToUIColor(hexString: colorHex)
+        let presentationAddingCategory = PresentationAddingCategory(name: name, color: color, iconName: iconName)
         return presentationAddingCategory
     }
     
@@ -33,10 +42,12 @@ struct AddingCategory: Equatable, Hashable {
     
     init(storageAddingCategoty: StorageAddingCategory) {
         self.name = storageAddingCategoty.name
+        self.colorHex = storageAddingCategoty.colorHex
+        self.iconName = storageAddingCategoty.iconName
     }
     
-    var storageAddingCategoty: StorageAddingCategory {
-        let storageAddingCategoty = StorageAddingCategory(name: name)
+    func storageAddingCategoty() -> StorageAddingCategory {
+        let storageAddingCategoty = StorageAddingCategory(name: name, colorHex: colorHex, iconName: iconName)
         return storageAddingCategoty
     }
 }

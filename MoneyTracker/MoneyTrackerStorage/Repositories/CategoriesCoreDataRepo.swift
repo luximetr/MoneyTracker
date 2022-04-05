@@ -27,6 +27,8 @@ class CategoriesCoreDataRepo {
         let categoryMO = try tryCreateCategory(category, context: context)
         categoryMO.id = category.id
         categoryMO.name = category.name
+        categoryMO.colorHex = category.colorHex
+        categoryMO.iconName = category.iconName
         try context.save()
     }
     
@@ -89,8 +91,10 @@ class CategoriesCoreDataRepo {
     func convertToCategory(categoryMO: CategoryMO) throws -> Category {
         guard let id = categoryMO.id else { throw ParseError.noId }
         guard let name = categoryMO.name else { throw ParseError.noName }
+        guard let colorHex = categoryMO.colorHex, !colorHex.isEmpty else { throw ParseError.noColor }
+        guard let iconName = categoryMO.iconName, !iconName.isEmpty else { throw ParseError.noIcon }
         
-        return Category(id: id, name: name)
+        return Category(id: id, name: name, colorHex: colorHex, iconName: iconName)
     }
     
     private func convertToCategories(categoriesMO: [CategoryMO]) -> [Category] {
@@ -110,10 +114,24 @@ class CategoriesCoreDataRepo {
         let request = NSBatchUpdateRequest(entityName: String(describing: Category.self))
         let predicate = NSPredicate(format: "id == %@", id)
         request.predicate = predicate
-        request.propertiesToUpdate = [#keyPath(CategoryMO.name): editingCategory.name]
+        request.propertiesToUpdate = createPropertiesToUpdate(editingCategory: editingCategory)
         request.affectedStores = context.persistentStoreCoordinator?.persistentStores
         request.resultType = .updatedObjectsCountResultType
         try context.execute(request)
+    }
+    
+    private func createPropertiesToUpdate(editingCategory: EditingCategory) -> [String : Any] {
+        var propertiesToUpdate: [String : Any] = [:]
+        if let name = editingCategory.name {
+            propertiesToUpdate[#keyPath(CategoryMO.name)] =  name
+        }
+        if let colorHex = editingCategory.colorHex {
+            propertiesToUpdate[#keyPath(CategoryMO.colorHex)] = colorHex
+        }
+        if let iconName = editingCategory.iconName {
+            propertiesToUpdate[#keyPath(CategoryMO.iconName)] = iconName
+        }
+        return propertiesToUpdate
     }
     
     // MARK: - Delete
@@ -130,6 +148,8 @@ class CategoriesCoreDataRepo {
     enum ParseError: Error {
         case noId
         case noName
+        case noColor
+        case noIcon
     }
 
     enum FetchError: Error {

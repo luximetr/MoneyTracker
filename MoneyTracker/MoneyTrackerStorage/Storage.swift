@@ -30,8 +30,9 @@ public class Storage {
     
     public func getCategoriesOrdered() throws -> [Category] {
         let repo = createCategoriesOrderRepo()
-        let orderedIds = try repo.fetchOrder()
         let categories = try getCategories()
+        guard !categories.isEmpty else { return [] }
+        let orderedIds = try repo.fetchOrder()
         return orderCategories(categories, orderedIds: orderedIds)
     }
     
@@ -47,7 +48,7 @@ public class Storage {
     
     public func addCategory(_ addingCategory: AddingCategory) throws -> Category {
         let repo = createCategoriesRepo()
-        let category = Category(id: UUID().uuidString, name: addingCategory.name)
+        let category = Category(id: UUID().uuidString, name: addingCategory.name, colorHex: addingCategory.colorHex, iconName: addingCategory.iconName)
         try repo.createCategory(category)
         try appendToCategoriesOrder(categoryId: category.id)
         return category
@@ -286,7 +287,7 @@ public class Storage {
         let uniqueImportingCategories = file.categories.filter { importingCategory in
             return !categories.contains(where: { findIfCategoriesEqual(importingCategory: importingCategory, category: $0) })
         }
-        let addingCategories = uniqueImportingCategories.map { AddingCategory(name: $0.name) }
+        let addingCategories = uniqueImportingCategories.map { AddingCategory(name: $0.name, colorHex: "", iconName: "") }
         addCategories(addingCategories)
         
         let balanceAccounts = try getAllBalanceAccounts()

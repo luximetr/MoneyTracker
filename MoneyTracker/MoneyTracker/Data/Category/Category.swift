@@ -40,7 +40,7 @@ struct Category: Equatable, Hashable {
     }
     
     var storageCategoty: StorageCategory {
-        let storageCategoty = StorageCategory(id: id, name: name)
+        let storageCategoty = StorageCategory(id: id, name: name, colorHex: "", iconName: "")
         return storageCategoty
     }
 }

@@ -7,4 +7,14 @@
 
 import Foundation
 
-public typealias EditingCategory = AddingCategory
+public struct EditingCategory: Equatable, Hashable {
+    public let name: String?
+    public let colorHex: String?
+    public let iconName: String?
+    
+    public init(name: String? = nil, colorHex: String? = nil, iconName: String? = nil) {
+        self.name = name
+        self.colorHex = colorHex
+        self.iconName = iconName
+    }
+}

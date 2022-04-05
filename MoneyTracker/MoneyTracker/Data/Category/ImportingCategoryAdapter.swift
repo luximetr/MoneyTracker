@@ -16,7 +16,9 @@ class ImportingCategoryAdapter {
     
     func adaptToStorageAdding(filesImportingCategory: FilesImportingCategory) -> StorageAddingCategory {
         return StorageAddingCategory(
-            name: filesImportingCategory.name
+            name: filesImportingCategory.name,
+            colorHex: "",
+            iconName: ""
         )
     }
     

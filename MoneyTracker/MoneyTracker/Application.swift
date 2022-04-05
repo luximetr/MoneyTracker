@@ -59,7 +59,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addCategory addingCategory: PresentationAddingCategory) throws -> PresentationCategory {
         do {
-            let storageAddingCategory = AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty
+            let storageAddingCategory = try AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty()
             let storageAddedCategory = try storage.addCategory(storageAddingCategory)
             let presentationAddedCategory = Category(storageCategory: storageAddedCategory).presentationCategory
             return presentationAddedCategory
