@@ -13,15 +13,16 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Data
     
     private let categoryColors: [UIColor]
-    private var categoryIconName: String?
+    private var categoryIconName: String
     var backClosure: (() -> Void)?
     var addCategoryClosure: ((AddingCategory) throws -> Void)?
     var selectIconClosure: ((UIColor) -> Void)?
     
     // MARK: Init
     
-    init(categoryColors: [UIColor]) {
+    init(categoryColors: [UIColor], categoryIconName: String) {
         self.categoryColors = categoryColors
+        self.categoryIconName = categoryIconName
     }
     
     // MARK: View
@@ -41,6 +42,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
         screenView.selectIconButton.addTarget(self, action: #selector(selectIconButtonTouchUpInsideEventAction), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        showCategoryIcon(iconName: categoryIconName)
         setupColorPickerController()
         setContent()
     }
@@ -72,8 +74,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
         do {
             guard let name = screenView.nameTextField.text, !name.isEmpty else { return }
             guard let selectedColor = colorPickerController.selectedColor else { return }
-            guard let iconName = categoryIconName else { return }
-            let addingCategory = AddingCategory(name: name, color: selectedColor, iconName: iconName)
+            let addingCategory = AddingCategory(name: name, color: selectedColor, iconName: categoryIconName)
             try addCategoryClosure?(addingCategory)
         } catch { }
     }

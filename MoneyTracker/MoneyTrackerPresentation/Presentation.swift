@@ -377,7 +377,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private var pushedAddCategoryViewController: AddCategoryScreenViewController?
     private func pushAddCategoryScreenViewController(_ navigationController: UINavigationController) {
-        let viewController = AddCategoryScreenViewController(categoryColors: CategoryBackgroundColors.variants)
+        let viewController = AddCategoryScreenViewController(categoryColors: CategoryBackgroundColors.variants, categoryIconName: CategoryIconNames.variant1)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)
@@ -413,7 +413,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private var presentedAddCategoryViewController: AddCategoryScreenViewController?
     private func presentAddCategoryScreenViewController(_ presentingViewController: UIViewController) {
-        let viewController = AddCategoryScreenViewController(categoryColors: CategoryBackgroundColors.variants)
+        let viewController = AddCategoryScreenViewController(categoryColors: CategoryBackgroundColors.variants, categoryIconName: CategoryIconNames.variant1)
         viewController.backClosure = { [weak viewController] in
             guard let viewController = viewController else { return }
             viewController.dismiss(animated: true, completion: nil)
