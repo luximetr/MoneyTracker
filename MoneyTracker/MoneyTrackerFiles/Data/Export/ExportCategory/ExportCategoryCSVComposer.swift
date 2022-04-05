@@ -12,7 +12,8 @@ class ExportCategoryCSVComposer {
     private let linesSeparator = "\n"
     private let columnsSeparator = ","
     
-    func composeCSV(categories: [ExportCategory]) -> String {
+    func composeCSV(categories: [ExportCategory]) -> String? {
+        guard categories.isNonEmpty else { return nil }
         let headerLine = composeHeaderLine()
         let categoriesLines = categories.map { composeCSVLine(category: $0) }
         let allLines = [headerLine] + categoriesLines
