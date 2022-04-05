@@ -17,7 +17,8 @@ class ExportBalanceAccountAdapter {
             id: storageAccount.id,
             name: storageAccount.name,
             amount: storageAccount.amount,
-            currencyCode: storageAccount.currency.rawValue
+            currencyCode: storageAccount.currency.rawValue,
+            colorHex: storageAccount.colorHex
         )
     }
 }

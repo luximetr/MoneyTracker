@@ -437,6 +437,16 @@ public final class Presentation: AUIWindowPresentation {
                 throw error
             }
         }
+        viewController.selectIconClosure = { [weak self] color in
+            guard let self = self else { return }
+            let selectIconViewController = self.createSelectIconViewController(
+                iconColor: color,
+                onSelectIcon: { [weak viewController] iconName in
+                    viewController?.showCategoryIcon(iconName: iconName)
+                }
+            )
+            navigationController.present(selectIconViewController, animated: true)
+        }
         pushedEditCategoryViewController = viewController
         navigationController.pushViewController(viewController, animated: true)
     }

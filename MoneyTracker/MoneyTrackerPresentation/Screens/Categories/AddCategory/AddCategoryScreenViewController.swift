@@ -13,6 +13,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Data
     
     private let categoryColors: [UIColor]
+    private var categoryIconName: String?
     var backClosure: (() -> Void)?
     var addCategoryClosure: ((AddingCategory) throws -> Void)?
     var selectIconClosure: ((UIColor) -> Void)?
@@ -70,7 +71,9 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     @objc private func editButtonTouchUpInsideEventAction() {
         do {
             guard let name = screenView.nameTextField.text, !name.isEmpty else { return }
-            let addingCategory = AddingCategory(name: name)
+            guard let selectedColor = colorPickerController.selectedColor else { return }
+            guard let iconName = categoryIconName else { return }
+            let addingCategory = AddingCategory(name: name, color: selectedColor, iconName: iconName)
             try addCategoryClosure?(addingCategory)
         } catch { }
     }
@@ -114,6 +117,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Icon
     
     func showCategoryIcon(iconName: String) {
+        categoryIconName = iconName
         screenView.iconView.setIcon(named: iconName)
     }
     

@@ -20,7 +20,7 @@ class ImportingBalanceAccountAdapter {
             name: filesImportingBalanceAccount.name,
             amount: filesImportingBalanceAccount.amount,
             currency: currency,
-            backgroundColor: Data()
+            colorHex: "#333333"
         )
     }
     

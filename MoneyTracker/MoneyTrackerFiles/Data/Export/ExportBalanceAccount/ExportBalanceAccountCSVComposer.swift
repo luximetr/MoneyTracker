@@ -23,7 +23,8 @@ class ExportBalanceAccountCSVComposer {
         let components = [
             "\"Name\"",
             "\"Amount\"",
-            "\"Currency\""
+            "\"Currency\"",
+            "\"Color\""
         ]
         return components.joined(separator: columnsSeparator)
     }
@@ -32,7 +33,8 @@ class ExportBalanceAccountCSVComposer {
         let components = [
             "\"\(balanceAccount.name)\"",
             "\"\(balanceAccount.amount)\"",
-            "\"\(balanceAccount.currencyCode)\""
+            "\"\(balanceAccount.currencyCode)\"",
+            "\"\(balanceAccount.colorHex)\""
         ]
         return components.joined(separator: columnsSeparator)
     }

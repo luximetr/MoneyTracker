@@ -11,12 +11,12 @@ public struct AddingBalanceAccount {
     public let name: String
     public let amount: Decimal
     public let currency: Currency
-    public let backgroundColor: Data
+    public let colorHex: String
     
-    public init(name: String, amount: Decimal, currency: Currency, backgroundColor: Data) {
+    public init(name: String, amount: Decimal, currency: Currency, colorHex: String) {
         self.name = name
         self.amount = amount
         self.currency = currency
-        self.backgroundColor = backgroundColor
+        self.colorHex = colorHex
     }
 }

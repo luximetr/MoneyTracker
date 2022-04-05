@@ -16,10 +16,12 @@ class ImportingMoneyTrackerBalanceAccountCSVLineParser {
         let name = try parseName(components: components)
         let amount = try parseAmount(components: components)
         let currency = try parseCurrency(components: components)
+        let color = parseColor(components: components)
         return ImportingBalanceAccount(
             name: name,
             amount: amount,
-            currency: currency
+            currency: currency,
+            colorHex: color
         )
     }
     
@@ -59,11 +61,21 @@ class ImportingMoneyTrackerBalanceAccountCSVLineParser {
         return currency
     }
     
+    // MARK: - Parse color
+    
+    private func parseColor(components: [String]) -> String? {
+        guard let color = components[safe: colorIndex], !color.isEmpty else {
+            return nil
+        }
+        return color
+    }
+    
     // MARK: - Indexes
     
     private let nameIndex = 0
     private let amountIndex = 1
     private let currencyIndex = 2
+    private let colorIndex = 3
     
     // MARK: - Errors
     

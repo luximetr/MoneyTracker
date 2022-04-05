@@ -11,4 +11,5 @@ public struct ImportingBalanceAccount {
     public let name: String
     public let amount: Decimal
     public let currency: String
+    public let colorHex: String?
 }

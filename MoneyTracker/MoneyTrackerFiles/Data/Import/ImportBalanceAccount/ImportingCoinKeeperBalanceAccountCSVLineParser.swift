@@ -19,7 +19,8 @@ class ImportingCoinKeeperBalanceAccountCSVLineParser {
         return ImportingBalanceAccount(
             name: name,
             amount: amount,
-            currency: currency
+            currency: currency,
+            colorHex: nil
         )
     }
     

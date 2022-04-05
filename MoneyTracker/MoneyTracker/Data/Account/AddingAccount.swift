@@ -17,27 +17,29 @@ struct AddingAccount: Equatable, Hashable {
     let name: String
     let amount: Decimal
     let currency: Currency
-    let backgroundColor: Data
+    let colorHex: String
     
-    init(name: String, amount: Decimal, currency: Currency, backgroundColor: Data) {
+    init(name: String, amount: Decimal, currency: Currency, colorHex: String) {
         self.name = name
         self.amount = amount
         self.currency = currency
-        self.backgroundColor = backgroundColor
+        self.colorHex = colorHex
     }
     
     // MARK: PresentationCategory
     
-    init(presentationAddingAccount: PresentationAddingAccount) {
+    init(presentationAddingAccount: PresentationAddingAccount) throws {
         self.name = presentationAddingAccount.name
         self.amount = presentationAddingAccount.amount
         self.currency = Currency(presentationCurrency: presentationAddingAccount.currency)
-        self.backgroundColor = try! NSKeyedArchiver.archivedData(withRootObject: presentationAddingAccount.backgroundColor, requiringSecureCoding: true)
+        let colorConvertor = UIColorHexConvertor()
+        self.colorHex = try colorConvertor.convertToHexString(color: presentationAddingAccount.backgroundColor)
     }
     
-    var presentationAddingAccount: PresentationAddingAccount {
+    func presentationAddingAccount() throws -> PresentationAddingAccount {
         let currency = currency.presentationCurrency
-        let backgroundColor = (try! NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: self.backgroundColor))!
+        let colorConvertor = UIColorHexConvertor()
+        let backgroundColor = try colorConvertor.convertToUIColor(hexString: storageAddingAccount.colorHex)
         let presentationAddingAccount = PresentationAddingAccount(name: name, amount: amount, currency: currency, backgroundColor: backgroundColor)
         return presentationAddingAccount
     }
@@ -48,12 +50,12 @@ struct AddingAccount: Equatable, Hashable {
         self.name = storageAddingAccount.name
         self.amount = storageAddingAccount.amount
         self.currency = Currency(storageCurrency: storageAddingAccount.currency)
-        self.backgroundColor = storageAddingAccount.backgroundColor
+        self.colorHex = storageAddingAccount.colorHex
     }
     
     var storageAddingAccount: StorageAddingAccount {
         let currency = currency.storageCurrency
-        let storageAddingCategoty = StorageAddingAccount(name: name, amount: amount, currency: currency, backgroundColor: backgroundColor)
+        let storageAddingCategoty = StorageAddingAccount(name: name, amount: amount, currency: currency, colorHex: colorHex)
         return storageAddingCategoty
     }
 }

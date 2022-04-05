@@ -25,7 +25,7 @@ struct AddingCategory: Equatable, Hashable {
     }
     
     var presentationAddingCategory: PresentationAddingCategory {
-        let presentationAddingCategory = PresentationAddingCategory(name: name)
+        let presentationAddingCategory = PresentationAddingCategory(name: name, color: .black, iconName: "")
         return presentationAddingCategory
     }
     

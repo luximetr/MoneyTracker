@@ -34,15 +34,6 @@ public final class Files {
         return csvString
     }
     
-    public func parseCoinKeeperCSV(url: URL) throws -> CoinKeeperFile {
-        return CoinKeeperFile(expenses: [], balanceAccounts: [], categories: [])
-//        _ = url.startAccessingSecurityScopedResource()
-//        let csvString = try String(contentsOf: url)
-//        url.stopAccessingSecurityScopedResource()
-//        let parser = CoinKeeperFileCSVParser()
-//        return try parser.parse(csvString: csvString)
-    }
-    
     public func createCSVFile(exportExpensesFile file: ExportExpensesFile) throws -> URL {
         let csvComposer = ExportExpensesFileCSVComposer()
         let csvString = csvComposer.composeCSV(file: file)

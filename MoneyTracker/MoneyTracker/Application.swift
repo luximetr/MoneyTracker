@@ -125,7 +125,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addAccount addingAccount: PresentationAddingAccount) throws -> PresentationAccount {
         do {
-            let storageAddingAccount = AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
+            let storageAddingAccount = try AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
             let addedStorageAccount = try storage.addBalanceAccount(storageAddingAccount)
             let addedPresentationAccount = try Account(storageAccount: addedStorageAccount).presentationAccount()
             return addedPresentationAccount
@@ -156,7 +156,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, editAccount editingAccount: PresentationAccount) throws -> PresentationAccount {
         do {
             let storageAccount = try Account(presentationAccount: editingAccount).storageAccount
-            let editingBalanceAccount = EditingBalanceAccount(name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, backgroundColor: storageAccount.backgroundColor)
+            let editingBalanceAccount = EditingBalanceAccount(name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, colorHex: storageAccount.colorHex)
             try storage.updateBalanceAccount(id: editingAccount.id, editingBalanceAccount: editingBalanceAccount)
             return editingAccount
         } catch {
@@ -443,15 +443,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         trySaveImportingExpensesFile(storageFile)
     }
     
-    private func parseCoinKeeperCSV(url: URL) -> CoinKeeperFile? {
-        do {
-            return try files.parseCoinKeeperCSV(url: url)
-        } catch {
-            print(error)
-            return nil
-        }
-    }
-    
     private func trySaveImportingExpensesFile(_ file: StorageImportingExpensesFile) {
         do {
             try storage.saveImportingExpensesFile(file)
@@ -466,14 +457,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         } catch {
             print(error)
             return nil
-        }
-    }
-    
-    private func addToStorage(coinKeeperExpenses expenses: [StorageCoinKeeperExpense]) {
-        do {
-            try storage.addExpenses(coinKeeperExpenses: expenses)
-        } catch {
-            print(error)
         }
     }
     
