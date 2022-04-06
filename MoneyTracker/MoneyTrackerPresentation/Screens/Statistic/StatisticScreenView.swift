@@ -88,11 +88,11 @@ final class ScreenView: TitleNavigationBarScreenView {
     }
     
     func monthCategoryExpensesTableViewCellEstimatedHeight() -> CGFloat {
-        return 49
+        return 60
     }
     
     func monthCategoryExpensesTableViewCellHeight() -> CGFloat {
-        return 49
+        return 60
     }
     
 }
