@@ -37,7 +37,7 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupShareButton() {
-        shareButton.setImage(UIImage(systemName: "share"), for: .normal)
+        shareButton.setImage(UIImage(systemName: "rectangle.stack.badge.person.crop"), for: .normal)
     }
     
     private func setupTextView() {

@@ -175,7 +175,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentationSelectedCurrency(_ presentation: Presentation) throws -> PresentationCurrency {
         do {
             let adapter = CurrencyAdapter()
-            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency()
+            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency() ?? .sgd
             self.selectedCurrency = selectedCurrency
             return adapter.adaptToPresentationCurrency(storageCurrency: selectedCurrency)
         } catch {

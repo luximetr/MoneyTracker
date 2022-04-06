@@ -692,8 +692,8 @@
 		2E30391527BDAE6C0084B96C /* UnexpectedError */ = {
 			isa = PBXGroup;
 			children = (
-				2E30391627BDAF110084B96C /* Details */,
 				2ECF014927BDA300008469E0 /* Alert */,
+				2E30391627BDAF110084B96C /* Details */,
 			);
 			path = UnexpectedError;
 			sourceTree = "<group>";

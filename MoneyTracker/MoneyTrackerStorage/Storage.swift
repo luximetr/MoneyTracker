@@ -208,7 +208,7 @@ public class Storage {
         repo.save(currency: currency)
     }
     
-    public func getSelectedCurrency() throws -> Currency {
+    public func getSelectedCurrency() throws -> Currency? {
         let repo = createSelectedCurrencyRepo()
         return try repo.fetch()
     }
