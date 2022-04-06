@@ -38,6 +38,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(saveButton)
         backgroundColor = Colors.primaryBackground
         setupBalanceAccountPickerHeaderLabel()
+        setupCategoryPickerView()
         setupSaveButton()
         autoLayout()
     }
@@ -56,6 +57,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
         balanceAccountPickerHeaderLabel.textColor = Colors.primaryText
         balanceAccountPickerHeaderLabel.numberOfLines = 1
+    }
+    
+    private func setupCategoryPickerView() {
+        categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
     }
     
     private func setupSaveButton() {
@@ -120,7 +125,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
             .left(0)
             .right(0)
             .top(to: categoryPickerHeaderLabel.edge.bottom).marginTop(10)
-            .height(24)
+            .height(30)
         categoryPickerView.collectionView.contentInset = UIEdgeInsets(top: 0, left: marginLeft, bottom: 0, right: marginRight)
     }
     

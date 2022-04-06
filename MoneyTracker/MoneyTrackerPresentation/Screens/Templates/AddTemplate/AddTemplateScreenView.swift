@@ -25,6 +25,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(addButton)
         backgroundColor = Colors.primaryBackground
         setupBalanceAccountPickerHeaderLabel()
+        setupCategoryPickerView()
         setupAddButton()
     }
     
@@ -101,12 +102,16 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     let categoryPickerView = CategoryHorizontalPickerView()
     
+    private func setupCategoryPickerView() {
+        categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
+    }
+    
     private func layoutCategoryPickerView() {
         categoryPickerView.pin
             .left(marginLeft)
             .right(marginRight)
             .top(to: categoryPickerHeaderLabel.edge.bottom).marginTop(10)
-            .height(50)
+            .height(30)
     }
     
     // MARK: - NameTextField

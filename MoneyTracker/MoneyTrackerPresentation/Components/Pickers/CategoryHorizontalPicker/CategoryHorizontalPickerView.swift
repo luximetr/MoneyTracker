@@ -10,6 +10,12 @@ import AUIKit
 
 class CategoryHorizontalPickerView: AUIView {
     
+    // MARK: - Data
+    
+    var contentInset: UIEdgeInsets = .zero {
+        didSet { collectionView.contentInset = contentInset }
+    }
+    
     // MARK: - Life cycle
     
     override init(frame: CGRect = .zero) {
@@ -42,6 +48,7 @@ class CategoryHorizontalPickerView: AUIView {
     private func setupCollectionView() {
         collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         collectionViewLayout.scrollDirection = .horizontal
+        collectionView.contentInset = contentInset
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
