@@ -106,7 +106,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .left(marginLeft)
             .right(marginRight)
             .top(to: categoryPickerHeaderLabel.edge.bottom).marginTop(10)
-            .height(24)
+            .height(50)
     }
     
     // MARK: - NameTextField
