@@ -49,7 +49,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             let storageCategories = try storage.getCategoriesOrdered()
             let categories = storageCategories.map({ Category(storageCategory: $0) })
-            let presentationCategories = categories.map({ $0.presentationCategory })
+            let presentationCategories = try categories.map({ try $0.presentationCategory() })
             return presentationCategories
         } catch {
             let error = Error("Cannot get categories\n\(error)")
@@ -61,7 +61,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             let storageAddingCategory = try AddingCategory(presentationAddingCategory: addingCategory).storageAddingCategoty()
             let storageAddedCategory = try storage.addCategory(storageAddingCategory)
-            let presentationAddedCategory = Category(storageCategory: storageAddedCategory).presentationCategory
+            let presentationAddedCategory = try Category(storageCategory: storageAddedCategory).presentationCategory()
             return presentationAddedCategory
         } catch {
             let error = Error("Cannot add category \(addingCategory)\n\(error)")
@@ -71,7 +71,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, deleteCategory category: PresentationCategory) throws {
         do {
-            let storageCategory = Category(presentationCategory: category).storageCategoty
+            let storageCategory = try Category(presentationCategory: category).storageCategoty()
             try storage.removeCategory(id: storageCategory.id)
         } catch {
             let error = Error("Cannot delete category \(category)\n\(error)")
@@ -273,7 +273,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                 guard let storageCategory = storageCategories.first(where: { $0.id == storageTemplate.categoryId }) else { return nil }
                 guard let storageBalanceAccount = storageBalanceAccounts.first(where: { $0.id == storageTemplate.balanceAccountId }) else { return nil }
                 guard let account = try? Account(storageAccount: storageBalanceAccount).presentationAccount() else { return nil }
-                let category = Category(storageCategory: storageCategory).presentationCategory
+                guard let category = try? Category(storageCategory: storageCategory).presentationCategory() else { return nil }
                 return adapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: account, presentationCategory: category)
             }
             return presentationTemplates
@@ -326,7 +326,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let storageExpenseTemplate = try storage.getExpenseTemplate(expenseTemplateId: id)
         let storageCategory = try storage.getCategory(id: storageExpenseTemplate.categoryId)
         let storageBalanceAccount = try storage.getBalanceAccount(id: storageExpenseTemplate.balanceAccountId)
-        let presentationCategory = Category(storageCategory: storageCategory).presentationCategory
+        let presentationCategory = try Category(storageCategory: storageCategory).presentationCategory()
         let presentationBalanceAccount = try Account(storageAccount: storageBalanceAccount).presentationAccount()
         let presentationExpenseTemplate = ExpenseTemplateAdapter().adaptToPresentation(storageExpenseTemplate: storageExpenseTemplate, presentationBalanceAccount: presentationBalanceAccount, presentationCategory: presentationCategory)
         return presentationExpenseTemplate
@@ -462,11 +462,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let date = Date()
         let component = template.comment
         let account = try Account(presentationAccount: template.balanceAccount)
-        let category = Category(presentationCategory: template.category)
+        let category = try Category(presentationCategory: template.category)
         let addingExpense = AddingExpense(amount: amount, date: date, comment: component, account: account, category: category)
         let storageaAddingExpense = addingExpense.storageAddingExpense
         let storageExpense = try storage.addExpense(addingExpense: storageaAddingExpense)
-        let storageCategory = category.storageCategoty
+        let storageCategory = category.storageCategoty()
         let storageAccount = account.storageAccount
         let expense = Expense(storageExpense: storageExpense, account: storageAccount, category: storageCategory)
         return try expense.presentationExpense()

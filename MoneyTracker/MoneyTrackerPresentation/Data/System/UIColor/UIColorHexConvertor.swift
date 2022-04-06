@@ -10,10 +10,11 @@ import UIKit
 class UIColorHexConvertor {
     
     func convertToHexString(color: UIColor) throws -> String {
-        guard let components = color.cgColor.components else { throw ConvertError.noRGBComponentsFound }
-        guard let red = components[safe: 0] else { throw ConvertError.noRedComponentFound }
-        guard let green = components[safe: 1] else { throw ConvertError.noGreenComponentFound }
-        guard let blue = components[safe: 2] else { throw ConvertError.noBlueComponentFound }
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+        var alpha: CGFloat = 0.0
+        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         let hexString = String.init(format: "#%02lX%02lX%02lX", lroundf(Float(red * 255)), lroundf(Float(green * 255)), lroundf(Float(blue * 255)))
         return hexString
     }

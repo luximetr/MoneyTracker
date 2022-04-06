@@ -47,6 +47,8 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         setupColorPickerController()
         setContent()
+        updateView(categoryColor: category.color)
+        showCategoryIcon(iconName: categoryIconName)
     }
     
     // MARK: Localizer
@@ -106,7 +108,7 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
         colorPickerController.didSelectColorClosure = { [weak self] color in
             self?.updateView(categoryColor: color)
         }
-        colorPickerController.setColors(categoryColors, selectedColor: categoryColors.first!)
+        colorPickerController.setColors(categoryColors, selectedColor: category.color)
     }
     
     private func updateView(categoryColor: UIColor) {

@@ -39,12 +39,12 @@ struct Expense: Equatable, Hashable {
         self.date = presentationExpense.date
         self.comment = presentationExpense.comment
         self.account = try Account(presentationAccount: presentationExpense.account)
-        self.category = Category(presentationCategory: presentationExpense.category)
+        self.category = try Category(presentationCategory: presentationExpense.category)
     }
     
     func presentationExpense() throws -> PresentationExpense {
         let presentationAccount = try account.presentationAccount()
-        let presentationCategory = category.presentationCategory
+        let presentationCategory = try category.presentationCategory()
         let presentationExpense = PresentationExpense(id: id, amount: amount, date: date, comment: comment, account: presentationAccount, category: presentationCategory)
         return presentationExpense
     }

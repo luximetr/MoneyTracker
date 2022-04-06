@@ -34,7 +34,7 @@ struct AddingExpense {
         self.date = presentationAddingExpense.date
         self.comment = presentationAddingExpense.comment
         self.account = try Account(presentationAccount: presentationAddingExpense.account)
-        self.category = Category(presentationCategory: presentationAddingExpense.category)
+        self.category = try Category(presentationCategory: presentationAddingExpense.category)
     }
     
     // MARK: StorageAddingExpense
