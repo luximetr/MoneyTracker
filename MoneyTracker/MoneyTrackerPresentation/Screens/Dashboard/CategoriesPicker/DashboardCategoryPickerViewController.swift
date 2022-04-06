@@ -77,8 +77,8 @@ final class CategoryPickerViewController: AUIEmptyViewController {
         collectionController.reload()
     }
     
-    private func createCategoryCellController(category: Category) -> CategoryHorizontalPickerItemCellController {
-        let cellController = CategoryHorizontalPickerItemCellController(category: category, isSelected: false)
+    private func createCategoryCellController(category: Category) -> CategoryCellController {
+        let cellController = CategoryCellController(category: category)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.categoryPickerView!.categoryCollectionViewCell(indexPath: indexPath)
@@ -143,7 +143,7 @@ final class CategoryPickerViewController: AUIEmptyViewController {
     }
     
     var selectCategoryClosure: ((Category) -> Void)?
-    private func didSelectCategoryCellController(_ categoryCellController: CategoryHorizontalPickerItemCellController) {
+    private func didSelectCategoryCellController(_ categoryCellController: CategoryCellController) {
         let category = categoryCellController.category
         selectCategoryClosure?(category)
     }

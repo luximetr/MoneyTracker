@@ -243,6 +243,7 @@
 		DBA0545D27FC52AC00DB3892 /* UIColorHexConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0545C27FC52AC00DB3892 /* UIColorHexConvertor.swift */; };
 		DBA0546127FC545500DB3892 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546027FC545500DB3892 /* Array+Extension.swift */; };
 		DBA0546327FC5DC500DB3892 /* CategoryIconNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546227FC5DC500DB3892 /* CategoryIconNames.swift */; };
+		DBA0546527FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546427FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift */; };
 		DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */; };
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
@@ -561,6 +562,7 @@
 		DBA0545C27FC52AC00DB3892 /* UIColorHexConvertor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHexConvertor.swift; sourceTree = "<group>"; };
 		DBA0546027FC545500DB3892 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		DBA0546227FC5DC500DB3892 /* CategoryIconNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryIconNames.swift; sourceTree = "<group>"; };
+		DBA0546427FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCategoryPickerCategoryCellController.swift; sourceTree = "<group>"; };
 		DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
@@ -1270,6 +1272,7 @@
 			children = (
 				2EC6178F27F8393300845E7A /* DashboardCategoryPickerViewController.swift */,
 				2EC6178827F82BFE00845E7A /* DashboardCategoryPickerView.swift */,
+				DBA0546427FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift */,
 				2ED9047B27F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings */,
 			);
 			path = CategoriesPicker;
@@ -2361,6 +2364,7 @@
 				DB45FADD27E6F0950073C677 /* EditingExpenseTemplate.swift in Sources */,
 				2E98FF5127EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift in Sources */,
 				2E01B2C127EDA8DF00013321 /* MonthPickerViewController.swift in Sources */,
+				DBA0546527FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift in Sources */,
 				2EB10A3D27A7034400743416 /* Fonts.swift in Sources */,
 				DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */,
 				2ED60BD227DE776F00EC11D4 /* ExpenseTableViewCell.swift in Sources */,
