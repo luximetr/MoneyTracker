@@ -21,12 +21,20 @@ class ExportCategoryCSVComposer {
     }
     
     private func composeHeaderLine() -> String {
-        let components = ["\"Name\""]
+        let components = [
+            "\"Name\"",
+            "\"Color\"",
+            "\"Icon\""
+        ]
         return components.joined(separator: columnsSeparator)
     }
     
     private func composeCSVLine(category: ExportCategory) -> String {
-        let components = ["\"\(category.name)\""]
+        let components = [
+            "\"\(category.name)\"",
+            "\"\(category.colorHex)\"",
+            "\"\(category.iconName)\""
+        ]
         return components.joined(separator: columnsSeparator)
     }
 }

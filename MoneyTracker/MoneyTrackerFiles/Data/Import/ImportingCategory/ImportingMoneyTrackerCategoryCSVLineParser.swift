@@ -12,7 +12,9 @@ class ImportingMoneyTrackerCategoryCSVLineParser {
     func parse(csvLine: String) throws -> ImportingCategory {
         let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
         let name = try parseName(components: components)
-        return ImportingCategory(name: name)
+        let colorHex = components[safe: colorIndex]
+        let iconName = components[safe: iconIndex]
+        return ImportingCategory(name: name, colorHex: colorHex, iconName: iconName)
     }
     
     private func parseName(components: [String]) throws -> String {
@@ -25,6 +27,8 @@ class ImportingMoneyTrackerCategoryCSVLineParser {
     // MARK: - Indexes
     
     private let nameIndex = 0
+    private let colorIndex = 1
+    private let iconIndex = 2
     
     // MARK: - Errors
     
