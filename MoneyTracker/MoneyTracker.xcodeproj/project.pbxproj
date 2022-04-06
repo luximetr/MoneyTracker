@@ -24,9 +24,9 @@
 		2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */; };
 		2E30391A27BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E30391927BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift */; };
 		2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E30391F27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings */; };
-		2E394F0627FCDA06002C3052 /* TransferScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F0527FCDA06002C3052 /* TransferScreenViewController.swift */; };
-		2E394F0827FCDA13002C3052 /* TransferScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F0727FCDA13002C3052 /* TransferScreenView.swift */; };
-		2E394F0B27FCDA2F002C3052 /* TransferScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E394F0D27FCDA2F002C3052 /* TransferScreenStrings.strings */; };
+		2E394F0627FCDA06002C3052 /* AddTransferScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F0527FCDA06002C3052 /* AddTransferScreenViewController.swift */; };
+		2E394F0827FCDA13002C3052 /* AddTransferScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F0727FCDA13002C3052 /* AddTransferScreenView.swift */; };
+		2E394F0B27FCDA2F002C3052 /* AddTransferScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E394F0D27FCDA2F002C3052 /* AddTransferScreenStrings.strings */; };
 		2E394F1027FCDDC1002C3052 /* TopUpAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F0F27FCDDC1002C3052 /* TopUpAccountScreenViewController.swift */; };
 		2E394F1227FCDDD0002C3052 /* TopUpAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */; };
 		2E394F1527FCDDE5002C3052 /* TopUpAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E394F1727FCDDE5002C3052 /* TopUpAccountScreenStrings.strings */; };
@@ -137,6 +137,10 @@
 		2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */; };
 		2ECFFFC727F040BD00F338B8 /* AddTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFFFC627F040BD00F338B8 /* AddTableViewCellController.swift */; };
 		2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */; };
+		2ED15EC527FE210D00208386 /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC427FE210D00208386 /* AddingTransfer.swift */; };
+		2ED15EC727FE21A800208386 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC627FE21A800208386 /* Transfer.swift */; };
+		2ED15ECA27FE252000208386 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC927FE252000208386 /* Transfer.swift */; };
+		2ED15ECC27FE252F00208386 /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15ECB27FE252F00208386 /* AddingTransfer.swift */; };
 		2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */; };
 		2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */; };
 		2ED3E93727F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3E93627F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift */; };
@@ -339,9 +343,9 @@
 		2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorDetailsScreenViewController.swift; sourceTree = "<group>"; };
 		2E30391927BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorDetailsScreenView.swift; sourceTree = "<group>"; };
 		2E30391E27BDAF690084B96C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorDetailsScreenStrings.strings; sourceTree = "<group>"; };
-		2E394F0527FCDA06002C3052 /* TransferScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferScreenViewController.swift; sourceTree = "<group>"; };
-		2E394F0727FCDA13002C3052 /* TransferScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferScreenView.swift; sourceTree = "<group>"; };
-		2E394F0C27FCDA2F002C3052 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransferScreenStrings.strings; sourceTree = "<group>"; };
+		2E394F0527FCDA06002C3052 /* AddTransferScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransferScreenViewController.swift; sourceTree = "<group>"; };
+		2E394F0727FCDA13002C3052 /* AddTransferScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransferScreenView.swift; sourceTree = "<group>"; };
+		2E394F0C27FCDA2F002C3052 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddTransferScreenStrings.strings; sourceTree = "<group>"; };
 		2E394F0F27FCDDC1002C3052 /* TopUpAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountScreenViewController.swift; sourceTree = "<group>"; };
 		2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountScreenView.swift; sourceTree = "<group>"; };
 		2E394F1627FCDDE5002C3052 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TopUpAccountScreenStrings.strings; sourceTree = "<group>"; };
@@ -451,6 +455,10 @@
 		2ECF015127BDA36D008469E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
 		2ECFFFC627F040BD00F338B8 /* AddTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTableViewCellController.swift; sourceTree = "<group>"; };
 		2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCellController.swift; sourceTree = "<group>"; };
+		2ED15EC427FE210D00208386 /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
+		2ED15EC627FE21A800208386 /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
+		2ED15EC927FE252000208386 /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
+		2ED15ECB27FE252F00208386 /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
 		2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateView.swift; sourceTree = "<group>"; };
 		2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateViewController.swift; sourceTree = "<group>"; };
 		2ED3E93627F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerAddCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -708,14 +716,14 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
-		2E394F0427FCD9E1002C3052 /* Transfer */ = {
+		2E394F0427FCD9E1002C3052 /* AddTransfer */ = {
 			isa = PBXGroup;
 			children = (
-				2E394F0527FCDA06002C3052 /* TransferScreenViewController.swift */,
-				2E394F0727FCDA13002C3052 /* TransferScreenView.swift */,
-				2E394F0D27FCDA2F002C3052 /* TransferScreenStrings.strings */,
+				2E394F0527FCDA06002C3052 /* AddTransferScreenViewController.swift */,
+				2E394F0727FCDA13002C3052 /* AddTransferScreenView.swift */,
+				2E394F0D27FCDA2F002C3052 /* AddTransferScreenStrings.strings */,
 			);
-			path = Transfer;
+			path = AddTransfer;
 			sourceTree = "<group>";
 		};
 		2E394F0E27FCDD8E002C3052 /* TopUpAccount */ = {
@@ -782,6 +790,7 @@
 				2E926E8827BC55AD0081E3AE /* Currency */,
 				2E926E8227BC537D0081E3AE /* Category */,
 				2E926E8327BC538F0081E3AE /* Account */,
+				2ED15EC827FE250500208386 /* Transfer */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1104,7 +1113,7 @@
 				2EB10A2C27A6E7B500743416 /* Menu */,
 				DBB7BD0A27D78F31004EF5B7 /* Dashboard */,
 				2ECB218527DCA900006D6558 /* AddExpence */,
-				2E394F0427FCD9E1002C3052 /* Transfer */,
+				2E394F0427FCD9E1002C3052 /* AddTransfer */,
 				2E394F0E27FCDD8E002C3052 /* TopUpAccount */,
 				2ED8BD7027E908C90007F60B /* History */,
 				2E2A6ED527EC4F710084054C /* EditExpense */,
@@ -1182,6 +1191,7 @@
 				2E926E8627BC55790081E3AE /* Currency */,
 				2E926E8527BC55670081E3AE /* Account */,
 				2E926E8427BC555A0081E3AE /* Category */,
+				2ED15EC327FE20F100208386 /* Transfer */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1387,6 +1397,24 @@
 				2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */,
 			);
 			path = Alert;
+			sourceTree = "<group>";
+		};
+		2ED15EC327FE20F100208386 /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				2ED15EC427FE210D00208386 /* AddingTransfer.swift */,
+				2ED15EC627FE21A800208386 /* Transfer.swift */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
+		2ED15EC827FE250500208386 /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				2ED15ECB27FE252F00208386 /* AddingTransfer.swift */,
+				2ED15EC927FE252000208386 /* Transfer.swift */,
+			);
+			path = Transfer;
 			sourceTree = "<group>";
 		};
 		2ED1D16327DDCCA40001D5A6 /* InputDateView */ = {
@@ -2179,7 +2207,7 @@
 				DB7BA80827F87D7500A3B3BA /* SelectIconScreenStrings.strings in Resources */,
 				2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */,
 				2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */,
-				2E394F0B27FCDA2F002C3052 /* TransferScreenStrings.strings in Resources */,
+				2E394F0B27FCDA2F002C3052 /* AddTransferScreenStrings.strings in Resources */,
 				2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 				2ED3E93D27F39BDD006C76FB /* CategoryHorizontalPickerStrings.strings in Resources */,
@@ -2332,11 +2360,13 @@
 				DBA0545427FC2DBE00DB3892 /* UIColorHexConvertor.swift in Sources */,
 				2ED60BD627DE830800EC11D4 /* Expense.swift in Sources */,
 				DB62AEF127EEB78500F8CA55 /* ImportingCategoryAdapter.swift in Sources */,
+				2ED15ECC27FE252F00208386 /* AddingTransfer.swift in Sources */,
 				DB62AF0327EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift in Sources */,
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
 				DBA0545827FC2E5D00DB3892 /* Array+Extension.swift in Sources */,
 				DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */,
+				2ED15ECA27FE252000208386 /* Transfer.swift in Sources */,
 				2ED60BD827DE851900EC11D4 /* AddingExpense.swift in Sources */,
 				2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */,
 				2EB10A1227A6C8CB00743416 /* Application.swift in Sources */,
@@ -2393,7 +2423,8 @@
 				2EB10A3127A6E7B500743416 /* TabBarItem.swift in Sources */,
 				2E95BB2F27B31AC40097CA46 /* AccountsScreenView.swift in Sources */,
 				2EBDF92F27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift in Sources */,
-				2E394F0827FCDA13002C3052 /* TransferScreenView.swift in Sources */,
+				2ED15EC527FE210D00208386 /* AddingTransfer.swift in Sources */,
+				2E394F0827FCDA13002C3052 /* AddTransferScreenView.swift in Sources */,
 				2E95BB3B27B31F720097CA46 /* AccountsScreenAccountCollectionViewCellController.swift in Sources */,
 				DBB7BD3027DDDF20004EF5B7 /* CategoryHorizontalPickerController.swift in Sources */,
 				2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */,
@@ -2414,7 +2445,7 @@
 				2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */,
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
 				2ED76C8B27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift in Sources */,
-				2E394F0627FCDA06002C3052 /* TransferScreenViewController.swift in Sources */,
+				2E394F0627FCDA06002C3052 /* AddTransferScreenViewController.swift in Sources */,
 				DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */,
 				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
 				2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */,
@@ -2465,6 +2496,7 @@
 				2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */,
 				2ECB219827DD2AE4006D6558 /* SelectCategoryView.swift in Sources */,
 				2EC1BDC427B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift in Sources */,
+				2ED15EC727FE21A800208386 /* Transfer.swift in Sources */,
 				DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */,
 				2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */,
 				2EC1BDC227B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift in Sources */,
@@ -2585,12 +2617,12 @@
 			name = UnexpectedErrorDetailsScreenStrings.strings;
 			sourceTree = "<group>";
 		};
-		2E394F0D27FCDA2F002C3052 /* TransferScreenStrings.strings */ = {
+		2E394F0D27FCDA2F002C3052 /* AddTransferScreenStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2E394F0C27FCDA2F002C3052 /* en */,
 			);
-			name = TransferScreenStrings.strings;
+			name = AddTransferScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2E394F1727FCDDE5002C3052 /* TopUpAccountScreenStrings.strings */ = {

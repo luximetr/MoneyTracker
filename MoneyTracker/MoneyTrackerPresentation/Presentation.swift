@@ -38,6 +38,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [Expense]
     func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date]
     func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
+    func presentation(_ presentation: Presentation, addTransfer addingTransfer: AddingTransfer) throws -> Transfer
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -119,7 +120,11 @@ public final class Presentation: AUIWindowPresentation {
         viewController.transferClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
-            self.pushTransferViewController(menuNavigationController)
+            do {
+                try self.pushAddTransferViewController(menuNavigationController)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
         }
         viewController.topUpAccountClosure = { [weak self] account in
             guard let self = self else { return }
@@ -220,15 +225,40 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: Transfer View Controller
     
-    private weak var pushedTransferViewController: TransferScreenViewController?
-    private func pushTransferViewController(_ navigationController: UINavigationController) {
-        let viewController = TransferScreenViewController()
-        viewController.backClosure = { [weak navigationController] in
-            guard let navigationController = navigationController else { return }
-            navigationController.popViewController(animated: true)
+    private weak var pushedAddTransferViewController: AddTransferScreenViewController?
+    private func pushAddTransferViewController(_ navigationController: UINavigationController) throws {
+        do {
+            let accounts = try delegate.presentationAccounts(self)
+            let viewController = AddTransferScreenViewController(accounts: accounts)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
+            }
+            viewController.addAccountClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.addTransferClosure = { [weak self, weak viewController] addingTransfer in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    _ = try self.delegate.presentation(self, addTransfer: addingTransfer)
+                    viewController.dismiss(animated: true, completion: nil)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            pushedAddTransferViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push TransferViewController\n\(error)")
+            throw error
         }
-        pushedTransferViewController = viewController
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     // MARK: Top Up Account View Controller
@@ -727,6 +757,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedEditExpenseViewController?.addAccount(addedAccount)
                     self.pushedAddExpenseViewController?.addAccount(addedAccount)
                     self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
+                    self.pushedAddTransferViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
@@ -773,6 +804,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedEditExpenseViewController?.addAccount(addedAccount)
                     self.pushedAddExpenseViewController?.addAccount(addedAccount)
                     self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
+                    self.pushedAddTransferViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)

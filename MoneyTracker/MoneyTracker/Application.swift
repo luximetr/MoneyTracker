@@ -437,6 +437,16 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let expense = Expense(storageExpense: storageExpense, account: storageAccount, category: storageCategory)
         return try expense.presentationExpense()
     }
+    
+    func presentation(_ presentation: Presentation, addTransfer presentationAddingTransfer: PresentationAddingTransfer) throws -> PresentationTransfer {
+        do {
+            let addingTransfer = try AddingTransfer(presentationAddingTransfer: presentationAddingTransfer)
+            fatalError()
+        } catch {
+            let error = Error("Cannot add presentation transfer \(presentationAddingTransfer)\n\(error)")
+            throw error
+        }
+    }
 }
 
 extension Date {
