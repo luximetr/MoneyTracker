@@ -44,6 +44,9 @@ final class CategoryTableViewCellController: AUIClosuresTableViewCellController 
     
     private func setContent() {
         categoryTableViewCell?.nameLabel.text = category.name
+        categoryTableViewCell?.nameLabel.textColor = category.color
+        categoryTableViewCell?.iconView.backgroundColor = category.color
+        categoryTableViewCell?.iconView.setIcon(named: category.iconName)
     }
     
 }

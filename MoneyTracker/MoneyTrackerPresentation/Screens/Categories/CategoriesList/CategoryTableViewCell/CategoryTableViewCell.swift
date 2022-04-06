@@ -13,6 +13,7 @@ final class CategoryTableViewCell: AUITableViewCell {
     
     // MARK: Subviews
     
+    let iconView = CategoryIconView()
     let nameLabel = UILabel()
     private let separatorView = UIView()
     
@@ -21,6 +22,7 @@ final class CategoryTableViewCell: AUITableViewCell {
     override func setup() {
         super.setup()
         selectionStyle = .none
+        contentView.addSubview(iconView)
         contentView.addSubview(nameLabel)
         setupNameLabel()
         contentView.addSubview(separatorView)
@@ -40,16 +42,30 @@ final class CategoryTableViewCell: AUITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutNameLabel()
+        layoutIconView()
         layoutSeparatorView()
     }
     
     private func layoutNameLabel() {
-        let x: CGFloat = 28
+        let x: CGFloat = iconViewLeading + iconViewSide + 16
         let y: CGFloat = 12
         let width = bounds.width - 2 * x
         let height = bounds.height - 2 * y - 1
         let frame = CGRect(x: x, y: y, width: width, height: height)
         nameLabel.frame = frame
+    }
+    
+    private let iconViewLeading: CGFloat = 24
+    private let iconViewSide: CGFloat = 40
+    
+    private func layoutIconView() {
+        let x: CGFloat = iconViewLeading
+        let y: CGFloat = nameLabel.frame.midY - iconViewSide / 2
+        let width: CGFloat = iconViewSide
+        let height: CGFloat = iconViewSide
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        iconView.frame = frame
+        iconView.layer.cornerRadius = height / 2
     }
     
     private func layoutSeparatorView() {
