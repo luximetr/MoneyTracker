@@ -485,6 +485,16 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
+        viewController.selectIconClosure = { [weak self, weak viewController] color in
+            guard let self = self else { return }
+            let selectIconViewController = self.createSelectIconViewController(
+                iconColor: color,
+                onSelectIcon: { iconName in
+                    viewController?.showCategoryIcon(iconName: iconName)
+                }
+            )
+            viewController?.present(selectIconViewController, animated: true)
+        }
         presentedAddCategoryViewController = viewController
         presentingViewController.present(viewController, animated: true, completion: nil)
     }
