@@ -29,11 +29,16 @@ struct AddingAccount: Equatable, Hashable {
     // MARK: PresentationCategory
     
     init(presentationAddingAccount: PresentationAddingAccount) throws {
-        self.name = presentationAddingAccount.name
-        self.amount = presentationAddingAccount.amount
-        self.currency = Currency(presentationCurrency: presentationAddingAccount.currency)
-        let colorConvertor = UIColorHexConvertor()
-        self.colorHex = try colorConvertor.convertToHexString(color: presentationAddingAccount.backgroundColor)
+        do {
+            self.name = presentationAddingAccount.name
+            self.amount = presentationAddingAccount.amount
+            self.currency = Currency(presentationCurrency: presentationAddingAccount.currency)
+            let colorConvertor = UIColorHexConvertor()
+            self.colorHex = try colorConvertor.convertToHexString(color: presentationAddingAccount.backgroundColor)
+        } catch {
+            let error = Error("Cannot initialize\n\(error)")
+            throw error
+        }
     }
     
     func presentationAddingAccount() throws -> PresentationAddingAccount {

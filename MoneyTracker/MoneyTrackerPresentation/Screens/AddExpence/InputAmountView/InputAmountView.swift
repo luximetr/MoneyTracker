@@ -81,7 +81,6 @@ final class InputAmountView: AUIView {
         layer.cornerRadius = 10
         layer.shadowRadius = 4.0
         layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.cornerRadius = 10
         layoutInputLabel()
         layoutSeparatorView()
         layoutDeleteKeyButton()

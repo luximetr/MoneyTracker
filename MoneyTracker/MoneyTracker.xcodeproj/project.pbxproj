@@ -17,12 +17,19 @@
 		2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */; };
 		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
 		2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */; };
+		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
 		2E2A6EDA27EC4FBB0084054C /* EditExpenseScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDC27EC4FBB0084054C /* EditExpenseScreenStrings.strings */; };
 		2E2A6EDE27EC4FD70084054C /* EditExpenseScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDD27EC4FD70084054C /* EditExpenseScreenView.swift */; };
 		2E2A6EE027EC4FEC0084054C /* EditExpenseScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDF27EC4FEC0084054C /* EditExpenseScreenViewController.swift */; };
 		2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */; };
 		2E30391A27BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E30391927BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift */; };
 		2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E30391F27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings */; };
+		2E394F0627FCDA06002C3052 /* TransferScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F0527FCDA06002C3052 /* TransferScreenViewController.swift */; };
+		2E394F0827FCDA13002C3052 /* TransferScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F0727FCDA13002C3052 /* TransferScreenView.swift */; };
+		2E394F0B27FCDA2F002C3052 /* TransferScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E394F0D27FCDA2F002C3052 /* TransferScreenStrings.strings */; };
+		2E394F1027FCDDC1002C3052 /* TopUpAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F0F27FCDDC1002C3052 /* TopUpAccountScreenViewController.swift */; };
+		2E394F1227FCDDD0002C3052 /* TopUpAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */; };
+		2E394F1527FCDDE5002C3052 /* TopUpAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E394F1727FCDDE5002C3052 /* TopUpAccountScreenStrings.strings */; };
 		2E3A5D5227EFBC1E00102D69 /* CategoryTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3A5D5127EFBC1E00102D69 /* CategoryTableViewCellController.swift */; };
 		2E91153E27A92DE600359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91153D27A92DE600359F21 /* Category.swift */; };
 		2E91154727A9308B00359F21 /* MoneyTrackerStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -325,12 +332,19 @@
 		2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFilledButton.swift; sourceTree = "<group>"; };
 		2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddedSnackbarView.swift; sourceTree = "<group>"; };
+		2E16BA0A27FC81F4000F2466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExpenseAddedSnackbarStrings.strings; sourceTree = "<group>"; };
 		2E2A6EDB27EC4FBB0084054C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditExpenseScreenStrings.strings; sourceTree = "<group>"; };
 		2E2A6EDD27EC4FD70084054C /* EditExpenseScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseScreenView.swift; sourceTree = "<group>"; };
 		2E2A6EDF27EC4FEC0084054C /* EditExpenseScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseScreenViewController.swift; sourceTree = "<group>"; };
 		2E30391727BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorDetailsScreenViewController.swift; sourceTree = "<group>"; };
 		2E30391927BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorDetailsScreenView.swift; sourceTree = "<group>"; };
 		2E30391E27BDAF690084B96C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorDetailsScreenStrings.strings; sourceTree = "<group>"; };
+		2E394F0527FCDA06002C3052 /* TransferScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferScreenViewController.swift; sourceTree = "<group>"; };
+		2E394F0727FCDA13002C3052 /* TransferScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferScreenView.swift; sourceTree = "<group>"; };
+		2E394F0C27FCDA2F002C3052 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransferScreenStrings.strings; sourceTree = "<group>"; };
+		2E394F0F27FCDDC1002C3052 /* TopUpAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountScreenViewController.swift; sourceTree = "<group>"; };
+		2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountScreenView.swift; sourceTree = "<group>"; };
+		2E394F1627FCDDE5002C3052 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TopUpAccountScreenStrings.strings; sourceTree = "<group>"; };
 		2E3A5D5127EFBC1E00102D69 /* CategoryTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCellController.swift; sourceTree = "<group>"; };
 		2E91153D27A92DE600359F21 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -660,6 +674,7 @@
 			children = (
 				2E98FF5027EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift */,
 				2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */,
+				2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */,
 			);
 			path = ExpenseAdded;
 			sourceTree = "<group>";
@@ -691,6 +706,26 @@
 				2E30391F27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		2E394F0427FCD9E1002C3052 /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				2E394F0527FCDA06002C3052 /* TransferScreenViewController.swift */,
+				2E394F0727FCDA13002C3052 /* TransferScreenView.swift */,
+				2E394F0D27FCDA2F002C3052 /* TransferScreenStrings.strings */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
+		2E394F0E27FCDD8E002C3052 /* TopUpAccount */ = {
+			isa = PBXGroup;
+			children = (
+				2E394F0F27FCDDC1002C3052 /* TopUpAccountScreenViewController.swift */,
+				2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */,
+				2E394F1727FCDDE5002C3052 /* TopUpAccountScreenStrings.strings */,
+			);
+			path = TopUpAccount;
 			sourceTree = "<group>";
 		};
 		2E8FF0FD27AEF1CA00DA033F /* CategoryTableViewCell */ = {
@@ -1069,6 +1104,8 @@
 				2EB10A2C27A6E7B500743416 /* Menu */,
 				DBB7BD0A27D78F31004EF5B7 /* Dashboard */,
 				2ECB218527DCA900006D6558 /* AddExpence */,
+				2E394F0427FCD9E1002C3052 /* Transfer */,
+				2E394F0E27FCDD8E002C3052 /* TopUpAccount */,
 				2ED8BD7027E908C90007F60B /* History */,
 				2E2A6ED527EC4F710084054C /* EditExpense */,
 				DB7486E327D0658F004DF67B /* Statistic */,
@@ -2134,12 +2171,15 @@
 				2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */,
 				2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */,
 				DB45FAD927E6EFE80073C677 /* EditTemplateScreenStrings.strings in Resources */,
+				2E394F1527FCDDE5002C3052 /* TopUpAccountScreenStrings.strings in Resources */,
 				2EA7B24C27ECFFED006C2F13 /* StatisticScreenStrings.strings in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
 				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				DB7BA80827F87D7500A3B3BA /* SelectIconScreenStrings.strings in Resources */,
 				2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */,
+				2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */,
+				2E394F0B27FCDA2F002C3052 /* TransferScreenStrings.strings in Resources */,
 				2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesScreenStrings.strings in Resources */,
 				2ED3E93D27F39BDD006C76FB /* CategoryHorizontalPickerStrings.strings in Resources */,
@@ -2353,6 +2393,7 @@
 				2EB10A3127A6E7B500743416 /* TabBarItem.swift in Sources */,
 				2E95BB2F27B31AC40097CA46 /* AccountsScreenView.swift in Sources */,
 				2EBDF92F27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift in Sources */,
+				2E394F0827FCDA13002C3052 /* TransferScreenView.swift in Sources */,
 				2E95BB3B27B31F720097CA46 /* AccountsScreenAccountCollectionViewCellController.swift in Sources */,
 				DBB7BD3027DDDF20004EF5B7 /* CategoryHorizontalPickerController.swift in Sources */,
 				2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */,
@@ -2373,6 +2414,7 @@
 				2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */,
 				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
 				2ED76C8B27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift in Sources */,
+				2E394F0627FCDA06002C3052 /* TransferScreenViewController.swift in Sources */,
 				DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */,
 				2E96212727AFD93200DF0DD4 /* EditCategoryScreenViewController.swift in Sources */,
 				2E928A0727AFFDC5002F3403 /* SettingsScreenTitleItemTableViewCell.swift in Sources */,
@@ -2397,6 +2439,7 @@
 				DBB7BD2E27DDDF04004EF5B7 /* CategoryHorizontalPickerView.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
 				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
+				2E394F1027FCDDC1002C3052 /* TopUpAccountScreenViewController.swift in Sources */,
 				2ECB218927DCA961006D6558 /* AddExpenseScreenView.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
 				DB7BA81227F9831700A3B3BA /* ColorHorizontalPickerController.swift in Sources */,
@@ -2453,6 +2496,7 @@
 				DBB7BD1927DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift in Sources */,
 				2ED3E93727F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift in Sources */,
 				2ED60BD427DE7CA400EC11D4 /* Expense.swift in Sources */,
+				2E394F1227FCDDD0002C3052 /* TopUpAccountScreenView.swift in Sources */,
 				DBB7BD2727DC765B004EF5B7 /* BalanceAccountHorizontalPickerController.swift in Sources */,
 				DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */,
 				DB45FAD427E6EFAC0073C677 /* EditTemplateScreenViewController.swift in Sources */,
@@ -2517,6 +2561,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E16BA0A27FC81F4000F2466 /* en */,
+			);
+			name = ExpenseAddedSnackbarStrings.strings;
+			sourceTree = "<group>";
+		};
 		2E2A6EDC27EC4FBB0084054C /* EditExpenseScreenStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2531,6 +2583,22 @@
 				2E30391E27BDAF690084B96C /* en */,
 			);
 			name = UnexpectedErrorDetailsScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2E394F0D27FCDA2F002C3052 /* TransferScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E394F0C27FCDA2F002C3052 /* en */,
+			);
+			name = TransferScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2E394F1727FCDDE5002C3052 /* TopUpAccountScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E394F1627FCDDE5002C3052 /* en */,
+			);
+			name = TopUpAccountScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2E928A0227AFF9F6002F3403 /* SettingsScreenStrings.strings */ = {

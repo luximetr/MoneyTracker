@@ -12,11 +12,14 @@ final class ExpenseAddedSnackbarViewController: AUIEmptyViewController {
     
     // MARK: Data
     
+    let template: ExpenseTemplate
     let expense: Expense
+    var okClosure: (() -> ())?
     
     // MARK: Initializer
     
-    init(expense: Expense) {
+    init(template: ExpenseTemplate, expense: Expense) {
+        self.template = template
         self.expense = expense
     }
     
@@ -33,7 +36,8 @@ final class ExpenseAddedSnackbarViewController: AUIEmptyViewController {
     }
   
     func setupExpenseAddedSnackbarView() {
-        expenseAddedSnackbarView?.messageLabel.text = "Expense added"
+        expenseAddedSnackbarView?.okButton.addTarget(self, action: #selector(okButtonTouchUpInsideEventAction), for: .touchUpInside)
+        setContent()
     }
   
     override func unsetupView() {
@@ -42,7 +46,25 @@ final class ExpenseAddedSnackbarViewController: AUIEmptyViewController {
     }
   
     func unsetupExpenseAddedSnackbarView() {
+        expenseAddedSnackbarView?.okButton.removeTarget(self, action: #selector(okButtonTouchUpInsideEventAction), for: .touchUpInside)
+    }
     
+    // MARK: Content
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: .english, stringsTableName: "ExpenseAddedSnackbarStrings")
+        return localizer
+    }()
+    
+    private func setContent() {
+        expenseAddedSnackbarView?.messageLabel.text = localizer.localizeText("message", template.name)
+        expenseAddedSnackbarView?.okButton.setTitle(localizer.localizeText("ok"), for: .normal)
+    }
+    
+    // MARK: Events
+    
+    @objc func okButtonTouchUpInsideEventAction() {
+        okClosure?()
     }
     
 }

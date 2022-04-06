@@ -24,4 +24,5 @@ enum Colors {
     static let tertiaryText = UIColor(red: 0.561, green: 0.561, blue: 0.604, alpha: 1)
     static let darkCategoryPrimaryText = UIColor(red: 1, green: 1, blue: 1)
     static let transparent = UIColor(white: 1, alpha: 0)
+    static let successActionBackground = UIColor(red: 0.241, green: 0.837, blue: 0.444, alpha: 1)
 }
