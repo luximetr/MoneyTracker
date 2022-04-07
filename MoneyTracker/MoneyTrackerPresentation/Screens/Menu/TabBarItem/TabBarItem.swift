@@ -67,7 +67,7 @@ final class TabBarItem: AUIButton {
     }
     
     private func layoutTextLabel() {
-        let width = bounds.width * 0.8
+        let width = bounds.width
         let x = (bounds.width - width) / 2
         let y = pictureImageView.frame.origin.y + pictureImageView.bounds.height
         let height = bounds.height - y
