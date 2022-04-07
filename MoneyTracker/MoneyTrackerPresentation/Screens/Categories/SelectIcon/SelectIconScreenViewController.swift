@@ -12,6 +12,7 @@ class SelectIconScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Data
     
+    private let iconNames: [String]
     private let iconColor: UIColor
     
     // MARK: - Delegations
@@ -20,7 +21,8 @@ class SelectIconScreenViewController: AUIStatusBarScreenViewController {
 
     // MARK: - Life cycle
     
-    init(iconColor: UIColor) {
+    init(iconNames: [String], iconColor: UIColor) {
+        self.iconNames = iconNames
         self.iconColor = iconColor
     }
     
@@ -60,7 +62,6 @@ class SelectIconScreenViewController: AUIStatusBarScreenViewController {
     
     private func setupCollectionController() {
         collectionController.collectionView = screenView.collectionView
-        let iconNames = ["bag", "cart", "creditcard", "giftcard", "dollarsign.circle", "bitcoinsign.circle", "car", "car.fill", "airplane", "bus", "bus.fill", "tram", "tram.fill", "ferry", "ferry.fill"]
         let cellControllers = iconNames.map { createCellController(iconName: $0) }
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]

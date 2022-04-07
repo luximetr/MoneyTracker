@@ -39,8 +39,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupCollectionView() {
         collectionViewLayout.scrollDirection = .horizontal
+        collectionViewLayout.minimumInteritemSpacing = 25
+        collectionViewLayout.minimumLineSpacing = 25
         collectionView.register(IconCell.self, forCellWithReuseIdentifier: iconCellId)
         collectionView.contentInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
+        collectionView.showsHorizontalScrollIndicator = false
     }
     
     // MARK: - Layout

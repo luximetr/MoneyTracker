@@ -541,7 +541,7 @@ public final class Presentation: AUIWindowPresentation {
         iconColor: UIColor,
         onSelectIcon: @escaping (String) -> Void
     ) -> SelectIconScreenViewController {
-        let viewController = SelectIconScreenViewController(iconColor: iconColor)
+        let viewController = SelectIconScreenViewController(iconNames: CategoryIconNames.variants, iconColor: iconColor)
         viewController.didSelectIconClosure = { [weak viewController] iconName in
             onSelectIcon(iconName)
             viewController?.dismiss(animated: true)
