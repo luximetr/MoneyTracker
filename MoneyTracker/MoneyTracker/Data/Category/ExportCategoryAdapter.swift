@@ -15,7 +15,9 @@ class ExportCategoryAdapter {
     func adaptToFiles(storageCategory: StorageCategory) -> FilesExportCategory {
         return FilesExportCategory(
             id: storageCategory.id,
-            name: storageCategory.name
+            name: storageCategory.name,
+            colorHex: storageCategory.colorHex,
+            iconName: storageCategory.iconName
         )
     }
 }

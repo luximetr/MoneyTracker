@@ -39,6 +39,12 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
         guard let cell = super.cellForRowAtIndexPath(indexPath) as? MonthCategoryExpensesTableViewCell else { return UITableViewCell() }
         cell.categoryLabel.text = expenses.first?.category.name
         cell.amountLabel.text = setDayExpensesContent()
+        if let category = expenses.first?.category {
+            cell.categoryIconView.backgroundColor = category.color
+            cell.categoryIconView.setIcon(named: category.iconName)
+            cell.amountLabel.textColor = category.color
+            cell.categoryLabel.textColor = category.color
+        }
         return cell
     }
     

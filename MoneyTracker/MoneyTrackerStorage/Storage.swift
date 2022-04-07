@@ -287,7 +287,8 @@ public class Storage {
         let uniqueImportingCategories = file.categories.filter { importingCategory in
             return !categories.contains(where: { findIfCategoriesEqual(importingCategory: importingCategory, category: $0) })
         }
-        let addingCategories = uniqueImportingCategories.map { AddingCategory(name: $0.name, colorHex: "", iconName: "") }
+        let importingCategoryAdapter = ImportingCategoryAdapter()
+        let addingCategories = uniqueImportingCategories.map { importingCategoryAdapter.adaptToAdding(importingCategory: $0) }
         addCategories(addingCategories)
         
         let balanceAccounts = try getAllBalanceAccounts()

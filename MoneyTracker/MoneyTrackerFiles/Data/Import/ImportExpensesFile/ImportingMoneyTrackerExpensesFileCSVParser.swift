@@ -103,7 +103,7 @@ class ImportingMoneyTrackerExpensesFileCSVParser {
     private func findCategoriesCSVLines(in csvLines: [String]) -> [String] {
         return findCSVLines(
             inCsvLines: csvLines,
-            afterLine: "\"Name\"",
+            afterLine: "\"Name\",\"Color\",\"Icon\"",
             andBeforeLine: ""
         )
     }

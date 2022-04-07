@@ -13,6 +13,7 @@ final class MonthCategoryExpensesTableViewCell: AUITableViewCell {
     
     // MARK: Subviews
     
+    let categoryIconView = CategoryIconView()
     let categoryLabel = UILabel()
     let amountLabel = UILabel()
     let separatorView = UIView()
@@ -22,6 +23,7 @@ final class MonthCategoryExpensesTableViewCell: AUITableViewCell {
     override func setup() {
         super.setup()
         selectionStyle = .none
+        contentView.addSubview(categoryIconView)
         contentView.addSubview(categoryLabel)
         setupCategoryLabel()
         contentView.addSubview(amountLabel)
@@ -49,13 +51,27 @@ final class MonthCategoryExpensesTableViewCell: AUITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutCategoryIconView()
         layoutCategoryLabel()
         layoutAmountLabel()
         layoutSeparatorView()
     }
     
+    private let categoryIconViewLeft: CGFloat = 24
+    private let categoryIconViewSide: CGFloat = 40
+    
+    private func layoutCategoryIconView() {
+        let x = categoryIconViewLeft
+        let y: CGFloat = frame.height / 2 - categoryIconViewSide / 2
+        let height = categoryIconViewSide
+        let width = categoryIconViewSide
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        categoryIconView.frame = frame
+        categoryIconView.layer.cornerRadius = height / 2
+    }
+    
     private func layoutCategoryLabel() {
-        let x: CGFloat = 24
+        let x: CGFloat = categoryIconViewLeft + categoryIconViewSide + 16
         let y: CGFloat = 0
         let height: CGFloat = bounds.height - 1
         let width = categoryLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width

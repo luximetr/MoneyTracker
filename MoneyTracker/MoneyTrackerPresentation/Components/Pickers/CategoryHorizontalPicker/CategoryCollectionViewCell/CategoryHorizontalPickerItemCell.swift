@@ -31,7 +31,6 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     
     private func setupColoredView() {
         coloredView.backgroundColor = Colors.secondaryBackground
-        coloredView.layer.cornerRadius = 12
     }
     
     private func setupIconView() {
@@ -53,12 +52,12 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     }
     
     private func layoutColoredView() {
-//        coloredView.pin.all()
         coloredView.pin
             .left()
-            .top(10)
+            .top()
             .right()
-            .bottom(10)
+            .bottom()
+        coloredView.layer.cornerRadius = coloredView.frame.height / 2
     }
     
     private let iconViewLeft: CGFloat = 8
@@ -69,7 +68,7 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
             .height(iconViewSide)
             .width(iconViewSide)
             .left(iconViewLeft)
-            .vCenter()
+            .vCenter(to: coloredView.edge.vCenter)
     }
     
     private let titleLabelLeft: CGFloat = 5
@@ -77,7 +76,8 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     
     private func layoutTitleLabel() {
         titleLabel.pin
-            .vertically(1)
+            .top(to: coloredView.edge.top).marginTop(1)
+            .bottom(to: coloredView.edge.bottom).marginBottom(1)
             .left(to: iconView.edge.right).marginLeft(titleLabelLeft)
             .right(titleLabelRight)
     }
@@ -95,7 +95,8 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
         let availableSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: size.height)
         let labelWidth = titleLabel.sizeThatFits(availableSize).width
         let takenWidth = iconViewLeft + iconViewSide + titleLabelLeft + labelWidth + titleLabelRight
-        let takenSize = CGSize(width: takenWidth, height: titleLabel.sizeThatFits(availableSize).height + 28)
+        let takenHeight = titleLabel.sizeThatFits(availableSize).height + 10
+        let takenSize = CGSize(width: takenWidth, height: takenHeight)
         return takenSize
     }
     
