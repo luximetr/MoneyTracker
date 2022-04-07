@@ -39,6 +39,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date]
     func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
     func presentation(_ presentation: Presentation, addTransfer addingTransfer: AddingTransfer) throws -> Transfer
+    func presentation(_ presentation: Presentation, addTopUpAccount addingTopUpAccount: AddingTopUpAccount) throws -> TopUpAccount
 }
 
 public final class Presentation: AUIWindowPresentation {
@@ -129,7 +130,11 @@ public final class Presentation: AUIWindowPresentation {
         viewController.topUpAccountClosure = { [weak self] account in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
-            self.pushTopUpAccountViewController(menuNavigationController, selectedAccount: account)
+            do {
+                try self.pushTopUpAccountViewController(menuNavigationController, selectedAccount: account)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
         }
         viewController.addAccountClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
@@ -264,14 +269,39 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: Top Up Account View Controller
     
     private weak var pushedTopUpAccountViewController: TopUpAccountScreenViewController?
-    private func pushTopUpAccountViewController(_ navigationController: UINavigationController, selectedAccount: Account) {
-        let viewController = TopUpAccountScreenViewController(selectedAccount: selectedAccount)
-        viewController.backClosure = { [weak navigationController] in
-            guard let navigationController = navigationController else { return }
-            navigationController.popViewController(animated: true)
+    private func pushTopUpAccountViewController(_ navigationController: UINavigationController, selectedAccount: Account) throws {
+        do {
+            let accounts = try delegate.presentationAccounts(self)
+            let viewController = TopUpAccountScreenViewController(accounts: accounts, selectedAccount: selectedAccount)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
+            }
+            viewController.addAccountClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.addTopUpAccountClosure = { [weak self, weak viewController] addingTopUpAccount in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    _ = try self.delegate.presentation(self, addTopUpAccount: addingTopUpAccount)
+                    viewController.dismiss(animated: true, completion: nil)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            pushedTopUpAccountViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push TopUpAccountViewController\n\(error)")
+            throw error
         }
-        pushedTopUpAccountViewController = viewController
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     // MARK: ExpenseAddedSnackbarView
@@ -758,6 +788,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedAddExpenseViewController?.addAccount(addedAccount)
                     self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
                     self.pushedAddTransferViewController?.addAccount(addedAccount)
+                    self.pushedTopUpAccountViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
@@ -805,6 +836,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedAddExpenseViewController?.addAccount(addedAccount)
                     self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
                     self.pushedAddTransferViewController?.addAccount(addedAccount)
+                    self.pushedTopUpAccountViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)

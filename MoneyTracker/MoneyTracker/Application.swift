@@ -441,9 +441,21 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, addTransfer presentationAddingTransfer: PresentationAddingTransfer) throws -> PresentationTransfer {
         do {
             let addingTransfer = try AddingTransfer(presentationAddingTransfer: presentationAddingTransfer)
-            fatalError()
+            let error = Error("Not implemented")
+            throw error
         } catch {
             let error = Error("Cannot add presentation transfer \(presentationAddingTransfer)\n\(error)")
+            throw error
+        }
+    }
+    
+    func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingTopUpAccount) throws -> PresentationTopUpAccount {
+        do {
+            let addingTopUpAccount = try AddingTopUpAccount(presentationAddingTopUpAccount: presentationAddingTopUpAccount)
+            let error = Error("Not implemented")
+            throw error
+        } catch {
+            let error = Error("Cannot add presentation top up account \(presentationAddingTopUpAccount)\n\(error)")
             throw error
         }
     }
