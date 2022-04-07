@@ -175,7 +175,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentationSelectedCurrency(_ presentation: Presentation) throws -> PresentationCurrency {
         do {
             let adapter = CurrencyAdapter()
-            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency()
+            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency() ?? .sgd
             self.selectedCurrency = selectedCurrency
             return adapter.adaptToPresentationCurrency(storageCurrency: selectedCurrency)
         } catch {
@@ -436,6 +436,16 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let storageAccount = account.storageAccount
         let expense = Expense(storageExpense: storageExpense, account: storageAccount, category: storageCategory)
         return try expense.presentationExpense()
+    }
+    
+    func presentation(_ presentation: Presentation, addTransfer presentationAddingTransfer: PresentationAddingTransfer) throws -> PresentationTransfer {
+        do {
+            let addingTransfer = try AddingTransfer(presentationAddingTransfer: presentationAddingTransfer)
+            fatalError()
+        } catch {
+            let error = Error("Cannot add presentation transfer \(presentationAddingTransfer)\n\(error)")
+            throw error
+        }
     }
 }
 

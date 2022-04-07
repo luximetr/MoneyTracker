@@ -64,7 +64,7 @@ class ExpenseTemplatesOrderCoreDataRepo {
         let context = coreDataAccessor.viewContext
         let orderMO = try fetchOrCreateOrderMO(context: context)
         guard let idsMO = orderMO.expenseTemplatesOrderedIds else {
-            throw FetchError.notFound
+            return []
         }
         let ids = idsMO.map { $0 as ExpenseTemplateId }
         return ids

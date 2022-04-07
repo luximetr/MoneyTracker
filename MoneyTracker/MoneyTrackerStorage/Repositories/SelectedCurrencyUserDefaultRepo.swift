@@ -28,9 +28,9 @@ class SelectedCurrencyUserDefaultRepo {
     
     // MARK: - Fetch
     
-    func fetch() throws -> Currency {
+    func fetch() throws -> Currency? {
         guard let rawValue = userDefautlsAccessor.userDefaults.string(forKey: key) else {
-            throw FetchError.notFound
+            return nil
         }
         return try Currency(rawValue)
     }
