@@ -164,6 +164,10 @@ class CategoryIconNames {
     static var variant153 = "giftcard.fill"
     static var variant154 = "banknote.fill"
     static var variant155 = "bitcoinsign.circle.fill"
+    static var variant156 = "percent"
+    static var variant157 = "waveform"
+    static var variant158 = "comb.fill"
+    static var variant159 = "chart.xyaxis.line"
     
     static var variants: [String] = [
         variant1, variant2, variant3, variant4, variant5, variant6, variant7, variant8, variant9, variant10,
@@ -181,6 +185,6 @@ class CategoryIconNames {
         variant121, variant122, variant123, variant124, variant125, variant126, variant127, variant128, variant129, variant130,
         variant131, variant132, variant133, variant134, variant135, variant136, variant137, variant138, variant139, variant140,
         variant141, variant142, variant143, variant144, variant145, variant146, variant147, variant148, variant149, variant150,
-        variant151, variant152, variant153, variant154, variant155
+        variant151, variant152, variant153, variant154, variant155, variant156, variant157, variant158, variant159
     ]
 }
