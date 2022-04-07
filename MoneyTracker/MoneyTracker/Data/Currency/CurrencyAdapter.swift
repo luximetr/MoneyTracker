@@ -16,55 +16,76 @@ class CurrencyAdapter {
     
     func adaptToStorageCurrency(presentationCurrency: PresentationCurrency) -> StorageCurrency {
         switch presentationCurrency {
-            case .sgd: return .sgd
-            case .usd: return .usd
-            case .uah: return .uah
+            case .SGD: return .SGD
+            case .USD: return .USD
+            case .UAH: return .UAH
+            case .TRY: return .TRY
+            case .THB: return .THB
+            case .EUR: return .EUR
         }
     }
     
     func adaptToPresentationCurrency(storageCurrency: StorageCurrency) -> PresentationCurrency {
         switch storageCurrency {
-            case .sgd: return .sgd
-            case .usd: return .usd
-            case .uah: return .uah
+            case .SGD: return .SGD
+            case .USD: return .USD
+            case .UAH: return .UAH
+            case .TRY: return .TRY
+            case .THB: return .THB
+            case .EUR: return .EUR
         }
     }
 }
 
 enum Currency {
-    case sgd
-    case usd
-    case uah
+    case SGD
+    case USD
+    case UAH
+    case TRY
+    case THB
+    case EUR
     
     init(presentationCurrency: PresentationCurrency) {
         switch presentationCurrency {
-            case .sgd: self = .sgd
-            case .usd: self = .usd
-            case .uah: self = .uah
+            case .SGD: self = .SGD
+            case .USD: self = .USD
+            case .UAH: self = .UAH
+            case .TRY: self = .TRY
+            case .THB: self = .THB
+            case .EUR: self = .EUR
         }
     }
     
     var presentationCurrency: PresentationCurrency {
         switch self {
-            case .sgd: return .sgd
-            case .usd: return .usd
-            case .uah: return .uah
+            case .SGD: return .SGD
+            case .USD: return .USD
+            case .UAH: return .UAH
+            case .TRY: return .TRY
+            case .THB: return .THB
+            case .EUR: return .EUR
         }
     }
     
     init(storageCurrency: StorageCurrency) {
         switch storageCurrency {
-            case .sgd: self = .sgd
-            case .usd: self = .usd
-            case .uah: self = .uah
+            case .SGD: self = .SGD
+            case .USD: self = .USD
+            case .UAH: self = .UAH
+            case .TRY: self = .TRY
+            case .THB: self = .THB
+            case .EUR: self = .EUR
         }
     }
     
     var storageCurrency: StorageCurrency {
         switch self {
-            case .sgd: return .sgd
-            case .usd: return .usd
-            case .uah: return .uah
+            case .SGD: return .SGD
+            case .USD: return .USD
+            case .UAH: return .UAH
+            case .TRY: return .TRY
+            case .THB: return .THB
+            case .EUR: return .EUR
         }
     }
     

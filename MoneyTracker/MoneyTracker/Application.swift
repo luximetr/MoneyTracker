@@ -165,7 +165,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     // MARK: - Currencies
     
     func presentationCurrencies(_ presentation: Presentation) -> [PresentationCurrency] {
-        return [.sgd, .usd, .uah]
+        return [.SGD, .USD, .UAH, .TRY, .THB, .EUR]
     }
     
     // MARK: - Selected currency
@@ -175,7 +175,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentationSelectedCurrency(_ presentation: Presentation) throws -> PresentationCurrency {
         do {
             let adapter = CurrencyAdapter()
-            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency() ?? .sgd
+            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency() ?? .SGD
             self.selectedCurrency = selectedCurrency
             return adapter.adaptToPresentationCurrency(storageCurrency: selectedCurrency)
         } catch {

@@ -8,15 +8,21 @@
 import Foundation
 
 public enum Currency: String {
-    case sgd = "SGD"
-    case usd = "USD"
-    case uah = "UAH"
+    case SGD = "SGD"
+    case USD = "USD"
+    case UAH = "UAH"
+    case TRY = "TRY"
+    case THB = "THB"
+    case EUR = "EUR"
     
     public init(_ rawValue: String) throws {
         switch rawValue {
-            case "SGD": self = .sgd
-            case "USD": self = .usd
-            case "UAH": self = .uah
+            case "SGD": self = .SGD
+            case "USD": self = .USD
+            case "UAH": self = .UAH
+            case "TRY": self = .TRY
+            case "THB": self = .THB
+            case "EUR": self = .EUR
             default: throw InitError.unsupportedRawValue
         }
     }
