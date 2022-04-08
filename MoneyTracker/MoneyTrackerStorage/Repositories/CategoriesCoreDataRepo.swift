@@ -91,8 +91,8 @@ class CategoriesCoreDataRepo {
     func convertToCategory(categoryMO: CategoryMO) throws -> Category {
         guard let id = categoryMO.id else { throw ParseError.noId }
         guard let name = categoryMO.name else { throw ParseError.noName }
-        guard let colorHex = categoryMO.colorHex, !colorHex.isEmpty else { throw ParseError.noColor }
-        guard let iconName = categoryMO.iconName, !iconName.isEmpty else { throw ParseError.noIcon }
+        let colorHex = categoryMO.colorHex
+        let iconName = categoryMO.iconName
         
         return Category(id: id, name: name, colorHex: colorHex, iconName: iconName)
     }
@@ -152,8 +152,6 @@ class CategoriesCoreDataRepo {
     enum ParseError: Error {
         case noId
         case noName
-        case noColor
-        case noIcon
     }
 
     enum FetchError: Error {

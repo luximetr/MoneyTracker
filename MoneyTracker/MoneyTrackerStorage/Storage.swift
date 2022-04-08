@@ -162,9 +162,13 @@ public class Storage {
     }
     
     public func deductBalanceAccountAmount(id: String, amount: Decimal) throws -> BalanceAccount {
+        return try addBalanceAccountAmount(id: id, amount: -amount)
+    }
+    
+    public func addBalanceAccountAmount(id: String, amount: Decimal) throws -> BalanceAccount {
         let repo = createBalanceAccountsRepo()
         let account = try repo.fetchAccount(id: id)
-        let newAmount = account.amount - amount
+        let newAmount = account.amount + amount
         let editingAccount = EditingBalanceAccount(id: id, name: nil, currency: nil, amount: newAmount, colorHex: nil)
         try repo.updateAccount(editingBalanceAccount: editingAccount)
         let updatedAccount = try repo.fetchAccount(id: id)

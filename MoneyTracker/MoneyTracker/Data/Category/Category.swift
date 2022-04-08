@@ -14,8 +14,8 @@ typealias StorageCategory = MoneyTrackerStorage.Category
 struct Category: Equatable, Hashable {
     let id: String
     let name: String
-    let colorHex: String
-    let iconName: String
+    let colorHex: String?
+    let iconName: String?
     
     init(id: String, name: String, colorHex: String, iconName: String) {
         self.id = id
@@ -36,8 +36,8 @@ struct Category: Equatable, Hashable {
     
     func presentationCategory() throws -> PresentationCategory {
         let colorConvertor = UIColorHexConvertor()
-        let color = try colorConvertor.convertToUIColor(hexString: colorHex)
-        let presentationCategory = PresentationCategory(id: id, name: name, color: color, iconName: iconName)
+        let color = try colorConvertor.convertToUIColor(hexString: colorHex ?? "#333333")
+        let presentationCategory = PresentationCategory(id: id, name: name, color: color, iconName: iconName ?? "bag")
         return presentationCategory
     }
     
