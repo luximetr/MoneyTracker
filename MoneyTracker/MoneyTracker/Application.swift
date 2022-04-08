@@ -283,8 +283,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, editExpense editingExpense: PresentationExpense) throws -> PresentationExpense {
         do {
+            let currentExpense = try storage.getExpense(id: editingExpense.id)
             let storageEditingExpense = MoneyTrackerStorage.EditingExpense(amount: editingExpense.amount, date: editingExpense.date, comment: editingExpense.comment, balanceAccountId: editingExpense.account.id, categoryId: editingExpense.category.id)
             try storage.updateExpense(expenseId: editingExpense.id, editingExpense: storageEditingExpense)
+            if let newAmount = storageEditingExpense.amount {
+                let amountDifference = currentExpense.amount - newAmount
+                try storage.addBalanceAccountAmount(id: editingExpense.account.id, amount: amountDifference)
+            }
             return editingExpense
         } catch {
             let error = Error("Cannot edit expense \(editingExpense)\n\(error)")

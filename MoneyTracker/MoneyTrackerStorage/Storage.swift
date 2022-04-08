@@ -268,6 +268,11 @@ public class Storage {
         return try repo.fetchAllExpenses()
     }
     
+    public func getExpense(id: String) throws -> Expense {
+        let repo = createExpensesRepo()
+        return try repo.fetchExpense(id: id)
+    }
+    
     public func getExpenses(balanceAccountId: String) throws -> [Expense] {
         let repo = createExpensesRepo()
         return try repo.fetchExpenses(balanceAccountId: balanceAccountId)
