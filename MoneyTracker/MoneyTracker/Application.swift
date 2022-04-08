@@ -374,6 +374,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: PresentationExpense) throws -> PresentationExpense {
         try storage.removeExpense(expenseId: deletingExpense.id)
+        try storage.addBalanceAccountAmount(id: deletingExpense.account.id, amount: deletingExpense.amount)
         return deletingExpense
     }
     
