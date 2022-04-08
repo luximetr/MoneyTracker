@@ -96,6 +96,12 @@ final class CategoryPickerViewController: AUIEmptyViewController {
         return cellController
     }
     
+    private func findCellController(category: Category) -> CategoryCellController? {
+        return sectionController.cellControllers.first(where: {
+            return ($0 as? CategoryCellController)?.category.id == category.id
+        }) as? CategoryCellController
+    }
+    
     private func createAddCellController(text: String) -> CategoryHorizontalPickerController.AddCollectionViewCellController {
         let cellController = CategoryHorizontalPickerController.AddCollectionViewCellController(text: text)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
@@ -129,7 +135,8 @@ final class CategoryPickerViewController: AUIEmptyViewController {
     func deleteCategory(_ category: Category) {
         guard let firstIndex = categories.firstIndex(where: { $0.id == category.id }) else { return }
         categories.remove(at: firstIndex)
-        setContent()
+        guard let categoryCellController = findCellController(category: category) else { return }
+        collectionController.deleteCellController(categoryCellController, completion: nil)
     }
     
     func orderCategories(_ categories: [Category]) {
