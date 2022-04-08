@@ -253,6 +253,8 @@
 		DBA0546327FC5DC500DB3892 /* CategoryIconNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546227FC5DC500DB3892 /* CategoryIconNames.swift */; };
 		DBA0546527FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546427FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift */; };
 		DBA0546727FD9C1E00DB3892 /* ImportingCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546627FD9C1E00DB3892 /* ImportingCategoryAdapter.swift */; };
+		DBA0546927FFCE0B00DB3892 /* EditingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546827FFCE0B00DB3892 /* EditingCategory.swift */; };
+		DBA0546B27FFCF7300DB3892 /* EditingCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546A27FFCF7300DB3892 /* EditingCategoryAdapter.swift */; };
 		DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */; };
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
@@ -581,6 +583,8 @@
 		DBA0546227FC5DC500DB3892 /* CategoryIconNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryIconNames.swift; sourceTree = "<group>"; };
 		DBA0546427FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCategoryPickerCategoryCellController.swift; sourceTree = "<group>"; };
 		DBA0546627FD9C1E00DB3892 /* ImportingCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCategoryAdapter.swift; sourceTree = "<group>"; };
+		DBA0546827FFCE0B00DB3892 /* EditingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingCategory.swift; sourceTree = "<group>"; };
+		DBA0546A27FFCF7300DB3892 /* EditingCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingCategoryAdapter.swift; sourceTree = "<group>"; };
 		DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
@@ -815,6 +819,7 @@
 				2EC6293527AC267D00371252 /* AddingCategory.swift */,
 				DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */,
 				DB62AEF027EEB78500F8CA55 /* ImportingCategoryAdapter.swift */,
+				DBA0546A27FFCF7300DB3892 /* EditingCategoryAdapter.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -834,6 +839,7 @@
 			isa = PBXGroup;
 			children = (
 				DB74868E27BE91E6004DF67B /* AddingCategory.swift */,
+				DBA0546827FFCE0B00DB3892 /* EditingCategory.swift */,
 				2E91153D27A92DE600359F21 /* Category.swift */,
 				DBA0545027FB0FD100DB3892 /* CategoryBackgroundColors.swift */,
 				DBA0546227FC5DC500DB3892 /* CategoryIconNames.swift */,
@@ -1055,13 +1061,6 @@
 				2EB10A2E27A6E7B500743416 /* TabBarItem.swift */,
 			);
 			path = TabBarItem;
-			sourceTree = "<group>";
-		};
-		2EADAD9927E1315C0013DEEC /* CommentTextField */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CommentTextField;
 			sourceTree = "<group>";
 		};
 		2EB109F127A6C30C00743416 = {
@@ -1381,7 +1380,6 @@
 				2ECB218E27DCA9FD006D6558 /* AddExpenseScreenStrings.strings */,
 				2ED1D16327DDCCA40001D5A6 /* InputDateView */,
 				2ED60BD027DE775600EC11D4 /* ExpenseTableViewCell */,
-				2EADAD9927E1315C0013DEEC /* CommentTextField */,
 				2ECB219627DD2AD4006D6558 /* SelectCategoryView */,
 				2ECB218F27DCAEF1006D6558 /* InputAmountView */,
 			);
@@ -2412,6 +2410,7 @@
 				DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */,
 				2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */,
 				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
+				DBA0546B27FFCF7300DB3892 /* EditingCategoryAdapter.swift in Sources */,
 				2EE1897D27FEBF69006D7DA9 /* AddingTopUpAccount.swift in Sources */,
 				DB62AEF327EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift in Sources */,
 				DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */,
@@ -2511,6 +2510,7 @@
 				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
 				2E394F1027FCDDC1002C3052 /* TopUpAccountScreenViewController.swift in Sources */,
 				2ECB218927DCA961006D6558 /* AddExpenseScreenView.swift in Sources */,
+				DBA0546927FFCE0B00DB3892 /* EditingCategory.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
 				DB7BA81227F9831700A3B3BA /* ColorHorizontalPickerController.swift in Sources */,
 				2ED76C8927F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift in Sources */,

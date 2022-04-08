@@ -86,13 +86,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editCategory presentationCategory: PresentationCategory) throws -> PresentationCategory {
+    func presentation(_ presentation: Presentation, editCategory presentationEditingCategory: PresentationEditingCategory) throws -> PresentationCategory {
         do {
-            let editingCategory = EditingCategory(name: presentationCategory.name)
-            try storage.updateCategory(id: presentationCategory.id, editingCategory: editingCategory)
-            return presentationCategory
+            let editingCategoryAdapter = EditingCategoryAdapter()
+            let storageEditingCategory = try editingCategoryAdapter.adaptToStorage(presentationEditingCategory: presentationEditingCategory)
+            let storageEditedCategory = try storage.updateCategory(editingCategory: storageEditingCategory)
+            let category = Category(storageCategory: storageEditedCategory)
+            return try category.presentationCategory()
         } catch {
-            let error = Error("Cannot edit category \(presentationCategory)\n\(error)")
+            let error = Error("Cannot edit category \(presentationEditingCategory)\n\(error)")
             throw error
         }
     }

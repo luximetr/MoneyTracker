@@ -64,9 +64,10 @@ public class Storage {
         }
     }
     
-    public func updateCategory(id: String, editingCategory: EditingCategory) throws {
+    public func updateCategory(editingCategory: EditingCategory) throws -> Category {
         let repo = createCategoriesRepo()
-        try repo.updateCategory(id: id, editingCategory: editingCategory)
+        try repo.updateCategory(editingCategory: editingCategory)
+        return try repo.fetchCategory(id: editingCategory.id)
     }
     
     public func removeCategory(id: String) throws {
