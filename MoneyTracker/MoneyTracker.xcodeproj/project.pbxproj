@@ -255,6 +255,8 @@
 		DBA0546727FD9C1E00DB3892 /* ImportingCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546627FD9C1E00DB3892 /* ImportingCategoryAdapter.swift */; };
 		DBA0546927FFCE0B00DB3892 /* EditingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546827FFCE0B00DB3892 /* EditingCategory.swift */; };
 		DBA0546B27FFCF7300DB3892 /* EditingCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546A27FFCF7300DB3892 /* EditingCategoryAdapter.swift */; };
+		DBA0546E27FFDCA600DB3892 /* DebugError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546D27FFDCA600DB3892 /* DebugError.swift */; };
+		DBA0547027FFDCE200DB3892 /* GroupError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546F27FFDCE200DB3892 /* GroupError.swift */; };
 		DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */; };
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
@@ -585,6 +587,8 @@
 		DBA0546627FD9C1E00DB3892 /* ImportingCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCategoryAdapter.swift; sourceTree = "<group>"; };
 		DBA0546827FFCE0B00DB3892 /* EditingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingCategory.swift; sourceTree = "<group>"; };
 		DBA0546A27FFCF7300DB3892 /* EditingCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingCategoryAdapter.swift; sourceTree = "<group>"; };
+		DBA0546D27FFDCA600DB3892 /* DebugError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugError.swift; sourceTree = "<group>"; };
+		DBA0546F27FFDCE200DB3892 /* GroupError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupError.swift; sourceTree = "<group>"; };
 		DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
@@ -786,6 +790,7 @@
 		2E91155127A9373E00359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DBA0546C27FFDC8D00DB3892 /* Error */,
 				DB62AEFE27EF02D500F8CA55 /* ExpensesFile */,
 				2E926EA227BC58B00081E3AE /* ExpenseTemplate */,
 				2E926E8927BC58130081E3AE /* BalanceAccount */,
@@ -1913,6 +1918,15 @@
 			path = Array;
 			sourceTree = "<group>";
 		};
+		DBA0546C27FFDC8D00DB3892 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				DBA0546D27FFDCA600DB3892 /* DebugError.swift */,
+				DBA0546F27FFDCE200DB3892 /* GroupError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		DBB7BD0A27D78F31004EF5B7 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -2364,6 +2378,7 @@
 				DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */,
 				2E926E9B27BC58140081E3AE /* AddingExpense.swift in Sources */,
 				2E926EA727BC59030081E3AE /* ExpenseTemplate.swift in Sources */,
+				DBA0546E27FFDCA600DB3892 /* DebugError.swift in Sources */,
 				2E926E9A27BC58140081E3AE /* Currency.swift in Sources */,
 				DBD6ACD827AF724C00389236 /* BalanceAccountsCoreDataRepo.swift in Sources */,
 				2E926E9927BC58140081E3AE /* EditingBalanceAccount.swift in Sources */,
@@ -2379,6 +2394,7 @@
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
 				DB62AF0027EF02E500F8CA55 /* ImportingExpensesFile.swift in Sources */,
 				2E926E9727BC58140081E3AE /* AddingBalanceAccount.swift in Sources */,
+				DBA0547027FFDCE200DB3892 /* GroupError.swift in Sources */,
 				2E926E9C27BC58140081E3AE /* EditingExpense.swift in Sources */,
 				DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */,

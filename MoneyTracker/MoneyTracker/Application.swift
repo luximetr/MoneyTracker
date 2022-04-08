@@ -155,8 +155,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, editAccount editingAccount: PresentationAccount) throws -> PresentationAccount {
         do {
             let storageAccount = try Account(presentationAccount: editingAccount).storageAccount
-            let editingBalanceAccount = EditingBalanceAccount(name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, colorHex: storageAccount.colorHex)
-            try storage.updateBalanceAccount(id: editingAccount.id, editingBalanceAccount: editingBalanceAccount)
+            let editingBalanceAccount = EditingBalanceAccount(id: editingAccount.id, name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, colorHex: storageAccount.colorHex)
+            try storage.updateBalanceAccount(editingBalanceAccount: editingBalanceAccount)
             return editingAccount
         } catch {
             let error = Error("Cannot edit account \(editingAccount)\n\(error)")
@@ -268,13 +268,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addExpense presentationAddingExpense: PresentationAddingExpense) throws -> PresentationExpense {
         do {
-            let categories = try storage.getCategories()
-            let accounts = try storage.getAllBalanceAccounts()
             let addingExpence = try AddingExpense(presentationAddingExpense: presentationAddingExpense)
             let storageAddingExpense = addingExpence.storageAddingExpense
             let storageAddedExpense = try storage.addExpense(addingExpense: storageAddingExpense)
-            guard let storageCategory = categories.first(where: { $0.id == storageAddedExpense.categoryId }) else { throw Error("") }
-            guard let storageAccount = accounts.first(where: { $0.id == storageAddedExpense.balanceAccountId }) else { throw Error("") }
+            let storageCategory = try storage.getCategory(id: storageAddedExpense.categoryId)
+            let storageAccount = try storage.deductBalanceAccountAmount(id: storageAddedExpense.balanceAccountId, amount: addingExpence.amount)
             let presentationExpense = try Expense(storageExpense: storageAddedExpense, account: storageAccount, category: storageCategory).presentationExpense()
             return presentationExpense
         } catch {

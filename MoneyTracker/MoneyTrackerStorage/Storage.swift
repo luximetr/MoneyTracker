@@ -156,9 +156,19 @@ public class Storage {
         try removeFromBalanceAccountOrder(balanceAccountId: id)
     }
     
-    public func updateBalanceAccount(id: String, editingBalanceAccount: EditingBalanceAccount) throws {
+    public func updateBalanceAccount(editingBalanceAccount: EditingBalanceAccount) throws {
         let repo = createBalanceAccountsRepo()
-        try repo.updateAccount(id: id, editingBalanceAccount: editingBalanceAccount)
+        try repo.updateAccount(editingBalanceAccount: editingBalanceAccount)
+    }
+    
+    public func deductBalanceAccountAmount(id: String, amount: Decimal) throws -> BalanceAccount {
+        let repo = createBalanceAccountsRepo()
+        let account = try repo.fetchAccount(id: id)
+        let newAmount = account.amount - amount
+        let editingAccount = EditingBalanceAccount(id: id, name: nil, currency: nil, amount: newAmount, colorHex: nil)
+        try repo.updateAccount(editingBalanceAccount: editingAccount)
+        let updatedAccount = try repo.fetchAccount(id: id)
+        return updatedAccount
     }
     
     private func createBalanceAccountsRepo() -> BalanceAccountsCoreDataRepo {

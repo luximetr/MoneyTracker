@@ -52,14 +52,14 @@ class CategoriesCoreDataRepo {
     func fetchCategories(ids: [CategoryId]) throws -> [Category] {
         let context = accessor.viewContext
         let categoriesMO = try fetchCategoriesMO(ids: ids, context: context)
-        return convertToCategories(categoriesMO: categoriesMO)
+        return try convertToCategories(categoriesMO: categoriesMO)
     }
     
     func fetchAllCategories() throws -> [Category] {
         let context = accessor.viewContext
         let request = CategoryMO.fetchRequest()
         let categoriesMO = try context.fetch(request)
-        let categories = convertToCategories(categoriesMO: categoriesMO)
+        let categories = try convertToCategories(categoriesMO: categoriesMO)
         return categories
     }
     
@@ -97,14 +97,18 @@ class CategoriesCoreDataRepo {
         return Category(id: id, name: name, colorHex: colorHex, iconName: iconName)
     }
     
-    private func convertToCategories(categoriesMO: [CategoryMO]) -> [Category] {
-        return categoriesMO.compactMap({
+    private func convertToCategories(categoriesMO: [CategoryMO]) throws -> [Category] {
+        var groupError = GroupError()
+        let categories: [Category] = categoriesMO.compactMap({
             do {
                 return try convertToCategory(categoryMO: $0)
             } catch {
+                groupError.append(error: error)
                 return nil
             }
         })
+        try groupError.throwIfNeeded()
+        return categories
     }
     
     // MARK: - Update
