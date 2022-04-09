@@ -405,7 +405,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let importingFile = try files.parseExpensesCSV(url: url)
             let fileAdapter = ImportingExpensesFileAdapter()
             let storageFile = fileAdapter.adaptToStorage(filesImportingExpensesFile: importingFile)
-            try storage.saveImportingExpensesFile(storageFile)
+            let storageImportedFile = try storage.saveImportingExpensesFile(storageFile)
+            let importedFileAdapter = ImportedExpensesFileAdapter(storage: storage)
+            let presentationImportedFile = try importedFileAdapter.adaptToPresentation(storageImportedExpensesFile: storageImportedFile)
+            presentation.showDidImportExpensesFile(presentationImportedFile)
         } catch {
             print(error)
             throw error

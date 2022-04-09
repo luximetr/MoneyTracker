@@ -126,6 +126,12 @@ final class CategoryPickerViewController: AUIEmptyViewController {
         setContent()
     }
     
+    func addCategories(_ categories: [Category]) {
+        guard !categories.isEmpty else { return }
+        self.categories.append(contentsOf: categories)
+        setContent()
+    }
+    
     func editCategory(_ category: Category) {
         guard let firstIndex = categories.firstIndex(where: { $0.id == category.id }) else { return }
         categories[firstIndex] = category

@@ -46,6 +46,7 @@ public class Storage {
         return try repo.fetchCategories(ids: ids)
     }
     
+    @discardableResult
     public func addCategory(_ addingCategory: AddingCategory) throws -> Category {
         let repo = createCategoriesRepo()
         let category = Category(id: UUID().uuidString, name: addingCategory.name, colorHex: addingCategory.colorHex, iconName: addingCategory.iconName)
@@ -54,14 +55,18 @@ public class Storage {
         return category
     }
     
-    public func addCategories(_ addingCategories: [AddingCategory]) {
+    @discardableResult
+    public func addCategories(_ addingCategories: [AddingCategory]) -> [Category] {
+        var addedCategories: [Category] = []
         addingCategories.forEach {
             do {
-                _ = try addCategory($0)
+                let addedCategory = try addCategory($0)
+                addedCategories.append(addedCategory)
             } catch {
                 print(error)
             }
         }
+        return addedCategories
     }
     
     public func updateCategory(editingCategory: EditingCategory) throws -> Category {
@@ -140,14 +145,18 @@ public class Storage {
         return account
     }
     
-    public func addBalanceAccounts(_ addingBalanceAccounts: [AddingBalanceAccount]) {
+    @discardableResult
+    public func addBalanceAccounts(_ addingBalanceAccounts: [AddingBalanceAccount]) -> [BalanceAccount] {
+        var addedBalanceAccounts: [BalanceAccount] = []
         addingBalanceAccounts.forEach {
             do {
-                try addBalanceAccount($0)
+                let addedBalanceAccount = try addBalanceAccount($0)
+                addedBalanceAccounts.append(addedBalanceAccount)
             } catch {
                 print(error)
             }
         }
+        return addedBalanceAccounts
     }
     
     public func removeBalanceAccount(id: String) throws {
@@ -308,21 +317,22 @@ public class Storage {
     
     // MARK: - ExpensesFile
     
-    public func saveImportingExpensesFile(_ file: ImportingExpensesFile) throws {
+    @discardableResult
+    public func saveImportingExpensesFile(_ file: ImportingExpensesFile) throws -> ImportedExpensesFile {
         let categories = try getCategories()
         let uniqueImportingCategories = file.categories.filter { importingCategory in
             return !categories.contains(where: { findIfCategoriesEqual(importingCategory: importingCategory, category: $0) })
         }
         let importingCategoryAdapter = ImportingCategoryAdapter()
         let addingCategories = uniqueImportingCategories.map { importingCategoryAdapter.adaptToAdding(importingCategory: $0) }
-        addCategories(addingCategories)
+        let importedCategories = addCategories(addingCategories)
         
         let balanceAccounts = try getAllBalanceAccounts()
         let uniqueImportingBalanceAccounts = file.balanceAccounts.filter { importingBalanceAccount in
             return !balanceAccounts.contains(where: { findIfBalanceAccountsEqual(importingBalanceAccount: importingBalanceAccount, balanceAccount: $0) })
         }
         let addingBalanceAccounts = createAddingBalanceAccounts(importingBalanceAccounts: uniqueImportingBalanceAccounts)
-        addBalanceAccounts(addingBalanceAccounts)
+        let importedBalanceAccounts = addBalanceAccounts(addingBalanceAccounts)
         
         let allCategories = try getCategories()
         let allBalanceAccounts = try getAllBalanceAccounts()
@@ -332,10 +342,17 @@ public class Storage {
             guard let balanceAccount = allBalanceAccounts.first(where: { $0.name.lowercased() == importingExpense.balanceAccount.lowercased() }) else { return nil }
             return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
         }
-        let addedExpenses = addExpenses(addingExpenses: addingExpenses)
-        try addedExpenses.forEach {
+        let importedExpenses = addExpenses(addingExpenses: addingExpenses)
+        try importedExpenses.forEach {
             try deductBalanceAccountAmount(id: $0.balanceAccountId, amount: $0.amount)
         }
+        
+        let importedFile = ImportedExpensesFile(
+            importedExpenses: importedExpenses,
+            importedCategories: importedCategories,
+            importedAccounts: importedBalanceAccounts
+        )
+        return importedFile
     }
     
     private func createAddingBalanceAccounts(importingBalanceAccounts: [ImportingBalanceAccount]) -> [AddingBalanceAccount] {

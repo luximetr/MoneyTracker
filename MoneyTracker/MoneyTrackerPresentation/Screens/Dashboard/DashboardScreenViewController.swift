@@ -152,6 +152,10 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
         categoryPickerViewController.addCategory(category)
     }
     
+    func addCategories(_ categories: [Category]) {
+        categoryPickerViewController.addCategories(categories)
+    }
+    
     func editCategory(_ category: Category) {
         categoryPickerViewController.editCategory(category)
     }
@@ -166,6 +170,10 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     
     func addAccount(_ account: Account) {
         accountPickerViewController.addAccount(account)
+    }
+    
+    func addAccounts(_ accounts: [Account]) {
+        accountPickerViewController.addAccounts(accounts)
     }
     
     func editAccount(_ account: Account) {

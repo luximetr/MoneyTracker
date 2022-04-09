@@ -1110,6 +1110,13 @@ public final class Presentation: AUIWindowPresentation {
         return controller
     }
     
+    public func showDidImportExpensesFile(_ file: ImportedExpensesFile) {
+        dashboardViewController?.addAccounts(file.importedAccounts)
+        dashboardViewController?.addCategories(file.importedCategories)
+        historyViewController?.insertExpenses(file.importedExpenses)
+        statisticScreen?.addExpenses(file.importedExpenses)
+    }
+    
     // MARK: - Unexpected Error Alert Screen
     
     private weak var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
