@@ -86,13 +86,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editCategory presentationCategory: PresentationCategory) throws -> PresentationCategory {
+    func presentation(_ presentation: Presentation, editCategory presentationEditingCategory: PresentationEditingCategory) throws -> PresentationCategory {
         do {
-            let editingCategory = EditingCategory(name: presentationCategory.name)
-            try storage.updateCategory(id: presentationCategory.id, editingCategory: editingCategory)
-            return presentationCategory
+            let editingCategoryAdapter = EditingCategoryAdapter()
+            let storageEditingCategory = try editingCategoryAdapter.adaptToStorage(presentationEditingCategory: presentationEditingCategory)
+            let storageEditedCategory = try storage.updateCategory(editingCategory: storageEditingCategory)
+            let category = Category(storageCategory: storageEditedCategory)
+            return try category.presentationCategory()
         } catch {
-            let error = Error("Cannot edit category \(presentationCategory)\n\(error)")
+            let error = Error("Cannot edit category \(presentationEditingCategory)\n\(error)")
             throw error
         }
     }
@@ -153,8 +155,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, editAccount editingAccount: PresentationAccount) throws -> PresentationAccount {
         do {
             let storageAccount = try Account(presentationAccount: editingAccount).storageAccount
-            let editingBalanceAccount = EditingBalanceAccount(name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, colorHex: storageAccount.colorHex)
-            try storage.updateBalanceAccount(id: editingAccount.id, editingBalanceAccount: editingBalanceAccount)
+            let editingBalanceAccount = EditingBalanceAccount(id: editingAccount.id, name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, colorHex: storageAccount.colorHex)
+            try storage.updateBalanceAccount(editingBalanceAccount: editingBalanceAccount)
             return editingAccount
         } catch {
             let error = Error("Cannot edit account \(editingAccount)\n\(error)")
@@ -266,13 +268,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addExpense presentationAddingExpense: PresentationAddingExpense) throws -> PresentationExpense {
         do {
-            let categories = try storage.getCategories()
-            let accounts = try storage.getAllBalanceAccounts()
             let addingExpence = try AddingExpense(presentationAddingExpense: presentationAddingExpense)
             let storageAddingExpense = addingExpence.storageAddingExpense
             let storageAddedExpense = try storage.addExpense(addingExpense: storageAddingExpense)
-            guard let storageCategory = categories.first(where: { $0.id == storageAddedExpense.categoryId }) else { throw Error("") }
-            guard let storageAccount = accounts.first(where: { $0.id == storageAddedExpense.balanceAccountId }) else { throw Error("") }
+            let storageCategory = try storage.getCategory(id: storageAddedExpense.categoryId)
+            let storageAccount = try storage.deductBalanceAccountAmount(id: storageAddedExpense.balanceAccountId, amount: addingExpence.amount)
             let presentationExpense = try Expense(storageExpense: storageAddedExpense, account: storageAccount, category: storageCategory).presentationExpense()
             return presentationExpense
         } catch {
@@ -283,8 +283,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, editExpense editingExpense: PresentationExpense) throws -> PresentationExpense {
         do {
+            let currentExpense = try storage.getExpense(id: editingExpense.id)
             let storageEditingExpense = MoneyTrackerStorage.EditingExpense(amount: editingExpense.amount, date: editingExpense.date, comment: editingExpense.comment, balanceAccountId: editingExpense.account.id, categoryId: editingExpense.category.id)
             try storage.updateExpense(expenseId: editingExpense.id, editingExpense: storageEditingExpense)
+            if let newAmount = storageEditingExpense.amount {
+                let amountDifference = currentExpense.amount - newAmount
+                try storage.addBalanceAccountAmount(id: editingExpense.account.id, amount: amountDifference)
+            }
             return editingExpense
         } catch {
             let error = Error("Cannot edit expense \(editingExpense)\n\(error)")
@@ -374,7 +379,23 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: PresentationExpense) throws -> PresentationExpense {
         try storage.removeExpense(expenseId: deletingExpense.id)
+        try storage.addBalanceAccountAmount(id: deletingExpense.account.id, amount: deletingExpense.amount)
         return deletingExpense
+    }
+    
+    func presentation(_ presentation: Presentation, useTemplate template: PresentationExpenseTemplate) throws -> PresentationExpense {
+        let amount = template.amount
+        let date = Date()
+        let component = template.comment
+        let account = try Account(presentationAccount: template.balanceAccount)
+        let category = try Category(presentationCategory: template.category)
+        let addingExpense = AddingExpense(amount: amount, date: date, comment: component, account: account, category: category)
+        let storageaAddingExpense = addingExpense.storageAddingExpense
+        let storageExpense = try storage.addExpense(addingExpense: storageaAddingExpense)
+        let storageAccount = try storage.deductBalanceAccountAmount(id: template.balanceAccount.id, amount: amount)
+        let storageCategory = category.storageCategoty()
+        let expense = Expense(storageExpense: storageExpense, account: storageAccount, category: storageCategory)
+        return try expense.presentationExpense()
     }
     
     // MARK: - Files
@@ -384,7 +405,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let importingFile = try files.parseExpensesCSV(url: url)
             let fileAdapter = ImportingExpensesFileAdapter()
             let storageFile = fileAdapter.adaptToStorage(filesImportingExpensesFile: importingFile)
-            try storage.saveImportingExpensesFile(storageFile)
+            let storageImportedFile = try storage.saveImportingExpensesFile(storageFile)
+            let importedFileAdapter = ImportedExpensesFileAdapter(storage: storage)
+            let presentationImportedFile = try importedFileAdapter.adaptToPresentation(storageImportedExpensesFile: storageImportedFile)
+            presentation.showDidImportExpensesFile(presentationImportedFile)
         } catch {
             print(error)
             throw error
@@ -421,21 +445,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         )
         let fileURL = try files.createCSVFile(exportExpensesFile: exportFile)
         return fileURL
-    }
-    
-    func presentation(_ presentation: Presentation, useTemplate template: PresentationExpenseTemplate) throws -> PresentationExpense {
-        let amount = template.amount
-        let date = Date()
-        let component = template.comment
-        let account = try Account(presentationAccount: template.balanceAccount)
-        let category = try Category(presentationCategory: template.category)
-        let addingExpense = AddingExpense(amount: amount, date: date, comment: component, account: account, category: category)
-        let storageaAddingExpense = addingExpense.storageAddingExpense
-        let storageExpense = try storage.addExpense(addingExpense: storageaAddingExpense)
-        let storageCategory = category.storageCategoty()
-        let storageAccount = account.storageAccount
-        let expense = Expense(storageExpense: storageExpense, account: storageAccount, category: storageCategory)
-        return try expense.presentationExpense()
     }
     
     func presentation(_ presentation: Presentation, addTransfer presentationAddingTransfer: PresentationAddingTransfer) throws -> PresentationTransfer {

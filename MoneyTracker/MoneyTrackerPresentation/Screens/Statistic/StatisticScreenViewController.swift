@@ -40,6 +40,12 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         setContent()
     }
     
+    func addExpenses(_ expenses: [Expense]) {
+        guard !expenses.isEmpty else { return }
+        loadData()
+        setContent()
+    }
+    
     // MARK: View
     
     private var screenView: ScreenView {

@@ -16,7 +16,7 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
     private let category: Category
     private var categoryIconName: String
     var backClosure: (() -> Void)?
-    var editCategoryClosure: ((Category) throws -> Void)?
+    var editCategoryClosure: ((EditingCategory) throws -> Void)?
     var selectIconClosure: ((UIColor) -> Void)?
     
     // MARK: Initializer
@@ -76,10 +76,10 @@ final class EditCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     @objc private func editButtonTouchUpInsideEventAction() {
         do {
-            guard let name = screenView.nameTextField.text, !name.isEmpty else { return }
-            guard let selectedColor = colorPickerController.selectedColor else { return }
-            let addingCategory = Category(id: category.id, name: name, color: selectedColor, iconName: categoryIconName)
-            try editCategoryClosure?(addingCategory)
+            let name = screenView.nameTextField.text
+            let selectedColor = colorPickerController.selectedColor
+            let editingCategory = EditingCategory(id: category.id, name: name, color: selectedColor, iconName: categoryIconName)
+            try editCategoryClosure?(editingCategory)
         } catch {}
     }
     

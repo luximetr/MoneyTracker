@@ -52,14 +52,14 @@ class CategoriesCoreDataRepo {
     func fetchCategories(ids: [CategoryId]) throws -> [Category] {
         let context = accessor.viewContext
         let categoriesMO = try fetchCategoriesMO(ids: ids, context: context)
-        return convertToCategories(categoriesMO: categoriesMO)
+        return try convertToCategories(categoriesMO: categoriesMO)
     }
     
     func fetchAllCategories() throws -> [Category] {
         let context = accessor.viewContext
         let request = CategoryMO.fetchRequest()
         let categoriesMO = try context.fetch(request)
-        let categories = convertToCategories(categoriesMO: categoriesMO)
+        let categories = try convertToCategories(categoriesMO: categoriesMO)
         return categories
     }
     
@@ -91,28 +91,32 @@ class CategoriesCoreDataRepo {
     func convertToCategory(categoryMO: CategoryMO) throws -> Category {
         guard let id = categoryMO.id else { throw ParseError.noId }
         guard let name = categoryMO.name else { throw ParseError.noName }
-        guard let colorHex = categoryMO.colorHex, !colorHex.isEmpty else { throw ParseError.noColor }
-        guard let iconName = categoryMO.iconName, !iconName.isEmpty else { throw ParseError.noIcon }
+        let colorHex = categoryMO.colorHex
+        let iconName = categoryMO.iconName
         
         return Category(id: id, name: name, colorHex: colorHex, iconName: iconName)
     }
     
-    private func convertToCategories(categoriesMO: [CategoryMO]) -> [Category] {
-        return categoriesMO.compactMap({
+    private func convertToCategories(categoriesMO: [CategoryMO]) throws -> [Category] {
+        var groupError = GroupError()
+        let categories: [Category] = categoriesMO.compactMap({
             do {
                 return try convertToCategory(categoryMO: $0)
             } catch {
+                groupError.append(error: error)
                 return nil
             }
         })
+        try groupError.throwIfNeeded()
+        return categories
     }
     
     // MARK: - Update
     
-    func updateCategory(id: CategoryId, editingCategory: EditingCategory) throws {
+    func updateCategory(editingCategory: EditingCategory) throws {
         let context = accessor.viewContext
         let request = NSBatchUpdateRequest(entityName: String(describing: Category.self))
-        let predicate = NSPredicate(format: "id == %@", id)
+        let predicate = NSPredicate(format: "id == %@", editingCategory.id)
         request.predicate = predicate
         request.propertiesToUpdate = createPropertiesToUpdate(editingCategory: editingCategory)
         request.affectedStores = context.persistentStoreCoordinator?.persistentStores
@@ -148,8 +152,6 @@ class CategoriesCoreDataRepo {
     enum ParseError: Error {
         case noId
         case noName
-        case noColor
-        case noIcon
     }
 
     enum FetchError: Error {

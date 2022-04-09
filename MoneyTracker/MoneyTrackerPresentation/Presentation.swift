@@ -12,7 +12,7 @@ import MessageUI
 public protocol PresentationDelegate: AnyObject {
     func presentationCategories(_ presentation: Presentation) throws -> [Category]
     func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory) throws -> Category
-    func presentation(_ presentation: Presentation, editCategory editingCategory: Category) throws -> Category
+    func presentation(_ presentation: Presentation, editCategory editingCategory: EditingCategory) throws -> Category
     func presentation(_ presentation: Presentation, deleteCategory category: Category) throws
     func presentation(_ presentation: Presentation, orderCategories categories: [Category]) throws
     func presentationCurrencies(_ presentation: Presentation) -> [Currency]
@@ -568,11 +568,11 @@ public final class Presentation: AUIWindowPresentation {
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)
         }
-        viewController.editCategoryClosure = { [weak self, weak navigationController] category in
+        viewController.editCategoryClosure = { [weak self, weak navigationController] editingCategory in
             guard let self = self else { return }
             guard let navigationController = navigationController else { return }
             do {
-                let editedCategory = try self.delegate.presentation(self, editCategory: category)
+                let editedCategory = try self.delegate.presentation(self, editCategory: editingCategory)
                 self.pushedCategoriesViewController?.editCategory(editedCategory)
                 self.dashboardViewController?.editCategory(editedCategory)
                 navigationController.popViewController(animated: true)
@@ -1108,6 +1108,13 @@ public final class Presentation: AUIWindowPresentation {
             }
         }
         return controller
+    }
+    
+    public func showDidImportExpensesFile(_ file: ImportedExpensesFile) {
+        dashboardViewController?.addAccounts(file.importedAccounts)
+        dashboardViewController?.addCategories(file.importedCategories)
+        historyViewController?.insertExpenses(file.importedExpenses)
+        statisticScreen?.addExpenses(file.importedExpenses)
     }
     
     // MARK: - Unexpected Error Alert Screen

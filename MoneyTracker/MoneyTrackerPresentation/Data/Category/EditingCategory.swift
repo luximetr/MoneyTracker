@@ -1,22 +1,23 @@
 //
 //  EditingCategory.swift
-//  MoneyTrackerStorage
+//  MoneyTrackerPresentation
 //
-//  Created by Oleksandr Orlov on 12.02.2022.
+//  Created by Oleksandr Orlov on 08.04.2022.
 //
 
 import Foundation
+import UIKit
 
 public struct EditingCategory: Equatable, Hashable {
     public let id: String
     public let name: String?
-    public let colorHex: String?
+    public let color: UIColor?
     public let iconName: String?
     
-    public init(id: String, name: String? = nil, colorHex: String? = nil, iconName: String? = nil) {
+    public init(id: String, name: String?, color: UIColor?, iconName: String?) {
         self.id = id
         self.name = name
-        self.colorHex = colorHex
+        self.color = color
         self.iconName = iconName
     }
 }

@@ -84,6 +84,12 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
         setTableViewControllerContent()
     }
     
+    func insertExpenses(_ expenses: [Expense]) {
+        guard !expenses.isEmpty else { return }
+        self.expenses.append(contentsOf: expenses)
+        setTableViewControllerContent()
+    }
+    
     // MARK: Content
     
     private func setTableViewControllerContent() {

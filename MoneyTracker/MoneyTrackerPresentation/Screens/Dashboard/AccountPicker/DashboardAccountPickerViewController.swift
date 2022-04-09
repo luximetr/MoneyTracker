@@ -130,6 +130,12 @@ final class AccountPickerViewController: AUIEmptyViewController {
         setContent()
     }
     
+    func addAccounts(_ accounts: [Account]) {
+        guard !accounts.isEmpty else { return }
+        self.accounts.append(contentsOf: accounts)
+        setContent()
+    }
+    
     func editAccount(_ account: Account) {
         guard let firstIndex = accounts.firstIndex(where: { $0.id == account.id }) else { return }
         accounts[firstIndex] = account
