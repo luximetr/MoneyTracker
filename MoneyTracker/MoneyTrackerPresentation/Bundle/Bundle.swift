@@ -24,10 +24,14 @@ extension Bundle {
                 resource = "en"
             }
             let type = "lproj"
-            let bundle = Bundle(path: Bundle(for: Class.self).path(forResource: resource, ofType: type) ?? "")
-            previousLanguage = language
-            previousLanguageBundle = bundle
-            return bundle
+            if let path = Bundle(for: Class.self).path(forResource: resource, ofType: type) {
+                let bundle = Bundle(path: path)
+                previousLanguage = language
+                previousLanguageBundle = bundle
+                return bundle
+            } else {
+                return nil
+            }
         }
     }
     
