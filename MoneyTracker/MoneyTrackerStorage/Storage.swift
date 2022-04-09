@@ -253,14 +253,18 @@ public class Storage {
         return expense
     }
     
-    public func addExpenses(addingExpenses: [AddingExpense]) {
+    @discardableResult
+    public func addExpenses(addingExpenses: [AddingExpense]) -> [Expense] {
+        var addedExpenses: [Expense] = []
         addingExpenses.forEach {
             do {
-                try addExpense(addingExpense: $0)
+                let addedExpense = try addExpense(addingExpense: $0)
+                addedExpenses.append(addedExpense)
             } catch {
                 print(error)
             }
         }
+        return addedExpenses
     }
     
     public func getAllExpenses() throws -> [Expense] {
@@ -328,7 +332,10 @@ public class Storage {
             guard let balanceAccount = allBalanceAccounts.first(where: { $0.name.lowercased() == importingExpense.balanceAccount.lowercased() }) else { return nil }
             return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
         }
-        addExpenses(addingExpenses: addingExpenses)
+        let addedExpenses = addExpenses(addingExpenses: addingExpenses)
+        try addedExpenses.forEach {
+            try deductBalanceAccountAmount(id: $0.balanceAccountId, amount: $0.amount)
+        }
     }
     
     private func createAddingBalanceAccounts(importingBalanceAccounts: [ImportingBalanceAccount]) -> [AddingBalanceAccount] {

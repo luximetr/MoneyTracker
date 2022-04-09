@@ -24,14 +24,13 @@ class ExpensesCoreDataRepo {
     
     func insertExpense(_ expense: Expense) throws {
         let context = coreDataAccessor.viewContext
-        let expenseMO = try fetchOrCreateExpenseMO(expense: expense, context: context)
+        let expenseMO = try createExpenseMO(expense: expense, context: context)
         expenseMO.id = expense.id
         expenseMO.amount = NSDecimalNumber(decimal: expense.amount)
         expenseMO.comment = expense.comment
         expenseMO.date = expense.date
         expenseMO.categoryId = expense.categoryId
         expenseMO.balanceAccountId = expense.balanceAccountId
-        
         try context.save()
     }
     
@@ -127,7 +126,7 @@ class ExpensesCoreDataRepo {
     private func fetchExpenseMO(expense: Expense, context: NSManagedObjectContext) throws -> ExpenseMO {
         let fetchRequest = ExpenseMO.fetchRequest()
         let idPredicate = NSPredicate(format: "id == %@", expense.id)
-        let propertiesPredicate = NSPredicate(format: "date == %@ AND comment == %@ AND balanceAccountId == %@ AND categoryId == %@", expense.date as NSDate, expense.comment ?? "", expense.balanceAccountId, expense.categoryId)
+        let propertiesPredicate = NSPredicate(format: "date == %@ AND amount == %@ AND comment == %@ AND balanceAccountId == %@ AND categoryId == %@", expense.date as NSDate, NSDecimalNumber(decimal: expense.amount), expense.comment ?? "", expense.balanceAccountId, expense.categoryId)
         let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [idPredicate, propertiesPredicate])
         fetchRequest.predicate = predicate
         let expensesMO = try context.fetch(fetchRequest)
@@ -135,13 +134,24 @@ class ExpensesCoreDataRepo {
         return expenseMO
     }
     
-    private func fetchOrCreateExpenseMO(expense: Expense, context: NSManagedObjectContext) throws -> ExpenseMO {
+    private func createExpenseMO(expense: Expense, context: NSManagedObjectContext) throws -> ExpenseMO {
         do {
-            return try fetchExpenseMO(expense: expense, context: context)
+            _ = try fetchExpenseMO(expense: expense, context: context)
+            throw CreateError.alreadyExist
         } catch FetchError.notFound {
             return ExpenseMO(context: context)
+        } catch {
+            throw error
         }
     }
+    
+//    private func fetchOrCreateExpenseMO(expense: Expense, context: NSManagedObjectContext) throws -> ExpenseMO {
+//        do {
+//            return try fetchExpenseMO(expense: expense, context: context)
+//        } catch FetchError.notFound {
+//            return ExpenseMO(context: context)
+//        }
+//    }
     
     private func convertToExpense(expenseMO: ExpenseMO) throws -> Expense {
         guard let id = expenseMO.id else { throw ParseError.noId }
@@ -185,6 +195,10 @@ class ExpensesCoreDataRepo {
     }
     
     // MARK: - Errors
+    
+    enum CreateError: Error {
+        case alreadyExist
+    }
     
     enum FetchError: Error {
         case notFound
