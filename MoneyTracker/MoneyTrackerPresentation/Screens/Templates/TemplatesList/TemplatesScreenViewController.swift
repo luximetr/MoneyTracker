@@ -143,8 +143,11 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     func showTemplateAdded(_ template: ExpenseTemplate) {
         let cellController = createTemplateCellController(template: template)
         templates.append(template)
-        guard let lastTemplateCellController = sectionController.cellControllers.reversed().first(where: { $0 is TemplateTableViewCellController }) else { return }
-        tableViewController.insertCellControllers([cellController], afterCellController: lastTemplateCellController, inSection: sectionController)
+        if let lastTemplateCellController = sectionController.cellControllers.reversed().first(where: { $0 is TemplateTableViewCellController }) {
+            tableViewController.insertCellControllers([cellController], afterCellController: lastTemplateCellController, inSection: sectionController)
+        } else {
+            tableViewController.insertCellControllerAtSectionBeginning(sectionController, cellController: cellController)
+        }
     }
     
     func showTemplateUpdated(_ updatedTemplate: ExpenseTemplate) {
