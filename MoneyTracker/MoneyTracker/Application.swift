@@ -31,14 +31,14 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return files
     }()
     
-    // MARK: Storage
+    // MARK: - Storage
     
     private lazy var storage: Storage = {
         let storage = Storage()
         return storage
     }()
     
-    // MARK: Presentation
+    // MARK: - Presentation
     
     private lazy var presentationWindow: UIWindow = {
         let window = self.window ?? UIWindow()

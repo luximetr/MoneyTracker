@@ -9,46 +9,13 @@ import UIKit
 import AUIKit
 import MessageUI
 
-public protocol PresentationDelegate: AnyObject {
-    func presentationCategories(_ presentation: Presentation) throws -> [Category]
-    func presentation(_ presentation: Presentation, addCategory addingCategory: AddingCategory) throws -> Category
-    func presentation(_ presentation: Presentation, editCategory editingCategory: EditingCategory) throws -> Category
-    func presentation(_ presentation: Presentation, deleteCategory category: Category) throws
-    func presentation(_ presentation: Presentation, orderCategories categories: [Category]) throws
-    func presentationCurrencies(_ presentation: Presentation) -> [Currency]
-    func presentationSelectedCurrency(_ presentation: Presentation) throws -> Currency
-    func presentation(_ presentation: Presentation, updateSelectedCurrency currency: Currency)
-    func presentationAccounts(_ presentation: Presentation) throws -> [Account]
-    func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
-    func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
-    func presentation(_ presentation: Presentation, editAccount editingAccount: Account) throws -> Account
-    func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
-    func presentationExpenseTemplates(_ presentation: Presentation) throws -> [ExpenseTemplate]
-    func presentation(_ presentation: Presentation, reorderExpenseTemplates reorderedExpenseTemplates: [ExpenseTemplate]) throws
-    func presentation(_ presentation: Presentation, deleteExpenseTemplate expenseTemplate: ExpenseTemplate) throws
-    func presentation(_ presentation: Presentation, addExpenseTemplate addingExpenseTemplate: AddingExpenseTemplate) throws -> ExpenseTemplate
-    func presentation(_ presentation: Presentation, editExpenseTemplate editingExpenseTemplate: EditingExpenseTemplate) throws -> ExpenseTemplate
-    func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) throws
-    func presentationDidStartExpensesCSVExport(_ presentation: Presentation) throws -> URL
-    func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
-    func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
-    func presentation(_ presentation: Presentation, editExpense editingExpense: Expense) throws -> Expense
-    func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws -> Expense
-    func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
-    func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [Expense]
-    func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date]
-    func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
-    func presentation(_ presentation: Presentation, addTransfer addingTransfer: AddingTransfer) throws -> Transfer
-    func presentation(_ presentation: Presentation, addTopUpAccount addingTopUpAccount: AddingTopUpAccount) throws -> TopUpAccount
-}
-
 public final class Presentation: AUIWindowPresentation {
     
-    // MARK: Delegate
+    // MARK: - Delegate
     
     public weak var delegate: PresentationDelegate!
     
-    // MARK: Display
+    // MARK: - Display
     
     public func display() {
         // Dashboard
@@ -84,11 +51,11 @@ public final class Presentation: AUIWindowPresentation {
         menuViewController.dashboard()
     }
     
-    // MARK: Menu Navigation Controller
+    // MARK: - Menu Navigation Controller
     
     private weak var menuNavigationController: UINavigationController?
     
-    // MARK: Menu View Controller
+    // MARK: - Menu View Controller
     
     private weak var menuScreenViewController: MenuScreenViewController?
     
@@ -96,7 +63,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var dashboardNavigationController: UINavigationController?
     
-    // MARK: Dashboard View Controller
+    // MARK: - Dashboard View Controller
     
     private weak var dashboardViewController: DashboardScreenViewController?
     private func createDashboardViewController() -> DashboardScreenViewController {
@@ -168,7 +135,7 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
-    // MARK: Add Expense View Controller
+    // MARK: - Add Expense View Controller
     
     private weak var pushedAddExpenseViewController: AddExpenseScreenViewController?
     private func pushAddExpenseViewController(_ navigationController: UINavigationController, selectedCategory: Category?) throws {
@@ -228,7 +195,7 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: Transfer View Controller
+    // MARK: - Transfer View Controller
     
     private weak var pushedAddTransferViewController: AddTransferScreenViewController?
     private func pushAddTransferViewController(_ navigationController: UINavigationController) throws {
@@ -266,7 +233,7 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: Top Up Account View Controller
+    // MARK: - Top Up Account View Controller
     
     private weak var pushedTopUpAccountViewController: TopUpAccountScreenViewController?
     private func pushTopUpAccountViewController(_ navigationController: UINavigationController, selectedAccount: Account) throws {
@@ -304,7 +271,7 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: ExpenseAddedSnackbarView
+    // MARK: - ExpenseAddedSnackbarView
     
     private var expenseAddedSnackbarViewControllers: [ExpenseAddedSnackbarViewController] = []
     private func displayExpenseAddedSnackbarViewController(template: ExpenseTemplate, expense: Expense) {
@@ -331,11 +298,11 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: History Navigation Controller
+    // MARK: - History Navigation Controller
     
     private weak var historyNavigationController: UINavigationController?
     
-    // MARK: History View Controller
+    // MARK: - History View Controller
     
     private weak var historyViewController: HistoryScreenViewController?
     private func createHistoryViewController() -> HistoryScreenViewController {
@@ -363,7 +330,7 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
-    // MARK: Edit Expense View Controller
+    // MARK: - Edit Expense View Controller
     
     private weak var pushedEditExpenseViewController: EditExpenseScreenViewController?
     private func pushEditExpenseViewController(_ navigationController: UINavigationController, expense: Expense) throws {
@@ -430,11 +397,11 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
-    // MARK: Settings Navigation Controller
+    // MARK: - Settings Navigation Controller
     
     private weak var settingsNavigationController: UINavigationController?
     
-    // MARK: Categories View Controller
+    // MARK: - Categories View Controller
     
     private weak var pushedCategoriesViewController: CategoriesScreenViewController?
     
@@ -485,7 +452,7 @@ public final class Presentation: AUIWindowPresentation {
         
     }
     
-    // MARK: Add Category View Controller
+    // MARK: - Add Category View Controller
     
     private var pushedAddCategoryViewController: AddCategoryScreenViewController?
     private func pushAddCategoryScreenViewController(_ navigationController: UINavigationController) {
@@ -559,7 +526,7 @@ public final class Presentation: AUIWindowPresentation {
         presentingViewController.present(viewController, animated: true, completion: nil)
     }
     
-    // MARK: Edit Category View Controller
+    // MARK: - Edit Category View Controller
     
     private weak var pushedEditCategoryViewController: EditCategoryScreenViewController?
     private func pushEditCategoryScreenViewController(_ navigationController: UINavigationController, category: Category) {
@@ -669,7 +636,7 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
-    // MARK: Select Currency View Controller
+    // MARK: - Select Currency View Controller
     
     private func presentSelectCurrencyViewController(_ presentingViewController: UIViewController, selectedCurrency: Currency?) throws {
         do {
@@ -711,7 +678,7 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: Accounts Screen View Controller
+    // MARK: - Accounts Screen View Controller
     
     private weak var pushedAccoutsViewController: AccountsScreenViewController?
     private func pushAccountsViewController(_ navigationController: UINavigationController) throws {
@@ -762,7 +729,7 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: Add Accounts Screen View Controller
+    // MARK: - Add Accounts Screen View Controller
     
     private weak var pushedAddAccoutScreenViewController: AddAccountScreenViewController?
     private func pushAddAccountViewController(_ navigationController: UINavigationController) throws {
@@ -860,7 +827,7 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: Edit Accounts Screen View Controller
+    // MARK: - Edit Accounts Screen View Controller
     
     private weak var pushedEditAccoutScreenViewController: EditAccountScreenViewController?
     private func pushEditAccountViewController(_ navigationController: UINavigationController, editingAccount: Account) {
@@ -1139,7 +1106,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController?.present(viewController, animated: true, completion: nil)
     }
     
-    // MARK: Unexpected Error Details Screen
+    // MARK: - Unexpected Error Details Screen
     
     private weak var unexpectedErrorDetailsScreenViewController: UnexpectedErrorDetailsScreenViewController?
     private func displayUnexpectedErrorDetailsScreen(_ error: Swift.Error) {

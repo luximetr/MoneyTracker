@@ -162,6 +162,7 @@
 		2ED15ECC27FE252F00208386 /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15ECB27FE252F00208386 /* AddingTransfer.swift */; };
 		2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */; };
 		2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */; };
+		2ED347BB2805CC1A0005529A /* PresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED347BA2805CC1A0005529A /* PresentationDelegate.swift */; };
 		2ED3E93727F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3E93627F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift */; };
 		2ED3E93927F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3E93827F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift */; };
 		2ED3E93D27F39BDD006C76FB /* CategoryHorizontalPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED3E93F27F39BDD006C76FB /* CategoryHorizontalPickerStrings.strings */; };
@@ -569,6 +570,7 @@
 		2ED15ECB27FE252F00208386 /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
 		2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateView.swift; sourceTree = "<group>"; };
 		2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateViewController.swift; sourceTree = "<group>"; };
+		2ED347BA2805CC1A0005529A /* PresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationDelegate.swift; sourceTree = "<group>"; };
 		2ED3E93627F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ED3E93827F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerAddCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2ED3E93E27F39BDD006C76FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CategoryHorizontalPickerStrings.strings; sourceTree = "<group>"; };
@@ -1228,6 +1230,7 @@
 			isa = PBXGroup;
 			children = (
 				2EB10A2927A6CAFF00743416 /* Presentation.swift */,
+				2ED347BA2805CC1A0005529A /* PresentationDelegate.swift */,
 				2EB10A4B27A7083200743416 /* Data */,
 				2EB10A2B27A6E1F800743416 /* Screens */,
 				2E0F71EA27EB80B3009E7C28 /* Snackbars */,
@@ -2619,6 +2622,7 @@
 				DBA0546527FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift in Sources */,
 				2EB10A3D27A7034400743416 /* Fonts.swift in Sources */,
 				DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */,
+				2ED347BB2805CC1A0005529A /* PresentationDelegate.swift in Sources */,
 				2ED60BD227DE776F00EC11D4 /* ExpenseTableViewCell.swift in Sources */,
 				2ED8BD7427E908F50007F60B /* HistoryScreenView.swift in Sources */,
 				2EB10A4A27A707A300743416 /* Language.swift in Sources */,
