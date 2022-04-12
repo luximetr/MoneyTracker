@@ -11,6 +11,7 @@ import MoneyTrackerPresentation
 typealias PresentationAddingAccount = MoneyTrackerPresentation.AddingAccount
 import MoneyTrackerStorage
 typealias StorageAddingAccount = MoneyTrackerStorage.AddingBalanceAccount
+import MoneyTrackerUIKit
 
 struct AddingAccount: Equatable, Hashable {
     

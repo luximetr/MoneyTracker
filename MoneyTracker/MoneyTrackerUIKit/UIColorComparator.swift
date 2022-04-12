@@ -1,17 +1,23 @@
 //
 //  UIColorComparator.swift
-//  MoneyTrackerPresentation
+//  MoneyTrackerUIKit
 //
-//  Created by Oleksandr Orlov on 05.04.2022.
+//  Created by Job Ihor Myroniuk on 12.04.2022.
 //
 
 import UIKit
 
-class UIColorComparator {
+open class UIColorComparator {
+    
+    // MARK: Initializer
+    
+    public init() {
+        
+    }
     
     private let colorConvertor = UIColorHexConvertor()
     
-    func findIsColorsEquals(_ lhs: UIColor, _ rhs: UIColor) -> Bool {
+    open func findIsColorsEquals(_ lhs: UIColor, _ rhs: UIColor) -> Bool {
         do {
             let lhsHex = try colorConvertor.convertToHexString(color: lhs)
             let rhsHex = try colorConvertor.convertToHexString(color: rhs)

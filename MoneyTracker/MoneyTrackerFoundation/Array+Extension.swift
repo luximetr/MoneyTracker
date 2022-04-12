@@ -1,20 +1,13 @@
 //
 //  Array+Extension.swift
-//  MoneyTrackerFiles
+//  MoneyTrackerFoundation
 //
-//  Created by Oleksandr Orlov on 28.02.2022.
+//  Created by Job Ihor Myroniuk on 12.04.2022.
 //
 
 import Foundation
 
-extension Array {
-    
-    subscript (safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
-    }
-}
-
-extension Array where Element: Equatable {
+public extension Array where Element: Equatable {
 
     func findIndex(of element: Element, skipFirst: Int) -> Array.Index? {
         if skipFirst == 0 {

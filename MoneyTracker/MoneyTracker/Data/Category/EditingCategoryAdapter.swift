@@ -9,6 +9,7 @@ import Foundation
 import MoneyTrackerPresentation
 import MoneyTrackerStorage
 import UIKit
+import MoneyTrackerUIKit
 
 typealias PresentationEditingCategory = MoneyTrackerPresentation.EditingCategory
 typealias StorageEditingCategory = MoneyTrackerStorage.EditingCategory

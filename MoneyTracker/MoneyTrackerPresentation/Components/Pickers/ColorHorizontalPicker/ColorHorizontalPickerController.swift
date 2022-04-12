@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import MoneyTrackerUIKit
 
 final class ColorHorizontalPickerController: AUIEmptyViewController {
     

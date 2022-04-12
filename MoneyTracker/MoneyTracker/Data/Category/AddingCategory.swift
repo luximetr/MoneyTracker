@@ -10,6 +10,7 @@ import MoneyTrackerPresentation
 typealias PresentationAddingCategory = MoneyTrackerPresentation.AddingCategory
 import MoneyTrackerStorage
 typealias StorageAddingCategory = MoneyTrackerStorage.AddingCategory
+import MoneyTrackerUIKit
 
 struct AddingCategory: Equatable, Hashable {
     let name: String

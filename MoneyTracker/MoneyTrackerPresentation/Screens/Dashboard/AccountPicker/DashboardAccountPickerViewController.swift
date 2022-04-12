@@ -7,7 +7,6 @@
 
 import UIKit
 import AUIKit
-import MoneyTrackerStorage
 
 extension DashboardScreenViewController {
 final class AccountPickerViewController: AUIEmptyViewController {

@@ -1,15 +1,19 @@
 //
 //  UIColorHexConvertor.swift
-//  MoneyTrackerPresentation
+//  MoneyTrackerUIKit
 //
-//  Created by Oleksandr Orlov on 05.04.2022.
+//  Created by Job Ihor Myroniuk on 12.04.2022.
 //
 
 import UIKit
 
-class UIColorHexConvertor {
+open class UIColorHexConvertor {
     
-    func convertToHexString(color: UIColor) throws -> String {
+    public init() {
+        
+    }
+    
+    open func convertToHexString(color: UIColor) throws -> String {
         var red: CGFloat = 0.0
         var green: CGFloat = 0.0
         var blue: CGFloat = 0.0
@@ -19,7 +23,7 @@ class UIColorHexConvertor {
         return hexString
     }
     
-    func convertToUIColor(hexString: String) throws -> UIColor {
+    open func convertToUIColor(hexString: String) throws -> UIColor {
         var colorString = hexString.trimmingCharacters(in: .whitespacesAndNewlines)
         colorString = colorString.replacingOccurrences(of: "#", with: "").uppercased()
         
@@ -46,7 +50,7 @@ class UIColorHexConvertor {
         return floatValue
     }
     
-    enum ConvertError: Swift.Error {
+    public enum ConvertError: Swift.Error {
         case noRGBComponentsFound
         case noRedComponentFound
         case noGreenComponentFound
