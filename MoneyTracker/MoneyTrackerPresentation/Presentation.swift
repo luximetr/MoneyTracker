@@ -580,7 +580,8 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var settingsScreenViewController: SettingsScreenViewController?
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
-        let viewController = SettingsScreenViewController()
+        let defaultCurrency = try! delegate.presentationSelectedCurrency(self)
+        let viewController = SettingsScreenViewController(defaultCurrency: defaultCurrency, language: .english)
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
@@ -595,6 +596,15 @@ public final class Presentation: AUIWindowPresentation {
             guard let viewController = viewController else { return }
             do {
                 try self.presentSelectCurrencyViewController(viewController, selectedCurrency: nil)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.didSelectLanguageClosure = { [weak self, weak viewController] in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            do {
+                try self.pushSelectLanguageViewController(menuNavigationController, selectedLanguage: nil)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
@@ -650,6 +660,7 @@ public final class Presentation: AUIWindowPresentation {
             viewController.didSelectCurrencyClosure = { [weak self] currency in
                 guard let self = self else { return }
                 self.delegate.presentation(self, updateSelectedCurrency: currency)
+                self.settingsScreenViewController?.changeDefaultCurrency(currency)
             }
             presentingViewController.present(viewController, animated: true, completion: nil)
         } catch {
@@ -674,6 +685,26 @@ public final class Presentation: AUIWindowPresentation {
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push SelectCurrencyViewController\n\(error)")
+            throw error
+        }
+    }
+    
+    // MARK: - Select Language View Controller
+    
+    private func pushSelectLanguageViewController(_ navigationController: UINavigationController, selectedLanguage: Language?) throws {
+        do {
+            let viewController = SelectLanguageScreenViewController(languages: [.english], selectedLanguage: .english)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
+            }
+            viewController.didSelectCurrencyClosure = { [weak self] currency in
+                guard let self = self else { return }
+                self.delegate.presentation(self, updateSelectedCurrency: currency)
+            }
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push SelectLanguageViewController\n\(error)")
             throw error
         }
     }

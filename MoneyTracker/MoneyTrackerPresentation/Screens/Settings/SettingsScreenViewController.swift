@@ -10,62 +10,74 @@ import AUIKit
 
 final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     
-    // MARK: Delegation
+    // MARK: - Data
     
+    var defaultCurrency: Currency
+    var language: Language
     var didSelectCategoriesClosure: (() -> Void)?
     var didSelectCurrencyClosure: (() -> Void)?
+    var didSelectLanguageClosure: (() -> Void)?
     var didSelectAccountsClosure: (() -> Void)?
     var didSelectTemplatesClosure: (() -> Void)?
     var didSelectImportCSVClosure: (() -> Void)?
     var didSelectExportCSVClosure: (() -> Void)?
     
-    // MARK: View
+    // MARK: - Initializer
     
-    override func loadView() {
-        view = SettingsScreenView()
+    init(defaultCurrency: Currency, language: Language) {
+        self.defaultCurrency = defaultCurrency
+        self.language = language
+        super.init()
     }
     
-    private var settingsScreenView: SettingsScreenView! {
-        return view as? SettingsScreenView
+    // MARK: - View
+    
+    override func loadView() {
+        view = ScreenView()
+    }
+    
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
     
     private let tableViewController = AUIEmptyTableViewController()
     
-    // MARK: Localizer
+    // MARK: - Localizer
     
     private lazy var localizer: ScreenLocalizer = {
         let localizer = ScreenLocalizer(language: .english, stringsTableName: "SettingsScreenStrings")
         return localizer
     }()
     
-    // MARK: Events
+    private lazy var currencyCodeLocalizer: CurrencyCodeLocalizer = {
+        let localizer = CurrencyCodeLocalizer()
+        return localizer
+    }()
+    
+    private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
+        let localizer = LanguageCodeLocalizer()
+        return localizer
+    }()
+    
+    
+    // MARK: - Events
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingsScreenView.titleLabel.text = localizer.localizeText("title")
+        screenView.titleLabel.text = localizer.localizeText("title")
         setupTableViewController()
     }
     
     private func setupTableViewController() {
-        tableViewController.tableView = settingsScreenView.tableView
+        tableViewController.tableView = screenView.tableView
         let sectionController = AUIEmptyTableViewSectionController()
         var cellControllers: [AUITableViewCellController] = []
-        let categoriesCellController = AddTableViewCellController()
+        let categoriesCellController = createTitleTableViewCellController()
         categoriesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
-            cell.nameLabel.text = self.localizer.localizeText("categories")
+            let cell = self.screenView.titleTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("categories")
             return cell
-        }
-        categoriesCellController.estimatedHeightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
-            return estimatedHeight
-        }
-        categoriesCellController.heightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let height = self.settingsScreenView.titleItemTableViewCellHeight()
-            return height
         }
         categoriesCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
@@ -73,45 +85,40 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(categoriesCellController)
         
-        let currencyCellController = AddTableViewCellController()
-        currencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+        let defaultCurrencyCellController = createTitleValueTableViewCellController()
+        defaultCurrencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
-            cell.nameLabel.text = self.localizer.localizeText("defaultCurrency")
+            let cell = self.screenView.titleValueTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("defaultCurrency")
+            cell.valueLabel.text = self.currencyCodeLocalizer.code(self.defaultCurrency)
             return cell
         }
-        currencyCellController.estimatedHeightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
-            return estimatedHeight
-        }
-        currencyCellController.heightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let height = self.settingsScreenView.titleItemTableViewCellHeight()
-            return height
-        }
-        currencyCellController.didSelectClosure = { [weak self] in
+        defaultCurrencyCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
             self.didSelectCurrency()
         }
-        cellControllers.append(currencyCellController)
-
-        let accountsCellController = AddTableViewCellController()
-        accountsCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+        cellControllers.append(defaultCurrencyCellController)
+        
+        let languageCellController = createTitleValueTableViewCellController()
+        languageCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
-            cell.nameLabel.text = self.localizer.localizeText("accounts")
+            let cell = self.screenView.titleValueTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("language")
+            cell.valueLabel.text = self.languageCodeLocalizer.code(self.language)
             return cell
         }
-        accountsCellController.estimatedHeightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
-            return estimatedHeight
+        languageCellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.didSelectLanguage()
         }
-        accountsCellController.heightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let height = self.settingsScreenView.titleItemTableViewCellHeight()
-            return height
+        cellControllers.append(languageCellController)
+
+        let accountsCellController = createTitleTableViewCellController()
+        accountsCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.screenView.titleTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("accounts")
+            return cell
         }
         accountsCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
@@ -119,22 +126,12 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(accountsCellController)
         
-        let templatesCellController = AddTableViewCellController()
+        let templatesCellController = createTitleTableViewCellController()
         templatesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
-            cell.nameLabel.text = self.localizer.localizeText("templates")
+            let cell = self.screenView.titleTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("templates")
             return cell
-        }
-        templatesCellController.estimatedHeightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
-            return estimatedHeight
-        }
-        templatesCellController.heightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let height = self.settingsScreenView.titleItemTableViewCellHeight()
-            return height
         }
         templatesCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
@@ -142,22 +139,12 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(templatesCellController)
         
-        let importCSVCellController = AddTableViewCellController()
+        let importCSVCellController = createTitleTableViewCellController()
         importCSVCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
-            cell.nameLabel.text = self.localizer.localizeText("importCSV")
+            let cell = self.screenView.titleTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("importCSV")
             return cell
-        }
-        importCSVCellController.estimatedHeightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
-            return estimatedHeight
-        }
-        importCSVCellController.heightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let height = self.settingsScreenView.titleItemTableViewCellHeight()
-            return height
         }
         importCSVCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
@@ -165,22 +152,12 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         }
         cellControllers.append(importCSVCellController)
         
-        let exportCSVCellController = AddTableViewCellController()
+        let exportCSVCellController = createTitleTableViewCellController()
         exportCSVCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.settingsScreenView.titleItemTableViewCell(indexPath)!
-            cell.nameLabel.text = self.localizer.localizeText("exportCSV")
+            let cell = self.screenView.titleTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("exportCSV")
             return cell
-        }
-        exportCSVCellController.estimatedHeightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let estimatedHeight = self.settingsScreenView.titleItemTableViewCellEstimatedHeight()
-            return estimatedHeight
-        }
-        exportCSVCellController.heightClosure = { [weak self] in
-            guard let self = self else { return 0 }
-            let height = self.settingsScreenView.titleItemTableViewCellHeight()
-            return height
         }
         exportCSVCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
@@ -192,14 +169,53 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         tableViewController.sectionControllers = [sectionController]
     }
     
-    // MARK: Events
+    private func createTitleTableViewCellController() -> AUIClosuresTableViewCellController {
+        let titleTableViewCellController = AUIClosuresTableViewCellController()
+        titleTableViewCellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let estimatedHeight = self.screenView.titleTableViewCellEstimatedHeight()
+            return estimatedHeight
+        }
+        titleTableViewCellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let height = self.screenView.titleTableViewCellHeight()
+            return height
+        }
+        return titleTableViewCellController
+    }
+    
+    private func createTitleValueTableViewCellController() -> AUIClosuresTableViewCellController {
+        let titleTableViewCellController = AUIClosuresTableViewCellController()
+        titleTableViewCellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let estimatedHeight = self.screenView.titleValueTableViewCellEstimatedHeight()
+            return estimatedHeight
+        }
+        titleTableViewCellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            let height = self.screenView.titleValueTableViewCellHeight()
+            return height
+        }
+        return titleTableViewCellController
+    }
+    
+    // MARK: - Events
     
     private func didSelectCategories() {
         didSelectCategoriesClosure?()
     }
     
+    func changeDefaultCurrency(_ defaultCurrency: Currency) {
+        self.defaultCurrency = defaultCurrency
+        tableViewController.reload()
+    }
+    
     private func didSelectCurrency() {
         didSelectCurrencyClosure?()
+    }
+    
+    private func didSelectLanguage() {
+        didSelectLanguageClosure?()
     }
             
     private func didSelectAccounts() {

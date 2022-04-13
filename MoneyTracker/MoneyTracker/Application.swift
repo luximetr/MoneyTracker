@@ -167,7 +167,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     // MARK: - Currencies
     
     func presentationCurrencies(_ presentation: Presentation) -> [PresentationCurrency] {
-        return [.SGD, .USD, .UAH, .TRY, .THB, .EUR]
+        return [.singaporeDollar, .usDollar, .hryvnia, .turkishLira, .baht, .euro]
     }
     
     // MARK: - Selected currency

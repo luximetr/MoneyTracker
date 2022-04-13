@@ -8,10 +8,10 @@
 import Foundation
 
 public enum Currency: String {
-    case SGD = "SGD"
-    case USD = "USD"
-    case UAH = "UAH"
-    case TRY = "TRY"
-    case THB = "THB"
-    case EUR = "EUR"
+    case singaporeDollar = "SGD"
+    case usDollar = "USD"
+    case hryvnia = "UAH"
+    case turkishLira = "TRY"
+    case baht = "THB"
+    case euro = "EUR"
 }

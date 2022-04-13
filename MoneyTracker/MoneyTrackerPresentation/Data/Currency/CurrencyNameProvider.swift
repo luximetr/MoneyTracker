@@ -11,12 +11,12 @@ class CurrencyNameProvider {
     
     func getCurrencyName(currency: Currency) -> String {
         switch currency {
-            case .SGD: return "Singapore Dollar"
-            case .USD: return "United States Dollar"
-            case .UAH: return "Ukrainian hryvnia"
-            case .TRY: return "Turkish lira"
-            case .THB: return "Thai baht"
-            case .EUR: return "Euro"
+            case .singaporeDollar: return "Singapore Dollar"
+            case .usDollar: return "United States Dollar"
+            case .hryvnia: return "Ukrainian hryvnia"
+            case .turkishLira: return "Turkish lira"
+            case .baht: return "Thai baht"
+            case .euro: return "Euro"
         }
     }
 }

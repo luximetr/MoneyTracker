@@ -8,13 +8,14 @@
 import UIKit
 import AUIKit
 
-final class SettingsScreenView: TitleNavigationBarScreenView {
+extension SettingsScreenViewController {
+final class ScreenView: TitleNavigationBarScreenView {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let tableView = UITableView()
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -33,13 +34,15 @@ final class SettingsScreenView: TitleNavigationBarScreenView {
         navigationBarView.backgroundColor = Colors.white
     }
     
-    private let titleItemTableViewCellReuseIdentifier = "titleItemTableViewCellReuseIdentifier"
+    private let titleTableViewCellReuseIdentifier = "titleTableViewCellReuseIdentifier"
+    private let titleValueTableViewCellReuseIdentifier = "titleValueTableViewCellReuseIdentifier"
     private func setupTableView() {
         tableView.separatorStyle = .none
-        tableView.register(TitleItemTableViewCell.self, forCellReuseIdentifier: titleItemTableViewCellReuseIdentifier)
+        tableView.register(TitleTableViewCell.self, forCellReuseIdentifier: titleTableViewCellReuseIdentifier)
+        tableView.register(TitleValueTableViewCell.self, forCellReuseIdentifier: titleValueTableViewCellReuseIdentifier)
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -56,19 +59,35 @@ final class SettingsScreenView: TitleNavigationBarScreenView {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeAreaInsets.bottom, right: 0)
     }
     
-    // MARK: Cells
+    // MARK: - TitleTableViewCell
     
-    func titleItemTableViewCell(_ indexPath: IndexPath) -> TitleItemTableViewCell! {
-        let cell = tableView.dequeueReusableCell(withIdentifier: titleItemTableViewCellReuseIdentifier, for: indexPath) as? TitleItemTableViewCell
-        return cell
+    func titleTableViewCell(_ indexPath: IndexPath) -> TitleTableViewCell {
+        let titleTableViewCell = tableView.dequeueReusableCell(withIdentifier: titleTableViewCellReuseIdentifier, for: indexPath) as! TitleTableViewCell
+        return titleTableViewCell
     }
     
-    func titleItemTableViewCellEstimatedHeight() -> CGFloat {
+    func titleTableViewCellEstimatedHeight() -> CGFloat {
         return 60
     }
     
-    func titleItemTableViewCellHeight() -> CGFloat {
+    func titleTableViewCellHeight() -> CGFloat {
         return 60
     }
     
+    // MARK: - TitleValueTableViewCell
+    
+    func titleValueTableViewCell(_ indexPath: IndexPath) -> TitleValueTableViewCell {
+        let titleValueTableViewCell = tableView.dequeueReusableCell(withIdentifier: titleValueTableViewCellReuseIdentifier, for: indexPath) as! TitleValueTableViewCell
+        return titleValueTableViewCell
+    }
+    
+    func titleValueTableViewCellEstimatedHeight() -> CGFloat {
+        return 60
+    }
+    
+    func titleValueTableViewCellHeight() -> CGFloat {
+        return 60
+    }
+    
+}
 }

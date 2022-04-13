@@ -1,37 +1,45 @@
 //
-//  SettingsScreenTitleItemTableViewCell.swift
+//  SettingsScreenTitleValueTableViewCell.swift
 //  MoneyTrackerPresentation
 //
-//  Created by Job Ihor Myroniuk on 06.02.2022.
+//  Created by Job Ihor Myroniuk on 13.04.2022.
 //
 
 import UIKit
 import AUIKit
 
-extension SettingsScreenView {
-final class TitleItemTableViewCell: AUITableViewCell {
+extension SettingsScreenViewController {
+final class TitleValueTableViewCell: AUITableViewCell {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
-    let nameLabel = UILabel()
+    let titleLabel = UILabel()
+    let valueLabel = UILabel()
     let forwardImageView = UIImageView()
     private let separatorView = UIView()
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
         selectionStyle = .none
-        contentView.addSubview(nameLabel)
-        setupNameLabel()
+        contentView.addSubview(titleLabel)
+        setupTitleLabel()
+        contentView.addSubview(valueLabel)
+        setupValueLabel()
         contentView.addSubview(forwardImageView)
         setupForwardImageView()
         contentView.addSubview(separatorView)
         setupSeparatorView()
     }
     
-    private func setupNameLabel() {
-        nameLabel.textColor = Colors.black
+    private func setupTitleLabel() {
+        titleLabel.textColor = Colors.black
+    }
+    
+    private func setupValueLabel() {
+        valueLabel.font = Fonts.default(size: 13)
+        valueLabel.textColor = Colors.secondaryText
     }
     
     private func setupForwardImageView() {
@@ -43,22 +51,32 @@ final class TitleItemTableViewCell: AUITableViewCell {
         separatorView.backgroundColor = Colors.gray
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutNameLabel()
+        layoutTitleLabel()
+        layoutValueLabel()
         layoutForwardImageView()
         layoutSeparatorView()
     }
     
-    private func layoutNameLabel() {
+    private func layoutTitleLabel() {
         let x: CGFloat = 28
         let y: CGFloat = 12
         let width = bounds.width - x - 40
-        let height = bounds.height - 2 * y
+        let height: CGFloat = 20
         let frame = CGRect(x: x, y: y, width: width, height: height)
-        nameLabel.frame = frame
+        titleLabel.frame = frame
+    }
+    
+    private func layoutValueLabel() {
+        let x: CGFloat = 28
+        let y: CGFloat = 37
+        let width = bounds.width - x - 40
+        let height: CGFloat = 16
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        valueLabel.frame = frame
     }
     
     private func layoutForwardImageView() {
@@ -82,10 +100,10 @@ final class TitleItemTableViewCell: AUITableViewCell {
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         if highlighted {
-            nameLabel.alpha = 0.6
+            titleLabel.alpha = 0.6
             forwardImageView.alpha = 0.6
         } else {
-            nameLabel.alpha = 1
+            titleLabel.alpha = 1
             forwardImageView.alpha = 1
         }
     }
