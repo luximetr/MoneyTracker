@@ -10,9 +10,14 @@ import AFoundation
 
 final class ScreenLocalizer {
     
-    // MARK: Initializer
+    // MARK: - Language
     
-    init(language: Language, stringsTableName: String? = nil, stringsdictTableName: String? = nil) {
+    private var language: Language
+    private let stringsTableName: String?
+    private let stringsdictTableName: String?
+    
+    func changeLanguage(_ language: Language) {
+        self.language = language
         var textLocalizers: [TextLocalizer] = []
         if let stringsTableName = stringsTableName, let bundle = Bundle.forLanguage(language) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsTableName, bundle: bundle)
@@ -22,10 +27,28 @@ final class ScreenLocalizer {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsdictTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }
-        textLocalizer = MultipleTextLocalizer(textLocalizers: textLocalizers)
+        self.textLocalizer = MultipleTextLocalizer(textLocalizers: textLocalizers)
     }
     
-    // MARK:
+    // MARK: - Initializer
+    
+    init(language: Language, stringsTableName: String? = nil, stringsdictTableName: String? = nil) {
+        self.language = language
+        self.stringsTableName = stringsTableName
+        self.stringsdictTableName = stringsdictTableName
+        var textLocalizers: [TextLocalizer] = []
+        if let stringsTableName = stringsTableName, let bundle = Bundle.forLanguage(language) {
+            let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsTableName, bundle: bundle)
+            textLocalizers.append(textLocalizer)
+        }
+        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.forLanguage(language) {
+            let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsdictTableName, bundle: bundle)
+            textLocalizers.append(textLocalizer)
+        }
+        self.textLocalizer = MultipleTextLocalizer(textLocalizers: textLocalizers)
+    }
+    
+    // MARK: - Localizer
     
     private var textLocalizer: TextLocalizer
     

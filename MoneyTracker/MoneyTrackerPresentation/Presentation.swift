@@ -705,6 +705,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     try self.delegate.presentation(self, selectLanguage: language)
+                    self.settingsScreenViewController?.changeLanguage(language)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                     throw error

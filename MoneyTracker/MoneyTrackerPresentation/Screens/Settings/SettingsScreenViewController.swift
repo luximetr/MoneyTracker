@@ -41,8 +41,62 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     }
     
     private let tableViewController = AUIEmptyTableViewController()
+    private let sectionController = AUIEmptyTableViewSectionController()
     
-    // MARK: - Localizer
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupTableViewController()
+        setContent()
+    }
+    
+    private func setupTableViewController() {
+        tableViewController.tableView = screenView.tableView
+    }
+    
+    // MARK: - Events
+    
+    private func didSelectCategories() {
+        didSelectCategoriesClosure?()
+    }
+    
+    func changeDefaultCurrency(_ defaultCurrency: Currency) {
+        self.defaultCurrency = defaultCurrency
+        tableViewController.reload()
+    }
+    
+    private func didSelectCurrency() {
+        didSelectCurrencyClosure?()
+    }
+    
+    func changeLanguage(_ language: Language) {
+        self.language = language
+        localizer.changeLanguage(language)
+        currencyCodeLocalizer.changeLanguage(language)
+        languageCodeLocalizer.changeLanguage(language)
+        tableViewController.reload()
+    }
+    
+    private func didSelectLanguage() {
+        didSelectLanguageClosure?()
+    }
+            
+    private func didSelectAccounts() {
+        didSelectAccountsClosure?()
+    }
+    
+    private func didSelectTemplates() {
+        didSelectTemplatesClosure?()
+    }
+    
+    private func didSelectImportCSV() {
+        didSelectImportCSVClosure?()
+    }
+    
+    private func didSelectExportCSV() {
+        didSelectExportCSVClosure?()
+    }
+    
+    // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
         let localizer = ScreenLocalizer(language: .english, stringsTableName: "SettingsScreenStrings")
@@ -50,27 +104,21 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     }()
     
     private lazy var currencyCodeLocalizer: CurrencyCodeLocalizer = {
-        let localizer = CurrencyCodeLocalizer()
+        let localizer = CurrencyCodeLocalizer(language: language)
         return localizer
     }()
     
     private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
-        let localizer = LanguageCodeLocalizer()
+        let localizer = LanguageCodeLocalizer(language: language)
         return localizer
     }()
     
-    
-    // MARK: - Events
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
-        setupTableViewController()
+        setTableViewContent()
     }
     
-    private func setupTableViewController() {
-        tableViewController.tableView = screenView.tableView
-        let sectionController = AUIEmptyTableViewSectionController()
+    private func setTableViewContent() {
         var cellControllers: [AUITableViewCellController] = []
         let categoriesCellController = createTitleTableViewCellController()
         categoriesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
@@ -197,40 +245,5 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
             return height
         }
         return titleTableViewCellController
-    }
-    
-    // MARK: - Events
-    
-    private func didSelectCategories() {
-        didSelectCategoriesClosure?()
-    }
-    
-    func changeDefaultCurrency(_ defaultCurrency: Currency) {
-        self.defaultCurrency = defaultCurrency
-        tableViewController.reload()
-    }
-    
-    private func didSelectCurrency() {
-        didSelectCurrencyClosure?()
-    }
-    
-    private func didSelectLanguage() {
-        didSelectLanguageClosure?()
-    }
-            
-    private func didSelectAccounts() {
-        didSelectAccountsClosure?()
-    }
-    
-    private func didSelectTemplates() {
-        didSelectTemplatesClosure?()
-    }
-    
-    private func didSelectImportCSV() {
-        didSelectImportCSVClosure?()
-    }
-    
-    private func didSelectExportCSV() {
-        didSelectExportCSVClosure?()
     }
 }

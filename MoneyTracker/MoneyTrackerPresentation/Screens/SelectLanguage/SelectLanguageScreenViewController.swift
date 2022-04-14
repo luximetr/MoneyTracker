@@ -33,12 +33,12 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
     }()
     
     private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
-        let localizer = LanguageCodeLocalizer()
+        let localizer = LanguageCodeLocalizer(language: .english)
         return localizer
     }()
     
     private lazy var languageNameLocalizer: LanguageNameLocalizer = {
-        let localizer = LanguageNameLocalizer()
+        let localizer = LanguageNameLocalizer(language: .english)
         return localizer
     }()
     

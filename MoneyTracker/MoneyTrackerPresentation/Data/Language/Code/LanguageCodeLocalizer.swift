@@ -9,10 +9,25 @@ import Foundation
 
 final class LanguageCodeLocalizer {
     
+    // MARK: - Data
+    
+    private var language: Language
+    
+    func changeLanguage(_ language: Language) {
+        self.language = language
+        localizer.changeLanguage(language)
+    }
+    
+    // MARK: - Initializer
+    
+    init(language: Language) {
+        self.language = language
+    }
+    
     // MARK: - Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "LanguageCodeStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "LanguageCodeStrings")
         return localizer
     }()
     

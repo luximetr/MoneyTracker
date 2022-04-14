@@ -9,6 +9,21 @@ import Foundation
 
 final class LanguageNameLocalizer {
     
+    // MARK: - Data
+    
+    private var language: Language
+    
+    func changeLanguage(_ language: Language) {
+        self.language = language
+        localizer.changeLanguage(language)
+    }
+    
+    // MARK: - Initializer
+    
+    init(language: Language) {
+        self.language = language
+    }
+    
     // MARK: - Localizer
     
     private lazy var localizer: ScreenLocalizer = {
