@@ -63,11 +63,14 @@ final class LanguageTableViewCell: AUITableViewCell {
     
     // MARK: - Update
     
-    override var isSelected: Bool {
-        get { return super.isSelected }
-        set {
-            codeLabel.textColor = getCodeLabelColor(isSelected: isSelected)
-            super.isSelected = newValue
+    func setIsSelected(_ selected: Bool, animated: Bool) {
+        if animated {
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                guard let self = self else { return }
+                self.codeLabel.textColor = self.getCodeLabelColor(isSelected: selected)
+            }
+        } else {
+            self.codeLabel.textColor = self.getCodeLabelColor(isSelected: selected)
         }
     }
     

@@ -1015,9 +1015,9 @@
 		2E926E8727BC55870081E3AE /* Language */ = {
 			isa = PBXGroup;
 			children = (
+				2EB10A4927A707A300743416 /* Language.swift */,
 				2EB8272B28075F4700C6377F /* Code */,
 				2EB8272A28075F3600C6377F /* Name */,
-				2EB10A4927A707A300743416 /* Language.swift */,
 			);
 			path = Language;
 			sourceTree = "<group>";

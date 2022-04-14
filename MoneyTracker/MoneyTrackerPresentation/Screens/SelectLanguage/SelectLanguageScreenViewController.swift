@@ -32,6 +32,16 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
         return localizer
     }()
     
+    private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
+        let localizer = LanguageCodeLocalizer()
+        return localizer
+    }()
+    
+    private lazy var languageNameLocalizer: LanguageNameLocalizer = {
+        let localizer = LanguageNameLocalizer()
+        return localizer
+    }()
+    
     // MARK: - View
     
     override func loadView() {
@@ -53,10 +63,14 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
     
     private let tableViewController = AUIEmptyTableViewController()
     private let sectionController = AUIEmptyTableViewSectionController()
-    private func findCellControllerForCurrency(_ currency: Currency) -> SelectCurrencyTableViewCellController? {
-        let cellControllers = tableViewController.sectionControllers.map({ $0.cellControllers }).reduce([], +)
-        let selectCurrencyTableViewCellController = cellControllers.first(where: { ($0 as? SelectCurrencyTableViewCellController)?.currency == currency }) as? SelectCurrencyTableViewCellController
-        return selectCurrencyTableViewCellController
+    private var languageCellControllers: [LanguageTableViewCellController]? {
+        let cellControllers = sectionController.cellControllers
+        let languageCellControllers = cellControllers as? [LanguageTableViewCellController]
+        return languageCellControllers
+    }
+    private func languageCellController(_ language: Language) -> LanguageTableViewCellController? {
+        let languageCellController = languageCellControllers?.first(where: { $0.language == language })
+        return languageCellController
     }
     
     private func setupTableViewController() {
@@ -70,10 +84,12 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
     }
     
     private func didSelectLanguage(_ language: Language) {
-        //showDeselectedCurrency(selectedCurrency)
-        //showSelectedCurrency(currency)
-        //selectedCurrency = currency
-        //didSelectCurrencyClosure?(currency)
+        guard selectedLanguage != language else { return }
+        let currentSelectedCellController = languageCellController(selectedLanguage)
+        currentSelectedCellController?.setIsSelected(false)
+        let selectedCellController = languageCellController(language)
+        selectedCellController?.setIsSelected(true)
+        selectedLanguage = language
     }
     
     // MARK: Content
@@ -87,13 +103,10 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
         var cellControllers: [AUITableViewCellController] = []
         for language in languages {
             let isSelected = language == selectedLanguage
-            let cellController = LanguageTableViewCellController(language: language, isSelected: isSelected)
+            let cellController = LanguageTableViewCellController(language: language, isSelected: isSelected, languageNameLocalizer: languageNameLocalizer, languageCodeLocalizer: languageCodeLocalizer)
             cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
                 guard let self = self else { return UITableViewCell() }
                 let cell = self.screenView.languageTableViewCell(indexPath)
-                cell.nameLabel.text = "dfdfdf"
-                cell.codeLabel.text = "dfdfdfdf"
-                cell.isSelected = isSelected
                 return cell
             }
             cellController.estimatedHeightClosure = { [weak self] in

@@ -693,7 +693,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private func pushSelectLanguageViewController(_ navigationController: UINavigationController, selectedLanguage: Language?) throws {
         do {
-            let viewController = SelectLanguageScreenViewController(languages: [.english], selectedLanguage: .english)
+            let viewController = SelectLanguageScreenViewController(languages: [.english, .ukrainian, .thai], selectedLanguage: .english)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
