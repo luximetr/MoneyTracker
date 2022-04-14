@@ -21,8 +21,8 @@ extension Bundle {
             let resource: String
             switch language {
             case .english: resource = "en"
-            case .ukrainian: resource = "en"
-            case .thai: resource = "en"
+            case .ukrainian: resource = "uk"
+            case .thai: resource = "th"
             }
             let type = "lproj"
             if let path = Bundle(for: Class.self).path(forResource: resource, ofType: type) {

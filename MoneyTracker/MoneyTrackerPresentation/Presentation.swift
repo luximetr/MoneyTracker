@@ -18,6 +18,7 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Display
     
     public func display() {
+        let language = try! delegate.presentationLanguage(self)
         // Dashboard
         let dashboardViewController = createDashboardViewController()
         let dashboardNavigationController = AUINavigationBarHiddenNavigationController()
@@ -42,7 +43,7 @@ public final class Presentation: AUIWindowPresentation {
         self.settingsScreenViewController = settingsViewController
         self.settingsNavigationController = settingsNavigationController
         // Menu
-        let menuViewController = MenuScreenViewController(dashboardScreenViewController: dashboardNavigationController, historyScreenViewController: historyNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
+        let menuViewController = MenuScreenViewController(language: language, dashboardScreenViewController: dashboardNavigationController, historyScreenViewController: historyNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
@@ -705,6 +706,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     try self.delegate.presentation(self, selectLanguage: language)
+                    self.menuScreenViewController?.changeLanguage(language)
                     self.settingsScreenViewController?.changeLanguage(language)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)

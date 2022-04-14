@@ -1,0 +1,8 @@
+"title" = "Налаштування";
+"categories" = "Категорії";
+"defaultCurrency" = "Валюта за замовчуванням";
+"language" = "Мова";
+"accounts" = "Аккаунти";
+"templates" = "Шаблони";
+"importCSV" = "Імортувати з CSV";
+"exportCSV" = "Експортувати до CSV";

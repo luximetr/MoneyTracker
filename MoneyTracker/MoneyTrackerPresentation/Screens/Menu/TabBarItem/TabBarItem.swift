@@ -47,6 +47,8 @@ final class TabBarItem: AUIButton {
     private func setupTitleLabel() {
         textLabel.font = Fonts.default(size: 14)
         textLabel.textColor = Colors.black
+        textLabel.adjustsFontSizeToFitWidth = true
+        textLabel.minimumScaleFactor = 0.5
     }
     
     // MARK: Layout

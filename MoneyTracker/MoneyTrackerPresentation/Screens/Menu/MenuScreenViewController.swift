@@ -10,9 +10,14 @@ import AUIKit
 
 final class MenuScreenViewController: AUIStatusBarScreenViewController {
     
+    // MARK: - Data
+    
+    private var language: Language
+    
     // MARK: Initializer
     
-    init(dashboardScreenViewController: UIViewController, historyScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
+    init(language: Language, dashboardScreenViewController: UIViewController, historyScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
+        self.language = language
         self.dashboardScreenViewController = dashboardScreenViewController
         self.historyScreenViewController = historyScreenViewController
         self.statisticScreenViewController = statisticScreenViewController
@@ -35,13 +40,6 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     let historyScreenViewController: UIViewController
     let statisticScreenViewController: UIViewController
     let settingsScreenViewController: UIViewController
-    
-    // MARK: Localizer
-    
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "MenuScreenStrings")
-        return localizer
-    }()
     
     // MARK: Events
     
@@ -95,7 +93,18 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         screenController = settingsScreenViewController
     }
     
+    func changeLanguage(_ language: Language) {
+        self.language = language
+        localizer.changeLanguage(language)
+        setContent()
+    }
+    
     // MARK: Content
+    
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "MenuScreenStrings")
+        return localizer
+    }()
     
     private func setContent() {
         screenView.mainTabBarItem.textLabel.text = localizer.localizeText("dashboard")

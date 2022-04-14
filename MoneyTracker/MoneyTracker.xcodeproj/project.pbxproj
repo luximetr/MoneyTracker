@@ -574,6 +574,73 @@
 		2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryScreenView.swift; sourceTree = "<group>"; };
 		2EC6293527AC267D00371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
 		2EC6293827AC282100371252 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA82280891D700E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2EC7CA83280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LanguageCodeStrings.strings; sourceTree = "<group>"; };
+		2EC7CA84280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LanguageNameStrings.strings; sourceTree = "<group>"; };
+		2EC7CA85280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/CurrencyCodeStrings.strings; sourceTree = "<group>"; };
+		2EC7CA86280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/MenuScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA87280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA88280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DashboardCategoryPickerStrings.strings; sourceTree = "<group>"; };
+		2EC7CA89280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DashboardAccountPickerStrings.strings; sourceTree = "<group>"; };
+		2EC7CA8A280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DashboardTemplatesViewStrings.strings; sourceTree = "<group>"; };
+		2EC7CA8B280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AddExpenseScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA8C280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AddTransferScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA8D280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/TopUpAccountScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA8E280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/HistoryScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA8F280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/EditExpenseScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA90280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/StatisticScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA91280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/SettingsScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA92280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/CategoriesScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA93280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA94280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA95280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/SelectIconScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA96280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AccountsScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA97280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AddAccountScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA98280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/EditAccountScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA99280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/SelectCurrencyScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA9A280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/SelectLanguageScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA9B280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/TemplatesScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA9C280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AddTemplateScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA9D280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/EditTemplateScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA9E280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA9F280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/UnexpectedErrorDetailsScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA0280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/ExpenseAddedSnackbarStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA1280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/CategoryHorizontalPickerStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA2280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA3280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2EC7CAA4280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LanguageCodeStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA5280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LanguageNameStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA6280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/CurrencyCodeStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA7280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/MenuScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA8280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAA9280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DashboardCategoryPickerStrings.strings; sourceTree = "<group>"; };
+		2EC7CAAA280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DashboardAccountPickerStrings.strings; sourceTree = "<group>"; };
+		2EC7CAAB280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DashboardTemplatesViewStrings.strings; sourceTree = "<group>"; };
+		2EC7CAAC280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AddExpenseScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAAD280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AddTransferScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAAE280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/TopUpAccountScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAAF280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/HistoryScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB0280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/EditExpenseScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB1280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/StatisticScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB2280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/SettingsScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB3280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/CategoriesScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB4280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB5280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB6280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/SelectIconScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB7280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AccountsScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB8280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AddAccountScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB9280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/EditAccountScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CABA280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/SelectCurrencyScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CABB280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/SelectLanguageScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CABC280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/TemplatesScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CABD280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AddTemplateScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CABE280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/EditTemplateScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CABF280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAC0280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/UnexpectedErrorDetailsScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAC1280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/ExpenseAddedSnackbarStrings.strings; sourceTree = "<group>"; };
+		2EC7CAC2280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/CategoryHorizontalPickerStrings.strings; sourceTree = "<group>"; };
+		2EC7CAC3280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
+		2EC7CAC5280891F900E3DBF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenViewController.swift; sourceTree = "<group>"; };
 		2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenView.swift; sourceTree = "<group>"; };
 		2ECAB30327C593F50028CB0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditAccountScreenStrings.strings; sourceTree = "<group>"; };
@@ -2453,6 +2520,8 @@
 			knownRegions = (
 				en,
 				Base,
+				uk,
+				th,
 			);
 			mainGroup = 2EB109F127A6C30C00743416;
 			productRefGroup = 2EB109FB27A6C30C00743416 /* Products */;
@@ -2994,6 +3063,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E16BA0A27FC81F4000F2466 /* en */,
+				2EC7CAA0280891D900E3DBF6 /* uk */,
+				2EC7CAC1280891EA00E3DBF6 /* th */,
 			);
 			name = ExpenseAddedSnackbarStrings.strings;
 			sourceTree = "<group>";
@@ -3002,6 +3073,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E2A6EDB27EC4FBB0084054C /* en */,
+				2EC7CA8F280891D800E3DBF6 /* uk */,
+				2EC7CAB0280891E900E3DBF6 /* th */,
 			);
 			name = EditExpenseScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3010,6 +3083,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E30391E27BDAF690084B96C /* en */,
+				2EC7CA9F280891D900E3DBF6 /* uk */,
+				2EC7CAC0280891EA00E3DBF6 /* th */,
 			);
 			name = UnexpectedErrorDetailsScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3018,6 +3093,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E394F0C27FCDA2F002C3052 /* en */,
+				2EC7CA8C280891D800E3DBF6 /* uk */,
+				2EC7CAAD280891E900E3DBF6 /* th */,
 			);
 			name = AddTransferScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3026,6 +3103,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E394F1627FCDDE5002C3052 /* en */,
+				2EC7CA8D280891D800E3DBF6 /* uk */,
+				2EC7CAAE280891E900E3DBF6 /* th */,
 			);
 			name = TopUpAccountScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3034,6 +3113,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E928A0127AFF9F6002F3403 /* en */,
+				2EC7CA91280891D800E3DBF6 /* uk */,
+				2EC7CAB2280891EA00E3DBF6 /* th */,
 			);
 			name = SettingsScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3042,6 +3123,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E95BB3327B31ADC0097CA46 /* en */,
+				2EC7CA96280891D900E3DBF6 /* uk */,
+				2EC7CAB7280891EA00E3DBF6 /* th */,
 			);
 			name = AccountsScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3050,6 +3133,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E96212D27AFD94C00DF0DD4 /* en */,
+				2EC7CA94280891D900E3DBF6 /* uk */,
+				2EC7CAB5280891EA00E3DBF6 /* th */,
 			);
 			name = EditCategoryScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3058,6 +3143,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EA7067127B5BA7B00FF08B2 /* en */,
+				2EC7CA97280891D900E3DBF6 /* uk */,
+				2EC7CAB8280891EA00E3DBF6 /* th */,
 			);
 			name = AddAccountScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3066,6 +3153,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EA7B24D27ECFFED006C2F13 /* en */,
+				2EC7CA90280891D800E3DBF6 /* uk */,
+				2EC7CAB1280891E900E3DBF6 /* th */,
 			);
 			name = StatisticScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3074,6 +3163,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EB10A0927A6C30D00743416 /* Base */,
+				2EC7CA82280891D700E3DBF6 /* uk */,
+				2EC7CAA3280891E900E3DBF6 /* th */,
+				2EC7CAC5280891F900E3DBF6 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -3082,6 +3174,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EB10A4427A7068E00743416 /* en */,
+				2EC7CA86280891D800E3DBF6 /* uk */,
+				2EC7CAA7280891E900E3DBF6 /* th */,
 			);
 			name = MenuScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3090,6 +3184,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EB827202807583900C6377F /* en */,
+				2EC7CA85280891D800E3DBF6 /* uk */,
+				2EC7CAA6280891E900E3DBF6 /* th */,
 			);
 			name = CurrencyCodeStrings.strings;
 			sourceTree = "<group>";
@@ -3098,6 +3194,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EB8272828075E0100C6377F /* en */,
+				2EC7CA84280891D800E3DBF6 /* uk */,
+				2EC7CAA5280891E900E3DBF6 /* th */,
 			);
 			name = LanguageNameStrings.strings;
 			sourceTree = "<group>";
@@ -3106,6 +3204,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EB8273128075FEE00C6377F /* en */,
+				2EC7CA83280891D800E3DBF6 /* uk */,
+				2EC7CAA4280891E900E3DBF6 /* th */,
 			);
 			name = LanguageCodeStrings.strings;
 			sourceTree = "<group>";
@@ -3114,6 +3214,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EB8273B280761EE00C6377F /* en */,
+				2EC7CA9A280891D900E3DBF6 /* uk */,
+				2EC7CABB280891EA00E3DBF6 /* th */,
 			);
 			name = SelectLanguageScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3122,6 +3224,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EC19ADC27A8238F00E1A6FA /* en */,
+				2EC7CA92280891D900E3DBF6 /* uk */,
+				2EC7CAB3280891EA00E3DBF6 /* th */,
 			);
 			name = CategoriesScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3130,6 +3234,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2EC6293827AC282100371252 /* en */,
+				2EC7CA93280891D900E3DBF6 /* uk */,
+				2EC7CAB4280891EA00E3DBF6 /* th */,
 			);
 			name = AddCategoryScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3138,6 +3244,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ECAB30327C593F50028CB0D /* en */,
+				2EC7CA98280891D900E3DBF6 /* uk */,
+				2EC7CAB9280891EA00E3DBF6 /* th */,
 			);
 			name = EditAccountScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3146,6 +3254,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ECB218D27DCA9FD006D6558 /* en */,
+				2EC7CA8B280891D800E3DBF6 /* uk */,
+				2EC7CAAC280891E900E3DBF6 /* th */,
 			);
 			name = AddExpenseScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3154,6 +3264,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ECE2DD627F8DA05006E43D0 /* en */,
+				2EC7CA89280891D800E3DBF6 /* uk */,
+				2EC7CAAA280891E900E3DBF6 /* th */,
 			);
 			name = DashboardAccountPickerStrings.strings;
 			sourceTree = "<group>";
@@ -3162,6 +3274,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ECF015127BDA36D008469E0 /* en */,
+				2EC7CA9E280891D900E3DBF6 /* uk */,
+				2EC7CABF280891EA00E3DBF6 /* th */,
 			);
 			name = UnexpectedErrorAlertScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3170,6 +3284,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ED3E93E27F39BDD006C76FB /* en */,
+				2EC7CAA1280891D900E3DBF6 /* uk */,
+				2EC7CAC2280891EA00E3DBF6 /* th */,
 			);
 			name = CategoryHorizontalPickerStrings.strings;
 			sourceTree = "<group>";
@@ -3178,6 +3294,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ED76C8F27F5828A000F8622 /* en */,
+				2EC7CAA2280891D900E3DBF6 /* uk */,
+				2EC7CAC3280891EA00E3DBF6 /* th */,
 			);
 			name = BalanceAccountHorizontalPickerStrings.strings;
 			sourceTree = "<group>";
@@ -3186,6 +3304,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ED8BD7827E909150007F60B /* en */,
+				2EC7CA8E280891D800E3DBF6 /* uk */,
+				2EC7CAAF280891E900E3DBF6 /* th */,
 			);
 			name = HistoryScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3194,6 +3314,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ED9047A27F8707C0091FCA5 /* en */,
+				2EC7CA88280891D800E3DBF6 /* uk */,
+				2EC7CAA9280891E900E3DBF6 /* th */,
 			);
 			name = DashboardCategoryPickerStrings.strings;
 			sourceTree = "<group>";
@@ -3202,6 +3324,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2ED9048227F8AB590091FCA5 /* en */,
+				2EC7CA8A280891D800E3DBF6 /* uk */,
+				2EC7CAAB280891E900E3DBF6 /* th */,
 			);
 			name = DashboardTemplatesViewStrings.strings;
 			sourceTree = "<group>";
@@ -3210,6 +3334,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DB45FADA27E6EFE80073C677 /* en */,
+				2EC7CA9D280891D900E3DBF6 /* uk */,
+				2EC7CABE280891EA00E3DBF6 /* th */,
 			);
 			name = EditTemplateScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3218,6 +3344,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DB74864C27BBABB2004DF67B /* en */,
+				2EC7CA9B280891D900E3DBF6 /* uk */,
+				2EC7CABC280891EA00E3DBF6 /* th */,
 			);
 			name = TemplatesScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3226,6 +3354,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DB7BA80927F87D7500A3B3BA /* en */,
+				2EC7CA95280891D900E3DBF6 /* uk */,
+				2EC7CAB6280891EA00E3DBF6 /* th */,
 			);
 			name = SelectIconScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3234,6 +3364,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DBB7BD1427D78FDE004EF5B7 /* en */,
+				2EC7CA87280891D800E3DBF6 /* uk */,
+				2EC7CAA8280891E900E3DBF6 /* th */,
 			);
 			name = DashboardScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3242,6 +3374,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DBB7BD1F27DC5929004EF5B7 /* en */,
+				2EC7CA9C280891D900E3DBF6 /* uk */,
+				2EC7CABD280891EA00E3DBF6 /* th */,
 			);
 			name = AddTemplateScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3250,6 +3384,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DBD6ACE527B35BF600389236 /* en */,
+				2EC7CA99280891D900E3DBF6 /* uk */,
+				2EC7CABA280891EA00E3DBF6 /* th */,
 			);
 			name = SelectCurrencyScreenStrings.strings;
 			sourceTree = "<group>";
@@ -3332,6 +3468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -3393,6 +3530,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

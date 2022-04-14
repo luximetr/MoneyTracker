@@ -99,7 +99,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "SettingsScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "SettingsScreenStrings")
         return localizer
     }()
     

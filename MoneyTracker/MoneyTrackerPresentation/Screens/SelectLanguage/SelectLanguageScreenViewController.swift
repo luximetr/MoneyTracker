@@ -25,23 +25,6 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
         self.selectedLanguage = selectedLanguage
     }
     
-    // MARK: Localizer
-    
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "SelectLanguageScreenStrings")
-        return localizer
-    }()
-    
-    private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
-        let localizer = LanguageCodeLocalizer(language: .english)
-        return localizer
-    }()
-    
-    private lazy var languageNameLocalizer: LanguageNameLocalizer = {
-        let localizer = LanguageNameLocalizer(language: .english)
-        return localizer
-    }()
-    
     // MARK: - View
     
     override func loadView() {
@@ -93,17 +76,37 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
             let selectedCellController = languageCellController(language)
             selectedCellController?.setIsSelected(true)
             selectedLanguage = language
+            localizer.changeLanguage(language)
+            languageNameLocalizer.changeLanguage(language)
+            languageCodeLocalizer.changeLanguage(language)
+            setContent()
+            tableViewController.reload()
         } catch { }
     }
     
     // MARK: Content
     
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: selectedLanguage, stringsTableName: "SelectLanguageScreenStrings")
+        return localizer
+    }()
+    
+    private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
+        let localizer = LanguageCodeLocalizer(language: selectedLanguage)
+        return localizer
+    }()
+    
+    private lazy var languageNameLocalizer: LanguageNameLocalizer = {
+        let localizer = LanguageNameLocalizer(language: selectedLanguage)
+        return localizer
+    }()
+    
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
-        setTableViewControllerContent()
+        setTableViewContent()
     }
     
-    private func setTableViewControllerContent() {
+    private func setTableViewContent() {
         var cellControllers: [AUITableViewCellController] = []
         for language in languages {
             let isSelected = language == selectedLanguage

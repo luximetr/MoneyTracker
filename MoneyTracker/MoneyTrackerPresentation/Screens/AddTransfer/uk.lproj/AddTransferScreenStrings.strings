@@ -1,0 +1,5 @@
+"title" = "Transfer";
+"fromAccount" = "From";
+"toAccount" = "To";
+"commentPlaceholder" = "Comment (optional)";
+"add" = "Done";
