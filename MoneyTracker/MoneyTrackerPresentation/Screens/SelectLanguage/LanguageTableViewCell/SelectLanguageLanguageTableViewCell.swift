@@ -81,5 +81,17 @@ final class LanguageTableViewCell: AUITableViewCell {
             return Colors.primaryText
         }
     }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        if highlighted {
+            nameLabel.alpha = 0.6
+            codeLabel.alpha = 0.6
+        } else {
+            nameLabel.alpha = 1
+            codeLabel.alpha = 1
+        }
+    }
+
 }
 }

@@ -73,6 +73,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         localizer.changeLanguage(language)
         currencyCodeLocalizer.changeLanguage(language)
         languageCodeLocalizer.changeLanguage(language)
+        setContent()
         tableViewController.reload()
     }
     

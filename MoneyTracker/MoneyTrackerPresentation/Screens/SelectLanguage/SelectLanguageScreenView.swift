@@ -35,7 +35,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private let languageTableViewCellReuseIdentifier = "languageTableViewCellReuseIdentifier"
-    
     private func setupTableView() {
         tableView.separatorStyle = .none
         tableView.register(LanguageTableViewCell.self, forCellReuseIdentifier: languageTableViewCellReuseIdentifier)
@@ -58,7 +57,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     }
     
-    // MARK: - Cells
+    // MARK: - LanguageTableViewCell
     
     func languageTableViewCell(_ indexPath: IndexPath) -> LanguageTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: languageTableViewCellReuseIdentifier, for: indexPath) as! LanguageTableViewCell

@@ -101,9 +101,11 @@ final class TitleValueTableViewCell: AUITableViewCell {
         super.setHighlighted(highlighted, animated: animated)
         if highlighted {
             titleLabel.alpha = 0.6
+            valueLabel.alpha = 0.6
             forwardImageView.alpha = 0.6
         } else {
             titleLabel.alpha = 1
+            valueLabel.alpha = 1
             forwardImageView.alpha = 1
         }
     }

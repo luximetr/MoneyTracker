@@ -35,15 +35,6 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
         return view as? ScreenView
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        setupTableViewController()
-        setContent()
-    }
-    
-    // MARK: - TableView
-    
     private let tableViewController = AUIEmptyTableViewController()
     private let sectionController = AUIEmptyTableViewSectionController()
     private var languageCellControllers: [LanguageTableViewCellController]? {
@@ -54,6 +45,13 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
     private func languageCellController(_ language: Language) -> LanguageTableViewCellController? {
         let languageCellController = languageCellControllers?.first(where: { $0.language == language })
         return languageCellController
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        setupTableViewController()
+        setContent()
     }
     
     private func setupTableViewController() {

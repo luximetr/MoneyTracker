@@ -16,11 +16,6 @@ final class LanguageTableViewCellController: AUIClosuresTableViewCellController 
     let language: Language
     var isSelected: Bool = false
     
-    func setIsSelected(_ isSelected: Bool) {
-        self.isSelected = isSelected
-        languageTableViewCell?.setIsSelected(isSelected, animated: true)
-    }
-    
     // MARK: - Initializer
     
     init(language: Language, isSelected: Bool, languageNameLocalizer: LanguageNameLocalizer, languageCodeLocalizer: LanguageCodeLocalizer) {
@@ -41,6 +36,13 @@ final class LanguageTableViewCellController: AUIClosuresTableViewCellController 
         setContent()
         cell.setIsSelected(isSelected, animated: false)
         return cell
+    }
+    
+    // MARK: - Events
+    
+    func setIsSelected(_ isSelected: Bool) {
+        self.isSelected = isSelected
+        languageTableViewCell?.setIsSelected(isSelected, animated: true)
     }
         
     // MARK: - Content

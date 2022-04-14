@@ -41,5 +41,5 @@ public protocol PresentationDelegate: AnyObject {
     
     func presentationLanguages(_ presentation: Presentation) throws -> [Language]
     func presentationLanguage(_ presentation: Presentation) throws -> Language
-    func presentation(_ presentation: Presentation, selectLanguage: Language) throws
+    func presentation(_ presentation: Presentation, selectLanguage language: Language) throws
 }

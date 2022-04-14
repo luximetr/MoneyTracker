@@ -1082,9 +1082,9 @@
 		2E926E8627BC55790081E3AE /* Currency */ = {
 			isa = PBXGroup;
 			children = (
-				2EB8272228075D8400C6377F /* Code */,
 				DB74869027BE91F6004DF67B /* CurrencyNameProvider.swift */,
 				DBD6ACEE27B3CEA300389236 /* Currency.swift */,
+				2EB8272228075D8400C6377F /* Code */,
 			);
 			path = Currency;
 			sourceTree = "<group>";

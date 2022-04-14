@@ -486,15 +486,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, selectLanguage: PresentationLanguage) throws {
-        do {
-            let language = PresentationLanguageMapper.mapPresentationLanguageToLanguage(selectLanguage)
-            let storageLanguage = StorageLanguageMapper.mapLanguageToStorageLanguage(language)
-            storage.saveSelectedLanguage(storageLanguage)
-        } catch {
-            let error = Error("Cannot add presentation top up account \(selectLanguage)\n\(error)")
-            throw error
-        }
+    func presentation(_ presentation: Presentation, selectLanguage presentationLanguage: PresentationLanguage) throws {
+        let language = PresentationLanguageMapper.mapPresentationLanguageToLanguage(presentationLanguage)
+        let storageLanguage = StorageLanguageMapper.mapLanguageToStorageLanguage(language)
+        storage.saveSelectedLanguage(storageLanguage)
     }
     
 }
