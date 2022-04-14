@@ -41,3 +41,38 @@ class SelectedCurrencyUserDefaultRepo {
         case notFound
     }
 }
+
+class SelectedLanguageUserDefaultRepo {
+    
+    // MARK: - Dependencies
+    
+    private let userDefautlsAccessor: UserDefaultsAccessor
+    private let key = "selectedLanguage"
+    
+    // MARK: - Life cycle
+    
+    init(userDefautlsAccessor: UserDefaultsAccessor) {
+        self.userDefautlsAccessor = userDefautlsAccessor
+    }
+    
+    // MARK: - Save
+    
+    func save(language: Language) {
+        userDefautlsAccessor.userDefaults.set(language.rawValue, forKey: key)
+    }
+    
+    // MARK: - Fetch
+    
+    func fetch() throws -> Language? {
+        guard let rawValue = userDefautlsAccessor.userDefaults.string(forKey: key) else {
+            return nil
+        }
+        return Language(rawValue: rawValue)
+    }
+    
+    // MARK: - Error
+    
+    enum FetchError: Error {
+        case notFound
+    }
+}

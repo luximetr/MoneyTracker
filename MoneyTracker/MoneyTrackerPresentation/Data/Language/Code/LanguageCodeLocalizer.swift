@@ -18,9 +18,9 @@ final class LanguageCodeLocalizer {
     
     func code(_ language: Language) -> String {
         switch language {
-            case .english: return localizer.localizeText("english")
-            case .ukrainian: return localizer.localizeText("ukrainian")
-            case .thai: return localizer.localizeText("thai")
+        case .english: return localizer.localizeText("english")
+        case .ukrainian: return localizer.localizeText("ukrainian")
+        case .thai: return localizer.localizeText("thai")
         }
     }
     

@@ -174,6 +174,10 @@
 		2ED15ECC27FE252F00208386 /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15ECB27FE252F00208386 /* AddingTransfer.swift */; };
 		2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */; };
 		2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */; };
+		2ED248E528086BEF001E0498 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248E428086BEF001E0498 /* Language.swift */; };
+		2ED248E728086C45001E0498 /* PresentationLanguageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248E628086C45001E0498 /* PresentationLanguageMapper.swift */; };
+		2ED248EA28087002001E0498 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248E928087002001E0498 /* Language.swift */; };
+		2ED248EC2808736B001E0498 /* StorageLanguageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248EB2808736B001E0498 /* StorageLanguageMapper.swift */; };
 		2ED347BB2805CC1A0005529A /* PresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED347BA2805CC1A0005529A /* PresentationDelegate.swift */; };
 		2ED3E93727F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3E93627F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift */; };
 		2ED3E93927F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3E93827F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift */; };
@@ -594,6 +598,10 @@
 		2ED15ECB27FE252F00208386 /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
 		2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateView.swift; sourceTree = "<group>"; };
 		2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateViewController.swift; sourceTree = "<group>"; };
+		2ED248E428086BEF001E0498 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		2ED248E628086C45001E0498 /* PresentationLanguageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationLanguageMapper.swift; sourceTree = "<group>"; };
+		2ED248E928087002001E0498 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		2ED248EB2808736B001E0498 /* StorageLanguageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageLanguageMapper.swift; sourceTree = "<group>"; };
 		2ED347BA2805CC1A0005529A /* PresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationDelegate.swift; sourceTree = "<group>"; };
 		2ED3E93627F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ED3E93827F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerAddCollectionViewCellController.swift; sourceTree = "<group>"; };
@@ -931,6 +939,7 @@
 		2E91155127A9373E00359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2ED248E828086FF3001E0498 /* Language */,
 				DBA0546C27FFDC8D00DB3892 /* Error */,
 				DB62AEFE27EF02D500F8CA55 /* ExpensesFile */,
 				2E926EA227BC58B00081E3AE /* ExpenseTemplate */,
@@ -945,6 +954,7 @@
 		2E91155427A93D4800359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2ED248E328086BDF001E0498 /* Language */,
 				DB62AF0127EF03D200F8CA55 /* ExpensesFile */,
 				DB45FADE27E6F3290073C677 /* ExpenseTemplate */,
 				DB7486DB27CDD30C004DF67B /* Expense */,
@@ -1653,6 +1663,24 @@
 				2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */,
 			);
 			path = InputDateView;
+			sourceTree = "<group>";
+		};
+		2ED248E328086BDF001E0498 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				2ED248E428086BEF001E0498 /* Language.swift */,
+				2ED248E628086C45001E0498 /* PresentationLanguageMapper.swift */,
+				2ED248EB2808736B001E0498 /* StorageLanguageMapper.swift */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
+		2ED248E828086FF3001E0498 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				2ED248E928087002001E0498 /* Language.swift */,
+			);
+			path = Language;
 			sourceTree = "<group>";
 		};
 		2ED3E93527F38D64006C76FB /* AddCollectionViewCell */ = {
@@ -2637,6 +2665,7 @@
 				DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */,
 				DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */,
 				DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */,
+				2ED248EA28087002001E0498 /* Language.swift in Sources */,
 				DB62AEF927EEFCCB00F8CA55 /* ImportingExpense.swift in Sources */,
 				DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */,
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
@@ -2673,11 +2702,14 @@
 				2EE1897F27FEBF6F006D7DA9 /* TopUpAccount.swift in Sources */,
 				DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */,
 				2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */,
+				2ED248EC2808736B001E0498 /* StorageLanguageMapper.swift in Sources */,
 				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
 				DBA0546B27FFCF7300DB3892 /* EditingCategoryAdapter.swift in Sources */,
 				2EE1897D27FEBF69006D7DA9 /* AddingTopUpAccount.swift in Sources */,
+				2ED248E528086BEF001E0498 /* Language.swift in Sources */,
 				DB62AEF327EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift in Sources */,
 				DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */,
+				2ED248E728086C45001E0498 /* PresentationLanguageMapper.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
 				DB62AEF527EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift in Sources */,
 				DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */,

@@ -243,6 +243,22 @@ public class Storage {
         return SelectedCurrencyUserDefaultRepo(userDefautlsAccessor: userDefautlsAccessor)
     }
     
+    // MARK: - Selected Language
+    
+    public func saveSelectedLanguage(_ language: Language) {
+        let repo = createSelectedLanguageRepo()
+        repo.save(language: language)
+    }
+    
+    public func getSelectedLanguage() throws -> Language? {
+        let repo = createSelectedLanguageRepo()
+        return try repo.fetch()
+    }
+    
+    private func createSelectedLanguageRepo() -> SelectedLanguageUserDefaultRepo {
+        return SelectedLanguageUserDefaultRepo(userDefautlsAccessor: userDefautlsAccessor)
+    }
+    
     // MARK: - Expenses
     
     public func addExpenses(coinKeeperExpenses: [CoinKeeperExpense]) throws {

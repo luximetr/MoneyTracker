@@ -38,4 +38,8 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
     func presentation(_ presentation: Presentation, addTransfer addingTransfer: AddingTransfer) throws -> Transfer
     func presentation(_ presentation: Presentation, addTopUpAccount addingTopUpAccount: AddingTopUpAccount) throws -> TopUpAccount
+    
+    func presentationLanguages(_ presentation: Presentation) throws -> [Language]
+    func presentationLanguage(_ presentation: Presentation) throws -> Language
+    func presentation(_ presentation: Presentation, selectLanguage: Language) throws
 }

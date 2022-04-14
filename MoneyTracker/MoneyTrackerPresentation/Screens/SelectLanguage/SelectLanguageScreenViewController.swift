@@ -16,7 +16,7 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
     private let languages: [Language]
     private var selectedLanguage: Language
     var backClosure: (() -> Void)?
-    var didSelectCurrencyClosure: ((Currency) -> Void)?
+    var didSelectLanguageClosure: ((Language) throws -> Void)?
     
     // MARK: - Initializer
     
@@ -84,12 +84,16 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
     }
     
     private func didSelectLanguage(_ language: Language) {
+        guard let didSelectLanguageClosure = didSelectLanguageClosure else { return }
         guard selectedLanguage != language else { return }
-        let currentSelectedCellController = languageCellController(selectedLanguage)
-        currentSelectedCellController?.setIsSelected(false)
-        let selectedCellController = languageCellController(language)
-        selectedCellController?.setIsSelected(true)
-        selectedLanguage = language
+        do {
+            try didSelectLanguageClosure(language)
+            let currentSelectedCellController = languageCellController(selectedLanguage)
+            currentSelectedCellController?.setIsSelected(false)
+            let selectedCellController = languageCellController(language)
+            selectedCellController?.setIsSelected(true)
+            selectedLanguage = language
+        } catch { }
     }
     
     // MARK: Content

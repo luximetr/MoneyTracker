@@ -580,8 +580,9 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var settingsScreenViewController: SettingsScreenViewController?
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
+        let language = (try? delegate.presentationLanguage(self)) ?? .english
         let defaultCurrency = try! delegate.presentationSelectedCurrency(self)
-        let viewController = SettingsScreenViewController(defaultCurrency: defaultCurrency, language: .english)
+        let viewController = SettingsScreenViewController(defaultCurrency: defaultCurrency, language: language)
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
@@ -600,7 +601,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.didSelectLanguageClosure = { [weak self, weak viewController] in
+        viewController.didSelectLanguageClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
@@ -693,14 +694,21 @@ public final class Presentation: AUIWindowPresentation {
     
     private func pushSelectLanguageViewController(_ navigationController: UINavigationController, selectedLanguage: Language?) throws {
         do {
-            let viewController = SelectLanguageScreenViewController(languages: [.english, .ukrainian, .thai], selectedLanguage: .english)
+            let languages = try delegate.presentationLanguages(self)
+            let selectedLanguage = try delegate.presentationLanguage(self)
+            let viewController = SelectLanguageScreenViewController(languages: languages, selectedLanguage: selectedLanguage)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
             }
-            viewController.didSelectCurrencyClosure = { [weak self] currency in
+            viewController.didSelectLanguageClosure = { [weak self] language in
                 guard let self = self else { return }
-                self.delegate.presentation(self, updateSelectedCurrency: currency)
+                do {
+                    try self.delegate.presentation(self, selectLanguage: language)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                    throw error
+                }
             }
             navigationController.pushViewController(viewController, animated: true)
         } catch {

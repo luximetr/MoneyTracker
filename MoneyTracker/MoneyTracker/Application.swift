@@ -468,4 +468,33 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             throw error
         }
     }
+    
+    func presentationLanguages(_ presentation: Presentation) throws -> [PresentationLanguage] {
+        let languages: [Language] = [.english, .ukrainian, .thai]
+        let presentationLanguages = languages.map({ PresentationLanguageMapper.mapLanguageToPresentationLanguage($0) })
+        return presentationLanguages
+    }
+    
+    func presentationLanguage(_ presentation: Presentation) throws -> PresentationLanguage {
+        do {
+            let storageLanguage = (try storage.getSelectedLanguage()) ?? .english
+            let language = StorageLanguageMapper.mapStorageLanguageToLanguage(storageLanguage)
+            let presentationLanguage = PresentationLanguageMapper.mapLanguageToPresentationLanguage(language)
+            return presentationLanguage
+        } catch {
+            throw error
+        }
+    }
+    
+    func presentation(_ presentation: Presentation, selectLanguage: PresentationLanguage) throws {
+        do {
+            let language = PresentationLanguageMapper.mapPresentationLanguageToLanguage(selectLanguage)
+            let storageLanguage = StorageLanguageMapper.mapLanguageToStorageLanguage(language)
+            storage.saveSelectedLanguage(storageLanguage)
+        } catch {
+            let error = Error("Cannot add presentation top up account \(selectLanguage)\n\(error)")
+            throw error
+        }
+    }
+    
 }
