@@ -1,3 +1,4 @@
-"title" = "Categories";
-"addCategory"= "Create category";
-"delete"= "Delete";
+"title" = "Категорії";
+"add"= "Додати";
+"addCategory"= "Створити категорію";
+"delete"= "Видалити";

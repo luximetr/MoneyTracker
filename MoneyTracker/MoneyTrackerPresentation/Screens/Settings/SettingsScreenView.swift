@@ -11,35 +11,42 @@ import AUIKit
 extension SettingsScreenViewController {
 final class ScreenView: TitleNavigationBarScreenView {
     
+    // MARK: - Initialization
+        
+    init(appearance: Appearance) {
+        super.init(appearance: appearance)
+    }
+    
     // MARK: - Appearance
     
-    private let appearance: Appearance
-    
-    init(appearance: Appearance) {
-        self.appearance = appearance
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        setupTitleLabel()
+        setupTableView()
+        titleTableViewCells?.forEach({ $0.setup(appearance: appearance) })
+        titleValueTableViewCells?.forEach({ $0.setup(appearance: appearance) })
     }
     
     // MARK: - Subviews
     
     let tableView = UITableView()
+    private var titleTableViewCells: [TitleTableViewCell]? {
+        let titleTableViewCells = tableView.visibleCells.compactMap({ $0 as? TitleTableViewCell })
+        return titleTableViewCells
+    }
+    private var titleValueTableViewCells: [TitleValueTableViewCell]? {
+        let titleValueTableViewCells = tableView.visibleCells.compactMap({ $0 as? TitleValueTableViewCell })
+        return titleValueTableViewCells
+    }
     
     // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
-    }
-    
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = appearance.primaryBackground
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = appearance.primaryBackground
+        setupTitleTableViewCell()
+        setupTitleValueTableViewCell()
     }
     
     override func setupTitleLabel() {
@@ -47,12 +54,18 @@ final class ScreenView: TitleNavigationBarScreenView {
         titleLabel.textColor = appearance.primaryText
     }
     
-    private let titleTableViewCellReuseIdentifier = "titleTableViewCellReuseIdentifier"
-    private let titleValueTableViewCellReuseIdentifier = "titleValueTableViewCellReuseIdentifier"
     private func setupTableView() {
         tableView.backgroundColor = appearance.primaryBackground
         tableView.separatorStyle = .none
+    }
+    
+    private let titleTableViewCellReuseIdentifier = "titleTableViewCellReuseIdentifier"
+    private func setupTitleTableViewCell() {
         tableView.register(TitleTableViewCell.self, forCellReuseIdentifier: titleTableViewCellReuseIdentifier)
+    }
+    
+    private let titleValueTableViewCellReuseIdentifier = "titleValueTableViewCellReuseIdentifier"
+    private func setupTitleValueTableViewCell() {
         tableView.register(TitleValueTableViewCell.self, forCellReuseIdentifier: titleValueTableViewCellReuseIdentifier)
     }
     
@@ -77,6 +90,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     func titleTableViewCell(_ indexPath: IndexPath) -> TitleTableViewCell {
         let titleTableViewCell = tableView.dequeueReusableCell(withIdentifier: titleTableViewCellReuseIdentifier, for: indexPath) as! TitleTableViewCell
+        titleTableViewCell.setup(appearance: appearance)
         return titleTableViewCell
     }
     
@@ -92,6 +106,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     func titleValueTableViewCell(_ indexPath: IndexPath) -> TitleValueTableViewCell {
         let titleValueTableViewCell = tableView.dequeueReusableCell(withIdentifier: titleValueTableViewCellReuseIdentifier, for: indexPath) as! TitleValueTableViewCell
+        titleValueTableViewCell.setup(appearance: appearance)
         return titleValueTableViewCell
     }
     

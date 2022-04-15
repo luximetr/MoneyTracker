@@ -413,7 +413,8 @@ public final class Presentation: AUIWindowPresentation {
     private func pushCategoriesViewController(_ navigationController: UINavigationController) throws {
         do {
             let categories: [Category] = try delegate.presentationCategories(self)
-            let viewController = CategoriesScreenViewController(categories: categories)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = CategoriesScreenViewController(appearance: appearance, language: language, categories: categories)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -587,7 +588,7 @@ public final class Presentation: AUIWindowPresentation {
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
         let language = (try? delegate.presentationLanguage(self)) ?? .english
         let defaultCurrency = try! delegate.presentationSelectedCurrency(self)
-        let viewController = SettingsScreenViewController(appearance: appearance, defaultCurrency: defaultCurrency, language: language)
+        let viewController = SettingsScreenViewController(appearance: appearance, language: language, defaultCurrency: defaultCurrency)
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }

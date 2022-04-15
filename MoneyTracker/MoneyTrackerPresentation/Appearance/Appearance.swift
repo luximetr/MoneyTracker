@@ -9,12 +9,14 @@ import UIKit
 
 protocol Appearance {
     
-    var preferredStatusBarStyle: UIStatusBarStyle { get }
+    var statusBarStyle: UIStatusBarStyle { get }
     
     // MARK: - Colors
     
     var primaryBackground: UIColor { get }
+    var secondaryBackground: UIColor { get }
     var primaryText: UIColor { get }
+    var secondaryText: UIColor { get }
     var accent: UIColor { get }
     
 }

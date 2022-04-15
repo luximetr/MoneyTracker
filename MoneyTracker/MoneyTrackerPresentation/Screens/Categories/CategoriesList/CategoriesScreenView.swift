@@ -11,42 +11,68 @@ import AUIKit
 extension CategoriesScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
-    // MARK: Subviews
+    // MARK: - Initializer
     
+    init(appearance: Appearance) {
+        super.init(appearance: appearance)
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        setupAddButton()
+        setupTableView()
+        categoryTableViewCells?.forEach({ $0.setup(appearance: appearance) })
+    }
+    
+    // MARK: - Subviews
+    
+    let addButton = TextButton()
     let tableView = UITableView()
+    private var categoryTableViewCells: [CategoryTableViewCell]? {
+        let categoryTableViewCells = tableView.visibleCells.compactMap({ $0 as? CategoryTableViewCell })
+        return categoryTableViewCells
+    }
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        navigationBarView.addSubview(addButton)
+        setupAddButton()
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
     }
     
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.white
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.white
+    private func setupAddButton() {
+        addButton.titleLabel?.font = Fonts.default(size: 17)
+        addButton.setTitleColor(appearance.accent, for: .normal)
     }
     
     private let categoryTableViewCellReuseIdentifier = "categoryTableViewCellReuseIdentifier"
-    private let addCategoryTableViewCellReuseIdentifier = "addCategoryTableViewCellReuseIdentifier"
     private func setupTableView() {
+        tableView.backgroundColor = appearance.primaryBackground
         tableView.separatorStyle = .none
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: categoryTableViewCellReuseIdentifier)
-        tableView.register(AddTableViewCell.self, forCellReuseIdentifier: addCategoryTableViewCellReuseIdentifier)
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutAddButton()
         layoutTableView()
+    }
+    
+    private func layoutAddButton() {
+        var size = navigationBarView.bounds.size
+        size = addButton.sizeThatFits(size)
+        let x = navigationBarView.bounds.width - size.width - 12
+        let y = (navigationBarView.frame.size.height - size.height) * 0.5
+        let origin = CGPoint(x: x, y: y)
+        let frame = CGRect(origin: origin, size: size)
+        addButton.frame = frame
     }
     
     private func layoutTableView() {
@@ -59,11 +85,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeAreaInsets.bottom, right: 0)
     }
     
-    // MARK: CategoryTableViewCell
+    // MARK: - CategoryTableViewCell
     
     func categoryTableViewCell(_ indexPath: IndexPath) -> CategoryTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: categoryTableViewCellReuseIdentifier, for: indexPath) as! CategoryTableViewCell
-        return cell
+        let categoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: categoryTableViewCellReuseIdentifier, for: indexPath) as! CategoryTableViewCell
+        categoryTableViewCell.setup(appearance: appearance)
+        return categoryTableViewCell
     }
     
     func categoryTableViewCellEstimatedHeight() -> CGFloat {
@@ -73,22 +100,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     func categoryTableViewCellHeight() -> CGFloat {
         return 75
     }
-    
-    // MARK: AddCategoryTableViewCell
-    
-    func addCategoryTableViewCell(_ indexPath: IndexPath) -> AddTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: addCategoryTableViewCellReuseIdentifier, for: indexPath) as! AddTableViewCell
-        cell.pictureImageView.image = Images.plusInDashCircle
-        return cell
-    }
-    
-    func addCategoryTableViewCellEstimatedHeight() -> CGFloat {
-        return 75
-    }
-    
-    func addCategoryTableViewCellHeight() -> CGFloat {
-        return 75
-    }
-    
+
 }
 }

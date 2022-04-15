@@ -10,18 +10,18 @@ import AUIKit
 
 class TitleNavigationBarScreenView: NavigationBarScreenView {
     
-    // MARK: Elements
+    // MARK: - Elements
     
     let titleLabel: UILabel
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
-    init(frame: CGRect = .zero, statusBarView: UIView = UIView(), navigationBarView: UIView = UIView(), titleLabel: UILabel = UILabel()) {
+    init(frame: CGRect = .zero, appearance: Appearance = LightAppearance(), statusBarView: UIView = UIView(), navigationBarView: UIView = UIView(), titleLabel: UILabel = UILabel()) {
         self.titleLabel = titleLabel
-        super.init(frame: frame, statusBarView: statusBarView, navigationBarView: navigationBarView)
+        super.init(frame: frame, appearance: appearance, statusBarView: statusBarView, navigationBarView: navigationBarView)
     }
 
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -31,10 +31,10 @@ class TitleNavigationBarScreenView: NavigationBarScreenView {
     
     func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 24, weight: .semibold)
-        titleLabel.textColor = Colors.primaryText
+        titleLabel.textColor = appearance.primaryText
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -44,6 +44,13 @@ class TitleNavigationBarScreenView: NavigationBarScreenView {
     func layoutTitleLabel() {
         titleLabel.frame = navigationBarView.bounds
         titleLabel.textAlignment = .center
+    }
+    
+    // MARK: - Events
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        setupTitleLabel()
     }
     
 }

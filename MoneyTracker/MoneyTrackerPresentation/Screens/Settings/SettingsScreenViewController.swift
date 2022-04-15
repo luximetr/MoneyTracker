@@ -8,13 +8,12 @@
 import UIKit
 import AUIKit
 
-final class SettingsScreenViewController: AUIStatusBarScreenViewController {
+final class SettingsScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
-    private let appearance: Appearance
-    var defaultCurrency: Currency
     var language: Language
+    var defaultCurrency: Currency
     var didSelectCategoriesClosure: (() -> Void)?
     var didSelectCurrencyClosure: (() -> Void)?
     var didSelectLanguageClosure: (() -> Void)?
@@ -25,12 +24,10 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, defaultCurrency: Currency, language: Language) {
-        self.appearance = appearance
-        self.defaultCurrency = defaultCurrency
+    init(appearance: Appearance, language: Language, defaultCurrency: Currency) {
         self.language = language
-        super.init()
-        statusBarStyle = appearance.preferredStatusBarStyle
+        self.defaultCurrency = defaultCurrency
+        super.init(appearance: appearance)
     }
     
     // MARK: - View
@@ -39,8 +36,8 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
         view = ScreenView(appearance: appearance)
     }
     
-    private var screenView: ScreenView! {
-        return view as? ScreenView
+    private var screenView: ScreenView {
+        return view as! ScreenView
     }
     
     private let tableViewController = AUIEmptyTableViewController()
@@ -58,6 +55,15 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Events
     
+    func changeLanguage(_ language: Language) {
+        self.language = language
+        localizer.changeLanguage(language)
+        currencyCodeLocalizer.changeLanguage(language)
+        languageCodeLocalizer.changeLanguage(language)
+        setContent()
+        tableViewController.reload()
+    }
+    
     private func didSelectCategories() {
         didSelectCategoriesClosure?()
     }
@@ -69,15 +75,6 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     
     private func didSelectCurrency() {
         didSelectCurrencyClosure?()
-    }
-    
-    func changeLanguage(_ language: Language) {
-        self.language = language
-        localizer.changeLanguage(language)
-        currencyCodeLocalizer.changeLanguage(language)
-        languageCodeLocalizer.changeLanguage(language)
-        setContent()
-        tableViewController.reload()
     }
     
     private func didSelectLanguage() {

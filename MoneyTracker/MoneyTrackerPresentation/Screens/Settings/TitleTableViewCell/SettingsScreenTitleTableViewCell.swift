@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension SettingsScreenViewController {
-final class TitleTableViewCell: AUITableViewCell {
+final class TitleTableViewCell: TableViewCell {
     
     // MARK: - Subviews
     
@@ -23,24 +23,29 @@ final class TitleTableViewCell: AUITableViewCell {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(titleLabel)
-        setupTitleLabel()
         contentView.addSubview(forwardImageView)
-        setupForwardImageView()
         contentView.addSubview(separatorView)
-        setupSeparatorView()
     }
     
-    private func setupTitleLabel() {
-        titleLabel.textColor = Colors.black
+    override func setup(appearance: Appearance) {
+        super.setup(appearance: appearance)
+        setupTitleLabel(appearance: appearance)
+        setupForwardImageView(appearance: appearance)
+        setupSeparatorView(appearance: appearance)
     }
     
-    private func setupForwardImageView() {
+    private func setupTitleLabel(appearance: Appearance) {
+        titleLabel.textColor = appearance.primaryText
+    }
+    
+    private func setupForwardImageView(appearance: Appearance) {
         forwardImageView.contentMode = .scaleAspectFit
-        forwardImageView.image = Images.forwardArrow
+        forwardImageView.image = Images.forwardArrow.withRenderingMode(.alwaysTemplate)
+        forwardImageView.tintColor = appearance.primaryText
     }
     
-    private func setupSeparatorView() {
-        separatorView.backgroundColor = Colors.gray
+    private func setupSeparatorView(appearance: Appearance) {
+        separatorView.backgroundColor = appearance.secondaryBackground
     }
     
     // MARK: - Layout
@@ -78,6 +83,8 @@ final class TitleTableViewCell: AUITableViewCell {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         separatorView.frame = frame
     }
+    
+    // MARK: - Highlighted
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)

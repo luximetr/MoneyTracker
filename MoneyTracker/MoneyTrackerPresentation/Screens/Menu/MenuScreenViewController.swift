@@ -8,26 +8,24 @@
 import UIKit
 import AUIKit
 
-final class MenuScreenViewController: AUIStatusBarScreenViewController {
+final class MenuScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
-    private let appearance: Appearance
     private var language: Language
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
     init(appearance: Appearance, language: Language, dashboardScreenViewController: UIViewController, historyScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
-        self.appearance = appearance
         self.language = language
         self.dashboardScreenViewController = dashboardScreenViewController
         self.historyScreenViewController = historyScreenViewController
         self.statisticScreenViewController = statisticScreenViewController
         self.settingsScreenViewController = settingsScreenViewController
-        super.init()
+        super.init(appearance: appearance)
     }
     
-    // MARK: View
+    // MARK: - View
     
     override func loadView() {
         view = ScreenView(appearance: appearance)
@@ -43,8 +41,6 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     let statisticScreenViewController: UIViewController
     let settingsScreenViewController: UIViewController
     
-    // MARK: Events
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         screenView.mainTabBarItem.addTarget(self, action: #selector(dashboard), for: .touchUpInside)
@@ -54,6 +50,8 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         dashboard()
         setContent()
     }
+    
+    // MARK: - Events
     
     @objc func dashboard() {
         screenController?.willMove(toParent: nil)
@@ -101,7 +99,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
         setContent()
     }
     
-    // MARK: Content
+    // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
         let localizer = ScreenLocalizer(language: language, stringsTableName: "MenuScreenStrings")

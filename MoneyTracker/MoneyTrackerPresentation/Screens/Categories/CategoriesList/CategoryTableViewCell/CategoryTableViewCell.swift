@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension CategoriesScreenViewController {
-final class CategoryTableViewCell: AUITableViewCell {
+final class CategoryTableViewCell: TableViewCell {
     
     // MARK: Subviews
     
@@ -24,17 +24,21 @@ final class CategoryTableViewCell: AUITableViewCell {
         selectionStyle = .none
         contentView.addSubview(iconView)
         contentView.addSubview(nameLabel)
-        setupNameLabel()
         contentView.addSubview(separatorView)
-        setupSeparatorView()
     }
     
-    private func setupNameLabel() {
-        nameLabel.textColor = Colors.black
+    override func setup(appearance: Appearance) {
+        super.setup(appearance: appearance)
+        setupNameLabel(appearance: appearance)
+        setupSeparatorView(appearance: appearance)
     }
     
-    private func setupSeparatorView() {
-        separatorView.backgroundColor = Colors.gray
+    private func setupNameLabel(appearance: Appearance) {
+        nameLabel.textColor = appearance.primaryText
+    }
+    
+    private func setupSeparatorView(appearance: Appearance) {
+        separatorView.backgroundColor = appearance.secondaryBackground
     }
     
     // MARK: Layout

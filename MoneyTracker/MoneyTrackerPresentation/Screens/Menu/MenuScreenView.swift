@@ -14,6 +14,8 @@ final class ScreenView: AUIView {
     
     private let appearance: Appearance
     
+    // MARK: - Initializer
+    
     init(appearance: Appearance) {
         self.appearance = appearance
         self.mainTabBarItem = TabBarItem(appearance: appearance)
@@ -23,7 +25,7 @@ final class ScreenView: AUIView {
         super.init(frame: .zero)
     }
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     private var screenView: UIView?
     private let tabBarView = UIView()
@@ -34,7 +36,7 @@ final class ScreenView: AUIView {
     var tabBarItems: [TabBarItem] { [mainTabBarItem, historyTabBarItem, statisticTabBarItem, settingsTabBarItem] }
     private var selectedTabBarItem: TabBarItem?
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -58,7 +60,7 @@ final class ScreenView: AUIView {
         tabBarView.layer.shadowOffset = CGSize(width: 0, height: -12)
     }
     
-    // MARK: Layut
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -99,33 +101,33 @@ final class ScreenView: AUIView {
         }
     }
     
-    // MARK: Setters
+    // MARK: - Setters
     
     func setMainScreenView(_ homeScreenView: UIView) {
-        selectedTabBarItem?.isSelected = false
+        selectedTabBarItem?.setSelected(false, animated: false)
         selectedTabBarItem = mainTabBarItem
-        mainTabBarItem.isSelected = true
+        mainTabBarItem.setSelected(true, animated: false)
         setScreenView(homeScreenView)
     }
     
     func setHistoryScreenView(_ historyScreenView: UIView) {
-        selectedTabBarItem?.isSelected = false
+        selectedTabBarItem?.setSelected(false, animated: false)
         selectedTabBarItem = historyTabBarItem
-        historyTabBarItem.isSelected = true
+        historyTabBarItem.setSelected(true, animated: false)
         setScreenView(historyScreenView)
     }
     
     func setStatisticScreenView(_ homeScreenView: UIView) {
-        selectedTabBarItem?.isSelected = false
+        selectedTabBarItem?.setSelected(false, animated: false)
         selectedTabBarItem = statisticTabBarItem
-        statisticTabBarItem.isSelected = true
+        statisticTabBarItem.setSelected(true, animated: false)
         setScreenView(homeScreenView)
     }
     
     func setSettingsScreenView(_ homeScreenView: UIView) {
-        selectedTabBarItem?.isSelected = false
+        selectedTabBarItem?.setSelected(false, animated: false)
         selectedTabBarItem = settingsTabBarItem
-        settingsTabBarItem.isSelected = true
+        settingsTabBarItem.setSelected(true, animated: false)
         setScreenView(homeScreenView)
     }
     

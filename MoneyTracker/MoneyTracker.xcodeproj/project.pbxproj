@@ -156,6 +156,7 @@
 		2ECAD4F72809A3180003BB26 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD4F62809A3180003BB26 /* Appearance.swift */; };
 		2ECAD4F92809A3830003BB26 /* DarkAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD4F82809A3830003BB26 /* DarkAppearance.swift */; };
 		2ECAD4FB2809A38E0003BB26 /* LightAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD4FA2809A38E0003BB26 /* LightAppearance.swift */; };
+		2ECAD4FD2809DCF30003BB26 /* StatusBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD4FC2809DCF30003BB26 /* StatusBarScreenView.swift */; };
 		2ECB165927F77FD5009D748D /* DashboardTemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB165827F77FD5009D748D /* DashboardTemplatesViewController.swift */; };
 		2ECB165C27F78056009D748D /* DashboardTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB165B27F78056009D748D /* DashboardTemplatesView.swift */; };
 		2ECB165E27F78DF7009D748D /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB165D27F78DF7009D748D /* TextButton.swift */; };
@@ -193,6 +194,8 @@
 		2ED76C8927F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED76C8827F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift */; };
 		2ED76C8B27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */; };
 		2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED76C9027F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings */; };
+		2ED7E48A2809FADC00B35F02 /* StatusBarScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */; };
+		2ED7E490280A06C600B35F02 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E48F280A06C600B35F02 /* TableViewCell.swift */; };
 		2ED8BD7227E908E50007F60B /* HistoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7127E908E50007F60B /* HistoryScreenViewController.swift */; };
 		2ED8BD7427E908F50007F60B /* HistoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7327E908F50007F60B /* HistoryScreenView.swift */; };
 		2ED8BD7727E909150007F60B /* HistoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7927E909150007F60B /* HistoryScreenStrings.strings */; };
@@ -650,6 +653,7 @@
 		2ECAD4F62809A3180003BB26 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		2ECAD4F82809A3830003BB26 /* DarkAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkAppearance.swift; sourceTree = "<group>"; };
 		2ECAD4FA2809A38E0003BB26 /* LightAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightAppearance.swift; sourceTree = "<group>"; };
+		2ECAD4FC2809DCF30003BB26 /* StatusBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarScreenView.swift; sourceTree = "<group>"; };
 		2ECB165827F77FD5009D748D /* DashboardTemplatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTemplatesViewController.swift; sourceTree = "<group>"; };
 		2ECB165B27F78056009D748D /* DashboardTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTemplatesView.swift; sourceTree = "<group>"; };
 		2ECB165D27F78DF7009D748D /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
@@ -687,6 +691,8 @@
 		2ED76C8827F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountPickerAddCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountPickerAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ED76C8F27F5828A000F8622 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
+		2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarScreenViewController.swift; sourceTree = "<group>"; };
+		2ED7E48F280A06C600B35F02 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		2ED8BD7127E908E50007F60B /* HistoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenViewController.swift; sourceTree = "<group>"; };
 		2ED8BD7327E908F50007F60B /* HistoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenView.swift; sourceTree = "<group>"; };
 		2ED8BD7827E909150007F60B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HistoryScreenStrings.strings; sourceTree = "<group>"; };
@@ -1500,6 +1506,7 @@
 		2EBEAA3A27F07E53000480DA /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				2ED7E48F280A06C600B35F02 /* TableViewCell.swift */,
 				2E8FF0FE27AEF1DE00DA033F /* AddTableViewCell */,
 			);
 			path = TableViewCells;
@@ -1532,9 +1539,10 @@
 		2EC19AD427A7F78200E1A6FA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				2EC19AD527A7F78C00E1A6FA /* NavigationBarScreenView.swift */,
-				2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */,
-				2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */,
+				2ED7E48B2809FBDA00B35F02 /* StatusBar */,
+				2ED7E48C2809FBE700B35F02 /* NavigationBar */,
+				2ED7E48D2809FC8200B35F02 /* TitleNavigationBar */,
+				2ED7E48E2809FC9800B35F02 /* BackTitleNavigationBar */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1819,6 +1827,39 @@
 				2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */,
 			);
 			path = AddCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		2ED7E48B2809FBDA00B35F02 /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */,
+				2ECAD4FC2809DCF30003BB26 /* StatusBarScreenView.swift */,
+			);
+			path = StatusBar;
+			sourceTree = "<group>";
+		};
+		2ED7E48C2809FBE700B35F02 /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				2EC19AD527A7F78C00E1A6FA /* NavigationBarScreenView.swift */,
+			);
+			path = NavigationBar;
+			sourceTree = "<group>";
+		};
+		2ED7E48D2809FC8200B35F02 /* TitleNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */,
+			);
+			path = TitleNavigationBar;
+			sourceTree = "<group>";
+		};
+		2ED7E48E2809FC9800B35F02 /* BackTitleNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */,
+			);
+			path = BackTitleNavigationBar;
 			sourceTree = "<group>";
 		};
 		2ED8BD7027E908C90007F60B /* History */ = {
@@ -2858,6 +2899,7 @@
 				DB7BA80F27F9494800A3B3BA /* SelectIconScreenCollectionCellController.swift in Sources */,
 				2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */,
 				2EB10A3A27A6FEAE00743416 /* Colors.swift in Sources */,
+				2ED7E48A2809FADC00B35F02 /* StatusBarScreenViewController.swift in Sources */,
 				DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */,
 				DB45FAD627E6EFC00073C677 /* EditTemplateScreenView.swift in Sources */,
 				2EB10A2A27A6CAFF00743416 /* Presentation.swift in Sources */,
@@ -2897,6 +2939,7 @@
 				DBB7BD2E27DDDF04004EF5B7 /* CategoryHorizontalPickerView.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
 				2EB82737280761DB00C6377F /* SelectLanguageScreenView.swift in Sources */,
+				2ED7E490280A06C600B35F02 /* TableViewCell.swift in Sources */,
 				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
 				2E394F1027FCDDC1002C3052 /* TopUpAccountScreenViewController.swift in Sources */,
 				2ECB218927DCA961006D6558 /* AddExpenseScreenView.swift in Sources */,
@@ -2919,6 +2962,7 @@
 				2EC6179027F8393300845E7A /* DashboardCategoryPickerViewController.swift in Sources */,
 				2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */,
 				2E09CC3727F4F9720015DA1E /* PlainTextField.swift in Sources */,
+				2ECAD4FD2809DCF30003BB26 /* StatusBarScreenView.swift in Sources */,
 				DB7BA81727F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift in Sources */,
 				DB7BA80327F87CB500A3B3BA /* SelectIconScreenView.swift in Sources */,
 				2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */,

@@ -10,20 +10,20 @@ import AUIKit
 
 class BackTitleNavigationBarScreenView: NavigationBarScreenView {
     
-    // MARK: Elements
+    // MARK: - Elements
     
     let backButton: UIButton
     let titleLabel: UILabel
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
-    init(frame: CGRect = .zero, statusBarView: UIView = UIView(), navigationBarView: UIView = UIView(), backButton: UIButton = PictureButton(), titleLabel: UILabel = UILabel()) {
+    init(frame: CGRect = .zero, appearance: Appearance = LightAppearance(), statusBarView: UIView = UIView(), navigationBarView: UIView = UIView(), backButton: UIButton = PictureButton(), titleLabel: UILabel = UILabel()) {
         self.backButton = backButton
         self.titleLabel = titleLabel
-        super.init(frame: frame, statusBarView: statusBarView, navigationBarView: navigationBarView)
+        super.init(frame: frame, appearance: appearance, statusBarView: statusBarView, navigationBarView: navigationBarView)
     }
 
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -35,15 +35,15 @@ class BackTitleNavigationBarScreenView: NavigationBarScreenView {
     
     func setupBackButton() {
         backButton.setImage(Images.backArrow.withRenderingMode(.alwaysTemplate), for: .normal)
-        backButton.imageView?.tintColor = Colors.primaryText
+        backButton.imageView?.tintColor = appearance.accent
     }
     
     func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 24, weight: .semibold)
-        titleLabel.textColor = Colors.primaryText
+        titleLabel.textColor = appearance.primaryText
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -68,6 +68,14 @@ class BackTitleNavigationBarScreenView: NavigationBarScreenView {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         titleLabel.frame = frame
         titleLabel.textAlignment = .center
+    }
+    
+    // MARK: - Events
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        setupBackButton()
+        setupTitleLabel()
     }
     
 }

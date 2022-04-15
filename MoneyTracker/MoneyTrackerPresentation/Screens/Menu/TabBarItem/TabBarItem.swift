@@ -14,31 +14,19 @@ final class TabBarItem: AUIButton {
     
     private let appearance: Appearance
     
+    // MARK: - Initializer
+    
     init(appearance: Appearance) {
         self.appearance = appearance
         super.init(frame: .zero)
     }
     
-    // MARK: Settigns
-    
-    override var isSelected: Bool {
-        willSet {
-            if newValue {
-                pictureImageView.tintColor = appearance.accent
-                textLabel.textColor = appearance.accent
-            } else {
-                pictureImageView.tintColor = appearance.primaryText
-                textLabel.textColor = appearance.primaryText
-            }
-        }
-    }
-    
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let pictureImageView = UIImageView()
     let textLabel = UILabel()
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -60,7 +48,7 @@ final class TabBarItem: AUIButton {
         textLabel.minimumScaleFactor = 0.5
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -85,6 +73,18 @@ final class TabBarItem: AUIButton {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         textLabel.frame = frame
         textLabel.textAlignment = .center
+    }
+    
+    // MARK: - Events
+    
+    func setSelected(_ selected: Bool, animated: Bool) {
+        if selected {
+            pictureImageView.tintColor = appearance.accent
+            textLabel.textColor = appearance.accent
+        } else {
+            pictureImageView.tintColor = appearance.primaryText
+            textLabel.textColor = appearance.primaryText
+        }
     }
     
 }

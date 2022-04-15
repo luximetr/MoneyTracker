@@ -8,20 +8,20 @@
 import UIKit
 import AUIKit
 
-class NavigationBarScreenView: AUIStatusBarScreenView {
+class NavigationBarScreenView: StatusBarScreenView {
     
-    // MARK: Elements
+    // MARK: - Elements
     
     let navigationBarView: UIView
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
-    init(frame: CGRect = .zero, statusBarView: UIView = UIView(), navigationBarView: UIView = UIView()) {
+    init(frame: CGRect = .zero, appearance: Appearance = LightAppearance(), statusBarView: UIView = UIView(), navigationBarView: UIView = UIView()) {
         self.navigationBarView = navigationBarView
-        super.init(frame: frame, statusBarView: statusBarView)
+        super.init(frame: frame, appearance: appearance, statusBarView: statusBarView)
     }
 
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -30,13 +30,14 @@ class NavigationBarScreenView: AUIStatusBarScreenView {
     }
     
     func setupNavigationBarView() {
+        navigationBarView.backgroundColor = appearance.primaryBackground
         navigationBarView.layer.shadowColor = Colors.black.withAlphaComponent(0.12).cgColor
         navigationBarView.layer.shadowOpacity = 0.6
         navigationBarView.layer.shadowRadius = 12
         navigationBarView.layer.shadowOffset = CGSize(width: 0, height: 12)
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -49,6 +50,13 @@ class NavigationBarScreenView: AUIStatusBarScreenView {
         let width = bounds.width
         let height: CGFloat = 48
         navigationBarView.frame = CGRect(x: x, y: y, width: width, height: height)
+    }
+    
+    // MARK: - Events
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        setupNavigationBarView()
     }
     
 }
