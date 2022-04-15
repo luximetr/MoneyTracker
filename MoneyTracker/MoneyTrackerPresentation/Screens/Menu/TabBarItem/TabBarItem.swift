@@ -10,16 +10,25 @@ import AUIKit
 extension MenuScreenViewController {
 final class TabBarItem: AUIButton {
     
+    // MARK: - Appearance
+    
+    private let appearance: Appearance
+    
+    init(appearance: Appearance) {
+        self.appearance = appearance
+        super.init(frame: .zero)
+    }
+    
     // MARK: Settigns
     
     override var isSelected: Bool {
         willSet {
             if newValue {
-                pictureImageView.tintColor = Colors.accent
-                textLabel.textColor = Colors.accent
+                pictureImageView.tintColor = appearance.accent
+                textLabel.textColor = appearance.accent
             } else {
-                pictureImageView.tintColor = Colors.black
-                textLabel.textColor = Colors.black
+                pictureImageView.tintColor = appearance.primaryText
+                textLabel.textColor = appearance.primaryText
             }
         }
     }
@@ -41,12 +50,12 @@ final class TabBarItem: AUIButton {
     
     private func setupPictureImageView() {
         pictureImageView.contentMode = .scaleAspectFit
-        pictureImageView.tintColor = Colors.black
+        pictureImageView.tintColor = appearance.primaryText
     }
     
     private func setupTitleLabel() {
         textLabel.font = Fonts.default(size: 14)
-        textLabel.textColor = Colors.black
+        textLabel.textColor = appearance.primaryText
         textLabel.adjustsFontSizeToFitWidth = true
         textLabel.minimumScaleFactor = 0.5
     }

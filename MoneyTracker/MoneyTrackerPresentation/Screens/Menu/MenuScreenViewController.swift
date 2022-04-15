@@ -12,11 +12,13 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Data
     
+    private let appearance: Appearance
     private var language: Language
     
     // MARK: Initializer
     
-    init(language: Language, dashboardScreenViewController: UIViewController, historyScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
+    init(appearance: Appearance, language: Language, dashboardScreenViewController: UIViewController, historyScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
+        self.appearance = appearance
         self.language = language
         self.dashboardScreenViewController = dashboardScreenViewController
         self.historyScreenViewController = historyScreenViewController
@@ -28,7 +30,7 @@ final class MenuScreenViewController: AUIStatusBarScreenViewController {
     // MARK: View
     
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private var screenView: ScreenView! {

@@ -10,14 +10,27 @@ import AUIKit
 extension MenuScreenViewController {
 final class ScreenView: AUIView {
     
+    // MARK: - Appearance
+    
+    private let appearance: Appearance
+    
+    init(appearance: Appearance) {
+        self.appearance = appearance
+        self.mainTabBarItem = TabBarItem(appearance: appearance)
+        self.historyTabBarItem = TabBarItem(appearance: appearance)
+        self.statisticTabBarItem = TabBarItem(appearance: appearance)
+        self.settingsTabBarItem = TabBarItem(appearance: appearance)
+        super.init(frame: .zero)
+    }
+    
     // MARK: Subviews
     
     private var screenView: UIView?
     private let tabBarView = UIView()
-    let mainTabBarItem = TabBarItem()
-    let historyTabBarItem = TabBarItem()
-    let statisticTabBarItem = TabBarItem()
-    let settingsTabBarItem = TabBarItem()
+    let mainTabBarItem: TabBarItem
+    let historyTabBarItem: TabBarItem
+    let statisticTabBarItem: TabBarItem
+    let settingsTabBarItem: TabBarItem
     var tabBarItems: [TabBarItem] { [mainTabBarItem, historyTabBarItem, statisticTabBarItem, settingsTabBarItem] }
     private var selectedTabBarItem: TabBarItem?
     
@@ -38,7 +51,7 @@ final class ScreenView: AUIView {
     }
     
     private func setupTabBarView() {
-        tabBarView.backgroundColor = .white
+        tabBarView.backgroundColor = appearance.primaryBackground
         tabBarView.layer.shadowColor = Colors.black.withAlphaComponent(0.12).cgColor
         tabBarView.layer.shadowOpacity = 0.6
         tabBarView.layer.shadowRadius = 12

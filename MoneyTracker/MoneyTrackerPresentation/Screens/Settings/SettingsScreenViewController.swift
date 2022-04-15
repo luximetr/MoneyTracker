@@ -12,6 +12,7 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Data
     
+    private let appearance: Appearance
     var defaultCurrency: Currency
     var language: Language
     var didSelectCategoriesClosure: (() -> Void)?
@@ -24,16 +25,18 @@ final class SettingsScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(defaultCurrency: Currency, language: Language) {
+    init(appearance: Appearance, defaultCurrency: Currency, language: Language) {
+        self.appearance = appearance
         self.defaultCurrency = defaultCurrency
         self.language = language
         super.init()
+        statusBarStyle = appearance.preferredStatusBarStyle
     }
     
     // MARK: - View
     
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private var screenView: ScreenView! {

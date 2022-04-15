@@ -15,6 +15,10 @@ public final class Presentation: AUIWindowPresentation {
     
     public weak var delegate: PresentationDelegate!
     
+    // MARK: - Appearance
+    
+    private let appearance: Appearance = LightAppearance()
+    
     // MARK: - Display
     
     public func display() {
@@ -43,7 +47,7 @@ public final class Presentation: AUIWindowPresentation {
         self.settingsScreenViewController = settingsViewController
         self.settingsNavigationController = settingsNavigationController
         // Menu
-        let menuViewController = MenuScreenViewController(language: language, dashboardScreenViewController: dashboardNavigationController, historyScreenViewController: historyNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
+        let menuViewController = MenuScreenViewController(appearance: appearance, language: language, dashboardScreenViewController: dashboardNavigationController, historyScreenViewController: historyNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
@@ -583,7 +587,7 @@ public final class Presentation: AUIWindowPresentation {
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
         let language = (try? delegate.presentationLanguage(self)) ?? .english
         let defaultCurrency = try! delegate.presentationSelectedCurrency(self)
-        let viewController = SettingsScreenViewController(defaultCurrency: defaultCurrency, language: language)
+        let viewController = SettingsScreenViewController(appearance: appearance, defaultCurrency: defaultCurrency, language: language)
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }

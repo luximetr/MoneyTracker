@@ -11,6 +11,14 @@ import AUIKit
 extension SettingsScreenViewController {
 final class ScreenView: TitleNavigationBarScreenView {
     
+    // MARK: - Appearance
+    
+    private let appearance: Appearance
+    
+    init(appearance: Appearance) {
+        self.appearance = appearance
+    }
+    
     // MARK: - Subviews
     
     let tableView = UITableView()
@@ -19,24 +27,30 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
     }
     
     override func setupStatusBarView() {
         super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.white
+        statusBarView.backgroundColor = appearance.primaryBackground
     }
     
     override func setupNavigationBarView() {
         super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.white
+        navigationBarView.backgroundColor = appearance.primaryBackground
+    }
+    
+    override func setupTitleLabel() {
+        super.setupTitleLabel()
+        titleLabel.textColor = appearance.primaryText
     }
     
     private let titleTableViewCellReuseIdentifier = "titleTableViewCellReuseIdentifier"
     private let titleValueTableViewCellReuseIdentifier = "titleValueTableViewCellReuseIdentifier"
     private func setupTableView() {
+        tableView.backgroundColor = appearance.primaryBackground
         tableView.separatorStyle = .none
         tableView.register(TitleTableViewCell.self, forCellReuseIdentifier: titleTableViewCellReuseIdentifier)
         tableView.register(TitleValueTableViewCell.self, forCellReuseIdentifier: titleValueTableViewCellReuseIdentifier)
