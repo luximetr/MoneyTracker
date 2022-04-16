@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import PinLayout
 
-final class ColorHorizontalPickerView: View {
+final class ColorHorizontalPickerView: AppearanceView {
     
     // MARK: - Data
     

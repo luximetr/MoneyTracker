@@ -5,10 +5,10 @@
 //  Created by Job Ihor Myroniuk on 01.04.2022.
 //
 
-import Foundation
+import UIKit
 import AUIKit
 
-final class TextButton: AUIButton {
+final class TextButton: AppearanceButton {
     
     // MARK: Setup
     

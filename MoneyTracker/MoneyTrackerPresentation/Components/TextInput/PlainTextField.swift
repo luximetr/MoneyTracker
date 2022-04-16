@@ -8,13 +8,17 @@
 import UIKit
 import AUIKit
 
-final class PlainTextField: TextField {
+final class PlainTextField: AppearanceTextField {
     
     // MARK: - Setup
     
     override func setup() {
         super.setup()
         setupBorder()
+        tintColor = appearance.primaryText
+        textColor = appearance.primaryText
+        backgroundColor = appearance.primaryBackground
+        font = Fonts.default(size: 17, weight: .regular)
     }
     
     func setupBorder() {
@@ -48,6 +52,27 @@ final class PlainTextField: TextField {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         setupBorder()
+        tintColor = appearance.primaryText
+        textColor = appearance.primaryText
+        backgroundColor = appearance.primaryBackground
+        placeholder = placeholder
+    }
+    
+    // MARK: - Placeholder
+    
+    override var placeholder: String? {
+        get {
+            return attributedPlaceholder?.string
+        }
+        set {
+            guard let string = newValue else { return }
+            let attributes: [NSAttributedString.Key : Any] = [
+                .font: Fonts.default(size: 17, weight: .regular),
+                .foregroundColor: appearance.secondaryText
+            ]
+            let attributedString = NSAttributedString(string: string, attributes: attributes)
+            attributedPlaceholder = attributedString
+        }
     }
     
 }

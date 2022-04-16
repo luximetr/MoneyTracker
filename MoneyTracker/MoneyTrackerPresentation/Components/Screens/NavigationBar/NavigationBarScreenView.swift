@@ -16,7 +16,7 @@ class NavigationBarScreenView: StatusBarScreenView {
     
     // MARK: - Initializer
     
-    init(frame: CGRect = .zero, appearance: Appearance = LightAppearance(), statusBarView: UIView = UIView(), navigationBarView: UIView = UIView()) {
+    init(frame: CGRect = .zero, appearance: Appearance, statusBarView: UIView = UIView(), navigationBarView: UIView = UIView()) {
         self.navigationBarView = navigationBarView
         super.init(frame: frame, appearance: appearance, statusBarView: statusBarView)
     }

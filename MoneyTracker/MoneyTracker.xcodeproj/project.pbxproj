@@ -150,6 +150,7 @@
 		2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */; };
 		2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293527AC267D00371252 /* AddingCategory.swift */; };
 		2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */; };
+		2EC84102280B3066007AAE5E /* AppearanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC84101280B3066007AAE5E /* AppearanceButton.swift */; };
 		2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */; };
 		2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */; };
 		2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECAB30427C593F50028CB0D /* EditAccountScreenStrings.strings */; };
@@ -176,8 +177,8 @@
 		2ED15EC727FE21A800208386 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC627FE21A800208386 /* Transfer.swift */; };
 		2ED15ECA27FE252000208386 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC927FE252000208386 /* Transfer.swift */; };
 		2ED15ECC27FE252F00208386 /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15ECB27FE252F00208386 /* AddingTransfer.swift */; };
-		2ED1883D280AC17A00BA52EF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1883C280AC17A00BA52EF /* View.swift */; };
-		2ED18840280AC65000BA52EF /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1883F280AC65000BA52EF /* TextField.swift */; };
+		2ED1883D280AC17A00BA52EF /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1883C280AC17A00BA52EF /* AppearanceView.swift */; };
+		2ED18840280AC65000BA52EF /* AppearanceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1883F280AC65000BA52EF /* AppearanceTextField.swift */; };
 		2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */; };
 		2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */; };
 		2ED248E528086BEF001E0498 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248E428086BEF001E0498 /* Language.swift */; };
@@ -197,7 +198,7 @@
 		2ED76C8B27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */; };
 		2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED76C9027F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings */; };
 		2ED7E48A2809FADC00B35F02 /* StatusBarScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */; };
-		2ED7E490280A06C600B35F02 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E48F280A06C600B35F02 /* TableViewCell.swift */; };
+		2ED7E490280A06C600B35F02 /* AppearanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */; };
 		2ED8BD7227E908E50007F60B /* HistoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7127E908E50007F60B /* HistoryScreenViewController.swift */; };
 		2ED8BD7427E908F50007F60B /* HistoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7327E908F50007F60B /* HistoryScreenView.swift */; };
 		2ED8BD7727E909150007F60B /* HistoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7927E909150007F60B /* HistoryScreenStrings.strings */; };
@@ -649,6 +650,7 @@
 		2EC7CAC2280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/CategoryHorizontalPickerStrings.strings; sourceTree = "<group>"; };
 		2EC7CAC3280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
 		2EC7CAC5280891F900E3DBF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2EC84101280B3066007AAE5E /* AppearanceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceButton.swift; sourceTree = "<group>"; };
 		2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenViewController.swift; sourceTree = "<group>"; };
 		2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenView.swift; sourceTree = "<group>"; };
 		2ECAB30327C593F50028CB0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditAccountScreenStrings.strings; sourceTree = "<group>"; };
@@ -675,8 +677,8 @@
 		2ED15EC627FE21A800208386 /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		2ED15EC927FE252000208386 /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		2ED15ECB27FE252F00208386 /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
-		2ED1883C280AC17A00BA52EF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		2ED1883F280AC65000BA52EF /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		2ED1883C280AC17A00BA52EF /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
+		2ED1883F280AC65000BA52EF /* AppearanceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTextField.swift; sourceTree = "<group>"; };
 		2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateView.swift; sourceTree = "<group>"; };
 		2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateViewController.swift; sourceTree = "<group>"; };
 		2ED248E428086BEF001E0498 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
@@ -696,7 +698,7 @@
 		2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountPickerAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ED76C8F27F5828A000F8622 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
 		2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarScreenViewController.swift; sourceTree = "<group>"; };
-		2ED7E48F280A06C600B35F02 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTableViewCell.swift; sourceTree = "<group>"; };
 		2ED8BD7127E908E50007F60B /* HistoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenViewController.swift; sourceTree = "<group>"; };
 		2ED8BD7327E908F50007F60B /* HistoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenView.swift; sourceTree = "<group>"; };
 		2ED8BD7827E909150007F60B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HistoryScreenStrings.strings; sourceTree = "<group>"; };
@@ -914,6 +916,7 @@
 		2E0DB4CE27AD778300A92682 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				2EC84101280B3066007AAE5E /* AppearanceButton.swift */,
 				2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */,
 				2E95BB2927B315B80097CA46 /* PictureButton.swift */,
 				2ECB165D27F78DF7009D748D /* TextButton.swift */,
@@ -1507,13 +1510,13 @@
 			path = MonthCategoryExpensesTableViewCell;
 			sourceTree = "<group>";
 		};
-		2EBEAA3A27F07E53000480DA /* TableViewCells */ = {
+		2EBEAA3A27F07E53000480DA /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				2ED7E48F280A06C600B35F02 /* TableViewCell.swift */,
+				2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */,
 				2E8FF0FE27AEF1DE00DA033F /* AddTableViewCell */,
 			);
-			path = TableViewCells;
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		2EC19ACC27A7F61B00E1A6FA /* CategoriesList */ = {
@@ -1530,13 +1533,13 @@
 		2EC19AD327A7F75600E1A6FA /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				2ED1883B280AC16900BA52EF /* Views */,
-				2ED9047C27F885CC0091FCA5 /* CollectionView */,
-				2EBEAA3A27F07E53000480DA /* TableViewCells */,
-				DBB7BD2527DC7635004EF5B7 /* Pickers */,
+				2ED1883B280AC16900BA52EF /* View */,
 				2ED1883E280AC64300BA52EF /* TextField */,
-				2EC1BDC527B99A3400C4A054 /* TextInput */,
 				2E0DB4CE27AD778300A92682 /* Buttons */,
+				2EBEAA3A27F07E53000480DA /* TableViewCell */,
+				2ED9047C27F885CC0091FCA5 /* CollectionView */,
+				DBB7BD2527DC7635004EF5B7 /* Pickers */,
+				2EC1BDC527B99A3400C4A054 /* TextInput */,
 				2EC19AD427A7F78200E1A6FA /* Screens */,
 			);
 			path = Components;
@@ -1754,18 +1757,18 @@
 			path = Transfer;
 			sourceTree = "<group>";
 		};
-		2ED1883B280AC16900BA52EF /* Views */ = {
+		2ED1883B280AC16900BA52EF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2ED1883C280AC17A00BA52EF /* View.swift */,
+				2ED1883C280AC17A00BA52EF /* AppearanceView.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		2ED1883E280AC64300BA52EF /* TextField */ = {
 			isa = PBXGroup;
 			children = (
-				2ED1883F280AC65000BA52EF /* TextField.swift */,
+				2ED1883F280AC65000BA52EF /* AppearanceTextField.swift */,
 			);
 			path = TextField;
 			sourceTree = "<group>";
@@ -2878,6 +2881,7 @@
 				2EB10A3D27A7034400743416 /* Fonts.swift in Sources */,
 				DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */,
 				2ED347BB2805CC1A0005529A /* PresentationDelegate.swift in Sources */,
+				2EC84102280B3066007AAE5E /* AppearanceButton.swift in Sources */,
 				2ED60BD227DE776F00EC11D4 /* ExpenseTableViewCell.swift in Sources */,
 				2ED8BD7427E908F50007F60B /* HistoryScreenView.swift in Sources */,
 				2EB10A4A27A707A300743416 /* Language.swift in Sources */,
@@ -2929,7 +2933,7 @@
 				2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */,
 				2EC19ACE27A7F64000E1A6FA /* CategoriesListScreenViewController.swift in Sources */,
 				2E2A6EE027EC4FEC0084054C /* EditExpenseScreenViewController.swift in Sources */,
-				2ED1883D280AC17A00BA52EF /* View.swift in Sources */,
+				2ED1883D280AC17A00BA52EF /* AppearanceView.swift in Sources */,
 				DBA05479280129A600DB3892 /* ImportedExpensesFile.swift in Sources */,
 				DB7BA81427F983C700A3B3BA /* ColorHorizontalPickerView.swift in Sources */,
 				2EA7067727B5C2CA00FF08B2 /* AddAccountScreenColorCollectionViewCell.swift in Sources */,
@@ -2947,7 +2951,7 @@
 				2EC6178927F82BFE00845E7A /* DashboardCategoryPickerView.swift in Sources */,
 				2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */,
 				2ECB165927F77FD5009D748D /* DashboardTemplatesViewController.swift in Sources */,
-				2ED18840280AC65000BA52EF /* TextField.swift in Sources */,
+				2ED18840280AC65000BA52EF /* AppearanceTextField.swift in Sources */,
 				DB7BA81927F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift in Sources */,
 				DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */,
 				DB74864827BB5EBF004DF67B /* TemplatesScreenAddTemplateTableViewCellController.swift in Sources */,
@@ -2963,7 +2967,7 @@
 				DBB7BD2E27DDDF04004EF5B7 /* CategoryHorizontalPickerView.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
 				2EB82737280761DB00C6377F /* SelectLanguageScreenView.swift in Sources */,
-				2ED7E490280A06C600B35F02 /* TableViewCell.swift in Sources */,
+				2ED7E490280A06C600B35F02 /* AppearanceTableViewCell.swift in Sources */,
 				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
 				2E394F1027FCDDC1002C3052 /* TopUpAccountScreenViewController.swift in Sources */,
 				2ECB218927DCA961006D6558 /* AddExpenseScreenView.swift in Sources */,

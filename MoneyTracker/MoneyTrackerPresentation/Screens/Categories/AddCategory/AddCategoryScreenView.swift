@@ -11,6 +11,14 @@ import AUIKit
 extension AddCategoryScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.nameTextField = PlainTextField(appearance: appearance)
+        self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
     // MARK: - Subviews
     
     let iconView = CategoryIconView()
@@ -20,14 +28,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let colorPickerTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
     let addButton = TextFilledButton()
-    
-    // MARK: - Initializer
-    
-    init(appearance: Appearance) {
-        self.nameTextField = PlainTextField(appearance: appearance)
-        self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
-        super.init(appearance: appearance)
-    }
     
     // MARK: - Setup
     
@@ -48,7 +48,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupColorPickerTitleLabel() {
         colorPickerTitleLabel.textColor = appearance.primaryText
-        colorPickerTitleLabel.numberOfLines = 1
         colorPickerTitleLabel.font = Fonts.default(size: 17, weight: .regular)
     }
     

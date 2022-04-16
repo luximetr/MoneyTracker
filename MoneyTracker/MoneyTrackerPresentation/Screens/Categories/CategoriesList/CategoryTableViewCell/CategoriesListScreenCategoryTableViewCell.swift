@@ -9,15 +9,24 @@ import UIKit
 import AUIKit
 
 extension CategoriesListScreenViewController {
-final class CategoryTableViewCell: TableViewCell {
+final class CategoryTableViewCell: AppearanceTableViewCell {
     
-    // MARK: Subviews
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupNameLabel(appearance: appearance)
+        setupSeparatorView(appearance: appearance)
+    }
+    
+    // MARK: - Subviews
     
     let iconView = CategoryIconView()
     let nameLabel = UILabel()
     private let separatorView = UIView()
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -25,12 +34,6 @@ final class CategoryTableViewCell: TableViewCell {
         contentView.addSubview(iconView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(separatorView)
-    }
-    
-    override func setup(appearance: Appearance) {
-        super.setup(appearance: appearance)
-        setupNameLabel(appearance: appearance)
-        setupSeparatorView(appearance: appearance)
     }
     
     private func setupNameLabel(appearance: Appearance) {
@@ -41,7 +44,7 @@ final class CategoryTableViewCell: TableViewCell {
         separatorView.backgroundColor = appearance.secondaryBackground
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -80,6 +83,8 @@ final class CategoryTableViewCell: TableViewCell {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         separatorView.frame = frame
     }
+    
+    // MARK: - Highlighted
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
