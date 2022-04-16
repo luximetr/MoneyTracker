@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension CategoriesScreenViewController {
+extension CategoriesListScreenViewController {
 final class CategoryTableViewCellController: AUIClosuresTableViewCellController {
     
     // MARK: Data

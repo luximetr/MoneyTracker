@@ -17,7 +17,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Appearance
     
-    private let appearance: Appearance = LightAppearance()
+    private let appearance: Appearance = DarkAppearance()
     
     // MARK: - Display
     
@@ -408,13 +408,13 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Categories View Controller
     
-    private weak var pushedCategoriesViewController: CategoriesScreenViewController?
+    private weak var pushedCategoriesViewController: CategoriesListScreenViewController?
     
-    private func pushCategoriesViewController(_ navigationController: UINavigationController) throws {
+    private func pushCategoriesListViewController(_ navigationController: UINavigationController) throws {
         do {
             let categories: [Category] = try delegate.presentationCategories(self)
             let language = try delegate.presentationLanguage(self)
-            let viewController = CategoriesScreenViewController(appearance: appearance, language: language, categories: categories)
+            let viewController = CategoriesListScreenViewController(appearance: appearance, language: language, categories: categories)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -593,7 +593,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
-                try self.pushCategoriesViewController(menuNavigationController)
+                try self.pushCategoriesListViewController(menuNavigationController)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }

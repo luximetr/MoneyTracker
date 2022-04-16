@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension CategoriesScreenViewController {
+extension CategoriesListScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Initializer
@@ -43,6 +43,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupAddButton()
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
+        setupCategoryTableViewCell()
     }
     
     private func setupAddButton() {
@@ -50,10 +51,13 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addButton.setTitleColor(appearance.accent, for: .normal)
     }
     
-    private let categoryTableViewCellReuseIdentifier = "categoryTableViewCellReuseIdentifier"
     private func setupTableView() {
         tableView.backgroundColor = appearance.primaryBackground
         tableView.separatorStyle = .none
+    }
+    
+    private let categoryTableViewCellReuseIdentifier = "categoryTableViewCellReuseIdentifier"
+    private func setupCategoryTableViewCell() {
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: categoryTableViewCellReuseIdentifier)
     }
     

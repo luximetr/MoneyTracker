@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension CategoriesScreenViewController {
+extension CategoriesListScreenViewController {
 final class CategoryTableViewCell: TableViewCell {
     
     // MARK: Subviews
@@ -85,8 +85,10 @@ final class CategoryTableViewCell: TableViewCell {
         super.setHighlighted(highlighted, animated: animated)
         if highlighted {
             nameLabel.alpha = 0.6
+            iconView.alpha = 0.6
         } else {
             nameLabel.alpha = 1
+            iconView.alpha = 1
         }
     }
     
