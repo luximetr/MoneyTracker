@@ -10,14 +10,9 @@ import AUIKit
 
 final class MenuScreenViewController: StatusBarScreenViewController {
     
-    // MARK: - Data
-    
-    private var language: Language
-    
     // MARK: - Initializer
     
     init(appearance: Appearance, language: Language, dashboardScreenViewController: UIViewController, historyScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
-        self.language = language
         self.dashboardScreenViewController = dashboardScreenViewController
         self.historyScreenViewController = historyScreenViewController
         self.statisticScreenViewController = statisticScreenViewController
@@ -93,8 +88,8 @@ final class MenuScreenViewController: StatusBarScreenViewController {
         screenController = settingsScreenViewController
     }
     
-    func changeLanguage(_ language: Language) {
-        self.language = language
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
         localizer.changeLanguage(language)
         setContent()
     }

@@ -18,7 +18,7 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
     let currencyInputView = UIButton()
     let amountInputView: UITextField = TextField()
     let colorsTitleLabel = UILabel()
-    let colorPickerView = ColorHorizontalPickerView()
+    let colorPickerView = ColorHorizontalPickerView(appearance: LightAppearance())
     let addButton = TextFilledButton()
     
     // MARK: Setup

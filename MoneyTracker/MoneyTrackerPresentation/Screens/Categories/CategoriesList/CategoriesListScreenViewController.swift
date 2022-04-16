@@ -12,7 +12,6 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
-    private let language: Language
     private var categories: [Category]
     var backClosure: (() -> Void)?
     var editCategoryClosure: ((Category) -> Void)?
@@ -23,9 +22,8 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
     // MARK: - Initializer
     
     init(appearance: Appearance, language: Language, categories: [Category]) {
-        self.language = language
         self.categories = categories
-        super.init(appearance: appearance)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -130,7 +128,6 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
             categoriesCellControllers.append(cellController)
         }
         categoriesSectionController.cellControllers = categoriesCellControllers
-                
         tableViewController.sectionControllers = [categoriesSectionController]
         tableViewController.reload()
     }

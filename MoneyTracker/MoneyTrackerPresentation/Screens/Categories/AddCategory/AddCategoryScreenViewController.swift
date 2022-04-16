@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
+final class AddCategoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
@@ -20,9 +20,10 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Init
     
-    init(categoryColors: [UIColor], categoryIconName: String) {
+    init(appearance: Appearance, language: Language, categoryColors: [UIColor], categoryIconName: String) {
         self.categoryColors = categoryColors
         self.categoryIconName = categoryIconName
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: View
@@ -32,7 +33,7 @@ final class AddCategoryScreenViewController: AUIStatusBarScreenViewController {
     }
     
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     override func viewDidLoad() {

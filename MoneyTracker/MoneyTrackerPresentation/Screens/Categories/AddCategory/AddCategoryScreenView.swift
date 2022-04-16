@@ -11,23 +11,29 @@ import AUIKit
 extension AddCategoryScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let iconView = CategoryIconView()
     let selectIconButton = UIButton()
     let scrollView = UIScrollView()
     let nameTextField = PlainTextField()
     let colorPickerTitleLabel = UILabel()
-    let colorPickerView = ColorHorizontalPickerView()
+    let colorPickerView: ColorHorizontalPickerView
     let addButton = TextFilledButton()
     
-    // MARK: Setup
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
         addSubview(scrollView)
-        iconView.backgroundColor = Colors.secondaryBackground
+        iconView.backgroundColor = appearance.secondaryBackground
         scrollView.addSubview(iconView)
         scrollView.addSubview(selectIconButton)
         scrollView.addSubview(nameTextField)
@@ -39,17 +45,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupAddButton()
     }
     
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.white
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.white
-    }
-    
     private func setupColorPickerTitleLabel() {
+        colorPickerTitleLabel.textColor = appearance.primaryText
         colorPickerTitleLabel.numberOfLines = 1
         colorPickerTitleLabel.font = Fonts.default(size: 17, weight: .regular)
     }
@@ -62,7 +59,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addButton.titleLabel?.font = Fonts.default(size: 17, weight: .semibold)
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -152,7 +149,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addButton.frame = frame
     }
     
-    // MARK: Keyboard
+    // MARK: - Keyboard
     
     private var keyboardFrame: CGRect?
     

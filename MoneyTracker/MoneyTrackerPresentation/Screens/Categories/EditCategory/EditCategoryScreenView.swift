@@ -18,7 +18,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let scrollView = UIScrollView()
     let nameTextField = PlainTextField()
     let colorPickerTitleLabel = UILabel()
-    let colorPickerView = ColorHorizontalPickerView()
+    let colorPickerView = ColorHorizontalPickerView(appearance: LightAppearance())
     let editButton = TextFilledButton()
     
     // MARK: Setup

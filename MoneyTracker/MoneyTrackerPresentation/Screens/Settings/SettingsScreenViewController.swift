@@ -12,7 +12,6 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
-    var language: Language
     var defaultCurrency: Currency
     var didSelectCategoriesClosure: (() -> Void)?
     var didSelectCurrencyClosure: (() -> Void)?
@@ -25,9 +24,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     // MARK: - Initializer
     
     init(appearance: Appearance, language: Language, defaultCurrency: Currency) {
-        self.language = language
         self.defaultCurrency = defaultCurrency
-        super.init(appearance: appearance)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -55,8 +53,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Events
     
-    func changeLanguage(_ language: Language) {
-        self.language = language
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
         localizer.changeLanguage(language)
         currencyCodeLocalizer.changeLanguage(language)
         languageCodeLocalizer.changeLanguage(language)

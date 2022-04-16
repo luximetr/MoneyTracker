@@ -14,10 +14,15 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
     
     var appearance: Appearance
     
+    // MARK: Language
+    
+    var language: Language
+    
     // MARK: - Initializer
     
-    init(appearance: Appearance = LightAppearance()) {
+    init(appearance: Appearance = LightAppearance(), language: Language = .english) {
         self.appearance = appearance
+        self.language = language
         super.init()
         self.statusBarStyle = appearance.statusBarStyle
     }
@@ -28,6 +33,10 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
         self.appearance = appearance
         self.statusBarStyle = appearance.statusBarStyle
         didSetStatusBarStyle()
+    }
+    
+    func changeLanguage(_ language: Language) {
+        self.language = language
     }
     
 }

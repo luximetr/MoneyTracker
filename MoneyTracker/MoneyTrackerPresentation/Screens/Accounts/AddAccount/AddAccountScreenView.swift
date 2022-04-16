@@ -10,7 +10,7 @@ import AUIKit
 
 final class AddAccountScreenView: BackTitleNavigationBarScreenView {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let scrollView = UIScrollView()
     let backgroundView = UIView()
@@ -18,10 +18,17 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
     let currencyInputView = UIButton()
     let amountInputView: UITextField = TextField()
     let colorsTitleLabel = UILabel()
-    let colorPickerView = ColorHorizontalPickerView()
+    let colorPickerView: ColorHorizontalPickerView
     let addButton = TextFilledButton()
     
-    // MARK: Setup
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -72,7 +79,7 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
         
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -175,7 +182,7 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
         addButton.frame = frame
     }
     
-    // MARK: Keyboard
+    // MARK: - Keyboard
     
     var keyboardFrame: CGRect?
     
@@ -185,7 +192,7 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
         layoutIfNeeded()
     }
     
-    // MARK: BackgroundColor
+    // MARK: - BackgroundColor
     
     func setBackgroundColor(_ backgroundColor: UIColor, animated: Bool) {
         backgroundView.backgroundColor = backgroundColor
