@@ -16,7 +16,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let iconView = CategoryIconView()
     let selectIconButton = UIButton()
     let scrollView = UIScrollView()
-    let nameTextField = PlainTextField()
+    let nameTextField: PlainTextField
     let colorPickerTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
     let addButton = TextFilledButton()
@@ -24,6 +24,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: - Initializer
     
     init(appearance: Appearance) {
+        self.nameTextField = PlainTextField(appearance: appearance)
         self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
         super.init(appearance: appearance)
     }
@@ -88,7 +89,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private func layoutNameTextField() {
         let x: CGFloat = iconViewLeading + iconViewSide + 16
         let y: CGFloat = 32
-        let width = bounds.width - 2 * x
+        let width = bounds.width - x - iconViewLeading
         let height: CGFloat = 44
         let frame = CGRect(x: x, y: y, width: width, height: height)
         nameTextField.frame = frame

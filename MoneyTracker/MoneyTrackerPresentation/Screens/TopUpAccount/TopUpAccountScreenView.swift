@@ -19,7 +19,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let accountPickerView = BalanceAccountHorizontalPickerView()
     let dayDatePickerView = UIDatePicker()
     let amountInputView = SingleLineTextInputView()
-    let commentTextField = TextField()
+    let commentTextField = TextField3D()
     let addButton = TextFilledButton()
     
     // MARK: Setup

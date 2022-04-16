@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class TextField: AUITextField {
+final class TextField3D: AUITextField {
     
     // MARK: Placeholder
     

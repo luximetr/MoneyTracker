@@ -20,7 +20,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let categoryPickerView = CategoryHorizontalPickerView()
     let dayDatePickerView = UIDatePicker()
     let amountInputView = SingleLineTextInputView()
-    let commentTextField = TextField()
+    let commentTextField = TextField3D()
     let saveButton = TextFilledButton()
     
     // MARK: Setup
