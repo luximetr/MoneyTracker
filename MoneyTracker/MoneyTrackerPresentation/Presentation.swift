@@ -980,7 +980,8 @@ public final class Presentation: AUIWindowPresentation {
     private func pushTemplatesScreenViewController(_ navigationController: UINavigationController) throws {
         do {
             let templates = try delegate.presentationExpenseTemplates(self)
-            let viewController = TemplatesScreenViewController(templates: templates)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = TemplatesScreenViewController(appearance: appearance, language: language, templates: templates)
             viewController.addTemplateClosure = { [weak self] in
                 guard let self = self else { return }
                 guard let menuNavigationController = self.menuNavigationController else { return }

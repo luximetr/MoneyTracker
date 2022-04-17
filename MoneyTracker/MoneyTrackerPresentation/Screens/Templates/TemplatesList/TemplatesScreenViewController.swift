@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
+final class TemplatesScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
@@ -16,8 +16,9 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Life cycle
     
-    init(templates: [ExpenseTemplate]) {
+    init(appearance: Appearance, language: Language, templates: [ExpenseTemplate]) {
         self.templates = templates
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - Delegation
@@ -31,8 +32,17 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     // MARK: - Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        return ScreenLocalizer(language: .english, stringsTableName: "TemplatesScreenStrings")
+        return ScreenLocalizer(language: language, stringsTableName: "TemplatesScreenStrings")
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    private func setContent() {
+        templatesScreenView.titleLabel.text = localizer.localizeText("title")
+    }
     
     // MARK: - View
     
@@ -46,9 +56,9 @@ final class TemplatesScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        templatesScreenView.titleLabel.text = localizer.localizeText("title")
         templatesScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         setupTableViewController()
+        setContent()
     }
     
     // MARK: - TableView
