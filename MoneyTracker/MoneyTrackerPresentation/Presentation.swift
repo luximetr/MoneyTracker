@@ -405,7 +405,8 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var statisticScreen: StatisticScreenViewController?
     private func createStatisticScreen() -> StatisticScreenViewController {
-        let viewController = StatisticScreenViewController()
+        let language = try! self.delegate.presentationLanguage(self)
+        let viewController = StatisticScreenViewController(appearance: appearance, language: language)
         viewController.monthsClosure = { [weak self] in
             guard let self = self else { return [] }
             let months = (try? self.delegate.presentationExpensesMonths(self)) ?? []

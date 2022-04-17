@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import MoneyTrackerFoundation
 
-final class StatisticScreenViewController: AUIStatusBarScreenViewController {
+final class StatisticScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
@@ -79,17 +79,13 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "StatisticScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "StatisticScreenStrings")
         return localizer
     }()
     
-    // MARK: Events
-    
-    private func didSelectMonth(_ month: Date) {
-        selectedMonth = month
-        expenses = expensesClosure?(month) ?? []
-        setMonthExpensesLabelContent()
-        setMonthCategoryExpensesTableViewControllerContent()
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
     }
     
     // MARK: Content
@@ -98,6 +94,15 @@ final class StatisticScreenViewController: AUIStatusBarScreenViewController {
         screenView.titleLabel.text = localizer.localizeText("title")
         monthPickerViewConroller.setMonths(months)
         monthPickerViewConroller.setSelectedMonth(selectedMonth)
+        setMonthExpensesLabelContent()
+        setMonthCategoryExpensesTableViewControllerContent()
+    }
+    
+    // MARK: Events
+    
+    private func didSelectMonth(_ month: Date) {
+        selectedMonth = month
+        expenses = expensesClosure?(month) ?? []
         setMonthExpensesLabelContent()
         setMonthCategoryExpensesTableViewControllerContent()
     }
