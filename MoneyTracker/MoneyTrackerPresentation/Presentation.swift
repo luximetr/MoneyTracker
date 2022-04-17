@@ -17,7 +17,15 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Appearance
     
-    private let appearance: Appearance = DarkAppearance()
+    private var appearance: Appearance = DarkAppearance()
+    
+    // MARK: - Language
+    
+    func changeLanguage(_ language: Language) {
+        menuScreenViewController?.changeLanguage(language)
+        dashboardViewController?.changeLanguage(language)
+        settingsScreenViewController?.changeLanguage(language)
+    }
     
     // MARK: - Display
     
@@ -75,7 +83,8 @@ public final class Presentation: AUIWindowPresentation {
         let categories = (try? delegate.presentationCategories(self)) ?? []
         let accounts = (try? delegate.presentationAccounts(self)) ?? []
         let templates = (try? delegate.presentationExpenseTemplates(self)) ?? []
-        let viewController = DashboardScreenViewController(categories: categories, accounts: accounts, templates: templates)
+        let language = try! delegate.presentationLanguage(self)
+        let viewController = DashboardScreenViewController(appearance: appearance, language: language, categories: categories, accounts: accounts, templates: templates)
         viewController.addExpenseClosure = { [weak self] category in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
@@ -745,8 +754,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     try self.delegate.presentation(self, selectLanguage: language)
-                    self.menuScreenViewController?.changeLanguage(language)
-                    self.settingsScreenViewController?.changeLanguage(language)
+                    self.changeLanguage(language)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                     throw error

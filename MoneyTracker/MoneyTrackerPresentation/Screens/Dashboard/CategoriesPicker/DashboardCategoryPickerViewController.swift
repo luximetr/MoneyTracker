@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension DashboardScreenViewController {
-final class CategoryPickerViewController: AUIEmptyViewController {
+final class CategoryPickerViewController: EmptyViewController {
     
     // MARK: Data
 
@@ -17,8 +17,9 @@ final class CategoryPickerViewController: AUIEmptyViewController {
     
     // MARK: Initializer
     
-    init(categories: [Category]) {
+    init(language: Language, categories: [Category]) {
         self.categories = categories
+        super.init(language: language)
     }
     
     // MARK: CategoryPickerView
@@ -54,13 +55,20 @@ final class CategoryPickerViewController: AUIEmptyViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "DashboardCategoryPickerStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "DashboardCategoryPickerStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        localizer.changeLanguage(language)
+        setContent()
+    }
     
     private func setContent() {
         categoryPickerView?.titleLabel.text = localizer.localizeText("title")
         categoryPickerView?.addExpenseButton.setTitle(localizer.localizeText("addExpense"), for: .normal)
+        categoryPickerView?.layoutSubviews()
         setCollectionControllerContent()
     }
     

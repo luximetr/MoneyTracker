@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension DashboardScreenViewController {
-final class AccountPickerViewController: AUIEmptyViewController {
+final class AccountPickerViewController: EmptyViewController {
     
     // MARK: Data
 
@@ -17,8 +17,9 @@ final class AccountPickerViewController: AUIEmptyViewController {
     
     // MARK: Initializer
     
-    init(accounts: [Account]) {
+    init(language: Language, accounts: [Account]) {
         self.accounts = accounts
+        super.init(language: language)
     }
     
     // MARK: AccountPickerView
@@ -62,13 +63,20 @@ final class AccountPickerViewController: AUIEmptyViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "DashboardAccountPickerStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "DashboardAccountPickerStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        localizer.changeLanguage(language)
+        setContent()
+    }
     
     private func setContent() {
         accountPickerView?.titleLabel.text = localizer.localizeText("title")
         accountPickerView?.transferButton.setTitle(localizer.localizeText("transfer"), for: .normal)
+        accountPickerView?.layoutSubviews()
         setCollectionControllerContent()
     }
     

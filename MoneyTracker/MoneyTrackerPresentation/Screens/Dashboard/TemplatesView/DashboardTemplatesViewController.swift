@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension DashboardScreenViewController {
-final class TemplatesViewController: AUIEmptyViewController {
+final class TemplatesViewController: EmptyViewController {
     
     // MARK: Data
 
@@ -17,8 +17,9 @@ final class TemplatesViewController: AUIEmptyViewController {
     
     // MARK: Initializer
     
-    init(templates: [ExpenseTemplate]) {
+    init(language: Language, templates: [ExpenseTemplate]) {
         self.templates = templates
+        super.init(language: language)
     }
     
     // MARK: CategoryPickerView
@@ -62,13 +63,20 @@ final class TemplatesViewController: AUIEmptyViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "DashboardTemplatesViewStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "DashboardTemplatesViewStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        localizer.changeLanguage(language)
+        setContent()
+    }
     
     private func setContent() {
         templatesView?.titleLabel.text = localizer.localizeText("title")
         templatesView?.addButton.setTitle(localizer.localizeText("add"), for: .normal)
+        templatesView?.layoutSubviews()
         setCollectionControllerContent()
     }
     

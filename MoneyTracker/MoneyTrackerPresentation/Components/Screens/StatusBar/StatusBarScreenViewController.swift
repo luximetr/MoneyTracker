@@ -26,7 +26,7 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, language: Language = .english) {
+    init(appearance: Appearance, language: Language) {
         self.appearance = appearance
         self.language = language
         super.init()

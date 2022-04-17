@@ -8,9 +8,9 @@
 import UIKit
 import AUIKit
 
-final class DashboardScreenViewController: AUIStatusBarScreenViewController {
+final class DashboardScreenViewController: StatusBarScreenViewController {
     
-    // MARK: Data
+    // MARK: - Data
     
     private var templates: [ExpenseTemplate]
     var addExpenseClosure: ((Category?) -> Void)?
@@ -21,14 +21,14 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
     var addTemplateClosure: (() -> Void)?
     var useTemplateClosure: ((ExpenseTemplate) throws -> Void)?
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
-    init(categories: [Category], accounts: [Account], templates: [ExpenseTemplate]) {
+    init(appearance: Appearance, language: Language, categories: [Category], accounts: [Account], templates: [ExpenseTemplate]) {
         self.templates = templates
-        self.categoryPickerViewController = CategoryPickerViewController(categories: categories)
-        self.accountPickerViewController = AccountPickerViewController(accounts: accounts)
-        self.templatesViewController = TemplatesViewController(templates: templates)
-        super.init()
+        self.categoryPickerViewController = CategoryPickerViewController(language: language, categories: categories)
+        self.accountPickerViewController = AccountPickerViewController(language: language, accounts: accounts)
+        self.templatesViewController = TemplatesViewController(language: language, templates: templates)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -100,18 +100,27 @@ final class DashboardScreenViewController: AUIStatusBarScreenViewController {
         }
     }
     
-    // MARK: Content
+    // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "DashboardScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "DashboardScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        localizer.changeLanguage(language)
+        categoryPickerViewController.changeLanguage(language)
+        accountPickerViewController.changeLanguage(language)
+        templatesViewController.changeLanguage(language)
+        setContent()
+    }
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
     }
     
-    // MARK: Events
+    // MARK: - Events
     
     private func didSelectTemplate(_ template: ExpenseTemplate) {
         guard let useTemplateClosure = useTemplateClosure else { return }

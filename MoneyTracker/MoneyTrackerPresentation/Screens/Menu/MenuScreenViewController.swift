@@ -17,7 +17,7 @@ final class MenuScreenViewController: StatusBarScreenViewController {
         self.historyScreenViewController = historyScreenViewController
         self.statisticScreenViewController = statisticScreenViewController
         self.settingsScreenViewController = settingsScreenViewController
-        super.init(appearance: appearance)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View

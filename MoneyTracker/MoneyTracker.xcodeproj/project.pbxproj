@@ -298,6 +298,7 @@
 		DBA054752801266F00DB3892 /* ImportedExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA054742801266F00DB3892 /* ImportedExpensesFile.swift */; };
 		DBA05479280129A600DB3892 /* ImportedExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA05478280129A600DB3892 /* ImportedExpensesFile.swift */; };
 		DBA0547B28012A3A00DB3892 /* ImportedExpensesFileAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0547A28012A3A00DB3892 /* ImportedExpensesFileAdapter.swift */; };
+		DBA0547E280BFA9900DB3892 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0547D280BFA9900DB3892 /* EmptyViewController.swift */; };
 		DBB7BD0C27D78F40004EF5B7 /* DashboardScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */; };
 		DBB7BD0E27D78F54004EF5B7 /* DashboardScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */; };
 		DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBB7BD1527D78FDE004EF5B7 /* DashboardScreenStrings.strings */; };
@@ -802,6 +803,7 @@
 		DBA054742801266F00DB3892 /* ImportedExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedExpensesFile.swift; sourceTree = "<group>"; };
 		DBA05478280129A600DB3892 /* ImportedExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedExpensesFile.swift; sourceTree = "<group>"; };
 		DBA0547A28012A3A00DB3892 /* ImportedExpensesFileAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedExpensesFileAdapter.swift; sourceTree = "<group>"; };
+		DBA0547D280BFA9900DB3892 /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0B27D78F40004EF5B7 /* DashboardScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenViewController.swift; sourceTree = "<group>"; };
 		DBB7BD0D27D78F54004EF5B7 /* DashboardScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardScreenView.swift; sourceTree = "<group>"; };
 		DBB7BD1427D78FDE004EF5B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardScreenStrings.strings; sourceTree = "<group>"; };
@@ -1548,6 +1550,7 @@
 		2EC19AD427A7F78200E1A6FA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				DBA0547C280BFA9000DB3892 /* Empty */,
 				2ED7E48B2809FBDA00B35F02 /* StatusBar */,
 				2ED7E48C2809FBE700B35F02 /* NavigationBar */,
 				2ED7E48D2809FC8200B35F02 /* TitleNavigationBar */,
@@ -2264,6 +2267,14 @@
 			path = ExpensesFile;
 			sourceTree = "<group>";
 		};
+		DBA0547C280BFA9000DB3892 /* Empty */ = {
+			isa = PBXGroup;
+			children = (
+				DBA0547D280BFA9900DB3892 /* EmptyViewController.swift */,
+			);
+			path = Empty;
+			sourceTree = "<group>";
+		};
 		DBB7BD0A27D78F31004EF5B7 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -2911,6 +2922,7 @@
 				DBB7BD3227DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift in Sources */,
 				2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */,
 				DBD6ACE127B2A7E200389236 /* SelectCurrencyScreenView.swift in Sources */,
+				DBA0547E280BFA9900DB3892 /* EmptyViewController.swift in Sources */,
 				2EB10A3127A6E7B500743416 /* TabBarItem.swift in Sources */,
 				2E95BB2F27B31AC40097CA46 /* AccountsScreenView.swift in Sources */,
 				2EBDF92F27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift in Sources */,
