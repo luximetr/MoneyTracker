@@ -72,9 +72,15 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "TopUpAccountScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "TopUpAccountScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        accountPickerController.changeLanguage(language)
+        setContent()
+    }
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
