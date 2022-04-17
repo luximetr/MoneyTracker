@@ -1,5 +1,5 @@
-"title" = "Transfer";
-"fromAccount" = "From";
-"toAccount" = "To";
-"commentPlaceholder" = "Comment (optional)";
-"add" = "Done";
+"title" = "Переказ";
+"fromAccount" = "Від";
+"toAccount" = "До";
+"commentPlaceholder" = "Коментар (необов'язково)";
+"add" = "Готово";

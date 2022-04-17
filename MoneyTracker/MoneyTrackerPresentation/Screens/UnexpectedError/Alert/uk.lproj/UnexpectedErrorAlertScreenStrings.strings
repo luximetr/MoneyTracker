@@ -1,4 +1,4 @@
-"title" = "Unexpected Error";
-"message" = "An unexpected error occurred. You can help to fix this problem by sharing error description to us.";
-"seeDetails" = "See details";
-"ok" = "OK";
+"title" = "Неочікувана помилка";
+"message" = "Сталася неочікувана помилка. Ви можете допомогти вирішити цю проблему, поділившись описом помилки.";
+"seeDetails" = "Дивіться деталі";
+"ok" = "Добре";
