@@ -37,6 +37,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         self.categories = categories
         self.balanceAccounts = balanceAccounts
         self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        self.categoryPickerController = CategoryHorizontalPickerController(language: language)
         super.init(appearance: appearance, language: language)
     }
     
@@ -51,7 +52,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     }
     
     private let balanceAccountPickerController: BalanceAccountHorizontalPickerController
-    private let categoryPickerController = CategoryHorizontalPickerController()
+    private let categoryPickerController: CategoryHorizontalPickerController
     private let dayDatePickerViewController = AUIEmptyDateTimePickerController()
     private let amountInputController = TextFieldLabelController()
     private let commentTextFieldController = AUIEmptyTextFieldController()
@@ -62,19 +63,14 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         setupCategoryPickerController()
         setupCommentTextFieldController()
         setupAmountTextFieldController()
-        screenView.titleLabel.text = localizer.localizeText("title")
-        screenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
-        screenView.categoryPickerHeaderLabel.text = localizer.localizeText("categoryPickerHeader")
-        screenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
         screenView.amountInputView.label.text = balanceAccountPickerController.selectedAccount?.currency.rawValue
-        screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
-        screenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
         screenView.saveButton.addTarget(self, action: #selector(didTapOnSaveButton), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
         dayDatePickerViewController.datePicker = screenView.dayDatePickerView
         dayDatePickerViewController.mode = .date
         dayDatePickerViewController.setDate(expense.date, animated: false)
+        setContent()
     }
     
     private func setupBalanceAccountPickerController() {
@@ -118,9 +114,24 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "EditExpenseScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "EditExpenseScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        balanceAccountPickerController.changeLanguage(language)
+        setContent()
+    }
+    
+    private func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+        screenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
+        screenView.categoryPickerHeaderLabel.text = localizer.localizeText("categoryPickerHeader")
+        screenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
+        screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
+        screenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
+    }
     
     // MARK: Events
     

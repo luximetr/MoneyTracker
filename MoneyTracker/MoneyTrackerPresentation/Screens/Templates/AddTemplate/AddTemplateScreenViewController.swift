@@ -42,6 +42,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         self.categories = categories
         self.balanceAccounts = balanceAccounts
         self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        self.categoryPickerController = CategoryHorizontalPickerController(language: language)
         super.init(appearance: appearance, language: language)
     }
     
@@ -115,7 +116,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     
     // MARK: - Category picker
     
-    private let categoryPickerController = CategoryHorizontalPickerController()
+    private let categoryPickerController: CategoryHorizontalPickerController
     
     private func setupCategoryPickerController() {
         categoryPickerController.categoryHorizontalPickerView = addTemplateScreenView.categoryPickerView

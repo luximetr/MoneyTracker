@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-class CategoryHorizontalPickerController: AUIEmptyViewController {
+class CategoryHorizontalPickerController: EmptyViewController {
     
     // MARK: - Delegations
     
@@ -32,9 +32,13 @@ class CategoryHorizontalPickerController: AUIEmptyViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "CategoryHorizontalPickerStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "CategoryHorizontalPickerStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+    }
     
     // MARK: - View - Setup
     
