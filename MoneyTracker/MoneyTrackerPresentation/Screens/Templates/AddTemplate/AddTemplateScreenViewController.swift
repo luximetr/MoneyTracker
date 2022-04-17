@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
+class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
     // MARK: Data
     
@@ -38,9 +38,11 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
 
     // MARK: - Life cycle
     
-    init(categories: [Category], balanceAccounts: [Account]) {
+    init(appearance: Appearance, language: Language, categories: [Category], balanceAccounts: [Account]) {
         self.categories = categories
         self.balanceAccounts = balanceAccounts
+        self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -84,7 +86,7 @@ class AddTemplateScreenViewController: AUIStatusBarScreenViewController, AUIText
     
     // MARK: - Balance account picker
     
-    private let balanceAccountPickerController = BalanceAccountHorizontalPickerController()
+    private let balanceAccountPickerController: BalanceAccountHorizontalPickerController
     
     private func setupBalanceAccountPickerController() {
         balanceAccountPickerController.balanceAccountHorizontalPickerView = addTemplateScreenView.balanceAccountPickerView

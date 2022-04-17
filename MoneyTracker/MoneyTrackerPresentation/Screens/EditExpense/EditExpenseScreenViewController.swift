@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-class EditExpenseScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
+class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
     // MARK: - Data
     
@@ -32,10 +32,12 @@ class EditExpenseScreenViewController: AUIStatusBarScreenViewController, AUIText
     
     // MARK: - Life cycle
     
-    init(expense: Expense, categories: [Category], balanceAccounts: [Account]) {
+    init(appearance: Appearance, language: Language, expense: Expense, categories: [Category], balanceAccounts: [Account]) {
         self.expense = expense
         self.categories = categories
         self.balanceAccounts = balanceAccounts
+        self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -48,7 +50,7 @@ class EditExpenseScreenViewController: AUIStatusBarScreenViewController, AUIText
         view = ScreenView()
     }
     
-    private let balanceAccountPickerController = BalanceAccountHorizontalPickerController()
+    private let balanceAccountPickerController: BalanceAccountHorizontalPickerController
     private let categoryPickerController = CategoryHorizontalPickerController()
     private let dayDatePickerViewController = AUIEmptyDateTimePickerController()
     private let amountInputController = TextFieldLabelController()

@@ -160,7 +160,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             let categories = try delegate.presentationCategories(self)
-            let viewController = AddExpenseScreenViewController(accounts: accounts, categories: categories, selectedCategory: selectedCategory)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AddExpenseScreenViewController(appearance: appearance, language: language, accounts: accounts, categories: categories, selectedCategory: selectedCategory)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -219,7 +220,8 @@ public final class Presentation: AUIWindowPresentation {
     private func pushAddTransferViewController(_ navigationController: UINavigationController) throws {
         do {
             let accounts = try delegate.presentationAccounts(self)
-            let viewController = AddTransferScreenViewController(accounts: accounts)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AddTransferScreenViewController(appearance: appearance, language: language, accounts: accounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -257,7 +259,8 @@ public final class Presentation: AUIWindowPresentation {
     private func pushTopUpAccountViewController(_ navigationController: UINavigationController, selectedAccount: Account) throws {
         do {
             let accounts = try delegate.presentationAccounts(self)
-            let viewController = TopUpAccountScreenViewController(accounts: accounts, selectedAccount: selectedAccount)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = TopUpAccountScreenViewController(appearance: appearance, language: language, accounts: accounts, selectedAccount: selectedAccount)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -355,7 +358,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             let categories = try delegate.presentationCategories(self)
-            let viewController = EditExpenseScreenViewController(expense: expense, categories: categories, balanceAccounts: accounts)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = EditExpenseScreenViewController(appearance: appearance, language: language, expense: expense, categories: categories, balanceAccounts: accounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1022,7 +1026,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let categories = try delegate.presentationCategories(self)
             let balanceAccounts = try delegate.presentationAccounts(self)
-            let viewController = AddTemplateScreenViewController(categories: categories, balanceAccounts: balanceAccounts)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AddTemplateScreenViewController(appearance: appearance, language: language, categories: categories, balanceAccounts: balanceAccounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1070,7 +1075,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let categories = try delegate.presentationCategories(self)
             let balanceAccounts = try delegate.presentationAccounts(self)
-            let viewController = AddTemplateScreenViewController(categories: categories, balanceAccounts: balanceAccounts)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AddTemplateScreenViewController(appearance: appearance, language: language, categories: categories, balanceAccounts: balanceAccounts)
             viewController.backClosure = { [weak viewController] in
                 guard let viewController = viewController else { return }
                 viewController.dismiss(animated: true, completion: nil)
@@ -1120,7 +1126,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let categories = try delegate.presentationCategories(self)
             let balanceAccounts = try delegate.presentationAccounts(self)
-            let viewController = EditTemplateScreenViewController(expenseTemplate: expenseTemplate, categories: categories, balanceAccounts: balanceAccounts)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = EditTemplateScreenViewController(appearance: appearance, language: language, expenseTemplate: expenseTemplate, categories: categories, balanceAccounts: balanceAccounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)

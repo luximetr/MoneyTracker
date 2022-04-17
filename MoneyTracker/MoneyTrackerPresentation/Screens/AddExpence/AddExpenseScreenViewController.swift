@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
+final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITextFieldControllerDidTapReturnKeyObserver {
     
     // MARK: Data
     
@@ -29,10 +29,12 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
 
     // MARK: Initializer
     
-    init(accounts: [Account], categories: [Category], selectedCategory: Category?) {
+    init(appearance: Appearance, language: Language, accounts: [Account], categories: [Category], selectedCategory: Category?) {
         self.accounts = accounts
         self.categories = categories
         self.selectedCategory = selectedCategory
+        self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: View
@@ -46,7 +48,7 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     }
     
     private let tapGestureRecognizer = UITapGestureRecognizer()
-    private let balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController()
+    private let balanceAccountHorizontalPickerController: BalanceAccountHorizontalPickerController
     private let inputDateViewController = InputDateViewController()
     private let commentTextFieldController = AUIEmptyTextFieldController()
     private let inputAmountViewController = InputAmountViewController()
@@ -180,9 +182,15 @@ final class AddExpenseScreenViewController: AUIStatusBarScreenViewController, AU
     // MARK: Content
 
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "AddExpenseScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "AddExpenseScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        localizer.changeLanguage(language)
+        setContent()
+    }
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")

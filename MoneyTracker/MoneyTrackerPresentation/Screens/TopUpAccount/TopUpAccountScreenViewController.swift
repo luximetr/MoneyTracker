@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class TopUpAccountScreenViewController: AUIStatusBarScreenViewController {
+final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
@@ -20,9 +20,11 @@ final class TopUpAccountScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(accounts: [Account], selectedAccount: Account?) {
+    init(appearance: Appearance, language: Language, accounts: [Account], selectedAccount: Account?) {
         self.accounts = accounts
         self.selectedAccount = selectedAccount
+        self.accountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -35,7 +37,7 @@ final class TopUpAccountScreenViewController: AUIStatusBarScreenViewController {
         view = ScreenView()
     }
     
-    private let accountPickerController = BalanceAccountHorizontalPickerController()
+    private let accountPickerController: BalanceAccountHorizontalPickerController
     private let amountInputController = TextFieldLabelController()
     
     override func viewDidLoad() {

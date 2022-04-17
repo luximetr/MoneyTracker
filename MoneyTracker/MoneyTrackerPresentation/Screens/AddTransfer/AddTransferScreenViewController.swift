@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class AddTransferScreenViewController: AUIStatusBarScreenViewController {
+final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
@@ -19,8 +19,11 @@ final class AddTransferScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(accounts: [Account]) {
+    init(appearance: Appearance, language: Language, accounts: [Account]) {
         self.accounts = accounts
+        self.fromAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        self.toAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -33,8 +36,8 @@ final class AddTransferScreenViewController: AUIStatusBarScreenViewController {
         view = ScreenView()
     }
     
-    private let fromAccountPickerController = BalanceAccountHorizontalPickerController()
-    private let toAccountPickerController = BalanceAccountHorizontalPickerController()
+    private let fromAccountPickerController: BalanceAccountHorizontalPickerController
+    private let toAccountPickerController: BalanceAccountHorizontalPickerController
     private let fromAmountInputController = TextFieldLabelController()
     private let toAmountInputController = TextFieldLabelController()
     
@@ -90,9 +93,14 @@ final class AddTransferScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "AddTransferScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "AddTransferScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")

@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
+class BalanceAccountHorizontalPickerController: EmptyViewController {
     
     // MARK: - Delegations
     
@@ -25,7 +25,7 @@ class BalanceAccountHorizontalPickerController: AUIEmptyViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "BalanceAccountHorizontalPickerStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "BalanceAccountHorizontalPickerStrings")
         return localizer
     }()
     
