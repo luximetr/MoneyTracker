@@ -33,9 +33,24 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "EditTemplateScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "EditTemplateScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    private func setContent() {
+        editTemplateScreenView.titleLabel.text = localizer.localizeText("title")
+        editTemplateScreenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
+        editTemplateScreenView.categoryPickerHeaderLabel.text = localizer.localizeText("categoryPickerHeader")
+        editTemplateScreenView.nameTextField.placeholder = localizer.localizeText("namePlaceholder")
+        editTemplateScreenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
+        editTemplateScreenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
+        editTemplateScreenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
+    }
     
     // MARK: - Life cycle
     
@@ -67,17 +82,11 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
         setupNameTextFieldController()
         setupCommentTextFieldController()
         setupAmountTextFieldController()
-        editTemplateScreenView.titleLabel.text = localizer.localizeText("title")
-        editTemplateScreenView.balanceAccountPickerHeaderLabel.text = localizer.localizeText("accountPickerHeader")
-        editTemplateScreenView.categoryPickerHeaderLabel.text = localizer.localizeText("categoryPickerHeader")
-        editTemplateScreenView.nameTextField.placeholder = localizer.localizeText("namePlaceholder")
-        editTemplateScreenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
         editTemplateScreenView.amountInputView.label.text = balanceAccountPickerController.selectedAccount?.currency.rawValue
-        editTemplateScreenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
-        editTemplateScreenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
         editTemplateScreenView.saveButton.addTarget(self, action: #selector(didTapOnSaveButton), for: .touchUpInside)
         editTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
+        setContent()
     }
     
     // MARK: - View - Actions
