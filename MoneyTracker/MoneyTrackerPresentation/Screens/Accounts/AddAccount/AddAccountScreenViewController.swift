@@ -38,7 +38,7 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
     // MARK: View
     
     override func loadView() {
-        view = AddAccountScreenView()
+        view = AddAccountScreenView(appearance: LightAppearance())
     }
     
     private var addAccountScreenView: AddAccountScreenView! {

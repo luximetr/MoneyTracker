@@ -116,7 +116,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - NameTextField
     
-    let nameTextField = TextField()
+    let nameTextField = TextField3D()
     
     private func layoutNameTextField() {
         nameTextField.pin
@@ -140,7 +140,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - CommentTextField
     
-    let commentTextField = TextField()
+    let commentTextField = TextField3D()
     
     private func layoutCommentTextField() {
         commentTextField.pin

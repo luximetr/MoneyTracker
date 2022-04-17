@@ -14,7 +14,7 @@ final class CategoryPickerView: AUIView {
     // MARK: Subviews
     
     let titleLabel = UILabel()
-    let addExpenseButton = TextButton()
+    let addExpenseButton = TextButton(appearance: LightAppearance())
     private let collectionViewFlowLayout = LeftAlignedCollectionViewFlowLayout()
     let collectionView: UICollectionView
     

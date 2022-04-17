@@ -14,7 +14,7 @@ final class AccountPickerView: AUIView {
     // MARK: Subviews
     
     let titleLabel = UILabel()
-    let transferButton = TextButton()
+    let transferButton = TextButton(appearance: LightAppearance())
     private let collectionViewFlowLayout = LeftAlignedCollectionViewFlowLayout()
     let collectionView: UICollectionView
     

@@ -14,11 +14,11 @@ final class EditAccountScreenView: BackTitleNavigationBarScreenView {
     
     let scrollView = UIScrollView()
     let backgroundView = UIView()
-    let nameInputView: UITextField = TextField()
+    let nameInputView: UITextField = TextField3D()
     let currencyInputView = UIButton()
-    let amountInputView: UITextField = TextField()
+    let amountInputView: UITextField = TextField3D()
     let colorsTitleLabel = UILabel()
-    let colorPickerView = ColorHorizontalPickerView()
+    let colorPickerView = ColorHorizontalPickerView(appearance: LightAppearance())
     let addButton = TextFilledButton()
     
     // MARK: Setup

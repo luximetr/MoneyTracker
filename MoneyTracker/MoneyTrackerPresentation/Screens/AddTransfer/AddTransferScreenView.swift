@@ -22,7 +22,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let dayDatePickerView = UIDatePicker()
     let fromAmountInputView = SingleLineTextInputView()
     let toAmountInputView = SingleLineTextInputView()
-    let commentTextField = TextField()
+    let commentTextField = TextField3D()
     let addButton = TextFilledButton()
     
     // MARK: Setup

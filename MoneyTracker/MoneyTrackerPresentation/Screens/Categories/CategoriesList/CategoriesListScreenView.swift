@@ -8,14 +8,8 @@
 import UIKit
 import AUIKit
 
-extension CategoriesScreenViewController {
+extension CategoriesListScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
-    
-    // MARK: - Initializer
-    
-    init(appearance: Appearance) {
-        super.init(appearance: appearance)
-    }
     
     // MARK: - Appearance
     
@@ -23,12 +17,19 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         setupAddButton()
         setupTableView()
-        categoryTableViewCells?.forEach({ $0.setup(appearance: appearance) })
+        categoryTableViewCells?.forEach({ $0.setAppearance(appearance) })
+    }
+    
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.addButton = TextButton(appearance: appearance)
+        super.init(appearance: appearance)
     }
     
     // MARK: - Subviews
     
-    let addButton = TextButton()
+    let addButton: TextButton
     let tableView = UITableView()
     private var categoryTableViewCells: [CategoryTableViewCell]? {
         let categoryTableViewCells = tableView.visibleCells.compactMap({ $0 as? CategoryTableViewCell })
@@ -43,6 +44,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupAddButton()
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
+        setupCategoryTableViewCell()
     }
     
     private func setupAddButton() {
@@ -50,10 +52,13 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addButton.setTitleColor(appearance.accent, for: .normal)
     }
     
-    private let categoryTableViewCellReuseIdentifier = "categoryTableViewCellReuseIdentifier"
     private func setupTableView() {
         tableView.backgroundColor = appearance.primaryBackground
         tableView.separatorStyle = .none
+    }
+    
+    private let categoryTableViewCellReuseIdentifier = "categoryTableViewCellReuseIdentifier"
+    private func setupCategoryTableViewCell() {
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: categoryTableViewCellReuseIdentifier)
     }
     
@@ -89,7 +94,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     func categoryTableViewCell(_ indexPath: IndexPath) -> CategoryTableViewCell {
         let categoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: categoryTableViewCellReuseIdentifier, for: indexPath) as! CategoryTableViewCell
-        categoryTableViewCell.setup(appearance: appearance)
+        categoryTableViewCell.setAppearance(appearance)
         return categoryTableViewCell
     }
     

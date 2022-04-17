@@ -1,5 +1,5 @@
 //
-//  CategoriesScreenViewController.swift
+//  CategoriesListScreenViewController.swift
 //  MoneyTrackerPresentation
 //
 //  Created by Job Ihor Myroniuk on 31.01.2022.
@@ -8,11 +8,10 @@
 import UIKit
 import AUIKit
 
-final class CategoriesScreenViewController: StatusBarScreenViewController {
+final class CategoriesListScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
-    private let language: Language
     private var categories: [Category]
     var backClosure: (() -> Void)?
     var editCategoryClosure: ((Category) -> Void)?
@@ -23,9 +22,8 @@ final class CategoriesScreenViewController: StatusBarScreenViewController {
     // MARK: - Initializer
     
     init(appearance: Appearance, language: Language, categories: [Category]) {
-        self.language = language
         self.categories = categories
-        super.init(appearance: appearance)
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -41,7 +39,12 @@ final class CategoriesScreenViewController: StatusBarScreenViewController {
     private let tableViewController = AUIClosuresTableViewController()
     private let categoriesSectionController = AUIEmptyTableViewSectionController()
     private var categoriesCellControllers: [CategoryTableViewCellController]? {
-        return categoriesSectionController.cellControllers as? [CategoryTableViewCellController]
+        let categoriesCellControllers = categoriesSectionController.cellControllers as? [CategoryTableViewCellController]
+        return categoriesCellControllers
+    }
+    private func categoryCellController(_ category: Category) -> CategoryTableViewCellController? {
+        let categoryCellController = categoriesCellControllers?.first(where: { $0.category.id == category.id })
+        return categoryCellController
     }
     
     override func viewDidLoad() {
@@ -92,28 +95,23 @@ final class CategoriesScreenViewController: StatusBarScreenViewController {
         addCategoryClosure?()
     }
     
-    func editCategory(_ category: Category) {
-        guard let firstIndex = categories.firstIndex(where: { $0.id == category.id }) else { return }
-        categories[firstIndex] = category
-        guard let cellController = categoriesCellControllers?.first(where: { $0.category.id == category.id }) else { return }
-        cellController.editCategory(category)
-    }
-    
     func addCategory(_ category: Category) {
         categories.append(category)
         let cellController = createCategoryTableViewCellController(category: category)
         tableViewController.insertCellControllerAtSectionEndAnimated(categoriesSectionController, cellController: cellController, .automatic, completion: nil)
     }
     
-    func updateCategories(_ categories: [Category]) {
-        self.categories = categories
-        setupTableViewController()
+    func editCategory(_ category: Category) {
+        guard let firstIndex = categories.firstIndex(where: { $0.id == category.id }) else { return }
+        categories[firstIndex] = category
+        guard let categoryCellController = self.categoryCellController(category) else { return }
+        categoryCellController.editCategory(category)
     }
     
     // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "CategoriesScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "CategoriesListScreenStrings")
         return localizer
     }()
     
@@ -130,7 +128,6 @@ final class CategoriesScreenViewController: StatusBarScreenViewController {
             categoriesCellControllers.append(cellController)
         }
         categoriesSectionController.cellControllers = categoriesCellControllers
-                
         tableViewController.sectionControllers = [categoriesSectionController]
         tableViewController.reload()
     }

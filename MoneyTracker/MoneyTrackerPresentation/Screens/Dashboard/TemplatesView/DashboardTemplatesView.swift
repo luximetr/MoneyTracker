@@ -15,7 +15,7 @@ final class TemplatesView: AUIView {
     
     let panGestureView = UIView()
     let titleLabel = UILabel()
-    let addButton = TextButton()
+    let addButton = TextButton(appearance: LightAppearance())
     let collectionViewFlowLayout = UICollectionViewFlowLayout()
     let collectionView: UICollectionView
     

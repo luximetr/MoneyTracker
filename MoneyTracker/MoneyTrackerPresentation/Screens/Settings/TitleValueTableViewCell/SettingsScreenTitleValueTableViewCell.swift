@@ -9,7 +9,18 @@ import UIKit
 import AUIKit
 
 extension SettingsScreenViewController {
-final class TitleValueTableViewCell: TableViewCell {
+final class TitleValueTableViewCell: AppearanceTableViewCell {
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupTitleLabel(appearance: appearance)
+        setupValueLabel(appearance: appearance)
+        setupForwardImageView(appearance: appearance)
+        setupSeparatorView(appearance: appearance)
+    }
     
     // MARK: - Subviews
     
@@ -27,14 +38,6 @@ final class TitleValueTableViewCell: TableViewCell {
         contentView.addSubview(valueLabel)
         contentView.addSubview(forwardImageView)
         contentView.addSubview(separatorView)
-    }
-    
-    override func setup(appearance: Appearance) {
-        super.setup(appearance: appearance)
-        setupTitleLabel(appearance: appearance)
-        setupValueLabel(appearance: appearance)
-        setupForwardImageView(appearance: appearance)
-        setupSeparatorView(appearance: appearance)
     }
     
     private func setupTitleLabel(appearance: Appearance) {

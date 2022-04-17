@@ -23,8 +23,8 @@ final class ScreenView: TitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         setupTitleLabel()
         setupTableView()
-        titleTableViewCells?.forEach({ $0.setup(appearance: appearance) })
-        titleValueTableViewCells?.forEach({ $0.setup(appearance: appearance) })
+        titleTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        titleValueTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     
     // MARK: - Subviews
@@ -90,7 +90,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     func titleTableViewCell(_ indexPath: IndexPath) -> TitleTableViewCell {
         let titleTableViewCell = tableView.dequeueReusableCell(withIdentifier: titleTableViewCellReuseIdentifier, for: indexPath) as! TitleTableViewCell
-        titleTableViewCell.setup(appearance: appearance)
+        titleTableViewCell.setAppearance(appearance)
         return titleTableViewCell
     }
     
@@ -106,7 +106,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     func titleValueTableViewCell(_ indexPath: IndexPath) -> TitleValueTableViewCell {
         let titleValueTableViewCell = tableView.dequeueReusableCell(withIdentifier: titleValueTableViewCellReuseIdentifier, for: indexPath) as! TitleValueTableViewCell
-        titleValueTableViewCell.setup(appearance: appearance)
+        titleValueTableViewCell.setAppearance(appearance)
         return titleValueTableViewCell
     }
     

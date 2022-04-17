@@ -14,9 +14,14 @@ class StatusBarScreenView: AUIStatusBarScreenView {
     
     var appearance: Appearance
     
+    func changeAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        setupStatusBarView()
+    }
+    
     // MARK: - Initializer
     
-    init(frame: CGRect = .zero, appearance: Appearance = LightAppearance(), statusBarView: UIView = UIView()) {
+    init(frame: CGRect = .zero, appearance: Appearance, statusBarView: UIView = UIView()) {
         self.appearance = appearance
         super.init(frame: frame, statusBarView: statusBarView)
     }
@@ -31,13 +36,6 @@ class StatusBarScreenView: AUIStatusBarScreenView {
     override func setupStatusBarView() {
         super.setupStatusBarView()
         statusBarView.backgroundColor = appearance.primaryBackground
-    }
-    
-    // MARK: - Events
-    
-    func changeAppearance(_ appearance: Appearance) {
-        self.appearance = appearance
-        setupStatusBarView()
     }
     
 }

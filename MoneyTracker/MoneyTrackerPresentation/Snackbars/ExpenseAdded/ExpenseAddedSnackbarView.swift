@@ -13,7 +13,7 @@ final class ExpenseAddedSnackbarView: AUIView {
     // MARK: Subviews
     
     let messageLabel = UILabel()
-    let okButton = TextButton()
+    let okButton = TextButton(appearance: LightAppearance())
     
     // MARK: Setup
     

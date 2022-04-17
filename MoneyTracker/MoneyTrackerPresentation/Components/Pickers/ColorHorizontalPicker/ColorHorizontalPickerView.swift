@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import PinLayout
 
-final class ColorHorizontalPickerView: AUIView {
+final class ColorHorizontalPickerView: AppearanceView {
     
     // MARK: - Data
     
@@ -24,10 +24,10 @@ final class ColorHorizontalPickerView: AUIView {
     
     // MARK: - Life cycle
     
-    override init(frame: CGRect = .zero) {
+    override init(frame: CGRect = .zero, appearance: Appearance) {
         collectionViewLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        super.init(frame: frame)
+        super.init(frame: frame, appearance: appearance)
     }
     
     // MARK: - Setup
@@ -39,6 +39,7 @@ final class ColorHorizontalPickerView: AUIView {
     }
     
     private func setupCollectionView() {
+        collectionView.backgroundColor = appearance.primaryBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionViewLayout.scrollDirection = .horizontal
         collectionViewLayout.minimumInteritemSpacing = 16

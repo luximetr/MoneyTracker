@@ -8,37 +8,24 @@
 import UIKit
 import AUIKit
 
-final class PlainTextField: AUITextField {
+final class PlainTextField: AppearanceTextField {
     
-    // MARK: Placeholder
-    
-    override var placeholder: String? {
-        get {
-            return attributedPlaceholder?.string
-        }
-        set {
-            guard let string = newValue else { return }
-            let attributes: [NSAttributedString.Key : Any] = [
-                .font: Fonts.default(size: 17, weight: .regular),
-                .foregroundColor: Colors.secondaryText
-            ]
-            let attributedString = NSAttributedString(string: string, attributes: attributes)
-            attributedPlaceholder = attributedString
-        }
-    }
-    
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
-        tintColor = Colors.primaryText
-        textColor = Colors.primaryText
+        setupBorder()
+        tintColor = appearance.primaryText
+        textColor = appearance.primaryText
+        backgroundColor = appearance.primaryBackground
         font = Fonts.default(size: 17, weight: .regular)
-        layer.borderColor = Colors.secondaryBackground.cgColor
     }
     
-    // MARK: Layout
+    func setupBorder() {
+        layer.borderColor = appearance.secondaryBackground.cgColor
+    }
+    
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -58,6 +45,34 @@ final class PlainTextField: AUITextField {
         editingRect.origin.x = 16
         editingRect.size.width -= 16 * 2
         return editingRect
+    }
+    
+    // MARK: - Events
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        setupBorder()
+        tintColor = appearance.primaryText
+        textColor = appearance.primaryText
+        backgroundColor = appearance.primaryBackground
+        placeholder = placeholder
+    }
+    
+    // MARK: - Placeholder
+    
+    override var placeholder: String? {
+        get {
+            return attributedPlaceholder?.string
+        }
+        set {
+            guard let string = newValue else { return }
+            let attributes: [NSAttributedString.Key : Any] = [
+                .font: Fonts.default(size: 17, weight: .regular),
+                .foregroundColor: appearance.secondaryText
+            ]
+            let attributedString = NSAttributedString(string: string, attributes: attributes)
+            attributedPlaceholder = attributedString
+        }
     }
     
 }

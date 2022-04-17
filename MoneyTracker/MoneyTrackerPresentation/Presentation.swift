@@ -17,7 +17,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Appearance
     
-    private let appearance: Appearance = LightAppearance()
+    private let appearance: Appearance = DarkAppearance()
     
     // MARK: - Display
     
@@ -88,7 +88,11 @@ public final class Presentation: AUIWindowPresentation {
         viewController.addCategoryClosure = { [weak self, weak viewController] in
             guard let self = self else { return }
             guard let viewController = viewController else { return }
-            self.presentAddCategoryScreenViewController(viewController)
+            do {
+                try self.presentAddCategoryScreenViewController(viewController)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
         }
         viewController.transferClosure = { [weak self] in
             guard let self = self else { return }
@@ -359,7 +363,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addCategoryClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
                 guard let viewController = viewController else { return }
-                self.presentAddCategoryScreenViewController(viewController)
+                do {
+                    try self.presentAddCategoryScreenViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.editExpenseClosure = { [weak self] expense in
                 guard let self = self else { return }
@@ -408,13 +416,13 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Categories View Controller
     
-    private weak var pushedCategoriesViewController: CategoriesScreenViewController?
+    private weak var pushedCategoriesViewController: CategoriesListScreenViewController?
     
-    private func pushCategoriesViewController(_ navigationController: UINavigationController) throws {
+    private func pushCategoriesListViewController(_ navigationController: UINavigationController) throws {
         do {
             let categories: [Category] = try delegate.presentationCategories(self)
             let language = try delegate.presentationLanguage(self)
-            let viewController = CategoriesScreenViewController(appearance: appearance, language: language, categories: categories)
+            let viewController = CategoriesListScreenViewController(appearance: appearance, language: language, categories: categories)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -422,7 +430,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.editCategoryClosure = { [weak self] category in
                 guard let self = self else { return }
                 guard let menuNavigationController = self.menuNavigationController else { return }
-                self.pushEditCategoryScreenViewController(menuNavigationController, category: category)
+                do {
+                    try self.pushEditCategoryScreenViewController(menuNavigationController, category: category)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.deleteCategoryClosure = { [weak self] category in
                 guard let self = self else { return }
@@ -447,7 +459,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addCategoryClosure = { [weak self, weak navigationController] in
                 guard let self = self else { return }
                 guard let navigationController = navigationController else { return }
-                self.pushAddCategoryScreenViewController(navigationController)
+                do {
+                    try self.pushAddCategoryScreenViewController(navigationController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             pushedCategoriesViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
@@ -461,111 +477,129 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Add Category View Controller
     
     private var pushedAddCategoryViewController: AddCategoryScreenViewController?
-    private func pushAddCategoryScreenViewController(_ navigationController: UINavigationController) {
-        let viewController = AddCategoryScreenViewController(categoryColors: CategoryBackgroundColors.variants, categoryIconName: CategoryIconNames.variant1)
-        viewController.backClosure = { [weak navigationController] in
-            guard let navigationController = navigationController else { return }
-            navigationController.popViewController(animated: true)
-        }
-        viewController.addCategoryClosure = { [weak self, weak navigationController] addingCategory in
-            guard let self = self else { return }
-            guard let navigationController = navigationController else { return }
-            do {
-                let addedCategory = try self.delegate.presentation(self, addCategory: addingCategory)
-                self.dashboardViewController?.addCategory(addedCategory)
-                self.pushedCategoriesViewController?.addCategory(addedCategory)
-                self.pushedEditExpenseViewController?.addCategory(addedCategory)
-                self.pushedEditTemplateScreenViewController?.addCategory(addedCategory)
-                self.pushedAddTemplateScreenViewController?.addCategory(addedCategory)
+    private func pushAddCategoryScreenViewController(_ navigationController: UINavigationController) throws {
+        do {
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AddCategoryScreenViewController(appearance: appearance, language: language, categoryColors: CategoryBackgroundColors.variants, categoryIconName: CategoryIconNames.variant1)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
             }
-        }
-        viewController.selectIconClosure = { [weak self] color in
-            guard let self = self else { return }
-            let selectIconViewController = self.createSelectIconViewController(
-                iconColor: color,
-                onSelectIcon: { [weak viewController] iconName in
-                    viewController?.showCategoryIcon(iconName: iconName)
+            viewController.addCategoryClosure = { [weak self, weak navigationController] addingCategory in
+                guard let self = self else { return }
+                guard let navigationController = navigationController else { return }
+                do {
+                    let addedCategory = try self.delegate.presentation(self, addCategory: addingCategory)
+                    self.dashboardViewController?.addCategory(addedCategory)
+                    self.pushedCategoriesViewController?.addCategory(addedCategory)
+                    self.pushedEditExpenseViewController?.addCategory(addedCategory)
+                    self.pushedEditTemplateScreenViewController?.addCategory(addedCategory)
+                    self.pushedAddTemplateScreenViewController?.addCategory(addedCategory)
+                    navigationController.popViewController(animated: true)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
                 }
-            )
-            self.menuNavigationController?.present(selectIconViewController, animated: true)
+            }
+            viewController.selectIconClosure = { [weak self] color in
+                guard let self = self else { return }
+                let selectIconViewController = self.createSelectIconViewController(
+                    iconColor: color,
+                    onSelectIcon: { [weak viewController] iconName in
+                        viewController?.showCategoryIcon(iconName: iconName)
+                    }
+                )
+                self.menuNavigationController?.present(selectIconViewController, animated: true)
+            }
+            self.pushedAddCategoryViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push AddCategoryScreenViewController\n\(error)")
+            throw error
         }
-        self.pushedAddCategoryViewController = viewController
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     private var presentedAddCategoryViewController: AddCategoryScreenViewController?
-    private func presentAddCategoryScreenViewController(_ presentingViewController: UIViewController) {
-        let viewController = AddCategoryScreenViewController(categoryColors: CategoryBackgroundColors.variants, categoryIconName: CategoryIconNames.variant1)
-        viewController.backClosure = { [weak viewController] in
-            guard let viewController = viewController else { return }
-            viewController.dismiss(animated: true, completion: nil)
-        }
-        viewController.addCategoryClosure = { [weak self, weak viewController] addingCategory in
-            guard let self = self else { return }
-            guard let viewController = viewController else { return }
-            do {
-                let addedCategory = try self.delegate.presentation(self, addCategory: addingCategory)
-                self.dashboardViewController?.addCategory(addedCategory)
-                self.pushedCategoriesViewController?.addCategory(addedCategory)
-                self.pushedEditExpenseViewController?.addCategory(addedCategory)
-                self.pushedEditTemplateScreenViewController?.addCategory(addedCategory)
-                self.pushedAddTemplateScreenViewController?.addCategory(addedCategory)
+    private func presentAddCategoryScreenViewController(_ presentingViewController: UIViewController) throws {
+        do {
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AddCategoryScreenViewController(appearance: appearance, language: language, categoryColors: CategoryBackgroundColors.variants, categoryIconName: CategoryIconNames.variant1)
+            viewController.backClosure = { [weak viewController] in
+                guard let viewController = viewController else { return }
                 viewController.dismiss(animated: true, completion: nil)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
             }
-        }
-        viewController.selectIconClosure = { [weak self, weak viewController] color in
-            guard let self = self else { return }
-            let selectIconViewController = self.createSelectIconViewController(
-                iconColor: color,
-                onSelectIcon: { iconName in
-                    viewController?.showCategoryIcon(iconName: iconName)
+            viewController.addCategoryClosure = { [weak self, weak viewController] addingCategory in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    let addedCategory = try self.delegate.presentation(self, addCategory: addingCategory)
+                    self.dashboardViewController?.addCategory(addedCategory)
+                    self.pushedCategoriesViewController?.addCategory(addedCategory)
+                    self.pushedEditExpenseViewController?.addCategory(addedCategory)
+                    self.pushedEditTemplateScreenViewController?.addCategory(addedCategory)
+                    self.pushedAddTemplateScreenViewController?.addCategory(addedCategory)
+                    viewController.dismiss(animated: true, completion: nil)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
                 }
-            )
-            viewController?.present(selectIconViewController, animated: true)
+            }
+            viewController.selectIconClosure = { [weak self, weak viewController] color in
+                guard let self = self else { return }
+                let selectIconViewController = self.createSelectIconViewController(
+                    iconColor: color,
+                    onSelectIcon: { iconName in
+                        viewController?.showCategoryIcon(iconName: iconName)
+                    }
+                )
+                viewController?.present(selectIconViewController, animated: true)
+            }
+            presentedAddCategoryViewController = viewController
+            presentingViewController.present(viewController, animated: true, completion: nil)
+        } catch {
+            let error = Error("Cannot present AddCategoryScreenViewController\n\(error)")
+            throw error
         }
-        presentedAddCategoryViewController = viewController
-        presentingViewController.present(viewController, animated: true, completion: nil)
     }
     
     // MARK: - Edit Category View Controller
     
     private weak var pushedEditCategoryViewController: EditCategoryScreenViewController?
-    private func pushEditCategoryScreenViewController(_ navigationController: UINavigationController, category: Category) {
-        let viewController = EditCategoryScreenViewController(category: category, categoryColors: CategoryBackgroundColors.variants)
-        viewController.backClosure = { [weak navigationController] in
-            guard let navigationController = navigationController else { return }
-            navigationController.popViewController(animated: true)
-        }
-        viewController.editCategoryClosure = { [weak self, weak navigationController] editingCategory in
-            guard let self = self else { return }
-            guard let navigationController = navigationController else { return }
-            do {
-                let editedCategory = try self.delegate.presentation(self, editCategory: editingCategory)
-                self.pushedCategoriesViewController?.editCategory(editedCategory)
-                self.dashboardViewController?.editCategory(editedCategory)
+    private func pushEditCategoryScreenViewController(_ navigationController: UINavigationController, category: Category) throws {
+        do {
+            let language = try delegate.presentationLanguage(self)
+            let viewController = EditCategoryScreenViewController(appearance: appearance, language: language, category: category, categoryColors: CategoryBackgroundColors.variants)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
-                throw error
             }
-        }
-        viewController.selectIconClosure = { [weak self] color in
-            guard let self = self else { return }
-            let selectIconViewController = self.createSelectIconViewController(
-                iconColor: color,
-                onSelectIcon: { [weak viewController] iconName in
-                    viewController?.showCategoryIcon(iconName: iconName)
+            viewController.editCategoryClosure = { [weak self, weak navigationController] editingCategory in
+                guard let self = self else { return }
+                guard let navigationController = navigationController else { return }
+                do {
+                    let editedCategory = try self.delegate.presentation(self, editCategory: editingCategory)
+                    self.pushedCategoriesViewController?.editCategory(editedCategory)
+                    self.dashboardViewController?.editCategory(editedCategory)
+                    navigationController.popViewController(animated: true)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                    throw error
                 }
-            )
-            navigationController.present(selectIconViewController, animated: true)
+            }
+            viewController.selectIconClosure = { [weak self] color in
+                guard let self = self else { return }
+                let selectIconViewController = self.createSelectIconViewController(
+                    iconColor: color,
+                    onSelectIcon: { [weak viewController] iconName in
+                        viewController?.showCategoryIcon(iconName: iconName)
+                    }
+                )
+                navigationController.present(selectIconViewController, animated: true)
+            }
+            pushedEditCategoryViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push EditCategoryScreenViewController\n\(error)")
+            throw error
         }
-        pushedEditCategoryViewController = viewController
-        navigationController.pushViewController(viewController, animated: true)
     }
     
     // MARK: - Select Icon View Controller
@@ -593,7 +627,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
-                try self.pushCategoriesViewController(menuNavigationController)
+                try self.pushCategoriesListViewController(menuNavigationController)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
@@ -1000,7 +1034,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addCategoryClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
                 guard let viewController = viewController else { return }
-                self.presentAddCategoryScreenViewController(viewController)
+                do {
+                    try self.presentAddCategoryScreenViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.addAccountClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
@@ -1044,7 +1082,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addCategoryClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
                 guard let viewController = viewController else { return }
-                self.presentAddCategoryScreenViewController(viewController)
+                do {
+                    try self.presentAddCategoryScreenViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.addAccountClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
@@ -1090,7 +1132,11 @@ public final class Presentation: AUIWindowPresentation {
             viewController.addCategoryClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }
                 guard let viewController = viewController else { return }
-                self.presentAddCategoryScreenViewController(viewController)
+                do {
+                    try self.presentAddCategoryScreenViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
             viewController.addAccountClosure = { [weak self, weak viewController] in
                 guard let self = self else { return }

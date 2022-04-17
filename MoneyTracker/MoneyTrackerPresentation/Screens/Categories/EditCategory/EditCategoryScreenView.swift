@@ -11,21 +11,29 @@ import AUIKit
 extension EditCategoryScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
+    // MARK: Initializer
+    
+    init(appearance: Appearance) {
+        self.nameTextField = PlainTextField(appearance: appearance)
+        self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
     // MARK: Subviews
     
     let iconView = CategoryIconView()
     let selectIconButton = UIButton()
     let scrollView = UIScrollView()
-    let nameTextField = PlainTextField()
+    let nameTextField: PlainTextField
     let colorPickerTitleLabel = UILabel()
-    let colorPickerView = ColorHorizontalPickerView()
+    let colorPickerView: ColorHorizontalPickerView
     let editButton = TextFilledButton()
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         addSubview(scrollView)
         scrollView.addSubview(iconView)
         scrollView.addSubview(selectIconButton)
@@ -38,17 +46,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupEditButton()
     }
     
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.white
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.white
-    }
-    
     private func setupColorPickerTitleLabel() {
+        colorPickerTitleLabel.textColor = appearance.primaryText
         colorPickerTitleLabel.numberOfLines = 1
         colorPickerTitleLabel.font = Fonts.default(size: 17, weight: .regular)
     }
@@ -90,7 +89,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private func layoutNameTextField() {
         let x: CGFloat = iconViewLeading + iconViewSide + 16
         let y: CGFloat = 32
-        let width = bounds.width - 2 * x
+        let width = bounds.width - x - iconViewLeading
         let height: CGFloat = 44
         let frame = CGRect(x: x, y: y, width: width, height: height)
         nameTextField.frame = frame
