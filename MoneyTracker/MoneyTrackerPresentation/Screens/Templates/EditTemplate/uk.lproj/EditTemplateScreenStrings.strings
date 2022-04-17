@@ -1,7 +1,7 @@
-"title" = "Edit template";
-"accountPickerHeader" = "Account";
-"categoryPickerHeader" = "Category";
-"saveButtonTitle" = "Save";
-"namePlaceholder" = "Name";
-"amountPlaceholder" = "Amount";
-"commentPlaceholder" = "Comment (optional)";
+"title" = "Редагувати шаблон";
+"accountPickerHeader" = "Рахунок";
+"categoryPickerHeader" = "Категорія";
+"saveButtonTitle" = "Зберегти";
+"namePlaceholder" = "Ім'я";
+"amountPlaceholder" = "Сума";
+"commentPlaceholder" = "Коментар (необов'язково)";

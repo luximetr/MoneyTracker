@@ -1,5 +1,5 @@
-"title" = "Templates";
-"addTemplate" = "Create Template";
-"delete" = "Delete";
-"balanceAccountPrefix" = "from";
-"categoryPrefix" = "to";
+"title" = "Шаблони";
+"addTemplate" = "Створити шаблон";
+"delete" = "Видалити";
+"balanceAccountPrefix" = "від";
+"categoryPrefix" = "до";

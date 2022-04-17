@@ -1,4 +1,4 @@
-"title" = "Add expense";
-"commentPlaceholder" = "Comment (optional)";
-"delete" = "Delete";
-"add" = "Done";
+"title" = "Додати витрати";
+"commentPlaceholder" = "Коментар (необов'язково)";
+"delete" = "Видалити";
+"add" = "Готово";
