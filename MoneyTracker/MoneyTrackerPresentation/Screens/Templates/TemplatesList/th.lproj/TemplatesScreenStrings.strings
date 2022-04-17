@@ -1,5 +1,5 @@
-"title" = "Templates";
-"addTemplate" = "Create Template";
-"delete" = "Delete";
-"balanceAccountPrefix" = "from";
-"categoryPrefix" = "to";
+"title" = "แม่แบบ";
+"addTemplate" = "สร้างเทมเพลต";
+"delete" = "ลบ";
+"balanceAccountPrefix" = "จาก";
+"categoryPrefix" = "ถึง";

@@ -1,5 +1,5 @@
-"title" = "Transfer";
-"fromAccount" = "From";
-"toAccount" = "To";
-"commentPlaceholder" = "Comment (optional)";
-"add" = "Done";
+"title" = "โอนย้าย";
+"fromAccount" = "จาก";
+"toAccount" = "ถึง";
+"commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";
+"add" = "เสร็จแล้ว";

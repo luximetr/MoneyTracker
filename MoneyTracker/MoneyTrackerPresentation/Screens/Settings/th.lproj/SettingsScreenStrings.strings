@@ -1,8 +1,8 @@
-"title" = "Settings";
-"categories" = "Categories";
-"defaultCurrency" = "Default currency";
-"language" = "Language";
-"accounts" = "Accounts";
-"templates" = "Templates";
-"importCSV" = "Import from CSV";
-"exportCSV" = "Export to CSV";
+"title" = "การตั้งค่า";
+"categories" = "หมวดหมู่";
+"defaultCurrency" = "สกุลเงินเริ่มต้น";
+"language" = "ภาษา";
+"accounts" = "บัญชี";
+"templates" = "แม่แบบ";
+"importCSV" = "นำเข้าจาก CSV";
+"exportCSV" = "ส่งออกเป็น CSV";

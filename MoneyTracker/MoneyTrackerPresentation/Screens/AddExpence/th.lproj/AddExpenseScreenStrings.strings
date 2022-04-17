@@ -1,4 +1,4 @@
 "title" = "เพิ่มค่าใช้จ่าย";
-"commentPlaceholder" = "Comment (optional)";
-"delete" = "Delete";
-"add" = "Done";
+"commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";
+"delete" = "ลบ";
+"add" = "เสร็จแล้ว";

@@ -1,7 +1,7 @@
-"title" = "Edit expense";
-"accountPickerHeader" = "Account";
-"categoryPickerHeader" = "Category";
-"saveButtonTitle" = "Save";
-"namePlaceholder" = "Name";
-"amountPlaceholder" = "Amount";
-"commentPlaceholder" = "Comment (optional)";
+"title" = "แก้ไขค่าใช้จ่าย";
+"accountPickerHeader" = "บัญชี";
+"categoryPickerHeader" = "หมวดหมู่";
+"saveButtonTitle" = "บันทึก";
+"namePlaceholder" = "ชื่อ";
+"amountPlaceholder" = "จำนวน";
+"commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";
