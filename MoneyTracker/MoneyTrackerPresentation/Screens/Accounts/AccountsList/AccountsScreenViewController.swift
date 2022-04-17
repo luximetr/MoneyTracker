@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
+final class AccountsScreenViewController: StatusBarScreenViewController, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
     
     // MARK: Data
     
@@ -16,8 +16,9 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     
     // MARK: Initializer
     
-    init(accounts: [Account]) {
+    init(appearance: Appearance, language: Language, accounts: [Account]) {
         self.accounts = accounts
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: Delegation
@@ -61,9 +62,14 @@ final class AccountsScreenViewController: AUIStatusBarScreenViewController, UICo
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "AccountsScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "AccountsScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
     
     // MARK: Events
     

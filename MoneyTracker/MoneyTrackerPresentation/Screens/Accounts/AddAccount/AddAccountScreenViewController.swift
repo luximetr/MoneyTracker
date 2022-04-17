@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
+final class AddAccountScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
@@ -17,9 +17,10 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(backgroundColors: [UIColor], selectedCurrency: Currency) {
+    init(appearance: Appearance, language: Language, backgroundColors: [UIColor], selectedCurrency: Currency) {
         self.backgroundColors = backgroundColors
         self.selectedCurrency = selectedCurrency
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: Delegation
@@ -31,9 +32,20 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "AddAccountScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "AddAccountScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    private func setContent() {
+        addAccountScreenView.titleLabel.text = localizer.localizeText("title")
+        addAccountScreenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
+        addAccountScreenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
+    }
     
     // MARK: View
     
@@ -59,12 +71,9 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addAccountScreenView.titleLabel.text = localizer.localizeText("title")
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         addAccountScreenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
-        addAccountScreenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
-        addAccountScreenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
         setupColorPickerController()
         setColorPickerControllerContent()
         addAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
@@ -74,6 +83,7 @@ final class AddAccountScreenViewController: AUIStatusBarScreenViewController {
         balanceTextFieldInputController.textField = addAccountScreenView.amountInputView
         balanceTextFieldInputController.keyboardType = .decimalPad
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
+        setContent()
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {

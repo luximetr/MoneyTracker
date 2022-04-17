@@ -780,7 +780,8 @@ public final class Presentation: AUIWindowPresentation {
     private func pushAccountsViewController(_ navigationController: UINavigationController) throws {
         do {
             let accounts = try delegate.presentationAccounts(self)
-            let viewController = AccountsScreenViewController(accounts: accounts)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AccountsScreenViewController(appearance: appearance, language: language, accounts: accounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -832,7 +833,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let backgroundColors = AccountBackgroundColors.variants
             let selectedCurrency = try delegate.presentationSelectedCurrency(self)
-            let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AddAccountScreenViewController(appearance: appearance, language: language, backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -881,7 +883,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let backgroundColors = AccountBackgroundColors.variants
             let selectedCurrency = try delegate.presentationSelectedCurrency(self)
-            let viewController = AddAccountScreenViewController(backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = AddAccountScreenViewController(appearance: appearance, language: language, backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak self] in
                 guard let self = self else { return }
                 self.menuNavigationController?.dismiss(animated: true, completion: nil)
@@ -928,7 +931,8 @@ public final class Presentation: AUIWindowPresentation {
     private weak var pushedEditAccoutScreenViewController: EditAccountScreenViewController?
     private func pushEditAccountViewController(_ navigationController: UINavigationController, editingAccount: Account) {
         let backgroundColors = AccountBackgroundColors.variants
-        let viewController = EditAccountScreenViewController(editingAccount: editingAccount, backgroundColors: backgroundColors)
+        let language = try! delegate.presentationLanguage(self)
+        let viewController = EditAccountScreenViewController(appearance: appearance, language: language, editingAccount: editingAccount, backgroundColors: backgroundColors)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)

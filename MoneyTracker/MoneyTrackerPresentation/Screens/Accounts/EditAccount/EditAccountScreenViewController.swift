@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
+final class EditAccountScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
@@ -18,10 +18,11 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(editingAccount: Account, backgroundColors: [UIColor]) {
+    init(appearance: Appearance, language: Language, editingAccount: Account, backgroundColors: [UIColor]) {
         self.editingAccount = editingAccount
         self.selectedCurrency = editingAccount.currency
         self.backgroundColors = backgroundColors
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: Delegation
@@ -33,9 +34,20 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "EditAccountScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "EditAccountScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    private func setContent() {
+        editAccountScreenView.titleLabel.text = localizer.localizeText("title")
+        editAccountScreenView.addButton.setTitle(localizer.localizeText("edit"), for: .normal)
+        editAccountScreenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
+    }
     
     // MARK: View
     
@@ -69,13 +81,10 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        editAccountScreenView.titleLabel.text = localizer.localizeText("title")
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         editAccountScreenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         editAccountScreenView.nameInputView.text = editingAccount.name
-        editAccountScreenView.addButton.setTitle(localizer.localizeText("edit"), for: .normal)
-        editAccountScreenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
         setupColorPickerController()
         setColorPickerControllerContent()
         editAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
@@ -85,6 +94,7 @@ final class EditAccountScreenViewController: AUIStatusBarScreenViewController {
         balanceTextFieldInputController.keyboardType = .decimalPad
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
         balanceTextFieldInputController.text = balanceNumberFormatter.string(from: NSDecimalNumber(decimal: editingAccount.amount))
+        setContent()
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
