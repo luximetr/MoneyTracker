@@ -328,7 +328,8 @@ public final class Presentation: AUIWindowPresentation {
     private weak var historyViewController: HistoryScreenViewController?
     private func createHistoryViewController() -> HistoryScreenViewController {
         let expenses = (try? delegate.presentationExpenses(self)) ?? []
-        let viewController = HistoryScreenViewController(expenses: expenses)
+        let language = try! delegate.presentationLanguage(self)
+        let viewController = HistoryScreenViewController(appearance: appearance, language: language, expenses: expenses)
         viewController.deleteExpenseClosure = { [weak self] deletingExpense in
             guard let self = self else { return }
             do {

@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class HistoryScreenViewController: AUIStatusBarScreenViewController {
+final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
@@ -19,8 +19,9 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(expenses: [Expense]) {
+    init(appearance: Appearance, language: Language, expenses: [Expense]) {
         self.expenses = expenses
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: View
@@ -36,8 +37,8 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewController.tableView = screenView.tableView
-        screenView.titleLabel.text = localizer.localizeText("title")
         setTableViewControllerContent()
+        setContent()
     }
     
     private let tableViewController = AUIEmptyTableViewController()
@@ -60,9 +61,18 @@ final class HistoryScreenViewController: AUIStatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "HistoryScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "HistoryScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    private func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+    }
     
     // MARK: Events
     
