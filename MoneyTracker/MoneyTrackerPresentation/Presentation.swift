@@ -709,7 +709,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let currencies = delegate.presentationCurrencies(self)
             let selectedCurrency = try selectedCurrency ?? delegate.presentationSelectedCurrency(self)
-            let viewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = SelectCurrencyScreenViewController(appearance: appearance, language: language, currencies: currencies, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak presentingViewController] in
                 guard let presentingViewController = presentingViewController else { return }
                 presentingViewController.dismiss(animated: true, completion: nil)
@@ -730,7 +731,8 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let currencies = delegate.presentationCurrencies(self)
             let selectedCurrency = try selectedCurrency ?? delegate.presentationSelectedCurrency(self)
-            let viewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = SelectCurrencyScreenViewController(appearance: appearance, language: language, currencies: currencies, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -942,7 +944,8 @@ public final class Presentation: AUIWindowPresentation {
             guard let navigationController = navigationController else { return }
             let currencies = self.delegate.presentationCurrencies(self)
             let selectedCurrency = viewController.selectedCurrency
-            let selectCurrencyViewController = SelectCurrencyScreenViewController(currencies: currencies, selectedCurrency: selectedCurrency)
+            let language = try! self.delegate.presentationLanguage(self)
+            let selectCurrencyViewController = SelectCurrencyScreenViewController(appearance: self.appearance, language: language, currencies: currencies, selectedCurrency: selectedCurrency)
             selectCurrencyViewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)

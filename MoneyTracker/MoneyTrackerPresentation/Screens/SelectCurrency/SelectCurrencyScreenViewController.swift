@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
+class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Delegation
     
@@ -17,17 +17,27 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(currencies: [Currency], selectedCurrency: Currency) {
+    init(appearance: Appearance, language: Language, currencies: [Currency], selectedCurrency: Currency) {
         self.currencies = currencies
         self.selectedCurrency = selectedCurrency
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "SelectCurrencyScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "SelectCurrencyScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    private func setContent() {
+        selectCurrencyScreenView.titleLabel.text = localizer.localizeText("title")
+    }
     
     // MARK: - View
     
@@ -42,8 +52,8 @@ class SelectCurrencyScreenViewController: AUIStatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         selectCurrencyScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
-        selectCurrencyScreenView.titleLabel.text = localizer.localizeText("title")
         setupTableViewController()
+        setContent()
     }
     
     // MARK: - TableView
