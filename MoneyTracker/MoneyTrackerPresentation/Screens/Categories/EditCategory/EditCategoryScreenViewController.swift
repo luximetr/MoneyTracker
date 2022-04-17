@@ -54,9 +54,23 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "EditCategoryScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "EditCategoryScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    // MARK: Content
+    
+    private func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+        screenView.nameTextField.text = category.name
+        screenView.colorPickerTitleLabel.text = localizer.localizeText("colorPickerTitle")
+        screenView.editButton.setTitle(localizer.localizeText("save"), for: .normal)
+    }
     
     // MARK: Events
     
@@ -122,15 +136,6 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     func showCategoryIcon(iconName: String) {
         categoryIconName = iconName
         screenView.iconView.setIcon(named: iconName)
-    }
-    
-    // MARK: Content
-    
-    private func setContent() {
-        screenView.titleLabel.text = localizer.localizeText("title")
-        screenView.nameTextField.text = category.name
-        screenView.colorPickerTitleLabel.text = localizer.localizeText("colorPickerTitle")
-        screenView.editButton.setTitle(localizer.localizeText("save"), for: .normal)
     }
     
 }
