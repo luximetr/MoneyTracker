@@ -8,7 +8,7 @@
 import AUIKit
 import UIKit
 
-class SelectIconScreenViewController: AUIStatusBarScreenViewController {
+class SelectIconScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
@@ -21,9 +21,10 @@ class SelectIconScreenViewController: AUIStatusBarScreenViewController {
 
     // MARK: - Life cycle
     
-    init(iconNames: [String], iconColor: UIColor) {
+    init(appearance: Appearance, language: Language, iconNames: [String], iconColor: UIColor) {
         self.iconNames = iconNames
         self.iconColor = iconColor
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: - View
@@ -45,9 +46,14 @@ class SelectIconScreenViewController: AUIStatusBarScreenViewController {
     // MARK: - Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "SelectIconScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "SelectIconScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
     
     // MARK: - Content
     
