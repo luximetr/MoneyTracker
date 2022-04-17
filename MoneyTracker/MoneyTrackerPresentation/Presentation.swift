@@ -754,7 +754,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let languages = try delegate.presentationLanguages(self)
             let selectedLanguage = try delegate.presentationLanguage(self)
-            let viewController = SelectLanguageScreenViewController(languages: languages, selectedLanguage: selectedLanguage)
+            let viewController = SelectLanguageScreenViewController(appearance: appearance, languages: languages, selectedLanguage: selectedLanguage)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)

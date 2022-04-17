@@ -8,8 +8,7 @@
 import UIKit
 import AUIKit
 
-final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController {
-    
+final class SelectLanguageScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Currency - Data
     
@@ -20,9 +19,10 @@ final class SelectLanguageScreenViewController: AUIStatusBarScreenViewController
     
     // MARK: - Initializer
     
-    init(languages: [Language], selectedLanguage: Language) {
+    init(appearance: Appearance, languages: [Language], selectedLanguage: Language) {
         self.languages = languages
         self.selectedLanguage = selectedLanguage
+        super.init(appearance: appearance, language: selectedLanguage)
     }
     
     // MARK: - View
