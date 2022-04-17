@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension StatisticScreenViewController {
-final class MonthCategoryExpensesTableViewCell: AUITableViewCell {
+final class MonthCategoryExpensesTableViewCell: AppearanceTableViewCell {
     
     // MARK: Subviews
     
@@ -25,26 +25,23 @@ final class MonthCategoryExpensesTableViewCell: AUITableViewCell {
         selectionStyle = .none
         contentView.addSubview(categoryIconView)
         contentView.addSubview(categoryLabel)
-        setupCategoryLabel()
         contentView.addSubview(amountLabel)
-        setupAmountLabel()
         contentView.addSubview(separatorView)
-        setupSeparatorView()
     }
     
-    private func setupCategoryLabel() {
+    private func setupCategoryLabel(appearance: Appearance) {
         categoryLabel.font = Fonts.default(size: 17, weight: .regular)
-        categoryLabel.textColor = Colors.primaryText
+        categoryLabel.textColor = appearance.primaryText
     }
     
-    private func setupAmountLabel() {
+    private func setupAmountLabel(appearance: Appearance) {
         amountLabel.font = Fonts.default(size: 17, weight: .regular)
-        amountLabel.textColor = Colors.primaryText
+        amountLabel.textColor = appearance.primaryText
         amountLabel.adjustsFontSizeToFitWidth = true
     }
     
-    private func setupSeparatorView() {
-        separatorView.backgroundColor = Colors.secondaryBackground
+    private func setupSeparatorView(appearance: Appearance) {
+        separatorView.backgroundColor = appearance.secondaryBackground
     }
     
     // MARK: Layout
@@ -96,6 +93,16 @@ final class MonthCategoryExpensesTableViewCell: AUITableViewCell {
         let width = bounds.width - x
         let frame = CGRect(x: x, y: y, width: width, height: height)
         separatorView.frame = frame
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupCategoryLabel(appearance: appearance)
+        setupAmountLabel(appearance: appearance)
+        setupSeparatorView(appearance: appearance)
     }
     
 }

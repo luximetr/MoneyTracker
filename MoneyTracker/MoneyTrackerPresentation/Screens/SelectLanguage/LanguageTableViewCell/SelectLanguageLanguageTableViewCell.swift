@@ -10,7 +10,7 @@ import AUIKit
 import PinLayout
 
 extension SelectLanguageScreenViewController {
-final class LanguageTableViewCell: AUITableViewCell {
+final class LanguageTableViewCell: AppearanceTableViewCell {
 
     // MARK: - Subviews
     
@@ -23,17 +23,15 @@ final class LanguageTableViewCell: AUITableViewCell {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(nameLabel)
-        setupNameLabel()
         contentView.addSubview(codeLabel)
-        setupCodeLabel()
     }
     
-    private func setupNameLabel() {
-        nameLabel.textColor = Colors.primaryText
+    private func setupNameLabel(appearance: Appearance) {
+        nameLabel.textColor = appearance.primaryText
     }
     
-    private func setupCodeLabel() {
-        codeLabel.textColor = Colors.primaryText
+    private func setupCodeLabel(appearance: Appearance) {
+        codeLabel.textColor = appearance.primaryText
     }
     
     // MARK: - Layout
@@ -76,9 +74,9 @@ final class LanguageTableViewCell: AUITableViewCell {
     
     private func getCodeLabelColor(isSelected: Bool) -> UIColor {
         if isSelected {
-            return Colors.accent
+            return appearance?.accent ?? .clear
         } else {
-            return Colors.primaryText
+            return appearance?.primaryText ?? .clear
         }
     }
     
@@ -91,6 +89,15 @@ final class LanguageTableViewCell: AUITableViewCell {
             nameLabel.alpha = 1
             codeLabel.alpha = 1
         }
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupNameLabel(appearance: appearance)
+        setupCodeLabel(appearance: appearance)
     }
 
 }

@@ -9,13 +9,13 @@ import UIKit
 import AUIKit
 
 extension StatisticScreenViewController {
-class MonthCollectionViewCell: AUICollectionViewCell {
+class MonthCollectionViewCell: AppearanceCollectionViewCell {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let monthLabel = UILabel()
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -27,7 +27,7 @@ class MonthCollectionViewCell: AUICollectionViewCell {
         monthLabel.font = Fonts.default(size: 12, weight: .medium)
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -44,19 +44,19 @@ class MonthCollectionViewCell: AUICollectionViewCell {
         monthLabel.textAlignment = .center
     }
     
-    // MARK: State
+    // MARK: - State
     
     func setSelected(_ isSelected: Bool) {
         if isSelected {
-            contentView.backgroundColor = Colors.accent
-            monthLabel.textColor = Colors.white
+            contentView.backgroundColor = appearance?.accent ?? .clear
+            monthLabel.textColor = appearance?.primaryText
         } else {
             contentView.backgroundColor = .clear
-            monthLabel.textColor = Colors.secondaryText
+            monthLabel.textColor = appearance?.secondaryText
         }
     }
     
-    // MARK: Size
+    // MARK: - Size
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var sizeThatFits = monthLabel.sizeThatFits(size)

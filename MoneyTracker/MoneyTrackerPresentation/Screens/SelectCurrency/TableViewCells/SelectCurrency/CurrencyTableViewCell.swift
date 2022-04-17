@@ -9,7 +9,8 @@ import UIKit
 import AUIKit
 import PinLayout
 
-class SelectCurrencyTableViewCell: AUITableViewCell {
+extension SelectCurrencyScreenViewController {
+class CurrencyTableViewCell: AppearanceTableViewCell {
 
     // MARK: - Subviews
     
@@ -22,17 +23,15 @@ class SelectCurrencyTableViewCell: AUITableViewCell {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(nameLabel)
-        setupNameLabel()
         contentView.addSubview(codeLabel)
-        setupCodeLabel()
     }
     
-    private func setupNameLabel() {
-        nameLabel.textColor = Colors.primaryText
+    private func setupNameLabel(appearance: Appearance) {
+        nameLabel.textColor = appearance.primaryText
     }
     
-    private func setupCodeLabel() {
-        codeLabel.textColor = Colors.primaryText
+    private func setupCodeLabel(appearance: Appearance) {
+        codeLabel.textColor = appearance.primaryText
     }
     
     // MARK: - Layout
@@ -72,9 +71,19 @@ class SelectCurrencyTableViewCell: AUITableViewCell {
     
     private func getCodeLabelColor(isSelected: Bool) -> UIColor {
         if isSelected {
-            return Colors.accent
+            return appearance?.accent ?? .clear
         } else {
-            return Colors.primaryText
+            return appearance?.primaryText ?? .clear
         }
     }
+    
+    // MARK: Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupNameLabel(appearance: appearance)
+        setupCodeLabel(appearance: appearance)
+    }
+}
 }

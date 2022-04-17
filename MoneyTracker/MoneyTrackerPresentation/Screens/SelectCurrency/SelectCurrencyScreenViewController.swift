@@ -42,11 +42,11 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     // MARK: - View
     
     override func loadView() {
-        view = SelectCurrencyScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
-    private var selectCurrencyScreenView: SelectCurrencyScreenView! {
-        return view as? SelectCurrencyScreenView
+    private var selectCurrencyScreenView: ScreenView! {
+        return view as? ScreenView
     }
     
     override func viewDidLoad() {
@@ -82,10 +82,10 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     
     private func createCurrencyCellController(currency: Currency) -> AUITableViewCellController {
         let isSelected = currency == selectedCurrency
-        let selectCurrencyCellController = SelectCurrencyTableViewCellController(currency: currency, isSelected: isSelected)
+        let selectCurrencyCellController = CurrencyTableViewCellController(currency: currency, isSelected: isSelected)
         selectCurrencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.selectCurrencyScreenView.makeSelectCurrencyCell(indexPath)
+            let cell = self.selectCurrencyScreenView.currencyTableViewCell(indexPath)
             cell.nameLabel.text = self.currencyNameProvider.getCurrencyName(currency: currency)
             cell.codeLabel.text = currency.rawValue
             cell.isSelected = isSelected
@@ -93,11 +93,11 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
         }
         selectCurrencyCellController.estimatedHeightClosure = { [weak self] in
             guard let self = self else { return 0 }
-            return self.selectCurrencyScreenView.getSelectCurrencyTableViewCellEstimatedHeight()
+            return self.selectCurrencyScreenView.currencyTableViewCellEstimatedHeight()
         }
         selectCurrencyCellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
-            return self.selectCurrencyScreenView.getSelectCurrencyTableViewCellHeight()
+            return self.selectCurrencyScreenView.currencyTableViewCellHeight()
         }
         selectCurrencyCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
@@ -106,9 +106,9 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
         return selectCurrencyCellController
     }
     
-    private func findCellControllerForCurrency(_ currency: Currency) -> SelectCurrencyTableViewCellController? {
+    private func findCellControllerForCurrency(_ currency: Currency) -> CurrencyTableViewCellController? {
         let cellControllers = tableViewController.sectionControllers.map({ $0.cellControllers }).reduce([], +)
-        let selectCurrencyTableViewCellController = cellControllers.first(where: { ($0 as? SelectCurrencyTableViewCellController)?.currency == currency }) as? SelectCurrencyTableViewCellController
+        let selectCurrencyTableViewCellController = cellControllers.first(where: { ($0 as? CurrencyTableViewCellController)?.currency == currency }) as? CurrencyTableViewCellController
         return selectCurrencyTableViewCellController
     }
     

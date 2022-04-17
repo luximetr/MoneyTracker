@@ -11,15 +11,6 @@ import AUIKit
 extension CategoriesListScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
-    // MARK: - Appearance
-    
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
-        setupAddButton()
-        setupTableView()
-        categoryTableViewCells?.forEach({ $0.setAppearance(appearance) })
-    }
-    
     // MARK: - Initializer
     
     init(appearance: Appearance) {
@@ -104,6 +95,15 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     func categoryTableViewCellHeight() -> CGFloat {
         return 75
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        setupAddButton()
+        setupTableView()
+        categoryTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
 
 }

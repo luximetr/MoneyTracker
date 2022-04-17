@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension StatisticScreenViewController {
-final class MonthPickerView: AUIView {
+final class MonthPickerView: AppearanceView {
     
     // MARK: Subviews
     
@@ -18,24 +18,30 @@ final class MonthPickerView: AUIView {
     
     // MARK: Initializer
     
-    override init(frame: CGRect = .zero) {
+    override init(frame: CGRect = .zero, appearance: Appearance) {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        super.init(frame: frame)
+        super.init(frame: frame, appearance: appearance)
     }
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
+        backgroundColor = appearance.primaryBackground
         addSubview(collectionView)
         setupCollectionView()
+        setupMonthCollectionViewCell()
+    }
+    
+    private func setupCollectionView() {
+        collectionViewFlowLayout.scrollDirection = .horizontal
+        collectionView.backgroundColor = appearance.primaryBackground
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.alwaysBounceHorizontal = true
     }
     
     private let monthCollectionViewCellReuseIdentifier = "monthCollectionViewCellReuseIdentifier"
-    private func setupCollectionView() {
-        collectionViewFlowLayout.scrollDirection = .horizontal
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.alwaysBounceHorizontal = true
+    private func setupMonthCollectionViewCell() {
         collectionView.register(MonthCollectionViewCell.self, forCellWithReuseIdentifier: monthCollectionViewCellReuseIdentifier)
     }
     
@@ -59,8 +65,9 @@ final class MonthPickerView: AUIView {
     // MARK: MonthCollectionViewCell
     
     func monthCollectionViewCell(_ indexPath: IndexPath) -> MonthCollectionViewCell {
-        let accountCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: monthCollectionViewCellReuseIdentifier, for: indexPath) as! MonthCollectionViewCell
-        return accountCollectionViewCell
+        let monthCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: monthCollectionViewCellReuseIdentifier, for: indexPath) as! MonthCollectionViewCell
+        monthCollectionViewCell.setAppearance(appearance)
+        return monthCollectionViewCell
     }
 
     func monthCollectionViewCellSize(_ month: String) -> CGSize {

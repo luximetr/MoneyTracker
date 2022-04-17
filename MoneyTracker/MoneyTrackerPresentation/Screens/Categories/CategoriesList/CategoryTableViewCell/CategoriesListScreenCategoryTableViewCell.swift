@@ -11,15 +11,6 @@ import AUIKit
 extension CategoriesListScreenViewController {
 final class CategoryTableViewCell: AppearanceTableViewCell {
     
-    // MARK: - Appearance
-    
-    override func setAppearance(_ appearance: Appearance) {
-        super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        setupNameLabel(appearance: appearance)
-        setupSeparatorView(appearance: appearance)
-    }
-    
     // MARK: - Subviews
     
     let iconView = CategoryIconView()
@@ -95,6 +86,15 @@ final class CategoryTableViewCell: AppearanceTableViewCell {
             nameLabel.alpha = 1
             iconView.alpha = 1
         }
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupNameLabel(appearance: appearance)
+        setupSeparatorView(appearance: appearance)
     }
     
 }

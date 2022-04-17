@@ -8,7 +8,8 @@
 import UIKit
 import AUIKit
 
-final class SelectCurrencyTableViewCellController: AUIClosuresTableViewCellController {
+extension SelectCurrencyScreenViewController {
+final class CurrencyTableViewCellController: AUIClosuresTableViewCellController {
     
     let currency: Currency
     var isSelected: Bool = false {
@@ -20,8 +21,9 @@ final class SelectCurrencyTableViewCellController: AUIClosuresTableViewCellContr
         self.isSelected = isSelected
     }
     
-    private var selectCurrencyTableViewCell: SelectCurrencyTableViewCell? {
-        return tableViewCell as? SelectCurrencyTableViewCell
+    private var selectCurrencyTableViewCell: CurrencyTableViewCell? {
+        return tableViewCell as? CurrencyTableViewCell
     }
     
+}
 }

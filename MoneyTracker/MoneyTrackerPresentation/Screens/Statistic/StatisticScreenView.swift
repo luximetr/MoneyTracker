@@ -12,33 +12,49 @@ import PinLayout
 extension StatisticScreenViewController {
 final class ScreenView: TitleNavigationBarScreenView {
     
-    // MARK: Subviews
+    // MARK: - Initializer
     
-    let monthPickerView = MonthPickerView()
+    init(appearance: Appearance) {
+        self.monthPickerView = MonthPickerView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
+    // MARK: - Subviews
+    
+    let monthPickerView: MonthPickerView
     let monthExpensesLabel = UILabel()
     let monthCategoriesExpensesTableView = UITableView()
+    private var monthCategoryExpensesTableViewCells: [MonthCategoryExpensesTableViewCell]? {
+        let monthCategoryExpensesTableViewCells = monthCategoriesExpensesTableView.visibleCells.compactMap({ $0 as? MonthCategoryExpensesTableViewCell })
+        return monthCategoryExpensesTableViewCells
+    }
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.primaryBackground
+        backgroundColor = appearance.primaryBackground
         addSubview(monthPickerView)
         addSubview(monthExpensesLabel)
         setupMonthExpensesLabel()
         addSubview(monthCategoriesExpensesTableView)
         setupMonthCategoriesExpensesTableView()
+        setupMonthCategoryExpensesTableViewCell()
     }
     
     private func setupMonthExpensesLabel() {
         monthExpensesLabel.font = Fonts.default(size: 24, weight: .medium)
-        monthExpensesLabel.textColor = Colors.primaryText
+        monthExpensesLabel.textColor = appearance.primaryText
         monthExpensesLabel.adjustsFontSizeToFitWidth = true
     }
     
-    private let monthCategoriesExpensesTableViewCellReuseIdentifier = "monthCategoriesExpensesTableViewCellReuseIdentifier"
     private func setupMonthCategoriesExpensesTableView() {
+        monthCategoriesExpensesTableView.backgroundColor = appearance.primaryBackground
         monthCategoriesExpensesTableView.separatorStyle = .none
+    }
+    
+    private let monthCategoriesExpensesTableViewCellReuseIdentifier = "monthCategoriesExpensesTableViewCellReuseIdentifier"
+    private func setupMonthCategoryExpensesTableViewCell() {
         monthCategoriesExpensesTableView.register(MonthCategoryExpensesTableViewCell.self, forCellReuseIdentifier: monthCategoriesExpensesTableViewCellReuseIdentifier)
     }
     
@@ -80,11 +96,12 @@ final class ScreenView: TitleNavigationBarScreenView {
         monthCategoriesExpensesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeAreaInsets.bottom, right: 0)
     }
     
-    // MARK: ExpensesTableView
+    // MARK: - MonthCategoryExpensesTableViewCell
     
     func monthCategoryExpensesTableViewCell(_ indexPath: IndexPath) -> MonthCategoryExpensesTableViewCell {
-        let cell = monthCategoriesExpensesTableView.dequeueReusableCell(withIdentifier: monthCategoriesExpensesTableViewCellReuseIdentifier, for: indexPath) as! MonthCategoryExpensesTableViewCell
-        return cell
+        let monthCategoryExpensesTableViewCell = monthCategoriesExpensesTableView.dequeueReusableCell(withIdentifier: monthCategoriesExpensesTableViewCellReuseIdentifier, for: indexPath) as! MonthCategoryExpensesTableViewCell
+        monthCategoryExpensesTableViewCell.setAppearance(appearance)
+        return monthCategoryExpensesTableViewCell
     }
     
     func monthCategoryExpensesTableViewCellEstimatedHeight() -> CGFloat {

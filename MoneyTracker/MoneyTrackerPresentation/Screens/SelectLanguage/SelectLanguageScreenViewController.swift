@@ -28,7 +28,7 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
     // MARK: - View
     
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private var screenView: ScreenView! {

@@ -54,7 +54,7 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
     }
     
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private let monthPickerViewConroller = MonthPickerViewController()
@@ -75,8 +75,8 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
             monthPickerViewConroller.setSelectedMonth(month)
         }
     }
-    
-    // MARK: Localizer
+        
+    // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
         let localizer = ScreenLocalizer(language: language, stringsTableName: "StatisticScreenStrings")
@@ -87,8 +87,6 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
         super.changeLanguage(language)
         setContent()
     }
-    
-    // MARK: Content
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
