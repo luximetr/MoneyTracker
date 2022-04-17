@@ -11,38 +11,46 @@ import AUIKit
 extension HistoryScreenViewController {
 final class HistoryScreenView: TitleNavigationBarScreenView {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let tableView = UITableView()
+    private var dayTableViewCells: [DayTableViewCell]? {
+        let dayTableViewCells = tableView.visibleCells.compactMap({ $0 as? DayTableViewCell })
+        return dayTableViewCells
+    }
+    private var expenseTableViewCells: [AddExpenseScreenViewController.ExpenseTableViewCell]? {
+        let expenseTableViewCells = tableView.visibleCells.compactMap({ $0 as? AddExpenseScreenViewController.ExpenseTableViewCell })
+        return expenseTableViewCells
+    }
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
+        setupDayTableViewCell()
+        setupAddExpenseScreenViewController()
     }
     
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.white
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.white
-    }
-    
-    private let dayTableViewCellReuseIdentifier = "dayTableViewCellReuseIdentifier"
-    private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
     private func setupTableView() {
+        tableView.backgroundColor = appearance.primaryBackground
         tableView.separatorStyle = .none
-        tableView.register(DayTableViewCell.self, forCellReuseIdentifier: dayTableViewCellReuseIdentifier)
         tableView.register(AddExpenseScreenViewController.ExpenseTableViewCell.self, forCellReuseIdentifier: expenseTableViewCellReuseIdentifier)
     }
     
-    // MARK: Layout
+    private let dayTableViewCellReuseIdentifier = "dayTableViewCellReuseIdentifier"
+    private func setupDayTableViewCell() {
+        tableView.register(DayTableViewCell.self, forCellReuseIdentifier: dayTableViewCellReuseIdentifier)
+    }
+    
+    private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
+    private func setupAddExpenseScreenViewController() {
+        tableView.register(AddExpenseScreenViewController.ExpenseTableViewCell.self, forCellReuseIdentifier: expenseTableViewCellReuseIdentifier)
+    }
+    
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -58,11 +66,12 @@ final class HistoryScreenView: TitleNavigationBarScreenView {
         tableView.frame = frame
     }
     
-    // MARK: DayTableViewCell
+    // MARK: - DayTableViewCell
     
     func dayTableViewCell(_ indexPath: IndexPath) -> DayTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: dayTableViewCellReuseIdentifier, for: indexPath) as! DayTableViewCell
-        return cell
+        let dayTableViewCell = tableView.dequeueReusableCell(withIdentifier: dayTableViewCellReuseIdentifier, for: indexPath) as! DayTableViewCell
+        dayTableViewCell.setAppearance(appearance)
+        return dayTableViewCell
     }
     
     func dayTableViewCellEstimatedHeight() -> CGFloat {
@@ -73,11 +82,12 @@ final class HistoryScreenView: TitleNavigationBarScreenView {
         return 34
     }
     
-    // MARK: ExpensesTableViewCell
+    // MARK: - ExpensesTableViewCell
     
     func expenseTableViewCell(_ indexPath: IndexPath) -> AddExpenseScreenViewController.ExpenseTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: expenseTableViewCellReuseIdentifier, for: indexPath) as! AddExpenseScreenViewController.ExpenseTableViewCell
-        return cell
+        let expenseTableViewCell = tableView.dequeueReusableCell(withIdentifier: expenseTableViewCellReuseIdentifier, for: indexPath) as! AddExpenseScreenViewController.ExpenseTableViewCell
+        expenseTableViewCell.setAppearance(appearance)
+        return expenseTableViewCell
     }
     
     func expenseTableViewCellEstimatedHeight() -> CGFloat {
@@ -86,6 +96,16 @@ final class HistoryScreenView: TitleNavigationBarScreenView {
     
     func expenseTableViewCellHeight() -> CGFloat {
         return 53
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupTableView()
+        dayTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        expenseTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     
 }

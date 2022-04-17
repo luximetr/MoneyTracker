@@ -31,7 +31,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     override func loadView() {
-        view = HistoryScreenView()
+        view = HistoryScreenView(appearance: appearance)
     }
     
     override func viewDidLoad() {

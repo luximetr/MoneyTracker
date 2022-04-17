@@ -9,9 +9,9 @@ import UIKit
 import AUIKit
 
 extension AddExpenseScreenViewController {
-final class ExpenseTableViewCell: AUITableViewCell {
+final class ExpenseTableViewCell: AppearanceTableViewCell {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let accountLabel = UILabel()
     let categoryLabel = UILabel()
@@ -19,48 +19,43 @@ final class ExpenseTableViewCell: AUITableViewCell {
     let commentLabel = UILabel()
     let separatorView = UIView()
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(accountLabel)
-        setupAccountLabel()
         contentView.addSubview(categoryLabel)
-        setupCategoryLabel()
         contentView.addSubview(amountLabel)
-        setupAmountLabel()
         contentView.addSubview(commentLabel)
-        setupCommentLabel()
         contentView.addSubview(separatorView)
-        setupSeparatorView()
     }
     
-    private func setupAccountLabel() {
+    private func setupAccountLabel(appearance: Appearance) {
         accountLabel.font = Fonts.default(size: 12, weight: .regular)
-        accountLabel.textColor = Colors.secondaryText
+        accountLabel.textColor = appearance.secondaryText
     }
     
-    private func setupCategoryLabel() {
+    private func setupCategoryLabel(appearance: Appearance) {
         categoryLabel.font = Fonts.default(size: 16, weight: .regular)
-        categoryLabel.textColor = Colors.primaryText
+        categoryLabel.textColor = appearance.primaryText
     }
     
-    private func setupAmountLabel() {
+    private func setupAmountLabel(appearance: Appearance) {
         amountLabel.font = Fonts.default(size: 12, weight: .semibold)
-        amountLabel.textColor = Colors.primaryText
+        amountLabel.textColor = appearance.primaryText
     }
     
-    private func setupCommentLabel() {
+    private func setupCommentLabel(appearance: Appearance) {
         commentLabel.font = Fonts.default(size: 12, weight: .regular)
-        commentLabel.textColor = Colors.secondaryText
+        commentLabel.textColor = appearance.secondaryText
     }
     
-    private func setupSeparatorView() {
-        separatorView.backgroundColor = Colors.secondaryBackground
+    private func setupSeparatorView(appearance: Appearance) {
+        separatorView.backgroundColor = appearance.secondaryBackground
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -116,6 +111,18 @@ final class ExpenseTableViewCell: AUITableViewCell {
         let width = bounds.width - x
         let frame = CGRect(x: x, y: y, width: width, height: height)
         separatorView.frame = frame
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupAccountLabel(appearance: appearance)
+        setupCategoryLabel(appearance: appearance)
+        setupAmountLabel(appearance: appearance)
+        setupCommentLabel(appearance: appearance)
+        setupSeparatorView(appearance: appearance)
     }
     
 }

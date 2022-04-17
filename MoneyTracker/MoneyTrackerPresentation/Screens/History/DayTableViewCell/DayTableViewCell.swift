@@ -9,35 +9,33 @@ import UIKit
 import AUIKit
 
 extension HistoryScreenViewController {
-final class DayTableViewCell: AUITableViewCell {
+final class DayTableViewCell: AppearanceTableViewCell {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let dayLabel = UILabel()
     let expensesLabel = UILabel()
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(dayLabel)
-        setupDayLabel()
         contentView.addSubview(expensesLabel)
-        setupExpensesLabel()
     }
     
-    private func setupDayLabel() {
+    private func setupDayLabel(appearance: Appearance) {
         dayLabel.font = Fonts.default(size: 10, weight: .regular)
-        dayLabel.textColor = Colors.accent
+        dayLabel.textColor = appearance.accent
     }
     
-    private func setupExpensesLabel() {
+    private func setupExpensesLabel(appearance: Appearance) {
         expensesLabel.font = Fonts.default(size: 10, weight: .regular)
-        expensesLabel.textColor = Colors.accent
+        expensesLabel.textColor = appearance.accent
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -63,6 +61,15 @@ final class DayTableViewCell: AUITableViewCell {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         expensesLabel.frame = frame
         expensesLabel.textAlignment = .right
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupDayLabel(appearance: appearance)
+        setupExpensesLabel(appearance: appearance)
     }
     
 }
