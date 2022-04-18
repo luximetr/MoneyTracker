@@ -19,7 +19,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let expensesTableView = UITableView()
     let commentTextField = PlainTextField(appearance: LightAppearance())
     let addButton = TextFilledButton()
-    let selectAccountView = BalanceAccountHorizontalPickerView()
+    let selectAccountView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
     let inputAmountView = InputAmountView()
     let selectCategoryView = SelectCategoryView()
     

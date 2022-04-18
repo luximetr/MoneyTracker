@@ -76,7 +76,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - BalanceAccountPickerView
     
-    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
+    let balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
     
     private func layoutBalanceAccountPickerView() {
         balanceAccountPickerView.pin

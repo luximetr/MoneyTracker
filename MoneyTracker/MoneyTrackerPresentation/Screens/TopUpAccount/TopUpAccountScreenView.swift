@@ -16,7 +16,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     let scrollView = UIScrollView()
     let accountPickerLabel = UILabel()
-    let accountPickerView = BalanceAccountHorizontalPickerView()
+    let accountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
     let dayDatePickerView = UIDatePicker()
     let amountInputView = SingleLineTextInputView(appearance: LightAppearance())
     let commentTextField = TextField3D()

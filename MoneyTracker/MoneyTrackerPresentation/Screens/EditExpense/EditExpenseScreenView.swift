@@ -24,7 +24,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: Subviews
     
     let balanceAccountPickerHeaderLabel = UILabel()
-    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
+    let balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
     let categoryPickerHeaderLabel = UILabel()
     let categoryPickerView: CategoryHorizontalPickerView
     let dayDatePickerView = UIDatePicker()

@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import PinLayout
 
-class BalanceAccountHorizontalPickerView: AUIView {
+class BalanceAccountHorizontalPickerView: AppearanceView {
     
     // MARK: - UI elements
     
@@ -18,10 +18,10 @@ class BalanceAccountHorizontalPickerView: AUIView {
     
     // MARK: - Life cycle
     
-    override init(frame: CGRect = .zero) {
+    init(appearance: Appearance) {
         collectionViewLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        super.init(frame: frame)
+        super.init(appearance: appearance)
     }
     
     // MARK: - Setup
@@ -98,6 +98,13 @@ class BalanceAccountHorizontalPickerView: AUIView {
                 self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
             }
         }
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
     }
     
 }

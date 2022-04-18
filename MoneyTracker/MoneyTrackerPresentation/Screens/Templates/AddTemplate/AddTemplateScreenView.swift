@@ -17,7 +17,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     let amountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
     let balanceAccountPickerHeaderLabel = UILabel()
-    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
+    let balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
     let categoryPickerHeaderLabel = UILabel()
     let categoryPickerView: CategoryHorizontalPickerView
     let addButton = TextFilledButton()
