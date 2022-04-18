@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewController {
+final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
@@ -16,9 +16,9 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
     
     // MARK: Initializer
     
-    init(error: Swift.Error) {
+    init(appearance: Appearance, language: Language, error: Swift.Error) {
         self.error = error
-        super.init()
+        super.init(appearance: appearance, language: language)
     }
     
     // MARK: Delegation
@@ -39,9 +39,20 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "UnexpectedErrorDetailsScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "UnexpectedErrorDetailsScreenStrings")
         return localizer
     }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    // MARK: Content
+    
+    private func setContent() {
+        unexpectedErrorDetailsScreenView.titleLabel.text = localizer.localizeText("title")
+    }
     
     // MARK: Events
     
@@ -49,8 +60,8 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
         super.viewDidLoad()
         unexpectedErrorDetailsScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         unexpectedErrorDetailsScreenView.shareButton.addTarget(self, action: #selector(shareButtonTouchUpInsideEventAction), for: .touchUpInside)
-        unexpectedErrorDetailsScreenView.titleLabel.text = localizer.localizeText("title")
         unexpectedErrorDetailsScreenView.textView.text = String(reflecting: error)
+        setContent()
     }
     
     @objc private func backButtonTouchUpInsideEventAction() {
@@ -61,12 +72,6 @@ final class UnexpectedErrorDetailsScreenViewController: AUIStatusBarScreenViewCo
         let errorString = String(reflecting: error)
         guard let errorStringData = errorString.data(using: .utf8) else { return }
         shareClosure?(errorStringData)
-    }
-    
-    // MARK: Content
-    
-    private func setContent() {
-        
     }
     
 }
