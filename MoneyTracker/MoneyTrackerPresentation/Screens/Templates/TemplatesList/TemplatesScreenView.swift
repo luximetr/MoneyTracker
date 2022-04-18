@@ -11,9 +11,18 @@ import PinLayout
 
 class TemplatesScreenView: BackTitleNavigationBarScreenView {
     
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        super.init(appearance: appearance)
+    }
+    
     // MARK: - Subviews
     
     let tableView = UITableView()
+    private var appearanceTableViewCells: [AppearanceTableViewCell] {
+        tableView.visibleCells.compactMap { $0 as? AppearanceTableViewCell }
+    }
     
     private let addTemplateTableViewCellReuseIdentifier = "addTemplateTableViewCellReuseIdentifier"
     private let templateTableViewCellReuseIdentifier = "templateTableViewCellReuseIdentifier"
@@ -22,19 +31,9 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.primaryBackground
+        changeAppearance(appearance)
         addSubview(tableView)
         setupTableView()
-    }
-    
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.primaryBackground
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.primaryBackground
     }
     
     private func setupTableView() {
@@ -56,10 +55,22 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
             .bottom()
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        statusBarView.backgroundColor = appearance.primaryBackground
+        navigationBarView.backgroundColor = appearance.primaryBackground
+        tableView.backgroundColor = appearance.primaryBackground
+        appearanceTableViewCells.forEach { $0.setAppearance(appearance) }
+    }
+    
     // MARK: - Template cell
     
     func templateTableViewCell(_ indexPath: IndexPath) -> TemplateTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: templateTableViewCellReuseIdentifier, for: indexPath) as! TemplateTableViewCell
+        cell.setAppearance(appearance)
         return cell
     }
     

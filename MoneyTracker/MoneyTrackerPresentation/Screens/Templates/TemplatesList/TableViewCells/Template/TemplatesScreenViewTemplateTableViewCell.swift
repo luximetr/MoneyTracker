@@ -11,7 +11,7 @@ import PinLayout
 
 extension TemplatesScreenView {
     
-    final class TemplateTableViewCell: AUITableViewCell {
+    final class TemplateTableViewCell: AppearanceTableViewCell {
         
         // MARK: - Subviews
         
@@ -44,46 +44,34 @@ extension TemplatesScreenView {
             contentView.addSubview(commentLabel)
             setupCommentLabel()
             contentView.addSubview(separatorView)
-            setupSeparatorView()
         }
         
         private func setupNameLabel() {
             nameLabel.font = Fonts.default(size: 17)
-            nameLabel.textColor = Colors.primaryText
         }
         
         private func setupAmountLabel() {
             amountLabel.font = Fonts.default(size: 17)
-            amountLabel.textColor = Colors.primaryText
         }
         
         private func setupBalanceAccountPrefixLabel() {
             balanceAccountPrefixLabel.font = Fonts.default(size: 11)
-            balanceAccountPrefixLabel.textColor = Colors.secondaryText
         }
         
         private func setupBalanceAccountLabel() {
             balanceAccountLabel.font = Fonts.default(size: 14)
-            balanceAccountLabel.textColor = Colors.primaryText
         }
         
         private func setupCategoryPrefixLabel() {
             categoryPrefixLabel.font = Fonts.default(size: 11)
-            categoryPrefixLabel.textColor = Colors.secondaryText
         }
         
         private func setupCategoryLabel() {
             categoryLabel.font = Fonts.default(size: 14)
-            categoryLabel.textColor = Colors.primaryText
         }
         
         private func setupCommentLabel() {
             commentLabel.font = Fonts.default(size: 13)
-            commentLabel.textColor = Colors.secondaryText
-        }
-        
-        private func setupSeparatorView() {
-            separatorView.backgroundColor = Colors.secondaryBackground
         }
         
         // MARK: - Layout
@@ -151,6 +139,21 @@ extension TemplatesScreenView {
                 .bottom(10)
                 .maxWidth(50%)
                 .sizeToFit()
+        }
+        
+        // MARK: - Appearance
+        
+        override func setAppearance(_ appearance: Appearance) {
+            super.setAppearance(appearance)
+            backgroundColor = appearance.primaryBackground
+            nameLabel.textColor = appearance.primaryText
+            amountLabel.textColor = appearance.primaryText
+            balanceAccountPrefixLabel.textColor = appearance.secondaryText
+            balanceAccountLabel.textColor = appearance.primaryText
+            categoryPrefixLabel.textColor = appearance.secondaryText
+            categoryLabel.textColor = appearance.primaryText
+            commentLabel.textColor = appearance.secondaryText
+            separatorView.backgroundColor = appearance.secondaryBackground
         }
     }
 }

@@ -44,6 +44,13 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
         templatesScreenView.titleLabel.text = localizer.localizeText("title")
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        templatesScreenView.changeAppearance(appearance)
+    }
+    
     // MARK: - View
     
     private var templatesScreenView: TemplatesScreenView {
@@ -51,7 +58,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
     }
     
     override func loadView() {
-        view = TemplatesScreenView()
+        view = TemplatesScreenView(appearance: appearance)
     }
     
     override func viewDidLoad() {
