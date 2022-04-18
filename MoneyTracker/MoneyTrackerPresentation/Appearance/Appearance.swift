@@ -10,6 +10,7 @@ import UIKit
 protocol Appearance {
     
     var statusBarStyle: UIStatusBarStyle { get }
+    var overrideUserInterfaceStyle: UIUserInterfaceStyle { get }
     
     // MARK: - Colors
     

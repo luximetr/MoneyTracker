@@ -10,6 +10,7 @@ import UIKit
 struct DarkAppearance: Appearance {
     
     let statusBarStyle = UIStatusBarStyle.lightContent
+    let overrideUserInterfaceStyle = UIUserInterfaceStyle.dark
     
     // MARK: - Colors
     
