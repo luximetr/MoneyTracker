@@ -1208,6 +1208,8 @@ public final class Presentation: AUIWindowPresentation {
     private weak var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
     private func presentUnexpectedErrorAlertScreen(_ error: Swift.Error) {
         let viewController = UnexpectedErrorAlertScreenViewController(title: nil, message: nil, preferredStyle: .alert)
+        let language = try! delegate.presentationLanguage(self)
+        viewController.language = language
         viewController.seeDetailsClosure = { [weak self] in
             guard let self = self else { return }
             viewController.dismiss(animated: true) { [weak self] in
@@ -1229,7 +1231,8 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var unexpectedErrorDetailsScreenViewController: UnexpectedErrorDetailsScreenViewController?
     private func displayUnexpectedErrorDetailsScreen(_ error: Swift.Error) {
-        let viewController = UnexpectedErrorDetailsScreenViewController(error: error)
+        let language = try! delegate.presentationLanguage(self)
+        let viewController = UnexpectedErrorDetailsScreenViewController(appearance: appearance, language: language, error: error)
         viewController.modalPresentationStyle = .fullScreen
         viewController.backClosure = {
             viewController.dismiss(animated: true, completion: nil)
