@@ -17,7 +17,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     let amountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
     let balanceAccountPickerHeaderLabel = UILabel()
-    let balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
+    let balanceAccountPickerView: BalanceAccountHorizontalPickerView
     let categoryPickerHeaderLabel = UILabel()
     let categoryPickerView: CategoryHorizontalPickerView
     let addButton = TextFilledButton()
@@ -28,6 +28,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         nameTextField = PlainTextField(appearance: appearance)
         amountInputView = SingleLineTextInputView(appearance: appearance)
         commentTextField = PlainTextField(appearance: appearance)
+        balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
         categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
         super.init(appearance: appearance)
     }

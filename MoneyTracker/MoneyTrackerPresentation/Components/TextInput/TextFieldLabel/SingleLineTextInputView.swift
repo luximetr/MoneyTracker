@@ -11,16 +11,9 @@ import PinLayout
 
 class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
     
-    // MARK: - Initializer
-    
-    init(appearance: Appearance) {
-        self.textField = PlainTextField(appearance: appearance)
-        super.init(appearance: appearance)
-    }
-    
     // MARK: - Subviews
     
-    let textField: PlainTextField
+    let textField = UITextField()
     let label = UILabel()
     
     // MARK: - Setup
@@ -32,26 +25,21 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
         setupSelf()
         setupTextField()
         setupLabel()
+        changeAppearance(appearance)
     }
     
     private func setupSelf() {
-        backgroundColor = appearance.primaryBackground
         layer.cornerRadius = 10
-        layer.shadowOpacity = 1
-        layer.shadowRadius = 4.0
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        layer.borderWidth = 1
+    }
+    
+    private func setupTextField() {
+        textField.font = Fonts.default(size: 17, weight: .regular)
     }
     
     private func setupLabel() {
         label.numberOfLines = 1
-        label.textColor = appearance.secondaryText
         label.font = Fonts.default(size: 14, weight: .regular)
-    }
-    
-    private func setupTextField() {
-        textField.textColor = appearance.primaryText
-        
     }
     
     // MARK: - Layout
@@ -71,7 +59,7 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
         
     private func layoutTextField() {
         textField.pin
-            .left()
+            .left(16)
             .top()
             .bottom()
             .right(to: label.edge.left).marginRight(5)
@@ -87,7 +75,7 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
             guard let string = newValue else { return }
             let attributes: [NSAttributedString.Key : Any] = [
                 .font: Fonts.default(size: 17, weight: .regular),
-                .foregroundColor: appearance.secondaryText
+                .foregroundColor: appearance.tertiaryText
             ]
             let attributedString = NSAttributedString(string: string, attributes: attributes)
             textField.attributedPlaceholder = attributedString
@@ -108,8 +96,13 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        setupSelf()
-        setupLabel()
-        setupTextField()
+        backgroundColor = appearance.primaryBackground
+        layer.borderColor = appearance.secondaryBackground.cgColor
+        textField.tintColor = appearance.accent
+        textField.textColor = appearance.primaryText
+        textField.backgroundColor = appearance.primaryBackground
+        textField.layer.borderColor = appearance.secondaryBackground.cgColor
+        label.textColor = appearance.secondaryText
+        placeholder = placeholder
     }
 }

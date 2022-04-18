@@ -29,6 +29,7 @@ class BalanceAccountHorizontalPickerView: AppearanceView {
     override func setup() {
         super.setup()
         setupCollectionView()
+        changeAppearance(appearance)
     }
     
     private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
@@ -105,6 +106,7 @@ class BalanceAccountHorizontalPickerView: AppearanceView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.primaryBackground
     }
     
 }
