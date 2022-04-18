@@ -32,5 +32,9 @@ protocol Appearance {
     var successText: UIColor { get }
     var dangerousText: UIColor { get }
     var transparent: UIColor { get }
+    var balanceAccountPrimaryText: UIColor { get }
+    var balanceAccountSecondaryText: UIColor { get }
+    var balanceAccountSecondaryBackground: UIColor { get }
+    var categoryPrimaryText: UIColor { get }
     
 }

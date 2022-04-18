@@ -32,5 +32,9 @@ struct DarkAppearance: Appearance {
     let successText = UIColor(red: 0.214, green: 0.817, blue: 0.347, alpha: 1)
     let dangerousText = UIColor(red: 0.922, green: 0.341, blue: 0.341, alpha: 1)
     let transparent = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+    let balanceAccountPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    let balanceAccountSecondaryText = UIColor(red: 0.808, green: 0.808, blue: 0.808, alpha: 1)
+    let balanceAccountSecondaryBackground = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
+    let categoryPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     
 }
