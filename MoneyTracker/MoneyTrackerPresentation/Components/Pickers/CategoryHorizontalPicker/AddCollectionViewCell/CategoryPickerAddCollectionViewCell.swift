@@ -10,7 +10,7 @@ import AUIKit
 import PinLayout
 
 extension CategoryHorizontalPickerController {
-class AddCollectionViewCell: AUICollectionViewCell {
+class AddCollectionViewCell: AppearanceCollectionViewCell {
     
     // MARK: Subviews
     
@@ -28,13 +28,13 @@ class AddCollectionViewCell: AUICollectionViewCell {
     }
     
     private func setupBorderLayer() {
-        borderLayer.strokeColor = Colors.secondaryBackground.cgColor
+        borderLayer.strokeColor = appearance?.secondaryBackground.cgColor
         borderLayer.fillColor = nil
     }
     
     private func setupTextLabel() {
         textLabel.font = Fonts.default(size: 12, weight: .regular)
-        textLabel.textColor = Colors.secondaryText
+        textLabel.textColor = appearance?.secondaryText
         textLabel.textAlignment = .center
     }
     
@@ -86,6 +86,14 @@ class AddCollectionViewCell: AUICollectionViewCell {
                 textLabel.alpha = 1
             }
         }
+    }
+    
+    // MARK: Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        setupBorderLayer()
+        setupTextLabel()
     }
     
 }

@@ -9,7 +9,19 @@ import UIKit
 import AUIKit
 import PinLayout
 
-class SingleLineTextInputView: AUIView, TextFieldLabelView {
+class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
+    
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.textField = PlainTextField(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
+    // MARK: - Subviews
+    
+    let textField: PlainTextField
+    let label = UILabel()
     
     // MARK: - Setup
     
@@ -22,6 +34,26 @@ class SingleLineTextInputView: AUIView, TextFieldLabelView {
         setupLabel()
     }
     
+    private func setupSelf() {
+        backgroundColor = appearance.primaryBackground
+        layer.cornerRadius = 10
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 4.0
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+    }
+    
+    private func setupLabel() {
+        label.numberOfLines = 1
+        label.textColor = appearance.secondaryText
+        label.font = Fonts.default(size: 14, weight: .regular)
+    }
+    
+    private func setupTextField() {
+        textField.textColor = appearance.primaryText
+        
+    }
+    
     // MARK: - Layout
     
     override func layoutSubviews() {
@@ -30,29 +62,16 @@ class SingleLineTextInputView: AUIView, TextFieldLabelView {
         layoutTextField()
     }
     
-    // MARK: - Self
-    
-    private func setupSelf() {
-        backgroundColor = Colors.white
-        layer.cornerRadius = 10
-        layer.shadowOpacity = 1
-        layer.shadowRadius = 4.0
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+    private func layoutLabel() {
+        label.pin
+            .right(10)
+            .vCenter()
+            .sizeToFit()
     }
-    
-    // MARK: - TextField
-    
-    let textField = UITextField()
-    
-    private func setupTextField() {
-        textField.textColor = Colors.primaryText
         
-    }
-    
     private func layoutTextField() {
         textField.pin
-            .left().marginLeft(16)
+            .left()
             .top()
             .bottom()
             .right(to: label.edge.left).marginRight(5)
@@ -68,30 +87,13 @@ class SingleLineTextInputView: AUIView, TextFieldLabelView {
             guard let string = newValue else { return }
             let attributes: [NSAttributedString.Key : Any] = [
                 .font: Fonts.default(size: 17, weight: .regular),
-                .foregroundColor: Colors.secondaryText
+                .foregroundColor: appearance.secondaryText
             ]
             let attributedString = NSAttributedString(string: string, attributes: attributes)
             textField.attributedPlaceholder = attributedString
         }
     }
-    
-    // MARK: - Label
-    
-    let label = UILabel()
-    
-    private func setupLabel() {
-        label.numberOfLines = 1
-        label.textColor = Colors.secondaryText
-        label.font = Fonts.default(size: 14, weight: .regular)
-    }
-    
-    private func layoutLabel() {
-        label.pin
-            .right(10)
-            .vCenter()
-            .sizeToFit()
-    }
-    
+
     // MARK: - TextFieldLabelView
     
     var textFieldLabelViewTextField: UITextField {
@@ -100,5 +102,14 @@ class SingleLineTextInputView: AUIView, TextFieldLabelView {
     
     var textFieldLabelViewLabel: UILabel {
         return label
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        setupSelf()
+        setupLabel()
+        setupTextField()
     }
 }

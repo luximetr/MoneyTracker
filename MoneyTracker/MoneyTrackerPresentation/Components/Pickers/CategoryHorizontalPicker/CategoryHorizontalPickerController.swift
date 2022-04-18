@@ -79,11 +79,11 @@ class CategoryHorizontalPickerController: EmptyViewController {
         let cellController = CategoryHorizontalPickerItemCellController(category: category, isSelected: isSelected)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
-            return self.categoryHorizontalPickerView.createItemCell(indexPath: indexPath, category: category, isSelected: isSelected)
+            return self.categoryHorizontalPickerView.categoryCollectionViewCell(indexPath: indexPath, category: category, isSelected: isSelected)
         }
         cellController.sizeForCellClosure = { [weak self] in
             guard let self = self else { return .zero }
-            return self.categoryHorizontalPickerView.getItemCellSize()
+            return self.categoryHorizontalPickerView.categoryCollectionViewCellSize()
         }
         cellController.didSelectClosure = { [weak self] in
             self?.didSelectCategoryCell(category)
@@ -95,7 +95,7 @@ class CategoryHorizontalPickerController: EmptyViewController {
         let cellController = AddCollectionViewCellController(text: text)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
-            return self.categoryHorizontalPickerView.createAddCollectionViewCell(indexPath: indexPath)
+            return self.categoryHorizontalPickerView.addCollectionViewCell(indexPath: indexPath)
         }
         cellController.sizeForCellClosure = { [weak self] in
             guard let self = self else { return .zero }

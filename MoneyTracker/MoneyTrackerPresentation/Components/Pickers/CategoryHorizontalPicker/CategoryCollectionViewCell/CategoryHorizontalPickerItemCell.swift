@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import PinLayout
 
-class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
+class CategoryHorizontalPickerItemCell: AppearanceCollectionViewCell {
     
     // MARK: - Subviews
     
@@ -30,7 +30,7 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     }
     
     private func setupColoredView() {
-        coloredView.backgroundColor = Colors.secondaryBackground
+        coloredView.backgroundColor = appearance?.secondaryBackground
     }
     
     private func setupIconView() {
@@ -40,6 +40,7 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     private func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 11, weight: .regular)
         titleLabel.textAlignment = .center
+        titleLabel.textColor = appearance?.primaryText
     }
     
     // MARK: - Layout
@@ -111,7 +112,7 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     }
     
     private func configureSelected() {
-        coloredView.backgroundColor = Colors.primaryBackground
+        coloredView.backgroundColor = appearance?.primaryBackground
         coloredView.layer.shadowOffset = CGSize(width: 0, height: 1)
         coloredView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         coloredView.layer.shadowOpacity = 1
@@ -120,12 +121,21 @@ class CategoryHorizontalPickerItemCell: AUICollectionViewCell {
     }
     
     private func configureDeselected() {
-        coloredView.backgroundColor = Colors.transparent
+        coloredView.backgroundColor = .clear
         coloredView.layer.shadowOffset = CGSize(width: 0, height: 0)
         coloredView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor
         coloredView.layer.shadowOpacity = 0
         coloredView.layer.shadowRadius = 0
-        coloredView.layer.borderColor = Colors.secondaryBackground.cgColor
+        coloredView.layer.borderColor = appearance?.secondaryBackground.cgColor
         coloredView.layer.borderWidth = 1
     }
+    
+    // MARK: Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        setupColoredView()
+        setupTitleLabel()
+    }
+    
 }

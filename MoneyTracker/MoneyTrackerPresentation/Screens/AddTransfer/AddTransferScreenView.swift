@@ -20,8 +20,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let toAccountPickerLabel = UILabel()
     let toAccountPickerView = BalanceAccountHorizontalPickerView()
     let dayDatePickerView = UIDatePicker()
-    let fromAmountInputView = SingleLineTextInputView()
-    let toAmountInputView = SingleLineTextInputView()
+    let fromAmountInputView = SingleLineTextInputView(appearance: LightAppearance())
+    let toAmountInputView = SingleLineTextInputView(appearance: LightAppearance())
     let commentTextField = TextField3D()
     let addButton = TextFilledButton()
     

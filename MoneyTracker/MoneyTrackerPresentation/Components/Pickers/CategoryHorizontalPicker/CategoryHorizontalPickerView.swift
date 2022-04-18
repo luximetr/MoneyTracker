@@ -8,51 +8,60 @@
 import UIKit
 import AUIKit
 
-class CategoryHorizontalPickerView: AUIView {
+class CategoryHorizontalPickerView: AppearanceView {
     
-    // MARK: - Data
+    // MARK: - Subviews
     
-    var contentInset: UIEdgeInsets = .zero {
-        didSet { collectionView.contentInset = contentInset }
-    }
+    private let collectionViewLayout: UICollectionViewFlowLayout
+    let collectionView: UICollectionView
     
-    // MARK: - Life cycle
+    // MARK: - Intializer
     
-    override init(frame: CGRect = .zero) {
+    init(appearance: Appearance) {
         collectionViewLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        super.init(frame: frame)
+        super.init(appearance: appearance)
     }
     
     // MARK: - Setup
     
     override func setup() {
         super.setup()
+        backgroundColor = appearance.primaryBackground
         addSubview(collectionView)
         setupCollectionView()
+        setupCategoryCollectionViewCell()
+        setupAddCategoryCollectionViewCell()
+    }
+    
+    private func setupCollectionView() {
+        collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        collectionViewLayout.scrollDirection = .horizontal
+        collectionView.backgroundColor = appearance.primaryBackground
+        collectionView.contentInset = contentInset
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+    }
+    
+    private let categoryCollectionViewCellReuseIdentifier = "categoryCollectionViewCellReuseIdentifier"
+    private func setupCategoryCollectionViewCell() {
+        collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: categoryCollectionViewCellReuseIdentifier)
+    }
+    
+    private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
+    private func setupAddCategoryCollectionViewCell() {
+        collectionView.register(CategoryHorizontalPickerController.AddCollectionViewCell.self, forCellWithReuseIdentifier: addCollectionViewCellReuseIdentifier)
     }
     
     // MARK: - Layout
     
+    var contentInset: UIEdgeInsets = .zero {
+        didSet { collectionView.contentInset = contentInset }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutCollectionView()
-    }
-    
-    // MARK: - Collection view
-    
-    private let collectionViewLayout: UICollectionViewFlowLayout
-    let collectionView: UICollectionView
-    
-    private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
-    private func setupCollectionView() {
-        collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        collectionViewLayout.scrollDirection = .horizontal
-        collectionView.contentInset = contentInset
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: itemCellIdentifier)
-        collectionView.register(CategoryHorizontalPickerController.AddCollectionViewCell.self, forCellWithReuseIdentifier: addCollectionViewCellReuseIdentifier)
     }
     
     private func layoutCollectionView() {
@@ -64,27 +73,27 @@ class CategoryHorizontalPickerView: AUIView {
         }
     }
     
-    // MARK: - Item cell
+    // MARK: - CategoryCollectionViewCell
     
-    private let itemCellIdentifier = "itemCellIdentifier"
-    
-    func createItemCell(indexPath: IndexPath, category: Category, isSelected: Bool) -> CategoryHorizontalPickerItemCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellIdentifier, for: indexPath) as! CategoryHorizontalPickerItemCell
-        cell.titleLabel.text = category.name
-        cell.update(isSelected: isSelected)
-        return cell
+    func categoryCollectionViewCell(indexPath: IndexPath, category: Category, isSelected: Bool) -> CategoryHorizontalPickerItemCell {
+        let categoryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerItemCell
+        categoryCollectionViewCell.setAppearance(appearance)
+        categoryCollectionViewCell.titleLabel.text = category.name
+        categoryCollectionViewCell.update(isSelected: isSelected)
+        return categoryCollectionViewCell
     }
     
-    func getItemCellSize() -> CGSize {
+    func categoryCollectionViewCellSize() -> CGSize {
         let minCellWidth: CGFloat = 1
         return CGSize(width: minCellWidth, height: collectionView.frame.height)
     }
     
-    // MARK: AddCollectionViewCell
+    // MARK: - AddCollectionViewCell
     
-    func createAddCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerController.AddCollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerController.AddCollectionViewCell
-        return cell
+    func addCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerController.AddCollectionViewCell {
+        let addCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerController.AddCollectionViewCell
+        addCollectionViewCell.setAppearance(appearance)
+        return addCollectionViewCell
     }
     
     func addCollectionViewCellSize(_ text: String) -> CGSize {
@@ -103,6 +112,14 @@ class CategoryHorizontalPickerView: AUIView {
                 self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
             }
         }
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupCollectionView()
     }
     
 }

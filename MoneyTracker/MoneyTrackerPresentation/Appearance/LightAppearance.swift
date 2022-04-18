@@ -18,5 +18,6 @@ struct LightAppearance: Appearance {
     let primaryText = UIColor(red: 0.106, green: 0.11, blue: 0.118, alpha: 1)
     let secondaryText = UIColor(red: 0.342, green: 0.342, blue: 0.342, alpha: 1)
     let accent = UIColor(red: 0.167, green: 0.404, blue: 0.758, alpha: 1)
+    let primaryActionBackground = UIColor(red: 0.167, green: 0.404, blue: 0.758, alpha: 1)
     
 }

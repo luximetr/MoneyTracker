@@ -18,5 +18,6 @@ protocol Appearance {
     var primaryText: UIColor { get }
     var secondaryText: UIColor { get }
     var accent: UIColor { get }
+    var primaryActionBackground: UIColor { get }
     
 }

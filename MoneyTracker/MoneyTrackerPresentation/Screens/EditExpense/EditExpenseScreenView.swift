@@ -12,51 +12,58 @@ import PinLayout
 extension EditExpenseScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
+    // MARK: Initializer
+    
+    init(appearance: Appearance) {
+        self.commentTextField = PlainTextField(appearance: appearance)
+        self.amountInputView = SingleLineTextInputView(appearance: appearance)
+        self.categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
     // MARK: Subviews
     
     let balanceAccountPickerHeaderLabel = UILabel()
     let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
     let categoryPickerHeaderLabel = UILabel()
-    let categoryPickerView = CategoryHorizontalPickerView()
+    let categoryPickerView: CategoryHorizontalPickerView
     let dayDatePickerView = UIDatePicker()
-    let amountInputView = SingleLineTextInputView()
-    let commentTextField = TextField3D()
+    let amountInputView: SingleLineTextInputView
+    let commentTextField: PlainTextField
     let saveButton = TextFilledButton()
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
+        backgroundColor = appearance.primaryBackground
         addSubview(balanceAccountPickerHeaderLabel)
+        setupBalanceAccountPickerHeaderLabel()
         addSubview(balanceAccountPickerView)
         addSubview(categoryPickerHeaderLabel)
+        setupCategoryPickerHeaderLabel()
         addSubview(categoryPickerView)
+        setupCategoryPickerView()
         addSubview(dayDatePickerView)
+        dayDatePickerView.tintColor = appearance.primaryText
         dayDatePickerView.datePickerMode = .date
         addSubview(amountInputView)
         addSubview(commentTextField)
         addSubview(saveButton)
-        backgroundColor = Colors.primaryBackground
-        setupBalanceAccountPickerHeaderLabel()
-        setupCategoryPickerView()
         setupSaveButton()
         autoLayout()
     }
     
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.primaryBackground
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.primaryBackground
-    }
-    
     private func setupBalanceAccountPickerHeaderLabel() {
         balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
-        balanceAccountPickerHeaderLabel.textColor = Colors.primaryText
+        balanceAccountPickerHeaderLabel.textColor = appearance.primaryText
         balanceAccountPickerHeaderLabel.numberOfLines = 1
+    }
+    
+    private func setupCategoryPickerHeaderLabel() {
+        categoryPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        categoryPickerHeaderLabel.textColor = appearance.primaryText
+        categoryPickerHeaderLabel.numberOfLines = 1
     }
     
     private func setupCategoryPickerView() {
@@ -64,7 +71,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupSaveButton() {
-        saveButton.backgroundColor = Colors.primaryActionBackground
+        saveButton.backgroundColor = appearance.primaryActionBackground
     }
     
     // MARK: AutoLayout
@@ -151,6 +158,15 @@ final class ScreenView: BackTitleNavigationBarScreenView {
             .bottom(pin.safeArea).marginBottom(24)
             .width(150)
             .height(44)
+    }
+    
+    // MARK: Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        setupBalanceAccountPickerHeaderLabel()
+        setupSaveButton()
     }
 }
 }

@@ -100,7 +100,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - CategoryPickerView
     
-    let categoryPickerView = CategoryHorizontalPickerView()
+    let categoryPickerView = CategoryHorizontalPickerView(appearance: LightAppearance())
     
     private func setupCategoryPickerView() {
         categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
@@ -128,7 +128,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - AmountInputView
     
-    let amountInputView = SingleLineTextInputView()
+    let amountInputView = SingleLineTextInputView(appearance: LightAppearance())
     
     private func layoutAmountInputView() {
         amountInputView.pin

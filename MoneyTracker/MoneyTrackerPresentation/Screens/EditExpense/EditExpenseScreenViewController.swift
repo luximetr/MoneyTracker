@@ -48,7 +48,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     }
         
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private let balanceAccountPickerController: BalanceAccountHorizontalPickerController
