@@ -11,12 +11,6 @@ import PinLayout
 
 class TemplatesScreenView: BackTitleNavigationBarScreenView {
     
-    // MARK: - Initializer
-    
-    init(appearance: Appearance) {
-        super.init(appearance: appearance)
-    }
-    
     // MARK: - Subviews
     
     let tableView = UITableView()

@@ -50,6 +50,13 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         addTemplateScreenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         addTemplateScreenView.addButton.setTitle(localizer.localizeText("addButtonTitle"), for: .normal)
     }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        addTemplateScreenView.changeAppearance(appearance)
+    }
 
     // MARK: - Life cycle
     
@@ -70,7 +77,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     // MARK: - View - Life cycle
     
     override func loadView() {
-        view = AddTemplateScreenView()
+        view = AddTemplateScreenView(appearance: appearance)
     }
     
     override func viewDidLoad() {

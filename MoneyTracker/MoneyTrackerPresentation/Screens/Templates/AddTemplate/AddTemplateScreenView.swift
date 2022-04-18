@@ -11,6 +11,27 @@ import PinLayout
 
 final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
+    // MARK: - Subviews
+    
+    let nameTextField: PlainTextField
+    let amountInputView: SingleLineTextInputView
+    let commentTextField: PlainTextField
+    let balanceAccountPickerHeaderLabel = UILabel()
+    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
+    let categoryPickerHeaderLabel = UILabel()
+    let categoryPickerView: CategoryHorizontalPickerView
+    let addButton = TextFilledButton()
+    
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        nameTextField = PlainTextField(appearance: appearance)
+        amountInputView = SingleLineTextInputView(appearance: appearance)
+        commentTextField = PlainTextField(appearance: appearance)
+        categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
     // MARK: - Setup
     
     override func setup() {
@@ -23,20 +44,18 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(amountInputView)
         addSubview(commentTextField)
         addSubview(addButton)
-        backgroundColor = Colors.primaryBackground
         setupBalanceAccountPickerHeaderLabel()
         setupCategoryPickerView()
-        setupAddButton()
+        changeAppearance(appearance)
     }
     
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.primaryBackground
+    private func setupBalanceAccountPickerHeaderLabel() {
+        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.primaryBackground
+    private func setupCategoryPickerView() {
+        categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
     }
     
     // MARK: - Layout
@@ -56,16 +75,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         layoutAddButton()
     }
     
-    // MARK: - BalanceAccountPickerHeaderLabel
-    
-    let balanceAccountPickerHeaderLabel = UILabel()
-    
-    private func setupBalanceAccountPickerHeaderLabel() {
-        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
-        balanceAccountPickerHeaderLabel.textColor = Colors.primaryText
-        balanceAccountPickerHeaderLabel.numberOfLines = 1
-    }
-    
     private func layoutBalanceAccountPickerHeaderLabel() {
         balanceAccountPickerHeaderLabel.pin
             .left(marginLeft)
@@ -73,10 +82,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .right(marginRight)
             .sizeToFit(.width)
     }
-    
-    // MARK: - BalanceAccountPickerView
-    
-    let balanceAccountPickerView = BalanceAccountHorizontalPickerView()
     
     private func layoutBalanceAccountPickerView() {
         balanceAccountPickerView.pin
@@ -86,24 +91,12 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(30)
     }
     
-    // MARK: - CategoryPickerHeaderLabel
-    
-    let categoryPickerHeaderLabel = UILabel()
-    
     private func layoutCategoryPickerHeaderLabel() {
         categoryPickerHeaderLabel.pin
             .left(marginLeft)
             .right(marginRight)
             .top(to: balanceAccountPickerView.edge.bottom).marginTop(15)
             .sizeToFit(.width)
-    }
-    
-    // MARK: - CategoryPickerView
-    
-    let categoryPickerView = CategoryHorizontalPickerView(appearance: LightAppearance())
-    
-    private func setupCategoryPickerView() {
-        categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
     }
     
     private func layoutCategoryPickerView() {
@@ -114,10 +107,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(30)
     }
     
-    // MARK: - NameTextField
-    
-    let nameTextField = TextField3D()
-    
     private func layoutNameTextField() {
         nameTextField.pin
             .left(marginLeft)
@@ -125,10 +114,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .top(to: navigationBarView.edge.bottom).marginTop(24)
             .height(44)
     }
-    
-    // MARK: - AmountInputView
-    
-    let amountInputView = SingleLineTextInputView(appearance: LightAppearance())
     
     private func layoutAmountInputView() {
         amountInputView.pin
@@ -138,10 +123,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(44)
     }
     
-    // MARK: - CommentTextField
-    
-    let commentTextField = TextField3D()
-    
     private func layoutCommentTextField() {
         commentTextField.pin
             .left(marginLeft)
@@ -150,19 +131,24 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(44)
     }
     
-    // MARK: - AddButton
-    
-    let addButton = TextFilledButton()
-    
-    private func setupAddButton() {
-        addButton.backgroundColor = Colors.primaryActionBackground
-    }
-    
     private func layoutAddButton() {
         addButton.pin
             .hCenter()
             .bottom(pin.safeArea).marginBottom(24)
             .width(150)
             .height(44)
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        statusBarView.backgroundColor = appearance.primaryBackground
+        navigationBarView.backgroundColor = appearance.primaryBackground
+        balanceAccountPickerHeaderLabel.textColor = appearance.secondaryText
+        categoryPickerHeaderLabel.textColor = appearance.secondaryText
+        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.titleLabel?.textColor = appearance.primaryActionText
     }
 }
