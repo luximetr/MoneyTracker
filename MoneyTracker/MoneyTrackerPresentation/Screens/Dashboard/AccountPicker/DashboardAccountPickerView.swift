@@ -9,27 +9,28 @@ import UIKit
 import AUIKit
 
 extension DashboardScreenViewController {
-final class AccountPickerView: AUIView {
+final class AccountPickerView: AppearanceView {
     
     // MARK: Subviews
     
     let titleLabel = UILabel()
-    let transferButton = TextButton(appearance: LightAppearance())
+    let transferButton: TextButton
     private let collectionViewFlowLayout = LeftAlignedCollectionViewFlowLayout()
     let collectionView: UICollectionView
     
     // MARK: Initializer
     
-    override init(frame: CGRect = .zero) {
+    init(appearance: Appearance) {
+        self.transferButton = TextButton(appearance: appearance)
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        super.init(frame: frame)
+        super.init(appearance: appearance)
     }
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         addSubview(titleLabel)
         setupTitleLabel()
         addSubview(transferButton)
@@ -39,12 +40,13 @@ final class AccountPickerView: AUIView {
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
-        titleLabel.textColor = Colors.primaryText
+        titleLabel.textColor = appearance.primaryText
     }
     
     private let accountCollectionViewCellReuseIdentifier = "accountCollectionViewCellReuseIdentifier"
     private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
+        collectionView.backgroundColor = appearance.primaryBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(BalanceAccountHorizontalPickerItemCell.self, forCellWithReuseIdentifier: accountCollectionViewCellReuseIdentifier)
@@ -95,8 +97,9 @@ final class AccountPickerView: AUIView {
     // MARK: - AccountCollectionViewCell
     
     func accountCollectionViewCell(indexPath: IndexPath) -> BalanceAccountHorizontalPickerItemCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: accountCollectionViewCellReuseIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerItemCell
-        return cell
+        let accountCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: accountCollectionViewCellReuseIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerItemCell
+        accountCollectionViewCell.setAppearance(appearance)
+        return accountCollectionViewCell
     }
     
     func accountCollectionViewCellSize(name: String) -> CGSize {
@@ -107,13 +110,24 @@ final class AccountPickerView: AUIView {
     // MARK: AddCollectionViewCell
     
     func addCollectionViewCell(indexPath: IndexPath) -> BalanceAccountHorizontalPickerController.AddCollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerController.AddCollectionViewCell
-        return cell
+        let addCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerController.AddCollectionViewCell
+        addCollectionViewCell.setAppearance(appearance)
+        return addCollectionViewCell
     }
     
     func addCollectionViewCellSize(_ text: String) -> CGSize {
         let size = BalanceAccountHorizontalPickerController.AddCollectionViewCell.sizeThatFits(collectionView.bounds.size, text: text)
         return size
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        titleLabel.textColor = appearance.primaryText
+        transferButton.changeAppearance(appearance)
+        collectionView.backgroundColor = appearance.primaryBackground
     }
     
 }

@@ -9,49 +9,55 @@ import UIKit
 import AUIKit
 
 extension DashboardScreenViewController {
-final class CategoryPickerView: AUIView {
+final class CategoryPickerView: AppearanceView {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let titleLabel = UILabel()
-    let addExpenseButton = TextButton(appearance: LightAppearance())
+    let addExpenseButton: TextButton
     private let collectionViewFlowLayout = LeftAlignedCollectionViewFlowLayout()
     let collectionView: UICollectionView
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
-    override init(frame: CGRect = .zero) {
+    init(appearance: Appearance) {
+        self.addExpenseButton = TextButton(appearance: appearance)
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        super.init(frame: frame)
+        super.init(appearance: appearance)
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         addSubview(titleLabel)
         setupTitleLabel()
         addSubview(addExpenseButton)
         addSubview(collectionView)
         setupCollectionView()
+        setupCategoryCollectionViewCell()
     }
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
-        titleLabel.textColor = Colors.primaryText
+        titleLabel.textColor = appearance.primaryText
     }
         
-    private let categoryCollectionViewCellReuseIdentifier = "categoryCollectionViewCellReuseIdentifier"
     private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
+        collectionView.backgroundColor = appearance.primaryBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: categoryCollectionViewCellReuseIdentifier)
         collectionView.register(CategoryHorizontalPickerController.AddCollectionViewCell.self, forCellWithReuseIdentifier: addCollectionViewCellReuseIdentifier)
     }
     
-    // MARK: Layout
+    private let categoryCollectionViewCellReuseIdentifier = "categoryCollectionViewCellReuseIdentifier"
+    private func setupCategoryCollectionViewCell() {
+        collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: categoryCollectionViewCellReuseIdentifier)
+    }
+    
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -92,11 +98,12 @@ final class CategoryPickerView: AUIView {
         collectionViewFlowLayout.minimumLineSpacing = 2
     }
     
-    // MARK: CategoryCollectionViewCell
+    // MARK: - CategoryCollectionViewCell
     
     func categoryCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerItemCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerItemCell
-        return cell
+        let categoryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerItemCell
+        categoryCollectionViewCell.setAppearance(appearance)
+        return categoryCollectionViewCell
     }
     
     func categoryCollectionViewCellSize(name: String) -> CGSize {
@@ -104,16 +111,27 @@ final class CategoryPickerView: AUIView {
         return size
     }
     
-    // MARK: AddCollectionViewCell
+    // MARK: - AddCollectionViewCell
     
     func addCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerController.AddCollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerController.AddCollectionViewCell
-        return cell
+        let addCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerController.AddCollectionViewCell
+        addCollectionViewCell.setAppearance(appearance)
+        return addCollectionViewCell
     }
     
     func addCollectionViewCellSize(_ text: String) -> CGSize {
         let size = CategoryHorizontalPickerController.AddCollectionViewCell.sizeThatFits(collectionView.bounds.size, text: text)
         return size
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        titleLabel.textColor = appearance.primaryText
+        addExpenseButton.changeAppearance(appearance)
+        collectionView.backgroundColor = appearance.primaryBackground
     }
     
 }

@@ -9,21 +9,22 @@ import UIKit
 import AUIKit
 
 extension DashboardScreenViewController {
-final class TemplatesView: AUIView {
+final class TemplatesView: AppearanceView {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let panGestureView = UIView()
     let titleLabel = UILabel()
-    let addButton = TextButton(appearance: LightAppearance())
+    let addButton: TextButton
     let collectionViewFlowLayout = UICollectionViewFlowLayout()
     let collectionView: UICollectionView
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
-    override init(frame: CGRect = .zero) {
+    init(appearance: Appearance) {
+        self.addButton = TextButton(appearance: appearance)
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        super.init(frame: frame)
+        super.init(appearance: appearance)
     }
     
     // MARK: Setup
@@ -32,7 +33,7 @@ final class TemplatesView: AUIView {
         super.setup()
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         addSubview(panGestureView)
         setupPanGestureView()
         addSubview(titleLabel)
@@ -40,23 +41,28 @@ final class TemplatesView: AUIView {
         addSubview(addButton)
         addSubview(collectionView)
         setupCollectionView()
+        setupTemplateCollectionViewCell()
     }
     
     private func setupPanGestureView() {
-        panGestureView.backgroundColor = Colors.secondaryBackground
+        panGestureView.backgroundColor = appearance.secondaryBackground
     }
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
-        titleLabel.textColor = Colors.primaryText
+        titleLabel.textColor = appearance.primaryText
+    }
+    
+    private func setupCollectionView() {
+        collectionView.backgroundColor = appearance.primaryBackground
     }
         
     private let templateCollectionViewCellReuseIdentifier = "templateCollectionViewCellReuseIdentifier"
-    private func setupCollectionView() {
+    private func setupTemplateCollectionViewCell() {
         collectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: templateCollectionViewCellReuseIdentifier)
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -111,7 +117,7 @@ final class TemplatesView: AUIView {
         collectionViewFlowLayout.minimumLineSpacing = 10
     }
     
-    // MARK: Size
+    // MARK: - Size
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var height: CGFloat = 0
@@ -143,16 +149,27 @@ final class TemplatesView: AUIView {
         return CGSize(width: width, height: height)
     }
     
-    // MARK: Template cell
+    // MARK: - TemplateCollectionViewCell
     
     func templateCollectionViewCell(indexPath: IndexPath) -> TemplateCollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: templateCollectionViewCellReuseIdentifier, for: indexPath) as! TemplateCollectionViewCell
-        return cell
+        let templateCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: templateCollectionViewCellReuseIdentifier, for: indexPath) as! TemplateCollectionViewCell
+        templateCollectionViewCell.setAppearance(appearance)
+        return templateCollectionViewCell
     }
     
-    func getTemplateCellSize() -> CGSize {
+    func templateCollectionViewCellSize() -> CGSize {
         let availableRowWidth = (bounds.width - 22 * 2 - 16) * 0.5
         return CGSize(width: availableRowWidth, height: 44)
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        panGestureView.backgroundColor = appearance.secondaryBackground
+        titleLabel.textColor = appearance.primaryText
+        collectionView.backgroundColor = appearance.primaryBackground
     }
     
 }

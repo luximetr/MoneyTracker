@@ -38,7 +38,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     }
     
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private let categoryPickerViewController: CategoryPickerViewController
