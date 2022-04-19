@@ -22,6 +22,7 @@ public final class Presentation: AUIWindowPresentation {
     private func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
         settingsScreenViewController?.changeAppearance(appearance)
+        selectIconViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -636,6 +637,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Select Icon View Controller
     
+    private weak var selectIconViewController: SelectIconScreenViewController?
     private func createSelectIconViewController(
         color: CategoryColor,
         onSelectIcon: @escaping (String) -> Void
@@ -646,6 +648,7 @@ public final class Presentation: AUIWindowPresentation {
             onSelectIcon(iconName)
             viewController?.dismiss(animated: true)
         }
+        selectIconViewController = viewController
         return viewController
     }
     
