@@ -52,6 +52,13 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
         editTemplateScreenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        editTemplateScreenView.changeAppearance(appearance)
+    }
+    
     // MARK: - Life cycle
     
     init(appearance: Appearance, language: Language, expenseTemplate: ExpenseTemplate, categories: [Category], balanceAccounts: [Account]) {
@@ -72,7 +79,7 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
     // MARK: - View - Life cycle
     
     override func loadView() {
-        view = EditTemplateScreenView()
+        view = EditTemplateScreenView(appearance: appearance)
     }
     
     override func viewDidLoad() {

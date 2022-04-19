@@ -14,10 +14,7 @@ final class TextFilledButton: AUIButton {
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.primaryActionBackground
         titleLabel?.font = Fonts.default(size: 17, weight: .semibold)
-        titleLabel?.textColor = Colors.white
-        setTitleColor(Colors.white, for: .normal)
     }
     
     // MARK: Layout
