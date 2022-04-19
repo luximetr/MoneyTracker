@@ -47,6 +47,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(dayDatePickerView)
         dayDatePickerView.tintColor = appearance.primaryText
         dayDatePickerView.datePickerMode = .date
+        dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         addSubview(amountInputView)
         addSubview(commentTextField)
         addSubview(saveButton)
