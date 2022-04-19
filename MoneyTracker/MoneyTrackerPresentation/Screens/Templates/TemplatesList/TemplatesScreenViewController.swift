@@ -42,6 +42,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
     
     private func setContent() {
         templatesScreenView.titleLabel.text = localizer.localizeText("title")
+        templatesScreenView.rightButton.setTitle(localizer.localizeText("addTemplate"), for: .normal)
     }
     
     // MARK: - Appearance
@@ -64,6 +65,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         templatesScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
+        templatesScreenView.rightButton.addTarget(self, action: #selector(didTapOnAddTemplate), for: .touchUpInside)
         setupTableViewController()
         setContent()
     }
@@ -76,11 +78,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
     private func setupTableViewController() {
         tableViewController.tableView = templatesScreenView.tableView
         tableViewController.targetIndexPathForMoveFromRowAtClosure = { sourceCellController, destinationCellController in
-            if destinationCellController is TemplatesScreenAddTemplateTableViewCellController {
-                return sourceCellController
-            } else {
-                return destinationCellController
-            }
+            return destinationCellController
         }
         tableViewController.moveCellControllerClosure = { [weak self] sourceCellController, destinationCellController in
             guard let self = self else { return }
@@ -96,8 +94,6 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
         
         let templatesCellControllers = createTemplatesCellControllers(templates: templates)
         cellControllers.append(contentsOf: templatesCellControllers)
-        let addTemplateCellController = createAddTemplateCellController()
-        cellControllers.append(addTemplateCellController)
         
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
@@ -182,26 +178,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Add template
     
-    private func createAddTemplateCellController() -> TemplatesScreenAddTemplateTableViewCellController {
-        let cellController = TemplatesScreenAddTemplateTableViewCellController()
-        cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
-            guard let self = self else { return UITableViewCell() }
-            let cell = self.templatesScreenView.addTemplateTableViewCell(indexPath)
-            cell._textLabel.text = self.localizer.localizeText("addTemplate")
-            return cell
-        }
-        cellController.estimatedHeightClosure = { [weak self] in
-            return self?.templatesScreenView.addTemplateTableViewCellEstimatedHeight() ?? 0
-        }
-        cellController.heightClosure = { [weak self] in
-            return self?.templatesScreenView.addTemplateTableViewCellHeight() ?? 0
-        }
-        cellController.didSelectClosure = { [weak self] in
-            self?.didTapOnAddTemplate()
-        }
-        return cellController
-    }
-    
+    @objc
     private func didTapOnAddTemplate() {
         addTemplateClosure?()
     }

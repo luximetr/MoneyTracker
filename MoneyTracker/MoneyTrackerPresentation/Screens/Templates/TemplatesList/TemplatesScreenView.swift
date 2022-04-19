@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import PinLayout
 
-class TemplatesScreenView: BackTitleNavigationBarScreenView {
+class TemplatesScreenView: BackTitleRightButtonNavigationBarScreenView {
     
     // MARK: - Subviews
     
@@ -18,7 +18,6 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
         tableView.visibleCells.compactMap { $0 as? AppearanceTableViewCell }
     }
     
-    private let addTemplateTableViewCellReuseIdentifier = "addTemplateTableViewCellReuseIdentifier"
     private let templateTableViewCellReuseIdentifier = "templateTableViewCellReuseIdentifier"
     
     // MARK: - Setup
@@ -31,7 +30,6 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupTableView() {
-        tableView.register(TemplatesScreenAddTemplateTableViewCell.self, forCellReuseIdentifier: addTemplateTableViewCellReuseIdentifier)
         tableView.register(TemplateTableViewCell.self, forCellReuseIdentifier: templateTableViewCellReuseIdentifier)
     }
     
@@ -74,21 +72,5 @@ class TemplatesScreenView: BackTitleNavigationBarScreenView {
     
     func templateTableViewCellHeight() -> CGFloat {
         return 74
-    }
-    
-    // MARK: - Add template cell
-    
-    func addTemplateTableViewCell(_ indexPath: IndexPath) -> AddTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: addTemplateTableViewCellReuseIdentifier, for: indexPath) as! TemplatesScreenAddTemplateTableViewCell
-        cell.pictureImageView.image = Images.plusInDashCircle
-        return cell
-    }
-    
-    func addTemplateTableViewCellEstimatedHeight() -> CGFloat {
-        return 76
-    }
-    
-    func addTemplateTableViewCellHeight() -> CGFloat {
-        return 76
     }
 }
