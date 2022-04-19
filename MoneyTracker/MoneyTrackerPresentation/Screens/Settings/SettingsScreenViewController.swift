@@ -119,19 +119,6 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     private func setTableViewContent() {
         var cellControllers: [AUITableViewCellController] = []
-        let categoriesCellController = createTitleTableViewCellController()
-        categoriesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
-            guard let self = self else { return UITableViewCell() }
-            let cell = self.screenView.titleTableViewCell(indexPath)
-            cell.titleLabel.text = self.localizer.localizeText("categories")
-            return cell
-        }
-        categoriesCellController.didSelectClosure = { [weak self] in
-            guard let self = self else { return }
-            self.didSelectCategories()
-        }
-        cellControllers.append(categoriesCellController)
-        
         let defaultCurrencyCellController = createTitleValueTableViewCellController()
         defaultCurrencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
@@ -159,7 +146,7 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
             self.didSelectLanguage()
         }
         cellControllers.append(languageCellController)
-
+        
         let accountsCellController = createTitleTableViewCellController()
         accountsCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
@@ -172,6 +159,19 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
             self.didSelectAccounts()
         }
         cellControllers.append(accountsCellController)
+        
+        let categoriesCellController = createTitleTableViewCellController()
+        categoriesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.screenView.titleTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("categories")
+            return cell
+        }
+        categoriesCellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            self.didSelectCategories()
+        }
+        cellControllers.append(categoriesCellController)
         
         let templatesCellController = createTitleTableViewCellController()
         templatesCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
