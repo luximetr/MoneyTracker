@@ -44,7 +44,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     }
     
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private let tapGestureRecognizer = UITapGestureRecognizer()

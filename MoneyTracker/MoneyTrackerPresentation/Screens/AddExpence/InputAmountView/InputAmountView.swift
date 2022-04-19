@@ -9,35 +9,58 @@ import UIKit
 import AUIKit
 
 extension AddExpenseScreenViewController {
-final class InputAmountView: AUIView {
+final class InputAmountView: AppearanceView {
+    
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.deleteKeyButton = OperationKeyButton(appearance: appearance)
+        self.sevenKeyButton = KeyButton(appearance: appearance)
+        self.eightKeyButton = KeyButton(appearance: appearance)
+        self.nineKeyButton = KeyButton(appearance: appearance)
+        self.divisionKeyButton = OperationKeyButton(appearance: appearance)
+        self.fourKeyButton = KeyButton(appearance: appearance)
+        self.fiveKeyButton = KeyButton(appearance: appearance)
+        self.sixKeyButton = KeyButton(appearance: appearance)
+        self.multiplicationKeyButton = OperationKeyButton(appearance: appearance)
+        self.oneKeyButton = KeyButton(appearance: appearance)
+        self.twoKeyButton = KeyButton(appearance: appearance)
+        self.threeKeyButton = KeyButton(appearance: appearance)
+        self.subtractionKeyButton = OperationKeyButton(appearance: appearance)
+        self.decimalSeparatorKeyButton = KeyButton(appearance: appearance)
+        self.zeroKeyButton = KeyButton(appearance: appearance)
+        self.calculateKeyButton = OperationKeyButton(appearance: appearance)
+        self.additionKeyButton = OperationKeyButton(appearance: appearance)
+        super.init(appearance: appearance)
+    }
     
     // MARK: Subviews
     
     let inputLabel = UILabel()
     let separatorView = UIView()
-    let deleteKeyButton = OperationKeyButton()
-    let sevenKeyButton = KeyButton()
-    let eightKeyButton = KeyButton()
-    let nineKeyButton = KeyButton()
-    let divisionKeyButton = OperationKeyButton()
-    let fourKeyButton = KeyButton()
-    let fiveKeyButton = KeyButton()
-    let sixKeyButton = KeyButton()
-    let multiplicationKeyButton = OperationKeyButton()
-    let oneKeyButton = KeyButton()
-    let twoKeyButton = KeyButton()
-    let threeKeyButton = KeyButton()
-    let subtractionKeyButton = OperationKeyButton()
-    let decimalSeparatorKeyButton = KeyButton()
-    let zeroKeyButton = KeyButton()
-    let calculateKeyButton = OperationKeyButton()
-    let additionKeyButton = OperationKeyButton()
+    let deleteKeyButton: OperationKeyButton
+    let sevenKeyButton: KeyButton
+    let eightKeyButton: KeyButton
+    let nineKeyButton: KeyButton
+    let divisionKeyButton: OperationKeyButton
+    let fourKeyButton: KeyButton
+    let fiveKeyButton: KeyButton
+    let sixKeyButton: KeyButton
+    let multiplicationKeyButton: OperationKeyButton
+    let oneKeyButton: KeyButton
+    let twoKeyButton: KeyButton
+    let threeKeyButton: KeyButton
+    let subtractionKeyButton: OperationKeyButton
+    let decimalSeparatorKeyButton: KeyButton
+    let zeroKeyButton: KeyButton
+    let calculateKeyButton: OperationKeyButton
+    let additionKeyButton: OperationKeyButton
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         addSubview(inputLabel)
@@ -64,14 +87,14 @@ final class InputAmountView: AUIView {
     }
     
     private func setupInputLabel() {
-        inputLabel.textColor = Colors.secondaryText
+        inputLabel.textColor = appearance.secondaryText
         inputLabel.font = Fonts.default(size: 20, weight: .regular)
         inputLabel.numberOfLines = 1
         inputLabel.adjustsFontSizeToFitWidth = true
     }
     
     private func setupSeparatorView() {
-        separatorView.backgroundColor = Colors.primaryText
+        separatorView.backgroundColor = appearance.primaryText
     }
     
     // MARK: Layout
@@ -296,17 +319,26 @@ final class InputAmountView: AUIView {
         return size
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        inputLabel.textColor = appearance.secondaryText
+        separatorView.backgroundColor = appearance.primaryText
+    }
+    
 }
 }
 
-final class KeyButton: AUIButton {
+final class KeyButton: AppearanceButton {
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
         titleLabel?.font = Fonts.default(size: 20, weight: .semibold)
-        setTitleColor(Colors.primaryText, for: .normal)
+        setTitleColor(appearance.primaryText, for: .normal)
     }
     
     // MARK: States
@@ -326,14 +358,14 @@ final class KeyButton: AUIButton {
     
 }
 
-final class OperationKeyButton: AUIButton {
+final class OperationKeyButton: AppearanceButton {
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
         titleLabel?.font = Fonts.default(size: 20, weight: .semibold)
-        setTitleColor(Colors.tertiaryText, for: .normal)
+        setTitleColor(appearance.tertiaryText, for: .normal)
     }
     
     // MARK: States

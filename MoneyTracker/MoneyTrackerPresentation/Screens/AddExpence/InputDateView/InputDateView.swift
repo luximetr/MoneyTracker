@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class InputDateView: AUIView {
+final class InputDateView: AppearanceView {
     
     // MARK: Subviews
     
@@ -19,6 +19,7 @@ final class InputDateView: AUIView {
     override func setup() {
         super.setup()
         addSubview(datePicker)
+        datePicker.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         autoLayout()
     }
     

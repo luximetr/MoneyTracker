@@ -11,23 +11,38 @@ import AUIKit
 extension AddExpenseScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
-    // MARK: Subviews
+    // MARK: - Initializer
     
-    let inputDateView = InputDateView()
+    init(appearance: Appearance) {
+        self.inputDateView = InputDateView(appearance: appearance)
+        self.commentTextField = PlainTextField(appearance: appearance)
+        self.selectAccountView = BalanceAccountHorizontalPickerView(appearance: appearance)
+        self.inputAmountView = InputAmountView(appearance: appearance)
+        self.selectCategoryView = SelectCategoryView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
+    // MARK: - Subviews
+    
+    let inputDateView: InputDateView
     let dayExpensesLabel = UILabel()
     private let expensesTableViewContainerView = UIView()
     let expensesTableView = UITableView()
-    let commentTextField = PlainTextField(appearance: LightAppearance())
+    private var expensTableViewCells: [ExpenseTableViewCell]? {
+        let expenseTableViewCells = expensesTableView.visibleCells.compactMap({ $0 as? ExpenseTableViewCell })
+        return expenseTableViewCells
+    }
+    let commentTextField: PlainTextField
     let addButton = TextFilledButton()
-    let selectAccountView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
-    let inputAmountView = InputAmountView()
-    let selectCategoryView = SelectCategoryView()
+    let selectAccountView: BalanceAccountHorizontalPickerView
+    let inputAmountView: InputAmountView
+    let selectCategoryView: SelectCategoryView
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.primaryBackground
+        backgroundColor = appearance.primaryBackground
         addSubview(inputDateView)
         addSubview(dayExpensesLabel)
         setupDayExpensesLabel()
@@ -35,8 +50,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupExpensesTableViewContainerView()
         expensesTableViewContainerView.addSubview(expensesTableView)
         setupExpenseTableView()
+        setupExpenseTableViewCell()
         addSubview(commentTextField)
         addSubview(addButton)
+        addButton.backgroundColor = appearance.primaryActionBackground
         addSubview(selectAccountView)
         addSubview(inputAmountView)
         addSubview(selectCategoryView)
@@ -45,7 +62,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupDayExpensesLabel() {
         dayExpensesLabel.font = Fonts.default(size: 14, weight: .bold)
-        dayExpensesLabel.textColor = Colors.primaryText
+        dayExpensesLabel.textColor = appearance.primaryText
         dayExpensesLabel.adjustsFontSizeToFitWidth = true
     }
     
@@ -54,14 +71,18 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         expensesTableViewContainerView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
     }
     
-    private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
     private func setupExpenseTableView() {
+        expensesTableView.backgroundColor = appearance.primaryBackground
         expensesTableView.clipsToBounds = true
         expensesTableView.separatorStyle = .none
+    }
+    
+    private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
+    private func setupExpenseTableViewCell() {
         expensesTableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: expenseTableViewCellReuseIdentifier)
     }
     
-    // MARK: AutoLayout
+    // MARK: - AutoLayout
     
     private func autoLayout() {
         autoLayoutInputDateView()
@@ -74,7 +95,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         inputDateView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor).isActive = true
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -161,11 +182,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         expensesTableView.layer.cornerRadius = 10
     }
     
-    // MARK: ExpensesTableView
+    // MARK: - ExpensesTableView
     
     func expenseTableViewCell(_ indexPath: IndexPath) -> ExpenseTableViewCell {
-        let cell = expensesTableView.dequeueReusableCell(withIdentifier: expenseTableViewCellReuseIdentifier, for: indexPath) as! ExpenseTableViewCell
-        return cell
+        let expensesTableView = expensesTableView.dequeueReusableCell(withIdentifier: expenseTableViewCellReuseIdentifier, for: indexPath) as! ExpenseTableViewCell
+        expensesTableView.setAppearance(appearance)
+        return expensesTableView
     }
     
     func expenseTableViewCellEstimatedHeight() -> CGFloat {
@@ -174,6 +196,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     func expenseTableViewCellHeight() -> CGFloat {
         return 53
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        dayExpensesLabel.textColor = appearance.primaryText
+        expensesTableView.backgroundColor = appearance.primaryBackground
+        expensTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     
 }

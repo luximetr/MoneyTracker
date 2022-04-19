@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension AddExpenseScreenViewController {
-final class SelectCategoryView: AUIView {
+final class SelectCategoryView: AppearanceView {
     
     // MARK: Subviews
     
@@ -19,10 +19,11 @@ final class SelectCategoryView: AUIView {
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         addSubview(pickerView)
+        pickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
     }
     
     // MARK: Layout

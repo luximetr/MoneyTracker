@@ -12,19 +12,20 @@ import PinLayout
 extension EditExpenseScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
     init(appearance: Appearance) {
         self.commentTextField = PlainTextField(appearance: appearance)
         self.amountInputView = SingleLineTextInputView(appearance: appearance)
+        self.balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let balanceAccountPickerHeaderLabel = UILabel()
-    let balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
+    let balanceAccountPickerView: BalanceAccountHorizontalPickerView
     let categoryPickerHeaderLabel = UILabel()
     let categoryPickerView: CategoryHorizontalPickerView
     let dayDatePickerView = UIDatePicker()
@@ -32,7 +33,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let commentTextField: PlainTextField
     let saveButton = TextFilledButton()
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -75,7 +76,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         saveButton.backgroundColor = appearance.primaryActionBackground
     }
     
-    // MARK: AutoLayout
+    // MARK: - AutoLayout
     
     private func autoLayout() {
         autoLayoutDayDatePickerView()
@@ -87,7 +88,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         dayDatePickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     private let marginLeft: CGFloat = 24
     private let marginRight: CGFloat = 24
@@ -161,7 +162,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
             .height(44)
     }
     
-    // MARK: Appearance
+    // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
