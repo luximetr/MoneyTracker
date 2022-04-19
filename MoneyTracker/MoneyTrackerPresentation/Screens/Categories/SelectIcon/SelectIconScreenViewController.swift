@@ -13,7 +13,7 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     // MARK: - Data
     
     private let iconNames: [String]
-    private let iconColor: UIColor
+    private let color: CategoryColor
     
     // MARK: - Delegations
     
@@ -21,9 +21,9 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
 
     // MARK: - Life cycle
     
-    init(appearance: Appearance, language: Language, iconNames: [String], iconColor: UIColor) {
+    init(appearance: Appearance, language: Language, iconNames: [String], color: CategoryColor) {
         self.iconNames = iconNames
-        self.iconColor = iconColor
+        self.color = color
         super.init(appearance: appearance, language: language)
     }
     
@@ -72,6 +72,7 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     
     private let collectionController = AUIEmptyCollectionViewController()
     private let sectionController = AUIEmptyCollectionViewSectionController()
+    private let uiColorProvider = CategoryColorUIColorProvider()
     
     private func setupCollectionController() {
         collectionController.collectionView = screenView.collectionView
@@ -82,6 +83,7 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     }
     
     private func createCellController(iconName: String) -> IconCellController {
+        let iconColor = uiColorProvider.getUIColor(categoryColor: color, appearance: appearance)
         let cellController = IconCellController(iconName: iconName, backgroundColor: iconColor)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }

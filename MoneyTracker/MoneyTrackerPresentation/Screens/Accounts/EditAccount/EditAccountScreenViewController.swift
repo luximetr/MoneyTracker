@@ -117,7 +117,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         guard let balanceString = editAccountScreenView.amountInputView.text else { return }
         guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
         guard let backgroundColor = selectedBackgroundColor else { return }
-        let addingAccount = Account(id: editingAccount.id, name: name, amount: amount, currency: selectedCurrency, backgroundColor: backgroundColor)
+        let addingAccount = Account(id: editingAccount.id, name: name, amount: amount, currency: selectedCurrency, color: .variant1, backgroundColor: backgroundColor)
         editAccountClosure?(addingAccount)
     }
     

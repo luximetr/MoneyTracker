@@ -41,7 +41,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     // MARK: - Presentation
     
     private lazy var presentationWindow: UIWindow = {
-        let window = self.window ?? UIWindow()
+        let window = createPresentationWindow()
+        self.window = window
         window.makeKeyAndVisible()
         return window
     }()
@@ -51,6 +52,14 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         presentation.delegate = self
         return presentation
     }()
+    
+    private func createPresentationWindow() -> UIWindow {
+        let window = TraitCollectionChangeNotifyWindow()
+        window.didChangeUserInterfaceStyleClosure = { [weak self] style in
+            self?.presentation.didChangeUserInterfaceStyle(style)
+        }
+        return window
+    }
     
     func presentationCategories(_ presentation: Presentation) throws -> [PresentationCategory] {
         do {

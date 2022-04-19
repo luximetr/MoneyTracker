@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AccountColor {
+public enum AccountColor {
     case variant1
     case variant2
     case variant3

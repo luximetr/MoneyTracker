@@ -46,7 +46,7 @@ struct Account: Equatable, Hashable {
         let currency = self.currency.presentationCurrency
         let colorConvertor = UIColorHexConvertor()
         let backgroundColor = try colorConvertor.convertToUIColor(hexString: colorHex)
-        let presentationAccount = PresentationAccount(id: id, name: name, amount: amount, currency: currency, backgroundColor: backgroundColor)
+        let presentationAccount = PresentationAccount(id: id, name: name, amount: amount, currency: currency, color: .variant1, backgroundColor: backgroundColor)
         return presentationAccount
     }
     

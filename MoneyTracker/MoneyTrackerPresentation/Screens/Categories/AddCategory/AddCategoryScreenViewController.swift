@@ -12,17 +12,18 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
-    private let categoryColors: [UIColor]
+    private let categoryColors: [CategoryColor]
     private var categoryIconName: String
     var backClosure: (() -> Void)?
     var addCategoryClosure: ((AddingCategory) throws -> Void)?
-    var selectIconClosure: ((UIColor) -> Void)?
+    var selectIconClosure: ((CategoryColor) -> Void)?
     
     // MARK: Init
     
-    init(appearance: Appearance, language: Language, categoryColors: [UIColor], categoryIconName: String) {
+    init(appearance: Appearance, language: Language, categoryColors: [CategoryColor], categoryIconName: String) {
         self.categoryColors = categoryColors
         self.categoryIconName = categoryIconName
+        self.colorPickerController = CategoryColorHorizontalPickerController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -103,16 +104,16 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Color
     
-    private let colorPickerController = ColorHorizontalPickerController()
+    private let colorPickerController: CategoryColorHorizontalPickerController
     
     private func setupColorPickerController() {
         colorPickerController.pickerView = screenView.colorPickerView
         colorPickerController.didSelectColorClosure = { [weak self] color in
-            self?.updateView(categoryColor: color)
+//            self?.updateView(categoryColor: color)
         }
         guard let selectedColor = categoryColors.first else { return }
         colorPickerController.setColors(categoryColors, selectedColor: selectedColor)
-        updateView(categoryColor: selectedColor)
+//        updateView(categoryColor: selectedColor)
     }
     
     private func updateView(categoryColor: UIColor) {

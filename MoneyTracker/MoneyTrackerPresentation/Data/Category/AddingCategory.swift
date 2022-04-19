@@ -10,10 +10,10 @@ import UIKit
 
 public struct AddingCategory: Equatable, Hashable {
     public let name: String
-    public let color: UIColor
+    public let color: CategoryColor
     public let iconName: String
     
-    public init(name: String, color: UIColor, iconName: String) {
+    public init(name: String, color: CategoryColor, iconName: String) {
         self.name = name
         self.color = color
         self.iconName = iconName

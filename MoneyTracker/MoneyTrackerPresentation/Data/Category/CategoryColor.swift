@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CategoryColor {
+public enum CategoryColor: CaseIterable {
     case variant1
     case variant2
     case variant3

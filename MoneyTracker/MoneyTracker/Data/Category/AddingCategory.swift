@@ -28,13 +28,13 @@ struct AddingCategory: Equatable, Hashable {
     init(presentationAddingCategory: PresentationAddingCategory) throws {
         self.name = presentationAddingCategory.name
         let colorConvertor = UIColorHexConvertor()
-        self.colorHex = try colorConvertor.convertToHexString(color: presentationAddingCategory.color)
+        self.colorHex = "#333333"// try colorConvertor.convertToHexString(color: presentationAddingCategory.color)
         self.iconName = presentationAddingCategory.iconName
     }
     
     func presentationAddingCategory() throws -> PresentationAddingCategory {
         let colorConvertor = UIColorHexConvertor()
-        let color = try colorConvertor.convertToUIColor(hexString: colorHex)
+        let color = CategoryColor.variant1// try colorConvertor.convertToUIColor(hexString: colorHex)
         let presentationAddingCategory = PresentationAddingCategory(name: name, color: color, iconName: iconName)
         return presentationAddingCategory
     }

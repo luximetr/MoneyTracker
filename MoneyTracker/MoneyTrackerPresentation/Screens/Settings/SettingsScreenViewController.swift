@@ -245,4 +245,11 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         return titleTableViewCellController
     }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+    }
 }

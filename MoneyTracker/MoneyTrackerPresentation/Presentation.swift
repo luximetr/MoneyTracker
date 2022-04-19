@@ -19,6 +19,23 @@ public final class Presentation: AUIWindowPresentation {
     
     private var appearance: Appearance = DarkAppearance()
     
+    private func setAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        settingsScreenViewController?.changeAppearance(appearance)
+    }
+    
+    public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
+        let appearance = getAppearance(userInterfaceStyle: style)
+        setAppearance(appearance)
+    }
+    
+    private func getAppearance(userInterfaceStyle: UIUserInterfaceStyle) -> Appearance {
+        switch userInterfaceStyle {
+            case .dark: return DarkAppearance()
+            default: return LightAppearance()
+        }
+    }
+    
     // MARK: - Language
     
     func changeLanguage(_ language: Language) {
@@ -495,7 +512,7 @@ public final class Presentation: AUIWindowPresentation {
     private func pushAddCategoryScreenViewController(_ navigationController: UINavigationController) throws {
         do {
             let language = try delegate.presentationLanguage(self)
-            let viewController = AddCategoryScreenViewController(appearance: appearance, language: language, categoryColors: CategoryBackgroundColors.variants, categoryIconName: CategoryIconNames.variant1)
+            let viewController = AddCategoryScreenViewController(appearance: appearance, language: language, categoryColors: CategoryColor.allCases, categoryIconName: CategoryIconNames.variant1)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -518,7 +535,7 @@ public final class Presentation: AUIWindowPresentation {
             viewController.selectIconClosure = { [weak self] color in
                 guard let self = self else { return }
                 let selectIconViewController = self.createSelectIconViewController(
-                    iconColor: color,
+                    color: color,
                     onSelectIcon: { [weak viewController] iconName in
                         viewController?.showCategoryIcon(iconName: iconName)
                     }
@@ -537,7 +554,7 @@ public final class Presentation: AUIWindowPresentation {
     private func presentAddCategoryScreenViewController(_ presentingViewController: UIViewController) throws {
         do {
             let language = try delegate.presentationLanguage(self)
-            let viewController = AddCategoryScreenViewController(appearance: appearance, language: language, categoryColors: CategoryBackgroundColors.variants, categoryIconName: CategoryIconNames.variant1)
+            let viewController = AddCategoryScreenViewController(appearance: appearance, language: language, categoryColors: CategoryColor.allCases, categoryIconName: CategoryIconNames.variant1)
             viewController.backClosure = { [weak viewController] in
                 guard let viewController = viewController else { return }
                 viewController.dismiss(animated: true, completion: nil)
@@ -560,7 +577,7 @@ public final class Presentation: AUIWindowPresentation {
             viewController.selectIconClosure = { [weak self, weak viewController] color in
                 guard let self = self else { return }
                 let selectIconViewController = self.createSelectIconViewController(
-                    iconColor: color,
+                    color: color,
                     onSelectIcon: { iconName in
                         viewController?.showCategoryIcon(iconName: iconName)
                     }
@@ -601,13 +618,13 @@ public final class Presentation: AUIWindowPresentation {
             }
             viewController.selectIconClosure = { [weak self] color in
                 guard let self = self else { return }
-                let selectIconViewController = self.createSelectIconViewController(
-                    iconColor: color,
-                    onSelectIcon: { [weak viewController] iconName in
-                        viewController?.showCategoryIcon(iconName: iconName)
-                    }
-                )
-                navigationController.present(selectIconViewController, animated: true)
+//                let selectIconViewController = self.createSelectIconViewController(
+//                    color: color,
+//                    onSelectIcon: { [weak viewController] iconName in
+//                        viewController?.showCategoryIcon(iconName: iconName)
+//                    }
+//                )
+//                navigationController.present(selectIconViewController, animated: true)
             }
             pushedEditCategoryViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
@@ -620,11 +637,11 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Select Icon View Controller
     
     private func createSelectIconViewController(
-        iconColor: UIColor,
+        color: CategoryColor,
         onSelectIcon: @escaping (String) -> Void
     ) -> SelectIconScreenViewController {
         let language = try! delegate.presentationLanguage(self)
-        let viewController = SelectIconScreenViewController(appearance: appearance, language: language, iconNames: CategoryIconNames.variants, iconColor: iconColor)
+        let viewController = SelectIconScreenViewController(appearance: appearance, language: language, iconNames: CategoryIconNames.variants, color: color)
         viewController.didSelectIconClosure = { [weak viewController] iconName in
             onSelectIcon(iconName)
             viewController?.dismiss(animated: true)
