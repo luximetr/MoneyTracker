@@ -27,22 +27,24 @@ class CategoryHorizontalPickerView: AppearanceView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         addSubview(collectionView)
         setupCollectionView()
         setupCategoryCollectionViewCell()
         setupAddCategoryCollectionViewCell()
+        changeAppearance(appearance)
     }
     
     private func setupCollectionView() {
         collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         collectionViewLayout.scrollDirection = .horizontal
-        collectionView.backgroundColor = appearance.primaryBackground
         collectionView.contentInset = contentInset
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
     }
     
+    private var appearanceCollectionViewCell: [AppearanceCollectionViewCell] {
+        return collectionView.visibleCells.compactMap { $0 as? AppearanceCollectionViewCell }
+    }
     private let categoryCollectionViewCellReuseIdentifier = "categoryCollectionViewCellReuseIdentifier"
     private func setupCategoryCollectionViewCell() {
         collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: categoryCollectionViewCellReuseIdentifier)
@@ -119,7 +121,8 @@ class CategoryHorizontalPickerView: AppearanceView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
-        setupCollectionView()
+        collectionView.backgroundColor = appearance.primaryBackground
+        appearanceCollectionViewCell.forEach { $0.setAppearance(appearance) }
     }
     
 }

@@ -18,6 +18,7 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Appearance
     
     private var appearance: Appearance = DarkAppearance()
+//    private var appearance: Appearance = LightAppearance()
     
     // MARK: - Language
     

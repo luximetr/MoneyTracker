@@ -32,6 +32,9 @@ class BalanceAccountHorizontalPickerView: AppearanceView {
         changeAppearance(appearance)
     }
     
+    private var appearanceCollectionViewCells: [AppearanceCollectionViewCell] {
+        return collectionView.visibleCells.compactMap { $0 as? AppearanceCollectionViewCell }
+    }
     private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
         collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -68,6 +71,7 @@ class BalanceAccountHorizontalPickerView: AppearanceView {
         cell.color = account.backgroundColor
         cell.titleLabel.text = account.name
         cell.update(isSelected: isSelected)
+        cell.setAppearance(appearance)
         return cell
     }
     
@@ -80,6 +84,7 @@ class BalanceAccountHorizontalPickerView: AppearanceView {
     
     func createAddCollectionViewCell(indexPath: IndexPath) -> BalanceAccountHorizontalPickerController.AddCollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addCollectionViewCellReuseIdentifier, for: indexPath) as! BalanceAccountHorizontalPickerController.AddCollectionViewCell
+        cell.setAppearance(appearance)
         return cell
     }
     
@@ -107,6 +112,7 @@ class BalanceAccountHorizontalPickerView: AppearanceView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         collectionView.backgroundColor = appearance.primaryBackground
+        appearanceCollectionViewCells.forEach { $0.setAppearance(appearance) }
     }
     
 }

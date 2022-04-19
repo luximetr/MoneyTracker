@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import PinLayout
 
-class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
+class BalanceAccountHorizontalPickerItemCell: AppearanceCollectionViewCell {
     
     // MARK: - UI elements
     
@@ -92,6 +92,12 @@ class BalanceAccountHorizontalPickerItemCell: AUICollectionViewCell {
         balanceAccountHorizontalPickerItemCell.titleLabel.text = name
         let sizeThatFits = balanceAccountHorizontalPickerItemCell.sizeThatFits(size)
         return sizeThatFits
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
     }
     
 }

@@ -10,7 +10,7 @@ import AUIKit
 import PinLayout
 
 extension BalanceAccountHorizontalPickerController {
-class AddCollectionViewCell: AUICollectionViewCell {
+class AddCollectionViewCell: AppearanceCollectionViewCell {
     
     // MARK: Subviews
     
@@ -28,13 +28,11 @@ class AddCollectionViewCell: AUICollectionViewCell {
     }
     
     private func setupBorderLayer() {
-        borderLayer.strokeColor = Colors.secondaryBackground.cgColor
         borderLayer.fillColor = nil
     }
     
     private func setupTextLabel() {
         textLabel.font = Fonts.default(size: 12, weight: .regular)
-        textLabel.textColor = Colors.secondaryText
         textLabel.textAlignment = .center
     }
     
@@ -56,6 +54,14 @@ class AddCollectionViewCell: AUICollectionViewCell {
     private func layoutTextLabel() {
         textLabel.frame = bounds
         textLabel.textAlignment = .center
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        textLabel.textColor = appearance.secondaryText
+        borderLayer.strokeColor = appearance.secondaryBackground.cgColor
     }
     
     // MARK: Size
