@@ -18,7 +18,6 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Appearance
     
     private var appearance: Appearance = DarkAppearance()
-//    private var appearance: Appearance = LightAppearance()
     
     // MARK: - Language
     
@@ -649,11 +648,11 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.didSelectCurrencyClosure = { [weak self, weak viewController] in
+        viewController.didSelectCurrencyClosure = { [weak self] in
             guard let self = self else { return }
-            guard let viewController = viewController else { return }
+            guard let settingsNavigationController = self.settingsNavigationController else { return }
             do {
-                try self.presentSelectCurrencyViewController(viewController, selectedCurrency: nil)
+                try self.pushSelectCurrencyViewController(settingsNavigationController, selectedCurrency: nil)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
