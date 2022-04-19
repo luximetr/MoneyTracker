@@ -18,9 +18,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Life cycle
     
-    init() {
+    init(appearance: Appearance) {
         collectionViewLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        super.init(appearance: appearance)
     }
     
     // MARK: - Setup
@@ -29,12 +30,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.setup()
         setupCollectionView()
         addSubview(collectionView)
-        backgroundColor = Colors.primaryBackground
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.primaryBackground
+        changeAppearance(appearance)
     }
     
     private func setupCollectionView() {
@@ -44,6 +40,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         collectionView.register(IconCell.self, forCellWithReuseIdentifier: iconCellId)
         collectionView.contentInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
         collectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    private var appearanceCollectionViewCells: [AppearanceCollectionViewCell] {
+        return collectionView.visibleCells.compactMap { $0 as? AppearanceCollectionViewCell }
     }
     
     // MARK: - Layout
@@ -66,11 +66,24 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private let iconCellId = "iconCellId"
     
     func createIconCell(indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: iconCellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: iconCellId, for: indexPath)
+        let iconCell = cell as? IconCell
+        iconCell?.setAppearance(appearance)
+        return cell
     }
     
     func getIconCellSize() -> CGSize {
         return CGSize(width: 40, height: 40)
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        navigationBarView.backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.primaryBackground
+        appearanceCollectionViewCells.forEach { $0.setAppearance(appearance) }
     }
 }
 }

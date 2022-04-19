@@ -37,7 +37,6 @@ final class CategoryIconView: AUIView {
     
     private func setupIconImageView() {
         iconImageView.contentMode = .scaleAspectFit
-        iconImageView.tintColor = Colors.darkCardPrimaryText
     }
     
     private func layoutIconImageView() {

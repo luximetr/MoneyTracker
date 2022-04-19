@@ -9,7 +9,7 @@ import AUIKit
 import PinLayout
 
 extension SelectIconScreenViewController.ScreenView {
-final class IconCell: AUICollectionViewCell {
+final class IconCell: AppearanceCollectionViewCell {
     
     // MARK: - Subviews
     
@@ -20,11 +20,6 @@ final class IconCell: AUICollectionViewCell {
     override func setup() {
         super.setup()
         contentView.addSubview(iconView)
-        setupIconView()
-    }
-    
-    private func setupIconView() {
-        iconView.iconImageView.tintColor = Colors.darkCardPrimaryText
     }
     
     // MARK: - Layout
@@ -37,6 +32,13 @@ final class IconCell: AUICollectionViewCell {
     private func layoutIconView() {
         iconView.pin.all()
         iconView.layer.cornerRadius = iconView.frame.height / 2
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        iconView.iconImageView.tintColor = appearance.categoryPrimaryText
     }
 }
 }

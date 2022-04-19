@@ -34,7 +34,7 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     }
     
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     override func viewDidLoad() {
@@ -59,6 +59,13 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
     }
     
     // MARK: - Icons
