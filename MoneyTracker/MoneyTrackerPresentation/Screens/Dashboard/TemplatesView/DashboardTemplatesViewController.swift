@@ -99,7 +99,7 @@ final class TemplatesViewController: EmptyViewController {
         }
         cellController.sizeForCellClosure = { [weak self] in
             guard let self = self else { return .zero }
-            return self.templatesView!.getTemplateCellSize()
+            return self.templatesView!.templateCollectionViewCellSize()
         }
         cellController.didSelectClosure = { [weak self, weak cellController] in
             guard let self = self else { return }

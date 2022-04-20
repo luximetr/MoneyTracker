@@ -12,29 +12,29 @@ import PinLayout
 extension DashboardScreenViewController {
 final class ScreenView: TitleNavigationBarScreenView {
     
+    // MARK: - Initializer
+        
+    init(appearance: Appearance) {
+        self.categoryPickerView = CategoryPickerView(appearance: appearance)
+        self.accountPickerView = AccountPickerView(appearance: appearance)
+        self.templatesView = TemplatesView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
     // MARK: Subviews
     
-    let categoryPickerView = CategoryPickerView()
-    let accountPickerView = AccountPickerView()
-    var templatesCollectionView: UICollectionView {
-        return templatesView.collectionView
-    }
-    let templatesView = TemplatesView()
+    let categoryPickerView: CategoryPickerView
+    let accountPickerView: AccountPickerView
+    let templatesView: TemplatesView
     
     // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.primaryBackground
+        backgroundColor = appearance.primaryBackground
         addSubview(categoryPickerView)
         addSubview(accountPickerView)
         addSubview(templatesView)
-        setupTemplatesCollectionView()
-    }
-    
-    private let templateCellId = "templateCollectionViewCell"
-    private func setupTemplatesCollectionView() {
-        templatesCollectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: templateCellId)
     }
     
     // MARK: - Layout

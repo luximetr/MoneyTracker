@@ -10,9 +10,9 @@ import AUIKit
 import PinLayout
 
 extension DashboardScreenViewController {
-final class TemplateCollectionViewCell: AUICollectionViewCell {
+final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let titleLabel = UILabel()
     
@@ -23,7 +23,7 @@ final class TemplateCollectionViewCell: AUICollectionViewCell {
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         layer.masksToBounds = false
-        contentView.backgroundColor = Colors.white
+        contentView.backgroundColor = appearance?.primaryBackground
         contentView.addSubview(titleLabel)
         setupTitleLabel()
     }
@@ -32,7 +32,7 @@ final class TemplateCollectionViewCell: AUICollectionViewCell {
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
-        titleLabel.textColor = Colors.primaryText
+        titleLabel.textColor = appearance?.primaryText
     }
     
     // MARK: - Layout
@@ -58,7 +58,7 @@ final class TemplateCollectionViewCell: AUICollectionViewCell {
             .sizeToFit(.width)
     }
     
-    // MARK: States
+    // MARK: - States
     
     override var isHighlighted: Bool {
         willSet {
@@ -74,5 +74,14 @@ final class TemplateCollectionViewCell: AUICollectionViewCell {
             contentView.alpha = 1
         }
     }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        contentView.backgroundColor = appearance.primaryBackground
+        titleLabel.textColor = appearance.primaryText
+    }
+    
 }
 }
