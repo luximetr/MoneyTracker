@@ -9,12 +9,12 @@ import Foundation
 
 public struct ImportingCategory {
     public let name: String
-    public let colorHex: String?
+    public let categoryColor: String?
     public let iconName: String?
     
-    public init(name: String, colorHex: String?, iconName: String?) {
+    public init(name: String, categoryColor: String?, iconName: String?) {
         self.name = name
-        self.colorHex = colorHex
+        self.categoryColor = categoryColor
         self.iconName = iconName
     }
 }

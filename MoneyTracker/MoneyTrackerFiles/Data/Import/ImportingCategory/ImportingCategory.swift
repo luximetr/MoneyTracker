@@ -9,6 +9,6 @@ import Foundation
 
 public struct ImportingCategory {
     public let name: String
-    public let colorHex: String?
+    public let categoryColor: String?
     public let iconName: String?
 }

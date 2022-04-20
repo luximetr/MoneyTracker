@@ -12,19 +12,20 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
-    private let categoryColors: [UIColor]
+    private let categoryColors: [CategoryColor]
     private let category: Category
     private var categoryIconName: String
     var backClosure: (() -> Void)?
     var editCategoryClosure: ((EditingCategory) throws -> Void)?
-    var selectIconClosure: ((UIColor) -> Void)?
+    var selectIconClosure: ((CategoryColor) -> Void)?
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, category: Category, categoryColors: [UIColor]) {
+    init(appearance: Appearance, language: Language, category: Category, categoryColors: [CategoryColor]) {
         self.category = category
         self.categoryColors = categoryColors
         self.categoryIconName = category.iconName
+        self.colorPickerController = CategoryColorHorizontalPickerController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -115,7 +116,7 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Color picker
     
-    private let colorPickerController = ColorHorizontalPickerController()
+    private let colorPickerController: CategoryColorHorizontalPickerController
     
     private func setupColorPickerController() {
         colorPickerController.pickerView = screenView.colorPickerView
@@ -125,10 +126,13 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
         colorPickerController.setColors(categoryColors, selectedColor: category.color)
     }
     
-    private func updateView(categoryColor: UIColor) {
-        screenView.iconView.backgroundColor = categoryColor
-        screenView.nameTextField.textColor = categoryColor
-        screenView.editButton.backgroundColor = categoryColor
+    private let uiColorProvider = CategoryColorUIColorProvider()
+    
+    private func updateView(categoryColor: CategoryColor) {
+        let uiColor = uiColorProvider.getUIColor(categoryColor: categoryColor, appearance: appearance)
+        screenView.iconView.backgroundColor = uiColor
+        screenView.nameTextField.textColor = uiColor
+        screenView.editButton.backgroundColor = uiColor
     }
     
     // MARK: Icon

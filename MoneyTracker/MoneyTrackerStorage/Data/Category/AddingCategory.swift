@@ -9,12 +9,12 @@ import Foundation
 
 public struct AddingCategory: Equatable, Hashable {
     public let name: String
-    public let colorHex: String
+    public let color: CategoryColor
     public let iconName: String
     
-    public init(name: String, colorHex: String, iconName: String) {
+    public init(name: String, color: CategoryColor, iconName: String) {
         self.name = name
-        self.colorHex = colorHex
+        self.color = color
         self.iconName = iconName
     }
 }

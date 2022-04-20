@@ -601,7 +601,7 @@ public final class Presentation: AUIWindowPresentation {
     private func pushEditCategoryScreenViewController(_ navigationController: UINavigationController, category: Category) throws {
         do {
             let language = try delegate.presentationLanguage(self)
-            let viewController = EditCategoryScreenViewController(appearance: appearance, language: language, category: category, categoryColors: CategoryBackgroundColors.variants)
+            let viewController = EditCategoryScreenViewController(appearance: appearance, language: language, category: category, categoryColors: CategoryColor.allCases)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -621,13 +621,13 @@ public final class Presentation: AUIWindowPresentation {
             }
             viewController.selectIconClosure = { [weak self] color in
                 guard let self = self else { return }
-//                let selectIconViewController = self.createSelectIconViewController(
-//                    color: color,
-//                    onSelectIcon: { [weak viewController] iconName in
-//                        viewController?.showCategoryIcon(iconName: iconName)
-//                    }
-//                )
-//                navigationController.present(selectIconViewController, animated: true)
+                let selectIconViewController = self.createSelectIconViewController(
+                    color: color,
+                    onSelectIcon: { [weak viewController] iconName in
+                        viewController?.showCategoryIcon(iconName: iconName)
+                    }
+                )
+                navigationController.present(selectIconViewController, animated: true)
             }
             pushedEditCategoryViewController = viewController
             navigationController.pushViewController(viewController, animated: true)

@@ -10,13 +10,13 @@ import Foundation
 public struct EditingCategory: Equatable, Hashable {
     public let id: String
     public let name: String?
-    public let colorHex: String?
+    public let color: CategoryColor?
     public let iconName: String?
     
-    public init(id: String, name: String? = nil, colorHex: String? = nil, iconName: String? = nil) {
+    public init(id: String, name: String? = nil, color: CategoryColor? = nil, iconName: String? = nil) {
         self.id = id
         self.name = name
-        self.colorHex = colorHex
+        self.color = color
         self.iconName = iconName
     }
 }

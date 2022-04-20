@@ -12,7 +12,7 @@ class ImportingCategoryAdapter {
     func adaptToAdding(importingCategory: ImportingCategory) -> AddingCategory {
         return AddingCategory(
             name: importingCategory.name,
-            colorHex: importingCategory.colorHex ?? "#333333",
+            color: CategoryColor(rawValue: importingCategory.categoryColor ?? "") ?? .variant1,
             iconName: importingCategory.iconName ?? "bag"
         )
     }

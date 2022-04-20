@@ -27,7 +27,7 @@ class CategoriesCoreDataRepo {
         let categoryMO = try tryCreateCategory(category, context: context)
         categoryMO.id = category.id
         categoryMO.name = category.name
-        categoryMO.colorHex = category.colorHex
+        categoryMO.categoryColor = category.color?.rawValue
         categoryMO.iconName = category.iconName
         try context.save()
     }
@@ -91,10 +91,10 @@ class CategoriesCoreDataRepo {
     func convertToCategory(categoryMO: CategoryMO) throws -> Category {
         guard let id = categoryMO.id else { throw ParseError.noId }
         guard let name = categoryMO.name else { throw ParseError.noName }
-        let colorHex = categoryMO.colorHex
+        let color = CategoryColor(rawValue: categoryMO.categoryColor ?? "")
         let iconName = categoryMO.iconName
         
-        return Category(id: id, name: name, colorHex: colorHex, iconName: iconName)
+        return Category(id: id, name: name, color: color, iconName: iconName)
     }
     
     private func convertToCategories(categoriesMO: [CategoryMO]) throws -> [Category] {
@@ -129,8 +129,8 @@ class CategoriesCoreDataRepo {
         if let name = editingCategory.name {
             propertiesToUpdate[#keyPath(CategoryMO.name)] =  name
         }
-        if let colorHex = editingCategory.colorHex {
-            propertiesToUpdate[#keyPath(CategoryMO.colorHex)] = colorHex
+        if let color = editingCategory.color?.rawValue {
+            propertiesToUpdate[#keyPath(CategoryMO.categoryColor)] = color
         }
         if let iconName = editingCategory.iconName {
             propertiesToUpdate[#keyPath(CategoryMO.iconName)] = iconName

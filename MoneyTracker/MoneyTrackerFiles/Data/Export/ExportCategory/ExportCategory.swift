@@ -10,13 +10,13 @@ import Foundation
 public struct ExportCategory {
     public let id: String
     public let name: String
-    public let colorHex: String
+    public let categoryColor: String
     public let iconName: String
     
-    public init(id: String, name: String, colorHex: String, iconName: String) {
+    public init(id: String, name: String, categoryColor: String, iconName: String) {
         self.id = id
         self.name = name
-        self.colorHex = colorHex
+        self.categoryColor = categoryColor
         self.iconName = iconName
     }
 }

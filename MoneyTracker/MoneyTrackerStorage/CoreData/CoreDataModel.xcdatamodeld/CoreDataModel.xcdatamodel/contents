@@ -14,7 +14,7 @@
         <attribute name="orderedCategoryIds" optional="YES" attributeType="Transformable" customClassName="[NSString]"/>
     </entity>
     <entity name="Category" representedClassName="CategoryMO" syncable="YES" codeGenerationType="class">
-        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="categoryColor" optional="YES" attributeType="String"/>
         <attribute name="iconName" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>

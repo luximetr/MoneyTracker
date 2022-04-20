@@ -17,7 +17,7 @@ class ImportingCategoryAdapter {
     func adaptToStorageAdding(filesImportingCategory: FilesImportingCategory) -> StorageAddingCategory {
         return StorageAddingCategory(
             name: filesImportingCategory.name,
-            colorHex: filesImportingCategory.colorHex ?? "#333333",
+            color: CategoryColor(rawValue: filesImportingCategory.categoryColor ?? "") ?? .variant1,
             iconName: filesImportingCategory.iconName ?? "bag"
         )
     }
@@ -25,7 +25,7 @@ class ImportingCategoryAdapter {
     func adaptToStorage(filesImportingCategory: FilesImportingCategory) -> StorageImportingCategory {
         return StorageImportingCategory(
             name: filesImportingCategory.name,
-            colorHex: filesImportingCategory.colorHex,
+            categoryColor: filesImportingCategory.categoryColor,
             iconName: filesImportingCategory.iconName
         )
     }

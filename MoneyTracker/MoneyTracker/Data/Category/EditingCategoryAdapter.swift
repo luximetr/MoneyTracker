@@ -17,13 +17,13 @@ typealias StorageEditingCategory = MoneyTrackerStorage.EditingCategory
 class EditingCategoryAdapter {
     
     private let colorConvertor = UIColorHexConvertor()
+    private let categoryColorAdapter = CategoryColorAdapter()
     
     func adaptToStorage(presentationEditingCategory: PresentationEditingCategory) throws -> StorageEditingCategory {
-        let colorHex = try convertToColorHex(uiColor: presentationEditingCategory.color)
         return StorageEditingCategory(
             id: presentationEditingCategory.id,
             name: presentationEditingCategory.name,
-            colorHex: colorHex,
+            color: categoryColorAdapter.adaptToStorageOptional(presentationCategoryColor: presentationEditingCategory.color),
             iconName: presentationEditingCategory.iconName
         )
     }

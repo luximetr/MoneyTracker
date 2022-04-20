@@ -12,7 +12,7 @@ class ImportingCoinKeeperCategoryCSVLineParser {
     func parse(csvLine: String) throws -> ImportingCategory {
         let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
         let name = try parseName(components: components)
-        return ImportingCategory(name: name, colorHex: nil, iconName: nil)
+        return ImportingCategory(name: name, categoryColor: nil, iconName: nil)
     }
     
     private func parseName(components: [String]) throws -> String {

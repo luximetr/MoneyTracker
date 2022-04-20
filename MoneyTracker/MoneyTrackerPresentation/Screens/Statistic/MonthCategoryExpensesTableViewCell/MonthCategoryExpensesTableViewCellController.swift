@@ -40,10 +40,10 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
         cell.categoryLabel.text = expenses.first?.category.name
         cell.amountLabel.text = setDayExpensesContent()
         if let category = expenses.first?.category {
-            cell.categoryIconView.backgroundColor = category.color
+//            cell.categoryIconView.backgroundColor = category.color
             cell.categoryIconView.setIcon(named: category.iconName)
-            cell.amountLabel.textColor = category.color
-            cell.categoryLabel.textColor = category.color
+//            cell.amountLabel.textColor = category.color
+//            cell.categoryLabel.textColor = category.color
         }
         return cell
     }

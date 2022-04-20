@@ -32,7 +32,7 @@ class ExportCategoryCSVComposer {
     private func composeCSVLine(category: ExportCategory) -> String {
         let components = [
             "\"\(category.name)\"",
-            "\"\(category.colorHex)\"",
+            "\"\(category.categoryColor)\"",
             "\"\(category.iconName)\""
         ]
         return components.joined(separator: columnsSeparator)

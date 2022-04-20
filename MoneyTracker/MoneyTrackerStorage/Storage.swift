@@ -49,7 +49,7 @@ public class Storage {
     @discardableResult
     public func addCategory(_ addingCategory: AddingCategory) throws -> Category {
         let repo = createCategoriesRepo()
-        let category = Category(id: UUID().uuidString, name: addingCategory.name, colorHex: addingCategory.colorHex, iconName: addingCategory.iconName)
+        let category = Category(id: UUID().uuidString, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
         try repo.createCategory(category)
         try appendToCategoriesOrder(categoryId: category.id)
         return category
