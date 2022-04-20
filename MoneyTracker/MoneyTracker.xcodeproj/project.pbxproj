@@ -96,6 +96,10 @@
 		2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A4527A7068E00743416 /* MenuScreenStrings.strings */; };
 		2EB10A4827A7075700743416 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4727A7075700743416 /* Bundle.swift */; };
 		2EB10A4A27A707A300743416 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4927A707A300743416 /* Language.swift */; };
+		2EB2E878281080E00017ACDD /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E877281080E00017ACDD /* AppearanceSetting.swift */; };
+		2EB2E87B281083550017ACDD /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87A281083550017ACDD /* AppearanceSetting.swift */; };
+		2EB2E87D281083820017ACDD /* PresentationAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */; };
+		2EB2E87F281083960017ACDD /* StorageAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */; };
 		2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D127BAF24200D0C4E1 /* Account.swift */; };
 		2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */; };
 		2EB8271A280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */; };
@@ -119,6 +123,14 @@
 		2EC19ADA27A8161200E1A6FA /* AddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19AD927A8161200E1A6FA /* AddTableViewCell.swift */; };
 		2EC19ADB27A8238F00E1A6FA /* CategoriesListScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC19ADD27A8238F00E1A6FA /* CategoriesListScreenStrings.strings */; };
 		2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1BDC727B99AA500C4A054 /* MoneySumTextInputValidator.swift */; };
+		2EC22DC628105DCB00530139 /* SelectAppearanceScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC22DC528105DCB00530139 /* SelectAppearanceScreenViewController.swift */; };
+		2EC22DC828105DD700530139 /* SelectAppearanceScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC22DC728105DD700530139 /* SelectAppearanceScreenView.swift */; };
+		2EC22DCB28105E0500530139 /* SelectAppearanceScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC22DCD28105E0500530139 /* SelectAppearanceScreenStrings.strings */; };
+		2EC22DD228105EAF00530139 /* SelectAppearanceScreenAppearanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC22DD128105EAF00530139 /* SelectAppearanceScreenAppearanceTableViewCell.swift */; };
+		2EC22DD428105EBC00530139 /* SelectAppearanceScreenAppearanceTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC22DD328105EBC00530139 /* SelectAppearanceScreenAppearanceTableViewCellController.swift */; };
+		2EC22DD72810648D00530139 /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC22DD62810648D00530139 /* AppearanceSetting.swift */; };
+		2EC22DDA2810654900530139 /* AppearanceSettingNameLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC22DD92810654900530139 /* AppearanceSettingNameLocalizer.swift */; };
+		2EC22DDD2810657900530139 /* AppearanceSettingNameStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC22DDF2810657900530139 /* AppearanceSettingNameStrings.strings */; };
 		2EC4CA492805599800518CDD /* MoneyTrackerFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EC4CA482805599800518CDD /* MoneyTrackerFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2EC4CA4C2805599800518CDD /* MoneyTrackerFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC4CA462805599800518CDD /* MoneyTrackerFoundation.framework */; };
 		2EC4CA4D2805599800518CDD /* MoneyTrackerFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC4CA462805599800518CDD /* MoneyTrackerFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -547,6 +559,10 @@
 		2EB10A4427A7068E00743416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MenuScreenStrings.strings; sourceTree = "<group>"; };
 		2EB10A4727A7075700743416 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		2EB10A4927A707A300743416 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		2EB2E877281080E00017ACDD /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
+		2EB2E87A281083550017ACDD /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
+		2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationAppearanceSettingMapper.swift; sourceTree = "<group>"; };
+		2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAppearanceSettingMapper.swift; sourceTree = "<group>"; };
 		2EB6E0D127BAF24200D0C4E1 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingAccount.swift; sourceTree = "<group>"; };
 		2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleValueTableViewCell.swift; sourceTree = "<group>"; };
@@ -570,6 +586,18 @@
 		2EC19AD927A8161200E1A6FA /* AddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTableViewCell.swift; sourceTree = "<group>"; };
 		2EC19ADC27A8238F00E1A6FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CategoriesListScreenStrings.strings; sourceTree = "<group>"; };
 		2EC1BDC727B99AA500C4A054 /* MoneySumTextInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneySumTextInputValidator.swift; sourceTree = "<group>"; };
+		2EC22DC528105DCB00530139 /* SelectAppearanceScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAppearanceScreenViewController.swift; sourceTree = "<group>"; };
+		2EC22DC728105DD700530139 /* SelectAppearanceScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAppearanceScreenView.swift; sourceTree = "<group>"; };
+		2EC22DCC28105E0500530139 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SelectAppearanceScreenStrings.strings; sourceTree = "<group>"; };
+		2EC22DCE28105E0600530139 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/SelectAppearanceScreenStrings.strings; sourceTree = "<group>"; };
+		2EC22DCF28105E0700530139 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/SelectAppearanceScreenStrings.strings; sourceTree = "<group>"; };
+		2EC22DD128105EAF00530139 /* SelectAppearanceScreenAppearanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAppearanceScreenAppearanceTableViewCell.swift; sourceTree = "<group>"; };
+		2EC22DD328105EBC00530139 /* SelectAppearanceScreenAppearanceTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAppearanceScreenAppearanceTableViewCellController.swift; sourceTree = "<group>"; };
+		2EC22DD62810648D00530139 /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
+		2EC22DD92810654900530139 /* AppearanceSettingNameLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingNameLocalizer.swift; sourceTree = "<group>"; };
+		2EC22DDE2810657900530139 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppearanceSettingNameStrings.strings; sourceTree = "<group>"; };
+		2EC22DE02810657A00530139 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AppearanceSettingNameStrings.strings; sourceTree = "<group>"; };
+		2EC22DE12810657B00530139 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AppearanceSettingNameStrings.strings; sourceTree = "<group>"; };
 		2EC4CA462805599800518CDD /* MoneyTrackerFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC4CA482805599800518CDD /* MoneyTrackerFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerFoundation.h; sourceTree = "<group>"; };
 		2EC4CA51280559C700518CDD /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
@@ -1041,6 +1069,7 @@
 		2E91155127A9373E00359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2EB2E876281080CD0017ACDD /* AppearanceSetting */,
 				2ED248E828086FF3001E0498 /* Language */,
 				DBA0546C27FFDC8D00DB3892 /* Error */,
 				DB62AEFE27EF02D500F8CA55 /* ExpensesFile */,
@@ -1056,6 +1085,7 @@
 		2E91155427A93D4800359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2EB2E879281083410017ACDD /* AppearanceSetting */,
 				2ED248E328086BDF001E0498 /* Language */,
 				DB62AF0127EF03D200F8CA55 /* ExpensesFile */,
 				DB45FADE27E6F3290073C677 /* ExpenseTemplate */,
@@ -1351,6 +1381,7 @@
 				2EC96DE727F60A53009A9AEA /* Accounts */,
 				DBD6ACDD27B2A76600389236 /* SelectCurrency */,
 				2EB82733280761AA00C6377F /* SelectLanguage */,
+				2EC22DC428105D9400530139 /* SelectAppearance */,
 				2EC96DE827F60A8F009A9AEA /* Templates */,
 				DB74869327CA1518004DF67B /* ImportCSV */,
 				2E30391527BDAE6C0084B96C /* UnexpectedError */,
@@ -1422,8 +1453,27 @@
 				2E926E8427BC555A0081E3AE /* Category */,
 				2ED15EC327FE20F100208386 /* Transfer */,
 				2EE1897627FEBCF2006D7DA9 /* TopUpAccount */,
+				2EC22DD52810645B00530139 /* AppearanceSetting */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		2EB2E876281080CD0017ACDD /* AppearanceSetting */ = {
+			isa = PBXGroup;
+			children = (
+				2EB2E877281080E00017ACDD /* AppearanceSetting.swift */,
+			);
+			path = AppearanceSetting;
+			sourceTree = "<group>";
+		};
+		2EB2E879281083410017ACDD /* AppearanceSetting */ = {
+			isa = PBXGroup;
+			children = (
+				2EB2E87A281083550017ACDD /* AppearanceSetting.swift */,
+				2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */,
+				2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */,
+			);
+			path = AppearanceSetting;
 			sourceTree = "<group>";
 		};
 		2EB82717280751CC00C6377F /* TitleTableViewCell */ = {
@@ -1564,6 +1614,44 @@
 				2EC1BDC727B99AA500C4A054 /* MoneySumTextInputValidator.swift */,
 			);
 			path = Validator;
+			sourceTree = "<group>";
+		};
+		2EC22DC428105D9400530139 /* SelectAppearance */ = {
+			isa = PBXGroup;
+			children = (
+				2EC22DC528105DCB00530139 /* SelectAppearanceScreenViewController.swift */,
+				2EC22DC728105DD700530139 /* SelectAppearanceScreenView.swift */,
+				2EC22DCD28105E0500530139 /* SelectAppearanceScreenStrings.strings */,
+				2EC22DD028105E8300530139 /* AppearanceTableViewCell */,
+			);
+			path = SelectAppearance;
+			sourceTree = "<group>";
+		};
+		2EC22DD028105E8300530139 /* AppearanceTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2EC22DD328105EBC00530139 /* SelectAppearanceScreenAppearanceTableViewCellController.swift */,
+				2EC22DD128105EAF00530139 /* SelectAppearanceScreenAppearanceTableViewCell.swift */,
+			);
+			path = AppearanceTableViewCell;
+			sourceTree = "<group>";
+		};
+		2EC22DD52810645B00530139 /* AppearanceSetting */ = {
+			isa = PBXGroup;
+			children = (
+				2EC22DD62810648D00530139 /* AppearanceSetting.swift */,
+				2EC22DD8281064F700530139 /* Name */,
+			);
+			path = AppearanceSetting;
+			sourceTree = "<group>";
+		};
+		2EC22DD8281064F700530139 /* Name */ = {
+			isa = PBXGroup;
+			children = (
+				2EC22DD92810654900530139 /* AppearanceSettingNameLocalizer.swift */,
+				2EC22DDF2810657900530139 /* AppearanceSettingNameStrings.strings */,
+			);
+			path = Name;
 			sourceTree = "<group>";
 		};
 		2EC4CA472805599800518CDD /* MoneyTrackerFoundation */ = {
@@ -2358,26 +2446,18 @@
 				DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */,
 				DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */,
 				DBD6ACE627B35BF600389236 /* SelectCurrencyScreenStrings.strings */,
-				DBD6ACE727B35CB200389236 /* TableViewCells */,
+				DBD6ACE827B35CC100389236 /* CurrencyTableViewCell */,
 			);
 			path = SelectCurrency;
 			sourceTree = "<group>";
 		};
-		DBD6ACE727B35CB200389236 /* TableViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				DBD6ACE827B35CC100389236 /* SelectCurrency */,
-			);
-			path = TableViewCells;
-			sourceTree = "<group>";
-		};
-		DBD6ACE827B35CC100389236 /* SelectCurrency */ = {
+		DBD6ACE827B35CC100389236 /* CurrencyTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				2EA18A7127B51F7B00C512BE /* CurrencyTableViewCellController.swift */,
 				DBD6ACE927B35D0300389236 /* CurrencyTableViewCell.swift */,
 			);
-			path = SelectCurrency;
+			path = CurrencyTableViewCell;
 			sourceTree = "<group>";
 		};
 		DBD6ACF627B4FB9F00389236 /* UserDefaults */ = {
@@ -2663,6 +2743,7 @@
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
 				2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */,
 				2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */,
+				2EC22DCB28105E0500530139 /* SelectAppearanceScreenStrings.strings in Resources */,
 				DB45FAD927E6EFE80073C677 /* EditTemplateScreenStrings.strings in Resources */,
 				2E394F1527FCDDE5002C3052 /* TopUpAccountScreenStrings.strings in Resources */,
 				2EA7B24C27ECFFED006C2F13 /* StatisticScreenStrings.strings in Resources */,
@@ -2682,6 +2763,7 @@
 				DBB7BD1E27DC5929004EF5B7 /* AddTemplateScreenStrings.strings in Resources */,
 				2ED8BD7727E909150007F60B /* HistoryScreenStrings.strings in Resources */,
 				2EB8273A280761EE00C6377F /* SelectLanguageScreenStrings.strings in Resources */,
+				2EC22DDD2810657900530139 /* AppearanceSettingNameStrings.strings in Resources */,
 				DBB7BD1327D78FDE004EF5B7 /* DashboardScreenStrings.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2804,6 +2886,7 @@
 				DBD6AD0327B5FA2D00389236 /* ExpensesCoreDataRepo.swift in Sources */,
 				2E926E9F27BC58140081E3AE /* EditingCategory.swift in Sources */,
 				2E926E9827BC58140081E3AE /* BalanceAccount.swift in Sources */,
+				2EB2E878281080E00017ACDD /* AppearanceSetting.swift in Sources */,
 				2E926EAA27BC59030081E3AE /* Balance.swift in Sources */,
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
@@ -2845,11 +2928,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EB2E87B281083550017ACDD /* AppearanceSetting.swift in Sources */,
 				DB62AEF127EEB78500F8CA55 /* ImportingCategoryAdapter.swift in Sources */,
 				DB400436280FB149004073D0 /* AddingCategoryAdapter.swift in Sources */,
 				2ED15ECC27FE252F00208386 /* AddingTransfer.swift in Sources */,
 				DB62AF0327EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift in Sources */,
+				2EB2E87D281083820017ACDD /* PresentationAppearanceSettingMapper.swift in Sources */,
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
+				2EB2E87F281083960017ACDD /* StorageAppearanceSettingMapper.swift in Sources */,
 				DB400432280FAC79004073D0 /* CategoryColorAdapter.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
 				DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */,
@@ -2887,6 +2973,7 @@
 				DB45FADD27E6F0950073C677 /* EditingExpenseTemplate.swift in Sources */,
 				2EB82735280761CA00C6377F /* SelectLanguageScreenViewController.swift in Sources */,
 				2E98FF5127EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift in Sources */,
+				2EC22DDA2810654900530139 /* AppearanceSettingNameLocalizer.swift in Sources */,
 				2E01B2C127EDA8DF00013321 /* MonthPickerViewController.swift in Sources */,
 				DB400414280EA0DF004073D0 /* AccountColor.swift in Sources */,
 				DBA0546527FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift in Sources */,
@@ -2916,9 +3003,11 @@
 				2EB10A4827A7075700743416 /* Bundle.swift in Sources */,
 				2ED3E93927F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift in Sources */,
 				2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */,
+				2EC22DD72810648D00530139 /* AppearanceSetting.swift in Sources */,
 				2E09CC3527F4F3070015DA1E /* AccountBackgroundColors.swift in Sources */,
 				2ED8BD7227E908E50007F60B /* HistoryScreenViewController.swift in Sources */,
 				2EE1897827FEBD08006D7DA9 /* TopUpAccount.swift in Sources */,
+				2EC22DC628105DCB00530139 /* SelectAppearanceScreenViewController.swift in Sources */,
 				2E3A5D5227EFBC1E00102D69 /* CategoriesListScreenCategoryTableViewCellController.swift in Sources */,
 				DBB7BD3227DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift in Sources */,
 				2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */,
@@ -2969,6 +3058,7 @@
 				DB7BA81927F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift in Sources */,
 				DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */,
 				2ECB218727DCA957006D6558 /* AddExpenseScreenViewController.swift in Sources */,
+				2EC22DD228105EAF00530139 /* SelectAppearanceScreenAppearanceTableViewCell.swift in Sources */,
 				DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */,
 				2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */,
 				DBB7BD2427DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift in Sources */,
@@ -2989,6 +3079,7 @@
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
 				DB7BA81227F9831700A3B3BA /* ColorHorizontalPickerController.swift in Sources */,
 				2EB82741280764C900C6377F /* SelectLanguageLanguageTableViewCell.swift in Sources */,
+				2EC22DD428105EBC00530139 /* SelectAppearanceScreenAppearanceTableViewCellController.swift in Sources */,
 				2ED76C8927F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift in Sources */,
 				2E9289FB27AFF9CA002F3403 /* SettingsScreenViewController.swift in Sources */,
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
@@ -3027,6 +3118,7 @@
 				2ECB165E27F78DF7009D748D /* TextButton.swift in Sources */,
 				2ECB219327DD276D006D6558 /* InputAmountView.swift in Sources */,
 				DB400426280ECA55004073D0 /* CategoryColorHorizontalPickerColorCellController.swift in Sources */,
+				2EC22DC828105DD700530139 /* SelectAppearanceScreenView.swift in Sources */,
 				2E2A6EDE27EC4FD70084054C /* EditExpenseScreenView.swift in Sources */,
 				2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */,
 				2E01B2BF27EDA89B00013321 /* MonthPickerView.swift in Sources */,
@@ -3336,6 +3428,26 @@
 				2EC7CAB3280891EA00E3DBF6 /* th */,
 			);
 			name = CategoriesListScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2EC22DCD28105E0500530139 /* SelectAppearanceScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2EC22DCC28105E0500530139 /* en */,
+				2EC22DCE28105E0600530139 /* th */,
+				2EC22DCF28105E0700530139 /* uk */,
+			);
+			name = SelectAppearanceScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2EC22DDF2810657900530139 /* AppearanceSettingNameStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2EC22DDE2810657900530139 /* en */,
+				2EC22DE02810657A00530139 /* th */,
+				2EC22DE12810657B00530139 /* uk */,
+			);
+			name = AppearanceSettingNameStrings.strings;
 			sourceTree = "<group>";
 		};
 		2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */ = {

@@ -2,6 +2,7 @@
 "categories" = "หมวดหมู่";
 "defaultCurrency" = "สกุลเงินเริ่มต้น";
 "language" = "ภาษา";
+"appearance" = "Appearance";
 "accounts" = "บัญชี";
 "templates" = "แม่แบบ";
 "importCSV" = "นำเข้าจาก CSV";

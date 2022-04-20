@@ -11,13 +11,52 @@ import MessageUI
 
 public final class Presentation: AUIWindowPresentation {
     
+    // MARK: Initializer
+    
+    public init(window: UIWindow, appearanceSetting: AppearanceSetting) {
+        self.appearanceSetting = appearanceSetting
+        super.init(window: window)
+        self.appearance = appearance(appearanceSetting)
+    }
+    
     // MARK: - Delegate
     
     public weak var delegate: PresentationDelegate!
     
     // MARK: - Appearance
     
-    private var appearance: Appearance = DarkAppearance()
+    private func setAppearanceSetting(_ appearanceSetting: AppearanceSetting) {
+        self.appearanceSetting = appearanceSetting
+        let appearance: Appearance = appearance(appearanceSetting)
+        setAppearance(appearance)
+        settingsScreenViewController?.changeAppearanceSetting(appearanceSetting)
+    }
+    
+    private func appearance(_ appearanceSetting: AppearanceSetting) -> Appearance {
+        let appearance: Appearance
+        switch appearanceSetting {
+        case .light:
+            appearance = LightAppearance()
+        case .dark:
+            appearance = DarkAppearance()
+        case .system:
+            let overrideUserInterfaceStyle = window.overrideUserInterfaceStyle
+            switch overrideUserInterfaceStyle {
+            case .light:
+                appearance = LightAppearance()
+            case .dark:
+                appearance = DarkAppearance()
+            case .unspecified:
+                appearance = LightAppearance()
+            @unknown default:
+                appearance = LightAppearance()
+            }
+        }
+        return appearance
+    }
+    
+    private var appearanceSetting: AppearanceSetting
+    private var appearance: Appearance = LightAppearance()
     
     private func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
@@ -28,6 +67,7 @@ public final class Presentation: AUIWindowPresentation {
         presentedAddCategoryViewController?.changeAppearance(appearance)
         pushedAddCategoryViewController?.changeAppearance(appearance)
         pushedEditCategoryViewController?.changeAppearance(appearance)
+        pushedSelectAppearanceViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -663,7 +703,8 @@ public final class Presentation: AUIWindowPresentation {
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
         let language = (try? delegate.presentationLanguage(self)) ?? .english
         let defaultCurrency = try! delegate.presentationSelectedCurrency(self)
-        let viewController = SettingsScreenViewController(appearance: appearance, language: language, defaultCurrency: defaultCurrency)
+        let appearanceSetting = try! self.delegate.presentationAppearanceSetting(self)
+        let viewController = SettingsScreenViewController(appearance: appearance, language: language, defaultCurrency: defaultCurrency, appearanceSetting: appearanceSetting)
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
@@ -687,6 +728,15 @@ public final class Presentation: AUIWindowPresentation {
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
                 try self.pushSelectLanguageViewController(menuNavigationController, selectedLanguage: nil)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.didSelectAppearanceClosure = { [weak self] in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            do {
+                try self.pushSelectAppearanceViewController(menuNavigationController)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
@@ -798,6 +848,36 @@ public final class Presentation: AUIWindowPresentation {
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push SelectLanguageViewController\n\(error)")
+            throw error
+        }
+    }
+    
+    // MARK: - Select Appearance View Controller
+    
+    private weak var pushedSelectAppearanceViewController: SelectAppearanceScreenViewController?
+    private func pushSelectAppearanceViewController(_ navigationController: UINavigationController) throws {
+        do {
+            let language = try delegate.presentationLanguage(self)
+            let appearanceSetting = try self.delegate.presentationAppearanceSetting(self)
+            let viewController = SelectAppearanceScreenViewController(appearance: appearance, language: language, appearanceSettings: [.light, .dark, .system], selectedAppearanceSetting: appearanceSetting)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
+            }
+            viewController.didSelectAppearanceSettingClosure = { [weak self] appearanceSetting in
+                guard let self = self else { return }
+                do {
+                    try self.delegate.presentation(self, selectAppearanceSetting: appearanceSetting)
+                    self.setAppearanceSetting(appearanceSetting)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                    throw error
+                }
+            }
+            self.pushedSelectAppearanceViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push SelectAppearanceViewController\n\(error)")
             throw error
         }
     }

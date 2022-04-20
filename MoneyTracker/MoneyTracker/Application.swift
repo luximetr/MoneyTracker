@@ -48,7 +48,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }()
     
     private lazy var presentation: Presentation = {
-        let presentation = Presentation(window: presentationWindow)
+        let storageAppearanceSetting = (try? storage.getSelectedAppearanceSetting()) ?? .light
+        let appearanceSetting = StorageAppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
+        let presentationAppearanceSetting = PresentationAppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
+        let presentation = Presentation(window: presentationWindow, appearanceSetting: presentationAppearanceSetting)
         presentation.delegate = self
         return presentation
     }()
@@ -482,6 +485,23 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let language = PresentationLanguageMapper.mapPresentationLanguageToLanguage(presentationLanguage)
         let storageLanguage = StorageLanguageMapper.mapLanguageToStorageLanguage(language)
         storage.saveSelectedLanguage(storageLanguage)
+    }
+    
+    func presentationAppearanceSetting(_ presentation: Presentation) throws -> PresentationAppearanceSetting {
+        do {
+            let storageAppearanceSetting = (try storage.getSelectedAppearanceSetting()) ?? .light
+            let appearanceSetting = StorageAppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
+            let presentationAppearanceSetting = PresentationAppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
+            return presentationAppearanceSetting
+        } catch {
+            throw error
+        }
+    }
+    
+    func presentation(_ presentation: Presentation, selectAppearanceSetting presentationAppearanceSetting: PresentationAppearanceSetting) throws {
+        let appearanceSetting = PresentationAppearanceSettingMapper.mapPresentationAppearanceSettingToAppearanceSetting(presentationAppearanceSetting)
+        let storageAppearanceSetting = StorageAppearanceSettingMapper.mapAppearanceSettingToStorageAppearanceSetting(appearanceSetting)
+        storage.saveSelectedAppearanceSetting(storageAppearanceSetting)
     }
     
 }

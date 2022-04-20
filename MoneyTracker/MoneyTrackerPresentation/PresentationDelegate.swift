@@ -42,4 +42,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationLanguages(_ presentation: Presentation) throws -> [Language]
     func presentationLanguage(_ presentation: Presentation) throws -> Language
     func presentation(_ presentation: Presentation, selectLanguage language: Language) throws
+    
+    func presentationAppearanceSetting(_ presentation: Presentation) throws -> AppearanceSetting
+    func presentation(_ presentation: Presentation, selectAppearanceSetting appearanceSetting: AppearanceSetting) throws
 }

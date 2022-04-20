@@ -2,6 +2,7 @@
 "categories" = "Categories";
 "defaultCurrency" = "Default currency";
 "language" = "Language";
+"appearance" = "Appearance";
 "accounts" = "Accounts";
 "templates" = "Templates";
 "importCSV" = "Import from CSV";

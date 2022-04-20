@@ -76,3 +76,38 @@ class SelectedLanguageUserDefaultRepo {
         case notFound
     }
 }
+
+class SelectedAppearanceSettingUserDefaultRepo {
+    
+    // MARK: - Dependencies
+    
+    private let userDefautlsAccessor: UserDefaultsAccessor
+    private let key = "selectedAppearanceSetting"
+    
+    // MARK: - Life cycle
+    
+    init(userDefautlsAccessor: UserDefaultsAccessor) {
+        self.userDefautlsAccessor = userDefautlsAccessor
+    }
+    
+    // MARK: - Save
+    
+    func save(appearanceSetting: AppearanceSetting) {
+        userDefautlsAccessor.userDefaults.set(appearanceSetting.rawValue, forKey: key)
+    }
+    
+    // MARK: - Fetch
+    
+    func fetch() throws -> AppearanceSetting? {
+        guard let rawValue = userDefautlsAccessor.userDefaults.string(forKey: key) else {
+            return nil
+        }
+        return AppearanceSetting(rawValue: rawValue)
+    }
+    
+    // MARK: - Error
+    
+    enum FetchError: Error {
+        case notFound
+    }
+}

@@ -259,6 +259,22 @@ public class Storage {
         return SelectedLanguageUserDefaultRepo(userDefautlsAccessor: userDefautlsAccessor)
     }
     
+    // MARK: - Selected AppearanceSetting
+    
+    public func saveSelectedAppearanceSetting(_ appearanceSetting: AppearanceSetting) {
+        let repo = createSelectedAppearanceSettingRepo()
+        repo.save(appearanceSetting: appearanceSetting)
+    }
+    
+    public func getSelectedAppearanceSetting() throws -> AppearanceSetting? {
+        let repo = createSelectedAppearanceSettingRepo()
+        return try repo.fetch()
+    }
+    
+    private func createSelectedAppearanceSettingRepo() -> SelectedAppearanceSettingUserDefaultRepo {
+        return SelectedAppearanceSettingUserDefaultRepo(userDefautlsAccessor: userDefautlsAccessor)
+    }
+    
     // MARK: - Expenses
     
     public func addExpenses(coinKeeperExpenses: [CoinKeeperExpense]) throws {

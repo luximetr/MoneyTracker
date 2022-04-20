@@ -2,6 +2,7 @@
 "categories" = "Категорії";
 "defaultCurrency" = "Валюта за замовчуванням";
 "language" = "Мова";
+"appearance" = "Appearance";
 "accounts" = "Аккаунти";
 "templates" = "Шаблони";
 "importCSV" = "Імортувати з CSV";
