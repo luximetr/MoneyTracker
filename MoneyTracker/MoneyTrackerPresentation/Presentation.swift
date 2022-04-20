@@ -23,8 +23,10 @@ public final class Presentation: AUIWindowPresentation {
         self.appearance = appearance
         settingsScreenViewController?.changeAppearance(appearance)
         selectIconViewController?.changeAppearance(appearance)
+        pushedCategoriesViewController?.changeAppearance(appearance)
         presentedAddCategoryViewController?.changeAppearance(appearance)
         pushedAddCategoryViewController?.changeAppearance(appearance)
+        pushedEditCategoryViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {

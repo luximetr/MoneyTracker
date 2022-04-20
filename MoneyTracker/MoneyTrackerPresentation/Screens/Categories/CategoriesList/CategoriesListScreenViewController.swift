@@ -133,7 +133,7 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
     }
     
     private func createCategoryTableViewCellController(category: Category) -> CategoryTableViewCellController {
-        let cellController = CategoryTableViewCellController(category: category)
+        let cellController = CategoryTableViewCellController(category: category, appearance: appearance)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.categoryTableViewCell(indexPath)
@@ -174,6 +174,18 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
             return UISwipeActionsConfiguration(actions: [deleteAction])
         }
         return cellController
+    }
+    
+    private var categoryCellControllers: [CategoryTableViewCellController] {
+        return categoriesSectionController.cellControllers.compactMap { $0 as? CategoryTableViewCellController }
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        categoryCellControllers.forEach { $0.setAppearance(appearance) }
     }
     
 }

@@ -36,7 +36,6 @@
 		2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */; };
 		2E91154B27A9308B00359F21 /* MoneyTrackerStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E91155027A936B100359F21 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91154F27A936B000359F21 /* Storage.swift */; };
-		2E91155627A93D5C00359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91155527A93D5C00359F21 /* Category.swift */; };
 		2E926E8127BC3AA20081E3AE /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E926E8027BC3AA20081E3AE /* Error.swift */; };
 		2E926E9727BC58140081E3AE /* AddingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E926E8A27BC58130081E3AE /* AddingBalanceAccount.swift */; };
 		2E926E9827BC58140081E3AE /* BalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E926E8B27BC58130081E3AE /* BalanceAccount.swift */; };
@@ -149,7 +148,6 @@
 		2EC6179027F8393300845E7A /* DashboardCategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6178F27F8393300845E7A /* DashboardCategoryPickerViewController.swift */; };
 		2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292B27AC1F3700371252 /* AddCategoryScreenViewController.swift */; };
 		2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */; };
-		2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6293527AC267D00371252 /* AddingCategory.swift */; };
 		2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */; };
 		2EC84102280B3066007AAE5E /* AppearanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC84101280B3066007AAE5E /* AppearanceButton.swift */; };
 		2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */; };
@@ -493,7 +491,6 @@
 		2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerStorage.h; sourceTree = "<group>"; };
 		2E91154F27A936B000359F21 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		2E91155527A93D5C00359F21 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		2E926E8027BC3AA20081E3AE /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		2E926E8A27BC58130081E3AE /* AddingBalanceAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingBalanceAccount.swift; sourceTree = "<group>"; };
 		2E926E8B27BC58130081E3AE /* BalanceAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceAccount.swift; sourceTree = "<group>"; };
@@ -596,7 +593,6 @@
 		2EC6178F27F8393300845E7A /* DashboardCategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCategoryPickerViewController.swift; sourceTree = "<group>"; };
 		2EC6292B27AC1F3700371252 /* AddCategoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryScreenViewController.swift; sourceTree = "<group>"; };
 		2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryScreenView.swift; sourceTree = "<group>"; };
-		2EC6293527AC267D00371252 /* AddingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
 		2EC6293827AC282100371252 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CA82280891D700E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2EC7CA83280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LanguageCodeStrings.strings; sourceTree = "<group>"; };
@@ -1086,8 +1082,6 @@
 			children = (
 				DB400433280FAFAF004073D0 /* CategoryAdapter.swift */,
 				DB400435280FB149004073D0 /* AddingCategoryAdapter.swift */,
-				2E91155527A93D5C00359F21 /* Category.swift */,
-				2EC6293527AC267D00371252 /* AddingCategory.swift */,
 				DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */,
 				DB62AEF027EEB78500F8CA55 /* ImportingCategoryAdapter.swift */,
 				DBA0546A27FFCF7300DB3892 /* EditingCategoryAdapter.swift */,
@@ -2921,11 +2915,9 @@
 				DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */,
 				2ED15ECA27FE252000208386 /* Transfer.swift in Sources */,
 				DB400438280FB29D004073D0 /* AddingExpenseAdapter.swift in Sources */,
-				2EC6293627AC267D00371252 /* AddingCategory.swift in Sources */,
 				DBA0547B28012A3A00DB3892 /* ImportedExpensesFileAdapter.swift in Sources */,
 				2EB10A1227A6C8CB00743416 /* Application.swift in Sources */,
 				2EB10A1427A6C8D400743416 /* main.swift in Sources */,
-				2E91155627A93D5C00359F21 /* Category.swift in Sources */,
 				DB400434280FAFAF004073D0 /* CategoryAdapter.swift in Sources */,
 				DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */,
 				2EE1897F27FEBF6F006D7DA9 /* TopUpAccount.swift in Sources */,

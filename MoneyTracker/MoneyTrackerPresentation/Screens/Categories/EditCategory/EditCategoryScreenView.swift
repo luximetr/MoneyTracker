@@ -33,7 +33,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         addSubview(scrollView)
         scrollView.addSubview(iconView)
         scrollView.addSubview(selectIconButton)
@@ -154,6 +153,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
         iconView.iconImageView.tintColor = appearance.categoryPrimaryText
         colorPickerTitleLabel.textColor = appearance.primaryText
         nameTextField.changeAppearance(appearance)

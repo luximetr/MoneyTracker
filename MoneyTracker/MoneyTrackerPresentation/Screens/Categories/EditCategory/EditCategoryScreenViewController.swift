@@ -73,6 +73,15 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
         screenView.editButton.setTitle(localizer.localizeText("save"), for: .normal)
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        colorPickerController.changeAppearance(appearance)
+        updateView(categoryColor: category.color)
+    }
+    
     // MARK: Events
     
     override func viewDidAppear(_ animated: Bool) {

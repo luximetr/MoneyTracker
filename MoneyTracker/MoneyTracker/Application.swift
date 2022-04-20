@@ -61,6 +61,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return window
     }
     
+    // MARK: - Categories
+    
     func presentationCategories(_ presentation: Presentation) throws -> [PresentationCategory] {
         do {
             let storageCategories = try storage.getCategoriesOrdered()
@@ -115,6 +117,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             throw error
         }
     }
+    
+    // MARK: - Accounts
     
     func presentationAccounts(_ presentation: Presentation) throws -> [PresentationAccount] {
         do {
