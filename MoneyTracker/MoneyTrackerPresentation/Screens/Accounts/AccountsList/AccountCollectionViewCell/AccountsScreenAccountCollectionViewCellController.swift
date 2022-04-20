@@ -13,13 +13,15 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         
     // MARK: Data
         
-    var account: Account
+    private(set) var account: Account
+    private(set) var appearance: Appearance
     
     // MARK: Initializer
         
-    init(account: Account, localizer: ScreenLocalizer) {
+    init(account: Account, localizer: ScreenLocalizer, appearance: Appearance) {
         self.account = account
         self.localizer = localizer
+        self.appearance = appearance
         super.init()
     }
     
@@ -45,6 +47,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         accountCollectionViewCell?.deleteButton.addTarget(self, action: #selector(deleteButtonTouchUpInsideEventAction), for: .touchUpInside)
         accountCollectionViewCell?.accountView.addGestureRecognizer(panGestureRecognizer)
         setContent()
+        setAppearance(appearance)
     }
     
     override func unsetupCollectionViewCell() {
@@ -57,15 +60,24 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     
     private let localizer: ScreenLocalizer
     
-    // MARK: Conten
+    // MARK: Content
     
     private func setContent() {
         accountCollectionViewCell?.nameLabel.text = account.name
         accountCollectionViewCell?.balanceLabel.text = "\(account.amount.description) \(account.currency.rawValue)"
-//        accountCollectionViewCell?.accountView.backgroundColor = account.backgroundColor
         accountCollectionViewCell?.deleteButton.setTitle(localizer.localizeText("deleteAccount"), for: .normal)
         accountCollectionViewCell?.accountView.setNeedsLayout()
         accountCollectionViewCell?.accountView.layoutIfNeeded()
+    }
+    
+    // MARK: - Appearance
+    
+    private let uiColorProvider = AccountColorUIColorProvider()
+    
+    func setAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        let accountUIColor = uiColorProvider.getUIColor(accountColor: account.color, appearance: appearance)
+        accountCollectionViewCell?.accountView.backgroundColor = accountUIColor
     }
     
     // MARK: Events
