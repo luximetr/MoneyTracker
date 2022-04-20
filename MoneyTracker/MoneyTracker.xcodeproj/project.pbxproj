@@ -120,8 +120,6 @@
 		2EC19AD827A8110600E1A6FA /* CategoriesListScreenCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19AD727A8110600E1A6FA /* CategoriesListScreenCategoryTableViewCell.swift */; };
 		2EC19ADA27A8161200E1A6FA /* AddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19AD927A8161200E1A6FA /* AddTableViewCell.swift */; };
 		2EC19ADB27A8238F00E1A6FA /* CategoriesListScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC19ADD27A8238F00E1A6FA /* CategoriesListScreenStrings.strings */; };
-		2EC1BDC227B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1BDC127B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift */; };
-		2EC1BDC427B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1BDC327B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift */; };
 		2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1BDC727B99AA500C4A054 /* MoneySumTextInputValidator.swift */; };
 		2EC4CA492805599800518CDD /* MoneyTrackerFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EC4CA482805599800518CDD /* MoneyTrackerFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2EC4CA4C2805599800518CDD /* MoneyTrackerFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC4CA462805599800518CDD /* MoneyTrackerFoundation.framework */; };
@@ -575,8 +573,6 @@
 		2EC19AD727A8110600E1A6FA /* CategoriesListScreenCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListScreenCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		2EC19AD927A8161200E1A6FA /* AddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTableViewCell.swift; sourceTree = "<group>"; };
 		2EC19ADC27A8238F00E1A6FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CategoriesListScreenStrings.strings; sourceTree = "<group>"; };
-		2EC1BDC127B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenAddAccountCollectionViewCell.swift; sourceTree = "<group>"; };
-		2EC1BDC327B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenAddAccountCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2EC1BDC727B99AA500C4A054 /* MoneySumTextInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneySumTextInputValidator.swift; sourceTree = "<group>"; };
 		2EC4CA462805599800518CDD /* MoneyTrackerFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC4CA482805599800518CDD /* MoneyTrackerFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerFoundation.h; sourceTree = "<group>"; };
@@ -1229,35 +1225,18 @@
 				2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */,
 				2E95BB2E27B31AC40097CA46 /* AccountsScreenView.swift */,
 				2E95BB3427B31ADC0097CA46 /* AccountsScreenStrings.strings */,
-				2E95BB3527B31E4F0097CA46 /* CollectionView */,
+				2E95BB3727B31E610097CA46 /* AccountCollectionViewCell */,
 			);
 			path = AccountsList;
 			sourceTree = "<group>";
 		};
-		2E95BB3527B31E4F0097CA46 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				2E95BB3627B31E5B0097CA46 /* Cells */,
-			);
-			path = CollectionView;
-			sourceTree = "<group>";
-		};
-		2E95BB3627B31E5B0097CA46 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				2EC1BDC027B9894C00C4A054 /* AddAccount */,
-				2E95BB3727B31E610097CA46 /* Account */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		2E95BB3727B31E610097CA46 /* Account */ = {
+		2E95BB3727B31E610097CA46 /* AccountCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				2E95BB3A27B31F720097CA46 /* AccountsScreenAccountCollectionViewCellController.swift */,
 				2E95BB3827B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift */,
 			);
-			path = Account;
+			path = AccountCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		2E96212527AFD91B00DF0DD4 /* EditCategory */ = {
@@ -1596,15 +1575,6 @@
 				DB400410280E4A17004073D0 /* BackTitleRightButtonNavigationBar */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		2EC1BDC027B9894C00C4A054 /* AddAccount */ = {
-			isa = PBXGroup;
-			children = (
-				2EC1BDC327B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift */,
-				2EC1BDC127B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift */,
-			);
-			path = AddAccount;
 			sourceTree = "<group>";
 		};
 		2EC1BDC527B99A3400C4A054 /* TextInput */ = {
@@ -3072,11 +3042,9 @@
 				2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */,
 				2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */,
 				2ECB219827DD2AE4006D6558 /* SelectCategoryView.swift in Sources */,
-				2EC1BDC427B98AA900C4A054 /* AccountsScreenAddAccountCollectionViewCellController.swift in Sources */,
 				2ED15EC727FE21A800208386 /* Transfer.swift in Sources */,
 				DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */,
 				2EA7067927B5C36800FF08B2 /* AddAccountScreenColorCollectionViewCellController.swift in Sources */,
-				2EC1BDC227B9896400C4A054 /* AccountsScreenAddAccountCollectionViewCell.swift in Sources */,
 				DB74869527CA1533004DF67B /* ImportCSVScreenViewController.swift in Sources */,
 				DBB7BD3427DDE28C004EF5B7 /* CategoryHorizontalPickerItemCellController.swift in Sources */,
 				DBB7BD2927DC8D60004EF5B7 /* BalanceAccountHorizontalPickerItemCell.swift in Sources */,

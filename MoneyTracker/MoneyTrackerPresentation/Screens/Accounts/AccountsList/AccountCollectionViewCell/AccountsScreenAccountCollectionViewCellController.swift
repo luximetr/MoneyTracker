@@ -34,8 +34,8 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     
     // MARK Collection View Cell
     
-    var accountCollectionViewCell: AccountsScreenView.AccountCollectionViewCell? {
-        return collectionViewCell as? AccountsScreenView.AccountCollectionViewCell
+    var accountCollectionViewCell: AccountCollectionViewCell? {
+        return collectionViewCell as? AccountCollectionViewCell
     }
     private let panGestureRecognizer = UIPanGestureRecognizer()
     private let panGestureRecognizerDelegate = UIGestureRecognizerDelegateProxy()

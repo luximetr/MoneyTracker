@@ -8,52 +8,66 @@
 import UIKit
 import AUIKit
 
-final class AccountsScreenView: BackTitleNavigationBarScreenView {
-    
-    // MARK: Subviews
-    
-    let collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-    let collectionView: UICollectionView
+extension AccountsScreenViewController {
+final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Initializer
     
-    init() {
+    init(appearance: Appearance) {
+        self.addButton = TextButton(appearance: appearance)
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        super.init()
+        super.init(appearance: appearance)
     }
+    
+    // MARK: Subviews
+    
+    let addButton: TextButton
+    let collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    let collectionView: UICollectionView
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
+        navigationBarView.addSubview(addButton)
+        setupAddButton()
         insertSubview(collectionView, belowSubview: navigationBarView)
         setupCollectionView()
+        setupAccountCollectionViewCell()
     }
     
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.white
+    private func setupAddButton() {
+        addButton.titleLabel?.font = Fonts.default(size: 17)
+        addButton.setTitleColor(appearance.accent, for: .normal)
     }
     
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.white
-    }
-    
-    private let addAccountCollectionViewCellReuseIdentifier = "addAccountCollectionViewCellReuseIdentifier"
-    private let accountCollectionViewCellReuseIdentifier = "accountCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
+        collectionView.backgroundColor = appearance.primaryBackground
         collectionView.alwaysBounceVertical = true
-        collectionView.register(AddAccountCollectionViewCell.self, forCellWithReuseIdentifier: addAccountCollectionViewCellReuseIdentifier)
+    }
+    
+    private let accountCollectionViewCellReuseIdentifier = "accountCollectionViewCellReuseIdentifier"
+    private func setupAccountCollectionViewCell() {
         collectionView.register(AccountCollectionViewCell.self, forCellWithReuseIdentifier: accountCollectionViewCellReuseIdentifier)
     }
-    
+        
     // MARK: Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutAddButton()
         layoutCollectionView()
+    }
+    
+    private func layoutAddButton() {
+        var size = navigationBarView.bounds.size
+        size = addButton.sizeThatFits(size)
+        let x = navigationBarView.bounds.width - size.width - 12
+        let y = (navigationBarView.frame.size.height - size.height) * 0.5
+        let origin = CGPoint(x: x, y: y)
+        let frame = CGRect(origin: origin, size: size)
+        addButton.frame = frame
     }
     
     private func layoutCollectionView() {
@@ -65,20 +79,6 @@ final class AccountsScreenView: BackTitleNavigationBarScreenView {
         collectionView.frame = frame
         collectionViewFlowLayout.minimumLineSpacing = 13
         collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
-    }
-    
-    // MARK: AddAccountCollectionViewCell
-    
-    func addAccountCollectionViewCell(_ indexPath: IndexPath) -> AddAccountCollectionViewCell {
-        let addAccountCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: addAccountCollectionViewCellReuseIdentifier, for: indexPath) as! AddAccountCollectionViewCell
-        return addAccountCollectionViewCell
-    }
-
-    func addAccountCollectionViewCellSize() -> CGSize {
-        let width = bounds.width - 16 * 2
-        let height: CGFloat = 44
-        let size = CGSize(width: width, height: height)
-        return size
     }
     
     // MARK: AccountCollectionViewCell
@@ -95,4 +95,13 @@ final class AccountsScreenView: BackTitleNavigationBarScreenView {
         return size
     }
     
+    // MARK: Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.primaryBackground
+    }
+    
+}
 }

@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension AccountsScreenView {
+extension AccountsScreenViewController {
 final class AccountCollectionViewCell: AUICollectionViewCell {
     
     // MARK: Subviews

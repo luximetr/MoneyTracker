@@ -32,25 +32,26 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
     // MARK: View
     
     override func loadView() {
-        view = AccountsScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
-    private var accountsScreenView: AccountsScreenView! {
-        return view as? AccountsScreenView
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        accountsScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupCollectionViewController()
         setContent()
     }
     
     private func setupCollectionViewController() {
-        collectionViewController.collectionView = accountsScreenView.collectionView
-        accountsScreenView.collectionView.dragInteractionEnabled = true
-        accountsScreenView.collectionView.dropDelegate = self
-        accountsScreenView.collectionView.dragDelegate = self
+        collectionViewController.collectionView = screenView.collectionView
+        screenView.collectionView.dragInteractionEnabled = true
+        screenView.collectionView.dropDelegate = self
+        screenView.collectionView.dragDelegate = self
     }
     
     // MARK: Subcomponents
@@ -77,6 +78,10 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
         backClosure?()
     }
     
+    @objc private func addButtonTouchUpInsideEventAction() {
+        addAccountClosure?()
+    }
+    
     private func didSelectAccount(_ account: Account) {
         editAccountClosure?(account)
     }
@@ -84,10 +89,6 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
     private func didDeleteAccount(_ account: Account, cellController: AUICollectionViewCellController) {
         deleteAccountClosure?(account)
         collectionViewController.deleteCellController(cellController, completion: nil)
-    }
-    
-    private func didSelectAddAccount() {
-        addAccountClosure?()
     }
     
     func addAccount(_ account: Account) {
@@ -106,7 +107,8 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
     // MARK: Content
     
     private func setContent() {
-        accountsScreenView.titleLabel.text = localizer.localizeText("screenTitle")
+        screenView.titleLabel.text = localizer.localizeText("screenTitle")
+        screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
         setCollectionViewControllerContent()
     }
     
@@ -118,12 +120,7 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
         }
         accountsSectionController.cellControllers = accountCellControllers
         
-        var addAccountCellControllers: [AUICollectionViewCellController] = []
-        let addAccountCellController = createAddAccountCollectionViewCellController()
-        addAccountCellControllers.append(addAccountCellController)
-        addAccountSectionController.cellControllers = addAccountCellControllers
-        
-        let sectionControllers = [accountsSectionController, addAccountSectionController]
+        let sectionControllers = [accountsSectionController]
         collectionViewController.sectionControllers = sectionControllers
         collectionViewController.reload()
     }
@@ -132,12 +129,12 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
         let cellController = AccountCollectionViewCellController(account: account, localizer: localizer)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
-            let accountCollectionViewCell = self.accountsScreenView.accountCollectionViewCell(indexPath)
+            let accountCollectionViewCell = self.screenView.accountCollectionViewCell(indexPath)
             return accountCollectionViewCell
         }
         cellController.sizeForCellClosure = { [weak self] in
             guard let self = self else { return .zero }
-            let size = self.accountsScreenView.accountCollectionViewCellSize()
+            let size = self.screenView.accountCollectionViewCellSize()
             return size
         }
         cellController.didSelectClosure = { [weak self] in
@@ -147,25 +144,6 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
         cellController.didDeleteClosure = { [weak self] in
             guard let self = self else { return }
             self.didDeleteAccount(account, cellController: cellController)
-        }
-        return cellController
-    }
-    
-    private func createAddAccountCollectionViewCellController() -> AddAccountCollectionViewCellController {
-        let cellController = AddAccountCollectionViewCellController(localizer: localizer)
-        cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
-            guard let self = self else { return UICollectionViewCell() }
-            let accountCollectionViewCell = self.accountsScreenView.addAccountCollectionViewCell(indexPath)
-            return accountCollectionViewCell
-        }
-        cellController.sizeForCellClosure = { [weak self] in
-            guard let self = self else { return .zero }
-            let size = self.accountsScreenView.addAccountCollectionViewCellSize()
-            return size
-        }
-        cellController.didSelectClosure = { [weak self] in
-            guard let self = self else { return }
-            self.didSelectAddAccount()
         }
         return cellController
     }
