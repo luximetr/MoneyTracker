@@ -33,7 +33,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     }
         
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private let fromAccountPickerController: BalanceAccountHorizontalPickerController

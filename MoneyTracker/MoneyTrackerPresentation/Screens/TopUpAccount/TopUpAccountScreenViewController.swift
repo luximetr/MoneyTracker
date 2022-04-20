@@ -34,7 +34,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     }
         
     override func loadView() {
-        view = ScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
     private let accountPickerController: BalanceAccountHorizontalPickerController

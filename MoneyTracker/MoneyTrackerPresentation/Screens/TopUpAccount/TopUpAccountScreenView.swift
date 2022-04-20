@@ -12,21 +12,30 @@ import PinLayout
 extension TopUpAccountScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.accountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
+        self.amountInputView = SingleLineTextInputView(appearance: appearance)
+        self.commentTextField = PlainTextField(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
     // MARK: Subviews
     
     let scrollView = UIScrollView()
     let accountPickerLabel = UILabel()
-    let accountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
+    let accountPickerView: BalanceAccountHorizontalPickerView
     let dayDatePickerView = UIDatePicker()
-    let amountInputView = SingleLineTextInputView(appearance: LightAppearance())
-    let commentTextField = TextField3D()
+    let amountInputView : SingleLineTextInputView
+    let commentTextField: PlainTextField
     let addButton = TextFilledButton()
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.primaryBackground
+        backgroundColor = appearance.primaryBackground
         addSubview(scrollView)
         setupScrollView()
         scrollView.addSubview(accountPickerLabel)
@@ -46,10 +55,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupAccountPickerLabel() {
         accountPickerLabel.font = Fonts.default(size: 14)
-        accountPickerLabel.textColor = Colors.secondaryText
+        accountPickerLabel.textColor = appearance.secondaryText
     }
     
     private func setupDayDatePickerView() {
+        dayDatePickerView.overrideUserInterfaceStyle = dayDatePickerView.overrideUserInterfaceStyle
         dayDatePickerView.datePickerMode = .date
     }
     
@@ -154,6 +164,15 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.keyboardFrame = keyboardFrame
         setNeedsLayout()
         layoutIfNeeded()
+    }
+    
+    // MARK: Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        accountPickerLabel.textColor = appearance.secondaryText
+        dayDatePickerView.overrideUserInterfaceStyle = dayDatePickerView.overrideUserInterfaceStyle
     }
     
 }

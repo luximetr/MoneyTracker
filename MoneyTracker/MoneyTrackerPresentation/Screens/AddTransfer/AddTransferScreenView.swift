@@ -12,24 +12,35 @@ import PinLayout
 extension AddTransferScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.fromAccountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
+        self.toAccountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
+        self.fromAmountInputView = SingleLineTextInputView(appearance: appearance)
+        self.toAmountInputView = SingleLineTextInputView(appearance: appearance)
+        self.commentTextField = PlainTextField(appearance: appearance)
+        super.init(appearance: appearance)
+    }
+    
     // MARK: Subviews
     
     let scrollView = UIScrollView()
     let fromAccountPickerLabel = UILabel()
-    let fromAccountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
+    let fromAccountPickerView: BalanceAccountHorizontalPickerView
     let toAccountPickerLabel = UILabel()
-    let toAccountPickerView = BalanceAccountHorizontalPickerView(appearance: LightAppearance())
+    let toAccountPickerView: BalanceAccountHorizontalPickerView
     let dayDatePickerView = UIDatePicker()
-    let fromAmountInputView = SingleLineTextInputView(appearance: LightAppearance())
-    let toAmountInputView = SingleLineTextInputView(appearance: LightAppearance())
-    let commentTextField = TextField3D()
+    let fromAmountInputView: SingleLineTextInputView
+    let toAmountInputView: SingleLineTextInputView
+    let commentTextField: PlainTextField
     let addButton = TextFilledButton()
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.primaryBackground
+        backgroundColor = appearance.primaryBackground
         addSubview(scrollView)
         setupScrollView()
         scrollView.addSubview(fromAccountPickerLabel)
@@ -53,12 +64,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupFromAccountPickerLabel() {
         fromAccountPickerLabel.font = Fonts.default(size: 14)
-        fromAccountPickerLabel.textColor = Colors.secondaryText
+        fromAccountPickerLabel.textColor = appearance.secondaryText
     }
     
     private func setupToAccountPickerLabel() {
         toAccountPickerLabel.font = Fonts.default(size: 14)
-        toAccountPickerLabel.textColor = Colors.secondaryText
+        toAccountPickerLabel.textColor = appearance.secondaryText
     }
     
     private func setupDayDatePickerView() {
@@ -72,6 +83,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func autoLayoutDayDatePickerView() {
+        dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         dayDatePickerView.translatesAutoresizingMaskIntoConstraints = false
         dayDatePickerView.topAnchor.constraint(equalTo: toAccountPickerView.bottomAnchor, constant: 24).isActive = true
         dayDatePickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -200,6 +212,15 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.keyboardFrame = keyboardFrame
         setNeedsLayout()
         layoutIfNeeded()
+    }
+    
+    // MARK: Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        fromAccountPickerLabel.textColor = appearance.secondaryText
+        toAccountPickerLabel.textColor = appearance.secondaryText
+        dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
     }
     
 }
