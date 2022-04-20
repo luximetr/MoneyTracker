@@ -66,6 +66,8 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         screenView.changeAppearance(appearance)
+        let iconCellBackgroundColor = uiColorProvider.getUIColor(categoryColor: color, appearance: appearance)
+        iconCellControllers.forEach { $0.backgroundColor = iconCellBackgroundColor }
     }
     
     // MARK: - Icons
@@ -97,6 +99,10 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
             self?.didSelectIconCellController(iconName: iconName)
         }
         return cellController
+    }
+    
+    private var iconCellControllers: [IconCellController] {
+        return sectionController.cellControllers.compactMap { $0 as? IconCellController }
     }
     
     private func didSelectIconCellController(iconName: String) {

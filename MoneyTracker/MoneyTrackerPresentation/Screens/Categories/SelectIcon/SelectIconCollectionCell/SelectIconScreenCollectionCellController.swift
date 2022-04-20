@@ -13,7 +13,12 @@ final class IconCellController: AUIClosuresCollectionViewCellController {
     // MARK: - Data
     
     let iconName: String
-    let backgroundColor: UIColor
+    var backgroundColor: UIColor {
+        didSet {
+            guard let iconCell = iconCell else { return }
+            updateCell(cell: iconCell, backgroundColor: backgroundColor)
+        }
+    }
     
     // MARK: - Life cycle
     
@@ -27,8 +32,18 @@ final class IconCellController: AUIClosuresCollectionViewCellController {
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = super.cellForItemAtIndexPath(indexPath) as? ScreenView.IconCell else { return UICollectionViewCell() }
         cell.iconView.iconImageView.image = UIImage(systemName: iconName)
-        cell.iconView.backgroundColor = backgroundColor
+        updateCell(cell: cell, backgroundColor: backgroundColor)
         return cell
+    }
+    
+    // MARK: - Get cell
+    
+    private var iconCell: ScreenView.IconCell? {
+        return collectionViewCell as? ScreenView.IconCell
+    }
+    
+    private func updateCell(cell: ScreenView.IconCell, backgroundColor: UIColor) {
+        cell.iconView.backgroundColor = backgroundColor
     }
     
 }
