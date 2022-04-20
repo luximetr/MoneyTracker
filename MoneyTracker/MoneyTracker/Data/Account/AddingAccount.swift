@@ -35,7 +35,7 @@ struct AddingAccount: Equatable, Hashable {
             self.amount = presentationAddingAccount.amount
             self.currency = Currency(presentationCurrency: presentationAddingAccount.currency)
             let colorConvertor = UIColorHexConvertor()
-            self.colorHex = try colorConvertor.convertToHexString(color: presentationAddingAccount.backgroundColor)
+            self.colorHex = ""
         } catch {
             let error = Error("Cannot initialize\n\(error)")
             throw error
@@ -46,7 +46,7 @@ struct AddingAccount: Equatable, Hashable {
         let currency = currency.presentationCurrency
         let colorConvertor = UIColorHexConvertor()
         let backgroundColor = try colorConvertor.convertToUIColor(hexString: storageAddingAccount.colorHex)
-        let presentationAddingAccount = PresentationAddingAccount(name: name, amount: amount, currency: currency, backgroundColor: backgroundColor)
+        let presentationAddingAccount = PresentationAddingAccount(name: name, amount: amount, currency: currency, color: .variant1)
         return presentationAddingAccount
     }
     

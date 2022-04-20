@@ -50,6 +50,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         scrollView.addSubview(colorsTitleLabel)
         setupColorsTitleLabel()
         scrollView.addSubview(colorPickerView)
+        setupColorPickerView()
         addSubview(addButton)
     }
     
@@ -63,6 +64,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupColorsTitleLabel() {
         colorsTitleLabel.textColor = appearance.primaryText
+    }
+    
+    private func setupColorPickerView() {
+        colorPickerView.contentInset = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 26)
     }
     
     // MARK: Layout

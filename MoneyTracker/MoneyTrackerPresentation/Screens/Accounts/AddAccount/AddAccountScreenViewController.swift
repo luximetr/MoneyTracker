@@ -12,14 +12,15 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
-    private let backgroundColors: [UIColor]
+    private let accountColors: [AccountColor]
     var selectedCurrency: Currency
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, backgroundColors: [UIColor], selectedCurrency: Currency) {
-        self.backgroundColors = backgroundColors
+    init(appearance: Appearance, language: Language, accountColors: [AccountColor], selectedCurrency: Currency) {
+        self.accountColors = accountColors
         self.selectedCurrency = selectedCurrency
+        self.colorPickerController = BalanceAccountColorHorizontalPickerController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -59,7 +60,7 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
     
     private let balanceTextFieldInputController = AUITextInputFilterValidatorFormatterTextFieldController()
     
-    private let colorPickerController = ColorHorizontalPickerController()
+    private let colorPickerController: BalanceAccountColorHorizontalPickerController
     
     private var balanceNumberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
@@ -77,7 +78,6 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         setupColorPickerController()
         setColorPickerControllerContent()
         screenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
-        screenView.addButton.backgroundColor = selectedBackgroundColor
         screenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceTextFieldInputController.textField = screenView.amountInputView
@@ -105,8 +105,8 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         guard let name = screenView.nameInputView.text else { return }
         guard let balanceString = screenView.amountInputView.text else { return }
         guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
-        guard let backgroundColor = selectedBackgroundColor else { return }
-        let addingAccount = AddingAccount(name: name, amount: amount, currency: selectedCurrency, backgroundColor: backgroundColor)
+        guard let accountColor = selectedAccountColor else { return }
+        let addingAccount = AddingAccount(name: name, amount: amount, currency: selectedCurrency, color: accountColor)
         addAccountClosure?(addingAccount)
     }
     
@@ -118,12 +118,16 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         colorPickerController.pickerView = screenView.colorPickerView
     }
     
-    private var selectedBackgroundColor: UIColor? {
+    private var selectedAccountColor: AccountColor? {
         return colorPickerController.selectedColor
     }
-    private func didSelectBackgroundColor(_ backgroundColor: UIColor) {
-        self.screenView.setBackgroundColor(backgroundColor, animated: true)
-        screenView.addButton.backgroundColor = selectedBackgroundColor
+    
+    private let uiColorProvider = AccountColorUIColorProvider()
+    
+    private func didSelectAccountColor(_ accountColor: AccountColor) {
+        let uiColor = uiColorProvider.getUIColor(accountColor: accountColor, appearance: appearance)
+        self.screenView.setBackgroundColor(uiColor, animated: true)
+        screenView.addButton.backgroundColor = uiColor
     }
     
     func setSelectedCurrency(_ selectedCurrency: Currency, animated: Bool) {
@@ -134,12 +138,23 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private func setColorPickerControllerContent() {
-        guard let firstColor = backgroundColors.first else { return }
-        colorPickerController.setColors(backgroundColors, selectedColor: firstColor)
-        didSelectBackgroundColor(firstColor)
+        guard let firstColor = accountColors.first else { return }
+        colorPickerController.setColors(accountColors, selectedColor: firstColor)
+        didSelectAccountColor(firstColor)
         colorPickerController.didSelectColorClosure = { [weak self] color in
             guard let self = self else { return }
-            self.didSelectBackgroundColor(color)
+            self.didSelectAccountColor(color)
+        }
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        colorPickerController.changeAppearance(appearance)
+        if let selectedAccountColor = selectedAccountColor {
+            didSelectAccountColor(selectedAccountColor)
         }
     }
     

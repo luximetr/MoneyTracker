@@ -62,7 +62,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     private func setContent() {
         accountCollectionViewCell?.nameLabel.text = account.name
         accountCollectionViewCell?.balanceLabel.text = "\(account.amount.description) \(account.currency.rawValue)"
-        accountCollectionViewCell?.accountView.backgroundColor = account.backgroundColor
+//        accountCollectionViewCell?.accountView.backgroundColor = account.backgroundColor
         accountCollectionViewCell?.deleteButton.setTitle(localizer.localizeText("deleteAccount"), for: .normal)
         accountCollectionViewCell?.accountView.setNeedsLayout()
         accountCollectionViewCell?.accountView.layoutIfNeeded()

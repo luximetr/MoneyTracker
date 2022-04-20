@@ -15,15 +15,13 @@ public struct Account: Hashable, Equatable {
     public let amount: Decimal
     public let currency: Currency
     public let color: AccountColor
-    public let backgroundColor: UIColor
     
-    public init(id: String, name: String, amount: Decimal, currency: Currency, color: AccountColor, backgroundColor: UIColor) {
+    public init(id: String, name: String, amount: Decimal, currency: Currency, color: AccountColor) {
         self.id = id
         self.name = name
         self.amount = amount
         self.currency = currency
         self.color = color
-        self.backgroundColor = backgroundColor
     }
     
 }

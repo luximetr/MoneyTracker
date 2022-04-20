@@ -39,14 +39,14 @@ struct Account: Equatable, Hashable {
         self.amount = presentationAccount.amount
         self.currency = Currency(presentationCurrency: presentationAccount.currency)
         let colorConvertor = UIColorHexConvertor()
-        self.colorHex = try colorConvertor.convertToHexString(color: presentationAccount.backgroundColor)
+        self.colorHex = ""// try colorConvertor.convertToHexString(color: presentationAccount.backgroundColor)
     }
     
     func presentationAccount() throws -> PresentationAccount {
         let currency = self.currency.presentationCurrency
         let colorConvertor = UIColorHexConvertor()
         let backgroundColor = try colorConvertor.convertToUIColor(hexString: colorHex)
-        let presentationAccount = PresentationAccount(id: id, name: name, amount: amount, currency: currency, color: .variant1, backgroundColor: backgroundColor)
+        let presentationAccount = PresentationAccount(id: id, name: name, amount: amount, currency: currency, color: .variant1)
         return presentationAccount
     }
     

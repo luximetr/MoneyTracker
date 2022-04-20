@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum AccountColor {
+public enum AccountColor: CaseIterable {
     case variant1
     case variant2
     case variant3
