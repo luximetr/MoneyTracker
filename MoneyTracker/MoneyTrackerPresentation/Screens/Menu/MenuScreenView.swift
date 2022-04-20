@@ -8,21 +8,16 @@
 import AUIKit
 
 extension MenuScreenViewController {
-final class ScreenView: AUIView {
-    
-    // MARK: - Appearance
-    
-    private let appearance: Appearance
-    
+final class ScreenView: AppearanceView {
+
     // MARK: - Initializer
     
     init(appearance: Appearance) {
-        self.appearance = appearance
         self.mainTabBarItem = TabBarItem(appearance: appearance)
         self.historyTabBarItem = TabBarItem(appearance: appearance)
         self.statisticTabBarItem = TabBarItem(appearance: appearance)
         self.settingsTabBarItem = TabBarItem(appearance: appearance)
-        super.init(frame: .zero)
+        super.init(appearance: appearance)
     }
     
     // MARK: - Subviews
@@ -137,6 +132,17 @@ final class ScreenView: AUIView {
             self.screenView = screenView
             insertSubview(screenView, belowSubview: tabBarView)
         }
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        tabBarView.backgroundColor = appearance.primaryBackground
+        mainTabBarItem.changeAppearance(appearance)
+        historyTabBarItem.changeAppearance(appearance)
+        statisticTabBarItem.changeAppearance(appearance)
+        settingsTabBarItem.changeAppearance(appearance)
     }
     
 }

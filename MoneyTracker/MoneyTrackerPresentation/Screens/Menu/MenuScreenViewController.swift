@@ -108,4 +108,11 @@ final class MenuScreenViewController: StatusBarScreenViewController {
         screenView.settingsTabBarItem.textLabel.text = localizer.localizeText("settings")
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+    }
+    
 }

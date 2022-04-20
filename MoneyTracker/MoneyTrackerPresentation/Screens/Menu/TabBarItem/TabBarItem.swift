@@ -8,18 +8,7 @@
 import AUIKit
 
 extension MenuScreenViewController {
-final class TabBarItem: AUIButton {
-    
-    // MARK: - Appearance
-    
-    private let appearance: Appearance
-    
-    // MARK: - Initializer
-    
-    init(appearance: Appearance) {
-        self.appearance = appearance
-        super.init(frame: .zero)
-    }
+final class TabBarItem: AppearanceButton {
     
     // MARK: - Subviews
     
@@ -77,7 +66,9 @@ final class TabBarItem: AUIButton {
     
     // MARK: - Events
     
+    private var _selected = false
     func setSelected(_ selected: Bool, animated: Bool) {
+        self._selected = selected
         if selected {
             pictureImageView.tintColor = appearance.accent
             textLabel.textColor = appearance.accent
@@ -85,6 +76,15 @@ final class TabBarItem: AUIButton {
             pictureImageView.tintColor = appearance.primaryText
             textLabel.textColor = appearance.primaryText
         }
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        pictureImageView.tintColor = appearance.primaryText
+        textLabel.textColor = appearance.primaryText
+        setSelected(_selected, animated: false)
     }
     
 }

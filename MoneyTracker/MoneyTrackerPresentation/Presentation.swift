@@ -21,6 +21,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
+        menuScreenViewController?.changeAppearance(appearance)
         settingsScreenViewController?.changeAppearance(appearance)
         selectIconViewController?.changeAppearance(appearance)
         pushedCategoriesViewController?.changeAppearance(appearance)
