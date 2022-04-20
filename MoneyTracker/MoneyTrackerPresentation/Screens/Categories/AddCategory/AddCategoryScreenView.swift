@@ -48,7 +48,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupColorPickerTitleLabel() {
-        colorPickerTitleLabel.textColor = appearance.primaryText
         colorPickerTitleLabel.font = Fonts.default(size: 17, weight: .regular)
     }
     
@@ -154,7 +153,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
+        scrollView.backgroundColor = appearance.primaryBackground
         iconView.iconImageView.tintColor = appearance.categoryPrimaryText
+        colorPickerTitleLabel.textColor = appearance.primaryText
+        nameTextField.changeAppearance(appearance)
+        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        addButton.backgroundColor = appearance.primaryActionBackground
     }
     
     // MARK: - Keyboard

@@ -50,6 +50,8 @@ class CategoryColorHorizontalPickerController: AUIEmptyViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
+        pickerView.changeAppearance(appearance)
+        colorCellControllers.forEach { $0.uiColor = uiColorProvider.getUIColor(categoryColor: $0.color, appearance: appearance) }
     }
     
     // MARK: - Configuration
@@ -91,6 +93,10 @@ class CategoryColorHorizontalPickerController: AUIEmptyViewController {
             self?.didSelectColorCellController(cellController)
         }
         return cellController
+    }
+    
+    private var colorCellControllers: [ColorCellController] {
+        return sectionController.cellControllers.compactMap { $0 as? ColorCellController }
     }
     
     private weak var selectedColorCellController: ColorCellController?

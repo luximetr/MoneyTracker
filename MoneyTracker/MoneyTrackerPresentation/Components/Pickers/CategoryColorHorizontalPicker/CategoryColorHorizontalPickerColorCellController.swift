@@ -14,7 +14,9 @@ final class ColorCellController: AUIClosuresCollectionViewCellController {
     // MARK: Data
         
     let color: CategoryColor
-    let uiColor: UIColor
+    var uiColor: UIColor {
+        didSet { colorCell?.colorView.backgroundColor = uiColor }
+    }
     
     // MARK: Initializer
         

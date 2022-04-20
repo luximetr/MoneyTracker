@@ -36,10 +36,10 @@ final class ColorHorizontalPickerView: AppearanceView {
         super.setup()
         addSubview(collectionView)
         setupCollectionView()
+        changeAppearance(appearance)
     }
     
     private func setupCollectionView() {
-        collectionView.backgroundColor = appearance.primaryBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionViewLayout.scrollDirection = .horizontal
         collectionViewLayout.minimumInteritemSpacing = 16
@@ -57,6 +57,15 @@ final class ColorHorizontalPickerView: AppearanceView {
     private func layoutCollectionView() {
         collectionView.pin.all()
     }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        collectionView.backgroundColor = appearance.primaryBackground
+    }
+    
+    // MARK: - Color cell
     
     private let colorCellId = "colorCellId"
     

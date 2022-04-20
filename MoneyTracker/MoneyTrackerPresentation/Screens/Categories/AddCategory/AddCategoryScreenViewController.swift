@@ -109,17 +109,20 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     private func setupColorPickerController() {
         colorPickerController.pickerView = screenView.colorPickerView
         colorPickerController.didSelectColorClosure = { [weak self] color in
-//            self?.updateView(categoryColor: color)
+            self?.updateView(categoryColor: color)
         }
         guard let selectedColor = categoryColors.first else { return }
         colorPickerController.setColors(categoryColors, selectedColor: selectedColor)
-//        updateView(categoryColor: selectedColor)
+        updateView(categoryColor: selectedColor)
     }
     
-    private func updateView(categoryColor: UIColor) {
-        screenView.iconView.backgroundColor = categoryColor
-        screenView.nameTextField.textColor = categoryColor
-        screenView.addButton.backgroundColor = categoryColor
+    private let uiColorProvider = CategoryColorUIColorProvider()
+    
+    private func updateView(categoryColor: CategoryColor) {
+        let uiColor = uiColorProvider.getUIColor(categoryColor: categoryColor, appearance: appearance)
+        screenView.iconView.backgroundColor = uiColor
+        screenView.nameTextField.textColor = uiColor
+        screenView.addButton.backgroundColor = uiColor
     }
     
     // MARK: Icon
@@ -135,6 +138,17 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         screenView.titleLabel.text = localizer.localizeText("title")
         screenView.colorPickerTitleLabel.text = localizer.localizeText("colorPickerTitle")
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        colorPickerController.changeAppearance(appearance)
+        if let selectedColor = colorPickerController.selectedColor {
+            updateView(categoryColor: selectedColor)
+        }
     }
     
 }
