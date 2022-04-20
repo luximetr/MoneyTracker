@@ -17,10 +17,11 @@ class ImportCSVScreenViewController: UIDocumentPickerViewController, UIDocumentP
     
     // MARK: - Life cycle
     
-    init() {
+    init(appearance: Appearance) {
         let types = UTType.types(tag: "csv", tagClass: UTTagClass.filenameExtension, conformingTo: nil)
         super.init(forOpeningContentTypes: types, asCopy: false)
         allowsMultipleSelection = false
+        overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         delegate = self
     }
     

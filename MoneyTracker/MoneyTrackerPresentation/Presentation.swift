@@ -719,6 +719,7 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let url = try self.delegate.presentationDidStartExpensesCSVExport(self)
                 let viewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                viewController.overrideUserInterfaceStyle = self.appearance.overrideUserInterfaceStyle
                 self.menuNavigationController?.present(viewController, animated: true)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
@@ -1208,7 +1209,7 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Import CSV Screen
     
     private func createImportCSVScreen() -> UIDocumentPickerViewController {
-        let controller = ImportCSVScreenViewController()
+        let controller = ImportCSVScreenViewController(appearance: appearance)
         controller.didPickDocument = { [weak self] url in
             guard let self = self else { return }
             do {
