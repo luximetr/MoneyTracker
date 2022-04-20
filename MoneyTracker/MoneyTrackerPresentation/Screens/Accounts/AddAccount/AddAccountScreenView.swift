@@ -8,7 +8,15 @@
 import UIKit
 import AUIKit
 
-final class AddAccountScreenView: BackTitleNavigationBarScreenView {
+extension AddAccountScreenViewController {
+final class ScreenView: BackTitleNavigationBarScreenView {
+    
+    // MARK: - Initializer
+    
+    init(appearance: Appearance) {
+        self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
+        super.init(appearance: appearance)
+    }
     
     // MARK: - Subviews
     
@@ -21,18 +29,11 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
     let colorPickerView: ColorHorizontalPickerView
     let addButton = TextFilledButton()
     
-    // MARK: - Initializer
-    
-    init(appearance: Appearance) {
-        self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
-        super.init(appearance: appearance)
-    }
-    
     // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = Colors.white
+        backgroundColor = appearance.primaryBackground
         addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         setupBackgroundView()
@@ -53,16 +54,6 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
         addSubview(addButton)
     }
     
-    override func setupStatusBarView() {
-        super.setupStatusBarView()
-        statusBarView.backgroundColor = Colors.white
-    }
-    
-    override func setupNavigationBarView() {
-        super.setupNavigationBarView()
-        navigationBarView.backgroundColor = Colors.white
-    }
-    
     private func setupCurrencyInputView() {
         currencyInputView.backgroundColor = Colors.black.withAlphaComponent(0.15)
     }
@@ -72,7 +63,7 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupColorsTitleLabel() {
-        
+        colorsTitleLabel.textColor = appearance.primaryText
     }
     
     private func setupColorPickerView() {
@@ -198,4 +189,13 @@ final class AddAccountScreenView: BackTitleNavigationBarScreenView {
         backgroundView.backgroundColor = backgroundColor
     }
     
+    // MARK: Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        colorsTitleLabel.textColor = appearance.primaryText
+    }
+    
+}
 }

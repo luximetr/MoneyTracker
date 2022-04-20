@@ -42,19 +42,19 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
     }
     
     private func setContent() {
-        addAccountScreenView.titleLabel.text = localizer.localizeText("title")
-        addAccountScreenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
-        addAccountScreenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
+        screenView.titleLabel.text = localizer.localizeText("title")
+        screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
+        screenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
     }
     
     // MARK: View
     
     override func loadView() {
-        view = AddAccountScreenView(appearance: LightAppearance())
+        view = ScreenView(appearance: appearance)
     }
     
-    private var addAccountScreenView: AddAccountScreenView! {
-        return view as? AddAccountScreenView
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
     
     private let balanceTextFieldInputController = AUITextInputFilterValidatorFormatterTextFieldController()
@@ -73,14 +73,14 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        addAccountScreenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupColorPickerController()
         setColorPickerControllerContent()
-        addAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
-        addAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
-        addAccountScreenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
-        addAccountScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        balanceTextFieldInputController.textField = addAccountScreenView.amountInputView
+        screenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
+        screenView.addButton.backgroundColor = selectedBackgroundColor
+        screenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        balanceTextFieldInputController.textField = screenView.amountInputView
         balanceTextFieldInputController.keyboardType = .decimalPad
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
         setContent()
@@ -90,11 +90,11 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardFrame = keyboardFrameEndUser.cgRectValue
-        addAccountScreenView.setKeyboardFrame(keyboardFrame)
+        screenView.setKeyboardFrame(keyboardFrame)
     }
 
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        addAccountScreenView.setKeyboardFrame(nil)
+        screenView.setKeyboardFrame(nil)
     }
     
     @objc private func backButtonTouchUpInsideEventAction() {
@@ -102,8 +102,8 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
     }
     
     @objc private func editButtonTouchUpInsideEventAction() {
-        guard let name = addAccountScreenView.nameInputView.text else { return }
-        guard let balanceString = addAccountScreenView.amountInputView.text else { return }
+        guard let name = screenView.nameInputView.text else { return }
+        guard let balanceString = screenView.amountInputView.text else { return }
         guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
         guard let backgroundColor = selectedBackgroundColor else { return }
         let addingAccount = AddingAccount(name: name, amount: amount, currency: selectedCurrency, backgroundColor: backgroundColor)
@@ -115,20 +115,20 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
     }
     
     private func setupColorPickerController() {
-        colorPickerController.pickerView = addAccountScreenView.colorPickerView
+        colorPickerController.pickerView = screenView.colorPickerView
     }
     
     private var selectedBackgroundColor: UIColor? {
         return colorPickerController.selectedColor
     }
     private func didSelectBackgroundColor(_ backgroundColor: UIColor) {
-        self.addAccountScreenView.setBackgroundColor(backgroundColor, animated: true)
-        addAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
+        self.screenView.setBackgroundColor(backgroundColor, animated: true)
+        screenView.addButton.backgroundColor = selectedBackgroundColor
     }
     
     func setSelectedCurrency(_ selectedCurrency: Currency, animated: Bool) {
         self.selectedCurrency = selectedCurrency
-        addAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
+        screenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
     }
     
     // MARK: Content

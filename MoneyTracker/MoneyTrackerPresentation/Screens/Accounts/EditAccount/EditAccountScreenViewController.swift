@@ -44,19 +44,19 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     }
     
     private func setContent() {
-        editAccountScreenView.titleLabel.text = localizer.localizeText("title")
-        editAccountScreenView.addButton.setTitle(localizer.localizeText("edit"), for: .normal)
-        editAccountScreenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
+        screenView.titleLabel.text = localizer.localizeText("title")
+        screenView.addButton.setTitle(localizer.localizeText("edit"), for: .normal)
+        screenView.colorsTitleLabel.text = localizer.localizeText("colorsTitle")
     }
     
     // MARK: View
     
     override func loadView() {
-        view = EditAccountScreenView()
+        view = ScreenView(appearance: appearance)
     }
     
-    private var editAccountScreenView: EditAccountScreenView! {
-        return view as? EditAccountScreenView
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
     
     private let balanceTextFieldInputController = AUITextInputFilterValidatorFormatterTextFieldController()
@@ -64,7 +64,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     private let colorPickerController = ColorHorizontalPickerController()
     
     private func setupColorPickerController() {
-        colorPickerController.pickerView = editAccountScreenView.colorPickerView
+        colorPickerController.pickerView = screenView.colorPickerView
         colorPickerController.didSelectColorClosure = { [weak self] color in
             self?.didSelectBackgroundColor(color)
         }
@@ -83,14 +83,14 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        editAccountScreenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
-        editAccountScreenView.nameInputView.text = editingAccount.name
+        screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.nameInputView.text = editingAccount.name
         setupColorPickerController()
         setColorPickerControllerContent()
-        editAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
-        editAccountScreenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
-        editAccountScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        balanceTextFieldInputController.textField = editAccountScreenView.amountInputView
+        screenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
+        screenView.currencyInputView.addTarget(self, action: #selector(currencyButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        balanceTextFieldInputController.textField = screenView.amountInputView
         balanceTextFieldInputController.keyboardType = .decimalPad
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
         balanceTextFieldInputController.text = balanceNumberFormatter.string(from: NSDecimalNumber(decimal: editingAccount.amount))
@@ -101,11 +101,11 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardFrame = keyboardFrameEndUser.cgRectValue
-        editAccountScreenView.setKeyboardFrame(keyboardFrame)
+        screenView.setKeyboardFrame(keyboardFrame)
     }
 
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        editAccountScreenView.setKeyboardFrame(nil)
+        screenView.setKeyboardFrame(nil)
     }
     
     @objc private func backButtonTouchUpInsideEventAction() {
@@ -113,8 +113,8 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     }
     
     @objc private func editButtonTouchUpInsideEventAction() {
-        guard let name = editAccountScreenView.nameInputView.text else { return }
-        guard let balanceString = editAccountScreenView.amountInputView.text else { return }
+        guard let name = screenView.nameInputView.text else { return }
+        guard let balanceString = screenView.amountInputView.text else { return }
         guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
         guard let backgroundColor = selectedBackgroundColor else { return }
         let addingAccount = Account(id: editingAccount.id, name: name, amount: amount, currency: selectedCurrency, color: .variant1, backgroundColor: backgroundColor)
@@ -129,13 +129,13 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         return colorPickerController.selectedColor
     }
     private func didSelectBackgroundColor(_ backgroundColor: UIColor) {
-        self.editAccountScreenView.setBackgroundColor(backgroundColor, animated: true)
-        editAccountScreenView.addButton.backgroundColor = selectedBackgroundColor
+        self.screenView.setBackgroundColor(backgroundColor, animated: true)
+        screenView.addButton.backgroundColor = selectedBackgroundColor
     }
     
     func setSelectedCurrency(_ selectedCurrency: Currency, animated: Bool) {
         self.selectedCurrency = selectedCurrency
-        editAccountScreenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
+        screenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
     }
     
     // MARK: Content
