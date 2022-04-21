@@ -133,6 +133,15 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         screenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        balanceAccountPickerController.changeAppearance(appearance)
+        categoryPickerController.changeAppearance(appearance)
+    }
+    
     // MARK: Events
     
     private func addAccount() {

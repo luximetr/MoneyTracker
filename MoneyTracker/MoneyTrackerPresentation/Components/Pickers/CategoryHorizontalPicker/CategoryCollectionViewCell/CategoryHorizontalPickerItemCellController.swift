@@ -44,7 +44,6 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
     private func setContent() {
         pickerItemCell?.iconView.image = UIImage(systemName: category.iconName)
         pickerItemCell?.titleLabel.text = category.name
-        pickerItemCell?.update(isSelected: isSelected)
     }
     
     // MARK: - Appearance
@@ -54,5 +53,6 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
         let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
         pickerItemCell?.iconView.tintColor = categoryUIColor
         pickerItemCell?.titleLabel.textColor = categoryUIColor
+        pickerItemCell?.update(isSelected: isSelected)
     }
 }

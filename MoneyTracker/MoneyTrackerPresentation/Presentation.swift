@@ -65,6 +65,7 @@ public final class Presentation: AUIWindowPresentation {
         pushedAddExpenseViewController?.changeAppearance(appearance)
         statisticScreen?.changeAppearance(appearance)
         historyViewController?.changeAppearance(appearance)
+        pushedEditExpenseViewController?.changeAppearance(appearance)
         selectIconViewController?.changeAppearance(appearance)
         pushedCategoriesViewController?.changeAppearance(appearance)
         presentedAddCategoryViewController?.changeAppearance(appearance)
