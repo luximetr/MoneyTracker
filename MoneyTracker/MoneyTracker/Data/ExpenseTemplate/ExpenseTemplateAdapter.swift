@@ -27,7 +27,7 @@ class ExpenseTemplateAdapter {
     
     func adaptToPresentation(
         storageExpenseTemplate: StorageExpenseTemplate,
-        presentationBalanceAccount: PresentationAccount,
+        presentationBalanceAccount: PresentationBalanceAccount,
         presentationCategory: PresentationCategory
     ) -> PresentationExpenseTemplate {
         return PresentationExpenseTemplate(

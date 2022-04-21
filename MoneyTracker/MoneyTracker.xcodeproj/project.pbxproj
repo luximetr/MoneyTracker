@@ -170,8 +170,6 @@
 		2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */; };
 		2ED15EC527FE210D00208386 /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC427FE210D00208386 /* AddingTransfer.swift */; };
 		2ED15EC727FE21A800208386 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC627FE21A800208386 /* Transfer.swift */; };
-		2ED15ECA27FE252000208386 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC927FE252000208386 /* Transfer.swift */; };
-		2ED15ECC27FE252F00208386 /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15ECB27FE252F00208386 /* AddingTransfer.swift */; };
 		2ED1883D280AC17A00BA52EF /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1883C280AC17A00BA52EF /* AppearanceView.swift */; };
 		2ED18840280AC65000BA52EF /* AppearanceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1883F280AC65000BA52EF /* AppearanceTextField.swift */; };
 		2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */; };
@@ -204,8 +202,6 @@
 		2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDB3EEF27C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift */; };
 		2EE1897827FEBD08006D7DA9 /* TopUpAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897727FEBD08006D7DA9 /* TopUpAccount.swift */; };
 		2EE1897A27FEBD18006D7DA9 /* AddingTopUpAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897927FEBD18006D7DA9 /* AddingTopUpAccount.swift */; };
-		2EE1897D27FEBF69006D7DA9 /* AddingTopUpAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897C27FEBF69006D7DA9 /* AddingTopUpAccount.swift */; };
-		2EE1897F27FEBF6F006D7DA9 /* TopUpAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897E27FEBF6F006D7DA9 /* TopUpAccount.swift */; };
 		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
 		DB400412280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400411280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift */; };
 		DB400414280EA0DF004073D0 /* AccountColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400413280EA0DF004073D0 /* AccountColor.swift */; };
@@ -284,6 +280,14 @@
 		DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E027CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift */; };
 		DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */; };
 		DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E627D065EA004DF67B /* StatisticScreenView.swift */; };
+		DB7793BD2810321000150822 /* BalanceAccountColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793BC2810321000150822 /* BalanceAccountColor.swift */; };
+		DB7793BF28106EFE00150822 /* BalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793BE28106EFE00150822 /* BalanceAccountAdapter.swift */; };
+		DB7793C128106FA200150822 /* BalanceAccountColorAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C028106FA200150822 /* BalanceAccountColorAdapter.swift */; };
+		DB7793C32810714900150822 /* AddingBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C22810714900150822 /* AddingBalanceAccountAdapter.swift */; };
+		DB7793C52810EA0B00150822 /* TransferAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C42810EA0B00150822 /* TransferAdapter.swift */; };
+		DB7793C72810EA4D00150822 /* AddingTransferAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C62810EA4D00150822 /* AddingTransferAdapter.swift */; };
+		DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C82810EA7300150822 /* TopUpAccountAdapter.swift */; };
+		DB7793CB2810EA9900150822 /* AddingTopUpAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793CA2810EA9900150822 /* AddingTopUpAccountAdapter.swift */; };
 		DB7BA7FE27F8749600A3B3BA /* CategoryIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA7FD27F8749600A3B3BA /* CategoryIconView.swift */; };
 		DB7BA80127F87C8800A3B3BA /* SelectIconScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA80027F87C8800A3B3BA /* SelectIconScreenViewController.swift */; };
 		DB7BA80327F87CB500A3B3BA /* SelectIconScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA80227F87CB500A3B3BA /* SelectIconScreenView.swift */; };
@@ -678,8 +682,6 @@
 		2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2ED15EC427FE210D00208386 /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
 		2ED15EC627FE21A800208386 /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
-		2ED15EC927FE252000208386 /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
-		2ED15ECB27FE252F00208386 /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
 		2ED1883C280AC17A00BA52EF /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		2ED1883F280AC65000BA52EF /* AppearanceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTextField.swift; sourceTree = "<group>"; };
 		2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateView.swift; sourceTree = "<group>"; };
@@ -712,8 +714,6 @@
 		2EDB3EEF27C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingExpenseTemplateAdapter.swift; sourceTree = "<group>"; };
 		2EE1897727FEBD08006D7DA9 /* TopUpAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccount.swift; sourceTree = "<group>"; };
 		2EE1897927FEBD18006D7DA9 /* AddingTopUpAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTopUpAccount.swift; sourceTree = "<group>"; };
-		2EE1897C27FEBF69006D7DA9 /* AddingTopUpAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTopUpAccount.swift; sourceTree = "<group>"; };
-		2EE1897E27FEBF6F006D7DA9 /* TopUpAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccount.swift; sourceTree = "<group>"; };
 		3BF952E2EAD51B56319BC964 /* Pods-MoneyTrackerPresentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.release.xcconfig"; sourceTree = "<group>"; };
 		419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -796,6 +796,14 @@
 		DB7486E027CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpenseToExpenseConverter.swift; sourceTree = "<group>"; };
 		DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticScreenViewController.swift; sourceTree = "<group>"; };
 		DB7486E627D065EA004DF67B /* StatisticScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticScreenView.swift; sourceTree = "<group>"; };
+		DB7793BC2810321000150822 /* BalanceAccountColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountColor.swift; sourceTree = "<group>"; };
+		DB7793BE28106EFE00150822 /* BalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountAdapter.swift; sourceTree = "<group>"; };
+		DB7793C028106FA200150822 /* BalanceAccountColorAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountColorAdapter.swift; sourceTree = "<group>"; };
+		DB7793C22810714900150822 /* AddingBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingBalanceAccountAdapter.swift; sourceTree = "<group>"; };
+		DB7793C42810EA0B00150822 /* TransferAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferAdapter.swift; sourceTree = "<group>"; };
+		DB7793C62810EA4D00150822 /* AddingTransferAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransferAdapter.swift; sourceTree = "<group>"; };
+		DB7793C82810EA7300150822 /* TopUpAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountAdapter.swift; sourceTree = "<group>"; };
+		DB7793CA2810EA9900150822 /* AddingTopUpAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTopUpAccountAdapter.swift; sourceTree = "<group>"; };
 		DB7BA7FD27F8749600A3B3BA /* CategoryIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryIconView.swift; sourceTree = "<group>"; };
 		DB7BA80027F87C8800A3B3BA /* SelectIconScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconScreenViewController.swift; sourceTree = "<group>"; };
 		DB7BA80227F87CB500A3B3BA /* SelectIconScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconScreenView.swift; sourceTree = "<group>"; };
@@ -1087,8 +1095,11 @@
 			children = (
 				2EB6E0D127BAF24200D0C4E1 /* Account.swift */,
 				2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */,
+				DB7793BE28106EFE00150822 /* BalanceAccountAdapter.swift */,
 				DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */,
 				DB62AEF227EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift */,
+				DB7793C028106FA200150822 /* BalanceAccountColorAdapter.swift */,
+				DB7793C22810714900150822 /* AddingBalanceAccountAdapter.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1154,6 +1165,7 @@
 				2E926E8B27BC58130081E3AE /* BalanceAccount.swift */,
 				2E926E8C27BC58130081E3AE /* EditingBalanceAccount.swift */,
 				DB62AEFC27EF029500F8CA55 /* ImportingBalanceAccount.swift */,
+				DB7793BC2810321000150822 /* BalanceAccountColor.swift */,
 			);
 			path = BalanceAccount;
 			sourceTree = "<group>";
@@ -1733,8 +1745,8 @@
 		2ED15EC827FE250500208386 /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
-				2ED15ECB27FE252F00208386 /* AddingTransfer.swift */,
-				2ED15EC927FE252000208386 /* Transfer.swift */,
+				DB7793C42810EA0B00150822 /* TransferAdapter.swift */,
+				DB7793C62810EA4D00150822 /* AddingTransferAdapter.swift */,
 			);
 			path = Transfer;
 			sourceTree = "<group>";
@@ -1909,8 +1921,8 @@
 		2EE1897B27FEBF29006D7DA9 /* TopUpAccount */ = {
 			isa = PBXGroup;
 			children = (
-				2EE1897C27FEBF69006D7DA9 /* AddingTopUpAccount.swift */,
-				2EE1897E27FEBF6F006D7DA9 /* TopUpAccount.swift */,
+				DB7793C82810EA7300150822 /* TopUpAccountAdapter.swift */,
+				DB7793CA2810EA9900150822 /* AddingTopUpAccountAdapter.swift */,
 			);
 			path = TopUpAccount;
 			sourceTree = "<group>";
@@ -2837,6 +2849,7 @@
 				DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB40042F280FA8C4004073D0 /* CategoryColor.swift in Sources */,
 				DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */,
+				DB7793BD2810321000150822 /* BalanceAccountColor.swift in Sources */,
 				2E926E9E27BC58140081E3AE /* AddingCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2846,27 +2859,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB62AEF127EEB78500F8CA55 /* ImportingCategoryAdapter.swift in Sources */,
+				DB7793CB2810EA9900150822 /* AddingTopUpAccountAdapter.swift in Sources */,
 				DB400436280FB149004073D0 /* AddingCategoryAdapter.swift in Sources */,
-				2ED15ECC27FE252F00208386 /* AddingTransfer.swift in Sources */,
 				DB62AF0327EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift in Sources */,
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
+				DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */,
 				DB400432280FAC79004073D0 /* CategoryColorAdapter.swift in Sources */,
+				DB7793C52810EA0B00150822 /* TransferAdapter.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
 				DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */,
-				2ED15ECA27FE252000208386 /* Transfer.swift in Sources */,
 				DB400438280FB29D004073D0 /* AddingExpenseAdapter.swift in Sources */,
 				DBA0547B28012A3A00DB3892 /* ImportedExpensesFileAdapter.swift in Sources */,
 				2EB10A1227A6C8CB00743416 /* Application.swift in Sources */,
 				2EB10A1427A6C8D400743416 /* main.swift in Sources */,
 				DB400434280FAFAF004073D0 /* CategoryAdapter.swift in Sources */,
 				DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */,
-				2EE1897F27FEBF6F006D7DA9 /* TopUpAccount.swift in Sources */,
 				DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */,
 				2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */,
+				DB7793C128106FA200150822 /* BalanceAccountColorAdapter.swift in Sources */,
 				2ED248EC2808736B001E0498 /* StorageLanguageMapper.swift in Sources */,
 				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
+				DB7793C32810714900150822 /* AddingBalanceAccountAdapter.swift in Sources */,
 				DBA0546B27FFCF7300DB3892 /* EditingCategoryAdapter.swift in Sources */,
-				2EE1897D27FEBF69006D7DA9 /* AddingTopUpAccount.swift in Sources */,
 				2ED248E528086BEF001E0498 /* Language.swift in Sources */,
 				DB62AEF327EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift in Sources */,
 				DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */,
@@ -2874,8 +2888,10 @@
 				2ED248E728086C45001E0498 /* PresentationLanguageMapper.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
 				DB62AEF527EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift in Sources */,
+				DB7793BF28106EFE00150822 /* BalanceAccountAdapter.swift in Sources */,
 				DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */,
 				DB40043A280FB5BF004073D0 /* ExpenseAdapter.swift in Sources */,
+				DB7793C72810EA4D00150822 /* AddingTransferAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

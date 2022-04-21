@@ -20,7 +20,7 @@ class ImportingCoinKeeperBalanceAccountCSVLineParser {
             name: name,
             amount: amount,
             currency: currency,
-            colorHex: nil
+            balanceAccountColor: nil
         )
     }
     

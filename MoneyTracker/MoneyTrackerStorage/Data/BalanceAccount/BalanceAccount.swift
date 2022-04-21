@@ -12,14 +12,14 @@ public struct BalanceAccount {
     public let name: String
     public let amount: Decimal
     public let currency: Currency
-    public let colorHex: String
+    public let color: BalanceAccountColor?
     
-    public init(id: String, name: String, amount: Decimal, currency: Currency, colorHex: String) {
+    public init(id: String, name: String, amount: Decimal, currency: Currency, color: BalanceAccountColor?) {
         self.id = id
         self.name = name
         self.amount = amount
         self.currency = currency
-        self.colorHex = colorHex
+        self.color = color
     }
     
     public init(addingBalanceAccount: AddingBalanceAccount) {
@@ -27,7 +27,7 @@ public struct BalanceAccount {
         self.name = addingBalanceAccount.name
         self.amount = addingBalanceAccount.amount
         self.currency = addingBalanceAccount.currency
-        self.colorHex = addingBalanceAccount.colorHex
+        self.color = addingBalanceAccount.color
     }
 }
 

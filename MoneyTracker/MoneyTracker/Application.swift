@@ -120,10 +120,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Accounts
     
-    func presentationAccounts(_ presentation: Presentation) throws -> [PresentationAccount] {
+    func presentationAccounts(_ presentation: Presentation) throws -> [PresentationBalanceAccount] {
         do {
             let storageAccounts = try storage.getAllBalanceAccountsOrdered()
-            let presentationAccounts = try storageAccounts.map({ try Account(storageAccount: $0).presentationAccount() })
+            let accountAdapter = BalanceAccountAdapter()
+            let presentationAccounts = storageAccounts.map({ accountAdapter.adaptToPresentation(storageAccount: $0) })
             return presentationAccounts
         } catch {
             let error = Error("Cannot get accounts\n\(error)")
@@ -131,11 +132,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, addAccount addingAccount: PresentationAddingAccount) throws -> PresentationAccount {
+    func presentation(_ presentation: Presentation, addAccount addingAccount: PresentationAddingBalanceAccount) throws -> PresentationBalanceAccount {
         do {
-            let storageAddingAccount = try AddingAccount(presentationAddingAccount: addingAccount).storageAddingAccount
+            let storageAddingAccount = AddingBalanceAccountAdapter().adaptToStorage(presentationAddingAccount: addingAccount)
             let addedStorageAccount = try storage.addBalanceAccount(storageAddingAccount)
-            let addedPresentationAccount = try Account(storageAccount: addedStorageAccount).presentationAccount()
+            let addedPresentationAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: addedStorageAccount)
             return addedPresentationAccount
         } catch {
             let error = Error("Cannot add account \(addingAccount)\n\(error)")
@@ -143,20 +144,18 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, deleteAccount deletingAccount: PresentationAccount) throws {
+    func presentation(_ presentation: Presentation, deleteAccount deletingAccount: PresentationBalanceAccount) throws {
         do {
-            let storageAccount = try Account(presentationAccount: deletingAccount).storageAccount
-            try storage.removeBalanceAccount(id: storageAccount.id)
+            try storage.removeBalanceAccount(id: deletingAccount.id)
         } catch {
             let error = Error("Cannot delete account \(deletingAccount)\n\(error)")
             throw error
         }
     }
 
-    func presentation(_ presentation: Presentation, orderAccounts accounts: [PresentationAccount]) throws {
+    func presentation(_ presentation: Presentation, orderAccounts accounts: [PresentationBalanceAccount]) throws {
         do {
-            let storageAccounts = try accounts.map({ try Account(presentationAccount: $0).storageAccount })
-            let orderedIds = storageAccounts.map({ $0.id })
+            let orderedIds = accounts.map({ $0.id })
             try storage.saveBalanceAccountOrder(orderedIds: orderedIds)
         } catch {
             let error = Error("Cannot order accounts \(accounts)\n\(error)")
@@ -164,10 +163,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editAccount editingAccount: PresentationAccount) throws -> PresentationAccount {
+    func presentation(_ presentation: Presentation, editAccount editingAccount: PresentationBalanceAccount) throws -> PresentationBalanceAccount {
         do {
-            let storageAccount = try Account(presentationAccount: editingAccount).storageAccount
-            let editingBalanceAccount = EditingBalanceAccount(id: editingAccount.id, name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, colorHex: storageAccount.colorHex)
+            let storageAccount = BalanceAccountAdapter().adaptToStorage(presentationAccount: editingAccount)
+            let editingBalanceAccount = EditingBalanceAccount(id: editingAccount.id, name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, color: storageAccount.color)
             try storage.updateBalanceAccount(editingBalanceAccount: editingBalanceAccount)
             return editingAccount
         } catch {
@@ -191,7 +190,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let adapter = CurrencyAdapter()
             let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency() ?? .SGD
             self.selectedCurrency = selectedCurrency
-            return adapter.adaptToPresentationCurrency(storageCurrency: selectedCurrency)
+            return adapter.adaptToPresentation(storageCurrency: selectedCurrency)
         } catch {
             let error = Error("Cannot get selected currency\n\(error)")
             throw error
@@ -200,7 +199,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, updateSelectedCurrency currency: PresentationCurrency) {
         let adapter = CurrencyAdapter()
-        let storageCurrency = adapter.adaptToStorageCurrency(presentationCurrency: currency)
+        let storageCurrency = adapter.adaptToStorage(presentationCurrency: currency)
         self.selectedCurrency = storageCurrency
         storage.saveSelectedCurrency(storageCurrency)
     }
@@ -304,10 +303,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let storageBalanceAccountsIds = storageTemplates.map { $0.balanceAccountId }
             let storageCategories = try storage.getCategories(ids: storageCategoriesIds)
             let storageBalanceAccounts = try storage.getBalanceAccounts(ids: storageBalanceAccountsIds)
-            let presentationTemplates = try storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
+            let presentationTemplates = storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
                 guard let storageCategory = storageCategories.first(where: { $0.id == storageTemplate.categoryId }) else { return nil }
                 guard let storageBalanceAccount = storageBalanceAccounts.first(where: { $0.id == storageTemplate.balanceAccountId }) else { return nil }
-                let account = try Account(storageAccount: storageBalanceAccount).presentationAccount()
+                let account = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
                 let category = CategoryAdapter().adaptToPresentation(storageCategory: storageCategory)
                 return adapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: account, presentationCategory: category)
             }
@@ -350,7 +349,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let storageCategory = try storage.getCategory(id: storageExpenseTemplate.categoryId)
         let storageBalanceAccount = try storage.getBalanceAccount(id: storageExpenseTemplate.balanceAccountId)
         let presentationCategory = CategoryAdapter().adaptToPresentation(storageCategory: storageCategory)
-        let presentationBalanceAccount = try Account(storageAccount: storageBalanceAccount).presentationAccount()
+        let presentationBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
         let presentationExpenseTemplate = ExpenseTemplateAdapter().adaptToPresentation(storageExpenseTemplate: storageExpenseTemplate, presentationBalanceAccount: presentationBalanceAccount, presentationCategory: presentationCategory)
         return presentationExpenseTemplate
     }
@@ -441,7 +440,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addTransfer presentationAddingTransfer: PresentationAddingTransfer) throws -> PresentationTransfer {
         do {
-            let addingTransfer = try AddingTransfer(presentationAddingTransfer: presentationAddingTransfer)
+//            let addingTransfer = try AddingTransfer(presentationAddingTransfer: presentationAddingTransfer)
             let error = Error("Not implemented")
             throw error
         } catch {
@@ -452,7 +451,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingTopUpAccount) throws -> PresentationTopUpAccount {
         do {
-            let addingTopUpAccount = try AddingTopUpAccount(presentationAddingTopUpAccount: presentationAddingTopUpAccount)
+//            let addingTopUpAccount = try AddingTopUpAccount(presentationAddingTopUpAccount: presentationAddingTopUpAccount)
             let error = Error("Not implemented")
             throw error
         } catch {

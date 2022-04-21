@@ -35,7 +35,7 @@ class ExportBalanceAccountCSVComposer {
             "\"\(balanceAccount.name)\"",
             "\"\(balanceAccount.amount)\"",
             "\"\(balanceAccount.currencyCode)\"",
-            "\"\(balanceAccount.colorHex)\""
+            "\"\(balanceAccount.balanceAccountColor)\""
         ]
         return components.joined(separator: columnsSeparator)
     }

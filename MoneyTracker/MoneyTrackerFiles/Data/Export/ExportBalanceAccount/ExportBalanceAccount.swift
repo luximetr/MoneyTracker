@@ -12,19 +12,19 @@ public struct ExportBalanceAccount {
     public let name: String
     public let amount: Decimal
     public let currencyCode: String
-    public let colorHex: String
+    public let balanceAccountColor: String
     
     public init(
         id: String,
         name: String,
         amount: Decimal,
         currencyCode: String,
-        colorHex: String
+        balanceAccountColor: String
     ) {
         self.id = id
         self.name = name
         self.amount = amount
         self.currencyCode = currencyCode
-        self.colorHex = colorHex
+        self.balanceAccountColor = balanceAccountColor
     }
 }

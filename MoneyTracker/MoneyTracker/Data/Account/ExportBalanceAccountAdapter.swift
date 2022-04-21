@@ -7,18 +7,19 @@
 
 import Foundation
 import MoneyTrackerFiles
+import MoneyTrackerStorage
 
 typealias FilesExportBalanceAccount = MoneyTrackerFiles.ExportBalanceAccount
 
 class ExportBalanceAccountAdapter {
     
-    func adaptToFiles(storageAccount: StorageAccount) -> FilesExportBalanceAccount {
+    func adaptToFiles(storageAccount: StorageBalanceAccount) -> FilesExportBalanceAccount {
         return FilesExportBalanceAccount(
             id: storageAccount.id,
             name: storageAccount.name,
             amount: storageAccount.amount,
             currencyCode: storageAccount.currency.rawValue,
-            colorHex: storageAccount.colorHex
+            balanceAccountColor: storageAccount.color?.rawValue ?? BalanceAccountColor.variant1.rawValue
         )
     }
 }

@@ -16,6 +16,7 @@ class ExpenseAdapter {
     
     private let storage: Storage
     private let categoryAdapter = CategoryAdapter()
+    private let accountAdapter = BalanceAccountAdapter()
     
     init(storage: Storage) {
         self.storage = storage
@@ -29,7 +30,7 @@ class ExpenseAdapter {
             amount: storageExpense.amount,
             date: storageExpense.date,
             comment: storageExpense.comment,
-            account: try Account(storageAccount: storageAccount).presentationAccount(),
+            account: accountAdapter.adaptToPresentation(storageAccount: storageAccount),
             category: categoryAdapter.adaptToPresentation(storageCategory: storageCategory)
         )
     }

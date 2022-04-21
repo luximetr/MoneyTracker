@@ -22,7 +22,7 @@ class ImportingMoneyTrackerBalanceAccountCSVLineParser {
             name: name,
             amount: amount,
             currency: currency,
-            colorHex: color
+            balanceAccountColor: color
         )
     }
     
