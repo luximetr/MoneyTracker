@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct GroupError: Error, CustomDebugStringConvertible {
+struct GroupError: Swift.Error, CustomDebugStringConvertible {
     
-    private(set) var errors: [Error] = []
+    private(set) var errors: [Swift.Error] = []
     
-    mutating func append(error: Error) {
+    mutating func append(error: Swift.Error) {
         errors.append(error)
     }
     

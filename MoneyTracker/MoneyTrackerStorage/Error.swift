@@ -1,13 +1,13 @@
 //
-//  DebugError.swift
+//  Error.swift
 //  MoneyTrackerStorage
 //
-//  Created by Oleksandr Orlov on 08.04.2022.
+//  Created by Job Ihor Myroniuk on 21.04.2022.
 //
 
 import Foundation
 
-struct DebugError: Swift.Error, CustomDebugStringConvertible {
+struct Error: Swift.Error, CustomDebugStringConvertible {
     
     private let fileId: StaticString
     private let line: UInt

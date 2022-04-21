@@ -27,7 +27,7 @@ public enum Currency: String {
         }
     }
     
-    enum InitError: Error {
+    enum InitError: Swift.Error {
         case unsupportedRawValue
     }
 }

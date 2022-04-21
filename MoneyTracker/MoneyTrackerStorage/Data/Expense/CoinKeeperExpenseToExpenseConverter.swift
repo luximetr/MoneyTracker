@@ -76,7 +76,7 @@ class CoinKeeperExpenseToExpenseConverter {
 
     }
     
-    enum ConvertError: Error {
+    enum ConvertError: Swift.Error {
         case noCategoryFound
         case noBalanceAccountFound
     }

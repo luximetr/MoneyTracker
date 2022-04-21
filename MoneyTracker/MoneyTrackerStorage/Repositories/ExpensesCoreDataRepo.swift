@@ -196,15 +196,15 @@ class ExpensesCoreDataRepo {
     
     // MARK: - Errors
     
-    enum CreateError: Error {
+    enum CreateError: Swift.Error {
         case alreadyExist
     }
     
-    enum FetchError: Error {
+    enum FetchError: Swift.Error {
         case notFound
     }
     
-    enum ParseError: Error {
+    enum ParseError: Swift.Error {
         case noId
         case noAmount
         case noDate

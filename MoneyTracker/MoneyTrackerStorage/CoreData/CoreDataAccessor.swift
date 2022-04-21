@@ -66,7 +66,7 @@ class CoreDataAccessor {
     
     // MARK: - Errors
     
-    enum CreationError: Error {
+    enum CreationError: Swift.Error {
         case canNotCreateModelURL
         case canNotCreateModel
     }

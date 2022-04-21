@@ -141,7 +141,7 @@ class BalanceAccountsCoreDataRepo {
     
     // MARK: - Errors
     
-    enum ParseError: Error {
+    enum ParseError: Swift.Error {
         case noId
         case noName
         case noAmount
@@ -150,7 +150,7 @@ class BalanceAccountsCoreDataRepo {
         case noColor
     }
     
-    enum FetchError: Error {
+    enum FetchError: Swift.Error {
         case notFound
     }
 }

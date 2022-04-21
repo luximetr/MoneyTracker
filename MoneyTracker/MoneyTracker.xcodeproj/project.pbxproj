@@ -31,6 +31,9 @@
 		2E394F1227FCDDD0002C3052 /* TopUpAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */; };
 		2E394F1527FCDDE5002C3052 /* TopUpAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E394F1727FCDDE5002C3052 /* TopUpAccountScreenStrings.strings */; };
 		2E3A5D5227EFBC1E00102D69 /* CategoriesListScreenCategoryTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3A5D5127EFBC1E00102D69 /* CategoriesListScreenCategoryTableViewCellController.swift */; };
+		2E5279592811AFAC00BC916B /* SqliteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5279582811AFAC00BC916B /* SqliteDatabase.swift */; };
+		2E52795B2811AFC800BC916B /* CategorySqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */; };
+		2E52795D2811B01300BC916B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52795C2811B01300BC916B /* Error.swift */; };
 		2E91153E27A92DE600359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91153D27A92DE600359F21 /* Category.swift */; };
 		2E91154727A9308B00359F21 /* MoneyTrackerStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */; };
@@ -100,8 +103,6 @@
 		2EB2E87B281083550017ACDD /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87A281083550017ACDD /* AppearanceSetting.swift */; };
 		2EB2E87D281083820017ACDD /* PresentationAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */; };
 		2EB2E87F281083960017ACDD /* StorageAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */; };
-		2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D127BAF24200D0C4E1 /* Account.swift */; };
-		2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */; };
 		2EB8271A280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */; };
 		2EB8271C2807580300C6377F /* CurrencyCodeLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8271B2807580300C6377F /* CurrencyCodeLocalizer.swift */; };
 		2EB8271F2807583900C6377F /* CurrencyCodeStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB827212807583900C6377F /* CurrencyCodeStrings.strings */; };
@@ -499,6 +500,9 @@
 		2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountScreenView.swift; sourceTree = "<group>"; };
 		2E394F1627FCDDE5002C3052 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TopUpAccountScreenStrings.strings; sourceTree = "<group>"; };
 		2E3A5D5127EFBC1E00102D69 /* CategoriesListScreenCategoryTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListScreenCategoryTableViewCellController.swift; sourceTree = "<group>"; };
+		2E5279582811AFAC00BC916B /* SqliteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteDatabase.swift; sourceTree = "<group>"; };
+		2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySqliteTable.swift; sourceTree = "<group>"; };
+		2E52795C2811B01300BC916B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		2E91153D27A92DE600359F21 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerStorage.h; sourceTree = "<group>"; };
@@ -567,8 +571,6 @@
 		2EB2E87A281083550017ACDD /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
 		2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationAppearanceSettingMapper.swift; sourceTree = "<group>"; };
 		2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAppearanceSettingMapper.swift; sourceTree = "<group>"; };
-		2EB6E0D127BAF24200D0C4E1 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingAccount.swift; sourceTree = "<group>"; };
 		2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleValueTableViewCell.swift; sourceTree = "<group>"; };
 		2EB8271B2807580300C6377F /* CurrencyCodeLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCodeLocalizer.swift; sourceTree = "<group>"; };
 		2EB827202807583900C6377F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CurrencyCodeStrings.strings; sourceTree = "<group>"; };
@@ -1065,10 +1067,13 @@
 			isa = PBXGroup;
 			children = (
 				2E91154F27A936B000359F21 /* Storage.swift */,
+				2E5279582811AFAC00BC916B /* SqliteDatabase.swift */,
+				2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */,
 				2E91155127A9373E00359F21 /* Data */,
 				DBB7CF7F27AC0E39002C2EAE /* CoreData */,
 				DBD6ACF627B4FB9F00389236 /* UserDefaults */,
 				DBB7CF7C27AC0DD4002C2EAE /* Repositories */,
+				2E52795C2811B01300BC916B /* Error.swift */,
 				2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */,
 			);
 			path = MoneyTrackerStorage;
@@ -2901,6 +2906,7 @@
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
 				DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */,
+				2E52795D2811B01300BC916B /* Error.swift in Sources */,
 				DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */,
 				DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */,
 				DBA0546727FD9C1E00DB3892 /* ImportingCategoryAdapter.swift in Sources */,
@@ -2919,6 +2925,7 @@
 				DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */,
 				DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */,
 				2ED248EA28087002001E0498 /* Language.swift in Sources */,
+				2E5279592811AFAC00BC916B /* SqliteDatabase.swift in Sources */,
 				DB62AEF927EEFCCB00F8CA55 /* ImportingExpense.swift in Sources */,
 				DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */,
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
@@ -2930,6 +2937,7 @@
 				DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB40042F280FA8C4004073D0 /* CategoryColor.swift in Sources */,
 				DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */,
+				2E52795B2811AFC800BC916B /* CategorySqliteTable.swift in Sources */,
 				DB7793BD2810321000150822 /* BalanceAccountColor.swift in Sources */,
 				2E926E9E27BC58140081E3AE /* AddingCategory.swift in Sources */,
 			);

@@ -37,7 +37,7 @@ class SelectedCurrencyUserDefaultRepo {
     
     // MARK: - Error
     
-    enum FetchError: Error {
+    enum FetchError: Swift.Error {
         case notFound
     }
 }
@@ -72,7 +72,7 @@ class SelectedLanguageUserDefaultRepo {
     
     // MARK: - Error
     
-    enum FetchError: Error {
+    enum FetchError: Swift.Error {
         case notFound
     }
 }
@@ -107,7 +107,7 @@ class SelectedAppearanceSettingUserDefaultRepo {
     
     // MARK: - Error
     
-    enum FetchError: Error {
+    enum FetchError: Swift.Error {
         case notFound
     }
 }

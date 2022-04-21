@@ -82,7 +82,7 @@ class BalanceAccountsOrderCoreDataRepo {
     
     // MARK: - Errors
     
-    enum FetchError: Error {
+    enum FetchError: Swift.Error {
         case notFound
     }
 }
