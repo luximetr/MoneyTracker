@@ -23,7 +23,6 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         layer.masksToBounds = false
-        contentView.backgroundColor = appearance?.primaryBackground
         contentView.addSubview(titleLabel)
         setupTitleLabel()
     }
@@ -32,7 +31,6 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
-        titleLabel.textColor = appearance?.primaryText
     }
     
     // MARK: - Layout

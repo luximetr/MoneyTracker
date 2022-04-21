@@ -13,11 +13,13 @@ final class TemplatesViewController: EmptyViewController {
     
     // MARK: Data
 
+    var appearance: Appearance
     var templates: [ExpenseTemplate] = []
     
     // MARK: Initializer
     
-    init(language: Language, templates: [ExpenseTemplate]) {
+    init(language: Language, appearance: Appearance, templates: [ExpenseTemplate]) {
+        self.appearance = appearance
         self.templates = templates
         super.init(language: language)
     }
@@ -107,6 +109,13 @@ final class TemplatesViewController: EmptyViewController {
             self.didSelectTemplateCellController(cellController)
         }
         return cellController
+    }
+    
+    // MARK: - Appearance
+    
+    func changeAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        templatesView?.changeAppearance(appearance)
     }
     
     // MARK: Events

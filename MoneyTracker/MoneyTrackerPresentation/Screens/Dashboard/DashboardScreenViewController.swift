@@ -27,7 +27,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
         self.templates = templates
         self.categoryPickerViewController = CategoryPickerViewController(language: language, categories: categories)
         self.accountPickerViewController = AccountPickerViewController(language: language, appearance: appearance, accounts: accounts)
-        self.templatesViewController = TemplatesViewController(language: language, templates: templates)
+        self.templatesViewController = TemplatesViewController(language: language, appearance: appearance, templates: templates)
         super.init(appearance: appearance, language: language)
     }
     
@@ -126,6 +126,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
         super.changeAppearance(appearance)
         screenView.changeAppearance(appearance)
         accountPickerViewController.changeAppearance(appearance)
+        templatesViewController.changeAppearance(appearance)
     }
     
     // MARK: - Events
