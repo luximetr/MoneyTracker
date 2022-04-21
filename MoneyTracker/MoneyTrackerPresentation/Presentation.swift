@@ -62,6 +62,7 @@ public final class Presentation: AUIWindowPresentation {
         self.appearance = appearance
         menuScreenViewController?.changeAppearance(appearance)
         dashboardViewController?.changeAppearance(appearance)
+        pushedAddExpenseViewController?.changeAppearance(appearance)
         statisticScreen?.changeAppearance(appearance)
         historyViewController?.changeAppearance(appearance)
         settingsScreenViewController?.changeAppearance(appearance)

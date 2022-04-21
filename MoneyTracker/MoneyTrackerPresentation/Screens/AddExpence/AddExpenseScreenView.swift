@@ -42,7 +42,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         addSubview(inputDateView)
         addSubview(dayExpensesLabel)
         setupDayExpensesLabel()
@@ -53,16 +52,15 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupExpenseTableViewCell()
         addSubview(commentTextField)
         addSubview(addButton)
-        addButton.backgroundColor = appearance.primaryActionBackground
         addSubview(selectAccountView)
         addSubview(inputAmountView)
         addSubview(selectCategoryView)
         autoLayout()
+        changeAppearance(appearance)
     }
     
     private func setupDayExpensesLabel() {
         dayExpensesLabel.font = Fonts.default(size: 14, weight: .bold)
-        dayExpensesLabel.textColor = appearance.primaryText
         dayExpensesLabel.adjustsFontSizeToFitWidth = true
     }
     
@@ -203,9 +201,15 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
+        inputDateView.changeAppearance(appearance)
         dayExpensesLabel.textColor = appearance.primaryText
         expensesTableView.backgroundColor = appearance.primaryBackground
+        commentTextField.changeAppearance(appearance)
         expensTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        selectCategoryView.changeAppearance(appearance)
+        inputAmountView.changeAppearance(appearance)
     }
     
 }

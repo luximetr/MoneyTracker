@@ -19,11 +19,10 @@ final class SelectCategoryView: AppearanceView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         addSubview(pickerView)
-        pickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        changeAppearance(appearance)
     }
     
     // MARK: Layout
@@ -44,6 +43,14 @@ final class SelectCategoryView: AppearanceView {
         layer.shadowRadius = 4.0
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.cornerRadius = 10
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        pickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
     }
     
 }

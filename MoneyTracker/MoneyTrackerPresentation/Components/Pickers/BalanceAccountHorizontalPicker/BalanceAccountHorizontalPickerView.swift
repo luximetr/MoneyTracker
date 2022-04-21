@@ -112,7 +112,6 @@ class BalanceAccountHorizontalPickerView: AppearanceView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         collectionView.backgroundColor = appearance.primaryBackground
-        appearanceCollectionViewCells.forEach { $0.setAppearance(appearance) }
     }
     
 }
