@@ -19,7 +19,7 @@ class ExportBalanceAccountAdapter {
             name: storageAccount.name,
             amount: storageAccount.amount,
             currencyCode: storageAccount.currency.rawValue,
-            balanceAccountColor: storageAccount.color?.rawValue ?? BalanceAccountColor.variant1.rawValue
+            balanceAccountColor: (storageAccount.color ?? .variant1).rawValue
         )
     }
 }

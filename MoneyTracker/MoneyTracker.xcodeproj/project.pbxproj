@@ -96,8 +96,6 @@
 		2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A4527A7068E00743416 /* MenuScreenStrings.strings */; };
 		2EB10A4827A7075700743416 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4727A7075700743416 /* Bundle.swift */; };
 		2EB10A4A27A707A300743416 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4927A707A300743416 /* Language.swift */; };
-		2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D127BAF24200D0C4E1 /* Account.swift */; };
-		2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */; };
 		2EB8271A280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */; };
 		2EB8271C2807580300C6377F /* CurrencyCodeLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8271B2807580300C6377F /* CurrencyCodeLocalizer.swift */; };
 		2EB8271F2807583900C6377F /* CurrencyCodeStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB827212807583900C6377F /* CurrencyCodeStrings.strings */; };
@@ -551,8 +549,6 @@
 		2EB10A4427A7068E00743416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MenuScreenStrings.strings; sourceTree = "<group>"; };
 		2EB10A4727A7075700743416 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		2EB10A4927A707A300743416 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
-		2EB6E0D127BAF24200D0C4E1 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingAccount.swift; sourceTree = "<group>"; };
 		2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleValueTableViewCell.swift; sourceTree = "<group>"; };
 		2EB8271B2807580300C6377F /* CurrencyCodeLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCodeLocalizer.swift; sourceTree = "<group>"; };
 		2EB827202807583900C6377F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CurrencyCodeStrings.strings; sourceTree = "<group>"; };
@@ -1093,8 +1089,6 @@
 		2E926E8327BC538F0081E3AE /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				2EB6E0D127BAF24200D0C4E1 /* Account.swift */,
-				2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */,
 				DB7793BE28106EFE00150822 /* BalanceAccountAdapter.swift */,
 				DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */,
 				DB62AEF227EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift */,
@@ -2875,10 +2869,8 @@
 				DB400434280FAFAF004073D0 /* CategoryAdapter.swift in Sources */,
 				DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */,
 				DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */,
-				2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */,
 				DB7793C128106FA200150822 /* BalanceAccountColorAdapter.swift in Sources */,
 				2ED248EC2808736B001E0498 /* StorageLanguageMapper.swift in Sources */,
-				2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */,
 				DB7793C32810714900150822 /* AddingBalanceAccountAdapter.swift in Sources */,
 				DBA0546B27FFCF7300DB3892 /* EditingCategoryAdapter.swift in Sources */,
 				2ED248E528086BEF001E0498 /* Language.swift in Sources */,

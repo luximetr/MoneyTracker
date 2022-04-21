@@ -8,11 +8,12 @@
 import UIKit
 import AUIKit
 import MoneyTrackerPresentation
+import MoneyTrackerStorage
+import MoneyTrackerFiles
+
 typealias Presentation = MoneyTrackerPresentation.Presentation
 typealias PresentationDelegate = MoneyTrackerPresentation.PresentationDelegate
-import MoneyTrackerStorage
 typealias Storage = MoneyTrackerStorage.Storage
-import MoneyTrackerFiles
 typealias Files = MoneyTrackerFiles.Files
 
 class Application: AUIEmptyApplication, PresentationDelegate {
