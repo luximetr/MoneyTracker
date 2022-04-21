@@ -19,8 +19,8 @@ final class InputDateView: AppearanceView {
     override func setup() {
         super.setup()
         addSubview(datePicker)
-        datePicker.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         autoLayout()
+        changeAppearance(appearance)
     }
     
     // MARK: AutoLayout
@@ -34,6 +34,13 @@ final class InputDateView: AppearanceView {
         datePicker.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         datePicker.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        datePicker.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
     }
     
 }

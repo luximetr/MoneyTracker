@@ -272,4 +272,12 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         return cellController
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        balanceAccountHorizontalPickerController.changeAppearance(appearance)
+    }
+    
 }
