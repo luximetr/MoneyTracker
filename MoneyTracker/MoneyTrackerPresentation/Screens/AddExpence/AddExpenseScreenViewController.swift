@@ -33,7 +33,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         self.accounts = accounts
         self.categories = categories
         self.selectedCategory = selectedCategory
-        self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language)
+        self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     

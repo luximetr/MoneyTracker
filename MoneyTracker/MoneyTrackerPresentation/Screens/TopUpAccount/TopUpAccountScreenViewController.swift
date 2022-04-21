@@ -23,7 +23,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     init(appearance: Appearance, language: Language, accounts: [Account], selectedAccount: Account?) {
         self.accounts = accounts
         self.selectedAccount = selectedAccount
-        self.accountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        self.accountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     

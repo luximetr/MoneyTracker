@@ -21,8 +21,8 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     init(appearance: Appearance, language: Language, accounts: [Account]) {
         self.accounts = accounts
-        self.fromAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
-        self.toAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        self.fromAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
+        self.toAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     

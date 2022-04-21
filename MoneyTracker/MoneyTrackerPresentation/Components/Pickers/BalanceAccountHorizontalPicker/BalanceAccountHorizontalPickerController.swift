@@ -17,6 +17,7 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     // MARK: - Data
     
     var selectedAccount: Account?
+    private(set) var appearance: Appearance
     
     // MARK: - Controllers
     
@@ -28,6 +29,22 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
         let localizer = ScreenLocalizer(language: language, stringsTableName: "BalanceAccountHorizontalPickerStrings")
         return localizer
     }()
+    
+    // MARK: - Initializer
+    
+    init(language: Language, appearance: Appearance) {
+        self.appearance = appearance
+        super.init(language: language)
+    }
+    
+    // MARK: - Appearance
+    
+    func changeAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        balanceAccountHorizontalPickerView.changeAppearance(appearance)
+        accountsCellControllers.forEach { $0.setAppearance(appearance) }
+        addCellController?.setAppearance(appearance)
+    }
     
     // MARK: - View
     
@@ -50,14 +67,15 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     
     // MARK: - Configuration
     
+    private let accountsSectionController = AUIEmptyCollectionViewSectionController()
+    
     func showOptions(accounts: [Account], selectedAccount: Account) {
         self.selectedAccount = selectedAccount
-        let sectionController = AUIEmptyCollectionViewSectionController()
         var cellControllers = createItemCellControllers(accounts: accounts, selectedAccount: selectedAccount)
         let addCellController = createAddCellController(text: localizer.localizeText("add"))
         cellControllers.append(addCellController)
-        sectionController.cellControllers = cellControllers
-        collectionController.sectionControllers = [sectionController]
+        accountsSectionController.cellControllers = cellControllers
+        collectionController.sectionControllers = [accountsSectionController]
         collectionController.reload()
         if let cellController = findCellControllerForAccountId(selectedAccount.id), let indexPath = collectionController.indexPathForCellController(cellController) {
             balanceAccountHorizontalPickerView.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
@@ -71,7 +89,7 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     }
     
     private func createItemCellController(account: Account, isSelected: Bool) -> AUICollectionViewCellController {
-        let cellController = BalanceAccountHorizontalPickerItemCellController(account: account, isSelected: isSelected)
+        let cellController = BalanceAccountHorizontalPickerItemCellController(account: account, isSelected: isSelected, appearance: appearance)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.balanceAccountHorizontalPickerView.createItemCell(indexPath: indexPath, account: account, isSelected: isSelected)
@@ -86,8 +104,12 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
         return cellController
     }
     
+    private var accountsCellControllers: [BalanceAccountHorizontalPickerItemCellController] {
+        return accountsSectionController.cellControllers.compactMap { $0 as? BalanceAccountHorizontalPickerItemCellController }
+    }
+    
     private func createAddCellController(text: String) -> AddCollectionViewCellController {
-        let cellController = AddCollectionViewCellController(text: text)
+        let cellController = AddCollectionViewCellController(text: text, appearance: appearance)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.balanceAccountHorizontalPickerView.createAddCollectionViewCell(indexPath: indexPath)
@@ -101,6 +123,10 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
             self.addAccount()
         }
         return cellController
+    }
+    
+    private var addCellController: AddCollectionViewCellController? {
+        return accountsSectionController.cellControllers.first(where: { $0 is AddCollectionViewCellController }) as? AddCollectionViewCellController
     }
     
     // MARK: - Item cell controller - Find

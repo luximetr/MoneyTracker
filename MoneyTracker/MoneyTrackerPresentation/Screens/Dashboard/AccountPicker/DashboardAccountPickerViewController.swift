@@ -14,11 +14,13 @@ final class AccountPickerViewController: EmptyViewController {
     // MARK: Data
 
     var accounts: [Account] = []
+    private(set) var appearance: Appearance
     
     // MARK: Initializer
     
-    init(language: Language, accounts: [Account]) {
+    init(language: Language, appearance: Appearance, accounts: [Account]) {
         self.accounts = accounts
+        self.appearance = appearance
         super.init(language: language)
     }
     
@@ -38,6 +40,9 @@ final class AccountPickerViewController: EmptyViewController {
     private func accountCellController(_ account: Account) -> BalanceAccountHorizontalPickerItemCellController? {
         let accountCellController = accountsCellControllers?.first(where: { $0.account == account })
         return accountCellController
+    }
+    private var addCellController: BalanceAccountHorizontalPickerController.AddCollectionViewCellController? {
+        return sectionController.cellControllers.first(where: { $0 is BalanceAccountHorizontalPickerController.AddCollectionViewCellController }) as? BalanceAccountHorizontalPickerController.AddCollectionViewCellController
     }
   
     override func setupView() {
@@ -94,7 +99,7 @@ final class AccountPickerViewController: EmptyViewController {
     }
 
     private func createItemCellController(account: Account) -> BalanceAccountHorizontalPickerItemCellController {
-        let cellController = BalanceAccountHorizontalPickerItemCellController(account: account, isSelected: false)
+        let cellController = BalanceAccountHorizontalPickerItemCellController(account: account, isSelected: false, appearance: appearance)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.accountPickerView!.accountCollectionViewCell(indexPath: indexPath)
@@ -114,7 +119,7 @@ final class AccountPickerViewController: EmptyViewController {
     }
     
     private func createAddCellController(text: String) -> BalanceAccountHorizontalPickerController.AddCollectionViewCellController {
-        let cellController = BalanceAccountHorizontalPickerController.AddCollectionViewCellController(text: text)
+        let cellController = BalanceAccountHorizontalPickerController.AddCollectionViewCellController(text: text, appearance: appearance)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.accountPickerView!.addCollectionViewCell(indexPath: indexPath)
@@ -128,6 +133,14 @@ final class AccountPickerViewController: EmptyViewController {
             self.addAccount()
         }
         return cellController
+    }
+    
+    // MARK: - Appearance
+    
+    func changeAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        accountsCellControllers?.forEach { $0.setAppearance(appearance) }
+        
     }
     
     // MARK: Events

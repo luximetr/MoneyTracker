@@ -15,7 +15,7 @@ class BalanceAccountHorizontalPickerItemCell: AppearanceCollectionViewCell {
     
     let coloredView = UIView()
     let titleLabel = UILabel()
-    var color: UIColor = .clear
+    private(set) var color: UIColor = .clear
     
     // MARK: - Setup
     
@@ -33,7 +33,6 @@ class BalanceAccountHorizontalPickerItemCell: AppearanceCollectionViewCell {
     private func setupColoredView() {
         coloredView.layer.cornerRadius = 5
         coloredView.layer.borderWidth = 1
-        coloredView.layer.borderColor = color.cgColor
     }
     
     private func layoutColoredView() {
@@ -43,7 +42,6 @@ class BalanceAccountHorizontalPickerItemCell: AppearanceCollectionViewCell {
     // MARK: - TitleLabel
     
     private func setupTitleLabel() {
-        titleLabel.textColor = Colors.darkCardPrimaryText
         titleLabel.font = Fonts.default(size: 12, weight: .semibold)
         titleLabel.textAlignment = .center
     }
@@ -59,14 +57,18 @@ class BalanceAccountHorizontalPickerItemCell: AppearanceCollectionViewCell {
     // MARK: - SelectedMarkView
     
     func update(isSelected: Bool) {
-        coloredView.layer.borderColor = color.cgColor
         if isSelected {
-            titleLabel.textColor = Colors.white
+            titleLabel.textColor = appearance?.balanceAccountPrimaryText
             coloredView.backgroundColor = color
         } else {
             titleLabel.textColor = color
             coloredView.backgroundColor = .clear
         }
+    }
+    
+    func setColor(_ color: UIColor) {
+        self.color = color
+        coloredView.layer.borderColor = color.cgColor
     }
     
     // MARK: - Layout
@@ -98,6 +100,7 @@ class BalanceAccountHorizontalPickerItemCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
+        titleLabel.textColor = appearance.balanceAccountPrimaryText
     }
     
 }

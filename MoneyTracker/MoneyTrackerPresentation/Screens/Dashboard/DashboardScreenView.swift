@@ -31,10 +31,10 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         addSubview(categoryPickerView)
         addSubview(accountPickerView)
         addSubview(templatesView)
+        changeAppearance(appearance)
     }
     
     // MARK: - Layout
@@ -111,6 +111,16 @@ final class ScreenView: TitleNavigationBarScreenView {
         let height = bounds.height - y - templatePickerSizeThatFits.height
         let frame = CGRect(x: x, y: y, width: width, height: height)
         accountPickerView.frame = frame
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        categoryPickerView.changeAppearance(appearance)
+        accountPickerView.changeAppearance(appearance)
+        templatesView.changeAppearance(appearance)
     }
     
 }

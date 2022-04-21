@@ -63,7 +63,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     init(appearance: Appearance, language: Language, categories: [Category], balanceAccounts: [Account]) {
         self.categories = categories
         self.balanceAccounts = balanceAccounts
-        self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language)
+        self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.categoryPickerController = CategoryHorizontalPickerController(language: language)
         super.init(appearance: appearance, language: language)
     }

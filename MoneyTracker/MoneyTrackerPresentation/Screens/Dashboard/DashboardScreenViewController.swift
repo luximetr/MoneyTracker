@@ -26,7 +26,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     init(appearance: Appearance, language: Language, categories: [Category], accounts: [Account], templates: [ExpenseTemplate]) {
         self.templates = templates
         self.categoryPickerViewController = CategoryPickerViewController(language: language, categories: categories)
-        self.accountPickerViewController = AccountPickerViewController(language: language, accounts: accounts)
+        self.accountPickerViewController = AccountPickerViewController(language: language, appearance: appearance, accounts: accounts)
         self.templatesViewController = TemplatesViewController(language: language, templates: templates)
         super.init(appearance: appearance, language: language)
     }
@@ -118,6 +118,14 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        accountPickerViewController.changeAppearance(appearance)
     }
     
     // MARK: - Events

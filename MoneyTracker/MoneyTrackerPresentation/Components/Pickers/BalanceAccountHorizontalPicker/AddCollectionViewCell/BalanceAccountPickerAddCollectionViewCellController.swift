@@ -14,11 +14,13 @@ final class AddCollectionViewCellController: AUIClosuresCollectionViewCellContro
     // MARK: Data
         
     let text: String
+    private(set) var appearance: Appearance
     
     // MARK: Initializer
     
-    init(text: String) {
+    init(text: String, appearance: Appearance) {
         self.text = text
+        self.appearance = appearance
     }
     
     // MARK: MonthCollectionViewCell
@@ -30,6 +32,7 @@ final class AddCollectionViewCellController: AUIClosuresCollectionViewCellContro
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.cellForItemAtIndexPath(indexPath)
         setContent()
+        setAppearance(appearance)
         return cell
     }
     
@@ -46,6 +49,12 @@ final class AddCollectionViewCellController: AUIClosuresCollectionViewCellContro
     
     static func text(_ text: String) -> String {
         return text
+    }
+    
+    // MARK: - Appearance
+    
+    func setAppearance(_ appearance: Appearance) {
+        addCollectionViewCell?.setAppearance(appearance)
     }
 
 }
