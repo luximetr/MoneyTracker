@@ -13,13 +13,13 @@ public struct AddingAccount {
     public let name: String
     public let amount: Decimal
     public let currency: Currency
-    public let backgroundColor: UIColor
+    public let color: AccountColor
     
-    public init(name: String, amount: Decimal, currency: Currency, backgroundColor: UIColor) {
+    public init(name: String, amount: Decimal, currency: Currency, color: AccountColor) {
         self.name = name
         self.amount = amount
         self.currency = currency
-        self.backgroundColor = backgroundColor
+        self.color = color
     }
     
 }

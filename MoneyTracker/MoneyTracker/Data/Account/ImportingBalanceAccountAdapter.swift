@@ -14,13 +14,13 @@ typealias StorageImportingBalanceAccount = MoneyTrackerStorage.ImportingBalanceA
 
 class ImportingBalanceAccountAdapter {
     
-    func adaptToStorageAdding(filesImportingBalanceAccount: FilesImportingBalanceAccount) throws -> StorageAddingAccount {
+    func adaptToStorageAdding(filesImportingBalanceAccount: FilesImportingBalanceAccount) throws -> StorageAddingBalanceAccount {
         let currency = try StorageCurrency(filesImportingBalanceAccount.currency)
-        return StorageAddingAccount(
+        return StorageAddingBalanceAccount(
             name: filesImportingBalanceAccount.name,
             amount: filesImportingBalanceAccount.amount,
             currency: currency,
-            colorHex: filesImportingBalanceAccount.colorHex ?? "#333333"
+            color: BalanceAccountColor(rawValue: filesImportingBalanceAccount.balanceAccountColor ?? "") ?? .variant1
         )
     }
     
@@ -29,7 +29,7 @@ class ImportingBalanceAccountAdapter {
             name: filesImportingBalanceAccount.name,
             amount: filesImportingBalanceAccount.amount,
             currency: filesImportingBalanceAccount.currency,
-            colorHex: filesImportingBalanceAccount.colorHex ?? "#333333"
+            balanceAccountColor: filesImportingBalanceAccount.balanceAccountColor ?? BalanceAccountColor.variant1.rawValue
         )
     }
 }

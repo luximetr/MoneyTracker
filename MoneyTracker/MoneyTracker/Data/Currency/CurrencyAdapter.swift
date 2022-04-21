@@ -14,7 +14,7 @@ typealias StorageCurrency = MoneyTrackerStorage.Currency
 
 class CurrencyAdapter {
     
-    func adaptToStorageCurrency(presentationCurrency: PresentationCurrency) -> StorageCurrency {
+    func adaptToStorage(presentationCurrency: PresentationCurrency) -> StorageCurrency {
         switch presentationCurrency {
             case .singaporeDollar: return .SGD
             case .usDollar: return .USD
@@ -25,7 +25,7 @@ class CurrencyAdapter {
         }
     }
     
-    func adaptToPresentationCurrency(storageCurrency: StorageCurrency) -> PresentationCurrency {
+    func adaptToPresentation(storageCurrency: StorageCurrency) -> PresentationCurrency {
         switch storageCurrency {
             case .SGD: return .singaporeDollar
             case .USD: return .usDollar

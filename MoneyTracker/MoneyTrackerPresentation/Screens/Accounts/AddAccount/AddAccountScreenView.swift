@@ -67,7 +67,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupColorPickerView() {
-        
+        colorPickerView.contentInset = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 26)
     }
     
     // MARK: - Layout

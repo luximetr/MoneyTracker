@@ -180,7 +180,7 @@ public class Storage {
         let repo = createBalanceAccountsRepo()
         let account = try repo.fetchAccount(id: id)
         let newAmount = account.amount + amount
-        let editingAccount = EditingBalanceAccount(id: id, name: nil, currency: nil, amount: newAmount, colorHex: nil)
+        let editingAccount = EditingBalanceAccount(id: id, name: nil, currency: nil, amount: newAmount, color: nil)
         try repo.updateAccount(editingBalanceAccount: editingAccount)
         let updatedAccount = try repo.fetchAccount(id: id)
         return updatedAccount
@@ -404,7 +404,7 @@ public class Storage {
             name: importingBalanceAccount.name,
             amount: importingBalanceAccount.amount,
             currency: currency,
-            colorHex: importingBalanceAccount.colorHex
+            color: BalanceAccountColor(rawValue: importingBalanceAccount.balanceAccountColor) ?? .variant1
         )
     }
     

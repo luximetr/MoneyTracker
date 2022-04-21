@@ -41,7 +41,7 @@ class BalanceAccountHorizontalPickerItemCellController: AUIClosuresCollectionVie
     
     private func setContent() {
         pickerItemCell?.titleLabel.text = account.name
-        pickerItemCell?.color = account.backgroundColor
+//        pickerItemCell?.color = account.backgroundColor
         pickerItemCell?.update(isSelected: isSelected)
     }
     

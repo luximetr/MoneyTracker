@@ -72,6 +72,14 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
         setContent()
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        accountsCellControllers.forEach { $0.setAppearance(appearance) }
+    }
+    
     // MARK: Events
     
     @objc private func backButtonTouchUpInsideEventAction() {
@@ -126,7 +134,7 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
     }
     
     private func createAccountCollectionViewCellController(account: Account) -> AccountCollectionViewCellController {
-        let cellController = AccountCollectionViewCellController(account: account, localizer: localizer)
+        let cellController = AccountCollectionViewCellController(account: account, localizer: localizer, appearance: appearance)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             let accountCollectionViewCell = self.screenView.accountCollectionViewCell(indexPath)
@@ -146,6 +154,10 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
             self.didDeleteAccount(account, cellController: cellController)
         }
         return cellController
+    }
+    
+    private var accountsCellControllers: [AccountCollectionViewCellController] {
+        return accountsSectionController.cellControllers.compactMap { $0 as? AccountCollectionViewCellController }
     }
     
     // MARK: UICollectionViewDropDelegate, UICollectionViewDragDelegate

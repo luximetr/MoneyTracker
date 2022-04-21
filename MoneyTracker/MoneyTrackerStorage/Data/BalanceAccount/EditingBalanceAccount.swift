@@ -12,13 +12,13 @@ public struct EditingBalanceAccount {
     public let name: String?
     public let currency: Currency?
     public let amount: Decimal?
-    public let colorHex: String?
+    public let color: BalanceAccountColor?
     
-    public init(id: String, name: String? = nil, currency: Currency? = nil, amount: Decimal? = nil, colorHex: String? = nil) {
+    public init(id: String, name: String? = nil, currency: Currency? = nil, amount: Decimal? = nil, color: BalanceAccountColor? = nil) {
         self.id = id
         self.name = name
         self.currency = currency
         self.amount = amount
-        self.colorHex = colorHex
+        self.color = color
     }
 }

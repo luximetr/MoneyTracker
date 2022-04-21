@@ -68,6 +68,10 @@ public final class Presentation: AUIWindowPresentation {
         pushedAddCategoryViewController?.changeAppearance(appearance)
         pushedEditCategoryViewController?.changeAppearance(appearance)
         pushedSelectAppearanceViewController?.changeAppearance(appearance)
+        pushedAccoutsViewController?.changeAppearance(appearance)
+        pushedAddAccoutScreenViewController?.changeAppearance(appearance)
+        presentedAddAccoutScreenViewController?.changeAppearance(appearance)
+        pushedEditAccoutScreenViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -939,10 +943,9 @@ public final class Presentation: AUIWindowPresentation {
     private weak var pushedAddAccoutScreenViewController: AddAccountScreenViewController?
     private func pushAddAccountViewController(_ navigationController: UINavigationController) throws {
         do {
-            let backgroundColors = AccountBackgroundColors.variants
             let selectedCurrency = try delegate.presentationSelectedCurrency(self)
             let language = try delegate.presentationLanguage(self)
-            let viewController = AddAccountScreenViewController(appearance: appearance, language: language, backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
+            let viewController = AddAccountScreenViewController(appearance: appearance, language: language, accountColors: AccountColor.allCases, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -989,10 +992,9 @@ public final class Presentation: AUIWindowPresentation {
     private weak var presentedAddAccoutScreenViewController: AddAccountScreenViewController?
     private func presentAddAccountViewController(_ presentingViewController: UIViewController) throws {
         do {
-            let backgroundColors = AccountBackgroundColors.variants
             let selectedCurrency = try delegate.presentationSelectedCurrency(self)
             let language = try delegate.presentationLanguage(self)
-            let viewController = AddAccountScreenViewController(appearance: appearance, language: language, backgroundColors: backgroundColors, selectedCurrency: selectedCurrency)
+            let viewController = AddAccountScreenViewController(appearance: appearance, language: language, accountColors: AccountColor.allCases, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak self] in
                 guard let self = self else { return }
                 self.menuNavigationController?.dismiss(animated: true, completion: nil)
@@ -1038,9 +1040,8 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var pushedEditAccoutScreenViewController: EditAccountScreenViewController?
     private func pushEditAccountViewController(_ navigationController: UINavigationController, editingAccount: Account) {
-        let backgroundColors = AccountBackgroundColors.variants
         let language = try! delegate.presentationLanguage(self)
-        let viewController = EditAccountScreenViewController(appearance: appearance, language: language, editingAccount: editingAccount, backgroundColors: backgroundColors)
+        let viewController = EditAccountScreenViewController(appearance: appearance, language: language, editingAccount: editingAccount, accountColors: AccountColor.allCases)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)

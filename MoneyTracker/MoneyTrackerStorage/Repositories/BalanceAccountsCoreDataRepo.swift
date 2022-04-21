@@ -29,7 +29,7 @@ class BalanceAccountsCoreDataRepo {
         accountMO.name = account.name
         accountMO.amount = NSDecimalNumber(decimal: account.amount)
         accountMO.currencyISOCode = account.currency.rawValue
-        accountMO.colorHex = account.colorHex
+        accountMO.balanceAccountColor = account.color?.rawValue
         try context.save()
     }
     
@@ -58,8 +58,8 @@ class BalanceAccountsCoreDataRepo {
         if let amount = editingBalanceAccount.amount {
             propertiesToUpdate[#keyPath(BalanceAccountMO.amount)] = amount
         }
-        if let colorHex = editingBalanceAccount.colorHex {
-            propertiesToUpdate[#keyPath(BalanceAccountMO.colorHex)] = colorHex
+        if let color = editingBalanceAccount.color {
+            propertiesToUpdate[#keyPath(BalanceAccountMO.balanceAccountColor)] = color
         }
         return propertiesToUpdate
     }
@@ -118,14 +118,14 @@ class BalanceAccountsCoreDataRepo {
         guard let amount = accountMO.amount?.decimalValue else { throw ParseError.noAmount }
         guard let currencyISOCode = accountMO.currencyISOCode else { throw ParseError.noCurrencyISOCode }
         guard let currency = Currency(rawValue: currencyISOCode) else { throw ParseError.noCurrency }
-        guard let colorHex = accountMO.colorHex else { throw ParseError.noColor }
+        let color = BalanceAccountColor(rawValue: accountMO.balanceAccountColor ?? "")
         
         return BalanceAccount(
             id: id,
             name: name,
             amount: amount,
             currency: currency,
-            colorHex: colorHex
+            color: color
         )
     }
     
