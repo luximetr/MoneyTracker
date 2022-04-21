@@ -103,7 +103,7 @@ final class HistoryScreenView: TitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
-        setupTableView()
+        tableView.backgroundColor = appearance.primaryBackground
         dayTableViewCells?.forEach({ $0.setAppearance(appearance) })
         expenseTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }

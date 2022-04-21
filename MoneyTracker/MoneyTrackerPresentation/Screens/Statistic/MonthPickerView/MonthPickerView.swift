@@ -11,19 +11,23 @@ import AUIKit
 extension StatisticScreenViewController {
 final class MonthPickerView: AppearanceView {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let collectionViewFlowLayout = UICollectionViewFlowLayout()
     let collectionView: UICollectionView
+    private var monthTableViewCells: [MonthCollectionViewCell]? {
+        let monthTableViewCells = collectionView.visibleCells.compactMap({ $0 as? MonthCollectionViewCell })
+        return monthTableViewCells
+    }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
     override init(frame: CGRect = .zero, appearance: Appearance) {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         super.init(frame: frame, appearance: appearance)
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -45,7 +49,7 @@ final class MonthPickerView: AppearanceView {
         collectionView.register(MonthCollectionViewCell.self, forCellWithReuseIdentifier: monthCollectionViewCellReuseIdentifier)
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -62,7 +66,7 @@ final class MonthPickerView: AppearanceView {
         }
     }
     
-    // MARK: MonthCollectionViewCell
+    // MARK: - MonthCollectionViewCell
     
     func monthCollectionViewCell(_ indexPath: IndexPath) -> MonthCollectionViewCell {
         let monthCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: monthCollectionViewCellReuseIdentifier, for: indexPath) as! MonthCollectionViewCell
@@ -75,7 +79,7 @@ final class MonthPickerView: AppearanceView {
         return size
     }
     
-    // MARK: Actions
+    // MARK: - Actions
     
     private var deferredScrollToItemClosure: (() -> ())?
     func collectionViewScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
@@ -86,6 +90,15 @@ final class MonthPickerView: AppearanceView {
                 self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
             }
         }
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.primaryBackground
+        monthTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     
 }

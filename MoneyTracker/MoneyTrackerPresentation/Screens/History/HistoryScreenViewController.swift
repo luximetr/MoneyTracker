@@ -185,4 +185,11 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         return cellController
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+    }
+    
 }

@@ -44,18 +44,6 @@ class MonthCollectionViewCell: AppearanceCollectionViewCell {
         monthLabel.textAlignment = .center
     }
     
-    // MARK: - State
-    
-    func setSelected(_ isSelected: Bool) {
-        if isSelected {
-            contentView.backgroundColor = appearance?.accent ?? .clear
-            monthLabel.textColor = appearance?.primaryText
-        } else {
-            contentView.backgroundColor = .clear
-            monthLabel.textColor = appearance?.secondaryText
-        }
-    }
-    
     // MARK: - Size
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -70,6 +58,27 @@ class MonthCollectionViewCell: AppearanceCollectionViewCell {
         monthCollectionViewCell.monthLabel.text = month
         let sizeThatFits = monthCollectionViewCell.sizeThatFits(size)
         return sizeThatFits
+    }
+    
+    // MARK: - State
+    
+    private var _isSelected = false
+    func setSelected(_ isSelected: Bool) {
+        self._isSelected = isSelected
+        if isSelected {
+            contentView.backgroundColor = appearance?.primaryActionBackground ?? .clear
+            monthLabel.textColor = .white
+        } else {
+            contentView.backgroundColor = .clear
+            monthLabel.textColor = appearance?.secondaryText
+        }
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        setSelected(_isSelected)
     }
     
 }

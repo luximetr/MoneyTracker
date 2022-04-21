@@ -112,5 +112,16 @@ final class ScreenView: TitleNavigationBarScreenView {
         return 60
     }
     
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        monthPickerView.changeAppearance(appearance)
+        monthExpensesLabel.textColor = appearance.primaryText
+        monthCategoriesExpensesTableView.backgroundColor = appearance.primaryBackground
+        monthCategoryExpensesTableViewCells?.forEach({ $0.setAppearance(appearance) })
+    }
+    
 }
 }

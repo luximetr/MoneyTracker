@@ -78,6 +78,7 @@ public final class Presentation: AUIWindowPresentation {
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
+        guard appearanceSetting == .system else { return }
         let appearance = getAppearance(userInterfaceStyle: style)
         setAppearance(appearance)
     }
