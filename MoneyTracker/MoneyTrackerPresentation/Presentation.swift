@@ -65,7 +65,6 @@ public final class Presentation: AUIWindowPresentation {
         pushedAddExpenseViewController?.changeAppearance(appearance)
         statisticScreen?.changeAppearance(appearance)
         historyViewController?.changeAppearance(appearance)
-        settingsScreenViewController?.changeAppearance(appearance)
         selectIconViewController?.changeAppearance(appearance)
         pushedCategoriesViewController?.changeAppearance(appearance)
         presentedAddCategoryViewController?.changeAppearance(appearance)
@@ -76,6 +75,11 @@ public final class Presentation: AUIWindowPresentation {
         pushedAddAccoutScreenViewController?.changeAppearance(appearance)
         presentedAddAccoutScreenViewController?.changeAppearance(appearance)
         pushedEditAccoutScreenViewController?.changeAppearance(appearance)
+        settingsScreenViewController?.changeAppearance(appearance)
+        pushedTemplatesScreenViewController?.changeAppearance(appearance)
+        pushedAddTemplateScreenViewController?.changeAppearance(appearance)
+        presentedAddTemplateScreenViewController?.changeAppearance(appearance)
+        pushedEditTemplateScreenViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {

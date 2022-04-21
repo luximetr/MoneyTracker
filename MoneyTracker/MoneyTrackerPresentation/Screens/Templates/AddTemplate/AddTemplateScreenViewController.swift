@@ -56,6 +56,8 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         addTemplateScreenView.changeAppearance(appearance)
+        balanceAccountPickerController.changeAppearance(appearance)
+        categoryPickerController.changeAppearance(appearance)
     }
 
     // MARK: - Life cycle
@@ -64,7 +66,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         self.categories = categories
         self.balanceAccounts = balanceAccounts
         self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
-        self.categoryPickerController = CategoryHorizontalPickerController(language: language)
+        self.categoryPickerController = CategoryHorizontalPickerController(language: language, appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     

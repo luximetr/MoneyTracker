@@ -1,15 +1,14 @@
 //
-//  CategoryHorizontalPickerItemCell.swift
+//  DashboardCategoryPickerCategoryCell.swift
 //  MoneyTrackerPresentation
 //
-//  Created by Oleksandr Orlov on 13.03.2022.
+//  Created by Oleksandr Orlov on 21.04.2022.
 //
 
 import UIKit
-import AUIKit
-import PinLayout
 
-class CategoryHorizontalPickerItemCell: AppearanceCollectionViewCell {
+extension DashboardScreenViewController.CategoryPickerView {
+final class CategoryCell: AppearanceCollectionViewCell {
     
     // MARK: - Subviews
     
@@ -30,6 +29,7 @@ class CategoryHorizontalPickerItemCell: AppearanceCollectionViewCell {
     }
     
     private func setupColoredView() {
+        coloredView.layer.borderWidth = 1
     }
     
     private func setupIconView() {
@@ -99,41 +99,14 @@ class CategoryHorizontalPickerItemCell: AppearanceCollectionViewCell {
         return takenSize
     }
     
-    // MARK: - IsSelected
-    
-    func update(isSelected: Bool) {
-        if isSelected {
-            configureSelected()
-        } else {
-            configureDeselected()
-        }
-    }
-    
-    private func configureSelected() {
-        coloredView.backgroundColor = appearance?.primaryBackground
-        coloredView.layer.shadowOffset = CGSize(width: 0, height: 1)
-        coloredView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        coloredView.layer.shadowOpacity = 1
-        coloredView.layer.shadowRadius = 2
-        coloredView.layer.borderWidth = 0
-    }
-    
-    private func configureDeselected() {
-        coloredView.backgroundColor = .clear
-        coloredView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        coloredView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor
-        coloredView.layer.shadowOpacity = 0
-        coloredView.layer.shadowRadius = 0
-        coloredView.layer.borderColor = appearance?.secondaryBackground.cgColor
-        coloredView.layer.borderWidth = 1
-    }
-    
     // MARK: Appearance
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        coloredView.backgroundColor = appearance.secondaryBackground
+        iconView.tintColor = appearance.secondaryText
         titleLabel.textColor = appearance.secondaryText
+        coloredView.backgroundColor = appearance.transparent
+        coloredView.layer.borderColor = appearance.secondaryBackground.cgColor
     }
-    
+}
 }

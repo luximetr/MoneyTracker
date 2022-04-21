@@ -13,11 +13,13 @@ final class CategoryPickerViewController: EmptyViewController {
     
     // MARK: Data
 
+    private(set) var appearance: Appearance
     var categories: [Category] = []
     
     // MARK: Initializer
     
-    init(language: Language, categories: [Category]) {
+    init(language: Language, appearance: Appearance, categories: [Category]) {
+        self.appearance = appearance
         self.categories = categories
         super.init(language: language)
     }
@@ -86,7 +88,7 @@ final class CategoryPickerViewController: EmptyViewController {
     }
     
     private func createCategoryCellController(category: Category) -> CategoryCellController {
-        let cellController = CategoryCellController(category: category)
+        let cellController = CategoryCellController(appearance: appearance, category: category)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.categoryPickerView!.categoryCollectionViewCell(indexPath: indexPath)
@@ -104,6 +106,10 @@ final class CategoryPickerViewController: EmptyViewController {
         return cellController
     }
     
+    private var categoriesCellControllers: [CategoryCellController] {
+        return sectionController.cellControllers.compactMap { $0 as? CategoryCellController }
+    }
+    
     private func findCellController(category: Category) -> CategoryCellController? {
         return sectionController.cellControllers.first(where: {
             return ($0 as? CategoryCellController)?.category.id == category.id
@@ -111,7 +117,7 @@ final class CategoryPickerViewController: EmptyViewController {
     }
     
     private func createAddCellController(text: String) -> CategoryHorizontalPickerController.AddCollectionViewCellController {
-        let cellController = CategoryHorizontalPickerController.AddCollectionViewCellController(text: text)
+        let cellController = CategoryHorizontalPickerController.AddCollectionViewCellController(appearance: appearance, text: text)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.categoryPickerView!.addCollectionViewCell(indexPath: indexPath)
@@ -125,6 +131,19 @@ final class CategoryPickerViewController: EmptyViewController {
             self.addCategory()
         }
         return cellController
+    }
+    
+    private var addCellController: CategoryHorizontalPickerController.AddCollectionViewCellController? {
+        return sectionController.cellControllers.first(where: { $0 is CategoryHorizontalPickerController.AddCollectionViewCellController }) as? CategoryHorizontalPickerController.AddCollectionViewCellController
+    }
+    
+    // MARK: - Appearance
+    
+    func changeAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        categoryPickerView?.changeAppearance(appearance)
+        categoriesCellControllers.forEach { $0.changeAppearance(appearance) }
+        addCellController?.setAppearance(appearance)
     }
     
     // MARK: Events

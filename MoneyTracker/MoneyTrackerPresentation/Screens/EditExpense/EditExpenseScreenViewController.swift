@@ -37,7 +37,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         self.categories = categories
         self.balanceAccounts = balanceAccounts
         self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
-        self.categoryPickerController = CategoryHorizontalPickerController(language: language)
+        self.categoryPickerController = CategoryHorizontalPickerController(language: language, appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     

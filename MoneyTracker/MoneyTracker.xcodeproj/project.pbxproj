@@ -100,8 +100,6 @@
 		2EB2E87B281083550017ACDD /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87A281083550017ACDD /* AppearanceSetting.swift */; };
 		2EB2E87D281083820017ACDD /* PresentationAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */; };
 		2EB2E87F281083960017ACDD /* StorageAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */; };
-		2EB6E0D227BAF24200D0C4E1 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D127BAF24200D0C4E1 /* Account.swift */; };
-		2EB6E0D927BB0B5400D0C4E1 /* AddingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */; };
 		2EB8271A280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */; };
 		2EB8271C2807580300C6377F /* CurrencyCodeLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8271B2807580300C6377F /* CurrencyCodeLocalizer.swift */; };
 		2EB8271F2807583900C6377F /* CurrencyCodeStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB827212807583900C6377F /* CurrencyCodeStrings.strings */; };
@@ -300,6 +298,7 @@
 		DB7793C72810EA4D00150822 /* AddingTransferAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C62810EA4D00150822 /* AddingTransferAdapter.swift */; };
 		DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C82810EA7300150822 /* TopUpAccountAdapter.swift */; };
 		DB7793CB2810EA9900150822 /* AddingTopUpAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793CA2810EA9900150822 /* AddingTopUpAccountAdapter.swift */; };
+		DB7793CD28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793CC28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift */; };
 		DB7BA7FE27F8749600A3B3BA /* CategoryIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA7FD27F8749600A3B3BA /* CategoryIconView.swift */; };
 		DB7BA80127F87C8800A3B3BA /* SelectIconScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA80027F87C8800A3B3BA /* SelectIconScreenViewController.swift */; };
 		DB7BA80327F87CB500A3B3BA /* SelectIconScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA80227F87CB500A3B3BA /* SelectIconScreenView.swift */; };
@@ -567,8 +566,6 @@
 		2EB2E87A281083550017ACDD /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
 		2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationAppearanceSettingMapper.swift; sourceTree = "<group>"; };
 		2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAppearanceSettingMapper.swift; sourceTree = "<group>"; };
-		2EB6E0D127BAF24200D0C4E1 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		2EB6E0D827BB0B5400D0C4E1 /* AddingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingAccount.swift; sourceTree = "<group>"; };
 		2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleValueTableViewCell.swift; sourceTree = "<group>"; };
 		2EB8271B2807580300C6377F /* CurrencyCodeLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCodeLocalizer.swift; sourceTree = "<group>"; };
 		2EB827202807583900C6377F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CurrencyCodeStrings.strings; sourceTree = "<group>"; };
@@ -832,6 +829,7 @@
 		DB7793C62810EA4D00150822 /* AddingTransferAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransferAdapter.swift; sourceTree = "<group>"; };
 		DB7793C82810EA7300150822 /* TopUpAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountAdapter.swift; sourceTree = "<group>"; };
 		DB7793CA2810EA9900150822 /* AddingTopUpAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTopUpAccountAdapter.swift; sourceTree = "<group>"; };
+		DB7793CC28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCategoryPickerCategoryCell.swift; sourceTree = "<group>"; };
 		DB7BA7FD27F8749600A3B3BA /* CategoryIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryIconView.swift; sourceTree = "<group>"; };
 		DB7BA80027F87C8800A3B3BA /* SelectIconScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconScreenViewController.swift; sourceTree = "<group>"; };
 		DB7BA80227F87CB500A3B3BA /* SelectIconScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconScreenView.swift; sourceTree = "<group>"; };
@@ -1691,6 +1689,7 @@
 				2EC6178F27F8393300845E7A /* DashboardCategoryPickerViewController.swift */,
 				2EC6178827F82BFE00845E7A /* DashboardCategoryPickerView.swift */,
 				DBA0546427FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift */,
+				DB7793CC28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift */,
 				2ED9047B27F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings */,
 			);
 			path = CategoriesPicker;
@@ -3051,6 +3050,7 @@
 				2EC19ACE27A7F64000E1A6FA /* CategoriesListScreenViewController.swift in Sources */,
 				2E2A6EE027EC4FEC0084054C /* EditExpenseScreenViewController.swift in Sources */,
 				2ED1883D280AC17A00BA52EF /* AppearanceView.swift in Sources */,
+				DB7793CD28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift in Sources */,
 				DBA05479280129A600DB3892 /* ImportedExpensesFile.swift in Sources */,
 				DB7BA81427F983C700A3B3BA /* ColorHorizontalPickerView.swift in Sources */,
 				2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */,

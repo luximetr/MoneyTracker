@@ -11,6 +11,7 @@ import AUIKit
 class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellController {
     
     let category: Category
+    private(set) var appearance: Appearance
     
     var isSelected: Bool {
         didSet { pickerItemCell?.update(isSelected: isSelected) }
@@ -24,9 +25,10 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
     
     // MARK: - Life cycle
     
-    init(category: Category, isSelected: Bool) {
+    init(category: Category, isSelected: Bool, appearance: Appearance) {
         self.category = category
         self.isSelected = isSelected
+        self.appearance = appearance
     }
     
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
@@ -40,11 +42,17 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
     private var uiColorProvider = CategoryColorUIColorProvider()
     
     private func setContent() {
-//        let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
-//        pickerItemCell?.iconView.tintColor = category.color
         pickerItemCell?.iconView.image = UIImage(systemName: category.iconName)
         pickerItemCell?.titleLabel.text = category.name
-//        pickerItemCell?.titleLabel.textColor = category.color
         pickerItemCell?.update(isSelected: isSelected)
+    }
+    
+    // MARK: - Appearance
+    
+    func setAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
+        pickerItemCell?.iconView.tintColor = categoryUIColor
+        pickerItemCell?.titleLabel.textColor = categoryUIColor
     }
 }
