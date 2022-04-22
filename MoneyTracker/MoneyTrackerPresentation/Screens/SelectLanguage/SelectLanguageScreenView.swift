@@ -14,23 +14,18 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: - Subviews
     
     let tableView = UITableView()
-    private var languageTableViewCells: [LanguageTableViewCell]? {
-        let languageTableViewCells = tableView.visibleCells.compactMap({ $0 as? LanguageTableViewCell })
-        return languageTableViewCells
-    }
     
     // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
         setupLanguageTableViewCell()
+        changeAppearance(appearance)
     }
     
     private func setupTableView() {
-        tableView.backgroundColor = appearance.primaryBackground
         tableView.separatorStyle = .none
     }
     
@@ -60,7 +55,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     func languageTableViewCell(_ indexPath: IndexPath) -> LanguageTableViewCell {
         let languageTableViewCell = tableView.dequeueReusableCell(withIdentifier: languageTableViewCellReuseIdentifier, for: indexPath) as! LanguageTableViewCell
-        languageTableViewCell.setAppearance(appearance)
         return languageTableViewCell
     }
     
@@ -77,8 +71,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
-        setupTableView()
-        languageTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        tableView.backgroundColor = appearance.primaryBackground
     }
     
 }

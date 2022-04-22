@@ -139,7 +139,7 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
     }
     
     private func createMonthCategoryExpensesTableViewController(expenses: [Expense]) -> AUITableViewCellController {
-        let cellController = MonthCategoryExpensesTableViewCellController(expenses: expenses)
+        let cellController = MonthCategoryExpensesTableViewCellController(appearance: appearance, expenses: expenses)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.monthCategoryExpensesTableViewCell(indexPath)
@@ -156,11 +156,16 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
         return cellController
     }
     
+    private var monthCategoryExpensesCellControllers: [MonthCategoryExpensesTableViewCellController] {
+        return monthCategoryExpensesTableViewSectionController.cellControllers.compactMap { $0 as? MonthCategoryExpensesTableViewCellController }
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         screenView.changeAppearance(appearance)
+        monthCategoryExpensesCellControllers.forEach { $0.setAppearance(appearance) }
     }
     
 }

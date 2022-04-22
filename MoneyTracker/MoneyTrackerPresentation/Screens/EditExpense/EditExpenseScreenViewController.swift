@@ -37,7 +37,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         self.categories = categories
         self.balanceAccounts = balanceAccounts
         self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
-        self.categoryPickerController = CategoryHorizontalPickerController(language: language)
+        self.categoryPickerController = CategoryHorizontalPickerController(language: language, appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -131,6 +131,15 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         screenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        balanceAccountPickerController.changeAppearance(appearance)
+        categoryPickerController.changeAppearance(appearance)
     }
     
     // MARK: Events

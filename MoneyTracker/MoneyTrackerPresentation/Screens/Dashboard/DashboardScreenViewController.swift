@@ -25,9 +25,9 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     
     init(appearance: Appearance, language: Language, categories: [Category], accounts: [Account], templates: [ExpenseTemplate]) {
         self.templates = templates
-        self.categoryPickerViewController = CategoryPickerViewController(language: language, categories: categories)
+        self.categoryPickerViewController = CategoryPickerViewController(language: language, appearance: appearance, categories: categories)
         self.accountPickerViewController = AccountPickerViewController(language: language, appearance: appearance, accounts: accounts)
-        self.templatesViewController = TemplatesViewController(language: language, templates: templates)
+        self.templatesViewController = TemplatesViewController(language: language, appearance: appearance, templates: templates)
         super.init(appearance: appearance, language: language)
     }
     
@@ -125,7 +125,9 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         screenView.changeAppearance(appearance)
+        categoryPickerViewController.changeAppearance(appearance)
         accountPickerViewController.changeAppearance(appearance)
+        templatesViewController.changeAppearance(appearance)
     }
     
     // MARK: - Events

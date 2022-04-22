@@ -30,7 +30,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupTableView() {
-        tableView.backgroundColor = appearance.primaryBackground
         tableView.separatorStyle = .none
     }
     
@@ -77,8 +76,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
-        setupTableView()
-        languageTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        tableView.backgroundColor = appearance.primaryBackground
     }
     
 }

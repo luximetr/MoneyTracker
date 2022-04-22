@@ -65,17 +65,27 @@ public final class Presentation: AUIWindowPresentation {
         pushedAddExpenseViewController?.changeAppearance(appearance)
         statisticScreen?.changeAppearance(appearance)
         historyViewController?.changeAppearance(appearance)
-        settingsScreenViewController?.changeAppearance(appearance)
+        pushedEditExpenseViewController?.changeAppearance(appearance)
         selectIconViewController?.changeAppearance(appearance)
         pushedCategoriesViewController?.changeAppearance(appearance)
         presentedAddCategoryViewController?.changeAppearance(appearance)
         pushedAddCategoryViewController?.changeAppearance(appearance)
         pushedEditCategoryViewController?.changeAppearance(appearance)
-        pushedSelectAppearanceViewController?.changeAppearance(appearance)
         pushedAccoutsViewController?.changeAppearance(appearance)
         pushedAddAccoutScreenViewController?.changeAppearance(appearance)
         presentedAddAccoutScreenViewController?.changeAppearance(appearance)
         pushedEditAccoutScreenViewController?.changeAppearance(appearance)
+        settingsScreenViewController?.changeAppearance(appearance)
+        pushedSelectCurrencyViewController?.changeAppearance(appearance)
+        presentedSelectCurrencyViewController?.changeAppearance(appearance)
+        pushedSelectAppearanceViewController?.changeAppearance(appearance)
+        pushedSelectLanguageViewController?.changeAppearance(appearance)
+        pushedTemplatesScreenViewController?.changeAppearance(appearance)
+        pushedAddTemplateScreenViewController?.changeAppearance(appearance)
+        presentedAddTemplateScreenViewController?.changeAppearance(appearance)
+        pushedEditTemplateScreenViewController?.changeAppearance(appearance)
+        importCSVScreen?.changeAppearance(appearance)
+        exportCSVScreen?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -725,9 +735,9 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.didSelectCurrencyClosure = { [weak self] in
             guard let self = self else { return }
-            guard let settingsNavigationController = self.settingsNavigationController else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
             do {
-                try self.pushSelectCurrencyViewController(settingsNavigationController, selectedCurrency: nil)
+                try self.pushSelectCurrencyViewController(menuNavigationController, selectedCurrency: nil)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
@@ -778,8 +788,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             do {
                 let url = try self.delegate.presentationDidStartExpensesCSVExport(self)
-                let viewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                viewController.overrideUserInterfaceStyle = self.appearance.overrideUserInterfaceStyle
+                let viewController = self.createExportCSVScreen(url: url)
                 self.menuNavigationController?.present(viewController, animated: true)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
@@ -789,6 +798,8 @@ public final class Presentation: AUIWindowPresentation {
     }
     
     // MARK: - Select Currency View Controller
+    
+    private weak var presentedSelectCurrencyViewController: SelectCurrencyScreenViewController?
     
     private func presentSelectCurrencyViewController(_ presentingViewController: UIViewController, selectedCurrency: Currency?) throws {
         do {
@@ -805,12 +816,15 @@ public final class Presentation: AUIWindowPresentation {
                 self.delegate.presentation(self, updateSelectedCurrency: currency)
                 self.settingsScreenViewController?.changeDefaultCurrency(currency)
             }
+            presentedSelectCurrencyViewController = viewController
             presentingViewController.present(viewController, animated: true, completion: nil)
         } catch {
             let error = Error("Cannot present SelectCurrencyViewController\n\(error)")
             throw error
         }
     }
+    
+    private weak var pushedSelectCurrencyViewController: SelectCurrencyScreenViewController?
     
     private func pushSelectCurrencyViewController(_ navigationController: UINavigationController, selectedCurrency: Currency?) throws {
         do {
@@ -826,6 +840,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 self.delegate.presentation(self, updateSelectedCurrency: currency)
             }
+            pushedSelectCurrencyViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push SelectCurrencyViewController\n\(error)")
@@ -835,6 +850,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Select Language View Controller
     
+    private weak var pushedSelectLanguageViewController: SelectLanguageScreenViewController?
     private func pushSelectLanguageViewController(_ navigationController: UINavigationController, selectedLanguage: Language?) throws {
         do {
             let languages = try delegate.presentationLanguages(self)
@@ -854,6 +870,7 @@ public final class Presentation: AUIWindowPresentation {
                     throw error
                 }
             }
+            pushedSelectLanguageViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push SelectLanguageViewController\n\(error)")
@@ -1295,6 +1312,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Import CSV Screen
     
+    private weak var importCSVScreen: ImportCSVScreenViewController?
     private func createImportCSVScreen() -> UIDocumentPickerViewController {
         let controller = ImportCSVScreenViewController(appearance: appearance)
         controller.didPickDocument = { [weak self] url in
@@ -1305,6 +1323,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
+        importCSVScreen = controller
         return controller
     }
     
@@ -1313,6 +1332,16 @@ public final class Presentation: AUIWindowPresentation {
         dashboardViewController?.addCategories(file.importedCategories)
         historyViewController?.insertExpenses(file.importedExpenses)
         statisticScreen?.addExpenses(file.importedExpenses)
+    }
+    
+    // MARK: - Export CSV Screen
+    
+    private weak var exportCSVScreen: ExportCSVScreenViewController?
+    
+    private func createExportCSVScreen(url: URL) -> ExportCSVScreenViewController {
+        let viewController = ExportCSVScreenViewController(appearance: appearance, activityItems: [url])
+        exportCSVScreen = viewController
+        return viewController
     }
     
     // MARK: - Unexpected Error Alert Screen

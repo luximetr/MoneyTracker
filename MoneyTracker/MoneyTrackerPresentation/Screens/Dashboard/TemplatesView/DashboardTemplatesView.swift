@@ -162,6 +162,10 @@ final class TemplatesView: AppearanceView {
         return CGSize(width: availableRowWidth, height: 44)
     }
     
+    private var visibleCollectionCells: [AppearanceCollectionViewCell] {
+        return collectionView.visibleCells.compactMap { $0 as? AppearanceCollectionViewCell }
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
@@ -170,6 +174,7 @@ final class TemplatesView: AppearanceView {
         panGestureView.backgroundColor = appearance.secondaryBackground
         titleLabel.textColor = appearance.primaryText
         collectionView.backgroundColor = appearance.primaryBackground
+        visibleCollectionCells.forEach { $0.setAppearance(appearance) }
     }
     
 }

@@ -12,12 +12,14 @@ extension CategoryHorizontalPickerController {
 final class AddCollectionViewCellController: AUIClosuresCollectionViewCellController {
     
     // MARK: Data
-        
+    
+    private(set) var appearance: Appearance
     let text: String
     
     // MARK: Initializer
     
-    init(text: String) {
+    init(appearance: Appearance, text: String) {
+        self.appearance = appearance
         self.text = text
     }
     
@@ -46,6 +48,13 @@ final class AddCollectionViewCellController: AUIClosuresCollectionViewCellContro
     
     static func text(_ text: String) -> String {
         return text
+    }
+    
+    // MARK: - Appearance
+    
+    func setAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        addCollectionViewCell?.setAppearance(appearance)
     }
 
 }

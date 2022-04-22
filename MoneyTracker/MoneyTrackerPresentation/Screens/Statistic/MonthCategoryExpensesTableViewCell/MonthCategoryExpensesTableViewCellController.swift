@@ -21,11 +21,16 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
     
     // MARK: Data
     
+    private(set) var appearance: Appearance
     let expenses: [Expense]
+    private var category: Category? {
+        return expenses.first?.category
+    }
     
     // MARK: Initializer
     
-    init(expenses: [Expense]) {
+    init(appearance: Appearance, expenses: [Expense]) {
+        self.appearance = appearance
         self.expenses = expenses
     }
     
@@ -39,12 +44,10 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
         guard let cell = super.cellForRowAtIndexPath(indexPath) as? MonthCategoryExpensesTableViewCell else { return UITableViewCell() }
         cell.categoryLabel.text = expenses.first?.category.name
         cell.amountLabel.text = setDayExpensesContent()
-        if let category = expenses.first?.category {
-//            cell.categoryIconView.backgroundColor = category.color
+        if let category = category {
             cell.categoryIconView.setIcon(named: category.iconName)
-//            cell.amountLabel.textColor = category.color
-//            cell.categoryLabel.textColor = category.color
         }
+        setAppearance(appearance)
         return cell
     }
     
@@ -64,6 +67,20 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
         }
         let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
         return currenciesAmountsStringsJoined
+    }
+    
+    // MARK: - Appearance
+    
+    private let uiColorProvider = CategoryColorUIColorProvider()
+    
+    func setAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        if let category = expenses.first?.category {
+            let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
+            monthCategoryExpensesTableViewCell?.categoryIconView.backgroundColor = categoryUIColor
+            monthCategoryExpensesTableViewCell?.amountLabel.textColor = categoryUIColor
+            monthCategoryExpensesTableViewCell?.categoryLabel.textColor = categoryUIColor
+        }
     }
 }
 }

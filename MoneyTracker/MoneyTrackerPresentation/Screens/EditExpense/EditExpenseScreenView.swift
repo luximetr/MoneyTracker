@@ -37,7 +37,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         addSubview(balanceAccountPickerHeaderLabel)
         setupBalanceAccountPickerHeaderLabel()
         addSubview(balanceAccountPickerView)
@@ -48,32 +47,25 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(dayDatePickerView)
         dayDatePickerView.tintColor = appearance.primaryText
         dayDatePickerView.datePickerMode = .date
-        dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         addSubview(amountInputView)
         addSubview(commentTextField)
         addSubview(saveButton)
-        setupSaveButton()
         autoLayout()
+        changeAppearance(appearance)
     }
     
     private func setupBalanceAccountPickerHeaderLabel() {
         balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
-        balanceAccountPickerHeaderLabel.textColor = appearance.primaryText
         balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     
     private func setupCategoryPickerHeaderLabel() {
         categoryPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
-        categoryPickerHeaderLabel.textColor = appearance.primaryText
         categoryPickerHeaderLabel.numberOfLines = 1
     }
     
     private func setupCategoryPickerView() {
         categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
-    }
-    
-    private func setupSaveButton() {
-        saveButton.backgroundColor = appearance.primaryActionBackground
     }
     
     // MARK: - AutoLayout
@@ -167,8 +159,13 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
-        setupBalanceAccountPickerHeaderLabel()
-        setupSaveButton()
+        balanceAccountPickerHeaderLabel.textColor = appearance.secondaryText
+        categoryPickerHeaderLabel.textColor = appearance.secondaryText
+        dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        amountInputView.changeAppearance(appearance)
+        commentTextField.changeAppearance(appearance)
+        saveButton.backgroundColor = appearance.primaryActionBackground
+        saveButton.setTitleColor(appearance.primaryActionText, for: .normal)
     }
 }
 }

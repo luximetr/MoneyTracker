@@ -28,13 +28,11 @@ class AddCollectionViewCell: AppearanceCollectionViewCell {
     }
     
     private func setupBorderLayer() {
-        borderLayer.strokeColor = appearance?.secondaryBackground.cgColor
         borderLayer.fillColor = nil
     }
     
     private func setupTextLabel() {
         textLabel.font = Fonts.default(size: 12, weight: .regular)
-        textLabel.textColor = appearance?.secondaryText
         textLabel.textAlignment = .center
     }
     
@@ -92,8 +90,8 @@ class AddCollectionViewCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        setupBorderLayer()
-        setupTextLabel()
+        borderLayer.strokeColor = appearance.secondaryBackground.cgColor
+        textLabel.textColor = appearance.secondaryText
     }
     
 }

@@ -14,10 +14,6 @@ class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: - Subviews
     
     let tableView = UITableView()
-    private var currencyTableViewCells: [CurrencyTableViewCell]? {
-        let currencyTableViewCells = tableView.visibleCells.compactMap({ $0 as? CurrencyTableViewCell })
-        return currencyTableViewCells
-    }
     
     // MARK: - Setup
     
@@ -60,7 +56,6 @@ class ScreenView: BackTitleNavigationBarScreenView {
     
     func currencyTableViewCell(_ indexPath: IndexPath) -> CurrencyTableViewCell {
         let currencyTableViewCell = tableView.dequeueReusableCell(withIdentifier: currencyTableViewCellReuseIdentifier, for: indexPath) as! CurrencyTableViewCell
-        currencyTableViewCell.setAppearance(appearance)
         return currencyTableViewCell
     }
     
@@ -78,7 +73,6 @@ class ScreenView: BackTitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         setupTableView()
-        currencyTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     
 }

@@ -54,7 +54,7 @@ final class CategoryPickerView: AppearanceView {
     
     private let categoryCollectionViewCellReuseIdentifier = "categoryCollectionViewCellReuseIdentifier"
     private func setupCategoryCollectionViewCell() {
-        collectionView.register(CategoryHorizontalPickerItemCell.self, forCellWithReuseIdentifier: categoryCollectionViewCellReuseIdentifier)
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: categoryCollectionViewCellReuseIdentifier)
     }
     
     // MARK: - Layout
@@ -100,8 +100,8 @@ final class CategoryPickerView: AppearanceView {
     
     // MARK: - CategoryCollectionViewCell
     
-    func categoryCollectionViewCell(indexPath: IndexPath) -> CategoryHorizontalPickerItemCell {
-        let categoryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerItemCell
+    func categoryCollectionViewCell(indexPath: IndexPath) -> CategoryCell {
+        let categoryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryCell
         categoryCollectionViewCell.setAppearance(appearance)
         return categoryCollectionViewCell
     }

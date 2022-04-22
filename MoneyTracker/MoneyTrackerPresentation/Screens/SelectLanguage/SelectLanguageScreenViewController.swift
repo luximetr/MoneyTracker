@@ -108,7 +108,7 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
         var cellControllers: [AUITableViewCellController] = []
         for language in languages {
             let isSelected = language == selectedLanguage
-            let cellController = LanguageTableViewCellController(language: language, isSelected: isSelected, languageNameLocalizer: languageNameLocalizer, languageCodeLocalizer: languageCodeLocalizer)
+            let cellController = LanguageTableViewCellController(appearance: appearance, language: language, isSelected: isSelected, languageNameLocalizer: languageNameLocalizer, languageCodeLocalizer: languageCodeLocalizer)
             cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
                 guard let self = self else { return UITableViewCell() }
                 let cell = self.screenView.languageTableViewCell(indexPath)
@@ -130,5 +130,13 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
         }
         sectionController.cellControllers = cellControllers
         tableViewController.sectionControllers = [sectionController]
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        languageCellControllers?.forEach { $0.setAppearance(appearance) }
     }
 }

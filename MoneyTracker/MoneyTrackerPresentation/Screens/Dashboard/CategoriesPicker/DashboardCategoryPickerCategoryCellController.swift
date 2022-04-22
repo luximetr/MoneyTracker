@@ -13,17 +13,20 @@ final class CategoryCellController: AUIClosuresCollectionViewCellController {
     
     // MARK: - Data
     
+    private(set) var appearance: Appearance
     let category: Category
     
     // MARK: - View
     
-    var pickerItemCell: CategoryHorizontalPickerItemCell? {
-        return collectionViewCell as? CategoryHorizontalPickerItemCell
+    typealias CellType = DashboardScreenViewController.CategoryPickerView.CategoryCell
+    var pickerItemCell: CellType? {
+        return collectionViewCell as? CellType
     }
     
     // MARK: - Life cycle
     
-    init(category: Category) {
+    init(appearance: Appearance, category: Category) {
+        self.appearance = appearance
         self.category = category
     }
     
@@ -36,11 +39,14 @@ final class CategoryCellController: AUIClosuresCollectionViewCellController {
     // MARK: Content
     
     private func setContent() {
-        pickerItemCell?.iconView.tintColor = Colors.secondaryText
         pickerItemCell?.iconView.image = UIImage(systemName: category.iconName)
         pickerItemCell?.titleLabel.text = category.name
-        pickerItemCell?.titleLabel.textColor = Colors.secondaryText
-        pickerItemCell?.update(isSelected: false)
+    }
+    
+    // MARK: - Appearance
+    
+    func changeAppearance(_ appearance: Appearance) {
+        pickerItemCell?.setAppearance(appearance)
     }
 }
 }

@@ -13,12 +13,14 @@ final class LanguageTableViewCellController: AUIClosuresTableViewCellController 
     
     // MARK: - Data
     
+    private(set) var appearance: Appearance
     let language: Language
     var isSelected: Bool = false
     
     // MARK: - Initializer
     
-    init(language: Language, isSelected: Bool, languageNameLocalizer: LanguageNameLocalizer, languageCodeLocalizer: LanguageCodeLocalizer) {
+    init(appearance: Appearance, language: Language, isSelected: Bool, languageNameLocalizer: LanguageNameLocalizer, languageCodeLocalizer: LanguageCodeLocalizer) {
+        self.appearance = appearance
         self.language = language
         self.isSelected = isSelected
         self.languageNameLocalizer = languageNameLocalizer
@@ -34,7 +36,7 @@ final class LanguageTableViewCellController: AUIClosuresTableViewCellController 
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = super.cellForRowAtIndexPath(indexPath) as? LanguageTableViewCell else { return UITableViewCell() }
         setContent()
-        cell.setIsSelected(isSelected, animated: false)
+        setAppearance(appearance)
         return cell
     }
     
@@ -55,5 +57,12 @@ final class LanguageTableViewCellController: AUIClosuresTableViewCellController 
         languageTableViewCell?.codeLabel.text = languageCodeLocalizer.code(language)
     }
     
+    // MARK: - Appearance
+    
+    func setAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        languageTableViewCell?.setAppearance(appearance)
+        languageTableViewCell?.setIsSelected(isSelected, animated: true)
+    }
 }
 }

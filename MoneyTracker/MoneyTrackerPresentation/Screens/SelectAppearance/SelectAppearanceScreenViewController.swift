@@ -102,7 +102,7 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
         var cellControllers: [AUITableViewCellController] = []
         for appearanceSetting in appearanceSettings {
             let isSelected = appearanceSetting == selectedAppearanceSetting
-            let cellController = AppearanceSettingTableViewCellController(appearanceSetting: appearanceSetting, isSelected: isSelected, appearanceTypeNameLocalizer: appearanceTypeNameLocalizer)
+            let cellController = AppearanceSettingTableViewCellController(appearance: appearance, appearanceSetting: appearanceSetting, isSelected: isSelected, appearanceTypeNameLocalizer: appearanceTypeNameLocalizer)
             cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
                 guard let self = self else { return UITableViewCell() }
                 let cell = self.screenView.appearanceSettingTableViewCell(indexPath)
@@ -126,10 +126,15 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
         tableViewController.sectionControllers = [sectionController]
     }
     
+    private var appearancesSettingCells: [AppearanceSettingTableViewCellController] {
+        return sectionController.cellControllers.compactMap { $0 as? AppearanceSettingTableViewCellController }
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         screenView.changeAppearance(appearance)
+        appearancesSettingCells.forEach { $0.setAppearance(appearance) }
     }
 }

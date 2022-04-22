@@ -16,6 +16,7 @@ class CategoryHorizontalPickerController: EmptyViewController {
     
     // MARK: - Data
     
+    private(set) var appearance: Appearance
     var selectedCategory: Category?
     
     // MARK: - Controllers
@@ -40,6 +41,22 @@ class CategoryHorizontalPickerController: EmptyViewController {
         super.changeLanguage(language)
     }
     
+    // MARK: - Appearance
+    
+    func changeAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        categoryHorizontalPickerView.changeAppearance(appearance)
+        categoriesCellControllers.forEach { $0.setAppearance(appearance) }
+        addCellController?.setAppearance(appearance)
+    }
+    
+    // MARK: - Initializer
+    
+    init(language: Language, appearance: Appearance) {
+        self.appearance = appearance
+        super.init(language: language)
+    }
+    
     // MARK: - View - Setup
     
     override func setupView() {
@@ -54,9 +71,10 @@ class CategoryHorizontalPickerController: EmptyViewController {
     
     // MARK: - Configuration
     
+    private let sectionController = AUIEmptyCollectionViewSectionController()
+    
     func showOptions(categories: [Category], selectedCategory: Category) {
         self.selectedCategory = selectedCategory
-        let sectionController = AUIEmptyCollectionViewSectionController()
         var cellControllers = createItemCellControllers(categories: categories, selectedCategory: selectedCategory)
         let text = localizer.localizeText("add")
         let addCellController = createAddCellController(text: text)
@@ -76,7 +94,7 @@ class CategoryHorizontalPickerController: EmptyViewController {
     }
     
     private func createItemCellController(category: Category, isSelected: Bool) -> AUICollectionViewCellController {
-        let cellController = CategoryHorizontalPickerItemCellController(category: category, isSelected: isSelected)
+        let cellController = CategoryHorizontalPickerItemCellController(category: category, isSelected: isSelected, appearance: appearance)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.categoryHorizontalPickerView.categoryCollectionViewCell(indexPath: indexPath, category: category, isSelected: isSelected)
@@ -91,8 +109,12 @@ class CategoryHorizontalPickerController: EmptyViewController {
         return cellController
     }
     
+    private var categoriesCellControllers: [CategoryHorizontalPickerItemCellController] {
+        return sectionController.cellControllers.compactMap { $0 as? CategoryHorizontalPickerItemCellController }
+    }
+    
     private func createAddCellController(text: String) -> AddCollectionViewCellController {
-        let cellController = AddCollectionViewCellController(text: text)
+        let cellController = AddCollectionViewCellController(appearance: appearance, text: text)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             return self.categoryHorizontalPickerView.addCollectionViewCell(indexPath: indexPath)
@@ -106,6 +128,10 @@ class CategoryHorizontalPickerController: EmptyViewController {
             self.addCategory()
         }
         return cellController
+    }
+    
+    private var addCellController: AddCollectionViewCellController? {
+        return sectionController.cellControllers.first(where: { $0 is AddCollectionViewCellController }) as? AddCollectionViewCellController
     }
     
     // MARK: - Item cell controller - Find
