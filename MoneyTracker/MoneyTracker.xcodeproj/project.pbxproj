@@ -299,6 +299,7 @@
 		DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C82810EA7300150822 /* TopUpAccountAdapter.swift */; };
 		DB7793CB2810EA9900150822 /* AddingTopUpAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793CA2810EA9900150822 /* AddingTopUpAccountAdapter.swift */; };
 		DB7793CD28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793CC28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift */; };
+		DB7793D028124CB500150822 /* ExportCSVScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793CF28124CB500150822 /* ExportCSVScreenViewController.swift */; };
 		DB7BA7FE27F8749600A3B3BA /* CategoryIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA7FD27F8749600A3B3BA /* CategoryIconView.swift */; };
 		DB7BA80127F87C8800A3B3BA /* SelectIconScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA80027F87C8800A3B3BA /* SelectIconScreenViewController.swift */; };
 		DB7BA80327F87CB500A3B3BA /* SelectIconScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BA80227F87CB500A3B3BA /* SelectIconScreenView.swift */; };
@@ -830,6 +831,7 @@
 		DB7793C82810EA7300150822 /* TopUpAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountAdapter.swift; sourceTree = "<group>"; };
 		DB7793CA2810EA9900150822 /* AddingTopUpAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTopUpAccountAdapter.swift; sourceTree = "<group>"; };
 		DB7793CC28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCategoryPickerCategoryCell.swift; sourceTree = "<group>"; };
+		DB7793CF28124CB500150822 /* ExportCSVScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCSVScreenViewController.swift; sourceTree = "<group>"; };
 		DB7BA7FD27F8749600A3B3BA /* CategoryIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryIconView.swift; sourceTree = "<group>"; };
 		DB7BA80027F87C8800A3B3BA /* SelectIconScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconScreenViewController.swift; sourceTree = "<group>"; };
 		DB7BA80227F87CB500A3B3BA /* SelectIconScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconScreenView.swift; sourceTree = "<group>"; };
@@ -1392,6 +1394,7 @@
 				2EC22DC428105D9400530139 /* SelectAppearance */,
 				2EC96DE827F60A8F009A9AEA /* Templates */,
 				DB74869327CA1518004DF67B /* ImportCSV */,
+				DB7793CE28124C9300150822 /* ExportCSV */,
 				2E30391527BDAE6C0084B96C /* UnexpectedError */,
 			);
 			path = Screens;
@@ -2294,6 +2297,14 @@
 			path = Statistic;
 			sourceTree = "<group>";
 		};
+		DB7793CE28124C9300150822 /* ExportCSV */ = {
+			isa = PBXGroup;
+			children = (
+				DB7793CF28124CB500150822 /* ExportCSVScreenViewController.swift */,
+			);
+			path = ExportCSV;
+			sourceTree = "<group>";
+		};
 		DB7BA7FC27F873DE00A3B3BA /* CategoryIconView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3047,6 +3058,7 @@
 				2EB10A3527A6FE8500743416 /* Images.swift in Sources */,
 				2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */,
 				DB400424280EC9FA004073D0 /* CategoryColorHorizontalPickerController.swift in Sources */,
+				DB7793D028124CB500150822 /* ExportCSVScreenViewController.swift in Sources */,
 				2EC19ACE27A7F64000E1A6FA /* CategoriesListScreenViewController.swift in Sources */,
 				2E2A6EE027EC4FEC0084054C /* EditExpenseScreenViewController.swift in Sources */,
 				2ED1883D280AC17A00BA52EF /* AppearanceView.swift in Sources */,

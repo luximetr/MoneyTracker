@@ -85,6 +85,7 @@ public final class Presentation: AUIWindowPresentation {
         presentedAddTemplateScreenViewController?.changeAppearance(appearance)
         pushedEditTemplateScreenViewController?.changeAppearance(appearance)
         importCSVScreen?.changeAppearance(appearance)
+        exportCSVScreen?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -787,8 +788,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             do {
                 let url = try self.delegate.presentationDidStartExpensesCSVExport(self)
-                let viewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                viewController.overrideUserInterfaceStyle = self.appearance.overrideUserInterfaceStyle
+                let viewController = self.createExportCSVScreen(url: url)
                 self.menuNavigationController?.present(viewController, animated: true)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
@@ -1332,6 +1332,16 @@ public final class Presentation: AUIWindowPresentation {
         dashboardViewController?.addCategories(file.importedCategories)
         historyViewController?.insertExpenses(file.importedExpenses)
         statisticScreen?.addExpenses(file.importedExpenses)
+    }
+    
+    // MARK: - Export CSV Screen
+    
+    private weak var exportCSVScreen: ExportCSVScreenViewController?
+    
+    private func createExportCSVScreen(url: URL) -> ExportCSVScreenViewController {
+        let viewController = ExportCSVScreenViewController(appearance: appearance, activityItems: [url])
+        exportCSVScreen = viewController
+        return viewController
     }
     
     // MARK: - Unexpected Error Alert Screen
