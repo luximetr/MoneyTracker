@@ -26,14 +26,6 @@ class CurrencyTableViewCell: AppearanceTableViewCell {
         contentView.addSubview(codeLabel)
     }
     
-    private func setupNameLabel(appearance: Appearance) {
-        nameLabel.textColor = appearance.primaryText
-    }
-    
-    private func setupCodeLabel(appearance: Appearance) {
-        codeLabel.textColor = appearance.primaryText
-    }
-    
     // MARK: - Layout
     
     override func layoutSubviews() {
@@ -61,12 +53,8 @@ class CurrencyTableViewCell: AppearanceTableViewCell {
     
     // MARK: - Update
     
-    override var isSelected: Bool {
-        get { return super.isSelected }
-        set {
-            codeLabel.textColor = getCodeLabelColor(isSelected: isSelected)
-            super.isSelected = newValue
-        }
+    func setIsSelected(_ isSelected: Bool) {
+        codeLabel.textColor = getCodeLabelColor(isSelected: isSelected)
     }
     
     private func getCodeLabelColor(isSelected: Bool) -> UIColor {
@@ -82,8 +70,7 @@ class CurrencyTableViewCell: AppearanceTableViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
-        setupNameLabel(appearance: appearance)
-        setupCodeLabel(appearance: appearance)
+        nameLabel.textColor = appearance.primaryText
     }
 }
 }

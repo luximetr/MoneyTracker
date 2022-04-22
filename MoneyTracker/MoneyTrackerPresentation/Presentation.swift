@@ -77,6 +77,8 @@ public final class Presentation: AUIWindowPresentation {
         presentedAddAccoutScreenViewController?.changeAppearance(appearance)
         pushedEditAccoutScreenViewController?.changeAppearance(appearance)
         settingsScreenViewController?.changeAppearance(appearance)
+        pushedSelectCurrencyViewController?.changeAppearance(appearance)
+        presentedSelectCurrencyViewController?.changeAppearance(appearance)
         pushedTemplatesScreenViewController?.changeAppearance(appearance)
         pushedAddTemplateScreenViewController?.changeAppearance(appearance)
         presentedAddTemplateScreenViewController?.changeAppearance(appearance)
@@ -730,9 +732,9 @@ public final class Presentation: AUIWindowPresentation {
         }
         viewController.didSelectCurrencyClosure = { [weak self] in
             guard let self = self else { return }
-            guard let settingsNavigationController = self.settingsNavigationController else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
             do {
-                try self.pushSelectCurrencyViewController(settingsNavigationController, selectedCurrency: nil)
+                try self.pushSelectCurrencyViewController(menuNavigationController, selectedCurrency: nil)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
@@ -795,6 +797,8 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Select Currency View Controller
     
+    private weak var presentedSelectCurrencyViewController: SelectCurrencyScreenViewController?
+    
     private func presentSelectCurrencyViewController(_ presentingViewController: UIViewController, selectedCurrency: Currency?) throws {
         do {
             let currencies = delegate.presentationCurrencies(self)
@@ -810,12 +814,15 @@ public final class Presentation: AUIWindowPresentation {
                 self.delegate.presentation(self, updateSelectedCurrency: currency)
                 self.settingsScreenViewController?.changeDefaultCurrency(currency)
             }
+            presentedSelectCurrencyViewController = viewController
             presentingViewController.present(viewController, animated: true, completion: nil)
         } catch {
             let error = Error("Cannot present SelectCurrencyViewController\n\(error)")
             throw error
         }
     }
+    
+    private weak var pushedSelectCurrencyViewController: SelectCurrencyScreenViewController?
     
     private func pushSelectCurrencyViewController(_ navigationController: UINavigationController, selectedCurrency: Currency?) throws {
         do {
@@ -831,6 +838,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 self.delegate.presentation(self, updateSelectedCurrency: currency)
             }
+            pushedSelectCurrencyViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push SelectCurrencyViewController\n\(error)")
