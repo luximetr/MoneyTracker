@@ -84,6 +84,7 @@ public final class Presentation: AUIWindowPresentation {
         pushedAddTemplateScreenViewController?.changeAppearance(appearance)
         presentedAddTemplateScreenViewController?.changeAppearance(appearance)
         pushedEditTemplateScreenViewController?.changeAppearance(appearance)
+        importCSVScreen?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -1311,6 +1312,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Import CSV Screen
     
+    private weak var importCSVScreen: ImportCSVScreenViewController?
     private func createImportCSVScreen() -> UIDocumentPickerViewController {
         let controller = ImportCSVScreenViewController(appearance: appearance)
         controller.didPickDocument = { [weak self] url in
@@ -1321,6 +1323,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
+        importCSVScreen = controller
         return controller
     }
     
