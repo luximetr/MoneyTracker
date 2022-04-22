@@ -23,18 +23,18 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
-        setupLanguageTableViewCell()
+        setupAppearanceSettingTableViewCell()
+        changeAppearance(appearance)
     }
     
     private func setupTableView() {
         tableView.separatorStyle = .none
     }
     
-    private let appearanceSettingTableViewCellReuseIdentifier = "languageTableViewCellReuseIdentifier"
-    private func setupLanguageTableViewCell() {
+    private let appearanceSettingTableViewCellReuseIdentifier = "appearanceSettingTableViewCellReuseIdentifier"
+    private func setupAppearanceSettingTableViewCell() {
         tableView.register(AppearanceSettingTableViewCell.self, forCellReuseIdentifier: appearanceSettingTableViewCellReuseIdentifier)
     }
     
@@ -58,9 +58,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: - AppearanceSettingTableViewCell
     
     func appearanceSettingTableViewCell(_ indexPath: IndexPath) -> AppearanceSettingTableViewCell {
-        let languageTableViewCell = tableView.dequeueReusableCell(withIdentifier: appearanceSettingTableViewCellReuseIdentifier, for: indexPath) as! AppearanceSettingTableViewCell
-        languageTableViewCell.setAppearance(appearance)
-        return languageTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: appearanceSettingTableViewCellReuseIdentifier, for: indexPath) as! AppearanceSettingTableViewCell
+        return cell
     }
     
     func appearanceSettingTableViewCellEstimatedHeight() -> CGFloat {

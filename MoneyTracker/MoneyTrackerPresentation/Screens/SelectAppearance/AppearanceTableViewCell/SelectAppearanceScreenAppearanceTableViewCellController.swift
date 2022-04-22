@@ -35,7 +35,7 @@ final class AppearanceSettingTableViewCellController: AUIClosuresTableViewCellCo
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = super.cellForRowAtIndexPath(indexPath) as? AppearanceSettingTableViewCell else { return UITableViewCell() }
         setContent()
-        cell.setIsSelected(isSelected, animated: false)
+        setAppearance(appearance)
         return cell
     }
     
