@@ -34,6 +34,7 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
     override func cellForItemAtIndexPath(_ indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.cellForItemAtIndexPath(indexPath)
         setContent()
+        setAppearance(appearance)
         return cell
     }
     
