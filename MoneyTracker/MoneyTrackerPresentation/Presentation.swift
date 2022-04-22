@@ -79,6 +79,7 @@ public final class Presentation: AUIWindowPresentation {
         settingsScreenViewController?.changeAppearance(appearance)
         pushedSelectCurrencyViewController?.changeAppearance(appearance)
         presentedSelectCurrencyViewController?.changeAppearance(appearance)
+        pushedSelectLanguageViewController?.changeAppearance(appearance)
         pushedTemplatesScreenViewController?.changeAppearance(appearance)
         pushedAddTemplateScreenViewController?.changeAppearance(appearance)
         presentedAddTemplateScreenViewController?.changeAppearance(appearance)
@@ -848,6 +849,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Select Language View Controller
     
+    private weak var pushedSelectLanguageViewController: SelectLanguageScreenViewController?
     private func pushSelectLanguageViewController(_ navigationController: UINavigationController, selectedLanguage: Language?) throws {
         do {
             let languages = try delegate.presentationLanguages(self)
@@ -867,6 +869,7 @@ public final class Presentation: AUIWindowPresentation {
                     throw error
                 }
             }
+            pushedSelectLanguageViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push SelectLanguageViewController\n\(error)")

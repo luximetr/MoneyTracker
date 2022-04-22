@@ -26,14 +26,6 @@ final class LanguageTableViewCell: AppearanceTableViewCell {
         contentView.addSubview(codeLabel)
     }
     
-    private func setupNameLabel(appearance: Appearance) {
-        nameLabel.textColor = appearance.primaryText
-    }
-    
-    private func setupCodeLabel(appearance: Appearance) {
-        codeLabel.textColor = appearance.primaryText
-    }
-    
     // MARK: - Layout
     
     override func layoutSubviews() {
@@ -96,8 +88,7 @@ final class LanguageTableViewCell: AppearanceTableViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
-        setupNameLabel(appearance: appearance)
-        setupCodeLabel(appearance: appearance)
+        nameLabel.textColor = appearance.primaryText
     }
 
 }
