@@ -33,26 +33,18 @@ public final class Presentation: AUIWindowPresentation {
     }
     
     private func appearance(_ appearanceSetting: AppearanceSetting) -> Appearance {
-        let appearance: Appearance
         switch appearanceSetting {
         case .light:
-            appearance = LightAppearance()
+            return LightAppearance()
         case .dark:
-            appearance = DarkAppearance()
+            return DarkAppearance()
         case .system:
-            let overrideUserInterfaceStyle = window.overrideUserInterfaceStyle
-            switch overrideUserInterfaceStyle {
-            case .light:
-                appearance = LightAppearance()
-            case .dark:
-                appearance = DarkAppearance()
-            case .unspecified:
-                appearance = LightAppearance()
-            @unknown default:
-                appearance = LightAppearance()
+            let userInterfaceStyle = window.traitCollection.userInterfaceStyle
+            switch userInterfaceStyle {
+                case .dark: return DarkAppearance()
+                default: return LightAppearance()
             }
         }
-        return appearance
     }
     
     private var appearanceSetting: AppearanceSetting
