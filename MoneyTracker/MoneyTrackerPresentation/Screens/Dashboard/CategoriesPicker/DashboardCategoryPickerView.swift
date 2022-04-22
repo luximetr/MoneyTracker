@@ -30,23 +30,21 @@ final class CategoryPickerView: AppearanceView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         addSubview(titleLabel)
         setupTitleLabel()
         addSubview(addExpenseButton)
         addSubview(collectionView)
         setupCollectionView()
         setupCategoryCollectionViewCell()
+        changeAppearance(appearance)
     }
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
-        titleLabel.textColor = appearance.primaryText
     }
         
     private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
-        collectionView.backgroundColor = appearance.primaryBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(CategoryHorizontalPickerController.AddCollectionViewCell.self, forCellWithReuseIdentifier: addCollectionViewCellReuseIdentifier)
@@ -130,7 +128,7 @@ final class CategoryPickerView: AppearanceView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         titleLabel.textColor = appearance.primaryText
-        addExpenseButton.changeAppearance(appearance)
+        addExpenseButton.setTitleColor(appearance.accent, for: .normal)
         collectionView.backgroundColor = appearance.primaryBackground
     }
     

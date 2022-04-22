@@ -140,7 +140,7 @@ final class AccountPickerViewController: EmptyViewController {
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
         accountsCellControllers?.forEach { $0.setAppearance(appearance) }
-        
+        addCellController?.setAppearance(appearance)
     }
     
     // MARK: Events

@@ -30,23 +30,21 @@ final class AccountPickerView: AppearanceView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
         addSubview(titleLabel)
         setupTitleLabel()
         addSubview(transferButton)
         addSubview(collectionView)
         setupCollectionView()
+        changeAppearance(appearance)
     }
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
-        titleLabel.textColor = appearance.primaryText
     }
     
     private let accountCollectionViewCellReuseIdentifier = "accountCollectionViewCellReuseIdentifier"
     private let addCollectionViewCellReuseIdentifier = "addCollectionViewCellReuseIdentifier"
     private func setupCollectionView() {
-        collectionView.backgroundColor = appearance.primaryBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(BalanceAccountHorizontalPickerItemCell.self, forCellWithReuseIdentifier: accountCollectionViewCellReuseIdentifier)
@@ -126,7 +124,7 @@ final class AccountPickerView: AppearanceView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         titleLabel.textColor = appearance.primaryText
-        transferButton.changeAppearance(appearance)
+        transferButton.setTitleColor(appearance.accent, for: .normal)
         collectionView.backgroundColor = appearance.primaryBackground
     }
     

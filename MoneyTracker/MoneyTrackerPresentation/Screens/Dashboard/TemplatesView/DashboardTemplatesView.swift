@@ -33,7 +33,6 @@ final class TemplatesView: AppearanceView {
         super.setup()
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        backgroundColor = appearance.primaryBackground
         addSubview(panGestureView)
         setupPanGestureView()
         addSubview(titleLabel)
@@ -42,19 +41,17 @@ final class TemplatesView: AppearanceView {
         addSubview(collectionView)
         setupCollectionView()
         setupTemplateCollectionViewCell()
+        changeAppearance(appearance)
     }
     
     private func setupPanGestureView() {
-        panGestureView.backgroundColor = appearance.secondaryBackground
     }
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.default(size: 18, weight: .regular)
-        titleLabel.textColor = appearance.primaryText
     }
     
     private func setupCollectionView() {
-        collectionView.backgroundColor = appearance.primaryBackground
     }
         
     private let templateCollectionViewCellReuseIdentifier = "templateCollectionViewCellReuseIdentifier"
@@ -171,6 +168,7 @@ final class TemplatesView: AppearanceView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
+        addButton.setTitleColor(appearance.accent, for: .normal)
         panGestureView.backgroundColor = appearance.secondaryBackground
         titleLabel.textColor = appearance.primaryText
         collectionView.backgroundColor = appearance.primaryBackground
