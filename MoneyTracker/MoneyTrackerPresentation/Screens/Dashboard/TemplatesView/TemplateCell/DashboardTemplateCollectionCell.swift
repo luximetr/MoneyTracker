@@ -20,9 +20,8 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
     
     override func setup() {
         super.setup()
-        layer.shadowOpacity = 1
-        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        layer.masksToBounds = false
+        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = 10
         contentView.addSubview(titleLabel)
         setupTitleLabel()
     }
@@ -37,15 +36,11 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
-        layer.shadowRadius = 4.0
-        layer.shadowOffset = CGSize(width: 0, height: 2)
         layoutTitleLabel()
     }
     
     override func layoutContentView() {
         super.layoutContentView()
-        contentView.layer.cornerRadius = 10
     }
     
     private func layoutTitleLabel() {
@@ -65,11 +60,9 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
     }
     func willSetIsHighlighted(_ newValue: Bool) {
         if newValue {
-            layer.shadowOpacity = 0.4
-            contentView.alpha = 0.6
+            titleLabel.alpha = 0.6
         } else {
-            layer.shadowOpacity = 1
-            contentView.alpha = 1
+            titleLabel.alpha = 1
         }
     }
     
@@ -78,6 +71,7 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         contentView.backgroundColor = appearance.primaryBackground
+        contentView.layer.borderColor = appearance.tertiaryBackground.cgColor
         titleLabel.textColor = appearance.primaryText
     }
     

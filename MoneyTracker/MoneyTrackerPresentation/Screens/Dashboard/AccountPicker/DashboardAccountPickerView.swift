@@ -88,8 +88,8 @@ final class AccountPickerView: AppearanceView {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         collectionView.frame = frame
         collectionView.contentInset = UIEdgeInsets(top: 5, left: 22, bottom: 5, right: 22)
-        collectionViewFlowLayout.minimumInteritemSpacing = 2
-        collectionViewFlowLayout.minimumLineSpacing = 2
+        collectionViewFlowLayout.minimumInteritemSpacing = 3
+        collectionViewFlowLayout.minimumLineSpacing = 3
     }
     
     // MARK: - AccountCollectionViewCell
