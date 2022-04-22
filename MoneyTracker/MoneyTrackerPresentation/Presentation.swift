@@ -15,8 +15,8 @@ public final class Presentation: AUIWindowPresentation {
     
     public init(window: UIWindow, appearanceSetting: AppearanceSetting) {
         self.appearanceSetting = appearanceSetting
+        self.appearance = Presentation.appearance(appearanceSetting, window: window)
         super.init(window: window)
-        self.appearance = appearance(appearanceSetting)
     }
     
     // MARK: - Delegate
@@ -32,7 +32,7 @@ public final class Presentation: AUIWindowPresentation {
         settingsScreenViewController?.changeAppearanceSetting(appearanceSetting)
     }
     
-    private func appearance(_ appearanceSetting: AppearanceSetting) -> Appearance {
+    private static func appearance(_ appearanceSetting: AppearanceSetting, window: UIWindow) -> Appearance {
         switch appearanceSetting {
         case .light:
             return LightAppearance()
@@ -47,8 +47,12 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
+    private func appearance(_ appearanceSetting: AppearanceSetting) -> Appearance {
+        return Presentation.appearance(appearanceSetting, window: window)
+    }
+    
     private var appearanceSetting: AppearanceSetting
-    private var appearance: Appearance = LightAppearance()
+    private var appearance: Appearance
     
     private func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
