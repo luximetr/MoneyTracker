@@ -1070,10 +1070,8 @@
 		2E91154527A9308B00359F21 /* MoneyTrackerStorage */ = {
 			isa = PBXGroup;
 			children = (
-				2ECA9CF92814247200DB27A8 /* SqliteDatabase */,
 				2E91154F27A936B000359F21 /* Storage.swift */,
-				2E5279582811AFAC00BC916B /* SqliteDatabase.swift */,
-				2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */,
+				2ECA9CF92814247200DB27A8 /* SqliteDatabase */,
 				2E91155127A9373E00359F21 /* Data */,
 				DBB7CF7F27AC0E39002C2EAE /* CoreData */,
 				DBD6ACF627B4FB9F00389236 /* UserDefaults */,
@@ -1762,6 +1760,8 @@
 		2ECA9CF92814247200DB27A8 /* SqliteDatabase */ = {
 			isa = PBXGroup;
 			children = (
+				2E5279582811AFAC00BC916B /* SqliteDatabase.swift */,
+				2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */,
 			);
 			path = SqliteDatabase;
 			sourceTree = "<group>";

@@ -113,11 +113,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, orderCategories categories: [PresentationCategory]) throws {
+    func presentation(_ presentation: Presentation, orderCategories presentationCategories: [PresentationCategory]) throws {
         do {
-            try storage.saveCategoriesOrder(orderedIds: categories.map({ $0.id }))
+            let categoryAdapter = CategoryAdapter()
+            let storageCategories = presentationCategories.map({ categoryAdapter.adaptToStorage(presentationCategory: $0) })
+            try storage.saveCategoriesOrder(orderedIds: storageCategories)
         } catch {
-            let error = Error("Cannot order categories \(categories)\n\(error)")
+            let error = Error("Cannot order categories \(presentationCategories)\n\(error)")
             throw error
         }
     }
