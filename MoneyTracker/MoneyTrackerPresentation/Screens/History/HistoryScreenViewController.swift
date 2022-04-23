@@ -14,6 +14,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     private var expenses: [Expense]
     
+    var backClosure: (() -> Void)?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
     var selectExpenseClosure: ((Expense) -> Void)?
     
@@ -36,6 +37,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         tableViewController.tableView = screenView.tableView
         setTableViewControllerContent()
         setContent()
@@ -75,6 +77,10 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     // MARK: Events
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
     
     func deleteExpense(_ deletingExpense: Expense) {
         if let index = expenses.firstIndex(of: deletingExpense) {

@@ -14,7 +14,6 @@ final class ScreenView: AppearanceView {
     
     init(appearance: Appearance) {
         self.mainTabBarItem = TabBarItem(appearance: appearance)
-        self.historyTabBarItem = TabBarItem(appearance: appearance)
         self.statisticTabBarItem = TabBarItem(appearance: appearance)
         self.settingsTabBarItem = TabBarItem(appearance: appearance)
         super.init(appearance: appearance)
@@ -25,10 +24,9 @@ final class ScreenView: AppearanceView {
     private var screenView: UIView?
     private let tabBarView = UIView()
     let mainTabBarItem: TabBarItem
-    let historyTabBarItem: TabBarItem
     let statisticTabBarItem: TabBarItem
     let settingsTabBarItem: TabBarItem
-    var tabBarItems: [TabBarItem] { [mainTabBarItem, historyTabBarItem, statisticTabBarItem, settingsTabBarItem] }
+    var tabBarItems: [TabBarItem] { [mainTabBarItem, statisticTabBarItem, settingsTabBarItem] }
     private var selectedTabBarItem: TabBarItem?
     
     // MARK: - Setup
@@ -39,8 +37,6 @@ final class ScreenView: AppearanceView {
         setupTabBarView()
         tabBarView.addSubview(mainTabBarItem)
         mainTabBarItem.pictureImageView.image = Images.card.withRenderingMode(.alwaysTemplate)
-        tabBarView.addSubview(historyTabBarItem)
-        historyTabBarItem.pictureImageView.image = Images.expensesHistory.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(statisticTabBarItem)
         statisticTabBarItem.pictureImageView.image = Images.statistic.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(settingsTabBarItem)
@@ -105,13 +101,6 @@ final class ScreenView: AppearanceView {
         setScreenView(homeScreenView)
     }
     
-    func setHistoryScreenView(_ historyScreenView: UIView) {
-        selectedTabBarItem?.setSelected(false, animated: false)
-        selectedTabBarItem = historyTabBarItem
-        historyTabBarItem.setSelected(true, animated: false)
-        setScreenView(historyScreenView)
-    }
-    
     func setStatisticScreenView(_ homeScreenView: UIView) {
         selectedTabBarItem?.setSelected(false, animated: false)
         selectedTabBarItem = statisticTabBarItem
@@ -140,7 +129,6 @@ final class ScreenView: AppearanceView {
         super.changeAppearance(appearance)
         tabBarView.backgroundColor = appearance.primaryBackground
         mainTabBarItem.changeAppearance(appearance)
-        historyTabBarItem.changeAppearance(appearance)
         statisticTabBarItem.changeAppearance(appearance)
         settingsTabBarItem.changeAppearance(appearance)
     }

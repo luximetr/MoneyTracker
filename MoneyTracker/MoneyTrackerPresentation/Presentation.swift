@@ -60,7 +60,7 @@ public final class Presentation: AUIWindowPresentation {
         dashboardViewController?.changeAppearance(appearance)
         pushedAddExpenseViewController?.changeAppearance(appearance)
         statisticScreen?.changeAppearance(appearance)
-        historyViewController?.changeAppearance(appearance)
+        pushedHistoryViewController?.changeAppearance(appearance)
         pushedEditExpenseViewController?.changeAppearance(appearance)
         selectIconViewController?.changeAppearance(appearance)
         pushedCategoriesViewController?.changeAppearance(appearance)
@@ -115,12 +115,6 @@ public final class Presentation: AUIWindowPresentation {
         dashboardNavigationController.viewControllers = [dashboardViewController]
         self.dashboardViewController = dashboardViewController
         self.dashboardNavigationController = dashboardNavigationController
-        // History
-        let historyViewController = createHistoryViewController()
-        let historyNavigationController = AUINavigationBarHiddenNavigationController()
-        historyNavigationController.viewControllers = [historyViewController]
-        self.historyViewController = historyViewController
-        self.historyNavigationController = historyNavigationController
         // Statistic
         let statisticViewController = createStatisticScreen()
         let statisticNavigationController = AUINavigationBarHiddenNavigationController()
@@ -133,13 +127,13 @@ public final class Presentation: AUIWindowPresentation {
         self.settingsScreenViewController = settingsViewController
         self.settingsNavigationController = settingsNavigationController
         // Menu
-        let menuViewController = MenuScreenViewController(appearance: appearance, language: language, dashboardScreenViewController: dashboardNavigationController, historyScreenViewController: historyNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
+        let menuViewController = MenuScreenViewController(appearance: appearance, language: language, dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.settings()
+        menuViewController.dashboard()
     }
     
     // MARK: - Menu Navigation Controller
@@ -163,6 +157,15 @@ public final class Presentation: AUIWindowPresentation {
         let templates = (try? delegate.presentationExpenseTemplates(self)) ?? []
         let language = try! delegate.presentationLanguage(self)
         let viewController = DashboardScreenViewController(appearance: appearance, language: language, categories: categories, accounts: accounts, templates: templates)
+        viewController.historyClosure = { [weak self] in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            do {
+                try self.pushHistoryViewController(menuNavigationController)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
         viewController.addExpenseClosure = { [weak self] category in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
@@ -221,7 +224,7 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let addedExpense = try self.delegate.presentation(self, useTemplate: template)
                 self.displayExpenseAddedSnackbarViewController(template: template, expense: addedExpense)
-                self.historyViewController?.insertExpense(addedExpense)
+                self.pushedHistoryViewController?.insertExpense(addedExpense)
                 self.statisticScreen?.addExpense(addedExpense)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
@@ -258,7 +261,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { throw Error("") }
                 do {
                     let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
-                    self.historyViewController?.insertExpense(addedExpense)
+                    self.pushedHistoryViewController?.insertExpense(addedExpense)
                     self.statisticScreen?.addExpense(addedExpense)
                     return addedExpense
                 } catch {
@@ -270,7 +273,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     let deletedExpense = try self.delegate.presentation(self, deleteExpense: expense)
-                    self.historyViewController?.deleteExpense(deletedExpense)
+                    self.pushedHistoryViewController?.deleteExpense(deletedExpense)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -397,37 +400,42 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: - History Navigation Controller
-    
-    private weak var historyNavigationController: UINavigationController?
-    
     // MARK: - History View Controller
     
-    private weak var historyViewController: HistoryScreenViewController?
-    private func createHistoryViewController() -> HistoryScreenViewController {
-        let expenses = (try? delegate.presentationExpenses(self)) ?? []
-        let language = try! delegate.presentationLanguage(self)
-        let viewController = HistoryScreenViewController(appearance: appearance, language: language, expenses: expenses)
-        viewController.deleteExpenseClosure = { [weak self] deletingExpense in
-            guard let self = self else { return }
-            do {
-                let deletedExpense = try self.delegate.presentation(self, deleteExpense: deletingExpense)
-                self.statisticScreen?.deleteExpense(deletedExpense)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
+    private weak var pushedHistoryViewController: HistoryScreenViewController?
+    private func pushHistoryViewController(_ navigationController: UINavigationController) throws {
+        do {
+            let expenses = try delegate.presentationExpenses(self)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = HistoryScreenViewController(appearance: appearance, language: language, expenses: expenses)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
             }
-        }
-        viewController.selectExpenseClosure = { [weak self] expense in
-            guard let self = self else { return }
-            guard let menuNavigationController = self.menuNavigationController else { return }
-            do {
-                try self.pushEditExpenseViewController(menuNavigationController, expense: expense)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
+            viewController.deleteExpenseClosure = { [weak self] deletingExpense in
+                guard let self = self else { return }
+                do {
+                    let deletedExpense = try self.delegate.presentation(self, deleteExpense: deletingExpense)
+                    self.statisticScreen?.deleteExpense(deletedExpense)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
             }
+            viewController.selectExpenseClosure = { [weak self] expense in
+                guard let self = self else { return }
+                guard let menuNavigationController = self.menuNavigationController else { return }
+                do {
+                    try self.pushEditExpenseViewController(menuNavigationController, expense: expense)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            self.pushedHistoryViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push HistoryViewController\n\(error)")
+            throw error
         }
-        historyViewController = viewController
-        return viewController
     }
     
     // MARK: - Edit Expense View Controller
@@ -465,7 +473,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     let editedExpense = try self.delegate.presentation(self, editExpense: expense)
-                    self.historyViewController?.editExpense(editedExpense)
+                    self.pushedHistoryViewController?.editExpense(editedExpense)
                     self.statisticScreen?.editExpense(editedExpense)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
@@ -1326,7 +1334,7 @@ public final class Presentation: AUIWindowPresentation {
     public func showDidImportExpensesFile(_ file: ImportedExpensesFile) {
         dashboardViewController?.addAccounts(file.importedAccounts)
         dashboardViewController?.addCategories(file.importedCategories)
-        historyViewController?.insertExpenses(file.importedExpenses)
+        pushedHistoryViewController?.insertExpenses(file.importedExpenses)
         statisticScreen?.addExpenses(file.importedExpenses)
     }
     
