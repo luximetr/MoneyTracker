@@ -19,29 +19,29 @@ public class Storage {
     public init() {
         coreDataAccessor = CoreDataAccessor(storageName: "CoreDataModel", storeURL: nil)
         userDefautlsAccessor = UserDefaultsAccessor()
-//        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("HeroesDatabase.sqlite")
-//        sqliteDatabase = try! SqliteDatabase(fileURL: fileURL)
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("HeroesDatabase.sqlite")
+        sqliteDatabase = try! SqliteDatabase(fileURL: fileURL)
     }
     
     // MARK: - Categories
     
-    //let sqliteDatabase: SqliteDatabase
+    let sqliteDatabase: SqliteDatabase
     
     public func getCategories() throws -> [Category] {
-        let repo = createCategoriesRepo()
-        return try repo.fetchAllCategories()
-//        let categories = try sqliteDatabase.categoryTable.select()
-//        return categories
+//        let repo = createCategoriesRepo()
+//        return try repo.fetchAllCategories()
+        let categories = try sqliteDatabase.categoryTable.select()
+        return categories
     }
     
     public func getCategoriesOrdered() throws -> [Category] {
-        let repo = createCategoriesOrderRepo()
-        let categories = try getCategories()
-        guard !categories.isEmpty else { return [] }
-        let orderedIds = try repo.fetchOrder()
-        return orderCategories(categories, orderedIds: orderedIds)
-//        let categories = try sqliteDatabase.categoryTable.select()
-//        return categories
+//        let repo = createCategoriesOrderRepo()
+//        let categories = try getCategories()
+//        guard !categories.isEmpty else { return [] }
+//        let orderedIds = try repo.fetchOrder()
+//        return orderCategories(categories, orderedIds: orderedIds)
+        let categories = try sqliteDatabase.categoryTable.select()
+        return categories
     }
     
     public func getCategory(id: String) throws -> Category {
@@ -56,14 +56,14 @@ public class Storage {
     
     @discardableResult
     public func addCategory(_ addingCategory: AddingCategory) throws -> Category {
-        let repo = createCategoriesRepo()
-        let category = Category(id: UUID().uuidString, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
-        try repo.createCategory(category)
-        try appendToCategoriesOrder(categoryId: category.id)
-        return category
+//        let repo = createCategoriesRepo()
 //        let category = Category(id: UUID().uuidString, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
-//        try sqliteDatabase.categoryTable.insert(category)
+//        try repo.createCategory(category)
+//        try appendToCategoriesOrder(categoryId: category.id)
 //        return category
+        let category = Category(id: UUID().uuidString, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
+        try sqliteDatabase.categoryTable.insert(category)
+        return category
     }
     
     @discardableResult
@@ -84,12 +84,14 @@ public class Storage {
         let repo = createCategoriesRepo()
         try repo.updateCategory(editingCategory: editingCategory)
         return try repo.fetchCategory(id: editingCategory.id)
+//        try sqliteDatabase.categoryTable.update(editingCategory)
     }
     
     public func removeCategory(id: String) throws {
-        let repo = createCategoriesRepo()
-        try repo.removeCategory(id: id)
-        try removeFromCategoriesOrder(categoryId: id)
+//        let repo = createCategoriesRepo()
+//        try repo.removeCategory(id: id)
+//        try removeFromCategoriesOrder(categoryId: id)
+        try sqliteDatabase.categoryTable.delete(id)
     }
     
     private func createCategoriesRepo() -> CategoriesCoreDataRepo {
