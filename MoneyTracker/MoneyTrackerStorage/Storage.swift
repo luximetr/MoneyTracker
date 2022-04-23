@@ -20,7 +20,7 @@ public class Storage {
     public init() {
         coreDataAccessor = CoreDataAccessor(storageName: "CoreDataModel", storeURL: nil)
         userDefautlsAccessor = UserDefaultsAccessor()
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("HeroesDatabase.sqlite")
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("DatabaseName.sqlite")
         sqliteDatabase = try! SqliteDatabase(fileURL: fileURL)
     }
     
@@ -45,13 +45,21 @@ public class Storage {
     }
     
     public func getCategory(id: String) throws -> Category {
-        let repo = createCategoriesRepo()
-        return try repo.fetchCategory(id: id)
+        do {
+            let categories = try sqliteDatabase.selectCategoriesByIds([id]).first
+            return categories!
+        } catch {
+            throw error
+        }
     }
     
     public func getCategories(ids: [String]) throws -> [Category] {
-        let repo = createCategoriesRepo()
-        return try repo.fetchCategories(ids: ids)
+        do {
+            let categories = try sqliteDatabase.selectCategoriesByIds(ids)
+            return categories
+        } catch {
+            throw error
+        }
     }
     
     @discardableResult
@@ -93,34 +101,14 @@ public class Storage {
     
     public func removeCategory(id: String) throws {
         do {
-            try sqliteDatabase.categoryTable.deleteById(id)
+            try sqliteDatabase.deleteCategoryById(id)
         } catch {
             throw error
         }
     }
     
-    private func createCategoriesRepo() -> CategoriesCoreDataRepo {
-        return CategoriesCoreDataRepo(accessor: coreDataAccessor)
-    }
-    
-    // MARK: - Categories order
-    
     public func saveCategoriesOrder(orderedIds: [Category]) throws {
         try sqliteDatabase.updateCategoriesOrderNumbers(orderedIds)
-    }
-    
-    private func appendToCategoriesOrder(categoryId: String) throws {
-        let repo = createCategoriesOrderRepo()
-        try repo.appendCategoryId(categoryId)
-    }
-    
-    private func removeFromCategoriesOrder(categoryId: String) throws {
-        let repo = createCategoriesOrderRepo()
-        try repo.removeCategoryId(categoryId)
-    }
-    
-    private func createCategoriesOrderRepo() -> CategoriesOrderCoreDataRepo {
-        return CategoriesOrderCoreDataRepo(accessor: coreDataAccessor)
     }
     
     // MARK: - Balance Account

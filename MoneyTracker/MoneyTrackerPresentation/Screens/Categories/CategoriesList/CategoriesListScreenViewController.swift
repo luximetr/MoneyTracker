@@ -67,11 +67,13 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
             guard let destinationCategory = (destinationCellController as? CategoryTableViewCellController)?.category else { return }
             guard let sourceCategoryIndex = self.categories.firstIndex(of: sourceCategory) else { return }
             guard let destinationCategoryIndex = self.categories.firstIndex(of: destinationCategory) else { return }
-            self.categories.swapAt(sourceCategoryIndex, destinationCategoryIndex)
+            self.categories.remove(at: sourceCategoryIndex)
+            self.categories.insert(sourceCategory, at: destinationCategoryIndex)
             do {
                 try self.orderCategoriesClosure?(self.categories)
             } catch {
-                self.categories.swapAt(sourceCategoryIndex, destinationCategoryIndex)
+                self.categories.remove(at: destinationCategoryIndex)
+                self.categories.insert(sourceCategory, at: sourceCategoryIndex)
                 self.setTableViewContent()
             }
         }

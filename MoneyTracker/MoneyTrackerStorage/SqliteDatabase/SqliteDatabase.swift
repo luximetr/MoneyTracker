@@ -10,7 +10,9 @@ import SQLite3
 class SqliteDatabase {
     
     private var connection: OpaquePointer!
-    let categoryTable: CategorySqliteTable
+    private let categoryTable: CategorySqliteTable
+    
+    // MARK: - Initializer
     
     init(fileURL: URL) throws {
         let resultCode = sqlite3_open(fileURL.path, &connection)
@@ -21,11 +23,20 @@ class SqliteDatabase {
         try categoryTable.createIfNeeded()
     }
     
-    // MARK: Category
+    // MARK: - Category
     
     func selectCategories() throws -> [Category] {
         do {
             let categories = try categoryTable.select()
+            return categories
+        } catch {
+            throw error
+        }
+    }
+    
+    func selectCategoriesByIds(_ ids: [String]) throws -> [Category] {
+        do {
+            let categories = try categoryTable.selectByIds(ids)
             return categories
         } catch {
             throw error
