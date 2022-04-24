@@ -1059,7 +1059,7 @@ public final class Presentation: AUIWindowPresentation {
     private weak var pushedEditAccoutScreenViewController: EditAccountScreenViewController?
     private func pushEditAccountViewController(_ navigationController: UINavigationController, editingAccount: Account) {
         let language = try! delegate.presentationLanguage(self)
-        let viewController = EditAccountScreenViewController(appearance: appearance, language: language, editingAccount: editingAccount, accountColors: AccountColor.allCases)
+        let viewController = EditAccountScreenViewController(appearance: appearance, language: language, account: editingAccount, accountColors: AccountColor.allCases)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)

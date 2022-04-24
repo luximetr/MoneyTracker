@@ -59,7 +59,7 @@ class BalanceAccountsCoreDataRepo {
             propertiesToUpdate[#keyPath(BalanceAccountMO.amount)] = amount
         }
         if let color = editingBalanceAccount.color {
-            propertiesToUpdate[#keyPath(BalanceAccountMO.balanceAccountColor)] = color
+            propertiesToUpdate[#keyPath(BalanceAccountMO.balanceAccountColor)] = color.rawValue
         }
         return propertiesToUpdate
     }

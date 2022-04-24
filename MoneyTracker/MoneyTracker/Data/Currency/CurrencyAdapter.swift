@@ -25,6 +25,11 @@ class CurrencyAdapter {
         }
     }
     
+    func adaptToStorageOptional(presentationCurrency: PresentationCurrency?) -> StorageCurrency? {
+        guard let presentationCurrency = presentationCurrency else { return nil }
+        return adaptToStorage(presentationCurrency: presentationCurrency)
+    }
+    
     func adaptToPresentation(storageCurrency: StorageCurrency) -> PresentationCurrency {
         switch storageCurrency {
             case .SGD: return .singaporeDollar
