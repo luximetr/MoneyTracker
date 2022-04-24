@@ -81,7 +81,6 @@ class CategoryHorizontalPickerView: AppearanceView {
         let categoryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCollectionViewCellReuseIdentifier, for: indexPath) as! CategoryHorizontalPickerItemCell
         categoryCollectionViewCell.setAppearance(appearance)
         categoryCollectionViewCell.titleLabel.text = category.name
-        categoryCollectionViewCell.update(isSelected: isSelected)
         return categoryCollectionViewCell
     }
     

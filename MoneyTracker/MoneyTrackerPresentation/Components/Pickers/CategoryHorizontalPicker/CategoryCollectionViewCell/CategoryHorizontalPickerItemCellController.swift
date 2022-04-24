@@ -14,7 +14,7 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
     private(set) var appearance: Appearance
     
     var isSelected: Bool {
-        didSet { pickerItemCell?.update(isSelected: isSelected) }
+        didSet { showIsSelected(isSelected) }
     }
     
     // MARK: - View
@@ -51,9 +51,31 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
     
     func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
+        pickerItemCell?.setAppearance(appearance)
+        showIsSelected(isSelected)
+    }
+    
+    private func showIsSelected(_ isSelected: Bool) {
+        if isSelected {
+            showCellSelected()
+        } else {
+            showCellDeselected()
+        }
+    }
+    
+    private func showCellSelected() {
         let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
+        pickerItemCell?.coloredView.backgroundColor = categoryUIColor
+        pickerItemCell?.coloredView.layer.borderWidth = 0
+        pickerItemCell?.iconView.tintColor = appearance.categoryPrimaryText
+        pickerItemCell?.titleLabel.textColor = appearance.categoryPrimaryText
+    }
+    
+    private func showCellDeselected() {
+        let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
+        pickerItemCell?.coloredView.backgroundColor = appearance.primaryBackground
+        pickerItemCell?.coloredView.layer.borderWidth = 1
         pickerItemCell?.iconView.tintColor = categoryUIColor
         pickerItemCell?.titleLabel.textColor = categoryUIColor
-        pickerItemCell?.update(isSelected: isSelected)
     }
 }
