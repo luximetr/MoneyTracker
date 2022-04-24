@@ -72,7 +72,7 @@ public final class Presentation: AUIWindowPresentation {
         presentedAddAccoutScreenViewController?.changeAppearance(appearance)
         pushedEditAccoutScreenViewController?.changeAppearance(appearance)
         settingsScreenViewController?.changeAppearance(appearance)
-        pushedSelectCurrencyViewController?.changeAppearance(appearance)
+        pushedSelectDefaultCurrencyViewController?.changeAppearance(appearance)
         presentedSelectCurrencyViewController?.changeAppearance(appearance)
         pushedSelectAppearanceViewController?.changeAppearance(appearance)
         pushedSelectLanguageViewController?.changeAppearance(appearance)
@@ -741,7 +741,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
-                try self.pushSelectCurrencyViewController(menuNavigationController, selectedCurrency: nil)
+                try self.pushSelectDefaultCurrencyViewController(menuNavigationController, selectedCurrency: nil)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
@@ -801,11 +801,17 @@ public final class Presentation: AUIWindowPresentation {
         return viewController
     }
     
+    // MARK: - Currency
+    
+    public func showDefaultCurrencyChanged(_ currency: Currency) {
+        settingsScreenViewController?.changeDefaultCurrency(currency)
+    }
+    
     // MARK: - Select Currency View Controller
     
     private weak var presentedSelectCurrencyViewController: SelectCurrencyScreenViewController?
     
-    private func presentSelectCurrencyViewController(_ presentingViewController: UIViewController, selectedCurrency: Currency?) throws {
+    private func presentSelectCurrencyViewController(_ presentingViewController: UIViewController, selectedCurrency: Currency?, didSelectCurrency: ((Currency) -> Void)?) throws {
         do {
             let currencies = delegate.presentationCurrencies(self)
             let selectedCurrency = try selectedCurrency ?? delegate.presentationSelectedCurrency(self)
@@ -815,10 +821,9 @@ public final class Presentation: AUIWindowPresentation {
                 guard let presentingViewController = presentingViewController else { return }
                 presentingViewController.dismiss(animated: true, completion: nil)
             }
-            viewController.didSelectCurrencyClosure = { [weak self] currency in
-                guard let self = self else { return }
-                self.delegate.presentation(self, updateSelectedCurrency: currency)
-                self.settingsScreenViewController?.changeDefaultCurrency(currency)
+            viewController.didSelectCurrencyClosure = { [weak viewController] currency in
+                viewController?.dismiss(animated: true)
+                didSelectCurrency?(currency)
             }
             presentedSelectCurrencyViewController = viewController
             presentingViewController.present(viewController, animated: true, completion: nil)
@@ -828,9 +833,9 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    private weak var pushedSelectCurrencyViewController: SelectCurrencyScreenViewController?
+    private weak var pushedSelectDefaultCurrencyViewController: SelectCurrencyScreenViewController?
     
-    private func pushSelectCurrencyViewController(_ navigationController: UINavigationController, selectedCurrency: Currency?) throws {
+    private func pushSelectDefaultCurrencyViewController(_ navigationController: UINavigationController, selectedCurrency: Currency?) throws {
         do {
             let currencies = delegate.presentationCurrencies(self)
             let selectedCurrency = try selectedCurrency ?? delegate.presentationSelectedCurrency(self)
@@ -843,8 +848,9 @@ public final class Presentation: AUIWindowPresentation {
             viewController.didSelectCurrencyClosure = { [weak self] currency in
                 guard let self = self else { return }
                 self.delegate.presentation(self, updateSelectedCurrency: currency)
+                self.showDefaultCurrencyChanged(currency)
             }
-            pushedSelectCurrencyViewController = viewController
+            pushedSelectDefaultCurrencyViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push SelectCurrencyViewController\n\(error)")
@@ -981,7 +987,9 @@ public final class Presentation: AUIWindowPresentation {
                 guard let viewController = viewController else { return }
                 do {
                     let selectedCurrency = viewController.selectedCurrency
-                    try self.presentSelectCurrencyViewController(viewController, selectedCurrency: selectedCurrency)
+                    try self.presentSelectCurrencyViewController(viewController, selectedCurrency: selectedCurrency, didSelectCurrency: { newSelectedCurrency in
+                        viewController.setSelectedCurrency(newSelectedCurrency, animated: true)
+                    })
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -1030,7 +1038,9 @@ public final class Presentation: AUIWindowPresentation {
                 guard let viewController = viewController else { return }
                 do {
                     let selectedCurrency = viewController.selectedCurrency
-                    try self.presentSelectCurrencyViewController(viewController, selectedCurrency: selectedCurrency)
+                    try self.presentSelectCurrencyViewController(viewController, selectedCurrency: selectedCurrency, didSelectCurrency: { newSelectedCurrency in
+                        viewController.setSelectedCurrency(newSelectedCurrency, animated: true)
+                    })
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
