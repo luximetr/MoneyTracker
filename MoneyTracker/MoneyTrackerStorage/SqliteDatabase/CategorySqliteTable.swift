@@ -33,22 +33,31 @@ class CategorySqliteTable {
     
     // MARK: - INSERT
     
-    func insert(_ category: Category) throws {
+    struct InsertingRow {
+        let id: String
+        let name: String
+        let colorType: String
+        let iconName: String
+        let orderNumber: Int
+    }
+    func insert(_ row: InsertingRow) throws {
         let statement =
             """
             INSERT INTO category (id, name, icon_name, color_type, order_number)
-            VALUES (?, ?, ?, ?, IFNULL((SELECT MAX(order_number) + 1 FROM category), 0));
+            VALUES (?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        let idValue = (category.id as NSString).utf8String
+        let idValue = (row.id as NSString).utf8String
         try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
-        let nameValue = (category.name as NSString).utf8String
+        let nameValue = (row.name as NSString).utf8String
         try sqlite3BindText(databaseConnection, preparedStatement, 2, nameValue, -1, nil)
-        let iconName = (category.iconName as NSString?)?.utf8String
+        let iconName = (row.iconName as NSString?)?.utf8String
         try sqlite3BindText(databaseConnection, preparedStatement, 3, iconName, -1, nil)
-        let colorType = (category.color?.rawValue as NSString?)?.utf8String
+        let colorType = (row.colorType as NSString?)?.utf8String
         try sqlite3BindText(databaseConnection, preparedStatement, 4, colorType, -1, nil)
+        let orderNumber = Int32(row.orderNumber)
+        try sqlite3BindInt(databaseConnection, preparedStatement, 5, orderNumber)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
@@ -92,10 +101,8 @@ class CategorySqliteTable {
                 let value = (string as NSString).utf8String
                 try sqlite3BindText(databaseConnection, preparedStatement, valueIndex, value, -1, nil)
             case .integer(let int):
-                if sqlite3_bind_int(preparedStatement, valueIndex, Int32(int)) != SQLITE_OK {
-                    let message = String(cString: sqlite3_errmsg(databaseConnection))
-                    throw Error(message)
-                }
+                let value = Int32(int)
+                try sqlite3BindInt(databaseConnection, preparedStatement, valueIndex, value)
             }
         }
         let idValueIndex = Int32(columnsValues.count + 1)
@@ -175,6 +182,21 @@ class CategorySqliteTable {
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
         return categories
+    }
+    
+    func selectMaxOrderNumber() throws -> Int? {
+        let statement =
+            """
+            SELECT MAX(order_number) FROM category;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        var maxOrderNumber: Int?
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            maxOrderNumber = Int(sqlite3_column_int(preparedStatement, 0))
+        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+        return maxOrderNumber
     }
     
     // MARK: - Mapping

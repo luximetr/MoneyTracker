@@ -55,7 +55,10 @@ class SqliteDatabase {
     func insertCategory(_ category: Category) throws {
         do {
             try beginTransaction()
-            try categoryTable.insert(category)
+            let maxOrderNumber = try categoryTable.selectMaxOrderNumber() ?? 0
+            let nextOrderNumber = maxOrderNumber + 1
+            let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color?.rawValue ?? "", iconName: category.iconName ?? "", orderNumber: nextOrderNumber)
+            try categoryTable.insert(row)
             try commitTransaction()
         } catch {
             try rollbackTransaction()
@@ -94,8 +97,9 @@ class SqliteDatabase {
     func insertCategores(_ categories: Set<Category>) throws {
         do {
             try beginTransaction()
-            for category in categories {
-                try categoryTable.insert(category)
+            for (index, category) in categories.enumerated() {
+                let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color?.rawValue ?? "", iconName: category.iconName ?? "", orderNumber: index)
+                try categoryTable.insert(row)
             }
             try commitTransaction()
         } catch {

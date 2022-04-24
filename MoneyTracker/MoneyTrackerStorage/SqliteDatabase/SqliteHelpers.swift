@@ -45,6 +45,13 @@ func sqlite3BindText(_ databaseConnection: OpaquePointer!, _ preparedStatement: 
     }
 }
 
+func sqlite3BindInt(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: Int32) throws {
+    if sqlite3_bind_int(preparedStatement, index, value) != SQLITE_OK {
+        let message = String(cString: sqlite3_errmsg(databaseConnection))
+        throw Error(message)
+    }
+}
+
 func sqlite3Finalize(_ databaseConnection: OpaquePointer!,_ preparedStatement: OpaquePointer!) throws {
     if sqlite3_finalize(preparedStatement) != SQLITE_OK {
         let message = String(cString: sqlite3_errmsg(databaseConnection))
