@@ -340,9 +340,7 @@
 		DBB7BD3227DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD3127DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift */; };
 		DBB7BD3427DDE28C004EF5B7 /* CategoryHorizontalPickerItemCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD3327DDE28C004EF5B7 /* CategoryHorizontalPickerItemCellController.swift */; };
 		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
-		DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */; };
 		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
-		DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */; };
 		DBD6ACD827AF724C00389236 /* BalanceAccountsCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACD727AF724C00389236 /* BalanceAccountsCoreDataRepo.swift */; };
 		DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */; };
 		DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */; };
@@ -876,9 +874,7 @@
 		DBB7BD3127DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHorizontalPickerItemCell.swift; sourceTree = "<group>"; };
 		DBB7BD3327DDE28C004EF5B7 /* CategoryHorizontalPickerItemCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHorizontalPickerItemCellController.swift; sourceTree = "<group>"; };
 		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
-		DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
-		DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBD6ACD727AF724C00389236 /* BalanceAccountsCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountsCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountsOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyScreenViewController.swift; sourceTree = "<group>"; };
@@ -1074,8 +1070,8 @@
 			children = (
 				2E91154F27A936B000359F21 /* Storage.swift */,
 				2E91155127A9373E00359F21 /* Data */,
-				2ECA9CF92814247200DB27A8 /* SqliteDatabase */,
 				DBB7CF7F27AC0E39002C2EAE /* CoreData */,
+				2ECA9CF92814247200DB27A8 /* SqliteDatabase */,
 				DBD6ACF627B4FB9F00389236 /* UserDefaults */,
 				DBB7CF7C27AC0DD4002C2EAE /* Repositories */,
 				2E52795C2811B01300BC916B /* Error.swift */,
@@ -2459,8 +2455,6 @@
 		DBB7CF7C27AC0DD4002C2EAE /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				DBB7CF7D27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift */,
-				DBD6ACD127AE775300389236 /* CategoriesOrderCoreDataRepo.swift */,
 				DBD6ACD727AF724C00389236 /* BalanceAccountsCoreDataRepo.swift */,
 				DBD6ACDB27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift */,
 				DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */,
@@ -2935,7 +2929,6 @@
 				DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */,
 				DBD6ACDC27AFA8F300389236 /* BalanceAccountsOrderCoreDataRepo.swift in Sources */,
 				DBA0546727FD9C1E00DB3892 /* ImportingCategoryAdapter.swift in Sources */,
-				DBD6ACD227AE775300389236 /* CategoriesOrderCoreDataRepo.swift in Sources */,
 				2E926E9B27BC58140081E3AE /* AddingExpense.swift in Sources */,
 				2E926EA727BC59030081E3AE /* ExpenseTemplate.swift in Sources */,
 				DBA0546E27FFDCA600DB3892 /* DebugError.swift in Sources */,
@@ -2946,7 +2939,6 @@
 				2E926EA827BC59030081E3AE /* AddingExpenseTemplate.swift in Sources */,
 				2E926EA927BC59030081E3AE /* EditingExpenseTemplate.swift in Sources */,
 				2ED82B5B2815397B00789BA4 /* SqliteHelpers.swift in Sources */,
-				DBB7CF7E27AC0E0D002C2EAE /* CategoriesCoreDataRepo.swift in Sources */,
 				DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */,
 				DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */,
 				DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */,
