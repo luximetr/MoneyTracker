@@ -23,6 +23,32 @@ class SqliteDatabase {
         try categoryTable.createIfNeeded()
     }
     
+    // MARK: - Transaction
+    
+    private func beginTransaction() throws {
+        let statement = "BEGIN TRANSACTION;"
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+    }
+    
+    private func commitTransaction() throws {
+        let statement = "COMMIT TRANSACTION;"
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+    }
+    
+    private func rollbackTransaction() throws {
+        let statement = "ROLLBACK TRANSACTION;"
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+    }
+    
     // MARK: - Category
     
     func selectCategories() throws -> [Category] {
@@ -57,7 +83,7 @@ class SqliteDatabase {
             try beginTransaction()
             let maxOrderNumber = try categoryTable.selectMaxOrderNumber() ?? 0
             let nextOrderNumber = maxOrderNumber + 1
-            let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color?.rawValue ?? "", iconName: category.iconName ?? "", orderNumber: nextOrderNumber)
+            let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color.rawValue, iconName: category.iconName, orderNumber: nextOrderNumber)
             try categoryTable.insert(row)
             try commitTransaction()
         } catch {
@@ -70,7 +96,7 @@ class SqliteDatabase {
         do {
             try beginTransaction()
             for (index, category) in categories.enumerated() {
-                let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color?.rawValue ?? "", iconName: category.iconName ?? "", orderNumber: index)
+                let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color.rawValue, iconName: category.iconName, orderNumber: index)
                 try categoryTable.insert(row)
             }
             try commitTransaction()
@@ -96,7 +122,7 @@ class SqliteDatabase {
         do {
             try beginTransaction()
             let rows = categories.enumerated().map({
-                CategorySqliteTable.UpdatingByIdRow(id: $1.id, name: $1.name, iconName: $1.iconName, colorType: $1.color?.rawValue, orderNumber: $0)
+                CategorySqliteTable.UpdatingByIdRow(id: $1.id, name: $1.name, iconName: $1.iconName, colorType: $1.color.rawValue, orderNumber: $0)
             })
             for row in rows {
                 try categoryTable.updateById(row)
@@ -117,32 +143,6 @@ class SqliteDatabase {
             try rollbackTransaction()
             throw error
         }
-    }
-    
-    // MARK: Transaction
-    
-    private func beginTransaction() throws {
-        let statement = "BEGIN TRANSACTION;"
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
-    }
-    
-    private func commitTransaction() throws {
-        let statement = "COMMIT TRANSACTION;"
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
-    }
-    
-    private func rollbackTransaction() throws {
-        let statement = "ROLLBACK TRANSACTION;"
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
     }
 
 }

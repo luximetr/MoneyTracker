@@ -138,7 +138,7 @@ class CategorySqliteTable {
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         var categories: [Category] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let category = parseCategory(preparedStatement)
+            let category = try parseCategory(preparedStatement)
             categories.append(category)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -161,7 +161,7 @@ class CategorySqliteTable {
         }
         var categories: [Category] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let category = parseCategory(preparedStatement)
+            let category = try parseCategory(preparedStatement)
             categories.append(category)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -177,7 +177,7 @@ class CategorySqliteTable {
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         var categories: [Category] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let category = parseCategory(preparedStatement)
+            let category = try parseCategory(preparedStatement)
             categories.append(category)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -201,12 +201,12 @@ class CategorySqliteTable {
     
     // MARK: - Mapping
     
-    private func parseCategory(_ preparedStatement: OpaquePointer?) -> Category {
+    private func parseCategory(_ preparedStatement: OpaquePointer?) throws -> Category {
         let id = String(cString: sqlite3_column_text(preparedStatement, 0))
         let name = String(cString: sqlite3_column_text(preparedStatement, 1))
         let iconName = String(cString: sqlite3_column_text(preparedStatement, 2))
         let colorType = String(cString: sqlite3_column_text(preparedStatement, 3))
-        let color = CategoryColor(rawValue: colorType)
+        let color = try CategoryColor(colorType)
         let category = Category(id: id, name: name, color: color, iconName: iconName)
         return category
     }

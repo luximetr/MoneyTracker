@@ -27,4 +27,12 @@ public enum CategoryColor: String {
     case variant17 = "variant17"
     case variant18 = "variant18"
     case variant19 = "variant19"
+    
+    init(_ rawValue: String) throws {
+        if let categoryColor = CategoryColor(rawValue: rawValue) {
+            self = categoryColor
+        } else {
+            throw Error("Cannot initialize \(String(reflecting: CategoryColor.self)) with rawValue \(String(reflecting: rawValue))")
+        }
+    }
 }
