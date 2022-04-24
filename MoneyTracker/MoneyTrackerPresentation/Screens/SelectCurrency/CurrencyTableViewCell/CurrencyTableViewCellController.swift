@@ -15,7 +15,7 @@ final class CurrencyTableViewCellController: AUIClosuresTableViewCellController 
     let currency: Currency
     let currencyName: String
     var isSelected: Bool = false {
-        didSet { selectCurrencyTableViewCell?.isSelected = isSelected }
+        didSet { selectCurrencyTableViewCell?.setIsSelected(isSelected) }
     }
     
     init(appearance: Appearance, currency: Currency, currencyName: String, isSelected: Bool) {
