@@ -7,19 +7,14 @@
 
 import SQLite3
 
-enum SqliteDatatype {
-    case text(String)
-    case integer(Int)
-}
-
 class CategorySqliteTable {
     
-    private let connection: OpaquePointer
+    private let databaseConnection: OpaquePointer
     
     // MARK: - Initializer
     
-    init(connection: OpaquePointer) {
-        self.connection = connection
+    init(databaseConnection: OpaquePointer) {
+        self.databaseConnection = databaseConnection
     }
     
     // MARK: - CREATE TABLE
@@ -31,57 +26,40 @@ class CategorySqliteTable {
             category (id TEXT PRIMARY KEY, name TEXT, icon_name TEXT, color_type TEXT, order_number INTEGER);
             """
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare_v2(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
     // MARK: - INSERT
     
-    func insert(_ category: Category) throws {
+    struct InsertingRow {
+        let id: String
+        let name: String
+        let colorType: String
+        let iconName: String
+        let orderNumber: Int
+    }
+    func insert(_ row: InsertingRow) throws {
         let statement =
             """
             INSERT INTO category (id, name, icon_name, color_type, order_number)
-            VALUES (?, ?, ?, ?, IFNULL((SELECT MAX(order_number) + 1 FROM category), 0));
+            VALUES (?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare_v2(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_bind_text(preparedStatement, 1, (category.id as NSString).utf8String, -1, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_bind_text(preparedStatement, 2, (category.name as NSString).utf8String, -1, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_bind_text(preparedStatement, 3, (category.iconName as NSString?)?.utf8String, -1, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_bind_text(preparedStatement, 4, (category.color?.rawValue as NSString?)?.utf8String, -1, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let errmsg = String(cString: sqlite3_errmsg(connection))
-            throw Error(errmsg)
-        }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let idValue = (row.id as NSString).utf8String
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
+        let nameValue = (row.name as NSString).utf8String
+        try sqlite3BindText(databaseConnection, preparedStatement, 2, nameValue, -1, nil)
+        let iconName = (row.iconName as NSString?)?.utf8String
+        try sqlite3BindText(databaseConnection, preparedStatement, 3, iconName, -1, nil)
+        let colorType = (row.colorType as NSString?)?.utf8String
+        try sqlite3BindText(databaseConnection, preparedStatement, 4, colorType, -1, nil)
+        let orderNumber = Int32(row.orderNumber)
+        try sqlite3BindInt(databaseConnection, preparedStatement, 5, orderNumber)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
     // MARK: - UPDATE
@@ -108,44 +86,30 @@ class CategorySqliteTable {
         if let orderNumber = category.orderNumber {
             columnsValues.append((column: "order_number", value: .integer(orderNumber)))
         }
-        let ggg = columnsValues.map({ "\($0.column) = ?" }).joined(separator: ", ")
+        let values = columnsValues.map({ "\($0.column) = ?" }).joined(separator: ", ")
         let statement =
             """
-            UPDATE category SET \(ggg) WHERE id = ?;
+            UPDATE category SET \(values) WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare_v2(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let errmsg = String(cString: sqlite3_errmsg(connection)!)
-            throw Error(errmsg)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         for (index, columnValue) in columnsValues.enumerated() {
-            let position = Int32(index + 1)
+            let valueIndex = Int32(index + 1)
             let value = columnValue.value
             switch value {
             case .text(let string):
-                if sqlite3_bind_text(preparedStatement, position, (string as NSString).utf8String, -1, nil) != SQLITE_OK {
-                    let errmsg = String(cString: sqlite3_errmsg(connection)!)
-                    throw Error(errmsg)
-                }
+                let value = (string as NSString).utf8String
+                try sqlite3BindText(databaseConnection, preparedStatement, valueIndex, value, -1, nil)
             case .integer(let int):
-                if sqlite3_bind_int(preparedStatement, position, Int32(int)) != SQLITE_OK {
-                    let message = String(cString: sqlite3_errmsg(connection))
-                    throw Error(message)
-                }
+                let value = Int32(int)
+                try sqlite3BindInt(databaseConnection, preparedStatement, valueIndex, value)
             }
         }
-        if sqlite3_bind_text(preparedStatement, Int32(columnsValues.count + 1), (category.id as NSString).utf8String, -1, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection)!)
-            throw Error(message)
-        }
-        if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(connection)!)
-            throw Error(message)
-        }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
+        let idValueIndex = Int32(columnsValues.count + 1)
+        let idValue = (category.id as NSString).utf8String
+        try sqlite3BindText(databaseConnection, preparedStatement, idValueIndex, idValue, -1, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
     // MARK: - DELETE
@@ -156,22 +120,11 @@ class CategorySqliteTable {
             DELETE FROM category WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare_v2(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_bind_text(preparedStatement, 1, (id as NSString).utf8String, -1, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let idValue = (id as NSString).utf8String
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
     // MARK: - SELECT
@@ -182,24 +135,13 @@ class CategorySqliteTable {
             SELECT id, name, icon_name, color_type, order_number FROM category;
             """
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let errmsg = String(cString: sqlite3_errmsg(connection)!)
-            throw Error(errmsg)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         var categories: [Category] = []
-        while(sqlite3_step(preparedStatement) == SQLITE_ROW){
-            let id = String(cString: sqlite3_column_text(preparedStatement, 0))
-            let name = String(cString: sqlite3_column_text(preparedStatement, 1))
-            let iconName = String(cString: sqlite3_column_text(preparedStatement, 2))
-            let colorType = String(cString: sqlite3_column_text(preparedStatement, 3))
-            let color = CategoryColor(rawValue: colorType)
-            let category = Category(id: id, name: name, color: color, iconName: iconName)
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            let category = parseCategory(preparedStatement)
             categories.append(category)
         }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
         return categories
     }
     
@@ -211,32 +153,18 @@ class CategorySqliteTable {
             WHERE id IN (\(statementValues));
             """
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let errmsg = String(cString: sqlite3_errmsg(connection)!)
-            throw Error(errmsg)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         for (index, id) in ids.enumerated() {
             let index = Int32(index + 1)
             let value = (id as NSString).utf8String
-            if sqlite3_bind_text(preparedStatement, index, value, -1, nil) != SQLITE_OK {
-                let errmsg = String(cString: sqlite3_errmsg(connection)!)
-                throw Error(errmsg)
-            }
+            try sqlite3BindText(databaseConnection, preparedStatement, index, value, -1, nil)
         }
         var categories: [Category] = []
-        while(sqlite3_step(preparedStatement) == SQLITE_ROW){
-            let id = String(cString: sqlite3_column_text(preparedStatement, 0))
-            let name = String(cString: sqlite3_column_text(preparedStatement, 1))
-            let iconName = String(cString: sqlite3_column_text(preparedStatement, 2))
-            let colorType = String(cString: sqlite3_column_text(preparedStatement, 3))
-            let color = CategoryColor(rawValue: colorType)
-            let category = Category(id: id, name: name, color: color, iconName: iconName)
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            let category = parseCategory(preparedStatement)
             categories.append(category)
         }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
         return categories
     }
     
@@ -246,25 +174,41 @@ class CategorySqliteTable {
             SELECT id, name, icon_name, color_type, order_number FROM category ORDER BY order_number;
             """
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let errmsg = String(cString: sqlite3_errmsg(connection)!)
-            throw Error(errmsg)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         var categories: [Category] = []
-        while(sqlite3_step(preparedStatement) == SQLITE_ROW){
-            let id = String(cString: sqlite3_column_text(preparedStatement, 0))
-            let name = String(cString: sqlite3_column_text(preparedStatement, 1))
-            let iconName = String(cString: sqlite3_column_text(preparedStatement, 2))
-            let colorType = String(cString: sqlite3_column_text(preparedStatement, 3))
-            let color = CategoryColor(rawValue: colorType)
-            let category = Category(id: id, name: name, color: color, iconName: iconName)
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            let category = parseCategory(preparedStatement)
             categories.append(category)
         }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
-            throw Error(message)
-        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
         return categories
+    }
+    
+    func selectMaxOrderNumber() throws -> Int? {
+        let statement =
+            """
+            SELECT MAX(order_number) FROM category;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        var maxOrderNumber: Int?
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            maxOrderNumber = Int(sqlite3_column_int(preparedStatement, 0))
+        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+        return maxOrderNumber
+    }
+    
+    // MARK: - Mapping
+    
+    private func parseCategory(_ preparedStatement: OpaquePointer?) -> Category {
+        let id = String(cString: sqlite3_column_text(preparedStatement, 0))
+        let name = String(cString: sqlite3_column_text(preparedStatement, 1))
+        let iconName = String(cString: sqlite3_column_text(preparedStatement, 2))
+        let colorType = String(cString: sqlite3_column_text(preparedStatement, 3))
+        let color = CategoryColor(rawValue: colorType)
+        let category = Category(id: id, name: name, color: color, iconName: iconName)
+        return category
     }
     
 }

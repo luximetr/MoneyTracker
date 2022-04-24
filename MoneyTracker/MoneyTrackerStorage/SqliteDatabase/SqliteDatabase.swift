@@ -9,17 +9,17 @@ import SQLite3
 
 class SqliteDatabase {
     
-    private var connection: OpaquePointer!
+    private var databaseConnection: OpaquePointer!
     private let categoryTable: CategorySqliteTable
     
     // MARK: - Initializer
     
     init(fileURL: URL) throws {
-        let resultCode = sqlite3_open(fileURL.path, &connection)
+        let resultCode = sqlite3_open(fileURL.path, &databaseConnection)
         if resultCode != SQLITE_OK {
             throw Error("")
         }
-        categoryTable = CategorySqliteTable(connection: connection)
+        categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
         try categoryTable.createIfNeeded()
     }
     
@@ -55,7 +55,10 @@ class SqliteDatabase {
     func insertCategory(_ category: Category) throws {
         do {
             try beginTransaction()
-            try categoryTable.insert(category)
+            let maxOrderNumber = try categoryTable.selectMaxOrderNumber() ?? 0
+            let nextOrderNumber = maxOrderNumber + 1
+            let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color?.rawValue ?? "", iconName: category.iconName ?? "", orderNumber: nextOrderNumber)
+            try categoryTable.insert(row)
             try commitTransaction()
         } catch {
             try rollbackTransaction()
@@ -94,8 +97,9 @@ class SqliteDatabase {
     func insertCategores(_ categories: Set<Category>) throws {
         do {
             try beginTransaction()
-            for category in categories {
-                try categoryTable.insert(category)
+            for (index, category) in categories.enumerated() {
+                let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color?.rawValue ?? "", iconName: category.iconName ?? "", orderNumber: index)
+                try categoryTable.insert(row)
             }
             try commitTransaction()
         } catch {
@@ -120,16 +124,16 @@ class SqliteDatabase {
     private func beginTransaction() throws {
         let statement = "BEGIN TRANSACTION;"
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection)!)
+        if sqlite3_prepare(databaseConnection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
+            let message = String(cString: sqlite3_errmsg(databaseConnection)!)
             throw Error(message)
         }
         if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(connection))
+            let message = String(cString: sqlite3_errmsg(databaseConnection))
             throw Error(message)
         }
         if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
+            let message = String(cString: sqlite3_errmsg(databaseConnection))
             throw Error(message)
         }
     }
@@ -137,16 +141,16 @@ class SqliteDatabase {
     private func commitTransaction() throws {
         let statement = "COMMIT TRANSACTION;"
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection)!)
+        if sqlite3_prepare(databaseConnection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
+            let message = String(cString: sqlite3_errmsg(databaseConnection)!)
             throw Error(message)
         }
         if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(connection))
+            let message = String(cString: sqlite3_errmsg(databaseConnection))
             throw Error(message)
         }
         if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
+            let message = String(cString: sqlite3_errmsg(databaseConnection))
             throw Error(message)
         }
     }
@@ -154,16 +158,16 @@ class SqliteDatabase {
     private func rollbackTransaction() throws {
         let statement = "ROLLBACK TRANSACTION;"
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(connection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection)!)
+        if sqlite3_prepare(databaseConnection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
+            let message = String(cString: sqlite3_errmsg(databaseConnection)!)
             throw Error(message)
         }
         if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(connection))
+            let message = String(cString: sqlite3_errmsg(databaseConnection))
             throw Error(message)
         }
         if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(connection))
+            let message = String(cString: sqlite3_errmsg(databaseConnection))
             throw Error(message)
         }
     }
