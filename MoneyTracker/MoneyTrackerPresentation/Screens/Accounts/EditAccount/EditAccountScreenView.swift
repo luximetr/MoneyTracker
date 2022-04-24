@@ -55,6 +55,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupCurrencyInputView() {
+        currencyInputView.titleLabel?.font = Fonts.default(size: 14, weight: .semibold)
         currencyInputView.backgroundColor = Colors.black.withAlphaComponent(0.15)
     }
     
@@ -195,6 +196,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         colorsTitleLabel.textColor = appearance.primaryText
+        currencyInputView.setTitleColor(appearance.secondaryText, for: .normal)
     }
     
 }
