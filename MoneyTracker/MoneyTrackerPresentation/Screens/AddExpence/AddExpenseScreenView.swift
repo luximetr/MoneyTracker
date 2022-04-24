@@ -73,6 +73,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         expensesTableView.backgroundColor = appearance.primaryBackground
         expensesTableView.clipsToBounds = true
         expensesTableView.separatorStyle = .none
+        expensesTableView.showsVerticalScrollIndicator = false
     }
     
     private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
