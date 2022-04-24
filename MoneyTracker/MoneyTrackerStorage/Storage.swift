@@ -108,7 +108,11 @@ public class Storage {
     }
     
     public func saveCategoriesOrder(orderedIds: [Category]) throws {
-        try sqliteDatabase.updateCategoriesOrderNumbers(orderedIds)
+        do {
+            try sqliteDatabase.updateCategoriesOrderNumbers(orderedIds)
+        } catch {
+            throw error
+        }
     }
     
     // MARK: - Balance Account
