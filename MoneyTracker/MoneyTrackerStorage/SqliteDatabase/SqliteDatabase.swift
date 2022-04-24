@@ -66,6 +66,20 @@ class SqliteDatabase {
         }
     }
     
+    func insertCategores(_ categories: Set<Category>) throws {
+        do {
+            try beginTransaction()
+            for (index, category) in categories.enumerated() {
+                let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color?.rawValue ?? "", iconName: category.iconName ?? "", orderNumber: index)
+                try categoryTable.insert(row)
+            }
+            try commitTransaction()
+        } catch {
+            try rollbackTransaction()
+            throw error
+        }
+    }
+    
     func updateCategory(_ category: EditingCategory) throws {
         do {
             try beginTransaction()
@@ -94,20 +108,6 @@ class SqliteDatabase {
         }
     }
     
-    func insertCategores(_ categories: Set<Category>) throws {
-        do {
-            try beginTransaction()
-            for (index, category) in categories.enumerated() {
-                let row = CategorySqliteTable.InsertingRow(id: category.id, name: category.name, colorType: category.color?.rawValue ?? "", iconName: category.iconName ?? "", orderNumber: index)
-                try categoryTable.insert(row)
-            }
-            try commitTransaction()
-        } catch {
-            try rollbackTransaction()
-            throw error
-        }
-    }
-    
     func deleteCategoryById(_ id: String) throws {
         do {
             try beginTransaction()
@@ -124,52 +124,25 @@ class SqliteDatabase {
     private func beginTransaction() throws {
         let statement = "BEGIN TRANSACTION;"
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(databaseConnection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(databaseConnection)!)
-            throw Error(message)
-        }
-        if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error(message)
-        }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error(message)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
     private func commitTransaction() throws {
         let statement = "COMMIT TRANSACTION;"
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(databaseConnection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(databaseConnection)!)
-            throw Error(message)
-        }
-        if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error(message)
-        }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error(message)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
     private func rollbackTransaction() throws {
         let statement = "ROLLBACK TRANSACTION;"
         var preparedStatement: OpaquePointer?
-        if sqlite3_prepare(databaseConnection, statement, -1, &preparedStatement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(databaseConnection)!)
-            throw Error(message)
-        }
-        if sqlite3_step(preparedStatement) != SQLITE_DONE {
-            let message = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error(message)
-        }
-        if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error(message)
-        }
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
     }
 
 }
