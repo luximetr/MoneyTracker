@@ -20,6 +20,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     var addAccountClosure: (() -> Void)?
     var addTemplateClosure: (() -> Void)?
     var useTemplateClosure: ((ExpenseTemplate) throws -> Void)?
+    var historyClosure: (() -> Void)?
     
     // MARK: - Initializer
     
@@ -48,6 +49,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        screenView.historyButton.addTarget(self, action: #selector(historyButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupCategoryPickerViewController()
         setupAccountPickerViewController()
         setupTemplatesViewController()
@@ -120,16 +122,6 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
         screenView.titleLabel.text = localizer.localizeText("title")
     }
     
-    // MARK: - Appearance
-    
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
-        screenView.changeAppearance(appearance)
-        categoryPickerViewController.changeAppearance(appearance)
-        accountPickerViewController.changeAppearance(appearance)
-        templatesViewController.changeAppearance(appearance)
-    }
-    
     // MARK: - Events
     
     private func didSelectTemplate(_ template: ExpenseTemplate) {
@@ -165,6 +157,10 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
         @unknown default:
             screenView.finishMove()
         }
+    }
+    
+    @objc private func historyButtonTouchUpInsideEventAction() {
+        historyClosure?()
     }
     
     func addCategory(_ category: Category) {
@@ -225,6 +221,16 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     func orderTemplates(_ templates: [ExpenseTemplate]) {
         templatesViewController.orderTemplates(templates)
         screenView.finishMove()
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+        categoryPickerViewController.changeAppearance(appearance)
+        accountPickerViewController.changeAppearance(appearance)
+        templatesViewController.changeAppearance(appearance)
     }
 
 }

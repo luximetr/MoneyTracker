@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension HistoryScreenViewController {
-final class HistoryScreenView: TitleNavigationBarScreenView {
+final class HistoryScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Subviews
     

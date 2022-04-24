@@ -12,9 +12,8 @@ final class MenuScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, language: Language, dashboardScreenViewController: UIViewController, historyScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
+    init(appearance: Appearance, language: Language, dashboardScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
         self.dashboardScreenViewController = dashboardScreenViewController
-        self.historyScreenViewController = historyScreenViewController
         self.statisticScreenViewController = statisticScreenViewController
         self.settingsScreenViewController = settingsScreenViewController
         super.init(appearance: appearance, language: language)
@@ -32,14 +31,12 @@ final class MenuScreenViewController: StatusBarScreenViewController {
     
     private var screenController: UIViewController?
     let dashboardScreenViewController: UIViewController
-    let historyScreenViewController: UIViewController
     let statisticScreenViewController: UIViewController
     let settingsScreenViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         screenView.mainTabBarItem.addTarget(self, action: #selector(dashboard), for: .touchUpInside)
-        screenView.historyTabBarItem.addTarget(self, action: #selector(history), for: .touchUpInside)
         screenView.statisticTabBarItem.addTarget(self, action: #selector(statistic), for: .touchUpInside)
         screenView.settingsTabBarItem.addTarget(self, action: #selector(settings), for: .touchUpInside)
         dashboard()
@@ -56,16 +53,6 @@ final class MenuScreenViewController: StatusBarScreenViewController {
         screenView.setMainScreenView(dashboardScreenViewController.view)
         dashboardScreenViewController.didMove(toParent: self)
         screenController = dashboardScreenViewController
-    }
-    
-    @objc func history() {
-        screenController?.willMove(toParent: nil)
-        screenView.setScreenView(nil)
-        screenController?.removeFromParent()
-        addChild(historyScreenViewController)
-        screenView.setHistoryScreenView(historyScreenViewController.view)
-        historyScreenViewController.didMove(toParent: self)
-        screenController = historyScreenViewController
     }
     
     @objc func statistic() {
@@ -103,7 +90,6 @@ final class MenuScreenViewController: StatusBarScreenViewController {
     
     private func setContent() {
         screenView.mainTabBarItem.textLabel.text = localizer.localizeText("dashboard")
-        screenView.historyTabBarItem.textLabel.text = localizer.localizeText("history")
         screenView.statisticTabBarItem.textLabel.text = localizer.localizeText("statistic")
         screenView.settingsTabBarItem.textLabel.text = localizer.localizeText("settings")
     }

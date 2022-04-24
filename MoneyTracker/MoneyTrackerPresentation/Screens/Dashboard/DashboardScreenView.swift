@@ -15,6 +15,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     // MARK: - Initializer
         
     init(appearance: Appearance) {
+        self.historyButton = PictureButton()
         self.categoryPickerView = CategoryPickerView(appearance: appearance)
         self.accountPickerView = AccountPickerView(appearance: appearance)
         self.templatesView = TemplatesView(appearance: appearance)
@@ -23,6 +24,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     // MARK: Subviews
     
+    let historyButton: PictureButton
     let categoryPickerView: CategoryPickerView
     let accountPickerView: AccountPickerView
     let templatesView: TemplatesView
@@ -31,19 +33,36 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
+        navigationBarView.addSubview(historyButton)
+        setupHistoryButton()
         addSubview(categoryPickerView)
         addSubview(accountPickerView)
         addSubview(templatesView)
         changeAppearance(appearance)
     }
     
+    private func setupHistoryButton() {
+        historyButton.setImage(Images.expensesHistory.withRenderingMode(.alwaysTemplate), for: .normal)
+        historyButton.imageView?.tintColor = appearance.primaryText
+    }
+    
     // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutHistoryButton()
         layoutTemplatesView()
         layoutCategoryPickerView()
         layoutAccountPickerView()
+    }
+    
+    private func layoutHistoryButton() {
+        let width: CGFloat = 21
+        let height: CGFloat = 18
+        let x = navigationBarView.frame.size.width - 20 - width
+        let y = (navigationBarView.frame.size.height - height) / 2
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        historyButton.frame = frame
     }
     
     private func layoutTemplatesView() {
@@ -118,6 +137,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
+        historyButton.imageView?.tintColor = appearance.primaryText
         categoryPickerView.changeAppearance(appearance)
         accountPickerView.changeAppearance(appearance)
         templatesView.changeAppearance(appearance)

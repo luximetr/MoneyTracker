@@ -11,6 +11,7 @@ public class Storage {
     
     // MARK: - Dependencies
     
+    private let sqliteDatabase: SqliteDatabase
     private let coreDataAccessor: CoreDataAccessor
     private let userDefautlsAccessor: UserDefaultsAccessor
     
@@ -19,109 +20,95 @@ public class Storage {
     public init() {
         coreDataAccessor = CoreDataAccessor(storageName: "CoreDataModel", storeURL: nil)
         userDefautlsAccessor = UserDefaultsAccessor()
-//        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("HeroesDatabase.sqlite")
-//        sqliteDatabase = try! SqliteDatabase(fileURL: fileURL)
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("DatabaseName.sqlite")
+        sqliteDatabase = try! SqliteDatabase(fileURL: fileURL)
     }
     
     // MARK: - Categories
     
-    //let sqliteDatabase: SqliteDatabase
-    
     public func getCategories() throws -> [Category] {
-        let repo = createCategoriesRepo()
-        return try repo.fetchAllCategories()
-//        let categories = try sqliteDatabase.categoryTable.select()
-//        return categories
+        do {
+            let categories = try sqliteDatabase.selectCategories()
+            return categories
+        } catch {
+            throw error
+        }
     }
     
     public func getCategoriesOrdered() throws -> [Category] {
-        let repo = createCategoriesOrderRepo()
-        let categories = try getCategories()
-        guard !categories.isEmpty else { return [] }
-        let orderedIds = try repo.fetchOrder()
-        return orderCategories(categories, orderedIds: orderedIds)
-//        let categories = try sqliteDatabase.categoryTable.select()
-//        return categories
+        do {
+            let categories = try sqliteDatabase.selectCategoriesOrderedByOrderNumber()
+            return categories
+        } catch {
+            throw error
+        }
     }
     
     public func getCategory(id: String) throws -> Category {
-        let repo = createCategoriesRepo()
-        return try repo.fetchCategory(id: id)
+        do {
+            let categories = try sqliteDatabase.selectCategoriesByIds([id]).first
+            return categories!
+        } catch {
+            throw error
+        }
     }
     
     public func getCategories(ids: [String]) throws -> [Category] {
-        let repo = createCategoriesRepo()
-        return try repo.fetchCategories(ids: ids)
+        do {
+            let categories = try sqliteDatabase.selectCategoriesByIds(ids)
+            return categories
+        } catch {
+            throw error
+        }
     }
     
     @discardableResult
     public func addCategory(_ addingCategory: AddingCategory) throws -> Category {
-        let repo = createCategoriesRepo()
-        let category = Category(id: UUID().uuidString, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
-        try repo.createCategory(category)
-        try appendToCategoriesOrder(categoryId: category.id)
-        return category
-//        let category = Category(id: UUID().uuidString, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
-//        try sqliteDatabase.categoryTable.insert(category)
-//        return category
+        do {
+            let id = UUID().uuidString
+            let category = Category(id: id, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
+            try sqliteDatabase.insertCategory(category)
+            return category
+        } catch {
+            throw error
+        }
     }
     
     @discardableResult
-    public func addCategories(_ addingCategories: [AddingCategory]) -> [Category] {
-        var addedCategories: [Category] = []
-        addingCategories.forEach {
-            do {
-                let addedCategory = try addCategory($0)
-                addedCategories.append(addedCategory)
-            } catch {
-                print(error)
+    public func addCategories(_ addingCategories: [AddingCategory]) throws -> [Category] {
+        do {
+            var addedCategories: [Category] = []
+            for addingCategory in addingCategories {
+                let id = UUID().uuidString
+                let category = Category(id: id, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
+                addedCategories.append(category)
             }
+            try sqliteDatabase.insertCategores(Set(addedCategories))
+            return addedCategories
+        } catch {
+            throw error
         }
-        return addedCategories
     }
     
     public func updateCategory(editingCategory: EditingCategory) throws -> Category {
-        let repo = createCategoriesRepo()
-        try repo.updateCategory(editingCategory: editingCategory)
-        return try repo.fetchCategory(id: editingCategory.id)
+        do {
+            try sqliteDatabase.updateCategory(editingCategory)
+            return Category(id: editingCategory.id, name: editingCategory.name ?? "", color: editingCategory.color ?? .variant1, iconName: editingCategory.iconName ?? "")
+        } catch {
+            throw error
+        }
     }
     
     public func removeCategory(id: String) throws {
-        let repo = createCategoriesRepo()
-        try repo.removeCategory(id: id)
-        try removeFromCategoriesOrder(categoryId: id)
-    }
-    
-    private func createCategoriesRepo() -> CategoriesCoreDataRepo {
-        return CategoriesCoreDataRepo(accessor: coreDataAccessor)
-    }
-    
-    // MARK: - Categories order
-    
-    public func saveCategoriesOrder(orderedIds: [String]) throws {
-        let repo = createCategoriesOrderRepo()
-        try repo.updateOrder(orderedIds: orderedIds)
-    }
-    
-    private func orderCategories(_ categories: [Category], orderedIds: [CategoryId]) -> [Category] {
-        let sortedCategories = orderedIds.compactMap { id -> Category? in
-            categories.first(where: { $0.id == id })
+        do {
+            try sqliteDatabase.deleteCategoryById(id)
+        } catch {
+            throw error
         }
-        return sortedCategories
     }
     
-    private func appendToCategoriesOrder(categoryId: String) throws {
-        let repo = createCategoriesOrderRepo()
-        try repo.appendCategoryId(categoryId)
-    }
-    
-    private func removeFromCategoriesOrder(categoryId: String) throws {
-        let repo = createCategoriesOrderRepo()
-        try repo.removeCategoryId(categoryId)
-    }
-    
-    private func createCategoriesOrderRepo() -> CategoriesOrderCoreDataRepo {
-        return CategoriesOrderCoreDataRepo(accessor: coreDataAccessor)
+    public func saveCategoriesOrder(orderedIds: [Category]) throws {
+        try sqliteDatabase.updateCategoriesOrderNumbers(orderedIds)
     }
     
     // MARK: - Balance Account
@@ -370,7 +357,7 @@ public class Storage {
         }
         let importingCategoryAdapter = ImportingCategoryAdapter()
         let addingCategories = uniqueImportingCategories.map { importingCategoryAdapter.adaptToAdding(importingCategory: $0) }
-        let importedCategories = addCategories(addingCategories)
+        let importedCategories = try addCategories(addingCategories)
         
         let balanceAccounts = try getAllBalanceAccounts()
         let uniqueImportingBalanceAccounts = file.balanceAccounts.filter { importingBalanceAccount in
