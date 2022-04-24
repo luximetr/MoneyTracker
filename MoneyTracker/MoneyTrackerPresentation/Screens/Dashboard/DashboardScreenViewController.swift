@@ -136,6 +136,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     private var previousPanGestureRecognizerTranslation: CGPoint?
     @objc private func panGestureRecognizerAction() {
         let state = templatesPanGestureRecognizer.state
+        let movingUp = templatesPanGestureRecognizer.translation(in: screenView).y < 0
         switch state {
         case .began:
             previousPanGestureRecognizerTranslation = templatesPanGestureRecognizer.translation(in: screenView)
@@ -149,13 +150,13 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
                 self.previousPanGestureRecognizerTranslation = translation
             }
         case .ended:
-            screenView.finishMove()
+            screenView.finishMove(movingUp: movingUp)
         case .cancelled:
-            screenView.finishMove()
+            screenView.finishMove(movingUp: movingUp)
         case .failed:
-            screenView.finishMove()
+            screenView.finishMove(movingUp: movingUp)
         @unknown default:
-            screenView.finishMove()
+            screenView.finishMove(movingUp: movingUp)
         }
     }
     
@@ -205,22 +206,22 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     
     func addTemplate(_ template: ExpenseTemplate) {
         templatesViewController.addTemplate(template)
-        screenView.finishMove()
+        screenView.finishMove(movingUp: true)
     }
     
     func editTemplate(_ template: ExpenseTemplate) {
         templatesViewController.editTemplate(template)
-        screenView.finishMove()
+        screenView.finishMove(movingUp: true)
     }
     
     func deleteTemplate(_ template: ExpenseTemplate) {
         templatesViewController.deleteTemplate(template)
-        screenView.finishMove()
+        screenView.finishMove(movingUp: false)
     }
     
     func orderTemplates(_ templates: [ExpenseTemplate]) {
         templatesViewController.orderTemplates(templates)
-        screenView.finishMove()
+        screenView.finishMove(movingUp: true)
     }
     
     // MARK: - Appearance

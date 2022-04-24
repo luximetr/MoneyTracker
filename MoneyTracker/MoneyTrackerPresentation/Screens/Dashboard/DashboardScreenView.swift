@@ -93,14 +93,22 @@ final class ScreenView: TitleNavigationBarScreenView {
         layoutIfNeeded()
     }
     
-    func finishMove() {
+    func finishMove(movingUp: Bool) {
         let height = bounds.height - navigationBarView.frame.origin.y - navigationBarView.frame.size.height
         let sizeThatFits = templatesView.sizeThatFits(CGSize(width: bounds.width, height: height))
         let tt = templatesView.bounds.height - sizeThatFits.height
-        if templatesViewY <= -tt * 0.5 {
-            templatesViewY = sizeThatFits.height - bounds.height + navigationBarView.frame.origin.y + navigationBarView.frame.size.height
+        if movingUp {
+            if templatesViewY <= -tt * 0.10 {
+                templatesViewY = sizeThatFits.height - bounds.height + navigationBarView.frame.origin.y + navigationBarView.frame.size.height
+            } else {
+                templatesViewY = 0
+            }
         } else {
-            templatesViewY = 0
+            if templatesViewY <= -tt * 0.90 {
+                templatesViewY = sizeThatFits.height - bounds.height + navigationBarView.frame.origin.y + navigationBarView.frame.size.height
+            } else {
+                templatesViewY = 0
+            }
         }
         setNeedsLayout()
         UIView.animate(withDuration: 0.2, delay: 0, options: []) {
