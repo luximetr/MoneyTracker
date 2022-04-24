@@ -19,7 +19,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationAccounts(_ presentation: Presentation) throws -> [Account]
     func presentation(_ presentation: Presentation, deleteAccount category: Account) throws
     func presentation(_ presentation: Presentation, addAccount addingAccount: AddingAccount) throws -> Account
-    func presentation(_ presentation: Presentation, editAccount editingAccount: Account) throws -> Account
+    func presentation(_ presentation: Presentation, editAccount editingAccount: EditingAccount) throws -> Account
     func presentation(_ presentation: Presentation, orderAccounts accounts: [Account]) throws
     func presentationExpenseTemplates(_ presentation: Presentation) throws -> [ExpenseTemplate]
     func presentation(_ presentation: Presentation, reorderExpenseTemplates reorderedExpenseTemplates: [ExpenseTemplate]) throws

@@ -117,6 +117,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     func editAccount(_ editedAccount: Account) {
         account = editedAccount
         setContent()
+        setAppearance(appearance)
     }
     
     // MARK: UIGestureRecognizerDelegate

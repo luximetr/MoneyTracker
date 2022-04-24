@@ -167,9 +167,11 @@ public class Storage {
         try removeFromBalanceAccountOrder(balanceAccountId: id)
     }
     
-    public func updateBalanceAccount(editingBalanceAccount: EditingBalanceAccount) throws {
+    @discardableResult
+    public func updateBalanceAccount(editingBalanceAccount: EditingBalanceAccount) throws -> BalanceAccount {
         let repo = createBalanceAccountsRepo()
         try repo.updateAccount(editingBalanceAccount: editingBalanceAccount)
+        return try repo.fetchAccount(id: editingBalanceAccount.id)
     }
     
     @discardableResult

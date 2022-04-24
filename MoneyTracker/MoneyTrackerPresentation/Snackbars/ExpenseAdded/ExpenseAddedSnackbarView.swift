@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class ExpenseAddedSnackbarView: AUIView {
+final class ExpenseAddedSnackbarView: AppearanceView {
     
     // MARK: Subviews
     
@@ -21,22 +21,20 @@ final class ExpenseAddedSnackbarView: AUIView {
         super.setup()
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        backgroundColor = Colors.successActionBackground
         addSubview(messageLabel)
         setupMessageLabel()
         addSubview(okButton)
         setupOkButton()
+        changeAppearance(appearance)
     }
     
     private func setupMessageLabel() {
-        messageLabel.textColor = Colors.white
         messageLabel.font = Fonts.default(size: 17, weight: .semibold)
         messageLabel.numberOfLines = 2
         messageLabel.adjustsFontSizeToFitWidth = true
     }
     
     private func setupOkButton() {
-        okButton.setTitleColor(Colors.white, for: .normal)
         okButton.titleLabel?.font = Fonts.default(size: 14, weight: .semibold)
     }
     
@@ -68,6 +66,15 @@ final class ExpenseAddedSnackbarView: AUIView {
         let height = bounds.height - y * 2
         let frame = CGRect(x: x, y: y, width: width, height: height)
         messageLabel.frame = frame
+    }
+    
+    // MARK: Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.successActionBackground
+        messageLabel.textColor = appearance.successActionText
+        okButton.setTitleColor(appearance.successActionText, for: .normal)
     }
     
     // MARK: Size

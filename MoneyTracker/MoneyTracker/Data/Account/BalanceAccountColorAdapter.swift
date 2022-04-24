@@ -39,6 +39,11 @@ class BalanceAccountColorAdapter {
         }
     }
     
+    func adaptToStorageOptional(presentationAccountColor: PresentationBalanceAccountColor?) -> StorageBalanceAccountColor? {
+        guard let presentationAccountColor = presentationAccountColor else { return nil }
+        return adaptToStorage(presentationAccountColor: presentationAccountColor)
+    }
+    
     func adaptToPresentation(storageAccountColor: StorageBalanceAccountColor) -> PresentationBalanceAccountColor {
         switch storageAccountColor {
             case .variant1: return .variant1

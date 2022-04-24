@@ -14,13 +14,13 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     
     private let accountColors: [AccountColor]
     var selectedCurrency: Currency
-    private let editingAccount: Account
+    private let account: Account
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, editingAccount: Account, accountColors: [AccountColor]) {
-        self.editingAccount = editingAccount
-        self.selectedCurrency = editingAccount.currency
+    init(appearance: Appearance, language: Language, account: Account, accountColors: [AccountColor]) {
+        self.account = account
+        self.selectedCurrency = account.currency
         self.accountColors = accountColors
         self.colorPickerController = BalanceAccountColorHorizontalPickerController(appearance: appearance)
         super.init(appearance: appearance, language: language)
@@ -30,7 +30,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     
     var backClosure: (() -> Void)?
     var selectCurrencyClosure: (() -> Void)?
-    var editAccountClosure: ((Account) -> Void)?
+    var editAccountClosure: ((EditingAccount) -> Void)?
     
     // MARK: Localizer
     
@@ -85,7 +85,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
-        screenView.nameInputView.text = editingAccount.name
+        screenView.nameInputView.text = account.name
         setupColorPickerController()
         setColorPickerControllerContent()
         screenView.currencyInputView.setTitle(selectedCurrency.rawValue, for: .normal)
@@ -94,7 +94,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         balanceTextFieldInputController.textField = screenView.amountInputView
         balanceTextFieldInputController.keyboardType = .decimalPad
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
-        balanceTextFieldInputController.text = balanceNumberFormatter.string(from: NSDecimalNumber(decimal: editingAccount.amount))
+        balanceTextFieldInputController.text = balanceNumberFormatter.string(from: NSDecimalNumber(decimal: account.amount))
         setContent()
     }
     
@@ -114,12 +114,11 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     }
     
     @objc private func editButtonTouchUpInsideEventAction() {
-        guard let name = screenView.nameInputView.text else { return }
+        let name = screenView.nameInputView.text
         guard let balanceString = screenView.amountInputView.text else { return }
         guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
-        guard let accountColor = selectedAccountColor else { return }
-        let addingAccount = Account(id: editingAccount.id, name: name, amount: amount, currency: selectedCurrency, color: accountColor)
-        editAccountClosure?(addingAccount)
+        let editingAccount = EditingAccount(id: account.id, name: name, currency: selectedCurrency, amount: amount, color: selectedAccountColor)
+        editAccountClosure?(editingAccount)
     }
     
     @objc private func currencyButtonTouchUpInsideEventAction() {
@@ -146,7 +145,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private func setColorPickerControllerContent() {
-        let selectedColor = editingAccount.color
+        let selectedColor = account.color
         colorPickerController.setColors(accountColors, selectedColor: selectedColor)
         didSelectAccountColor(selectedColor)
     }

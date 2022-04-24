@@ -352,6 +352,8 @@
 		DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */; };
 		DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */; };
 		DBD6AD0327B5FA2D00389236 /* ExpensesCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6AD0227B5FA2D00389236 /* ExpensesCoreDataRepo.swift */; };
+		DBDC92D12814EF9C00D8C435 /* EditingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D02814EF9C00D8C435 /* EditingAccount.swift */; };
+		DBDC92D32814F0C100D8C435 /* EditingBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D22814F0C100D8C435 /* EditingBalanceAccountAdapter.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -886,6 +888,8 @@
 		DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAccessor.swift; sourceTree = "<group>"; };
 		DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAdapter.swift; sourceTree = "<group>"; };
 		DBD6AD0227B5FA2D00389236 /* ExpensesCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesCoreDataRepo.swift; sourceTree = "<group>"; };
+		DBDC92D02814EF9C00D8C435 /* EditingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingAccount.swift; sourceTree = "<group>"; };
+		DBDC92D22814F0C100D8C435 /* EditingBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingBalanceAccountAdapter.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1134,6 +1138,7 @@
 				DB62AEF227EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift */,
 				DB7793C028106FA200150822 /* BalanceAccountColorAdapter.swift */,
 				DB7793C22810714900150822 /* AddingBalanceAccountAdapter.swift */,
+				DBDC92D22814F0C100D8C435 /* EditingBalanceAccountAdapter.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1156,6 +1161,7 @@
 			isa = PBXGroup;
 			children = (
 				2E92FF5C27B6AD5100A7306A /* AddingAccount.swift */,
+				DBDC92D02814EF9C00D8C435 /* EditingAccount.swift */,
 				2E92FF5A27B6AB9A00A7306A /* Account.swift */,
 				2E09CC3427F4F3070015DA1E /* AccountBackgroundColors.swift */,
 				DB400413280EA0DF004073D0 /* AccountColor.swift */,
@@ -2974,6 +2980,7 @@
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
 				2EB2E87F281083960017ACDD /* StorageAppearanceSettingMapper.swift in Sources */,
 				DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */,
+				DBDC92D32814F0C100D8C435 /* EditingBalanceAccountAdapter.swift in Sources */,
 				DB400432280FAC79004073D0 /* CategoryColorAdapter.swift in Sources */,
 				DB7793C52810EA0B00150822 /* TransferAdapter.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
@@ -3131,6 +3138,7 @@
 				2ED8BD7E27E91DB90007F60B /* DayTableViewCellController.swift in Sources */,
 				DB7BA7FE27F8749600A3B3BA /* CategoryIconView.swift in Sources */,
 				2EB10A3027A6E7B500743416 /* MenuScreenView.swift in Sources */,
+				DBDC92D12814EF9C00D8C435 /* EditingAccount.swift in Sources */,
 				2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */,
 				2EC6179027F8393300845E7A /* DashboardCategoryPickerViewController.swift in Sources */,
 				2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */,

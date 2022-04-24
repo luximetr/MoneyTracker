@@ -169,12 +169,12 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editAccount editingAccount: PresentationBalanceAccount) throws -> PresentationBalanceAccount {
+    func presentation(_ presentation: Presentation, editAccount editingAccount: PresentationEditingBalanceAccount) throws -> PresentationBalanceAccount {
         do {
-            let storageAccount = BalanceAccountAdapter().adaptToStorage(presentationAccount: editingAccount)
-            let editingBalanceAccount = EditingBalanceAccount(id: editingAccount.id, name: storageAccount.name, currency: storageAccount.currency, amount: storageAccount.amount, color: storageAccount.color)
-            try storage.updateBalanceAccount(editingBalanceAccount: editingBalanceAccount)
-            return editingAccount
+            let storageEditingAccount = EditingBalanceAccountAdapter().adaptToStorage(presentationEditingAccount: editingAccount)
+            let editedStorageAccount = try storage.updateBalanceAccount(editingBalanceAccount: storageEditingAccount)
+            let editedPresentationAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: editedStorageAccount)
+            return editedPresentationAccount
         } catch {
             let error = Error("Cannot edit account \(editingAccount)\n\(error)")
             throw error
