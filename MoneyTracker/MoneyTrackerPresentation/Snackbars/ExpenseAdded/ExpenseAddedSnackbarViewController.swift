@@ -8,19 +8,22 @@
 import UIKit
 import AUIKit
 
-final class ExpenseAddedSnackbarViewController: AUIEmptyViewController {
+final class ExpenseAddedSnackbarViewController: EmptyViewController {
     
     // MARK: Data
     
+    private(set) var appearance: Appearance
     let template: ExpenseTemplate
     let expense: Expense
     var okClosure: (() -> ())?
     
     // MARK: Initializer
     
-    init(template: ExpenseTemplate, expense: Expense) {
+    init(appearance: Appearance, language: Language, template: ExpenseTemplate, expense: Expense) {
+        self.appearance = appearance
         self.template = template
         self.expense = expense
+        super.init(language: language)
     }
     
     // MARK: ExpenseAddedSnackbarView
@@ -52,13 +55,25 @@ final class ExpenseAddedSnackbarViewController: AUIEmptyViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: .english, stringsTableName: "ExpenseAddedSnackbarStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "ExpenseAddedSnackbarStrings")
         return localizer
     }()
     
     private func setContent() {
         expenseAddedSnackbarView?.messageLabel.text = localizer.localizeText("message", template.name)
         expenseAddedSnackbarView?.okButton.setTitle(localizer.localizeText("ok"), for: .normal)
+    }
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    // MARK: - Appearance
+    
+    func changeAppearance(_ appearance: Appearance) {
+        self.appearance = appearance
+        expenseAddedSnackbarView?.changeAppearance(appearance)
     }
     
     // MARK: Events

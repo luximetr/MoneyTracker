@@ -82,6 +82,7 @@ public final class Presentation: AUIWindowPresentation {
         pushedEditTemplateScreenViewController?.changeAppearance(appearance)
         importCSVScreen?.changeAppearance(appearance)
         exportCSVScreen?.changeAppearance(appearance)
+        expenseAddedSnackbarViewControllers.forEach { $0.changeAppearance(appearance) }
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -377,8 +378,9 @@ public final class Presentation: AUIWindowPresentation {
     
     private var expenseAddedSnackbarViewControllers: [ExpenseAddedSnackbarViewController] = []
     private func displayExpenseAddedSnackbarViewController(template: ExpenseTemplate, expense: Expense) {
-        let viewController = ExpenseAddedSnackbarViewController(template: template, expense: expense)
-        let view = ExpenseAddedSnackbarView()
+        let language = try! delegate.presentationLanguage(self)
+        let viewController = ExpenseAddedSnackbarViewController(appearance: appearance, language: language, template: template, expense: expense)
+        let view = ExpenseAddedSnackbarView(appearance: appearance)
         viewController.expenseAddedSnackbarView = view
         expenseAddedSnackbarViewControllers.append(viewController)
         let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self] timer in
