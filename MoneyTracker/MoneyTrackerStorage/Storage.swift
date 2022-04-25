@@ -284,10 +284,25 @@ public class Storage {
     
     @discardableResult
     public func addExpense(addingExpense: AddingExpense) throws -> Expense {
-        let expense = Expense(addingExpense: addingExpense)
-        let repo = createExpensesRepo()
-        try repo.insertExpense(expense)
-        return expense
+        do {
+            let id = UUID().uuidString
+            let amount = Int32(try (addingExpense.amount * 100).int())
+            let date = addingExpense.date.timeIntervalSince1970
+            let comment = addingExpense.comment
+            let categoryId = addingExpense.categoryId
+            let balanceAccountId = addingExpense.balanceAccountId
+            let expenseInsertingValues = ExpenseInsertingValues(id: id, amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+            try sqliteDatabase.beginTransaction()
+            try sqliteDatabase.expenseTable.insert(expenseInsertingValues)
+            try sqliteDatabase.commitTransaction()
+            let amountDecimal = Decimal(amount) / 100
+            let dateDate = Date(timeIntervalSince1970: date)
+            let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+            return expense
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
     }
     
     @discardableResult
@@ -305,8 +320,24 @@ public class Storage {
     }
     
     public func getAllExpenses() throws -> [Expense] {
-        let repo = createExpensesRepo()
-        return try repo.fetchAllExpenses()
+        do {
+            let expenseSelectedRows = try sqliteDatabase.expenseTable.select()
+            let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
+                let id = expenseSelectedRow.id
+                let amount = expenseSelectedRow.amount
+                let date = expenseSelectedRow.date
+                let comment = expenseSelectedRow.comment
+                let categoryId = expenseSelectedRow.categoryId
+                let balanceAccountId = expenseSelectedRow.balanceAccountId
+                let amountDecimal = Decimal(amount) / 100
+                let dateDate = Date(timeIntervalSince1970: date)
+                let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+                return expense
+            }
+            return expenses
+        } catch {
+            throw error
+        }
     }
     
     public func getExpense(id: String) throws -> Expense {
@@ -339,8 +370,14 @@ public class Storage {
     }
     
     public func removeExpense(expenseId: String) throws {
-        let repo = createExpensesRepo()
-        try repo.removeExpense(id: expenseId)
+        do {
+            try sqliteDatabase.beginTransaction()
+            try sqliteDatabase.expenseTable.deleteById(expenseId)
+            try sqliteDatabase.commitTransaction()
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
     }
     
     // MARK: - ExpensesFile

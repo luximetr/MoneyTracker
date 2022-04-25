@@ -56,15 +56,15 @@ class BalanceAccountSqliteTable {
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        let idValue = (row.id as NSString).utf8String
+        let idValue = row.id
         try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
-        let nameValue = (row.name as NSString).utf8String
+        let nameValue = row.name
         try sqlite3BindText(databaseConnection, preparedStatement, 2, nameValue, -1, nil)
         let amountValue = Int32(row.amount)
         try sqlite3BindInt(databaseConnection, preparedStatement, 3, amountValue)
-        let currency = (row.currency as NSString?)?.utf8String
+        let currency = row.currency
         try sqlite3BindText(databaseConnection, preparedStatement, 4, currency, -1, nil)
-        let color = (row.color as NSString?)?.utf8String
+        let color = row.color
         try sqlite3BindText(databaseConnection, preparedStatement, 5, color, -1, nil)
         let orderNumber = Int32(row.orderNumber)
         try sqlite3BindInt(databaseConnection, preparedStatement, 6, orderNumber)
@@ -112,7 +112,7 @@ class BalanceAccountSqliteTable {
             let value = columnValue.value
             switch value {
             case .text(let string):
-                let value = (string as NSString).utf8String
+                let value = string
                 try sqlite3BindText(databaseConnection, preparedStatement, valueIndex, value, -1, nil)
             case .integer(let int):
                 let value = Int32(int)
@@ -120,7 +120,7 @@ class BalanceAccountSqliteTable {
             }
         }
         let idValueIndex = Int32(columnsValues.count + 1)
-        let idValue = (category.id as NSString).utf8String
+        let idValue = category.id
         try sqlite3BindText(databaseConnection, preparedStatement, idValueIndex, idValue, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -135,7 +135,7 @@ class BalanceAccountSqliteTable {
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        let idValue = (id as NSString).utf8String
+        let idValue = id
         try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -170,7 +170,7 @@ class BalanceAccountSqliteTable {
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         for (index, id) in ids.enumerated() {
             let index = Int32(index + 1)
-            let value = (id as NSString).utf8String
+            let value = id
             try sqlite3BindText(databaseConnection, preparedStatement, index, value, -1, nil)
         }
         var balanceAccounts: [BalanceAccount] = []

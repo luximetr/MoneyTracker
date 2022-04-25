@@ -54,13 +54,13 @@ class CategorySqliteTable {
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        let idValue = (row.id as NSString).utf8String
+        let idValue = row.id
         try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
-        let nameValue = (row.name as NSString).utf8String
+        let nameValue = row.name
         try sqlite3BindText(databaseConnection, preparedStatement, 2, nameValue, -1, nil)
-        let iconName = (row.iconName as NSString?)?.utf8String
+        let iconName = row.iconName
         try sqlite3BindText(databaseConnection, preparedStatement, 3, iconName, -1, nil)
-        let colorType = (row.colorType as NSString?)?.utf8String
+        let colorType = row.colorType
         try sqlite3BindText(databaseConnection, preparedStatement, 4, colorType, -1, nil)
         let orderNumber = Int32(row.orderNumber)
         try sqlite3BindInt(databaseConnection, preparedStatement, 5, orderNumber)
@@ -104,7 +104,7 @@ class CategorySqliteTable {
             let value = columnValue.value
             switch value {
             case .text(let string):
-                let value = (string as NSString).utf8String
+                let value = string
                 try sqlite3BindText(databaseConnection, preparedStatement, valueIndex, value, -1, nil)
             case .integer(let int):
                 let value = Int32(int)
@@ -112,7 +112,7 @@ class CategorySqliteTable {
             }
         }
         let idValueIndex = Int32(columnsValues.count + 1)
-        let idValue = (category.id as NSString).utf8String
+        let idValue = category.id
         try sqlite3BindText(databaseConnection, preparedStatement, idValueIndex, idValue, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -127,7 +127,7 @@ class CategorySqliteTable {
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        let idValue = (id as NSString).utf8String
+        let idValue = id
         try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -162,7 +162,7 @@ class CategorySqliteTable {
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         for (index, id) in ids.enumerated() {
             let index = Int32(index + 1)
-            let value = (id as NSString).utf8String
+            let value = id
             try sqlite3BindText(databaseConnection, preparedStatement, index, value, -1, nil)
         }
         var categories: [Category] = []
@@ -177,7 +177,7 @@ class CategorySqliteTable {
     func selectOrderedByOrderNumber() throws -> [Category] {
         let statement =
             """
-            SELECT NULL, name, icon_name, color_type, order_number FROM category ORDER BY order_number;
+            SELECT id, name, icon_name, color_type, order_number FROM category ORDER BY order_number;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)

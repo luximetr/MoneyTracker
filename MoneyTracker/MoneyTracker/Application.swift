@@ -259,9 +259,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentationExpenses(_ presentation: Presentation) throws -> [PresentationExpense] {
         do {
-            let startDate = Date(timeIntervalSince1970: 0)
-            let endDate = Date(timeIntervalSince1970: 100000000000)
-            let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+            let expenses = try storage.getAllExpenses()
             let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
                 return try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: expense)
             }

@@ -13,7 +13,7 @@ class SqliteDatabase {
     private var databaseConnection: OpaquePointer!
     private let categoryTable: CategorySqliteTable
     private let balanceAccountTable: BalanceAccountSqliteTable
-    private let expenseSqliteTable: ExpenseSqliteTable
+    let expenseTable: ExpenseSqliteTable
     
     // MARK: - Initializer
     
@@ -26,13 +26,13 @@ class SqliteDatabase {
         try categoryTable.createIfNeeded()
         self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
         try balanceAccountTable.createIfNeeded()
-        self.expenseSqliteTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
-        try expenseSqliteTable.createIfNeeded()
+        self.expenseTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
+        try expenseTable.createIfNeeded()
     }
     
     // MARK: - Transaction
     
-    private func beginTransaction() throws {
+    func beginTransaction() throws {
         let statement = "BEGIN TRANSACTION;"
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -40,7 +40,7 @@ class SqliteDatabase {
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
-    private func commitTransaction() throws {
+    func commitTransaction() throws {
         let statement = "COMMIT TRANSACTION;"
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -48,7 +48,7 @@ class SqliteDatabase {
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
-    private func rollbackTransaction() throws {
+    func rollbackTransaction() throws {
         let statement = "ROLLBACK TRANSACTION;"
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
