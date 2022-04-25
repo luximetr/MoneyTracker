@@ -23,7 +23,14 @@ class BalanceAccountSqliteTable {
         let statement =
             """
             CREATE TABLE IF NOT EXISTS
-            balance_account (id TEXT PRIMARY KEY, name TEXT, amount INTEGER, currency TEXT, color TEXT, order_number INTEGER);
+            balance_account(
+                id TEXT PRIMARY KEY,
+                name TEXT,
+                amount INTEGER,
+                currency TEXT,
+                color TEXT,
+                order_number INTEGER
+            );
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -44,7 +51,7 @@ class BalanceAccountSqliteTable {
     func insert(_ row: InsertingRow) throws {
         let statement =
             """
-            INSERT INTO balance_account (id, name, amount, currency, color, order_number)
+            INSERT INTO balance_account(id, name, amount, currency, color, order_number)
             VALUES (?, ?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?

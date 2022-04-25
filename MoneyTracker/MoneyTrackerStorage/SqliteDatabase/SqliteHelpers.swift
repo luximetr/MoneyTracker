@@ -52,9 +52,50 @@ func sqlite3BindInt(_ databaseConnection: OpaquePointer!, _ preparedStatement: O
     }
 }
 
-func sqlite3Finalize(_ databaseConnection: OpaquePointer!,_ preparedStatement: OpaquePointer!) throws {
+func sqlite3Finalize(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!) throws {
     if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-        let message = String(cString: sqlite3_errmsg(databaseConnection))
-        throw Error(message)
+        let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)
+        let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+        throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
     }
+}
+
+
+func sqlite3ColumnText(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int) throws -> String {
+    let indexInt32 = Int32(index)
+    if let value = sqlite3_column_text(preparedStatement, indexInt32) {
+        let string = String(cString: value)
+        return string
+    } else {
+        let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)
+        if sqlite3ErrorCode == SQLITE_ROW {
+            throw Error("Unexpected SQL NULL value")
+        } else {
+            let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+            throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
+        }
+    }
+}
+
+func sqlite3ColumnTextNull(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int) throws -> String? {
+    let indexInt32 = Int32(index)
+    if let value = sqlite3_column_text(preparedStatement, indexInt32) {
+        let string = String(cString: value)
+        return string
+    } else {
+        let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)
+        if sqlite3ErrorCode == SQLITE_ROW {
+            return nil
+        } else {
+            let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+            throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
+        }
+    }
+}
+
+func sqlite3ColumnInt(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int) throws -> Int {
+    let indexInt32 = Int32(index)
+    let value = sqlite3_column_int(preparedStatement, indexInt32)
+    let int = Int(value)
+    return int
 }

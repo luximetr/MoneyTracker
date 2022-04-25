@@ -23,7 +23,13 @@ class CategorySqliteTable {
         let statement =
             """
             CREATE TABLE IF NOT EXISTS
-            category (id TEXT PRIMARY KEY, name TEXT, icon_name TEXT, color_type TEXT, order_number INTEGER);
+            category(
+                id TEXT PRIMARY KEY,
+                name TEXT,
+                icon_name TEXT,
+                color_type TEXT,
+                order_number INTEGER
+            );
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -43,7 +49,7 @@ class CategorySqliteTable {
     func insert(_ row: InsertingRow) throws {
         let statement =
             """
-            INSERT INTO category (id, name, icon_name, color_type, order_number)
+            INSERT INTO category(id, name, icon_name, color_type, order_number)
             VALUES (?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
@@ -171,7 +177,7 @@ class CategorySqliteTable {
     func selectOrderedByOrderNumber() throws -> [Category] {
         let statement =
             """
-            SELECT id, name, icon_name, color_type, order_number FROM category ORDER BY order_number;
+            SELECT NULL, name, icon_name, color_type, order_number FROM category ORDER BY order_number;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -202,10 +208,10 @@ class CategorySqliteTable {
     // MARK: - Mapping
     
     private func parseCategory(_ preparedStatement: OpaquePointer?) throws -> Category {
-        let id = String(cString: sqlite3_column_text(preparedStatement, 0))
-        let name = String(cString: sqlite3_column_text(preparedStatement, 1))
-        let iconName = String(cString: sqlite3_column_text(preparedStatement, 2))
-        let colorType = String(cString: sqlite3_column_text(preparedStatement, 3))
+        let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
+        let name = try sqlite3ColumnText(databaseConnection, preparedStatement, 1)
+        let iconName = try sqlite3ColumnText(databaseConnection, preparedStatement, 2)
+        let colorType = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
         let color = try CategoryColor(colorType)
         let category = Category(id: id, name: name, color: color, iconName: iconName)
         return category

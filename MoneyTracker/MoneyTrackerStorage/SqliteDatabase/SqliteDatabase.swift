@@ -13,6 +13,7 @@ class SqliteDatabase {
     private var databaseConnection: OpaquePointer!
     private let categoryTable: CategorySqliteTable
     private let balanceAccountTable: BalanceAccountSqliteTable
+    private let expenseSqliteTable: ExpenseSqliteTable
     
     // MARK: - Initializer
     
@@ -25,6 +26,8 @@ class SqliteDatabase {
         try categoryTable.createIfNeeded()
         self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
         try balanceAccountTable.createIfNeeded()
+        self.expenseSqliteTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
+        try expenseSqliteTable.createIfNeeded()
     }
     
     // MARK: - Transaction
