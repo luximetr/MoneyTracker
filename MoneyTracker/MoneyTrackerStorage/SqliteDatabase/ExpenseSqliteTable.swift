@@ -16,6 +16,14 @@ struct ExpenseInsertingValues {
     let balanceAccountId: String
 }
 
+struct ExpenseUpdatingByIdValues {
+    let amount: Int32
+    let date: Double
+    let comment: String?
+    let categoryId: String
+    let balanceAccountId: String
+}
+
 struct ExpenseSelectedRow {
     let id: String
     let amount: Int32
@@ -60,7 +68,7 @@ class ExpenseSqliteTable {
     
     // MARK: - INSERT
     
-    func insert(_ values: ExpenseInsertingValues) throws {
+    func insert(values: ExpenseInsertingValues) throws {
         let statement =
             """
             INSERT INTO expense(id, amount, date, comment, category_id, balance_account_id)
@@ -80,6 +88,36 @@ class ExpenseSqliteTable {
         try sqlite3BindText(databaseConnection, preparedStatement, 5, categoryId, -1, nil)
         let balanceAccountId = values.balanceAccountId
         try sqlite3BindText(databaseConnection, preparedStatement, 6, balanceAccountId, -1, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+    }
+    
+    // MARK: - UPDATE
+    
+    func updateById(_ id: String, values: ExpenseUpdatingByIdValues) throws {
+        let statement =
+            """
+            UPDATE balance_account SET
+                amount = ?,
+                date = ?,
+                comment = ?,
+                category_id = ?,
+                balance_account_id = ?,
+            WHERE id = ?;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let amount = values.amount
+        try sqlite3BindInt(databaseConnection, preparedStatement, 1, amount)
+        let date = values.date
+        try sqlite3BindDouble(databaseConnection, preparedStatement, 2, date)
+        let comment = values.comment
+        try sqlite3BindText(databaseConnection, preparedStatement, 3, comment, -1, nil)
+        let categoryId = values.categoryId
+        try sqlite3BindText(databaseConnection, preparedStatement, 4, categoryId, -1, nil)
+        let balanceAccountId = values.balanceAccountId
+        try sqlite3BindText(databaseConnection, preparedStatement, 5, balanceAccountId, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 6, id, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
@@ -118,6 +156,80 @@ class ExpenseSqliteTable {
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        var selectedRows: [ExpenseSelectedRow] = []
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
+            selectedRows.append(selectedRow)
+        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+        return selectedRows
+    }
+    
+    func selectWhereId(_ id: String) throws -> ExpenseSelectedRow? {
+        let statement =
+            """
+            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
+            WHERE id = ?;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
+            return selectedRow
+        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+        return nil
+    }
+    
+    func selectWhereIds(_ ids: Set<String>) throws -> [ExpenseSelectedRow] {
+        let statement =
+            """
+            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
+            WHERE id IN (\(Array(repeating: "?", count: ids.count).joined(separator: ", ")));
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        for (index, id) in ids.enumerated() {
+            let index = Int32(index)
+            try sqlite3BindText(databaseConnection, preparedStatement, index, id, -1, nil)
+        }
+        var selectedRows: [ExpenseSelectedRow] = []
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
+            selectedRows.append(selectedRow)
+        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+        return selectedRows
+    }
+    
+    func selectWhereCategoryId(_ categoryId: String) throws -> [ExpenseSelectedRow] {
+        let statement =
+            """
+            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
+            WHERE category_id = ?;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, categoryId, -1, nil)
+        var selectedRows: [ExpenseSelectedRow] = []
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
+            selectedRows.append(selectedRow)
+        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+        return selectedRows
+    }
+    
+    func selectWhereBalanceAccountId(_ balanceAccountId: String) throws -> [ExpenseSelectedRow] {
+        let statement =
+            """
+            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
+            WHERE balance_account_id = ?;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, balanceAccountId, -1, nil)
         var selectedRows: [ExpenseSelectedRow] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
             let selectedRow = try extractExpenseSelectedRow(preparedStatement)

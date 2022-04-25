@@ -274,12 +274,28 @@ public class Storage {
     // MARK: - Expenses
     
     public func addExpenses(coinKeeperExpenses: [CoinKeeperExpense]) throws {
-        let repo = createExpensesRepo()
-        let categories = try getCategories()
-        let accounts = try getAllBalanceAccounts()
-        let converter = CoinKeeperExpenseToExpenseConverter()
-        let expenses = converter.convert(coinKeeperExpenses: coinKeeperExpenses, categories: categories, balanceAccounts: accounts)
-        repo.insertExpenses(expenses)
+        do {
+            let categories = try getCategories()
+            let accounts = try getAllBalanceAccounts()
+            let converter = CoinKeeperExpenseToExpenseConverter()
+            let expenses = converter.convert(coinKeeperExpenses: coinKeeperExpenses, categories: categories, balanceAccounts: accounts)
+            try sqliteDatabase.beginTransaction()
+            for expense in expenses {
+                let id = expense.id
+                let amount = Int32(try (expense.amount * 100).int())
+                let date = expense.date.timeIntervalSince1970
+                let comment = expense.comment
+                let categoryId = expense.categoryId
+                let balanceAccountId = expense.balanceAccountId
+                let expenseInsertingValues = ExpenseInsertingValues(id: id, amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+                try sqliteDatabase.beginTransaction()
+                try sqliteDatabase.expenseTable.insert(values: expenseInsertingValues)
+            }
+            try sqliteDatabase.commitTransaction()
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
     }
     
     @discardableResult
@@ -293,7 +309,7 @@ public class Storage {
             let balanceAccountId = addingExpense.balanceAccountId
             let expenseInsertingValues = ExpenseInsertingValues(id: id, amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
             try sqliteDatabase.beginTransaction()
-            try sqliteDatabase.expenseTable.insert(expenseInsertingValues)
+            try sqliteDatabase.expenseTable.insert(values: expenseInsertingValues)
             try sqliteDatabase.commitTransaction()
             let amountDecimal = Decimal(amount) / 100
             let dateDate = Date(timeIntervalSince1970: date)
@@ -306,17 +322,30 @@ public class Storage {
     }
     
     @discardableResult
-    public func addExpenses(addingExpenses: [AddingExpense]) -> [Expense] {
-        var addedExpenses: [Expense] = []
-        addingExpenses.forEach {
-            do {
-                let addedExpense = try addExpense(addingExpense: $0)
-                addedExpenses.append(addedExpense)
-            } catch {
-                print(error)
+    public func addExpenses(addingExpenses: [AddingExpense]) throws -> [Expense] {
+        do {
+            var expenses: [Expense] = []
+            try sqliteDatabase.beginTransaction()
+            for addingExpense in addingExpenses {
+                let id = UUID().uuidString
+                let amount = Int32(try (addingExpense.amount * 100).int())
+                let date = addingExpense.date.timeIntervalSince1970
+                let comment = addingExpense.comment
+                let categoryId = addingExpense.categoryId
+                let balanceAccountId = addingExpense.balanceAccountId
+                let expenseInsertingValues = ExpenseInsertingValues(id: id, amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+                try sqliteDatabase.expenseTable.insert(values: expenseInsertingValues)
+                let amountDecimal = Decimal(amount) / 100
+                let dateDate = Date(timeIntervalSince1970: date)
+                let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+                expenses.append(expense)
             }
+            try sqliteDatabase.commitTransaction()
+            return expenses
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
         }
-        return addedExpenses
     }
     
     public func getAllExpenses() throws -> [Expense] {
@@ -341,18 +370,59 @@ public class Storage {
     }
     
     public func getExpense(id: String) throws -> Expense {
-        let repo = createExpensesRepo()
-        return try repo.fetchExpense(id: id)
+        let expenseSelectedRow = try sqliteDatabase.expenseTable.selectWhereId(id)!
+        let id = expenseSelectedRow.id
+        let amount = expenseSelectedRow.amount
+        let date = expenseSelectedRow.date
+        let comment = expenseSelectedRow.comment
+        let categoryId = expenseSelectedRow.categoryId
+        let balanceAccountId = expenseSelectedRow.balanceAccountId
+        let amountDecimal = Decimal(amount) / 100
+        let dateDate = Date(timeIntervalSince1970: date)
+        let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+        return expense
     }
     
     public func getExpenses(balanceAccountId: String) throws -> [Expense] {
-        let repo = createExpensesRepo()
-        return try repo.fetchExpenses(balanceAccountId: balanceAccountId)
+        do {
+            let expenseSelectedRows = try sqliteDatabase.expenseTable.selectWhereBalanceAccountId(balanceAccountId)
+            let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
+                let id = expenseSelectedRow.id
+                let amount = expenseSelectedRow.amount
+                let date = expenseSelectedRow.date
+                let comment = expenseSelectedRow.comment
+                let categoryId = expenseSelectedRow.categoryId
+                let balanceAccountId = expenseSelectedRow.balanceAccountId
+                let amountDecimal = Decimal(amount) / 100
+                let dateDate = Date(timeIntervalSince1970: date)
+                let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+                return expense
+            }
+            return expenses
+        } catch {
+            throw error
+        }
     }
     
     public func getExpenses(categoryId: String) throws -> [Expense] {
-        let repo = createExpensesRepo()
-        return try repo.fetchExpenses(categoryId: categoryId)
+        do {
+            let expenseSelectedRows = try sqliteDatabase.expenseTable.selectWhereCategoryId(categoryId)
+            let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
+                let id = expenseSelectedRow.id
+                let amount = expenseSelectedRow.amount
+                let date = expenseSelectedRow.date
+                let comment = expenseSelectedRow.comment
+                let categoryId = expenseSelectedRow.categoryId
+                let balanceAccountId = expenseSelectedRow.balanceAccountId
+                let amountDecimal = Decimal(amount) / 100
+                let dateDate = Date(timeIntervalSince1970: date)
+                let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+                return expense
+            }
+            return expenses
+        } catch {
+            throw error
+        }
     }
     
     public func getExpenses(startDate: Date, endDate: Date) throws -> [Expense] {
@@ -407,7 +477,7 @@ public class Storage {
             guard let balanceAccount = allBalanceAccounts.first(where: { $0.name.lowercased() == importingExpense.balanceAccount.lowercased() }) else { return nil }
             return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
         }
-        let importedExpenses = addExpenses(addingExpenses: addingExpenses)
+        let importedExpenses = try addExpenses(addingExpenses: addingExpenses)
         try importedExpenses.forEach {
             try deductBalanceAccountAmount(id: $0.balanceAccountId, amount: $0.amount)
         }
