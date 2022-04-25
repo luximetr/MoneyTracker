@@ -198,7 +198,7 @@ class SqliteDatabase {
     func updateBalanceAccount(_ balanceAccount: EditingBalanceAccount) throws {
         do {
             try beginTransaction()
-            var amount: Int? = try balanceAccount.amount?.int()
+            var amount: Int? = try (balanceAccount.amount! * 100).int()
             if let ll = amount {
                 amount = ll * 100
             }

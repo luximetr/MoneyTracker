@@ -97,12 +97,12 @@ class ExpenseSqliteTable {
     func updateById(_ id: String, values: ExpenseUpdatingByIdValues) throws {
         let statement =
             """
-            UPDATE balance_account SET
+            UPDATE expense SET
                 amount = ?,
                 date = ?,
                 comment = ?,
                 category_id = ?,
-                balance_account_id = ?,
+                balance_account_id = ?
             WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?

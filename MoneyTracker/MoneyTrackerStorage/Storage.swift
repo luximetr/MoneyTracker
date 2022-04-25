@@ -431,8 +431,15 @@ public class Storage {
     }
     
     public func updateExpense(expenseId: String, editingExpense: EditingExpense) throws {
-        let repo = createExpensesRepo()
-        try repo.updateExpense(id: expenseId, editingExpense: editingExpense)
+        let amount = Int32(try (editingExpense.amount! * 100).int())
+        let date = editingExpense.date!.timeIntervalSince1970
+        let comment = editingExpense.comment
+        let categoryId = editingExpense.categoryId!
+        let balanceAccountId = editingExpense.balanceAccountId!
+        let expenseUpdatingByIdValues = ExpenseUpdatingByIdValues(amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+        try sqliteDatabase.beginTransaction()
+        try sqliteDatabase.expenseTable.updateById(expenseId, values: expenseUpdatingByIdValues)
+        try sqliteDatabase.commitTransaction()
     }
     
     private func createExpensesRepo() -> ExpensesCoreDataRepo {
