@@ -118,33 +118,50 @@ public class Storage {
     // MARK: - Balance Account
     
     public func getAllBalanceAccounts() throws -> [BalanceAccount] {
-        let repo = createBalanceAccountsRepo()
-        return try repo.fetchAllAccounts()
+        do {
+            let balanceAccounts = try sqliteDatabase.selectBalanceAccounts()
+            return balanceAccounts
+        } catch {
+            throw error
+        }
     }
     
     public func getAllBalanceAccountsOrdered() throws -> [BalanceAccount] {
-        let orderedIds = getBalanceAccountsOrderedIds()
-        let accounts = try getAllBalanceAccounts()
-        return orderBalanceAccounts(accounts, orderedIds: orderedIds)
+        do {
+            let balanceAccounts = try sqliteDatabase.selectBalanceAccountsOrderedByOrderNumber()
+            return balanceAccounts
+        } catch {
+            throw error
+        }
     }
     
     public func getBalanceAccount(id: String) throws -> BalanceAccount {
-        let repo = createBalanceAccountsRepo()
-        return try repo.fetchAccount(id: id)
+        do {
+            let balanceAccounts = try sqliteDatabase.selectBalanceAccountsByIds([id]).first
+            return balanceAccounts!
+        } catch {
+            throw error
+        }
     }
     
     public func getBalanceAccounts(ids: [String]) throws -> [BalanceAccount] {
-        let repo = createBalanceAccountsRepo()
-        return try  repo.fetchAccounts(ids: ids)
+        do {
+            let balanceAccounts = try sqliteDatabase.selectBalanceAccountsByIds(ids)
+            return balanceAccounts
+        } catch {
+            throw error
+        }
     }
     
     @discardableResult
     public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws -> BalanceAccount {
-        let repo = createBalanceAccountsRepo()
-        let account = BalanceAccount(addingBalanceAccount: addingBalanceAccount)
-        try repo.insertAccount(account)
-        try appendToBalanceAccountOrder(balanceAccountId: account.id)
-        return account
+        do {
+            let balanceAccount = BalanceAccount(addingBalanceAccount: addingBalanceAccount)
+            try sqliteDatabase.insertBalanceAccount(balanceAccount)
+            return balanceAccount
+        } catch {
+            throw error
+        }
     }
     
     @discardableResult
@@ -162,16 +179,21 @@ public class Storage {
     }
     
     public func removeBalanceAccount(id: String) throws {
-        let repo = createBalanceAccountsRepo()
-        try repo.removeAccount(id: id)
-        try removeFromBalanceAccountOrder(balanceAccountId: id)
+        do {
+            try sqliteDatabase.deleteBalanceAccountById(id)
+        } catch {
+            throw error
+        }
     }
     
     @discardableResult
     public func updateBalanceAccount(editingBalanceAccount: EditingBalanceAccount) throws -> BalanceAccount {
-        let repo = createBalanceAccountsRepo()
-        try repo.updateAccount(editingBalanceAccount: editingBalanceAccount)
-        return try repo.fetchAccount(id: editingBalanceAccount.id)
+        do {
+            try sqliteDatabase.updateBalanceAccount(editingBalanceAccount)
+            return BalanceAccount(id: editingBalanceAccount.id, name: editingBalanceAccount.name ?? "", amount: editingBalanceAccount.amount ?? Decimal(), currency: editingBalanceAccount.currency ?? .EUR, color: editingBalanceAccount.color ?? .variant1)
+        } catch {
+            throw error
+        }
     }
     
     @discardableResult
@@ -181,54 +203,24 @@ public class Storage {
     
     @discardableResult
     public func addBalanceAccountAmount(id: String, amount: Decimal) throws -> BalanceAccount {
-        let repo = createBalanceAccountsRepo()
-        let account = try repo.fetchAccount(id: id)
-        let newAmount = account.amount + amount
-        let editingAccount = EditingBalanceAccount(id: id, name: nil, currency: nil, amount: newAmount, color: nil)
-        try repo.updateAccount(editingBalanceAccount: editingAccount)
-        let updatedAccount = try repo.fetchAccount(id: id)
-        return updatedAccount
-    }
-    
-    private func createBalanceAccountsRepo() -> BalanceAccountsCoreDataRepo {
-        return BalanceAccountsCoreDataRepo(accessor: coreDataAccessor)
-    }
-    
-    // MARK: - Balance Account order
-    
-    public func saveBalanceAccountOrder(orderedIds: [String]) throws {
-        let repo = createBalanceAccountsOrderRepo()
-        try repo.updateOrder(orderedIds: orderedIds)
-    }
-    
-    private func getBalanceAccountsOrderedIds() -> [BalanceAccountId] {
-        let repo = createBalanceAccountsOrderRepo()
         do {
-            return try repo.fetchOrder()
+            let balanceAccount = try getBalanceAccount(id: id)
+            let newAmount = balanceAccount.amount + amount
+            let editingAccount = EditingBalanceAccount(id: id, name: nil, currency: nil, amount: newAmount, color: nil)
+            try updateBalanceAccount(editingBalanceAccount: editingAccount)
+            let updatedAccount = try getBalanceAccount(id: id)
+            return updatedAccount
         } catch {
-            return []
+            throw error
         }
     }
     
-    private func orderBalanceAccounts(_ balanceAccounts: [BalanceAccount], orderedIds: [BalanceAccountId]) -> [BalanceAccount] {
-        let sortedAccounts = orderedIds.compactMap { id -> BalanceAccount? in
-            balanceAccounts.first(where: { $0.id == id })
+    public func saveBalanceAccountOrder(orderedIds: [BalanceAccount]) throws {
+        do {
+            try sqliteDatabase.updateBalanceAccountsOrderNumbers(orderedIds)
+        } catch {
+            throw error
         }
-        return sortedAccounts
-    }
-    
-    private func appendToBalanceAccountOrder(balanceAccountId: BalanceAccountId) throws {
-        let repo = createBalanceAccountsOrderRepo()
-        try repo.appendBalanceAccountId(balanceAccountId)
-    }
-    
-    private func removeFromBalanceAccountOrder(balanceAccountId: BalanceAccountId) throws {
-        let repo = createBalanceAccountsOrderRepo()
-        try repo.removeBalanceAccountId(balanceAccountId)
-    }
-    
-    private func createBalanceAccountsOrderRepo() -> BalanceAccountsOrderCoreDataRepo {
-        return BalanceAccountsOrderCoreDataRepo(accessor: coreDataAccessor)
     }
     
     // MARK: - Selected Currency

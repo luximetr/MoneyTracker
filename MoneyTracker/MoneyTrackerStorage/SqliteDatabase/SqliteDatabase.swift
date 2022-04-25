@@ -6,11 +6,13 @@
 //
 
 import SQLite3
+import AFoundation
 
 class SqliteDatabase {
     
     private var databaseConnection: OpaquePointer!
     private let categoryTable: CategorySqliteTable
+    private let balanceAccountTable: BalanceAccountSqliteTable
     
     // MARK: - Initializer
     
@@ -19,8 +21,10 @@ class SqliteDatabase {
         if resultCode != SQLITE_OK {
             throw Error("")
         }
-        categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
+        self.categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
         try categoryTable.createIfNeeded()
+        self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
+        try balanceAccountTable.createIfNeeded()
     }
     
     // MARK: - Transaction
@@ -144,5 +148,91 @@ class SqliteDatabase {
             throw error
         }
     }
+    
+    // MARK: - BalanceAccount
+    
+    func selectBalanceAccounts() throws -> [BalanceAccount] {
+        do {
+            let balanceAccounts = try balanceAccountTable.select()
+            return balanceAccounts
+        } catch {
+            throw error
+        }
+    }
+    
+    func selectBalanceAccountsByIds(_ ids: [String]) throws -> [BalanceAccount] {
+        do {
+            let categories = try balanceAccountTable.selectByIds(ids)
+            return categories
+        } catch {
+            throw error
+        }
+    }
+    
+    func selectBalanceAccountsOrderedByOrderNumber() throws -> [BalanceAccount] {
+        do {
+            let balanceAccounts = try balanceAccountTable.selectOrderedByOrderNumber()
+            return balanceAccounts
+        } catch {
+            throw error
+        }
+    }
 
+    func insertBalanceAccount(_ balanceAccount: BalanceAccount) throws {
+        do {
+            try beginTransaction()
+            let maxOrderNumber = try balanceAccountTable.selectMaxOrderNumber() ?? 0
+            let nextOrderNumber = maxOrderNumber + 1
+            let row = BalanceAccountSqliteTable.InsertingRow(id: balanceAccount.id, name: balanceAccount.name, amount: try balanceAccount.amount.int() * 100, currency: balanceAccount.currency.rawValue, color: balanceAccount.color?.rawValue ?? "", orderNumber: nextOrderNumber)
+            try balanceAccountTable.insert(row)
+            try commitTransaction()
+        } catch {
+            try rollbackTransaction()
+            throw error
+        }
+    }
+    
+    func updateBalanceAccount(_ balanceAccount: EditingBalanceAccount) throws {
+        do {
+            try beginTransaction()
+            var amount: Int? = try balanceAccount.amount?.int()
+            if let ll = amount {
+                amount = ll * 100
+            }
+            let row = BalanceAccountSqliteTable.UpdatingByIdRow(id: balanceAccount.id, name: balanceAccount.name, amount: amount, currency: balanceAccount.currency?.rawValue, color: balanceAccount.color?.rawValue, orderNumber: nil)
+            try balanceAccountTable.updateById(row)
+            try commitTransaction()
+        } catch {
+            try rollbackTransaction()
+            throw error
+        }
+    }
+    
+    func updateBalanceAccountsOrderNumbers(_ balanceAccounts: [BalanceAccount]) throws {
+        do {
+            try beginTransaction()
+            let rows = try balanceAccounts.enumerated().map({
+                BalanceAccountSqliteTable.UpdatingByIdRow(id: $1.id, name: $1.name, amount: try $1.amount.int() * 100, currency: $1.currency.rawValue, color: $1.color?.rawValue, orderNumber: $0)
+            })
+            for row in rows {
+                try balanceAccountTable.updateById(row)
+            }
+            try commitTransaction()
+        } catch {
+            try rollbackTransaction()
+            throw error
+        }
+    }
+    
+    func deleteBalanceAccountById(_ id: String) throws {
+        do {
+            try beginTransaction()
+            try balanceAccountTable.deleteById(id)
+            try commitTransaction()
+        } catch {
+            try rollbackTransaction()
+            throw error
+        }
+    }
+    
 }

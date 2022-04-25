@@ -159,12 +159,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
 
-    func presentation(_ presentation: Presentation, orderAccounts accounts: [PresentationBalanceAccount]) throws {
+    func presentation(_ presentation: Presentation, orderAccounts presentationBalanceAccounts: [PresentationBalanceAccount]) throws {
         do {
-            let orderedIds = accounts.map({ $0.id })
-            try storage.saveBalanceAccountOrder(orderedIds: orderedIds)
+            let balanceAccountAdapter = BalanceAccountAdapter()
+            let storageCategories = presentationBalanceAccounts.map({ balanceAccountAdapter.adaptToStorage(presentationAccount: $0) })
+            try storage.saveBalanceAccountOrder(orderedIds: storageCategories)
         } catch {
-            let error = Error("Cannot order accounts \(accounts)\n\(error)")
+            let error = Error("Cannot order accounts \(presentationBalanceAccounts)\n\(error)")
             throw error
         }
     }
