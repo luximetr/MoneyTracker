@@ -77,7 +77,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private func autoLayoutDayDatePickerView() {
         dayDatePickerView.translatesAutoresizingMaskIntoConstraints = false
         dayDatePickerView.topAnchor.constraint(equalTo: categoryPickerView.bottomAnchor, constant: 24).isActive = true
-        dayDatePickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        dayDatePickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: marginLeft).isActive = true
     }
     
     // MARK: - Layout
