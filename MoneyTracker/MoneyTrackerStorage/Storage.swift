@@ -24,6 +24,31 @@ public class Storage {
         sqliteDatabase = try! SqliteDatabase(fileURL: fileURL)
     }
     
+    // MARK: - BalanceTransfer
+    
+    public func addBalanceTransfer(_ addingBalanceTransfer: AddingBalanceTransfer) throws -> BalanceTransfer {
+        do {
+            try sqliteDatabase.beginTransaction()
+            let id = UUID().uuidString
+            let date = Int64(addingBalanceTransfer.date.timeIntervalSinceReferenceDate)
+            let fromBalanceAccountId = addingBalanceTransfer.fromBalanceAccountId
+            let fromAmount = addingBalanceTransfer.fromAmount
+            let toBalanceAccountId = addingBalanceTransfer.toBalanceAccountId
+            let toAmount = addingBalanceTransfer.toAmount
+            let comment = addingBalanceTransfer.comment
+            let balanceTransferInsertingValues = BalanceTransferInsertingValues(id: id, date: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
+            try sqliteDatabase.balanceAccountTable.updateAmountSubtracting(amount: fromAmount, whereId: fromBalanceAccountId)
+            try sqliteDatabase.balanceAccountTable.updateAmountAdding(amount: toAmount, whereId: toBalanceAccountId)
+            try sqliteDatabase.balanceTransferSqliteTable.insert(values: balanceTransferInsertingValues)
+            try sqliteDatabase.commitTransaction()
+            let balanceTransfer = BalanceTransfer(id: id, date: addingBalanceTransfer.date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
+            return balanceTransfer
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
+    }
+    
     // MARK: - Categories
     
     public func getCategories() throws -> [Category] {
@@ -426,7 +451,7 @@ public class Storage {
     }
     
     public func getExpenses(startDate: Date, endDate: Date) throws -> [Expense] {
-        do {
+        do {            
             let expenseSelectedRows = try sqliteDatabase.expenseTable.selectWhereDateBetween(startDate: startDate.timeIntervalSince1970, endDate: endDate.timeIntervalSince1970)
             let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
                 let id = expenseSelectedRow.id

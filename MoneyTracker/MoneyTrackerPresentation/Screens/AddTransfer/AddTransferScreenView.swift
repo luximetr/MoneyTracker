@@ -55,6 +55,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         scrollView.addSubview(toAmountInputView)
         scrollView.addSubview(commentTextField)
         addSubview(addButton)
+        setupAddButton()
         autoLayout()
     }
     
@@ -74,6 +75,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupDayDatePickerView() {
         dayDatePickerView.datePickerMode = .date
+    }
+    
+    private func setupAddButton() {
+        addButton.backgroundColor = appearance.primaryActionBackground
     }
     
     // MARK: AutoLayout
@@ -221,6 +226,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         fromAccountPickerLabel.textColor = appearance.secondaryText
         toAccountPickerLabel.textColor = appearance.secondaryText
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        addButton.backgroundColor = appearance.primaryActionBackground
     }
     
 }

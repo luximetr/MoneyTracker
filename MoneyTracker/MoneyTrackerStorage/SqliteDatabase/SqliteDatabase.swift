@@ -11,9 +11,11 @@ import AFoundation
 class SqliteDatabase {
     
     private var databaseConnection: OpaquePointer!
-    private let categoryTable: CategorySqliteTable
-    private let balanceAccountTable: BalanceAccountSqliteTable
+    let categoryTable: CategorySqliteTable
+    let balanceAccountTable: BalanceAccountSqliteTable
     let expenseTable: ExpenseSqliteTable
+    let historySqliteView: HistorySqliteView
+    let balanceTransferSqliteTable: BalanceTransferSqliteTable
     
     // MARK: - Initializer
     
@@ -25,9 +27,13 @@ class SqliteDatabase {
         self.categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
         try categoryTable.createIfNeeded()
         self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
-        try balanceAccountTable.createIfNeeded()
+        try balanceAccountTable.createIfNotExists()
         self.expenseTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
-        try expenseTable.createIfNeeded()
+        try expenseTable.createIfNotExists()
+        self.historySqliteView = HistorySqliteView(databaseConnection: databaseConnection)
+        try historySqliteView.createIfNotExists()
+        self.balanceTransferSqliteTable = BalanceTransferSqliteTable(databaseConnection: databaseConnection)
+        try balanceTransferSqliteTable.createIfNotExists()
     }
     
     // MARK: - Transaction
@@ -186,8 +192,8 @@ class SqliteDatabase {
             try beginTransaction()
             let maxOrderNumber = try balanceAccountTable.selectMaxOrderNumber() ?? 0
             let nextOrderNumber = maxOrderNumber + 1
-            let row = BalanceAccountSqliteTable.InsertingRow(id: balanceAccount.id, name: balanceAccount.name, amount: try balanceAccount.amount.int() * 100, currency: balanceAccount.currency.rawValue, color: balanceAccount.color?.rawValue ?? "", orderNumber: nextOrderNumber)
-            try balanceAccountTable.insert(row)
+            let row = BalanceAccountInsertingValues(id: balanceAccount.id, name: balanceAccount.name, amount: Int64(try balanceAccount.amount.int()), currency: balanceAccount.currency.rawValue, color: balanceAccount.color?.rawValue ?? "", orderNumber: Int64(nextOrderNumber))
+            try balanceAccountTable.insert(values: row)
             try commitTransaction()
         } catch {
             try rollbackTransaction()
@@ -198,7 +204,7 @@ class SqliteDatabase {
     func updateBalanceAccount(_ balanceAccount: EditingBalanceAccount) throws {
         do {
             try beginTransaction()
-            var amount: Int? = try (balanceAccount.amount! * 100).int()
+            var amount: Int? = try (balanceAccount.amount!).int()
             if let ll = amount {
                 amount = ll * 100
             }
@@ -230,7 +236,7 @@ class SqliteDatabase {
     func deleteBalanceAccountById(_ id: String) throws {
         do {
             try beginTransaction()
-            try balanceAccountTable.deleteById(id)
+            try balanceAccountTable.deleteWhere(id: id)
             try commitTransaction()
         } catch {
             try rollbackTransaction()

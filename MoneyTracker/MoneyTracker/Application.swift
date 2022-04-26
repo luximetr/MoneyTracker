@@ -445,9 +445,16 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addTransfer presentationAddingTransfer: PresentationAddingTransfer) throws -> PresentationTransfer {
         do {
-//            let addingTransfer = try AddingTransfer(presentationAddingTransfer: presentationAddingTransfer)
-            let error = Error("Not implemented")
-            throw error
+            let date = presentationAddingTransfer.day
+            let fromBalanceAccountId = presentationAddingTransfer.fromAccount.id
+            let fromAmount = Int64(try (presentationAddingTransfer.fromAmount * 100).int())
+            let toBalanceAccountId = presentationAddingTransfer.toAccount.id
+            let toAmount = Int64(try (presentationAddingTransfer.toAmount * 100).int())
+            let comment = presentationAddingTransfer.comment
+            let addingBalanceTransfer = AddingBalanceTransfer(date: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
+            let storageBalanceTransfer = try storage.addBalanceTransfer(addingBalanceTransfer)
+            let presentationBalanceTransfer = PresentationTransfer(id: storageBalanceTransfer.id, fromAccount: presentationAddingTransfer.fromAccount, toAccount: presentationAddingTransfer.toAccount, day: presentationAddingTransfer.day, fromAmount: presentationAddingTransfer.fromAmount, toAmount: presentationAddingTransfer.toAmount, comment: presentationAddingTransfer.comment)
+            return presentationBalanceTransfer
         } catch {
             let error = Error("Cannot add presentation transfer \(presentationAddingTransfer)\n\(error)")
             throw error

@@ -7,6 +7,15 @@
 
 import SQLite3
 
+struct BalanceAccountInsertingValues {
+    let id: String
+    let name: String
+    let amount: Int64
+    let currency: String
+    let color: String
+    let orderNumber: Int64
+}
+
 class BalanceAccountSqliteTable {
     
     private let databaseConnection: OpaquePointer
@@ -19,7 +28,7 @@ class BalanceAccountSqliteTable {
     
     // MARK: - CREATE TABLE
     
-    func createIfNeeded() throws {
+    func createIfNotExists() throws {
         let statement =
             """
             CREATE TABLE IF NOT EXISTS
@@ -40,15 +49,7 @@ class BalanceAccountSqliteTable {
     
     // MARK: - INSERT
     
-    struct InsertingRow {
-        let id: String
-        let name: String
-        let amount: Int
-        let currency: String
-        let color: String
-        let orderNumber: Int
-    }
-    func insert(_ row: InsertingRow) throws {
+    func insert(values: BalanceAccountInsertingValues) throws {
         let statement =
             """
             INSERT INTO balance_account(id, name, amount, currency, color, order_number)
@@ -56,18 +57,12 @@ class BalanceAccountSqliteTable {
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        let idValue = row.id
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
-        let nameValue = row.name
-        try sqlite3BindText(databaseConnection, preparedStatement, 2, nameValue, -1, nil)
-        let amountValue = Int32(row.amount)
-        try sqlite3BindInt(databaseConnection, preparedStatement, 3, amountValue)
-        let currency = row.currency
-        try sqlite3BindText(databaseConnection, preparedStatement, 4, currency, -1, nil)
-        let color = row.color
-        try sqlite3BindText(databaseConnection, preparedStatement, 5, color, -1, nil)
-        let orderNumber = Int32(row.orderNumber)
-        try sqlite3BindInt(databaseConnection, preparedStatement, 6, orderNumber)
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 2, values.name, -1, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
+        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.currency, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 5, values.color, -1, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 6, values.orderNumber)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
@@ -126,17 +121,42 @@ class BalanceAccountSqliteTable {
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
+    func updateAmountAdding(amount: Int64, whereId id: String) throws {
+        let statement =
+            """
+            UPDATE balance_account SET amount = amount + ? WHERE id = ?;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, amount)
+        try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+    }
+    
+    func updateAmountSubtracting(amount: Int64, whereId id: String) throws {
+        let statement =
+            """
+            UPDATE balance_account SET amount = amount - ? WHERE id = ?;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, amount)
+        try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+    }
+    
     // MARK: - DELETE
     
-    func deleteById(_ id: String) throws {
+    func deleteWhere(id: String) throws {
         let statement =
             """
             DELETE FROM balance_account WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        let idValue = id
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, idValue, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }

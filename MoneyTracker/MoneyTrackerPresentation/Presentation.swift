@@ -317,12 +317,12 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            viewController.addTransferClosure = { [weak self, weak viewController] addingTransfer in
+            viewController.addTransferClosure = { [weak self, weak navigationController] addingTransfer in
                 guard let self = self else { return }
-                guard let viewController = viewController else { return }
+                guard let navigationController = navigationController else { return }
                 do {
                     _ = try self.delegate.presentation(self, addTransfer: addingTransfer)
-                    viewController.dismiss(animated: true, completion: nil)
+                    navigationController.popViewController(animated: true)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
