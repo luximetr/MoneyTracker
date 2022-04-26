@@ -84,6 +84,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewTapRecognizer()
         setupBalanceAccountPickerController()
         setupCategoryPickerController()
         setupNameTextFieldController()
@@ -94,8 +95,6 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         addTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
         setContent()
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
-        view.addGestureRecognizer(tapRecognizer)
     }
     
     // MARK: - View - Actions
@@ -105,7 +104,16 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         backClosure?()
     }
     
-    @objc private func didTapOnView() {
+    // MARK: - Tap on view
+    
+    private func setupViewTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc
+    private func didTapOnView() {
         view.endEditing(true)
     }
     
