@@ -26,7 +26,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     
     func addCategory(_ category: Category) {
         categories.append(category)
-        categoryPickerController.showOptions(categories: categories, selectedCategory: category)
+        categoryPickerController.showOptions(categories: categories)
     }
     
     // MARK: Localizer
@@ -144,8 +144,8 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     
     private func setupCategoryPickerController() {
         categoryPickerController.categoryHorizontalPickerView = addTemplateScreenView.categoryPickerView
-        guard let firstCategory = categories.first else { return }
-        categoryPickerController.showOptions(categories: categories, selectedCategory: firstCategory)
+        categoryPickerController.showOptions(categories: categories)
+        categoryPickerController.setSelectedCategory(categories.first)
         categoryPickerController.addCategoryClosure = { [weak self] in
             guard let self = self else { return }
             self.addCategory()

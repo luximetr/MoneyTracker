@@ -27,7 +27,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     func addCategory(_ category: Category) {
         categories.append(category)
-        categoryPickerController.showOptions(categories: categories, selectedCategory: category)
+        categoryPickerController.showOptions(categories: categories)
     }
     
     // MARK: - Life cycle
@@ -87,7 +87,8 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     private func setupCategoryPickerController() {
         categoryPickerController.categoryHorizontalPickerView = screenView.categoryPickerView
-        categoryPickerController.showOptions(categories: categories, selectedCategory: expense.category)
+        categoryPickerController.showOptions(categories: categories)
+        categoryPickerController.setSelectedCategory(expense.category)
         categoryPickerController.addCategoryClosure = { [weak self] in
             guard let self = self else { return }
             self.addCategory()

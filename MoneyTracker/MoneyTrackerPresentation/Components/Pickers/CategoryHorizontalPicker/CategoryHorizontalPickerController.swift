@@ -17,7 +17,7 @@ class CategoryHorizontalPickerController: EmptyViewController {
     // MARK: - Data
     
     private(set) var appearance: Appearance
-    var selectedCategory: Category?
+    private(set) var selectedCategory: Category?
     
     // MARK: - Controllers
     
@@ -73,24 +73,30 @@ class CategoryHorizontalPickerController: EmptyViewController {
     
     private let sectionController = AUIEmptyCollectionViewSectionController()
     
-    func showOptions(categories: [Category], selectedCategory: Category) {
-        self.selectedCategory = selectedCategory
-        var cellControllers = createItemCellControllers(categories: categories, selectedCategory: selectedCategory)
+    func showOptions(categories: [Category]) {
+        var cellControllers = createItemCellControllers(categories: categories)
         let text = localizer.localizeText("add")
         let addCellController = createAddCellController(text: text)
         cellControllers.append(addCellController)
         sectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [sectionController]
         collectionController.reload()
-        if let cellController = findCellController(forCategoryId: selectedCategory.id), let indexPath = collectionController.indexPathForCellController(cellController) {
-            categoryHorizontalPickerView.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+    
+    func setSelectedCategory(_ category: Category?) {
+        if let selectedCategory = selectedCategory {
+            showCategoryDeselected(selectedCategory)
         }
+        if let category = category {
+            showCategorySelected(category)
+        }
+        self.selectedCategory = category
     }
     
     // MARK: - Item cell controller - Create
     
-    private func createItemCellControllers(categories: [Category], selectedCategory: Category) -> [AUICollectionViewCellController] {
-        return categories.map { createItemCellController(category: $0, isSelected: $0.id == selectedCategory.id) }
+    private func createItemCellControllers(categories: [Category]) -> [AUICollectionViewCellController] {
+        return categories.map { createItemCellController(category: $0, isSelected: $0.id == selectedCategory?.id) }
     }
     
     private func createItemCellController(category: Category, isSelected: Bool) -> AUICollectionViewCellController {
