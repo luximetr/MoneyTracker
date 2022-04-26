@@ -203,6 +203,25 @@ class ExpenseSqliteTable {
         return selectedRows
     }
     
+    func selectWhereDateBetween(startDate: Double, endDate: Double) throws -> [ExpenseSelectedRow] {
+        let statement =
+            """
+            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
+            WHERE date BETWEEN ? AND ?;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3BindDouble(databaseConnection, preparedStatement, 1, startDate)
+        try sqlite3BindDouble(databaseConnection, preparedStatement, 2, endDate)
+        var selectedRows: [ExpenseSelectedRow] = []
+        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
+            selectedRows.append(selectedRow)
+        }
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+        return selectedRows
+    }
+    
     func selectWhereCategoryId(_ categoryId: String) throws -> [ExpenseSelectedRow] {
         let statement =
             """

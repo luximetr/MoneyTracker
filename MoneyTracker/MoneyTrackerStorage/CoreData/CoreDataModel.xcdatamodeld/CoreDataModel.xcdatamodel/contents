@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="BalanceAccount" representedClassName="BalanceAccountMO" syncable="YES" codeGenerationType="class">
-        <attribute name="amount" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="balanceAccountColor" attributeType="String"/>
-        <attribute name="currencyISOCode" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="BalanceAccountsOrder" representedClassName="BalanceAccountsOrderMO" syncable="YES" codeGenerationType="class">
-        <attribute name="orderedAccountIds" attributeType="Transformable" customClassName="[NSString]"/>
-    </entity>
-    <entity name="Expense" representedClassName="ExpenseMO" syncable="YES" codeGenerationType="class">
-        <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="balanceAccountId" optional="YES" attributeType="String"/>
-        <attribute name="categoryId" optional="YES" attributeType="String"/>
-        <attribute name="comment" optional="YES" attributeType="String"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
-    </entity>
     <entity name="ExpenseTemplate" representedClassName="ExpenseTemplateMO" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="balanceAccountId" optional="YES" attributeType="String"/>
@@ -30,9 +12,6 @@
         <attribute name="expenseTemplatesOrderedIds" optional="YES" attributeType="Transformable" customClassName="[NSString]"/>
     </entity>
     <elements>
-        <element name="BalanceAccount" positionX="-140.185791015625" positionY="-275.8368835449219" width="128" height="104"/>
-        <element name="BalanceAccountsOrder" positionX="-335.3576049804688" positionY="-213.2310943603516" width="128" height="58"/>
-        <element name="Expense" positionX="119.6439819335938" positionY="-245.2716369628906" width="128" height="119"/>
         <element name="ExpenseTemplate" positionX="-113.707275390625" positionY="22.53598022460938" width="128" height="119"/>
         <element name="ExpenseTemplatesOrder" positionX="-286.9561767578125" positionY="24.50473022460938" width="128" height="44"/>
     </elements>

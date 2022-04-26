@@ -426,8 +426,24 @@ public class Storage {
     }
     
     public func getExpenses(startDate: Date, endDate: Date) throws -> [Expense] {
-        let repo = createExpensesRepo()
-        return try repo.fetchExpenses(startDate: startDate, endDate: endDate)
+        do {
+            let expenseSelectedRows = try sqliteDatabase.expenseTable.selectWhereDateBetween(startDate: startDate.timeIntervalSince1970, endDate: endDate.timeIntervalSince1970)
+            let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
+                let id = expenseSelectedRow.id
+                let amount = expenseSelectedRow.amount
+                let date = expenseSelectedRow.date
+                let comment = expenseSelectedRow.comment
+                let categoryId = expenseSelectedRow.categoryId
+                let balanceAccountId = expenseSelectedRow.balanceAccountId
+                let amountDecimal = Decimal(amount) / 100
+                let dateDate = Date(timeIntervalSince1970: date)
+                let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+                return expense
+            }
+            return expenses
+        } catch {
+            throw error
+        }
     }
     
     public func updateExpense(expenseId: String, editingExpense: EditingExpense) throws {
@@ -440,10 +456,6 @@ public class Storage {
         try sqliteDatabase.beginTransaction()
         try sqliteDatabase.expenseTable.updateById(expenseId, values: expenseUpdatingByIdValues)
         try sqliteDatabase.commitTransaction()
-    }
-    
-    private func createExpensesRepo() -> ExpensesCoreDataRepo {
-        return ExpensesCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }
     
     public func removeExpense(expenseId: String) throws {
