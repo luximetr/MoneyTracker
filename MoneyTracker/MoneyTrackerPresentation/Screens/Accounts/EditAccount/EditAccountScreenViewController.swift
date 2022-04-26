@@ -82,8 +82,6 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.nameInputView.text = account.name
         setupColorPickerController()
@@ -96,17 +94,12 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
         balanceTextFieldInputController.text = balanceNumberFormatter.string(from: NSDecimalNumber(decimal: account.amount))
         setContent()
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
-    @objc private func keyboardWillShow(_ notification: NSNotification) {
-        guard let userInfo = notification.userInfo else { return }
-        guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let keyboardFrame = keyboardFrameEndUser.cgRectValue
-        screenView.setKeyboardFrame(keyboardFrame)
-    }
-
-    @objc private func keyboardWillHide(_ notification: NSNotification) {
-        screenView.setKeyboardFrame(nil)
+    @objc private func didTapOnView() {
+        view.endEditing(true)
     }
     
     @objc private func backButtonTouchUpInsideEventAction() {
