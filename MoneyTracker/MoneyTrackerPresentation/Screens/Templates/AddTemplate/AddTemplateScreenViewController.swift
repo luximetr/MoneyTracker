@@ -104,7 +104,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         backClosure?()
     }
     
-    // MARK: - Tap on view
+    // MARK: - View - Tap Recognizer
     
     private func setupViewTapRecognizer() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
