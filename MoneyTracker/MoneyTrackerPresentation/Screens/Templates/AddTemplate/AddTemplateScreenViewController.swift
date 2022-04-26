@@ -94,6 +94,8 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         addTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
         setContent()
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     // MARK: - View - Actions
@@ -101,6 +103,10 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     @objc
     private func didTapOnBackButton() {
         backClosure?()
+    }
+    
+    @objc private func didTapOnView() {
+        view.endEditing(true)
     }
     
     // MARK: - Balance account picker
@@ -158,6 +164,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         nameTextFieldController.textField = addTemplateScreenView.nameTextField
         nameTextFieldController.keyboardType = .asciiCapable
         nameTextFieldController.returnKeyType = .done
+        nameTextFieldController.addDidTapReturnKeyObserver(self)
     }
     
     private func nameTextFieldDidTapReturnKey() {

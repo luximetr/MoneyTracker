@@ -96,6 +96,8 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
         editTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
         setContent()
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     // MARK: - View - Actions
@@ -103,6 +105,11 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
     @objc
     private func didTapOnBackButton() {
         backClosure?()
+    }
+    
+    @objc
+    private func didTapOnView() {
+        view.endEditing(true)
     }
     
     // MARK: - Balance account picker
