@@ -68,10 +68,23 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         return numberFormatter
     }()
     
+    // MARK: - View - Tap Recognizer
+    
+    private func setupViewTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc private func didTapOnView() {
+        view.endEditing(true)
+    }
+    
     // MARK: Events
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewTapRecognizer()
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupColorPickerController()
         setColorPickerControllerContent()
@@ -82,12 +95,6 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         balanceTextFieldInputController.keyboardType = .decimalPad
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
         setContent()
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
-        view.addGestureRecognizer(tapRecognizer)
-    }
-    
-    @objc private func didTapOnView() {
-        view.endEditing(true)
     }
     
     @objc private func backButtonTouchUpInsideEventAction() {
