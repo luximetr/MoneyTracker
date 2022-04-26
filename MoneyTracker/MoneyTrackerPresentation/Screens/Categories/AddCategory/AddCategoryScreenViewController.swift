@@ -42,11 +42,11 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.selectIconButton.addTarget(self, action: #selector(selectIconButtonTouchUpInsideEventAction), for: .touchUpInside)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         showCategoryIcon(iconName: categoryIconName)
         setupColorPickerController()
         setContent()
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     // MARK: Localizer
@@ -91,15 +91,8 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         selectIconClosure?(selectedColor)
     }
     
-    @objc private func keyboardWillShow(_ notification: NSNotification) {
-        guard let userInfo = notification.userInfo else { return }
-        guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let keyboardFrame = keyboardFrameEndUser.cgRectValue
-        screenView.setKeyboardFrame(keyboardFrame)
-    }
-
-    @objc private func keyboardWillHide(_ notification: NSNotification) {
-        screenView.setKeyboardFrame(nil)
+    @objc private func didTapOnView() {
+        view.endEditing(true)
     }
     
     // MARK: - Color
