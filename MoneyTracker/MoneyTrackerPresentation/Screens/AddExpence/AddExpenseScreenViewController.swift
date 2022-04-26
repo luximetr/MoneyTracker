@@ -77,6 +77,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
+        balanceAccountHorizontalPickerController.showOptions(accounts: accounts)
         balanceAccountHorizontalPickerController.setSelectedAccount(accounts.first)
         balanceAccountHorizontalPickerController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
