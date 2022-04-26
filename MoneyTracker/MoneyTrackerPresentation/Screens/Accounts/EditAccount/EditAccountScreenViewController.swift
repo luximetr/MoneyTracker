@@ -78,10 +78,23 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         return numberFormatter
     }()
     
+    // MARK: - View - Tap Recognizer
+    
+    private func setupViewTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc private func didTapOnView() {
+        view.endEditing(true)
+    }
+    
     // MARK: Events
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewTapRecognizer()
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.nameInputView.text = account.name
         setupColorPickerController()
@@ -94,12 +107,6 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
         balanceTextFieldInputController.text = balanceNumberFormatter.string(from: NSDecimalNumber(decimal: account.amount))
         setContent()
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
-        view.addGestureRecognizer(tapRecognizer)
-    }
-    
-    @objc private func didTapOnView() {
-        view.endEditing(true)
     }
     
     @objc private func backButtonTouchUpInsideEventAction() {
