@@ -16,7 +16,7 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     
     // MARK: - Data
     
-    var selectedAccount: Account?
+    private(set) var selectedAccount: Account?
     private(set) var appearance: Appearance
     
     // MARK: - Controllers
@@ -69,23 +69,29 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     
     private let accountsSectionController = AUIEmptyCollectionViewSectionController()
     
-    func showOptions(accounts: [Account], selectedAccount: Account) {
-        self.selectedAccount = selectedAccount
-        var cellControllers = createItemCellControllers(accounts: accounts, selectedAccount: selectedAccount)
+    func showOptions(accounts: [Account]) {
+        var cellControllers = createItemCellControllers(accounts: accounts)
         let addCellController = createAddCellController(text: localizer.localizeText("add"))
         cellControllers.append(addCellController)
         accountsSectionController.cellControllers = cellControllers
         collectionController.sectionControllers = [accountsSectionController]
         collectionController.reload()
-        if let cellController = findCellControllerForAccountId(selectedAccount.id), let indexPath = collectionController.indexPathForCellController(cellController) {
-            balanceAccountHorizontalPickerView.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+    
+    func setSelectedAccount(_ account: Account?) {
+        if let selectedAccount = selectedAccount {
+            showAccountDeselected(selectedAccount)
         }
+        if let account = account {
+            showAccountSelected(account)
+        }
+        selectedAccount = account
     }
     
     // MARK: - Item cell controller - Create
     
-    private func createItemCellControllers(accounts: [Account], selectedAccount: Account) -> [AUICollectionViewCellController] {
-        return accounts.map { createItemCellController(account: $0, isSelected: $0.id == selectedAccount.id) }
+    private func createItemCellControllers(accounts: [Account]) -> [AUICollectionViewCellController] {
+        return accounts.map { createItemCellController(account: $0, isSelected: $0.id == selectedAccount?.id) }
     }
     
     private func createItemCellController(account: Account, isSelected: Bool) -> AUICollectionViewCellController {

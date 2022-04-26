@@ -110,14 +110,13 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         screenView.fromAccountPickerLabel.text = localizer.localizeText("fromAccount")
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
-        if let firstAccount = accounts.first {
-            fromAccountPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
-            fromAmountInputController.labelController.text = firstAccount.currency.rawValue
-        }
-        if let firstAccount = accounts.first {
-            toAccountPickerController.showOptions(accounts: accounts, selectedAccount: firstAccount)
-            toAmountInputController.labelController.text = firstAccount.currency.rawValue
-        }
+        fromAccountPickerController.showOptions(accounts: accounts)
+        let firstAccount = accounts.first
+        fromAccountPickerController.setSelectedAccount(firstAccount)
+        fromAmountInputController.labelController.text = firstAccount?.currency.rawValue
+        toAccountPickerController.showOptions(accounts: accounts)
+        toAccountPickerController.setSelectedAccount(firstAccount)
+        toAmountInputController.labelController.text = firstAccount?.currency.rawValue
         screenView.toAccountPickerLabel.text = localizer.localizeText("toAccount")
     }
     
@@ -163,12 +162,8 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     func addAccount(_ account: Account) {
         accounts.append(account)
-        if let selectedAccount = fromAccountPickerController.selectedAccount {
-            fromAccountPickerController.showOptions(accounts: accounts, selectedAccount: selectedAccount)
-        }
-        if let selectedAccount = toAccountPickerController.selectedAccount {
-            toAccountPickerController.showOptions(accounts: accounts, selectedAccount: selectedAccount)
-        }
+        fromAccountPickerController.showOptions(accounts: accounts)
+        toAccountPickerController.showOptions(accounts: accounts)
     }
     
 }

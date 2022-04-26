@@ -21,7 +21,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     
     func addAccount(_ account: Account) {
         balanceAccounts.append(account)
-        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: account)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts)
     }
     
     func addCategory(_ category: Category) {
@@ -118,8 +118,8 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         balanceAccountPickerController.didSelectAccountClosure = { [weak self] account in
             self?.didSelectBalanceAccount(account)
         }
-        guard let firstAccount = balanceAccounts.first else { return }
-        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: firstAccount)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts)
+        balanceAccountPickerController.setSelectedAccount(balanceAccounts.first)
         balanceAccountPickerController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
             self.addAccount()

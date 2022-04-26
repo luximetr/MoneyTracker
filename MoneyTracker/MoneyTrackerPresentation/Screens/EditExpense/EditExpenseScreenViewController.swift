@@ -22,7 +22,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     func addAccount(_ account: Account) {
         balanceAccounts.append(account)
-        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: account)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts)
     }
     
     func addCategory(_ category: Category) {
@@ -82,7 +82,8 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
             guard let self = self else { return }
             self.addAccount()
         }
-        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: expense.account)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts)
+        balanceAccountPickerController.setSelectedAccount(expense.account)
     }
     
     private func setupCategoryPickerController() {
