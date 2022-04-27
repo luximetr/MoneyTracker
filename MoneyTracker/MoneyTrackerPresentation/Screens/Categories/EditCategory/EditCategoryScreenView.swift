@@ -37,6 +37,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         scrollView.addSubview(iconView)
         scrollView.addSubview(selectIconButton)
         scrollView.addSubview(nameTextField)
+        setupNameTextField()
         scrollView.addSubview(colorPickerTitleLabel)
         setupColorPickerTitleLabel()
         scrollView.addSubview(colorPickerView)
@@ -44,6 +45,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(editButton)
         setupEditButton()
         changeAppearance(appearance)
+    }
+    
+    private func setupNameTextField() {
+        nameTextField.autocorrectionType = .no
+        nameTextField.autocapitalizationType = .none
     }
     
     private func setupColorPickerTitleLabel() {
