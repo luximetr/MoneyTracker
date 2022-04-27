@@ -9,12 +9,18 @@ import SQLite3
 
 struct HistorySelectedRow {
     let type: String
+    let timestamp: Int64
     let expenseId: String?
-    let expenseAmount: Int32?
-    let expenseDate: Double?
+    let expenseAmount: Int64?
+    let expenseDate: Int64?
     let expenseComment: String?
     let expenseCategoryId: String?
     let expenseBalanceAccountId: String?
+    let balanceReplenishmentId: String?
+    let balanceReplenishmentDate: Int64?
+    let balanceReplenishmentBalanceAccountId: String?
+    let balanceReplenishmentAmount: Int64?
+    let balanceReplenishmentComment: String?
 }
 
 class HistorySqliteView {
@@ -35,15 +41,23 @@ class HistorySqliteView {
             CREATE VIEW IF NOT EXISTS
             history(
                 type,
+                timestamp,
                 expense_id,
                 expense_amount,
                 expense_date,
                 expense_comment,
                 expense_category_id,
-                expense_balance_account_id
+                expense_balance_account_id,
+                balance_replenishment_id,
+                balance_replenishment_date,
+                balance_replenishment_balance_account_id,
+                balance_replenishment_amount,
+                balance_replenishment_comment
             )
             AS
-                SELECT 'expense', id, amount, date, comment, category_id, balance_account_id FROM expense
+                SELECT 'expense', date, id, amount, date, comment, category_id, balance_account_id, NULL, NULL, NULL, NULL, NULL FROM expense
+                UNION
+                SELECT 'balance_replenishment', date, NULL, NULL, NULL, NULL, NULL, NULL, id, date, balance_account_id, amount, comment FROM balance_replenishment
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -55,20 +69,26 @@ class HistorySqliteView {
     
     private func extractHistorySelectedRow(_ preparedStatement: OpaquePointer?) throws -> HistorySelectedRow {
         let type = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-        let id = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 1)
-        let amount = sqlite3ColumnInt(databaseConnection, preparedStatement, 2)
-        let date = sqlite3ColumnDouble(databaseConnection, preparedStatement, 3)
-        let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 4)
-        let categoryId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 5)
-        let balanceAccountId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 6)
-        let historySelectedRow = HistorySelectedRow(type: type, expenseId: id, expenseAmount: amount, expenseDate: date, expenseComment: comment, expenseCategoryId: categoryId, expenseBalanceAccountId: balanceAccountId)
+        let timestamp = sqlite3ColumnInt64(databaseConnection, preparedStatement, 1)
+        let expenseId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 2)
+        let expenseAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 3)
+        let expenseDate = sqlite3ColumnInt64(databaseConnection, preparedStatement, 4)
+        let expenseComment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 5)
+        let expenseCategoryId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 6)
+        let expenseBalanceAccountId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 7)
+        let balanceReplenishmentId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 8)
+        let balanceReplenishmentDate = sqlite3ColumnInt64(databaseConnection, preparedStatement, 9)
+        let balanceReplenishmentBalanceAccountId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 10)
+        let balanceReplenishmentAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 11)
+        let balanceReplenishmentComment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 12)
+        let historySelectedRow = HistorySelectedRow(type: type, timestamp: timestamp, expenseId: expenseId, expenseAmount: expenseAmount, expenseDate: expenseDate, expenseComment: expenseComment, expenseCategoryId: expenseCategoryId, expenseBalanceAccountId: expenseBalanceAccountId, balanceReplenishmentId: balanceReplenishmentId, balanceReplenishmentDate: balanceReplenishmentDate, balanceReplenishmentBalanceAccountId: balanceReplenishmentBalanceAccountId, balanceReplenishmentAmount: balanceReplenishmentAmount, balanceReplenishmentComment: balanceReplenishmentComment)
         return historySelectedRow
     }
     
-    func select() throws -> [HistorySelectedRow] {
+    func selectOrderByDayDescending() throws -> [HistorySelectedRow] {
         let statement =
             """
-            SELECT type, expense_id, expense_amount, expense_date, expense_comment, expense_category_id, expense_balance_account_id FROM history;
+            SELECT type, timestamp, expense_id, expense_amount, expense_date, expense_comment, expense_category_id, expense_balance_account_id, balance_replenishment_id, balance_replenishment_date, balance_replenishment_balance_account_id, balance_replenishment_amount, balance_replenishment_comment FROM history ORDER BY timestamp DESC;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)

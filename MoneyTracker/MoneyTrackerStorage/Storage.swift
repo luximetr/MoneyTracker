@@ -55,7 +55,7 @@ public class Storage {
         do {
             try sqliteDatabase.beginTransaction()
             let id = UUID().uuidString
-            let date = Int64(addingBalanceReplenishment.date.timeIntervalSinceReferenceDate)
+            let date = Int64(addingBalanceReplenishment.date.timeIntervalSince1970)
             let balanceAccountId = addingBalanceReplenishment.balanceAccountId
             let amount = addingBalanceReplenishment.amount
             let comment = addingBalanceReplenishment.comment
@@ -278,6 +278,8 @@ public class Storage {
     }
     
     public func getSelectedCurrency() throws -> Currency? {
+        //let ff = try sqliteDatabase.historySqliteView.selectOrderByDayDescending()
+        
         let repo = createSelectedCurrencyRepo()
         return try repo.fetch()
     }
@@ -329,8 +331,8 @@ public class Storage {
             try sqliteDatabase.beginTransaction()
             for expense in expenses {
                 let id = expense.id
-                let amount = Int32(try (expense.amount * 100).int())
-                let date = expense.date.timeIntervalSince1970
+                let amount = Int64(try (expense.amount * 100).int())
+                let date = Int64(expense.date.timeIntervalSince1970)
                 let comment = expense.comment
                 let categoryId = expense.categoryId
                 let balanceAccountId = expense.balanceAccountId
@@ -349,8 +351,8 @@ public class Storage {
     public func addExpense(addingExpense: AddingExpense) throws -> Expense {
         do {
             let id = UUID().uuidString
-            let amount = Int32(try (addingExpense.amount * 100).int())
-            let date = addingExpense.date.timeIntervalSince1970
+            let amount = Int64(try (addingExpense.amount * 100).int())
+            let date = Int64(addingExpense.date.timeIntervalSince1970)
             let comment = addingExpense.comment
             let categoryId = addingExpense.categoryId
             let balanceAccountId = addingExpense.balanceAccountId
@@ -359,7 +361,7 @@ public class Storage {
             try sqliteDatabase.expenseTable.insert(values: expenseInsertingValues)
             try sqliteDatabase.commitTransaction()
             let amountDecimal = Decimal(amount) / 100
-            let dateDate = Date(timeIntervalSince1970: date)
+            let dateDate = Date(timeIntervalSince1970: Double(date))
             let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
             return expense
         } catch {
@@ -375,15 +377,15 @@ public class Storage {
             try sqliteDatabase.beginTransaction()
             for addingExpense in addingExpenses {
                 let id = UUID().uuidString
-                let amount = Int32(try (addingExpense.amount * 100).int())
-                let date = addingExpense.date.timeIntervalSince1970
+                let amount = Int64(try (addingExpense.amount * 100).int())
+                let date = Int64(addingExpense.date.timeIntervalSince1970)
                 let comment = addingExpense.comment
                 let categoryId = addingExpense.categoryId
                 let balanceAccountId = addingExpense.balanceAccountId
                 let expenseInsertingValues = ExpenseInsertingValues(id: id, amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
                 try sqliteDatabase.expenseTable.insert(values: expenseInsertingValues)
                 let amountDecimal = Decimal(amount) / 100
-                let dateDate = Date(timeIntervalSince1970: date)
+                let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
                 expenses.append(expense)
             }
@@ -397,6 +399,8 @@ public class Storage {
     
     public func getAllExpenses() throws -> [Expense] {
         do {
+            let gg = try sqliteDatabase.historySqliteView.selectOrderByDayDescending()
+            
             let expenseSelectedRows = try sqliteDatabase.expenseTable.select()
             let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
                 let id = expenseSelectedRow.id
@@ -406,7 +410,7 @@ public class Storage {
                 let categoryId = expenseSelectedRow.categoryId
                 let balanceAccountId = expenseSelectedRow.balanceAccountId
                 let amountDecimal = Decimal(amount) / 100
-                let dateDate = Date(timeIntervalSince1970: date)
+                let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
                 return expense
             }
@@ -425,7 +429,7 @@ public class Storage {
         let categoryId = expenseSelectedRow.categoryId
         let balanceAccountId = expenseSelectedRow.balanceAccountId
         let amountDecimal = Decimal(amount) / 100
-        let dateDate = Date(timeIntervalSince1970: date)
+        let dateDate = Date(timeIntervalSince1970: Double(date))
         let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
         return expense
     }
@@ -441,7 +445,7 @@ public class Storage {
                 let categoryId = expenseSelectedRow.categoryId
                 let balanceAccountId = expenseSelectedRow.balanceAccountId
                 let amountDecimal = Decimal(amount) / 100
-                let dateDate = Date(timeIntervalSince1970: date)
+                let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
                 return expense
             }
@@ -462,7 +466,7 @@ public class Storage {
                 let categoryId = expenseSelectedRow.categoryId
                 let balanceAccountId = expenseSelectedRow.balanceAccountId
                 let amountDecimal = Decimal(amount) / 100
-                let dateDate = Date(timeIntervalSince1970: date)
+                let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
                 return expense
             }
@@ -483,7 +487,7 @@ public class Storage {
                 let categoryId = expenseSelectedRow.categoryId
                 let balanceAccountId = expenseSelectedRow.balanceAccountId
                 let amountDecimal = Decimal(amount) / 100
-                let dateDate = Date(timeIntervalSince1970: date)
+                let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
                 return expense
             }
@@ -494,8 +498,8 @@ public class Storage {
     }
     
     public func updateExpense(expenseId: String, editingExpense: EditingExpense) throws {
-        let amount = Int32(try (editingExpense.amount! * 100).int())
-        let date = editingExpense.date!.timeIntervalSince1970
+        let amount = Int64(try (editingExpense.amount! * 100).int())
+        let date = Int64(editingExpense.date!.timeIntervalSince1970)
         let comment = editingExpense.comment
         let categoryId = editingExpense.categoryId!
         let balanceAccountId = editingExpense.balanceAccountId!

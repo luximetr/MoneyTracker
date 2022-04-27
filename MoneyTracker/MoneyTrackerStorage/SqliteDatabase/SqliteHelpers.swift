@@ -137,6 +137,11 @@ func sqlite3ColumnInt(_ databaseConnection: OpaquePointer!, _ preparedStatement:
     return value
 }
 
+func sqlite3ColumnInt64(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32) -> Int64 {
+    let value = sqlite3_column_int64(preparedStatement, index)
+    return value
+}
+
 func sqlite3ColumnDouble(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32) -> Double {
     let value = sqlite3_column_double(preparedStatement, index)
     return value

@@ -9,16 +9,16 @@ import SQLite3
 
 struct ExpenseInsertingValues {
     let id: String
-    let amount: Int32
-    let date: Double
+    let amount: Int64
+    let date: Int64
     let comment: String?
     let categoryId: String
     let balanceAccountId: String
 }
 
 struct ExpenseUpdatingByIdValues {
-    let amount: Int32
-    let date: Double
+    let amount: Int64
+    let date: Int64
     let comment: String?
     let categoryId: String
     let balanceAccountId: String
@@ -26,8 +26,8 @@ struct ExpenseUpdatingByIdValues {
 
 struct ExpenseSelectedRow {
     let id: String
-    let amount: Int32
-    let date: Double
+    let amount: Int64
+    let date: Int64
     let comment: String?
     let categoryId: String
     let balanceAccountId: String
@@ -76,18 +76,12 @@ class ExpenseSqliteTable {
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        let id = values.id
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
-        let amount = Int32(values.amount)
-        try sqlite3BindInt(databaseConnection, preparedStatement, 2, amount)
-        let date = values.date
-        try sqlite3BindDouble(databaseConnection, preparedStatement, 3, date)
-        let comment = values.comment
-        try sqlite3BindText(databaseConnection, preparedStatement, 4, comment, -1, nil)
-        let categoryId = values.categoryId
-        try sqlite3BindText(databaseConnection, preparedStatement, 5, categoryId, -1, nil)
-        let balanceAccountId = values.balanceAccountId
-        try sqlite3BindText(databaseConnection, preparedStatement, 6, balanceAccountId, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.date)
+        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.comment, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 5, values.categoryId, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 6, values.balanceAccountId, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
@@ -108,9 +102,9 @@ class ExpenseSqliteTable {
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         let amount = values.amount
-        try sqlite3BindInt(databaseConnection, preparedStatement, 1, amount)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, amount)
         let date = values.date
-        try sqlite3BindDouble(databaseConnection, preparedStatement, 2, date)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, date)
         let comment = values.comment
         try sqlite3BindText(databaseConnection, preparedStatement, 3, comment, -1, nil)
         let categoryId = values.categoryId
@@ -140,8 +134,8 @@ class ExpenseSqliteTable {
     
     private func extractExpenseSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ExpenseSelectedRow {
         let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-        let amount = sqlite3ColumnInt(databaseConnection, preparedStatement, 1)
-        let date = sqlite3ColumnDouble(databaseConnection, preparedStatement, 2)
+        let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 1)
+        let date = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
         let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 3)
         let categoryId = try sqlite3ColumnText(databaseConnection, preparedStatement, 4)
         let balanceAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 5)
