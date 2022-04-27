@@ -24,6 +24,31 @@ final class InputAmountViewController: AUIEmptyViewController {
         return numberFormatter
     }()
     
+    // MARK: Placeholder
+    
+    var placeholder: String = "" {
+        didSet {
+            didSetPlaceholder(oldValue)
+        }
+    }
+    
+    private func didSetPlaceholder(_ oldValue: String) {
+        inputAmountView?.placeholderLabel.text = placeholder
+    }
+    
+    // MARK: - Placeholder - Is visible
+    
+    private var isPlaceholderVisible: Bool = true {
+        didSet {
+            didSetIsPlaceholderVisible(oldValue)
+        }
+    }
+    
+    private func didSetIsPlaceholderVisible(_ oldValue: Bool) {
+        inputAmountView?.placeholderLabel.isHidden = !isPlaceholderVisible
+        inputAmountView?.inputLabel.isHidden = isPlaceholderVisible
+    }
+    
     // MARK: Input
     
     var input: String = "" {
@@ -33,6 +58,7 @@ final class InputAmountViewController: AUIEmptyViewController {
     }
     func didSetInput(_ oldValue: String) {
         inputAmountView?.inputLabel.text = input
+        isPlaceholderVisible = input.isEmpty
     }
     
     // MARK: InputAmountView

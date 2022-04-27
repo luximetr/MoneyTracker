@@ -36,6 +36,7 @@ final class InputAmountView: AppearanceView {
     
     // MARK: Subviews
     
+    let placeholderLabel = UILabel()
     let inputLabel = UILabel()
     let separatorView = UIView()
     let deleteKeyButton: OperationKeyButton
@@ -56,12 +57,14 @@ final class InputAmountView: AppearanceView {
     let calculateKeyButton: OperationKeyButton
     let additionKeyButton: OperationKeyButton
     
-    // MARK: Setup
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
         layer.shadowOpacity = 1
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        addSubview(placeholderLabel)
+        setupPlaceholderLabel()
         addSubview(inputLabel)
         setupInputLabel()
         addSubview(separatorView)
@@ -86,6 +89,11 @@ final class InputAmountView: AppearanceView {
         changeAppearance(appearance)
     }
     
+    private func setupPlaceholderLabel() {
+        placeholderLabel.font = Fonts.default(size: 20, weight: .regular)
+        placeholderLabel.numberOfLines = 1
+    }
+    
     private func setupInputLabel() {
         inputLabel.font = Fonts.default(size: 20, weight: .regular)
         inputLabel.numberOfLines = 1
@@ -95,13 +103,14 @@ final class InputAmountView: AppearanceView {
     private func setupSeparatorView() {
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = 10
         layer.shadowRadius = 4.0
         layer.shadowOffset = CGSize(width: 0, height: 2)
+        layoutPlaceholderLabel()
         layoutInputLabel()
         layoutSeparatorView()
         layoutDeleteKeyButton()
@@ -133,6 +142,15 @@ final class InputAmountView: AppearanceView {
     
     private var leftEdgeInsets: CGFloat {
         return keyButtonSeparator * 2
+    }
+    
+    private func layoutPlaceholderLabel() {
+        let x: CGFloat = leftEdgeInsets + 6
+        let y: CGFloat = leftEdgeInsets
+        let width = 3 * keyButtonWidth + 2 * keyButtonSeparator - 12
+        let height: CGFloat = keyButtonWidth - 1
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        placeholderLabel.frame = frame
     }
     
     private func layoutInputLabel() {
@@ -306,7 +324,7 @@ final class InputAmountView: AppearanceView {
         additionKeyButton.frame = frame
     }
     
-    // MARL: Size
+    // MARK: - Size
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let keyButtonSeparator: CGFloat = size.width * 0.04
@@ -322,6 +340,7 @@ final class InputAmountView: AppearanceView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
+        placeholderLabel.textColor = appearance.secondaryText
         inputLabel.textColor = appearance.primaryText
         separatorView.backgroundColor = appearance.secondaryBackground
         deleteKeyButton.changeAppearance(appearance)

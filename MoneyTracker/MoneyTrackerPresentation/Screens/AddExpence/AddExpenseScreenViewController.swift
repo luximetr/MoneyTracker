@@ -33,6 +33,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         self.accounts = accounts
         self.categories = categories
         self.selectedCategory = selectedCategory
+        self.inputAmountViewController = InputAmountViewController()
         self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
@@ -51,7 +52,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     private let balanceAccountHorizontalPickerController: BalanceAccountHorizontalPickerController
     private let inputDateViewController = InputDateViewController()
     private let commentTextFieldController = AUIEmptyTextFieldController()
-    private let inputAmountViewController = InputAmountViewController()
+    private let inputAmountViewController: InputAmountViewController
     private let selectCategoryViewController = SelectCategoryViewController()
     private let expensesTableViewController = AUIEmptyTableViewController()
     private let expensesSectionController = AUIEmptyTableViewSectionController()
@@ -69,6 +70,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         setupInputDateViewController()
         setupCommentTextFieldController()
         inputAmountViewController.inputAmountView = screenView.inputAmountView
+        inputAmountViewController.placeholder = "0"
         selectCategoryViewController.categories = categories
         selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
         if let selectedCategory = selectedCategory {
