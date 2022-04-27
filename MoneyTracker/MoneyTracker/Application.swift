@@ -49,7 +49,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }()
     
     private lazy var presentation: Presentation = {
-        let storageAppearanceSetting = (try? storage.getSelectedAppearanceSetting()) ?? .light
+        let storageAppearanceSetting = (try? storage.getSelectedAppearanceSetting()) ?? .system
         let appearanceSetting = StorageAppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
         let presentationAppearanceSetting = PresentationAppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
         let presentation = Presentation(window: presentationWindow, appearanceSetting: presentationAppearanceSetting)
@@ -443,6 +443,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return fileURL
     }
     
+    // MARK: - Transfer
+    
     func presentation(_ presentation: Presentation, addTransfer presentationAddingTransfer: PresentationAddingTransfer) throws -> PresentationTransfer {
         do {
             let date = presentationAddingTransfer.day
@@ -461,6 +463,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    // MARK: - Top Up Account
+    
     func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingTopUpAccount) throws -> PresentationTopUpAccount {
         do {
 //            let addingTopUpAccount = try AddingTopUpAccount(presentationAddingTopUpAccount: presentationAddingTopUpAccount)
@@ -471,6 +475,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             throw error
         }
     }
+    
+    // MARK: - Language
     
     func presentationLanguages(_ presentation: Presentation) throws -> [PresentationLanguage] {
         let languages: [Language] = [.english, .ukrainian, .thai]
@@ -495,9 +501,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         storage.saveSelectedLanguage(storageLanguage)
     }
     
+    // MARK: - Appearance
+    
     func presentationAppearanceSetting(_ presentation: Presentation) throws -> PresentationAppearanceSetting {
         do {
-            let storageAppearanceSetting = (try storage.getSelectedAppearanceSetting()) ?? .light
+            let storageAppearanceSetting = (try storage.getSelectedAppearanceSetting()) ?? .system
             let appearanceSetting = StorageAppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
             let presentationAppearanceSetting = PresentationAppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
             return presentationAppearanceSetting
