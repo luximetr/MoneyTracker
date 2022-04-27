@@ -43,5 +43,12 @@ class AddCell: AppearanceTableViewCell {
             .vCenter()
             .sizeToFit(.width)
     }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+    }
 }
 }

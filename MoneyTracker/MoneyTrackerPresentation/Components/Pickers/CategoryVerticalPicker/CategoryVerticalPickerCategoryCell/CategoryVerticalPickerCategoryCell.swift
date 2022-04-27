@@ -10,7 +10,7 @@ import AUIKit
 import PinLayout
 
 extension CategoryVerticalPickerView {
-class CategoryCell: AUITableViewCell {
+class CategoryCell: AppearanceTableViewCell {
     
     // MARK: - Subviews
     
@@ -32,7 +32,7 @@ class CategoryCell: AUITableViewCell {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 14, weight: .regular)
+        titleLabel.font = Fonts.default(size: 16, weight: .regular)
         titleLabel.numberOfLines = 1
     }
     
@@ -47,8 +47,8 @@ class CategoryCell: AUITableViewCell {
     private func layoutIconView() {
         iconView.pin
             .left(15)
-            .height(12)
-            .width(12)
+            .height(14)
+            .width(14)
             .vCenter()
     }
     
@@ -58,6 +58,13 @@ class CategoryCell: AUITableViewCell {
             .left(to: iconView.edge.right).marginLeft(10)
             .vCenter()
             .sizeToFit(.width)
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
     }
 }
 }

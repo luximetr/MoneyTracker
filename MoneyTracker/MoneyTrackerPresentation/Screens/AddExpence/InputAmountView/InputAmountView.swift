@@ -342,7 +342,7 @@ final class InputAmountView: AppearanceView {
         backgroundColor = appearance.primaryBackground
         placeholderLabel.textColor = appearance.secondaryText
         inputLabel.textColor = appearance.primaryText
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.tertiaryBackground
         deleteKeyButton.changeAppearance(appearance)
         sevenKeyButton.changeAppearance(appearance)
         eightKeyButton.changeAppearance(appearance)

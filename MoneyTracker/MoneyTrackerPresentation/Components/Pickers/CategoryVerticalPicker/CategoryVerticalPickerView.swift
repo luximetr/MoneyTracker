@@ -13,6 +13,8 @@ class CategoryVerticalPickerView: AppearanceView {
     // MARK: - Subviews
     
     let tableView = UITableView()
+    let selectionDividerView = UIView()
+    let transparentView = UIView()
     
     // MARK: - Setup
     
@@ -22,6 +24,9 @@ class CategoryVerticalPickerView: AppearanceView {
         changeAppearance(appearance)
         addSubview(tableView)
         setupTableView()
+        addSubview(selectionDividerView)
+        addSubview(transparentView)
+        setupTransparentView()
     }
     
     private func setupSelf() {
@@ -34,8 +39,15 @@ class CategoryVerticalPickerView: AppearanceView {
     
     private func setupTableView() {
         tableView.layer.cornerRadius = 10
+        tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: 17, left: 0, bottom: 0, right: 0)
         tableView.register(CategoryCell.self, forCellReuseIdentifier: categoryCellIdentifier)
         tableView.register(AddCell.self, forCellReuseIdentifier: addCellIdentifier)
+    }
+    
+    private func setupTransparentView() {
+        transparentView.alpha = 0.4
+        transparentView.isUserInteractionEnabled = false
     }
     
     // MARK: - Layout
@@ -43,10 +55,28 @@ class CategoryVerticalPickerView: AppearanceView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutTableView()
+        layoutSelectionDividerView()
+        layoutTransparentView()
     }
     
     private func layoutTableView() {
         tableView.pin.all()
+    }
+    
+    private func layoutSelectionDividerView() {
+        selectionDividerView.pin
+            .left(15)
+            .right()
+            .top(53)
+            .height(1)
+    }
+    
+    private func layoutTransparentView() {
+        transparentView.pin
+            .left()
+            .right()
+            .top(to: selectionDividerView.edge.bottom)
+            .bottom()
     }
     
     // MARK: - Appearance
@@ -54,6 +84,9 @@ class CategoryVerticalPickerView: AppearanceView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
+        tableView.backgroundColor = appearance.primaryBackground
+        selectionDividerView.backgroundColor = appearance.tertiaryBackground
+        transparentView.backgroundColor = appearance.primaryBackground
     }
     
     // MARK: - Category cell
@@ -65,7 +98,7 @@ class CategoryVerticalPickerView: AppearanceView {
     }
     
     func getCategoryCell() -> CGFloat {
-        return 25
+        return 35
     }
     
     // MARK: - Add cell

@@ -34,6 +34,7 @@ class CategoryCellController: AUIClosuresTableViewCellController {
     
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
         let cell = super.cellForRowAtIndexPath(indexPath)
+        cell.selectionStyle = .none
         setContent()
         return cell
     }
@@ -59,6 +60,7 @@ class CategoryCellController: AUIClosuresTableViewCellController {
         let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
         categoryCell?.iconView.tintColor = categoryUIColor
         categoryCell?.titleLabel.textColor = categoryUIColor
+        categoryCell?.setAppearance(appearance)
     }
     
 }

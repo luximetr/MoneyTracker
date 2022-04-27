@@ -35,6 +35,7 @@ class AddCellController: AUIClosuresTableViewCellController {
     
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
         let cell = super.cellForRowAtIndexPath(indexPath)
+        cell.selectionStyle = .none
         showTitle(title)
         return cell
     }
