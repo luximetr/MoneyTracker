@@ -35,6 +35,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         self.selectedCategory = selectedCategory
         self.inputAmountViewController = InputAmountViewController()
         self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
+        self.selectCategoryViewController = CategoryVerticalPickerController(appearance: appearance, language: language)
         super.init(appearance: appearance, language: language)
     }
     
@@ -53,7 +54,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     private let inputDateViewController = InputDateViewController()
     private let commentTextFieldController = AUIEmptyTextFieldController()
     private let inputAmountViewController: InputAmountViewController
-    private let selectCategoryViewController = SelectCategoryViewController()
+    private let selectCategoryViewController: CategoryVerticalPickerController
     private let expensesTableViewController = AUIEmptyTableViewController()
     private let expensesSectionController = AUIEmptyTableViewSectionController()
     private func expenseCellControllerForExpense(_ expense: Expense) -> AUITableViewCellController? {
@@ -71,11 +72,9 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         setupCommentTextFieldController()
         inputAmountViewController.inputAmountView = screenView.inputAmountView
         inputAmountViewController.placeholder = "0"
-        selectCategoryViewController.categories = categories
-        selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
-        if let selectedCategory = selectedCategory {
-            selectCategoryViewController.selectCategory(selectedCategory)
-        }
+        selectCategoryViewController.setCategories(categories)
+        selectCategoryViewController.pickerView = screenView.selectCategoryView
+        selectCategoryViewController.setSelectedCategory(selectedCategory)
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView
