@@ -47,7 +47,6 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(saveButton)
         setupBalanceAccountPickerHeaderLabel()
         setupCategoryPickerHeaderLabel()
-        setupCategoryPickerView()
         changeAppearance(appearance)
     }
     
@@ -59,10 +58,6 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     private func setupCategoryPickerHeaderLabel() {
         categoryPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
         categoryPickerHeaderLabel.numberOfLines = 1
-    }
-    
-    private func setupCategoryPickerView() {
-        categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
     }
     
     // MARK: - Layout

@@ -43,7 +43,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(categoryPickerHeaderLabel)
         setupCategoryPickerHeaderLabel()
         addSubview(categoryPickerView)
-        setupCategoryPickerView()
         addSubview(dayDatePickerView)
         dayDatePickerView.tintColor = appearance.primaryText
         dayDatePickerView.datePickerMode = .date
@@ -62,10 +61,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private func setupCategoryPickerHeaderLabel() {
         categoryPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
         categoryPickerHeaderLabel.numberOfLines = 1
-    }
-    
-    private func setupCategoryPickerView() {
-        categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
     }
     
     // MARK: - AutoLayout
