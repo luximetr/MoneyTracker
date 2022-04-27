@@ -27,9 +27,11 @@ class TemplatesScreenView: BackTitleRightButtonNavigationBarScreenView {
         changeAppearance(appearance)
         addSubview(tableView)
         setupTableView()
+        bringSubviewToFront(navigationBarView)
     }
     
     private func setupTableView() {
+        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         tableView.register(TemplateTableViewCell.self, forCellReuseIdentifier: templateTableViewCellReuseIdentifier)
     }
     
