@@ -19,7 +19,7 @@ class CategorySqliteTable {
     
     // MARK: - CREATE TABLE
     
-    func createIfNeeded() throws {
+    func createIfNotExists() throws {
         let statement =
             """
             CREATE TABLE IF NOT EXISTS

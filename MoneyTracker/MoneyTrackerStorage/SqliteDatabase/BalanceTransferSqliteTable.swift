@@ -53,7 +53,7 @@ class BalanceTransferSqliteTable {
     
     // MARK: - INSERT
     
-    func insert(values: BalanceTransferInsertingValues) throws {
+    func insertValues(_ values: BalanceTransferInsertingValues) throws {
         let statement =
             """
             INSERT INTO balance_transfer(id, date, from_balance_account_id, from_amount, to_balance_account_id, to_amount, comment)
@@ -74,7 +74,7 @@ class BalanceTransferSqliteTable {
     
     // MARK: - DELETE
     
-    func deleteWhere(id: String) throws {
+    func deleteWhereId(_ id: String) throws {
         let statement =
             """
             DELETE FROM balance_transfer WHERE id = ?;

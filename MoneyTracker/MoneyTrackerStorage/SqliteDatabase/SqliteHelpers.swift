@@ -41,6 +41,17 @@ func sqlite3StepRow(_ databaseConnection: OpaquePointer!, _ preparedStatement: O
     }
 }
 
+func sqlite3Finalize(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!) throws {
+    if sqlite3_finalize(preparedStatement) != SQLITE_OK {
+        let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)
+        let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+        throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
+    }
+}
+
+
+
+
 
 
 
@@ -86,17 +97,6 @@ func sqlite3BindDouble(_ databaseConnection: OpaquePointer!, _ preparedStatement
     }
 }
 
-
-
-
-
-func sqlite3Finalize(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!) throws {
-    if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-        let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)
-        let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
-        throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
-    }
-}
 
 
 

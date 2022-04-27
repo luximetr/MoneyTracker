@@ -39,7 +39,7 @@ public class Storage {
             let balanceTransferInsertingValues = BalanceTransferInsertingValues(id: id, date: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
             try sqliteDatabase.balanceAccountTable.updateAmountSubtracting(amount: fromAmount, whereId: fromBalanceAccountId)
             try sqliteDatabase.balanceAccountTable.updateAmountAdding(amount: toAmount, whereId: toBalanceAccountId)
-            try sqliteDatabase.balanceTransferSqliteTable.insert(values: balanceTransferInsertingValues)
+            try sqliteDatabase.balanceTransferSqliteTable.insertValues(balanceTransferInsertingValues)
             try sqliteDatabase.commitTransaction()
             let balanceTransfer = BalanceTransfer(id: id, date: addingBalanceTransfer.date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
             return balanceTransfer
@@ -61,7 +61,7 @@ public class Storage {
             let comment = addingBalanceReplenishment.comment
             let balanceReplenishmentInsertingValues = BalanceReplenishmentInsertingValues(id: id, date: date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
             try sqliteDatabase.balanceAccountTable.updateAmountAdding(amount: amount, whereId: balanceAccountId)
-            try sqliteDatabase.balanceReplenishmentSqliteTable.insert(values: balanceReplenishmentInsertingValues)
+            try sqliteDatabase.balanceReplenishmentSqliteTable.insertValues(balanceReplenishmentInsertingValues)
             try sqliteDatabase.commitTransaction()
             let balanceReplenishment = BalanceReplenishment(id: id, date: addingBalanceReplenishment.date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
             return balanceReplenishment
@@ -336,9 +336,9 @@ public class Storage {
                 let comment = expense.comment
                 let categoryId = expense.categoryId
                 let balanceAccountId = expense.balanceAccountId
-                let expenseInsertingValues = ExpenseInsertingValues(id: id, amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+                let expenseInsertingValues = ExpenseInsertingValues(id: id, date: date, amount: amount, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
                 try sqliteDatabase.beginTransaction()
-                try sqliteDatabase.expenseTable.insert(values: expenseInsertingValues)
+                try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
             }
             try sqliteDatabase.commitTransaction()
         } catch {
@@ -356,9 +356,9 @@ public class Storage {
             let comment = addingExpense.comment
             let categoryId = addingExpense.categoryId
             let balanceAccountId = addingExpense.balanceAccountId
-            let expenseInsertingValues = ExpenseInsertingValues(id: id, amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+            let expenseInsertingValues = ExpenseInsertingValues(id: id, date: date, amount: amount, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
             try sqliteDatabase.beginTransaction()
-            try sqliteDatabase.expenseTable.insert(values: expenseInsertingValues)
+            try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
             try sqliteDatabase.commitTransaction()
             let amountDecimal = Decimal(amount) / 100
             let dateDate = Date(timeIntervalSince1970: Double(date))
@@ -382,8 +382,8 @@ public class Storage {
                 let comment = addingExpense.comment
                 let categoryId = addingExpense.categoryId
                 let balanceAccountId = addingExpense.balanceAccountId
-                let expenseInsertingValues = ExpenseInsertingValues(id: id, amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
-                try sqliteDatabase.expenseTable.insert(values: expenseInsertingValues)
+                let expenseInsertingValues = ExpenseInsertingValues(id: id, date: date, amount: amount, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+                try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
                 let amountDecimal = Decimal(amount) / 100
                 let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
@@ -503,9 +503,9 @@ public class Storage {
         let comment = editingExpense.comment
         let categoryId = editingExpense.categoryId!
         let balanceAccountId = editingExpense.balanceAccountId!
-        let expenseUpdatingByIdValues = ExpenseUpdatingByIdValues(amount: amount, date: date, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+        let expenseUpdatingByIdValues = ExpenseUpdatingByIdValues(date: date, amount: amount, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
         try sqliteDatabase.beginTransaction()
-        try sqliteDatabase.expenseTable.updateById(expenseId, values: expenseUpdatingByIdValues)
+        try sqliteDatabase.expenseTable.updateWhere(id: expenseId, values: expenseUpdatingByIdValues)
         try sqliteDatabase.commitTransaction()
     }
     

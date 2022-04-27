@@ -26,7 +26,7 @@ class SqliteDatabase {
             throw Error("")
         }
         self.categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
-        try categoryTable.createIfNeeded()
+        try categoryTable.createIfNotExists()
         self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
         try balanceAccountTable.createIfNotExists()
         self.expenseTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
@@ -174,7 +174,7 @@ class SqliteDatabase {
     
     func selectBalanceAccountsByIds(_ ids: [String]) throws -> [BalanceAccount] {
         do {
-            let categories = try balanceAccountTable.selectByIds(ids)
+            let categories = try balanceAccountTable.selectWhereIdIn(ids)
             return categories
         } catch {
             throw error
@@ -183,7 +183,7 @@ class SqliteDatabase {
     
     func selectBalanceAccountsOrderedByOrderNumber() throws -> [BalanceAccount] {
         do {
-            let balanceAccounts = try balanceAccountTable.selectOrderedByOrderNumber()
+            let balanceAccounts = try balanceAccountTable.selectOrderByOrderNumber()
             return balanceAccounts
         } catch {
             throw error
@@ -239,7 +239,7 @@ class SqliteDatabase {
     func deleteBalanceAccountById(_ id: String) throws {
         do {
             try beginTransaction()
-            try balanceAccountTable.deleteWhere(id: id)
+            try balanceAccountTable.deleteWhereId(id)
             try commitTransaction()
         } catch {
             try rollbackTransaction()

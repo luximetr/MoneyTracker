@@ -149,7 +149,7 @@ class BalanceAccountSqliteTable {
     
     // MARK: - DELETE
     
-    func deleteWhere(id: String) throws {
+    func deleteWhereId(_ id: String) throws {
         let statement =
             """
             DELETE FROM balance_account WHERE id = ?;
@@ -163,6 +163,18 @@ class BalanceAccountSqliteTable {
     
     // MARK: - SELECT
     
+    private func extractBalanceAccount(_ preparedStatement: OpaquePointer?) throws -> BalanceAccount {
+        let id = String(cString: sqlite3_column_text(preparedStatement, 0))
+        let name = String(cString: sqlite3_column_text(preparedStatement, 1))
+        let amount = Decimal(Int(sqlite3_column_int(preparedStatement, 2)) / 100)
+        let currencyString = String(cString: sqlite3_column_text(preparedStatement, 3))
+        let curency = try Currency(currencyString)
+        let colorType = String(cString: sqlite3_column_text(preparedStatement, 4))
+        let color = BalanceAccountColor(rawValue: colorType)
+        let balanceAccount = BalanceAccount(id: id, name: name, amount: amount, currency: curency, color: color)
+        return balanceAccount
+    }
+    
     func select() throws -> [BalanceAccount] {
         let statement =
             """
@@ -172,14 +184,14 @@ class BalanceAccountSqliteTable {
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         var balanceAccounts: [BalanceAccount] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let category = try parseBalanceAccount(preparedStatement)
+            let category = try extractBalanceAccount(preparedStatement)
             balanceAccounts.append(category)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
         return balanceAccounts
     }
     
-    func selectByIds(_ ids: [String]) throws -> [BalanceAccount] {
+    func selectWhereIdIn(_ ids: [String]) throws -> [BalanceAccount] {
         let statementValues = ids.map({ _ in "?" }).joined(separator: ", ")
         let statement =
             """
@@ -190,19 +202,18 @@ class BalanceAccountSqliteTable {
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         for (index, id) in ids.enumerated() {
             let index = Int32(index + 1)
-            let value = id
-            try sqlite3BindText(databaseConnection, preparedStatement, index, value, -1, nil)
+            try sqlite3BindText(databaseConnection, preparedStatement, index, id, -1, nil)
         }
         var balanceAccounts: [BalanceAccount] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let category = try parseBalanceAccount(preparedStatement)
+            let category = try extractBalanceAccount(preparedStatement)
             balanceAccounts.append(category)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
         return balanceAccounts
     }
     
-    func selectOrderedByOrderNumber() throws -> [BalanceAccount] {
+    func selectOrderByOrderNumber() throws -> [BalanceAccount] {
         let statement =
             """
             SELECT id, name, amount, currency, color, order_number FROM balance_account ORDER BY order_number;
@@ -211,40 +222,26 @@ class BalanceAccountSqliteTable {
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         var balanceAccounts: [BalanceAccount] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let category = try parseBalanceAccount(preparedStatement)
+            let category = try extractBalanceAccount(preparedStatement)
             balanceAccounts.append(category)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
         return balanceAccounts
     }
     
-    func selectMaxOrderNumber() throws -> Int? {
+    func selectMaxOrderNumber() throws -> Int64? {
         let statement =
             """
             SELECT MAX(order_number) FROM balance_account;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        var maxOrderNumber: Int?
+        var maxOrderNumber: Int64?
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            maxOrderNumber = Int(sqlite3_column_int(preparedStatement, 0))
+            maxOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 0)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
         return maxOrderNumber
-    }
-    
-    // MARK: - Mapping
-    
-    private func parseBalanceAccount(_ preparedStatement: OpaquePointer?) throws -> BalanceAccount {
-        let id = String(cString: sqlite3_column_text(preparedStatement, 0))
-        let name = String(cString: sqlite3_column_text(preparedStatement, 1))
-        let amount = Decimal(Int(sqlite3_column_int(preparedStatement, 2)) / 100)
-        let currencyString = String(cString: sqlite3_column_text(preparedStatement, 3))
-        let curency = try Currency(currencyString)
-        let colorType = String(cString: sqlite3_column_text(preparedStatement, 4))
-        let color = BalanceAccountColor(rawValue: colorType)
-        let balanceAccount = BalanceAccount(id: id, name: name, amount: amount, currency: curency, color: color)
-        return balanceAccount
     }
     
 }

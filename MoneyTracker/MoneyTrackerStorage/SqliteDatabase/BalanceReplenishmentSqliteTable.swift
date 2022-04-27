@@ -48,7 +48,7 @@ class BalanceReplenishmentSqliteTable {
     
     // MARK: - INSERT
     
-    func insert(values: BalanceReplenishmentInsertingValues) throws {
+    func insertValues(_ values: BalanceReplenishmentInsertingValues) throws {
         let statement =
             """
             INSERT INTO balance_replenishment(id, date, balance_account_id, amount, comment)
@@ -67,7 +67,7 @@ class BalanceReplenishmentSqliteTable {
     
     // MARK: - DELETE
     
-    func deleteWhere(id: String) throws {
+    func deleteWhereId(_ id: String) throws {
         let statement =
             """
             DELETE FROM balance_replenishment WHERE id = ?;
