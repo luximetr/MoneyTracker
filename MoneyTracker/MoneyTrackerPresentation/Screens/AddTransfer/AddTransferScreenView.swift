@@ -57,6 +57,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(addButton)
         setupAddButton()
         autoLayout()
+        changeAppearance(appearance)
     }
     
     private func setupScrollView() {
@@ -91,7 +92,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         dayDatePickerView.translatesAutoresizingMaskIntoConstraints = false
         dayDatePickerView.topAnchor.constraint(equalTo: toAccountPickerView.bottomAnchor, constant: 24).isActive = true
-        dayDatePickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        dayDatePickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
     }
     
     // MARK: Layout
@@ -201,8 +202,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func layoutAddButton() {
-        let x: CGFloat = 44
-        let width = bounds.width - 2 * x
+        let width: CGFloat = 150
+        let x: CGFloat = (bounds.width - width) / 2
         let height: CGFloat = 44
         let y = bounds.height - 16 - height - safeAreaInsets.bottom
         let frame = CGRect(x: x, y: y, width: width, height: height)
@@ -227,6 +228,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         toAccountPickerLabel.textColor = appearance.secondaryText
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
     }
     
 }

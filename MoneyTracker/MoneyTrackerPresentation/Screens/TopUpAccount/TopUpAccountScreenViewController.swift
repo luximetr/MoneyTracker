@@ -87,10 +87,9 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
         screenView.accountPickerLabel.text = localizer.localizeText("account")
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
-        if let selectedAccount = selectedAccount {
-            accountPickerController.showOptions(accounts: accounts, selectedAccount: selectedAccount)
-            amountInputController.labelController.text = selectedAccount.currency.rawValue
-        }
+        accountPickerController.showOptions(accounts: accounts)
+        accountPickerController.setSelectedAccount(selectedAccount)
+        amountInputController.labelController.text = selectedAccount?.currency.rawValue
     }
     
     // MARK: Events
@@ -128,9 +127,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     
     func addAccount(_ account: Account) {
         accounts.append(account)
-        if let selectedAccount = accountPickerController.selectedAccount {
-            accountPickerController.showOptions(accounts: accounts, selectedAccount: selectedAccount)
-        }
+        accountPickerController.showOptions(accounts: accounts)
     }
     
 }

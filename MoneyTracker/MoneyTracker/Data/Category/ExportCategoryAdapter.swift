@@ -16,8 +16,8 @@ class ExportCategoryAdapter {
         return FilesExportCategory(
             id: storageCategory.id,
             name: storageCategory.name,
-            categoryColor: (storageCategory.color ?? .variant1).rawValue,
-            iconName: storageCategory.iconName ?? "bag"
+            categoryColor: (storageCategory.color).rawValue,
+            iconName: storageCategory.iconName
         )
     }
 }

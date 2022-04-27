@@ -37,7 +37,6 @@ class CategoryHorizontalPickerView: AppearanceView {
     private func setupCollectionView() {
         collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         collectionViewLayout.scrollDirection = .horizontal
-        collectionView.contentInset = contentInset
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
     }
@@ -56,10 +55,6 @@ class CategoryHorizontalPickerView: AppearanceView {
     }
     
     // MARK: - Layout
-    
-    var contentInset: UIEdgeInsets = .zero {
-        didSet { collectionView.contentInset = contentInset }
-    }
     
     override func layoutSubviews() {
         super.layoutSubviews()

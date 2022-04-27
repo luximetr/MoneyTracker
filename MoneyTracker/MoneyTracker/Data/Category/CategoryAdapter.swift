@@ -30,7 +30,7 @@ class CategoryAdapter {
             id: storageCategory.id,
             name: storageCategory.name,
             color: categoryColorAdapter.adaptToPresentationOptional(storageCategoryColor: storageCategory.color) ?? .variant1,
-            iconName: storageCategory.iconName ?? "bag"
+            iconName: storageCategory.iconName
         )
     }
     

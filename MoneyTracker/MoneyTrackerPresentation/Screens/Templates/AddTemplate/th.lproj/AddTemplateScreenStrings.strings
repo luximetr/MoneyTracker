@@ -1,7 +1,7 @@
 "title" = "สร้างเทมเพลต";
 "accountPickerHeader" = "บัญชี";
 "categoryPickerHeader" = "หมวดหมู่";
-"addButtonTitle" = "เสร็จแล้ว";
+"addButtonTitle" = "สร้าง";
 "namePlaceholder" = "ชื่อ";
 "amountPlaceholder" = "จำนวน";
 "commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";

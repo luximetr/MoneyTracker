@@ -37,6 +37,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         scrollView.addSubview(iconView)
         scrollView.addSubview(selectIconButton)
         scrollView.addSubview(nameTextField)
+        setupNameTextField()
         scrollView.addSubview(colorPickerTitleLabel)
         setupColorPickerTitleLabel()
         scrollView.addSubview(colorPickerView)
@@ -44,6 +45,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(editButton)
         setupEditButton()
         changeAppearance(appearance)
+    }
+    
+    private func setupNameTextField() {
+        nameTextField.autocorrectionType = .no
+        nameTextField.autocapitalizationType = .none
     }
     
     private func setupColorPickerTitleLabel() {
@@ -78,10 +84,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
         let width = bounds.width
         let height = bounds.height - y
-        var frame = CGRect(x: x, y: y, width: width, height: height)
-        if let keyboardFrame = keyboardFrame {
-            frame.size.height -= keyboardFrame.size.height
-        }
+        let frame = CGRect(x: x, y: y, width: width, height: height)
         scrollView.frame = frame
     }
     
@@ -142,10 +145,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         let width = bounds.width - 2 * x
         let height: CGFloat = 44
         let y = bounds.height - 16 - height - safeAreaInsets.bottom
-        var frame = CGRect(x: x, y: y, width: width, height: height)
-        if let keyboardFrame = keyboardFrame {
-            frame.origin.y -= keyboardFrame.size.height
-        }
+        let frame = CGRect(x: x, y: y, width: width, height: height)
         editButton.frame = frame
     }
     
@@ -157,16 +157,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         iconView.iconImageView.tintColor = appearance.categoryPrimaryText
         colorPickerTitleLabel.textColor = appearance.primaryText
         nameTextField.changeAppearance(appearance)
-    }
-    
-    // MARK: Keyboard
-    
-    private var keyboardFrame: CGRect?
-    
-    func setKeyboardFrame(_ keyboardFrame: CGRect?) {
-        self.keyboardFrame = keyboardFrame
-        setNeedsLayout()
-        layoutIfNeeded()
     }
     
 }

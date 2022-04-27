@@ -22,12 +22,12 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
     
     func addAccount(_ account: Account) {
         balanceAccounts.append(account)
-        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: account)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts)
     }
     
     func addCategory(_ category: Category) {
         categories.append(category)
-        categoryPickerController.showOptions(categories: categories, selectedCategory: category)
+        categoryPickerController.showOptions(categories: categories)
     }
     
     // MARK: Localizer
@@ -86,6 +86,7 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewTapRecognizer()
         setupBalanceAccountPickerController()
         setupCategoryPickerController()
         setupNameTextFieldController()
@@ -105,6 +106,19 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
         backClosure?()
     }
     
+    // MARK: - View - Tap Recognizer
+    
+    private func setupViewTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc
+    private func didTapOnView() {
+        view.endEditing(true)
+    }
+    
     // MARK: - Balance account picker
     
     private let balanceAccountPickerController: BalanceAccountHorizontalPickerController
@@ -114,7 +128,8 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
         balanceAccountPickerController.didSelectAccountClosure = { [weak self] account in
             self?.didSelectBalanceAccount(account)
         }
-        balanceAccountPickerController.showOptions(accounts: balanceAccounts, selectedAccount: expenseTemplate.balanceAccount)
+        balanceAccountPickerController.showOptions(accounts: balanceAccounts)
+        balanceAccountPickerController.setSelectedAccount(expenseTemplate.balanceAccount)
         balanceAccountPickerController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
             self.addAccount()
@@ -139,7 +154,8 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
     
     private func setupCategoryPickerController() {
         categoryPickerController.categoryHorizontalPickerView = editTemplateScreenView.categoryPickerView
-        categoryPickerController.showOptions(categories: categories, selectedCategory: expenseTemplate.category)
+        categoryPickerController.showOptions(categories: categories)
+        categoryPickerController.setSelectedCategory(expenseTemplate.category)
         categoryPickerController.addCategoryClosure = { [weak self] in
             guard let self = self else { return }
             self.addCategory()

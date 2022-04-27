@@ -43,7 +43,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(categoryPickerHeaderLabel)
         setupCategoryPickerHeaderLabel()
         addSubview(categoryPickerView)
-        setupCategoryPickerView()
         addSubview(dayDatePickerView)
         dayDatePickerView.tintColor = appearance.primaryText
         dayDatePickerView.datePickerMode = .date
@@ -64,10 +63,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         categoryPickerHeaderLabel.numberOfLines = 1
     }
     
-    private func setupCategoryPickerView() {
-        categoryPickerView.contentInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
-    }
-    
     // MARK: - AutoLayout
     
     private func autoLayout() {
@@ -77,7 +72,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private func autoLayoutDayDatePickerView() {
         dayDatePickerView.translatesAutoresizingMaskIntoConstraints = false
         dayDatePickerView.topAnchor.constraint(equalTo: categoryPickerView.bottomAnchor, constant: 24).isActive = true
-        dayDatePickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        dayDatePickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: marginLeft).isActive = true
     }
     
     // MARK: - Layout
