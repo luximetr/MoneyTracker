@@ -16,6 +16,7 @@ class SqliteDatabase {
     let expenseTable: ExpenseSqliteTable
     let historySqliteView: HistorySqliteView
     let balanceTransferSqliteTable: BalanceTransferSqliteTable
+    let balanceReplenishmentSqliteTable: BalanceReplenishmentSqliteTable
     
     // MARK: - Initializer
     
@@ -34,6 +35,8 @@ class SqliteDatabase {
         try historySqliteView.createIfNotExists()
         self.balanceTransferSqliteTable = BalanceTransferSqliteTable(databaseConnection: databaseConnection)
         try balanceTransferSqliteTable.createIfNotExists()
+        self.balanceReplenishmentSqliteTable = BalanceReplenishmentSqliteTable(databaseConnection: databaseConnection)
+        try balanceReplenishmentSqliteTable.createIfNotExists()
     }
     
     // MARK: - Transaction

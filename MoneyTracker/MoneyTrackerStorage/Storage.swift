@@ -49,6 +49,28 @@ public class Storage {
         }
     }
     
+    // MARK: - Balance Replenishment
+    
+    public func addBalanceReplenishment(_ addingBalanceReplenishment: AddingBalanceReplenishment) throws -> BalanceReplenishment {
+        do {
+            try sqliteDatabase.beginTransaction()
+            let id = UUID().uuidString
+            let date = Int64(addingBalanceReplenishment.date.timeIntervalSinceReferenceDate)
+            let balanceAccountId = addingBalanceReplenishment.balanceAccountId
+            let amount = addingBalanceReplenishment.amount
+            let comment = addingBalanceReplenishment.comment
+            let balanceReplenishmentInsertingValues = BalanceReplenishmentInsertingValues(id: id, date: date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
+            try sqliteDatabase.balanceAccountTable.updateAmountAdding(amount: amount, whereId: balanceAccountId)
+            try sqliteDatabase.balanceReplenishmentSqliteTable.insert(values: balanceReplenishmentInsertingValues)
+            try sqliteDatabase.commitTransaction()
+            let balanceReplenishment = BalanceReplenishment(id: id, date: addingBalanceReplenishment.date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
+            return balanceReplenishment
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
+    }
+    
     // MARK: - Categories
     
     public func getCategories() throws -> [Category] {

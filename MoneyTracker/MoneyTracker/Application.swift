@@ -463,9 +463,14 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingTopUpAccount) throws -> PresentationTopUpAccount {
         do {
-//            let addingTopUpAccount = try AddingTopUpAccount(presentationAddingTopUpAccount: presentationAddingTopUpAccount)
-            let error = Error("Not implemented")
-            throw error
+            let date = presentationAddingTopUpAccount.day
+            let balanceAccountId = presentationAddingTopUpAccount.account.id
+            let amount = Int64(try (presentationAddingTopUpAccount.amount * 100).int())
+            let comment = presentationAddingTopUpAccount.comment
+            let storageAddingBalanceReplenishment = AddingBalanceReplenishment(date: date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
+            let storageBalanceTransfer = try storage.addBalanceReplenishment(storageAddingBalanceReplenishment)
+            let presentationTopUpAccount = PresentationTopUpAccount(id: storageBalanceTransfer.id, account: presentationAddingTopUpAccount.account, day: presentationAddingTopUpAccount.day, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
+            return presentationTopUpAccount
         } catch {
             let error = Error("Cannot add presentation top up account \(presentationAddingTopUpAccount)\n\(error)")
             throw error

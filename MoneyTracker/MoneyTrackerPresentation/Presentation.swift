@@ -356,12 +356,12 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            viewController.addTopUpAccountClosure = { [weak self, weak viewController] addingTopUpAccount in
+            viewController.addTopUpAccountClosure = { [weak self, weak navigationController] addingTopUpAccount in
                 guard let self = self else { return }
-                guard let viewController = viewController else { return }
+                guard let navigationController = navigationController else { return }
                 do {
                     _ = try self.delegate.presentation(self, addTopUpAccount: addingTopUpAccount)
-                    viewController.dismiss(animated: true, completion: nil)
+                    navigationController.popViewController(animated: true)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
