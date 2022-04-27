@@ -67,9 +67,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         screenView.saveButton.addTarget(self, action: #selector(didTapOnSaveButton), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
-        dayDatePickerViewController.datePicker = screenView.dayDatePickerView
-        dayDatePickerViewController.mode = .date
-        dayDatePickerViewController.setDate(expense.date, animated: false)
+        setupDatePickerController()
         setContent()
     }
     
@@ -94,6 +92,12 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
             guard let self = self else { return }
             self.addCategory()
         }
+    }
+    
+    private func setupDatePickerController() {
+        dayDatePickerViewController.datePicker = screenView.dayDatePickerView
+        dayDatePickerViewController.mode = .date
+        dayDatePickerViewController.setDate(expense.date, animated: false)
     }
     
     private func setupAmountTextFieldController() {
