@@ -43,6 +43,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewTapRecognizer()
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupFromAccountPickerController()
         setupToAccountPickerController()
@@ -52,6 +53,17 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         setContent()
+    }
+    
+    private func setupViewTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc
+    private func didTapOnView() {
+        view.endEditing(true)
     }
     
     private func setupFromAccountPickerController() {
