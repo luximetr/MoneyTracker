@@ -56,6 +56,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         scrollView.addSubview(commentTextField)
         addSubview(addButton)
         autoLayout()
+        changeAppearance(appearance)
     }
     
     private func setupScrollView() {
@@ -196,8 +197,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func layoutAddButton() {
-        let x: CGFloat = 44
-        let width = bounds.width - 2 * x
+        let width: CGFloat = 150
+        let x: CGFloat = (bounds.width - width) / 2
         let height: CGFloat = 44
         let y = bounds.height - 16 - height - safeAreaInsets.bottom
         let frame = CGRect(x: x, y: y, width: width, height: height)
@@ -221,6 +222,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         fromAccountPickerLabel.textColor = appearance.secondaryText
         toAccountPickerLabel.textColor = appearance.secondaryText
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
     }
     
 }
