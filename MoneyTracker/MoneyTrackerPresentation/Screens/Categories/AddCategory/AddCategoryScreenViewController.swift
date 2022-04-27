@@ -43,10 +43,9 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.selectIconButton.addTarget(self, action: #selector(selectIconButtonTouchUpInsideEventAction), for: .touchUpInside)
         showCategoryIcon(iconName: categoryIconName)
+        setupViewTapRecognizer()
         setupColorPickerController()
         setContent()
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
-        view.addGestureRecognizer(tapRecognizer)
     }
     
     // MARK: Localizer
@@ -89,6 +88,14 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     @objc private func selectIconButtonTouchUpInsideEventAction() {
         guard let selectedColor = colorPickerController.selectedColor else { return }
         selectIconClosure?(selectedColor)
+    }
+    
+    // MARK: - View - Tap Recognizer
+    
+    private func setupViewTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc private func didTapOnView() {
