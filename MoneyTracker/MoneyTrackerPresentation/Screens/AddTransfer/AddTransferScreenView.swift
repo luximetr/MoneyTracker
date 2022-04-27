@@ -86,7 +86,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         dayDatePickerView.translatesAutoresizingMaskIntoConstraints = false
         dayDatePickerView.topAnchor.constraint(equalTo: toAccountPickerView.bottomAnchor, constant: 24).isActive = true
-        dayDatePickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        dayDatePickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
     }
     
     // MARK: Layout
