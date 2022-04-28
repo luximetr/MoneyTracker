@@ -89,7 +89,12 @@ public class Storage {
     
     public func getCategoriesOrdered() throws -> [Category] {
         do {
-            let categories = try sqliteDatabase.selectCategoriesOrderedByOrderNumber()
+            let selectedRows = try sqliteDatabase.categoryTable.selectOrderByOrderNumber()
+            let categories: [Category] = try selectedRows.map { selectedRow in
+                let categoryColor = try CategoryColor(selectedRow.colorType)
+                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.iconName)
+                return category
+            }
             return categories
         } catch {
             throw error
@@ -98,8 +103,13 @@ public class Storage {
     
     public func getCategory(id: String) throws -> Category {
         do {
-            let categories = try sqliteDatabase.selectCategoriesByIds([id]).first
-            return categories!
+            let selectedRows = try sqliteDatabase.categoryTable.selectWhereIdIn([id])
+            let categories: [Category] = try selectedRows.map { selectedRow in
+                let categoryColor = try CategoryColor(selectedRow.colorType)
+                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.iconName)
+                return category
+            }
+            return categories.first!
         } catch {
             throw error
         }
@@ -107,7 +117,12 @@ public class Storage {
     
     public func getCategories(ids: [String]) throws -> [Category] {
         do {
-            let categories = try sqliteDatabase.selectCategoriesByIds(ids)
+            let selectedRows = try sqliteDatabase.categoryTable.selectWhereIdIn(ids)
+            let categories: [Category] = try selectedRows.map { selectedRow in
+                let categoryColor = try CategoryColor(selectedRow.colorType)
+                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.iconName)
+                return category
+            }
             return categories
         } catch {
             throw error

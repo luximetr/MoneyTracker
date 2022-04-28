@@ -69,33 +69,6 @@ class SqliteDatabase {
     
     // MARK: - Category
     
-//    func selectCategories() throws -> [Category] {
-//        do {
-//            let categories = try categoryTable.select()
-//            return categories
-//        } catch {
-//            throw error
-//        }
-//    }
-    
-    func selectCategoriesByIds(_ ids: [String]) throws -> [Category] {
-        do {
-            let categories = try categoryTable.selectWhereIdIn(ids)
-            return categories
-        } catch {
-            throw error
-        }
-    }
-    
-    func selectCategoriesOrderedByOrderNumber() throws -> [Category] {
-        do {
-            let categories = try categoryTable.selectOrderByOrderNumber()
-            return categories
-        } catch {
-            throw error
-        }
-    }
-    
     func insertCategory(_ category: Category) throws {
         do {
             try beginTransaction()

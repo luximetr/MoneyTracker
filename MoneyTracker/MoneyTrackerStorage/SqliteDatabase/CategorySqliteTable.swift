@@ -160,7 +160,7 @@ class CategorySqliteTable {
         return selectedRows
     }
     
-    func selectWhereIdIn(_ ids: [String]) throws -> [Category] {
+    func selectWhereIdIn(_ ids: [String]) throws -> [CategorySelectedRow] {
         let statementValues = ids.map({ _ in "?" }).joined(separator: ", ")
         let statement =
             """
@@ -174,29 +174,29 @@ class CategorySqliteTable {
             let value = id
             try sqlite3BindText(databaseConnection, preparedStatement, index, value, -1, nil)
         }
-        var categories: [Category] = []
+        var selectedRows: [CategorySelectedRow] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let category = try parseCategory(preparedStatement)
-            categories.append(category)
+            let selectedRow = try extractSelectedRow(preparedStatement)
+            selectedRows.append(selectedRow)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
-        return categories
+        return selectedRows
     }
     
-    func selectOrderByOrderNumber() throws -> [Category] {
+    func selectOrderByOrderNumber() throws -> [CategorySelectedRow] {
         let statement =
             """
             SELECT id, name, icon_name, color_type, order_number FROM category ORDER BY order_number;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        var categories: [Category] = []
+        var selectedRows: [CategorySelectedRow] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let category = try parseCategory(preparedStatement)
-            categories.append(category)
+            let selectedRow = try extractSelectedRow(preparedStatement)
+            selectedRows.append(selectedRow)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
-        return categories
+        return selectedRows
     }
     
     func selectMaxOrderNumber() throws -> Int64? {
