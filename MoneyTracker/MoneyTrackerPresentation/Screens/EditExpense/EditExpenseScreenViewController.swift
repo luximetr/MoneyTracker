@@ -137,6 +137,8 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         screenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
+        let locale = Locale(identifier: localizer.localizeText("dateLocale"))
+        dayDatePickerViewController.locale = locale
     }
     
     // MARK: - Appearance

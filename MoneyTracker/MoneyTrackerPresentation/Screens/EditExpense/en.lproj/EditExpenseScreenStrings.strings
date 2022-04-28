@@ -5,3 +5,4 @@
 "namePlaceholder" = "Name";
 "amountPlaceholder" = "Amount";
 "commentPlaceholder" = "Comment (optional)";
+"dateLocale" = "en_US";

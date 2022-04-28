@@ -5,3 +5,4 @@
 "namePlaceholder" = "ชื่อ";
 "amountPlaceholder" = "จำนวน";
 "commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";
+"dateLocale" = "th_TH";
