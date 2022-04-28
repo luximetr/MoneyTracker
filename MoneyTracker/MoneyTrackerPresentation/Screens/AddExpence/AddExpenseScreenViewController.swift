@@ -14,10 +14,11 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     private var dayExpenses: [Expense] = []
     private var accounts: [Account]
-    private let categories: [Category]
+    private var categories: [Category]
     private var selectedCategory: Category?
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
+    var addCategoryClosure: (() -> Void)?
     var addExpenseClosure: ((AddingExpense) throws -> Expense)?
     var dayExpensesClosure: ((Date) throws -> [Expense])?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
@@ -26,14 +27,22 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         accounts.append(account)
         balanceAccountHorizontalPickerController.showOptions(accounts: accounts)
     }
+    
+    func addCategory(_ category: Category) {
+        categories.append(category)
+        selectCategoryViewController.setCategories(categories)
+        selectCategoryViewController.setSelectedCategory(category)
+    }
 
     // MARK: Initializer
     
     init(appearance: Appearance, language: Language, accounts: [Account], categories: [Category], selectedCategory: Category?) {
         self.accounts = accounts
         self.categories = categories
-        self.selectedCategory = selectedCategory
+        self.selectedCategory = selectedCategory ?? categories.first
+        self.inputAmountViewController = InputAmountViewController()
         self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
+        self.selectCategoryViewController = CategoryVerticalPickerController(appearance: appearance, language: language)
         super.init(appearance: appearance, language: language)
     }
     
@@ -51,8 +60,8 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     private let balanceAccountHorizontalPickerController: BalanceAccountHorizontalPickerController
     private let inputDateViewController = InputDateViewController()
     private let commentTextFieldController = AUIEmptyTextFieldController()
-    private let inputAmountViewController = InputAmountViewController()
-    private let selectCategoryViewController = SelectCategoryViewController()
+    private let inputAmountViewController: InputAmountViewController
+    private let selectCategoryViewController: CategoryVerticalPickerController
     private let expensesTableViewController = AUIEmptyTableViewController()
     private let expensesSectionController = AUIEmptyTableViewSectionController()
     private func expenseCellControllerForExpense(_ expense: Expense) -> AUITableViewCellController? {
@@ -69,10 +78,12 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         setupInputDateViewController()
         setupCommentTextFieldController()
         inputAmountViewController.inputAmountView = screenView.inputAmountView
-        selectCategoryViewController.categories = categories
-        selectCategoryViewController.selectCategoryView = screenView.selectCategoryView
-        if let selectedCategory = selectedCategory {
-            selectCategoryViewController.selectCategory(selectedCategory)
+        inputAmountViewController.placeholder = "0"
+        selectCategoryViewController.setCategories(categories)
+        selectCategoryViewController.pickerView = screenView.selectCategoryView
+        selectCategoryViewController.setSelectedCategory(selectedCategory)
+        selectCategoryViewController.didTapOnAddClosure = { [weak self] in
+            self?.addCategoryClosure?()
         }
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
@@ -147,6 +158,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             let addedExpense = try addExpenseClosure(addingExpense)
             addExpense(addedExpense)
             inputAmountViewController.input = ""
+            commentTextFieldController.text = nil
             view.endEditing(true)
         } catch {
             

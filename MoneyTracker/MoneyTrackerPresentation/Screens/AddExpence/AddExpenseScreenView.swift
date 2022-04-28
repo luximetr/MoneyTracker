@@ -18,7 +18,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.commentTextField = PlainTextField(appearance: appearance)
         self.selectAccountView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.inputAmountView = InputAmountView(appearance: appearance)
-        self.selectCategoryView = SelectCategoryView(appearance: appearance)
+        self.selectCategoryView = CategoryVerticalPickerView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -36,7 +36,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let addButton = TextFilledButton()
     let selectAccountView: BalanceAccountHorizontalPickerView
     let inputAmountView: InputAmountView
-    let selectCategoryView: SelectCategoryView
+    let selectCategoryView: CategoryVerticalPickerView
+//    let selectCategoryView: SelectCategoryView
     
     // MARK: - Setup
     
