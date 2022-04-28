@@ -61,6 +61,7 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         localizer.changeLanguage(language)
         currencyCodeLocalizer.changeLanguage(language)
         languageCodeLocalizer.changeLanguage(language)
+        appearanceTypeNameLocalizer.changeLanguage(language)
         setContent()
         tableViewController.reload()
     }
