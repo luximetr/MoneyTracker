@@ -41,6 +41,7 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewTapRecognizer()
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.selectIconButton.addTarget(self, action: #selector(selectIconButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.editButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
@@ -48,8 +49,6 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
         setContent()
         updateView(categoryColor: category.color)
         showCategoryIcon(iconName: categoryIconName)
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
-        view.addGestureRecognizer(tapRecognizer)
     }
     
     // MARK: Localizer
@@ -110,6 +109,14 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     @objc private func selectIconButtonTouchUpInsideEventAction() {
         guard let selectedColor = colorPickerController.selectedColor else { return }
         selectIconClosure?(selectedColor)
+    }
+    
+    // MARK: - View - Tap recognizer
+    
+    private func setupViewTapRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc private func didTapOnView() {
