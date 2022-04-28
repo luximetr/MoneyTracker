@@ -34,16 +34,12 @@ class CategoryVerticalPickerController: EmptyViewController {
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        
-    }
-    
     // MARK: - Appearance
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        
+        pickerView?.changeAppearance(appearance)
+        findCategoriesCellControllers().forEach { $0.setAppearance(appearance) }
     }
     
     // MARK: - View
@@ -71,7 +67,6 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     private func setupTableViewController() {
         tableViewController.tableView = pickerView?.tableView
-        
     }
     
     // MARK: - Categories
@@ -105,7 +100,7 @@ class CategoryVerticalPickerController: EmptyViewController {
         }
     }
     
-    // MARK: - Category cell
+    // MARK: - Category cell - Create
     
     private func createCategoriesCells(_ categories: [Category]) -> [CategoryCellController] {
         return categories.map { createCategoryCell($0) }
@@ -128,6 +123,8 @@ class CategoryVerticalPickerController: EmptyViewController {
         return cellController
     }
     
+    // MARK: - Category cell - Find
+    
     private func findIndexPath(categoryId: String) -> IndexPath? {
         let index = sectionController.cellControllers.firstIndex(where: { cellController in
             let categoryCellController = cellController as? CategoryCellController
@@ -137,10 +134,11 @@ class CategoryVerticalPickerController: EmptyViewController {
         return IndexPath(row: index, section: 0)
     }
     
-    private func showCategorySelected(categoryId: String) {
-        guard let indexPath = findIndexPath(categoryId: categoryId) else { return }
-        pickerView?.scrollToCell(at: indexPath)
+    private func findCategoriesCellControllers() -> [CategoryCellController] {
+        return sectionController.cellControllers.compactMap { $0 as? CategoryCellController }
     }
+    
+    // MARK: - Category cell - Selection
     
     private func didSelectCategoryCell(categoryId: String) {
         guard let newSelectedCategory = categories.first(where: { $0.id == categoryId }) else { return }
@@ -148,7 +146,12 @@ class CategoryVerticalPickerController: EmptyViewController {
         self.selectedCategory = newSelectedCategory
     }
     
-    // MARK: - Add cell
+    private func showCategorySelected(categoryId: String) {
+        guard let indexPath = findIndexPath(categoryId: categoryId) else { return }
+        pickerView?.scrollToCell(at: indexPath)
+    }
+    
+    // MARK: - Add cell - Create
     
     private func createAddCellController() -> AddCellController {
         let cellController = AddCellController(title: localizer.localizeText("add"))
@@ -168,14 +171,16 @@ class CategoryVerticalPickerController: EmptyViewController {
         return cellController
     }
     
-    private func showAddCellSelected() {
-        let index = sectionController.cellControllers.firstIndex(where: { $0 is AddCellController })
-        guard let index = index else { return }
-        pickerView?.scrollToCell(at: IndexPath(row: index, section: 0))
-    }
+    // MARK: - Add cell - Selection
     
     private func didSelectAddCell() {
         showAddCellSelected()
         didTapOnAddClosure?()
+    }
+    
+    private func showAddCellSelected() {
+        let index = sectionController.cellControllers.firstIndex(where: { $0 is AddCellController })
+        guard let index = index else { return }
+        pickerView?.scrollToCell(at: IndexPath(row: index, section: 0))
     }
 }

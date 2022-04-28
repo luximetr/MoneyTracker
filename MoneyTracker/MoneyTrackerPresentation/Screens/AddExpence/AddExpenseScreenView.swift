@@ -210,7 +210,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         expensTableViewCells?.forEach({ $0.setAppearance(appearance) })
         addButton.backgroundColor = appearance.primaryActionBackground
         addButton.setTitleColor(appearance.primaryActionText, for: .normal)
-        selectCategoryView.changeAppearance(appearance)
         inputAmountView.changeAppearance(appearance)
     }
     

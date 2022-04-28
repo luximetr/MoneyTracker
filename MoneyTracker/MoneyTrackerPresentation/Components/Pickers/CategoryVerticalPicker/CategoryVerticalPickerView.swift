@@ -31,6 +31,7 @@ class CategoryVerticalPickerView: AppearanceView {
         addSubview(selectionDividerView)
         addSubview(transparentView)
         setupTransparentView()
+        bringSubviewToFront(topGradientView)
     }
     
     private func setupSelf() {
@@ -51,8 +52,8 @@ class CategoryVerticalPickerView: AppearanceView {
     }
     
     private func setupTopGradientView() {
-        topGradientViewLayer.startPoint = CGPoint(x: 0.5, y: 1)
-        topGradientViewLayer.endPoint = CGPoint(x: 0.5, y: 0)
+        topGradientViewLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        topGradientViewLayer.endPoint = CGPoint(x: 0.5, y: 1)
         topGradientView.layer.insertSublayer(topGradientViewLayer, at: 0)
         topGradientView.layer.cornerRadius = 10
         topGradientView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -111,9 +112,10 @@ class CategoryVerticalPickerView: AppearanceView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         tableView.backgroundColor = appearance.primaryBackground
-        topGradientViewLayer.colors = [appearance.transparent.cgColor, appearance.primaryBackground.cgColor]
+        topGradientViewLayer.colors = [appearance.primaryBackground.withAlphaComponent(1).cgColor, appearance.primaryBackground.withAlphaComponent(0).cgColor]
         selectionDividerView.backgroundColor = appearance.tertiaryBackground
         transparentView.backgroundColor = appearance.primaryBackground
+        findAddCell()?.setAppearance(appearance)
     }
     
     // MARK: - TableView - Scroll
@@ -146,5 +148,9 @@ class CategoryVerticalPickerView: AppearanceView {
     
     func getAddCellHeight() -> CGFloat {
         return 25
+    }
+    
+    private func findAddCell() -> AddCell? {
+        return tableView.visibleCells.first(where: { $0 is AddCell }) as? AddCell
     }
 }

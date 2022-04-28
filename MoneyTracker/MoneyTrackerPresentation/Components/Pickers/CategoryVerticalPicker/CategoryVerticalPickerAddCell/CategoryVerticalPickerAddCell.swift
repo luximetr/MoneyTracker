@@ -67,6 +67,8 @@ class AddCell: AppearanceTableViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
+        prefixLabel.textColor = appearance.primaryText
+        titleLabel.textColor = appearance.primaryText
     }
 }
 }

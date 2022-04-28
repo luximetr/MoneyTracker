@@ -201,6 +201,8 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     override func changeLanguage(_ language: Language) {
         super.changeLanguage(language)
         localizer.changeLanguage(language)
+        selectCategoryViewController.changeLanguage(language)
+        balanceAccountHorizontalPickerController.changeLanguage(language)
         inputDateViewController.changeLanguage(language)
         setContent()
     }
@@ -291,6 +293,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         super.changeAppearance(appearance)
         screenView.changeAppearance(appearance)
         balanceAccountHorizontalPickerController.changeAppearance(appearance)
+        selectCategoryViewController.changeAppearance(appearance)
     }
     
 }
