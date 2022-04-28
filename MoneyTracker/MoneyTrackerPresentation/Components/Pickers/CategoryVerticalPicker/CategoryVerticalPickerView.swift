@@ -74,7 +74,7 @@ class CategoryVerticalPickerView: AppearanceView {
         layoutTopGradientView()
         layoutSelectionDividerView()
         layoutTransparentView()
-        tableView.contentInset = UIEdgeInsets(top: 17, left: 0, bottom: transparentView.frame.height + 8, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 17, left: 0, bottom: transparentView.frame.height - cellHeight, right: 0)
     }
     
     private func layoutTableView() {
@@ -124,7 +124,15 @@ class CategoryVerticalPickerView: AppearanceView {
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
+    func findNearestCellIndexPathUnderDivider() -> IndexPath? {
+        let dividerFrameTranslatedToTableView = self.convert(selectionDividerView.frame, to: tableView)
+        let scrollThresholdPoint = CGPoint(x: dividerFrameTranslatedToTableView.midX, y: dividerFrameTranslatedToTableView.midY - cellHeight / 2)
+        return tableView.indexPathForRow(at: scrollThresholdPoint)
+    }
+    
     // MARK: - Category cell
+    
+    private let cellHeight: CGFloat = 35
     
     private let categoryCellIdentifier = "categoryCellIdentifier"
     
@@ -133,7 +141,7 @@ class CategoryVerticalPickerView: AppearanceView {
     }
     
     func getCategoryCell() -> CGFloat {
-        return 35
+        return cellHeight
     }
     
     // MARK: - Add cell
@@ -147,7 +155,7 @@ class CategoryVerticalPickerView: AppearanceView {
     }
     
     func getAddCellHeight() -> CGFloat {
-        return 25
+        return cellHeight
     }
     
     private func findAddCell() -> AddCell? {

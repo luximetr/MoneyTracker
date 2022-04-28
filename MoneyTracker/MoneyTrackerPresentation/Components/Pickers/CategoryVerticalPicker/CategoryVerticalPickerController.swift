@@ -67,6 +67,13 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     private func setupTableViewController() {
         tableViewController.tableView = pickerView?.tableView
+        tableViewController.scrollViewDidEndDraggingClosure = { [weak self] willDecelerate in
+            guard willDecelerate == false else { return }
+            self?.scrollToNearestCategoryCell()
+        }
+        tableViewController.scrollViewDidEndDeceleratingClosure = { [weak self] in
+            self?.scrollToNearestCategoryCell()
+        }
     }
     
     // MARK: - Categories
@@ -151,6 +158,15 @@ class CategoryVerticalPickerController: EmptyViewController {
         pickerView?.scrollToCell(at: indexPath)
     }
     
+    private func scrollToNearestCategoryCell() {
+        guard let indexPath = pickerView?.findNearestCellIndexPathUnderDivider() else { return }
+        pickerView?.scrollToCell(at: indexPath)
+        guard let cellController = sectionController.cellControllers[safe: indexPath.row] else { return }
+        guard let categoryId = (cellController as? CategoryCellController)?.category.id else { return }
+        guard let category = categories.first(where: { $0.id == categoryId }) else { return }
+        selectedCategory = category
+    }
+    
     // MARK: - Add cell - Create
     
     private func createAddCellController() -> AddCellController {
@@ -174,13 +190,6 @@ class CategoryVerticalPickerController: EmptyViewController {
     // MARK: - Add cell - Selection
     
     private func didSelectAddCell() {
-        showAddCellSelected()
         didTapOnAddClosure?()
-    }
-    
-    private func showAddCellSelected() {
-        let index = sectionController.cellControllers.firstIndex(where: { $0 is AddCellController })
-        guard let index = index else { return }
-        pickerView?.scrollToCell(at: IndexPath(row: index, section: 0))
     }
 }
