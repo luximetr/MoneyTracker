@@ -13,6 +13,8 @@ class CategoryVerticalPickerView: AppearanceView {
     // MARK: - Subviews
     
     let tableView = UITableView()
+    private let topGradientViewLayer = CAGradientLayer()
+    let topGradientView = UIView()
     let selectionDividerView = UIView()
     let transparentView = UIView()
     
@@ -24,6 +26,8 @@ class CategoryVerticalPickerView: AppearanceView {
         changeAppearance(appearance)
         addSubview(tableView)
         setupTableView()
+        addSubview(topGradientView)
+        setupTopGradientView()
         addSubview(selectionDividerView)
         addSubview(transparentView)
         setupTransparentView()
@@ -40,9 +44,20 @@ class CategoryVerticalPickerView: AppearanceView {
     private func setupTableView() {
         tableView.layer.cornerRadius = 10
         tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 17, left: 0, bottom: 0, right: 0)
+        tableView.showsVerticalScrollIndicator = false
+        tableView.contentInset = UIEdgeInsets(top: 17, left: 0, bottom: transparentView.frame.height + 8, right: 0)
         tableView.register(CategoryCell.self, forCellReuseIdentifier: categoryCellIdentifier)
         tableView.register(AddCell.self, forCellReuseIdentifier: addCellIdentifier)
+    }
+    
+    private func setupTopGradientView() {
+        topGradientViewLayer.startPoint = CGPoint(x: 0.5, y: 1)
+        topGradientViewLayer.endPoint = CGPoint(x: 0.5, y: 0)
+        topGradientView.layer.insertSublayer(topGradientViewLayer, at: 0)
+        topGradientView.layer.cornerRadius = 10
+        topGradientView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        topGradientView.layer.masksToBounds = true
+        topGradientView.isUserInteractionEnabled = false
     }
     
     private func setupTransparentView() {
@@ -55,12 +70,23 @@ class CategoryVerticalPickerView: AppearanceView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutTableView()
+        layoutTopGradientView()
         layoutSelectionDividerView()
         layoutTransparentView()
+        tableView.contentInset = UIEdgeInsets(top: 17, left: 0, bottom: transparentView.frame.height + 8, right: 0)
     }
     
     private func layoutTableView() {
         tableView.pin.all()
+    }
+    
+    private func layoutTopGradientView() {
+        topGradientView.pin
+            .left()
+            .right()
+            .top()
+            .height(25)
+        topGradientViewLayer.frame = topGradientView.bounds
     }
     
     private func layoutSelectionDividerView() {
@@ -85,8 +111,15 @@ class CategoryVerticalPickerView: AppearanceView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         tableView.backgroundColor = appearance.primaryBackground
+        topGradientViewLayer.colors = [appearance.transparent.cgColor, appearance.primaryBackground.cgColor]
         selectionDividerView.backgroundColor = appearance.tertiaryBackground
         transparentView.backgroundColor = appearance.primaryBackground
+    }
+    
+    // MARK: - TableView - Scroll
+    
+    func scrollToCell(at indexPath: IndexPath) {
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
     // MARK: - Category cell

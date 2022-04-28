@@ -117,9 +117,19 @@ class CategoryVerticalPickerController: EmptyViewController {
         return cellController
     }
     
+    private func findIndexPath(categoryId: String) -> IndexPath? {
+        let index = sectionController.cellControllers.firstIndex(where: { cellController in
+            let categoryCellController = cellController as? CategoryCellController
+            return categoryCellController?.category.id == categoryId
+        })
+        guard let index = index else { return nil }
+        return IndexPath(row: index, section: 0)
+    }
+    
     private func didSelectCategoryCell(categoryId: String) {
-        guard let category = categories.first(where: { $0.id == categoryId }) else { return }
-        print(category)
+//        guard let category = categories.first(where: { $0.id == categoryId }) else { return }
+        guard let indexPath = findIndexPath(categoryId: categoryId) else { return }
+        pickerView?.scrollToCell(at: indexPath)
     }
     
     // MARK: - Add cell
