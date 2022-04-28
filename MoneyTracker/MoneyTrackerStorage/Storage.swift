@@ -75,7 +75,12 @@ public class Storage {
     
     public func getCategories() throws -> [Category] {
         do {
-            let categories = try sqliteDatabase.selectCategories()
+            let selectedRows = try sqliteDatabase.categoryTable.select()
+            let categories: [Category] = try selectedRows.map { selectedRow in
+                let categoryColor = try CategoryColor(selectedRow.colorType)
+                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.iconName)
+                return category
+            }
             return categories
         } catch {
             throw error
@@ -139,9 +144,13 @@ public class Storage {
     
     public func updateCategory(editingCategory: EditingCategory) throws -> Category {
         do {
-            try sqliteDatabase.updateCategory(editingCategory)
+            try sqliteDatabase.beginTransaction()
+            let values = CategoryUpdatingValues(name: editingCategory.name, iconName: editingCategory.iconName, colorType: editingCategory.color.rawValue)
+            try sqliteDatabase.categoryTable.updateWhereId(editingCategory.id, valuesExceptOrderNumber: values)
+            try sqliteDatabase.commitTransaction()
             return Category(id: editingCategory.id, name: editingCategory.name ?? "", color: editingCategory.color ?? .variant1, iconName: editingCategory.iconName ?? "")
         } catch {
+            try sqliteDatabase.rollbackTransaction()
             throw error
         }
     }
@@ -154,10 +163,16 @@ public class Storage {
         }
     }
     
-    public func saveCategoriesOrder(orderedIds: [Category]) throws {
+    public func saveCategoriesOrder(orderedIds: [String]) throws {
         do {
-            try sqliteDatabase.updateCategoriesOrderNumbers(orderedIds)
+            try sqliteDatabase.beginTransaction()
+            for (index, id) in orderedIds.enumerated() {
+                let orderNumber = Int64(index)
+                try sqliteDatabase.categoryTable.updateWhereId(id, orderNumber: orderNumber)
+            }
+            try sqliteDatabase.commitTransaction()
         } catch {
+            try sqliteDatabase.rollbackTransaction()
             throw error
         }
     }
@@ -399,7 +414,7 @@ public class Storage {
     
     public func getAllExpenses() throws -> [Expense] {
         do {
-            let gg = try sqliteDatabase.historySqliteView.selectOrderByDayDescending()
+            //let gg = try sqliteDatabase.historySqliteView.selectOrderByDayDescending()
             
             let expenseSelectedRows = try sqliteDatabase.expenseTable.select()
             let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in

@@ -117,7 +117,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             let categoryAdapter = CategoryAdapter()
             let storageCategories = presentationCategories.map({ categoryAdapter.adaptToStorage(presentationCategory: $0) })
-            try storage.saveCategoriesOrder(orderedIds: storageCategories)
+            try storage.saveCategoriesOrder(orderedIds: storageCategories.map({ $0.id }))
         } catch {
             let error = Error("Cannot order categories \(presentationCategories)\n\(error)")
             throw error

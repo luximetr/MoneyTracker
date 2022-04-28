@@ -23,7 +23,7 @@ class EditingCategoryAdapter {
         return StorageEditingCategory(
             id: presentationEditingCategory.id,
             name: presentationEditingCategory.name,
-            color: categoryColorAdapter.adaptToStorageOptional(presentationCategoryColor: presentationEditingCategory.color),
+            color: categoryColorAdapter.adaptToStorage(presentationCategoryColor: presentationEditingCategory.color),
             iconName: presentationEditingCategory.iconName
         )
     }

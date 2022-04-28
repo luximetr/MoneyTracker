@@ -100,8 +100,8 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     
     @objc private func editButtonTouchUpInsideEventAction() {
         do {
-            let name = screenView.nameTextField.text
-            let selectedColor = colorPickerController.selectedColor
+            let name = screenView.nameTextField.text ?? ""
+            let selectedColor = colorPickerController.selectedColor ?? .variant1
             let editingCategory = EditingCategory(id: category.id, name: name, color: selectedColor, iconName: categoryIconName)
             try editCategoryClosure?(editingCategory)
         } catch {}

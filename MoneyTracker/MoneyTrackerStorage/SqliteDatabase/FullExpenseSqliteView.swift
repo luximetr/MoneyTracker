@@ -1,13 +1,11 @@
 //
-//  HistorySqliteView.swift
+//  FullExpenseSqliteView.swift
 //  MoneyTrackerStorage
 //
-//  Created by Job Ihor Myroniuk on 26.04.2022.
+//  Created by Job Ihor Myroniuk on 27.04.2022.
 //
 
-import SQLite3
-
-struct HistorySelectedRow {
+struct FullExpenseSelectedRow {
     let type: String
     let timestamp: Int64
     let expenseId: String?
@@ -23,7 +21,7 @@ struct HistorySelectedRow {
     let balanceReplenishmentComment: String?
 }
 
-class HistorySqliteView {
+class FullExpenseSqliteView {
     
     private let databaseConnection: OpaquePointer
     
@@ -39,13 +37,11 @@ class HistorySqliteView {
         let statement =
             """
             CREATE VIEW IF NOT EXISTS
-            history AS
+            full_expense AS
             SELECT
-                'expense' AS type,
+                id AS id,
+                amount AS amount,
                 date AS timestamp,
-                expense.id AS expense_id,
-                expense.amount AS expense_amount,
-                expense.date AS expense_timestamp,
                 expense.comment AS expense_comment,
                 expense_category.id AS expense_category_id,
                 expense_category.name AS expense_category_name,

@@ -209,6 +209,7 @@
 		2ED76C8927F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED76C8827F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift */; };
 		2ED76C8B27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */; };
 		2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED76C9027F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings */; };
+		2ED7C2092819CEBB00014B63 /* FullExpenseSqliteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7C2082819CEBB00014B63 /* FullExpenseSqliteView.swift */; };
 		2ED7E48A2809FADC00B35F02 /* StatusBarScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */; };
 		2ED7E490280A06C600B35F02 /* AppearanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */; };
 		2ED82B5B2815397B00789BA4 /* SqliteHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */; };
@@ -747,6 +748,7 @@
 		2ED76C8827F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountPickerAddCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountPickerAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ED76C8F27F5828A000F8622 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
+		2ED7C2082819CEBB00014B63 /* FullExpenseSqliteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullExpenseSqliteView.swift; sourceTree = "<group>"; };
 		2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarScreenViewController.swift; sourceTree = "<group>"; };
 		2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTableViewCell.swift; sourceTree = "<group>"; };
 		2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteHelpers.swift; sourceTree = "<group>"; };
@@ -1801,6 +1803,7 @@
 				2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */,
 				2EDE102A2815B85D008BB8C5 /* BalanceAccountSqliteTable.swift */,
 				2E832AAE2816DBEF0083B77F /* ExpenseSqliteTable.swift */,
+				2ED7C2082819CEBB00014B63 /* FullExpenseSqliteView.swift */,
 				2E5061E32818542900C6C217 /* BalanceTransferSqliteTable.swift */,
 				2E25262028191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift */,
 				2E5061E128184CFE00C6C217 /* HistorySqliteView.swift */,
@@ -2954,6 +2957,7 @@
 				2EB2E878281080E00017ACDD /* AppearanceSetting.swift in Sources */,
 				2E926EAA27BC59030081E3AE /* Balance.swift in Sources */,
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
+				2ED7C2092819CEBB00014B63 /* FullExpenseSqliteView.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
 				DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */,
 				2E52795D2811B01300BC916B /* Error.swift in Sources */,
