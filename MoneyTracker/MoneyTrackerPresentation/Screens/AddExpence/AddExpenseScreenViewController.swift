@@ -14,10 +14,11 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     private var dayExpenses: [Expense] = []
     private var accounts: [Account]
-    private let categories: [Category]
+    private var categories: [Category]
     private var selectedCategory: Category?
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
+    var addCategoryClosure: (() -> Void)?
     var addExpenseClosure: ((AddingExpense) throws -> Expense)?
     var dayExpensesClosure: ((Date) throws -> [Expense])?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
@@ -25,6 +26,12 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     func addAccount(_ account: Account) {
         accounts.append(account)
         balanceAccountHorizontalPickerController.showOptions(accounts: accounts)
+    }
+    
+    func addCategory(_ category: Category) {
+        categories.append(category)
+        selectCategoryViewController.setCategories(categories)
+        selectCategoryViewController.setSelectedCategory(category)
     }
 
     // MARK: Initializer
@@ -75,6 +82,9 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         selectCategoryViewController.setCategories(categories)
         selectCategoryViewController.pickerView = screenView.selectCategoryView
         selectCategoryViewController.setSelectedCategory(selectedCategory)
+        selectCategoryViewController.didTapOnAddClosure = { [weak self] in
+            self?.addCategoryClosure?()
+        }
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         balanceAccountHorizontalPickerController.balanceAccountHorizontalPickerView = screenView.selectAccountView

@@ -92,6 +92,9 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     func setSelectedCategory(_ category: Category?) {
         self.selectedCategory = category
+        if let category = category {
+            showCategorySelected(categoryId: category.id)
+        }
     }
     
     // MARK: - Category cell
@@ -126,10 +129,15 @@ class CategoryVerticalPickerController: EmptyViewController {
         return IndexPath(row: index, section: 0)
     }
     
-    private func didSelectCategoryCell(categoryId: String) {
-//        guard let category = categories.first(where: { $0.id == categoryId }) else { return }
+    private func showCategorySelected(categoryId: String) {
         guard let indexPath = findIndexPath(categoryId: categoryId) else { return }
         pickerView?.scrollToCell(at: indexPath)
+    }
+    
+    private func didSelectCategoryCell(categoryId: String) {
+        guard let newSelectedCategory = categories.first(where: { $0.id == categoryId }) else { return }
+        showCategorySelected(categoryId: categoryId)
+        self.selectedCategory = newSelectedCategory
     }
     
     // MARK: - Add cell
@@ -152,7 +160,14 @@ class CategoryVerticalPickerController: EmptyViewController {
         return cellController
     }
     
+    private func showAddCellSelected() {
+        let index = sectionController.cellControllers.firstIndex(where: { $0 is AddCellController })
+        guard let index = index else { return }
+        pickerView?.scrollToCell(at: IndexPath(row: index, section: 0))
+    }
+    
     private func didSelectAddCell() {
+        showAddCellSelected()
         didTapOnAddClosure?()
     }
 }
