@@ -90,6 +90,8 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
         accountPickerController.showOptions(accounts: accounts)
         accountPickerController.setSelectedAccount(selectedAccount)
         amountInputController.labelController.text = selectedAccount?.currency.rawValue
+        let locale = Locale(identifier: localizer.localizeText("dateLocale"))
+        screenView.dayDatePickerView.locale = locale
     }
     
     // MARK: Events
