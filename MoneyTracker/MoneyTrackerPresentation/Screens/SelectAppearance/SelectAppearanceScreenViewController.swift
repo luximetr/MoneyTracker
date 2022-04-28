@@ -93,6 +93,13 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
         return localizer
     }()
     
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        localizer.changeLanguage(language)
+        appearanceTypeNameLocalizer.changeLanguage(language)
+        setContent()
+    }
+    
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
         setTableViewContent()
