@@ -20,9 +20,13 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         return numberFormatter
     }()
     
-    private static let dayDateFormatter: DateFormatter = {
+    private lazy var localizer: ScreenLocalizer = {
+        return ScreenLocalizer(language: language, stringsTableName: "DayTableViewCellStrings")
+    }()
+    
+    private lazy var dayDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(language: .english, script: nil, region: nil)
+        dateFormatter.locale = Locale(identifier: localizer.localizeText("dateLocale"))
         dateFormatter.dateFormat = "dd MMMM, EEE"
         return dateFormatter
     }()
@@ -31,10 +35,12 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
     
     let day: Date
     let expenses: [Expense]
+    private var language: Language
     
     // MARK: Initializer
     
-    init(day: Date, expenses: [Expense]) {
+    init(language: Language, day: Date, expenses: [Expense]) {
+        self.language = language
         self.day = day
         self.expenses = expenses
     }
@@ -46,10 +52,17 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
     }
     
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = cellForRowAtIndexPathClosure?(indexPath) as? DayTableViewCell else { return UITableViewCell() }
-        cell.dayLabel.text = Self.dayDateFormatter.string(from: day).uppercased()
+        guard let cell = super.cellForRowAtIndexPath(indexPath) as? DayTableViewCell else { return UITableViewCell() }
+        showDay()
         cell.expensesLabel.text = contentExpensesLabel
         return cell
+    }
+    
+    // MARK: Language
+    
+    func changeLanguage(_ language: Language) {
+        self.language = language
+        showDay()
     }
     
     // MARK: Content
@@ -62,5 +75,8 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         return joinedCurrenciesExpenseStrings
     }
     
+    private func showDay() {
+        dayTableViewCell?.dayLabel.text = dayDateFormatter.string(from: day).uppercased()
+    }
 }
 }

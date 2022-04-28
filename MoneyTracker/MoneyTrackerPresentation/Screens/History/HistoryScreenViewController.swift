@@ -126,7 +126,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     private func createDayTableViewController(day: Date, expenses: [Expense]) -> AUITableViewCellController {
-        let cellController = DayTableViewCellController(day: day, expenses: expenses)
+        let cellController = DayTableViewCellController(language: language, day: day, expenses: expenses)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.dayTableViewCell(indexPath)
