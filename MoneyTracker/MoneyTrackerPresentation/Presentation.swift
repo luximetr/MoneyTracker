@@ -104,6 +104,7 @@ public final class Presentation: AUIWindowPresentation {
         menuScreenViewController?.changeLanguage(language)
         dashboardViewController?.changeLanguage(language)
         settingsScreenViewController?.changeLanguage(language)
+        statisticScreen?.changeLanguage(language)
     }
     
     // MARK: - Display

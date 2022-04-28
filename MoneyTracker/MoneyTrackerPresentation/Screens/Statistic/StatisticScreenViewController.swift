@@ -85,6 +85,7 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
     
     override func changeLanguage(_ language: Language) {
         super.changeLanguage(language)
+        localizer.changeLanguage(language)
         setContent()
     }
     
