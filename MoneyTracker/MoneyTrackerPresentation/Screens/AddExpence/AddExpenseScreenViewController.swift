@@ -43,6 +43,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         self.inputAmountViewController = InputAmountViewController()
         self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.selectCategoryViewController = CategoryVerticalPickerController(appearance: appearance, language: language)
+        self.inputDateViewController = InputDateViewController(language: language)
         super.init(appearance: appearance, language: language)
     }
     
@@ -58,7 +59,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     private let tapGestureRecognizer = UITapGestureRecognizer()
     private let balanceAccountHorizontalPickerController: BalanceAccountHorizontalPickerController
-    private let inputDateViewController = InputDateViewController()
+    private let inputDateViewController: InputDateViewController
     private let commentTextFieldController = AUIEmptyTextFieldController()
     private let inputAmountViewController: InputAmountViewController
     private let selectCategoryViewController: CategoryVerticalPickerController
@@ -200,6 +201,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     override func changeLanguage(_ language: Language) {
         super.changeLanguage(language)
         localizer.changeLanguage(language)
+        inputDateViewController.changeLanguage(language)
         setContent()
     }
     

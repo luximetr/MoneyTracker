@@ -35,6 +35,7 @@ class AddCell: AppearanceTableViewCell {
     
     private func setupTitleLabel() {
         titleLabel.numberOfLines = 1
+        titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.font = Fonts.default(size: 16, weight: .regular)
     }
     
