@@ -39,7 +39,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     init(appearance: Appearance, language: Language, accounts: [Account], categories: [Category], selectedCategory: Category?) {
         self.accounts = accounts
         self.categories = categories
-        self.selectedCategory = selectedCategory
+        self.selectedCategory = selectedCategory ?? categories.first
         self.inputAmountViewController = InputAmountViewController()
         self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.selectCategoryViewController = CategoryVerticalPickerController(appearance: appearance, language: language)
@@ -158,6 +158,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             let addedExpense = try addExpenseClosure(addingExpense)
             addExpense(addedExpense)
             inputAmountViewController.input = ""
+            commentTextFieldController.text = nil
             view.endEditing(true)
         } catch {
             
