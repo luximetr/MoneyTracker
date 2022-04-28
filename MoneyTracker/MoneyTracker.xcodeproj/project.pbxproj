@@ -370,6 +370,7 @@
 		DBDC92E92819417B00D8C435 /* CategoryVerticalPickerCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92E82819417B00D8C435 /* CategoryVerticalPickerCellController.swift */; };
 		DBDC92EC281A316D00D8C435 /* InputDateViewStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92EE281A316D00D8C435 /* InputDateViewStrings.strings */; };
 		DBDC92F3281AE96900D8C435 /* DayTableViewCellStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92F5281AE96900D8C435 /* DayTableViewCellStrings.strings */; };
+		DBDC92FA281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92FC281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -928,6 +929,9 @@
 		DBDC92F4281AE96900D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DayTableViewCellStrings.strings; sourceTree = "<group>"; };
 		DBDC92F6281AE96D00D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DayTableViewCellStrings.strings; sourceTree = "<group>"; };
 		DBDC92F7281AE96F00D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DayTableViewCellStrings.strings; sourceTree = "<group>"; };
+		DBDC92FB281AEB4700D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MonthCollectionViewCellStrings.strings; sourceTree = "<group>"; };
+		DBDC92FD281AEB4800D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/MonthCollectionViewCellStrings.strings; sourceTree = "<group>"; };
+		DBDC92FE281AEB4900D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/MonthCollectionViewCellStrings.strings; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1007,6 +1011,7 @@
 			children = (
 				2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */,
 				2E01B2C327EDACD400013321 /* MonthCollectionViewCell.swift */,
+				DBDC92FC281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings */,
 			);
 			path = MonthCollectionViewCell;
 			sourceTree = "<group>";
@@ -2857,6 +2862,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */,
+				DBDC92FA281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings in Resources */,
 				DBDC92EC281A316D00D8C435 /* InputDateViewStrings.strings in Resources */,
 				2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */,
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
@@ -3788,6 +3794,16 @@
 				DBDC92F7281AE96F00D8C435 /* uk */,
 			);
 			name = DayTableViewCellStrings.strings;
+			sourceTree = "<group>";
+		};
+		DBDC92FC281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBDC92FB281AEB4700D8C435 /* en */,
+				DBDC92FD281AEB4800D8C435 /* th */,
+				DBDC92FE281AEB4900D8C435 /* uk */,
+			);
+			name = MonthCollectionViewCellStrings.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

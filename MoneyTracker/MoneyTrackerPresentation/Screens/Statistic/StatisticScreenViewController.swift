@@ -19,6 +19,11 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
     var monthsClosure: (() -> [Date])?
     var expensesClosure: ((Date) -> [Expense])?
     
+    override init(appearance: Appearance, language: Language) {
+        monthPickerViewConroller = MonthPickerViewController(language: language)
+        super.init(appearance: appearance, language: language)
+    }
+    
     private func loadData() {
         months = monthsClosure?() ?? []
         let currentMonth = (selectedMonth ?? Date()).startOfMonth
@@ -57,7 +62,7 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
         view = ScreenView(appearance: appearance)
     }
     
-    private let monthPickerViewConroller = MonthPickerViewController()
+    private let monthPickerViewConroller: MonthPickerViewController
     private let monthCategoryExpensesTableViewController = AUIEmptyTableViewController()
     private let monthCategoryExpensesTableViewSectionController = AUIEmptyTableViewSectionController()
     
@@ -86,6 +91,7 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
     override func changeLanguage(_ language: Language) {
         super.changeLanguage(language)
         localizer.changeLanguage(language)
+        monthPickerViewConroller.changeLanguage(language)
         setContent()
     }
     

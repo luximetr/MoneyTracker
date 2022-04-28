@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension StatisticScreenViewController {
-final class MonthPickerViewController: AUIEmptyViewController {
+final class MonthPickerViewController: EmptyViewController {
     
     // MARK: Data
     
@@ -107,15 +107,16 @@ final class MonthPickerViewController: AUIEmptyViewController {
     }
     
     private func createMonthCollectionViewCellController(month: Date) -> MonthCollectionViewCellController {
-        let cellController = MonthCollectionViewCellController(month: month, isSelected: month == selectedMonth)
+        let cellController = MonthCollectionViewCellController(language: language, month: month, isSelected: month == selectedMonth)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             let monthCollectionViewCell = self.monthPickerView!.monthCollectionViewCell(indexPath)
             return monthCollectionViewCell
         }
-        cellController.sizeForCellClosure = { [weak self] in
+        cellController.sizeForCellClosure = { [weak self, weak cellController] in
             guard let self = self else { return .zero }
-            let size = self.monthPickerView!.monthCollectionViewCellSize(MonthCollectionViewCellController.month(month))
+            guard let cellController = cellController else { return .zero }
+            let size = self.monthPickerView!.monthCollectionViewCellSize(cellController.formatMonth(month))
             return size
         }
         cellController.didSelectClosure = { [weak self] in

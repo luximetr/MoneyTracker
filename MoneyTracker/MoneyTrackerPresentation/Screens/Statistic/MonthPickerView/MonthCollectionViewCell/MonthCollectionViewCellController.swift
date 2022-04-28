@@ -13,6 +13,7 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     // MARK: Data
         
+    private var language: Language
     let month: Date
     private(set) var isSelected: Bool
     
@@ -23,7 +24,8 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     // MARK: Initializer
         
-    init(month: Date, isSelected: Bool) {
+    init(language: Language, month: Date, isSelected: Bool) {
+        self.language = language
         self.month = month
         self.isSelected = isSelected
         super.init()
@@ -51,23 +53,35 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
         return shouldSelectCell
     }
     
+    // MARK: - Language
+    
+    private lazy var localizer: ScreenLocalizer = {
+        return ScreenLocalizer(language: language, stringsTableName: "MonthCollectionViewCellStrings")
+    }()
+    
+    func changeLanguage(_ language: Language) {
+        self.language = language
+        localizer.changeLanguage(language)
+        setContent()
+    }
+    
     // MARK: Content
     
     private func setContent() {
-        let month = Self.month(month)
+        let month = formatMonth(month)
         monthCollectionViewCell?.monthLabel.text = month
         monthCollectionViewCell?.setSelected(isSelected)
     }
     
-    private static let monthDateFormatter: DateFormatter = {
+    private lazy var monthDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(language: .english, script: nil, region: nil)
-        dateFormatter.dateFormat = "MMMM yyyy"
+        dateFormatter.locale = Locale(identifier: localizer.localizeText("dateLocale"))
+        dateFormatter.dateFormat = "LLLL yyyy"
         return dateFormatter
     }()
     
-    static func month(_ month: Date) -> String {
-        let month = Self.monthDateFormatter.string(from: month)
+    func formatMonth(_ month: Date) -> String {
+        let month = monthDateFormatter.string(from: month)
         return month
     }
 
