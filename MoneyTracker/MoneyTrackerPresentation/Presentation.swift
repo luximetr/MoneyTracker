@@ -288,6 +288,14 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
+            viewController.addCategoryClosure = { [weak self, weak viewController] in
+                guard let viewController = viewController else { return }
+                do {
+                    try self?.presentAddCategoryScreenViewController(viewController)
+                } catch {
+                    self?.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
             pushedAddExpenseViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
@@ -640,6 +648,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedEditExpenseViewController?.addCategory(addedCategory)
                     self.pushedEditTemplateScreenViewController?.addCategory(addedCategory)
                     self.pushedAddTemplateScreenViewController?.addCategory(addedCategory)
+                    self.pushedAddExpenseViewController?.addCategory(addedCategory)
                     viewController.dismiss(animated: true, completion: nil)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)

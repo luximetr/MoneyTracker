@@ -361,6 +361,14 @@
 		DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */; };
 		DBDC92D12814EF9C00D8C435 /* EditingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D02814EF9C00D8C435 /* EditingAccount.swift */; };
 		DBDC92D32814F0C100D8C435 /* EditingBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D22814F0C100D8C435 /* EditingBalanceAccountAdapter.swift */; };
+		DBDC92D6281931A600D8C435 /* CategoryVerticalPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D5281931A600D8C435 /* CategoryVerticalPickerController.swift */; };
+		DBDC92D8281931EC00D8C435 /* CategoryVerticalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D7281931EC00D8C435 /* CategoryVerticalPickerView.swift */; };
+		DBDC92DC281934BF00D8C435 /* CategoryVerticalPickerAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92DB281934BF00D8C435 /* CategoryVerticalPickerAddCell.swift */; };
+		DBDC92DE2819363600D8C435 /* CategoryVerticalPickerAddCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92DD2819363600D8C435 /* CategoryVerticalPickerAddCellController.swift */; };
+		DBDC92E12819386A00D8C435 /* CategoryVerticalPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92E32819386A00D8C435 /* CategoryVerticalPickerStrings.strings */; };
+		DBDC92E72819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92E62819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift */; };
+		DBDC92E92819417B00D8C435 /* CategoryVerticalPickerCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92E82819417B00D8C435 /* CategoryVerticalPickerCellController.swift */; };
+		DBDC92EC281A316D00D8C435 /* InputDateViewStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92EE281A316D00D8C435 /* InputDateViewStrings.strings */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -904,6 +912,18 @@
 		DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAdapter.swift; sourceTree = "<group>"; };
 		DBDC92D02814EF9C00D8C435 /* EditingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingAccount.swift; sourceTree = "<group>"; };
 		DBDC92D22814F0C100D8C435 /* EditingBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingBalanceAccountAdapter.swift; sourceTree = "<group>"; };
+		DBDC92D5281931A600D8C435 /* CategoryVerticalPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerController.swift; sourceTree = "<group>"; };
+		DBDC92D7281931EC00D8C435 /* CategoryVerticalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerView.swift; sourceTree = "<group>"; };
+		DBDC92DB281934BF00D8C435 /* CategoryVerticalPickerAddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerAddCell.swift; sourceTree = "<group>"; };
+		DBDC92DD2819363600D8C435 /* CategoryVerticalPickerAddCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerAddCellController.swift; sourceTree = "<group>"; };
+		DBDC92E22819386A00D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CategoryVerticalPickerStrings.strings; sourceTree = "<group>"; };
+		DBDC92E42819386B00D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/CategoryVerticalPickerStrings.strings; sourceTree = "<group>"; };
+		DBDC92E52819386C00D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/CategoryVerticalPickerStrings.strings; sourceTree = "<group>"; };
+		DBDC92E62819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerCategoryCell.swift; sourceTree = "<group>"; };
+		DBDC92E82819417B00D8C435 /* CategoryVerticalPickerCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerCellController.swift; sourceTree = "<group>"; };
+		DBDC92ED281A316D00D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
+		DBDC92EF281A316F00D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
+		DBDC92F0281A317000D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1923,6 +1943,7 @@
 			children = (
 				2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */,
 				2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */,
+				DBDC92EE281A316D00D8C435 /* InputDateViewStrings.strings */,
 			);
 			path = InputDateView;
 			sourceTree = "<group>";
@@ -2473,6 +2494,7 @@
 				DB40041D280EA86F004073D0 /* BalanceAccountColorHorizontalPicker */,
 				DB7BA81027F982D600A3B3BA /* ColorHorizontalPicker */,
 				DBB7BD2C27DDDEDA004EF5B7 /* CategoryHorizontalPicker */,
+				DBDC92D42819316800D8C435 /* CategoryVerticalPicker */,
 				DBB7BD2227DC75FF004EF5B7 /* BalanceAccountHorizontalPicker */,
 			);
 			path = Pickers;
@@ -2535,6 +2557,36 @@
 				DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */,
 			);
 			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		DBDC92D42819316800D8C435 /* CategoryVerticalPicker */ = {
+			isa = PBXGroup;
+			children = (
+				DBDC92D5281931A600D8C435 /* CategoryVerticalPickerController.swift */,
+				DBDC92D7281931EC00D8C435 /* CategoryVerticalPickerView.swift */,
+				DBDC92E32819386A00D8C435 /* CategoryVerticalPickerStrings.strings */,
+				DBDC92D92819346700D8C435 /* CategoryVerticalPickerCategoryCell */,
+				DBDC92DA2819347500D8C435 /* CategoryVerticalPickerAddCell */,
+			);
+			path = CategoryVerticalPicker;
+			sourceTree = "<group>";
+		};
+		DBDC92D92819346700D8C435 /* CategoryVerticalPickerCategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				DBDC92E62819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift */,
+				DBDC92E82819417B00D8C435 /* CategoryVerticalPickerCellController.swift */,
+			);
+			path = CategoryVerticalPickerCategoryCell;
+			sourceTree = "<group>";
+		};
+		DBDC92DA2819347500D8C435 /* CategoryVerticalPickerAddCell */ = {
+			isa = PBXGroup;
+			children = (
+				DBDC92DB281934BF00D8C435 /* CategoryVerticalPickerAddCell.swift */,
+				DBDC92DD2819363600D8C435 /* CategoryVerticalPickerAddCellController.swift */,
+			);
+			path = CategoryVerticalPickerAddCell;
 			sourceTree = "<group>";
 		};
 		F6CDF223860AC628D18B4DED /* Frameworks */ = {
@@ -2800,6 +2852,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */,
+				DBDC92EC281A316D00D8C435 /* InputDateViewStrings.strings in Resources */,
 				2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */,
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
 				2ECB218C27DCA9FD006D6558 /* AddExpenseScreenStrings.strings in Resources */,
@@ -2812,6 +2865,7 @@
 				2EB10A3727A6FE9800743416 /* Images.xcassets in Resources */,
 				2E30391D27BDAF690084B96C /* UnexpectedErrorDetailsScreenStrings.strings in Resources */,
 				2E95BB3227B31ADC0097CA46 /* AccountsScreenStrings.strings in Resources */,
+				DBDC92E12819386A00D8C435 /* CategoryVerticalPickerStrings.strings in Resources */,
 				2EC22DCB28105E0500530139 /* SelectAppearanceScreenStrings.strings in Resources */,
 				DB45FAD927E6EFE80073C677 /* EditTemplateScreenStrings.strings in Resources */,
 				2E394F1527FCDDE5002C3052 /* TopUpAccountScreenStrings.strings in Resources */,
@@ -3069,7 +3123,9 @@
 				2EADAD9B27E131690013DEEC /* TextField3D.swift in Sources */,
 				2ECFFFC727F040BD00F338B8 /* AddTableViewCellController.swift in Sources */,
 				2EC6178E27F8392200845E7A /* DashboardAccountPickerViewController.swift in Sources */,
+				DBDC92E72819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift in Sources */,
 				2EADAD9D27E133860013DEEC /* ExpenseTableViewCellController.swift in Sources */,
+				DBDC92D8281931EC00D8C435 /* CategoryVerticalPickerView.swift in Sources */,
 				DB7BA80D27F9482B00A3B3BA /* SelectIconScreenCollectionCell.swift in Sources */,
 				2ECAD4F92809A3830003BB26 /* DarkAppearance.swift in Sources */,
 				2E01B2C427EDACD400013321 /* MonthCollectionViewCell.swift in Sources */,
@@ -3079,6 +3135,7 @@
 				2EC19ADA27A8161200E1A6FA /* AddTableViewCell.swift in Sources */,
 				2ECAD4FB2809A38E0003BB26 /* LightAppearance.swift in Sources */,
 				DBB7BD2B27DDA874004EF5B7 /* BalanceAccountHorizontalPickerItemCellController.swift in Sources */,
+				DBDC92E92819417B00D8C435 /* CategoryVerticalPickerCellController.swift in Sources */,
 				2EC19AD827A8110600E1A6FA /* CategoriesListScreenCategoryTableViewCell.swift in Sources */,
 				2EB8271A280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift in Sources */,
 				2EB10A4827A7075700743416 /* Bundle.swift in Sources */,
@@ -3104,6 +3161,7 @@
 				DBB7BD3027DDDF20004EF5B7 /* CategoryHorizontalPickerController.swift in Sources */,
 				2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */,
 				DB74863D27BAB1BF004DF67B /* AddingExpenseTemplate.swift in Sources */,
+				DBDC92D6281931A600D8C435 /* CategoryVerticalPickerController.swift in Sources */,
 				2E91153E27A92DE600359F21 /* Category.swift in Sources */,
 				DB7BA80F27F9494800A3B3BA /* SelectIconScreenCollectionCellController.swift in Sources */,
 				2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */,
@@ -3153,6 +3211,7 @@
 				DBB7BD2E27DDDF04004EF5B7 /* CategoryHorizontalPickerView.swift in Sources */,
 				DB400412280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift in Sources */,
 				2EC6292C27AC1F3700371252 /* AddCategoryScreenViewController.swift in Sources */,
+				DBDC92DC281934BF00D8C435 /* CategoryVerticalPickerAddCell.swift in Sources */,
 				2EB82737280761DB00C6377F /* SelectLanguageScreenView.swift in Sources */,
 				2ED7E490280A06C600B35F02 /* AppearanceTableViewCell.swift in Sources */,
 				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
@@ -3210,6 +3269,7 @@
 				2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */,
 				2ECB165C27F78056009D748D /* DashboardTemplatesView.swift in Sources */,
 				2ECB219127DD0588006D6558 /* InputAmountViewController.swift in Sources */,
+				DBDC92DE2819363600D8C435 /* CategoryVerticalPickerAddCellController.swift in Sources */,
 				DBA0545127FB0FD100DB3892 /* CategoryBackgroundColors.swift in Sources */,
 				2EBDF93127ECCF8B002B6C9E /* MonthCategoryExpensesTableViewCell.swift in Sources */,
 				DB62AEB227EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift in Sources */,
@@ -3692,6 +3752,26 @@
 				2EC7CABA280891EA00E3DBF6 /* th */,
 			);
 			name = SelectCurrencyScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		DBDC92E32819386A00D8C435 /* CategoryVerticalPickerStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBDC92E22819386A00D8C435 /* en */,
+				DBDC92E42819386B00D8C435 /* th */,
+				DBDC92E52819386C00D8C435 /* uk */,
+			);
+			name = CategoryVerticalPickerStrings.strings;
+			sourceTree = "<group>";
+		};
+		DBDC92EE281A316D00D8C435 /* InputDateViewStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBDC92ED281A316D00D8C435 /* en */,
+				DBDC92EF281A316F00D8C435 /* th */,
+				DBDC92F0281A317000D8C435 /* uk */,
+			);
+			name = InputDateViewStrings.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
