@@ -130,6 +130,8 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         toAccountPickerController.setSelectedAccount(firstAccount)
         toAmountInputController.labelController.text = firstAccount?.currency.rawValue
         screenView.toAccountPickerLabel.text = localizer.localizeText("toAccount")
+        let locale = Locale(identifier: localizer.localizeText("datePickerLocale"))
+        screenView.dayDatePickerView.locale = locale
     }
     
     // MARK: Events

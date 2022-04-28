@@ -3,3 +3,4 @@
 "toAccount" = "To";
 "commentPlaceholder" = "Comment (optional)";
 "add" = "Done";
+"datePickerLocale" = "en_US";
