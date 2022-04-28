@@ -57,12 +57,21 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     override func setupView() {
         super.setupView()
-        tableViewController.tableView = pickerView?.tableView
+        setupTableViewController()
     }
     
     override func unsetupView() {
         super.unsetupView()
         tableViewController.view = nil
+    }
+    
+    // MARK: - TableViewController
+    
+    private let tableViewController = AUIEmptyTableViewController()
+    
+    private func setupTableViewController() {
+        tableViewController.tableView = pickerView?.tableView
+        
     }
     
     // MARK: - Categories
@@ -72,7 +81,6 @@ class CategoryVerticalPickerController: EmptyViewController {
         showCategories(categories)
     }
     
-    private let tableViewController = AUIEmptyTableViewController()
     private let sectionController = AUIEmptyTableViewSectionController()
     
     private func showCategories(_ categories: [Category]) {
