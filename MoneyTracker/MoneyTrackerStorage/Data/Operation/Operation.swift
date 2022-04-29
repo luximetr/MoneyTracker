@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Operation {
+public enum Operation {
     case expense(expense: Expense, category: Category, balanceAccount: BalanceAccount)
     case balanceTransfer(balanceTransfer: BalanceTransfer, fromBalanceAccount: BalanceAccount, toBalanceAccount: BalanceAccount)
     case balanceReplenishment(balanceReplenishment: BalanceReplenishment, balanceAccount: BalanceAccount)

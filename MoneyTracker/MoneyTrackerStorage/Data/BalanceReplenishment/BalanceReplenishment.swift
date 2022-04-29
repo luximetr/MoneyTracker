@@ -11,10 +11,10 @@ public struct BalanceReplenishment {
     public let id: String
     public let date: Date
     public let balanceAccountId: String
-    public let amount: Int64
+    public let amount: Decimal
     public let comment: String?
     
-    public init(id: String, date: Date, balanceAccountId: String, amount: Int64, comment: String?) {
+    public init(id: String, date: Date, balanceAccountId: String, amount: Decimal, comment: String?) {
         self.id = id
         self.date = date
         self.balanceAccountId = balanceAccountId

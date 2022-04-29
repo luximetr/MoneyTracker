@@ -7,11 +7,6 @@
 
 import SQLite3
 
-enum SqliteDatatype {
-    case text(String)
-    case integer(Int)
-}
-
 func sqlite3PrepareV2(_ databaseConnection: OpaquePointer!, _ statement: UnsafePointer<CChar>!, _ nByte: Int32, _ preparedStatement: UnsafeMutablePointer<OpaquePointer?>!, _ pzTail: UnsafeMutablePointer<UnsafePointer<CChar>?>!) throws {
     if sqlite3_prepare_v2(databaseConnection, statement, nByte, preparedStatement, pzTail) != SQLITE_OK {
         let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)

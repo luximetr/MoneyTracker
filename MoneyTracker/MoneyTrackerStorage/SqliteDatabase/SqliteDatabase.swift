@@ -42,27 +42,39 @@ class SqliteDatabase {
     // MARK: - Transaction
     
     func beginTransaction() throws {
-        let statement = "BEGIN TRANSACTION;"
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        do {
+            let statement = "BEGIN TRANSACTION;"
+            var preparedStatement: OpaquePointer?
+            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            try sqlite3StepDone(databaseConnection, preparedStatement)
+            try sqlite3Finalize(databaseConnection, preparedStatement)
+        } catch {
+            throw error
+        }
     }
     
     func commitTransaction() throws {
-        let statement = "COMMIT TRANSACTION;"
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        do {
+            let statement = "COMMIT TRANSACTION;"
+            var preparedStatement: OpaquePointer?
+            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            try sqlite3StepDone(databaseConnection, preparedStatement)
+            try sqlite3Finalize(databaseConnection, preparedStatement)
+        } catch {
+            throw error
+        }
     }
     
     func rollbackTransaction() throws {
-        let statement = "ROLLBACK TRANSACTION;"
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        do {
+            let statement = "ROLLBACK TRANSACTION;"
+            var preparedStatement: OpaquePointer?
+            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            try sqlite3StepDone(databaseConnection, preparedStatement)
+            try sqlite3Finalize(databaseConnection, preparedStatement)
+        } catch {
+            throw error
+        }
     }
     
 }

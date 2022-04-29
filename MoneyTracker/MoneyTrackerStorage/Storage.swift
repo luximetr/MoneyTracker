@@ -41,7 +41,7 @@ public class Storage {
             try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, addingAmount: toAmount)
             try sqliteDatabase.balanceTransferSqliteTable.insertValues(balanceTransferInsertingValues)
             try sqliteDatabase.commitTransaction()
-            let balanceTransfer = BalanceTransfer(id: id, date: addingBalanceTransfer.date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
+            let balanceTransfer = BalanceTransfer(id: id, date: addingBalanceTransfer.date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: Decimal(fromAmount) / 100, toBalanceAccountId: toBalanceAccountId, toAmount: Decimal(toAmount) / 100, comment: comment)
             return balanceTransfer
         } catch {
             try sqliteDatabase.rollbackTransaction()
@@ -63,7 +63,7 @@ public class Storage {
             try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
             try sqliteDatabase.balanceReplenishmentSqliteTable.insertValues(balanceReplenishmentInsertingValues)
             try sqliteDatabase.commitTransaction()
-            let balanceReplenishment = BalanceReplenishment(id: id, date: addingBalanceReplenishment.date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
+            let balanceReplenishment = BalanceReplenishment(id: id, date: addingBalanceReplenishment.date, balanceAccountId: balanceAccountId, amount: Decimal(amount) / 100, comment: comment)
             return balanceReplenishment
         } catch {
             try sqliteDatabase.rollbackTransaction()
@@ -365,49 +365,8 @@ public class Storage {
     }
     
     public func getSelectedCurrency() throws -> Currency? {
-        let ff = try sqliteDatabase.historySqliteView.selectOrderByTimestampDesc()
-//        var operations: [Operation] = []
-//        for row in ff {
-//            let error = Error("ggg")
-//            guard let type = row.type else { throw error }
-//            switch type {
-//            case "expense":
-//                
-//            default:
-//                throw error
-//            }
-//        }
-        
-        
         let repo = createSelectedCurrencyRepo()
         return try repo.fetch()
-    }
-    
-    private func extractExpense(_ operationSelectedRow: OperationSelectedRow) throws -> Operation {
-        let error = Error("ggg")
-        guard let id = operationSelectedRow.expenseId else { throw error }
-        guard let timestamp = operationSelectedRow.expenseTimestamp else { throw error }
-        guard let amount = operationSelectedRow.expenseAmount else { throw error }
-        guard let balanceAccountId = operationSelectedRow.expenseBalanceAccountId else { throw error }
-        guard let balanceAccountName = operationSelectedRow.expenseBalanceAccountName else { throw error }
-        guard let balanceAccountAmount = operationSelectedRow.expenseBalanceAccountAmount else { throw error }
-        guard let balanceAccountCurrency = operationSelectedRow.expenseBalanceAccountCurrency else { throw error }
-        guard let balanceAccountColor = operationSelectedRow.expenseBalanceAccountColor else { throw error }
-        guard let categoryId = operationSelectedRow.expenseCategoryId else { throw error }
-        guard let categoryName = operationSelectedRow.expenseCategoryName else { throw error }
-        guard let categoryIcon = operationSelectedRow.expenseCategoryIcon else { throw error }
-        guard let categoryColor = operationSelectedRow.expenseCategoryColor else { throw error }
-        let comment = operationSelectedRow.expenseComment
-        
-        let expense = Expense(id: id, amount: Decimal(amount) / 100, date: Date(timeIntervalSince1970: TimeInterval(timestamp)), comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
-        let categoryColorEnt = try CategoryColor(categoryColor)
-        let category = Category(id: categoryId, name: categoryName, color: categoryColorEnt, iconName: categoryIcon)
-        
-        let currency = try Currency(balanceAccountCurrency)
-        let balanceAccountColorEnd = BalanceAccountColor(rawValue: balanceAccountColor)!
-        let balanceAccount = BalanceAccount(id: balanceAccountId, name: balanceAccountName, amount: Decimal(balanceAccountAmount) / 100, currency: currency, color: balanceAccountColorEnd)
-        
-        return .expense(expense: expense, category: category, balanceAccount: balanceAccount)
     }
     
     private func createSelectedCurrencyRepo() -> SelectedCurrencyUserDefaultRepo {
@@ -793,4 +752,106 @@ public class Storage {
     private func createExpenseTemplatesOrderRepo() -> ExpenseTemplatesOrderCoreDataRepo {
         return ExpenseTemplatesOrderCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }
+    
+    // MARK: Operations
+    
+    public func getOperations() throws -> [Operation] {
+        let ff = try sqliteDatabase.historySqliteView.selectOrderByTimestampDesc()
+        var operations: [Operation] = []
+        for row in ff {
+             let type = row.type
+            switch type {
+            case "expense":
+                let expenseOperation = try extractExpense(row)
+                operations.append(expenseOperation)
+            case "balance_replenishment":
+                let balanceReplenishmentOperation = try extractBalanceReplenishment(row)
+                operations.append(balanceReplenishmentOperation)
+            case "balance_transfer":
+                let balanceReplenishmentOperation = try extractBalanceTransfer(row)
+                operations.append(balanceReplenishmentOperation)
+            default:
+                continue
+            }
+        }
+        return operations
+    }
+    
+    private func extractExpense(_ operationSelectedRow: OperationSelectedRow) throws -> Operation {
+        let error = Error("ggg")
+        guard let id = operationSelectedRow.expenseId else { throw error }
+        guard let timestamp = operationSelectedRow.expenseTimestamp else { throw error }
+        guard let amount = operationSelectedRow.expenseAmount else { throw error }
+        guard let balanceAccountId = operationSelectedRow.expenseBalanceAccountId else { throw error }
+        guard let balanceAccountName = operationSelectedRow.expenseBalanceAccountName else { throw error }
+        guard let balanceAccountAmount = operationSelectedRow.expenseBalanceAccountAmount else { throw error }
+        guard let balanceAccountCurrency = operationSelectedRow.expenseBalanceAccountCurrency else { throw error }
+        guard let balanceAccountColor = operationSelectedRow.expenseBalanceAccountColor else { throw error }
+        guard let categoryId = operationSelectedRow.expenseCategoryId else { throw error }
+        guard let categoryName = operationSelectedRow.expenseCategoryName else { throw error }
+        guard let categoryIcon = operationSelectedRow.expenseCategoryIcon else { throw error }
+        guard let categoryColor = operationSelectedRow.expenseCategoryColor else { throw error }
+        let comment = operationSelectedRow.expenseComment
+        let expense = Expense(id: id, amount: Decimal(amount) / 100, date: Date(timeIntervalSince1970: TimeInterval(timestamp)), comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+        let categoryColorEnt = try CategoryColor(categoryColor)
+        let category = Category(id: categoryId, name: categoryName, color: categoryColorEnt, iconName: categoryIcon)
+        let currency = try Currency(balanceAccountCurrency)
+        let balanceAccountColorEnd = BalanceAccountColor(rawValue: balanceAccountColor)!
+        let balanceAccount = BalanceAccount(id: balanceAccountId, name: balanceAccountName, amount: Decimal(balanceAccountAmount) / 100, currency: currency, color: balanceAccountColorEnd)
+        return .expense(expense: expense, category: category, balanceAccount: balanceAccount)
+    }
+    
+    private func extractBalanceReplenishment(_ operationSelectedRow: OperationSelectedRow) throws -> Operation {
+        let error = Error("ggg")
+        guard let id = operationSelectedRow.balanceReplenishmentId else { throw error }
+        guard let timestamp = operationSelectedRow.balanceReplenishmentTimestamp else { throw error }
+        let balanceReplenishmentDate = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        guard let amount = operationSelectedRow.balanceReplenishmentAmount else { throw error }
+        let balanceReplenishmentAmount = Decimal(amount) / 100
+        let comment = operationSelectedRow.balanceReplenishmentComment
+        guard let balanceAccountId = operationSelectedRow.balanceReplenishmentBalanceAccountId else { throw error }
+        guard let balanceAccountName = operationSelectedRow.balanceReplenishmentBalanceAccountName else { throw error }
+        guard let balanceAccountAmount = operationSelectedRow.balanceReplenishmentBalanceAccountAmount else { throw error }
+        guard let balanceAccountCurrency = operationSelectedRow.balanceReplenishmentBalanceAccountCurrency else { throw error }
+        guard let balanceAccountColor = operationSelectedRow.balanceReplenishmentBalanceAccountColor else { throw error }
+        let currency = try Currency(balanceAccountCurrency)
+        let balanceAccountColorEnd = BalanceAccountColor(rawValue: balanceAccountColor)!
+        let balanceAccount = BalanceAccount(id: balanceAccountId, name: balanceAccountName, amount: Decimal(balanceAccountAmount) / 100, currency: currency, color: balanceAccountColorEnd)
+        let balanceReplenishment = BalanceReplenishment(id: id, date: balanceReplenishmentDate, balanceAccountId: balanceAccountId, amount: balanceReplenishmentAmount, comment: comment)
+        return .balanceReplenishment(balanceReplenishment: balanceReplenishment, balanceAccount: balanceAccount)
+    }
+    
+    private func extractBalanceTransfer(_ operationSelectedRow: OperationSelectedRow) throws -> Operation {
+        let error = Error("ggg")
+        guard let id = operationSelectedRow.balanceTransferId else { throw error }
+        guard let timestamp = operationSelectedRow.balanceTransferTimestamp else { throw error }
+        let balanceTransferDate = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        
+        guard let fromAmount = operationSelectedRow.balanceTransferFromAmount else { throw error }
+        let balanceTransferFromAmount = Decimal(fromAmount) / 100
+        guard let fromBalanceAccountId = operationSelectedRow.balanceTransferFromBalanceAccountId else { throw error }
+        guard let fromBalanceAccountName = operationSelectedRow.balanceTransferFromBalanceAccountName else { throw error }
+        guard let fromBalanceAccountAmount = operationSelectedRow.balanceTransferFromBalanceAccountAmount else { throw error }
+        guard let fromBalanceAccountCurrency = operationSelectedRow.balanceTransferFromBalanceAccountCurrency else { throw error }
+        guard let fromBalanceAccountColor = operationSelectedRow.balanceTransferFromBalanceAccountColor else { throw error }
+        let fromCurrency = try Currency(fromBalanceAccountCurrency)
+        let fromBalanceAccountColorEnd = BalanceAccountColor(rawValue: fromBalanceAccountColor)!
+        let fromBalanceAccount = BalanceAccount(id: fromBalanceAccountId, name: fromBalanceAccountName, amount: Decimal(fromBalanceAccountAmount) / 100, currency: fromCurrency, color: fromBalanceAccountColorEnd)
+        
+        guard let toAmount = operationSelectedRow.balanceTransferToAmount else { throw error }
+        let balanceTransferToAmount = Decimal(toAmount) / 100
+        guard let toBalanceAccountId = operationSelectedRow.balanceTransferToBalanceAccountId else { throw error }
+        guard let toBalanceAccountName = operationSelectedRow.balanceTransferToBalanceAccountName else { throw error }
+        guard let toBalanceAccountAmount = operationSelectedRow.balanceTransferToBalanceAccountAmount else { throw error }
+        guard let toBalanceAccountCurrency = operationSelectedRow.balanceTransferToBalanceAccountCurrency else { throw error }
+        guard let toBalanceAccountColor = operationSelectedRow.balanceTransferToBalanceAccountColor else { throw error }
+        let toCurrency = try Currency(toBalanceAccountCurrency)
+        let toBalanceAccountColorEnd = BalanceAccountColor(rawValue: toBalanceAccountColor)!
+        let toBalanceAccount = BalanceAccount(id: toBalanceAccountId, name: toBalanceAccountName, amount: Decimal(toBalanceAccountAmount) / 100, currency: toCurrency, color: toBalanceAccountColorEnd)
+        
+        let comment = operationSelectedRow.balanceTransferComment
+        let balanceTransfer = BalanceTransfer(id: id, date: balanceTransferDate, fromBalanceAccountId: fromBalanceAccountId, fromAmount: balanceTransferFromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: balanceTransferToAmount, comment: comment)
+        return .balanceTransfer(balanceTransfer: balanceTransfer, fromBalanceAccount: fromBalanceAccount, toBalanceAccount: toBalanceAccount)
+    }
+    
 }

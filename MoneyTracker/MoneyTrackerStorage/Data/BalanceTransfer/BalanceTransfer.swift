@@ -11,12 +11,12 @@ public struct BalanceTransfer {
     public let id: String
     public let date: Date
     public let fromBalanceAccountId: String
-    public let fromAmount: Int64
+    public let fromAmount: Decimal
     public let toBalanceAccountId: String
-    public let toAmount: Int64
+    public let toAmount: Decimal
     public let comment: String?
     
-    public init(id: String, date: Date, fromBalanceAccountId: String, fromAmount: Int64, toBalanceAccountId: String, toAmount: Int64, comment: String?) {
+    public init(id: String, date: Date, fromBalanceAccountId: String, fromAmount: Decimal, toBalanceAccountId: String, toAmount: Decimal, comment: String?) {
         self.id = id
         self.date = date
         self.fromBalanceAccountId = fromBalanceAccountId

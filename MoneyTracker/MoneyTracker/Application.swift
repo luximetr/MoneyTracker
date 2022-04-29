@@ -259,6 +259,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentationExpenses(_ presentation: Presentation) throws -> [PresentationExpense] {
         do {
+            let operations = try storage.getOperations()
+            print(operations)
             let expenses = try storage.getAllExpenses()
             let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
                 return try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: expense)

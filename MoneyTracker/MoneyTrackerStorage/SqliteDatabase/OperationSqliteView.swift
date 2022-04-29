@@ -40,13 +40,14 @@ struct OperationSelectedRow {
     // balance transfer
     let balanceTransferId: String?
     let balanceTransferTimestamp: Int64?
-    let balanceTransferAmount: Int64?
+    let balanceTransferFromAmount: Int64?
     let balanceTransferFromBalanceAccountId: String?
     let balanceTransferFromBalanceAccountName: String?
     let balanceTransferFromBalanceAccountAmount: Int64?
     let balanceTransferFromBalanceAccountCurrency: String?
     let balanceTransferFromBalanceAccountColor: String?
     let balanceTransferFromBalanceAccountOrderNumber: Int64?
+    let balanceTransferToAmount: Int64?
     let balanceTransferToBalanceAccountId: String?
     let balanceTransferToBalanceAccountName: String?
     let balanceTransferToBalanceAccountAmount: Int64?
@@ -102,13 +103,14 @@ class OperationSqliteView {
                 balance_replenishment_comment,
                 balance_transfer_id,
                 balance_transfer_timestamp,
-                balance_transfer_amount,
+                balance_transfer_from_amount,
                 balance_transfer_from_balance_account_id,
                 balance_transfer_from_balance_account_name,
                 balance_transfer_from_balance_account_amount,
                 balance_transfer_from_balance_account_currency,
                 balance_transfer_from_balance_account_color,
                 balance_transfer_from_balance_account_order_number,
+                balance_transfer_to_amount,
                 balance_transfer_to_balance_account_id,
                 balance_transfer_to_balance_account_name,
                 balance_transfer_to_balance_account_amount,
@@ -136,7 +138,7 @@ class OperationSqliteView {
                 expense_category.order_number AS expense_category_order_number,
                 expense.comment AS expense_comment,
                 NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
             FROM expense
             INNER JOIN balance_account AS expense_balance_account ON expense.balance_account_id == expense_balance_account.id
             INNER JOIN category AS expense_category ON expense.category_id == expense_category.id
@@ -155,7 +157,7 @@ class OperationSqliteView {
                 balance_replenishment_balance_account.color AS balance_replenishment_balance_account_color,
                 balance_replenishment_balance_account.order_number AS balance_replenishment_balance_account_order_number,
                 balance_replenishment.comment AS balance_replenishment_comment,
-                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
             FROM balance_replenishment
             INNER JOIN balance_account AS balance_replenishment_balance_account ON balance_replenishment.balance_account_id == balance_replenishment_balance_account.id
             UNION
@@ -166,13 +168,14 @@ class OperationSqliteView {
                 NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                 balance_transfer.id AS balance_transfer_id,
                 balance_transfer.timestamp AS balance_transfer_timestamp,
-                balance_transfer.from_amount AS balance_transfer_amount,
+                balance_transfer.from_amount AS balance_transfer_from_amount,
                 balance_transfer_from_balance_account.id AS balance_transfer_from_balance_account_id,
                 balance_transfer_from_balance_account.name AS balance_transfer_from_balance_account_name,
                 balance_transfer_from_balance_account.amount AS balance_transfer_from_balance_account_amount,
                 balance_transfer_from_balance_account.currency AS balance_transfer_from_balance_account_currency,
                 balance_transfer_from_balance_account.color AS balance_transfer_from_balance_account_color,
                 balance_transfer_from_balance_account.order_number AS balance_transfer_from_balance_account_order_number,
+                balance_transfer.to_amount AS balance_transfer_to_amount,
                 balance_transfer_to_balance_account.id AS balance_transfer_to_balance_account_id,
                 balance_transfer_to_balance_account.name AS balance_transfer_to_balance_account_name,
                 balance_transfer_to_balance_account.amount AS balance_transfer_to_balance_account_amount,
@@ -222,21 +225,22 @@ class OperationSqliteView {
         let balanceReplenishmentComment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 26)
         let balanceTransferId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 27)
         let balanceTransferTimestamp = sqlite3ColumnInt64(databaseConnection, preparedStatement, 28)
-        let balanceTransferAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 29)
+        let balanceTransferFromAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 29)
         let balanceTransferFromBalanceAccountId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 30)
         let balanceTransferFromBalanceAccountName = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 31)
         let balanceTransferFromBalanceAccountAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 32)
         let balanceTransferFromBalanceAccountCurrency = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 33)
         let balanceTransferFromBalanceAccountColor = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 34)
         let balanceTransferFromBalanceAccountOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 35)
-        let balanceTransferToBalanceAccountId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 36)
-        let balanceTransferToBalanceAccountName = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 37)
-        let balanceTransferToBalanceAccountAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 38)
-        let balanceTransferToBalanceAccountCurrency = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 39)
-        let balanceTransferToBalanceAccountColor = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 40)
-        let balanceTransferToBalanceAccountOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 41)
-        let balanceTransferComment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 42)
-        let operationSelectedRow = OperationSelectedRow(type: type, timestamp: timestamp, expenseId: expenseId, expenseTimestamp: expenseTimestamp, expenseAmount: expenseAmount, expenseBalanceAccountId: expenseBalanceAccountId, expenseBalanceAccountName: expenseBalanceAccountName, expenseBalanceAccountAmount: expenseBalanceAccountAmount, expenseBalanceAccountCurrency: expenseBalanceAccountCurrency, expenseBalanceAccountColor: expenseBalanceAccountColor, expenseBalanceAccountOrderNumber: expenseBalanceAccountOrderNumber, expenseCategoryId: expenseCategoryId, expenseCategoryName: expenseCategoryName, expenseCategoryIcon: expenseCategoryIcon, expenseCategoryColor: expenseCategoryColor, expenseCategoryOrderNumber: expenseCategoryOrderNumber, expenseComment: expenseComment, balanceReplenishmentId: balanceReplenishmentId, balanceReplenishmentTimestamp: balanceReplenishmentTimestamp, balanceReplenishmentAmount: balanceReplenishmentAmount, balanceReplenishmentBalanceAccountId: balanceReplenishmentBalanceAccountId, balanceReplenishmentBalanceAccountName: balanceReplenishmentBalanceAccountName, balanceReplenishmentBalanceAccountAmount: balanceReplenishmentBalanceAccountAmount, balanceReplenishmentBalanceAccountCurrency: balanceReplenishmentBalanceAccountCurrency, balanceReplenishmentBalanceAccountColor: balanceReplenishmentBalanceAccountColor, balanceReplenishmentBalanceAccountOrderNumber: balanceReplenishmentBalanceAccountOrderNumber, balanceReplenishmentComment: balanceReplenishmentComment, balanceTransferId: balanceTransferId, balanceTransferTimestamp: balanceTransferTimestamp, balanceTransferAmount: balanceTransferAmount, balanceTransferFromBalanceAccountId: balanceTransferFromBalanceAccountId, balanceTransferFromBalanceAccountName: balanceTransferFromBalanceAccountName, balanceTransferFromBalanceAccountAmount: balanceTransferFromBalanceAccountAmount, balanceTransferFromBalanceAccountCurrency: balanceTransferFromBalanceAccountCurrency, balanceTransferFromBalanceAccountColor: balanceTransferFromBalanceAccountColor, balanceTransferFromBalanceAccountOrderNumber: balanceTransferFromBalanceAccountOrderNumber, balanceTransferToBalanceAccountId: balanceTransferToBalanceAccountId, balanceTransferToBalanceAccountName: balanceTransferToBalanceAccountName, balanceTransferToBalanceAccountAmount: balanceTransferToBalanceAccountAmount, balanceTransferToBalanceAccountCurrency: balanceTransferToBalanceAccountCurrency, balanceTransferToBalanceAccountColor: balanceTransferToBalanceAccountColor, balanceTransferToBalanceAccountOrderNumber: balanceTransferToBalanceAccountOrderNumber, balanceTransferComment: balanceTransferComment)
+        let balanceTransferToAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 36)
+        let balanceTransferToBalanceAccountId = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 37)
+        let balanceTransferToBalanceAccountName = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 38)
+        let balanceTransferToBalanceAccountAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 39)
+        let balanceTransferToBalanceAccountCurrency = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 40)
+        let balanceTransferToBalanceAccountColor = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 41)
+        let balanceTransferToBalanceAccountOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 42)
+        let balanceTransferComment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 43)
+        let operationSelectedRow = OperationSelectedRow(type: type, timestamp: timestamp, expenseId: expenseId, expenseTimestamp: expenseTimestamp, expenseAmount: expenseAmount, expenseBalanceAccountId: expenseBalanceAccountId, expenseBalanceAccountName: expenseBalanceAccountName, expenseBalanceAccountAmount: expenseBalanceAccountAmount, expenseBalanceAccountCurrency: expenseBalanceAccountCurrency, expenseBalanceAccountColor: expenseBalanceAccountColor, expenseBalanceAccountOrderNumber: expenseBalanceAccountOrderNumber, expenseCategoryId: expenseCategoryId, expenseCategoryName: expenseCategoryName, expenseCategoryIcon: expenseCategoryIcon, expenseCategoryColor: expenseCategoryColor, expenseCategoryOrderNumber: expenseCategoryOrderNumber, expenseComment: expenseComment, balanceReplenishmentId: balanceReplenishmentId, balanceReplenishmentTimestamp: balanceReplenishmentTimestamp, balanceReplenishmentAmount: balanceReplenishmentAmount, balanceReplenishmentBalanceAccountId: balanceReplenishmentBalanceAccountId, balanceReplenishmentBalanceAccountName: balanceReplenishmentBalanceAccountName, balanceReplenishmentBalanceAccountAmount: balanceReplenishmentBalanceAccountAmount, balanceReplenishmentBalanceAccountCurrency: balanceReplenishmentBalanceAccountCurrency, balanceReplenishmentBalanceAccountColor: balanceReplenishmentBalanceAccountColor, balanceReplenishmentBalanceAccountOrderNumber: balanceReplenishmentBalanceAccountOrderNumber, balanceReplenishmentComment: balanceReplenishmentComment, balanceTransferId: balanceTransferId, balanceTransferTimestamp: balanceTransferTimestamp, balanceTransferFromAmount: balanceTransferFromAmount, balanceTransferFromBalanceAccountId: balanceTransferFromBalanceAccountId, balanceTransferFromBalanceAccountName: balanceTransferFromBalanceAccountName, balanceTransferFromBalanceAccountAmount: balanceTransferFromBalanceAccountAmount, balanceTransferFromBalanceAccountCurrency: balanceTransferFromBalanceAccountCurrency, balanceTransferFromBalanceAccountColor: balanceTransferFromBalanceAccountColor, balanceTransferFromBalanceAccountOrderNumber: balanceTransferFromBalanceAccountOrderNumber, balanceTransferToAmount: balanceTransferToAmount, balanceTransferToBalanceAccountId: balanceTransferToBalanceAccountId, balanceTransferToBalanceAccountName: balanceTransferToBalanceAccountName, balanceTransferToBalanceAccountAmount: balanceTransferToBalanceAccountAmount, balanceTransferToBalanceAccountCurrency: balanceTransferToBalanceAccountCurrency, balanceTransferToBalanceAccountColor: balanceTransferToBalanceAccountColor, balanceTransferToBalanceAccountOrderNumber: balanceTransferToBalanceAccountOrderNumber, balanceTransferComment: balanceTransferComment)
         return operationSelectedRow
     }
     
@@ -273,13 +277,14 @@ class OperationSqliteView {
                 balance_replenishment_comment,
                 balance_transfer_id,
                 balance_transfer_timestamp,
-                balance_transfer_amount,
+                balance_transfer_from_amount,
                 balance_transfer_from_balance_account_id,
                 balance_transfer_from_balance_account_name,
                 balance_transfer_from_balance_account_amount,
                 balance_transfer_from_balance_account_currency,
                 balance_transfer_from_balance_account_color,
                 balance_transfer_from_balance_account_order_number,
+                balance_transfer_to_amount,
                 balance_transfer_to_balance_account_id,
                 balance_transfer_to_balance_account_name,
                 balance_transfer_to_balance_account_amount,
