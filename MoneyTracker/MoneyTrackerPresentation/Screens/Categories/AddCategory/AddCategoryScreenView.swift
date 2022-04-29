@@ -20,10 +20,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let colorPickerTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
     let addButton = TextFilledButton()
+    let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Initializer
     
     init(appearance: Appearance) {
+        self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         self.nameTextField = PlainTextField(appearance: appearance)
         self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
         super.init(appearance: appearance)
@@ -46,6 +48,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(addButton)
         setupAddButton()
         changeAppearance(appearance)
+        addSubview(errorSnackbarView)
     }
     
     private func setupNameTextField() {
@@ -77,6 +80,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutColorPickerView()
         layoutAddButton()
         setScrollViewContentSize()
+        layoutErrorSnackbarView()
     }
     
     private func layoutScrollView() {
@@ -147,6 +151,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         let y = bounds.height - 16 - height - safeAreaInsets.bottom
         let frame = CGRect(x: x, y: y, width: width, height: height)
         addButton.frame = frame
+    }
+    
+    private func layoutErrorSnackbarView() {
+        let x: CGFloat = 10
+        let width = bounds.width - x * 2
+        let availableSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let height: CGFloat = errorSnackbarView.sizeThatFits(availableSize).height
+        let y = navigationBarView.frame.minY
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        errorSnackbarView.frame = frame
     }
     
     // MARK: - Appearance
