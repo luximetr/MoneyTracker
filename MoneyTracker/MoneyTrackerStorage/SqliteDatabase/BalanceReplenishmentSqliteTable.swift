@@ -9,9 +9,9 @@ import SQLite3
 
 struct BalanceReplenishmentInsertingValues {
     let id: String
-    let date: Int64
-    let balanceAccountId: String
+    let timestamp: Int64
     let amount: Int64
+    let balanceAccountId: String
     let comment: String?
 }
 
@@ -33,9 +33,9 @@ class BalanceReplenishmentSqliteTable {
             CREATE TABLE IF NOT EXISTS
             balance_replenishment(
                 id TEXT PRIMARY KEY,
-                date INTEGER,
-                balance_account_id TEXT,
+                timestamp INTEGER,
                 amount INTEGER,
+                balance_account_id TEXT,
                 comment TEXT,
                 FOREIGN KEY(balance_account_id) REFERENCES balance_account(id)
             );
@@ -51,16 +51,16 @@ class BalanceReplenishmentSqliteTable {
     func insertValues(_ values: BalanceReplenishmentInsertingValues) throws {
         let statement =
             """
-            INSERT INTO balance_replenishment(id, date, balance_account_id, amount, comment)
+            INSERT INTO balance_replenishment(id, timestamp, amount, balance_account_id, comment)
             VALUES (?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.date)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.balanceAccountId, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 4, values.amount)
-        try sqlite3BindText(databaseConnection, preparedStatement, 5, values.comment, -1, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.timestamp)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
+        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.balanceAccountId, -1, nil)
+        try sqlite3BindTextNull(databaseConnection, preparedStatement, 5, values.comment, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }

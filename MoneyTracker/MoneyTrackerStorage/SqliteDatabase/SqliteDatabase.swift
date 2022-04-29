@@ -14,7 +14,7 @@ class SqliteDatabase {
     let categoryTable: CategorySqliteTable
     let balanceAccountTable: BalanceAccountSqliteTable
     let expenseTable: ExpenseSqliteTable
-    let historySqliteView: HistorySqliteView
+    let historySqliteView: OperationSqliteView
     let balanceTransferSqliteTable: BalanceTransferSqliteTable
     let balanceReplenishmentSqliteTable: BalanceReplenishmentSqliteTable
     
@@ -33,7 +33,7 @@ class SqliteDatabase {
         try balanceAccountTable.createIfNotExists()
         self.expenseTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
         try expenseTable.createIfNotExists()
-        self.historySqliteView = HistorySqliteView(databaseConnection: databaseConnection)
+        self.historySqliteView = OperationSqliteView(databaseConnection: databaseConnection)
         try historySqliteView.createIfNotExists()
         self.balanceTransferSqliteTable = BalanceTransferSqliteTable(databaseConnection: databaseConnection)
         try balanceTransferSqliteTable.createIfNotExists()

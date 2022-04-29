@@ -54,9 +54,7 @@ func sqlite3Finalize(_ databaseConnection: OpaquePointer!, _ preparedStatement: 
 
 
 
-
-
-func sqlite3BindText(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String?, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
+func sqlite3BindTextNull(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String?, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
     if let value = value {
         let utf8String = (value as NSString).utf8String
         if sqlite3_bind_text(preparedStatement, index, utf8String, -1, nil) != SQLITE_OK {
@@ -70,6 +68,15 @@ func sqlite3BindText(_ databaseConnection: OpaquePointer!, _ preparedStatement: 
             let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
             throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
         }
+    }
+}
+
+func sqlite3BindText(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
+    let utf8String = (value as NSString).utf8String
+    if sqlite3_bind_text(preparedStatement, index, utf8String, -1, nil) != SQLITE_OK {
+        let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)
+        let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+        throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
     }
 }
 

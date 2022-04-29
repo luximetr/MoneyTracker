@@ -9,28 +9,28 @@ import SQLite3
 
 struct ExpenseInsertingValues {
     let id: String
-    let date: Int64
+    let timestamp: Int64
     let amount: Int64
-    let comment: String?
-    let categoryId: String
     let balanceAccountId: String
+    let categoryId: String
+    let comment: String?
 }
 
 struct ExpenseUpdatingByIdValues {
-    let date: Int64
+    let timestamp: Int64
     let amount: Int64
-    let comment: String?
-    let categoryId: String
     let balanceAccountId: String
+    let categoryId: String
+    let comment: String?
 }
 
 struct ExpenseSelectedRow {
     let id: String
-    let date: Int64
+    let timestamp: Int64
     let amount: Int64
-    let comment: String?
-    let categoryId: String
     let balanceAccountId: String
+    let categoryId: String
+    let comment: String?
 }
 
 class ExpenseSqliteTable {
@@ -51,11 +51,11 @@ class ExpenseSqliteTable {
             CREATE TABLE IF NOT EXISTS
             expense(
                 id TEXT PRIMARY KEY,
+                timestamp INTEGER,
                 amount INTEGER,
-                date INTEGER,
-                comment TEXT,
-                category_id INTEGER,
                 balance_account_id INTEGER,
+                category_id INTEGER,
+                comment TEXT,
                 FOREIGN KEY(category_id) REFERENCES category(id),
                 FOREIGN KEY(balance_account_id) REFERENCES balance_account(id)
             );
@@ -71,17 +71,17 @@ class ExpenseSqliteTable {
     func insertValues(_ values: ExpenseInsertingValues) throws {
         let statement =
             """
-            INSERT INTO expense(id, amount, date, comment, category_id, balance_account_id)
+            INSERT INTO expense(id, timestamp, amount, balance_account_id, category_id, comment)
             VALUES (?, ?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.date)
-        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.comment, -1, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.timestamp)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
+        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.balanceAccountId, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 5, values.categoryId, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 6, values.balanceAccountId, -1, nil)
+        try sqlite3BindTextNull(databaseConnection, preparedStatement, 6, values.comment, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
@@ -92,20 +92,20 @@ class ExpenseSqliteTable {
         let statement =
             """
             UPDATE expense SET
+                timestamp = ?,
                 amount = ?,
-                date = ?,
-                comment = ?,
+                balance_account_id = ?,
                 category_id = ?,
-                balance_account_id = ?
+                comment = ?
             WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, values.amount)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.date)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.comment, -1, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, values.timestamp)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
+        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.balanceAccountId, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 4, values.categoryId, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 5, values.balanceAccountId, -1, nil)
+        try sqlite3BindTextNull(databaseConnection, preparedStatement, 5, values.comment, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 6, id, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -129,19 +129,19 @@ class ExpenseSqliteTable {
     
     private func extractExpenseSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ExpenseSelectedRow {
         let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-        let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 1)
-        let date = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
-        let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 3)
+        let timestamp = sqlite3ColumnInt64(databaseConnection, preparedStatement, 1)
+        let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
+        let balanceAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
         let categoryId = try sqlite3ColumnText(databaseConnection, preparedStatement, 4)
-        let balanceAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 5)
-        let expenseSelectedRow = ExpenseSelectedRow(id: id, date: date, amount: amount, comment: comment, categoryId: categoryId, balanceAccountId: balanceAccountId)
+        let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 5)
+        let expenseSelectedRow = ExpenseSelectedRow(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment)
         return expenseSelectedRow
     }
     
     func select() throws -> [ExpenseSelectedRow] {
         let statement =
             """
-            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense;
+            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -157,7 +157,7 @@ class ExpenseSqliteTable {
     func selectWhereId(_ id: String) throws -> ExpenseSelectedRow? {
         let statement =
             """
-            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
+            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense
             WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
@@ -174,8 +174,8 @@ class ExpenseSqliteTable {
     func selectWhereDateBetween(startDate: Double, endDate: Double) throws -> [ExpenseSelectedRow] {
         let statement =
             """
-            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
-            WHERE date BETWEEN ? AND ?;
+            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense
+            WHERE timestamp BETWEEN ? AND ?;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -193,7 +193,7 @@ class ExpenseSqliteTable {
     func selectWhereCategoryId(_ categoryId: String) throws -> [ExpenseSelectedRow] {
         let statement =
             """
-            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
+            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense
             WHERE category_id = ?;
             """
         var preparedStatement: OpaquePointer?
@@ -211,7 +211,7 @@ class ExpenseSqliteTable {
     func selectWhereBalanceAccountId(_ balanceAccountId: String) throws -> [ExpenseSelectedRow] {
         let statement =
             """
-            SELECT id, amount, date, comment, category_id, balance_account_id FROM expense
+            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense
             WHERE balance_account_id = ?;
             """
         var preparedStatement: OpaquePointer?

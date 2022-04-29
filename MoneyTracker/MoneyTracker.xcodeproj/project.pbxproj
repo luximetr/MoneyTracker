@@ -34,7 +34,7 @@
 		2E394F1227FCDDD0002C3052 /* TopUpAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */; };
 		2E394F1527FCDDE5002C3052 /* TopUpAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E394F1727FCDDE5002C3052 /* TopUpAccountScreenStrings.strings */; };
 		2E3A5D5227EFBC1E00102D69 /* CategoriesListScreenCategoryTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3A5D5127EFBC1E00102D69 /* CategoriesListScreenCategoryTableViewCellController.swift */; };
-		2E5061E228184CFE00C6C217 /* HistorySqliteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5061E128184CFE00C6C217 /* HistorySqliteView.swift */; };
+		2E5061E228184CFE00C6C217 /* OperationSqliteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5061E128184CFE00C6C217 /* OperationSqliteView.swift */; };
 		2E5061E42818542900C6C217 /* BalanceTransferSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5061E32818542900C6C217 /* BalanceTransferSqliteTable.swift */; };
 		2E5279592811AFAC00BC916B /* SqliteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5279582811AFAC00BC916B /* SqliteDatabase.swift */; };
 		2E52795B2811AFC800BC916B /* CategorySqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */; };
@@ -523,7 +523,7 @@
 		2E394F1127FCDDD0002C3052 /* TopUpAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpAccountScreenView.swift; sourceTree = "<group>"; };
 		2E394F1627FCDDE5002C3052 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TopUpAccountScreenStrings.strings; sourceTree = "<group>"; };
 		2E3A5D5127EFBC1E00102D69 /* CategoriesListScreenCategoryTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListScreenCategoryTableViewCellController.swift; sourceTree = "<group>"; };
-		2E5061E128184CFE00C6C217 /* HistorySqliteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySqliteView.swift; sourceTree = "<group>"; };
+		2E5061E128184CFE00C6C217 /* OperationSqliteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationSqliteView.swift; sourceTree = "<group>"; };
 		2E5061E32818542900C6C217 /* BalanceTransferSqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTransferSqliteTable.swift; sourceTree = "<group>"; };
 		2E5279582811AFAC00BC916B /* SqliteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteDatabase.swift; sourceTree = "<group>"; };
 		2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySqliteTable.swift; sourceTree = "<group>"; };
@@ -1832,11 +1832,11 @@
 				2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */,
 				2EDE102A2815B85D008BB8C5 /* BalanceAccountSqliteTable.swift */,
 				2E832AAE2816DBEF0083B77F /* ExpenseSqliteTable.swift */,
-				2ED7C2082819CEBB00014B63 /* FullExpenseSqliteView.swift */,
 				2E5061E32818542900C6C217 /* BalanceTransferSqliteTable.swift */,
 				2E25262028191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift */,
-				2E5061E128184CFE00C6C217 /* HistorySqliteView.swift */,
+				2E5061E128184CFE00C6C217 /* OperationSqliteView.swift */,
 				2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */,
+				2ED7C2082819CEBB00014B63 /* FullExpenseSqliteView.swift */,
 			);
 			path = SqliteDatabase;
 			sourceTree = "<group>";
@@ -3035,7 +3035,7 @@
 				DBA0546E27FFDCA600DB3892 /* DebugError.swift in Sources */,
 				2E926E9A27BC58140081E3AE /* Currency.swift in Sources */,
 				2E926E9927BC58140081E3AE /* EditingBalanceAccount.swift in Sources */,
-				2E5061E228184CFE00C6C217 /* HistorySqliteView.swift in Sources */,
+				2E5061E228184CFE00C6C217 /* OperationSqliteView.swift in Sources */,
 				2E926EA027BC58140081E3AE /* Category.swift in Sources */,
 				2E926EA827BC59030081E3AE /* AddingExpenseTemplate.swift in Sources */,
 				2E926EA927BC59030081E3AE /* EditingExpenseTemplate.swift in Sources */,
