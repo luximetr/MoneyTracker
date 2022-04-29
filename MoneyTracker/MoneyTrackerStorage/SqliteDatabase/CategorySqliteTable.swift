@@ -80,16 +80,16 @@ class CategorySqliteTable {
     
     // MARK: - UPDATE
     
-    func updateWhereId(_ id: String, valuesExceptOrderNumber: CategoryUpdatingValues) throws {
+    func updateWhereId(_ id: String, values: CategoryUpdatingValues) throws {
         let statement =
             """
             UPDATE category SET name = ?, icon_name = ?, color_type = ? WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, valuesExceptOrderNumber.name, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 2, valuesExceptOrderNumber.iconName, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, valuesExceptOrderNumber.colorType, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, values.name, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 2, values.iconName, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.colorType, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 4, id, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -132,16 +132,6 @@ class CategorySqliteTable {
         let orderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 4)
         let selectedRow = CategorySelectedRow(id: id, name: name, iconName: iconName, colorType: colorType, orderNumber: orderNumber)
         return selectedRow
-    }
-    
-    private func parseCategory(_ preparedStatement: OpaquePointer?) throws -> Category {
-        let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-        let name = try sqlite3ColumnText(databaseConnection, preparedStatement, 1)
-        let iconName = try sqlite3ColumnText(databaseConnection, preparedStatement, 2)
-        let colorType = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
-        let color = try CategoryColor(colorType)
-        let category = Category(id: id, name: name, color: color, iconName: iconName)
-        return category
     }
     
     func select() throws -> [CategorySelectedRow] {

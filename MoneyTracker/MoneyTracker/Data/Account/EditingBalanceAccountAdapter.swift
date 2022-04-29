@@ -21,9 +21,9 @@ class EditingBalanceAccountAdapter {
         return StorageEditingBalanceAccount(
             id: presentationEditingAccount.id,
             name: presentationEditingAccount.name,
-            currency: currencyAdapter.adaptToStorageOptional(presentationCurrency: presentationEditingAccount.currency),
+            currency: currencyAdapter.adaptToStorage(presentationCurrency: presentationEditingAccount.currency),
             amount: presentationEditingAccount.amount,
-            color: accountColorAdapter.adaptToStorageOptional(presentationAccountColor: presentationEditingAccount.color)
+            color: accountColorAdapter.adaptToStorage(presentationAccountColor: presentationEditingAccount.color)
         )
     }
 }

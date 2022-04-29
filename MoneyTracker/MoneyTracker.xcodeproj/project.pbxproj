@@ -123,6 +123,7 @@
 		2EB8273A280761EE00C6377F /* SelectLanguageScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB8273C280761EE00C6377F /* SelectLanguageScreenStrings.strings */; };
 		2EB8273F2807648800C6377F /* SelectLanguageLanguageTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8273E2807648800C6377F /* SelectLanguageLanguageTableViewCellController.swift */; };
 		2EB82741280764C900C6377F /* SelectLanguageLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB82740280764C900C6377F /* SelectLanguageLanguageTableViewCell.swift */; };
+		2EBBD24D281C1DBB00929A97 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBD24C281C1DBB00929A97 /* Operation.swift */; };
 		2EBDF92F27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF92E27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift */; };
 		2EBDF93127ECCF8B002B6C9E /* MonthCategoryExpensesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF93027ECCF8B002B6C9E /* MonthCategoryExpensesTableViewCell.swift */; };
 		2EC19ACE27A7F64000E1A6FA /* CategoriesListScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19ACD27A7F64000E1A6FA /* CategoriesListScreenViewController.swift */; };
@@ -209,7 +210,6 @@
 		2ED76C8927F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED76C8827F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift */; };
 		2ED76C8B27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */; };
 		2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED76C9027F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings */; };
-		2ED7C2092819CEBB00014B63 /* FullExpenseSqliteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7C2082819CEBB00014B63 /* FullExpenseSqliteView.swift */; };
 		2ED7E48A2809FADC00B35F02 /* StatusBarScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */; };
 		2ED7E490280A06C600B35F02 /* AppearanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */; };
 		2ED82B5B2815397B00789BA4 /* SqliteHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */; };
@@ -611,6 +611,7 @@
 		2EB8273B280761EE00C6377F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SelectLanguageScreenStrings.strings; sourceTree = "<group>"; };
 		2EB8273E2807648800C6377F /* SelectLanguageLanguageTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageLanguageTableViewCellController.swift; sourceTree = "<group>"; };
 		2EB82740280764C900C6377F /* SelectLanguageLanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageLanguageTableViewCell.swift; sourceTree = "<group>"; };
+		2EBBD24C281C1DBB00929A97 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		2EBDF92E27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCategoryExpensesTableViewCellController.swift; sourceTree = "<group>"; };
 		2EBDF93027ECCF8B002B6C9E /* MonthCategoryExpensesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCategoryExpensesTableViewCell.swift; sourceTree = "<group>"; };
 		2EC19ACD27A7F64000E1A6FA /* CategoriesListScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListScreenViewController.swift; sourceTree = "<group>"; };
@@ -758,7 +759,6 @@
 		2ED76C8827F57FFE000F8622 /* BalanceAccountPickerAddCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountPickerAddCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2ED76C8A27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountPickerAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ED76C8F27F5828A000F8622 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
-		2ED7C2082819CEBB00014B63 /* FullExpenseSqliteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullExpenseSqliteView.swift; sourceTree = "<group>"; };
 		2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarScreenViewController.swift; sourceTree = "<group>"; };
 		2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTableViewCell.swift; sourceTree = "<group>"; };
 		2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteHelpers.swift; sourceTree = "<group>"; };
@@ -1141,6 +1141,7 @@
 		2E91155127A9373E00359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2EBBD24B281C1D9D00929A97 /* Operation */,
 				2E252622281921B90025D2E9 /* BalanceReplenishment */,
 				2EB2143B281869220058242F /* BalanceTransfer */,
 				2EB2E876281080CD0017ACDD /* AppearanceSetting */,
@@ -1626,6 +1627,14 @@
 			path = LanguageTableViewCell;
 			sourceTree = "<group>";
 		};
+		2EBBD24B281C1D9D00929A97 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				2EBBD24C281C1DBB00929A97 /* Operation.swift */,
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
 		2EBDF92D27ECCF24002B6C9E /* MonthCategoryExpensesTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1836,7 +1845,6 @@
 				2E25262028191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift */,
 				2E5061E128184CFE00C6C217 /* OperationSqliteView.swift */,
 				2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */,
-				2ED7C2082819CEBB00014B63 /* FullExpenseSqliteView.swift */,
 			);
 			path = SqliteDatabase;
 			sourceTree = "<group>";
@@ -3023,13 +3031,13 @@
 				2EB2E878281080E00017ACDD /* AppearanceSetting.swift in Sources */,
 				2E926EAA27BC59030081E3AE /* Balance.swift in Sources */,
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
-				2ED7C2092819CEBB00014B63 /* FullExpenseSqliteView.swift in Sources */,
 				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
 				DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */,
 				2E52795D2811B01300BC916B /* Error.swift in Sources */,
 				DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */,
 				DBA0546727FD9C1E00DB3892 /* ImportingCategoryAdapter.swift in Sources */,
 				2EDE102B2815B85D008BB8C5 /* BalanceAccountSqliteTable.swift in Sources */,
+				2EBBD24D281C1DBB00929A97 /* Operation.swift in Sources */,
 				2E926E9B27BC58140081E3AE /* AddingExpense.swift in Sources */,
 				2E926EA727BC59030081E3AE /* ExpenseTemplate.swift in Sources */,
 				DBA0546E27FFDCA600DB3892 /* DebugError.swift in Sources */,

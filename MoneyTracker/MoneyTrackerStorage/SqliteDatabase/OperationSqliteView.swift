@@ -240,7 +240,7 @@ class OperationSqliteView {
         return operationSelectedRow
     }
     
-    func selectOrderByTimestampDescending() throws -> [OperationSelectedRow] {
+    func selectOrderByTimestampDesc() throws -> [OperationSelectedRow] {
         let statement =
             """
             SELECT

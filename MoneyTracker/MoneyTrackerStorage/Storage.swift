@@ -37,8 +37,8 @@ public class Storage {
             let toAmount = addingBalanceTransfer.toAmount
             let comment = addingBalanceTransfer.comment
             let balanceTransferInsertingValues = BalanceTransferInsertingValues(id: id, timestamp: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
-            try sqliteDatabase.balanceAccountTable.updateAmountSubtracting(amount: fromAmount, whereId: fromBalanceAccountId)
-            try sqliteDatabase.balanceAccountTable.updateAmountAdding(amount: toAmount, whereId: toBalanceAccountId)
+            try sqliteDatabase.balanceAccountTable.updateWhereId(fromBalanceAccountId, subtractingAmount: fromAmount)
+            try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, addingAmount: toAmount)
             try sqliteDatabase.balanceTransferSqliteTable.insertValues(balanceTransferInsertingValues)
             try sqliteDatabase.commitTransaction()
             let balanceTransfer = BalanceTransfer(id: id, date: addingBalanceTransfer.date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
@@ -60,7 +60,7 @@ public class Storage {
             let amount = addingBalanceReplenishment.amount
             let comment = addingBalanceReplenishment.comment
             let balanceReplenishmentInsertingValues = BalanceReplenishmentInsertingValues(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, comment: comment)
-            try sqliteDatabase.balanceAccountTable.updateAmountAdding(amount: amount, whereId: balanceAccountId)
+            try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
             try sqliteDatabase.balanceReplenishmentSqliteTable.insertValues(balanceReplenishmentInsertingValues)
             try sqliteDatabase.commitTransaction()
             let balanceReplenishment = BalanceReplenishment(id: id, date: addingBalanceReplenishment.date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
@@ -132,11 +132,20 @@ public class Storage {
     @discardableResult
     public func addCategory(_ addingCategory: AddingCategory) throws -> Category {
         do {
+            try sqliteDatabase.beginTransaction()
             let id = UUID().uuidString
-            let category = Category(id: id, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
-            try sqliteDatabase.insertCategory(category)
+            let name = addingCategory.name
+            let color = addingCategory.color
+            let iconName = addingCategory.iconName
+            let maxOrderNumber = try sqliteDatabase.categoryTable.selectMaxOrderNumber() ?? 0
+            let nextOrderNumber = maxOrderNumber + 1
+            let values = CategoryInsertingValues(id: id, name: name, iconName: iconName, colorType: color.rawValue, orderNumber: nextOrderNumber)
+            try sqliteDatabase.categoryTable.insertValues(values)
+            let category = Category(id: id, name: name, color: color, iconName: iconName)
+            try sqliteDatabase.commitTransaction()
             return category
         } catch {
+            try sqliteDatabase.rollbackTransaction()
             throw error
         }
     }
@@ -144,15 +153,24 @@ public class Storage {
     @discardableResult
     public func addCategories(_ addingCategories: [AddingCategory]) throws -> [Category] {
         do {
+            try sqliteDatabase.beginTransaction()
             var addedCategories: [Category] = []
             for addingCategory in addingCategories {
                 let id = UUID().uuidString
-                let category = Category(id: id, name: addingCategory.name, color: addingCategory.color, iconName: addingCategory.iconName)
+                let name = addingCategory.name
+                let color = addingCategory.color
+                let iconName = addingCategory.iconName
+                let maxOrderNumber = try sqliteDatabase.categoryTable.selectMaxOrderNumber() ?? 0
+                let nextOrderNumber = maxOrderNumber + 1
+                let values = CategoryInsertingValues(id: id, name: name, iconName: iconName, colorType: color.rawValue, orderNumber: nextOrderNumber)
+                try sqliteDatabase.categoryTable.insertValues(values)
+                let category = Category(id: id, name: name, color: color, iconName: iconName)
                 addedCategories.append(category)
             }
-            try sqliteDatabase.insertCategores(Set(addedCategories))
+            try sqliteDatabase.commitTransaction()
             return addedCategories
         } catch {
+            try sqliteDatabase.rollbackTransaction()
             throw error
         }
     }
@@ -161,9 +179,9 @@ public class Storage {
         do {
             try sqliteDatabase.beginTransaction()
             let values = CategoryUpdatingValues(name: editingCategory.name, iconName: editingCategory.iconName, colorType: editingCategory.color.rawValue)
-            try sqliteDatabase.categoryTable.updateWhereId(editingCategory.id, valuesExceptOrderNumber: values)
+            try sqliteDatabase.categoryTable.updateWhereId(editingCategory.id, values: values)
             try sqliteDatabase.commitTransaction()
-            return Category(id: editingCategory.id, name: editingCategory.name ?? "", color: editingCategory.color ?? .variant1, iconName: editingCategory.iconName ?? "")
+            return Category(id: editingCategory.id, name: editingCategory.name, color: editingCategory.color, iconName: editingCategory.iconName)
         } catch {
             try sqliteDatabase.rollbackTransaction()
             throw error
@@ -172,7 +190,7 @@ public class Storage {
     
     public func removeCategory(id: String) throws {
         do {
-            try sqliteDatabase.deleteCategoryById(id)
+            try sqliteDatabase.categoryTable.deleteWhereId(id)
         } catch {
             throw error
         }
@@ -194,9 +212,20 @@ public class Storage {
     
     // MARK: - Balance Account
     
+    private func mapBalanceAccountSelectedRowToBalanceAccount(_ balanceAccountSelectedRow: BalanceAccountSelectedRow) throws -> BalanceAccount {
+        let id = balanceAccountSelectedRow.id
+        let name = balanceAccountSelectedRow.name
+        let amount = Decimal(balanceAccountSelectedRow.amount) / 100
+        let currency = try Currency(balanceAccountSelectedRow.currency)
+        let color = BalanceAccountColor(rawValue: balanceAccountSelectedRow.color)!
+        let balanceAccount = BalanceAccount(id: id, name: name, amount: amount, currency: currency, color: color)
+        return balanceAccount
+    }
+    
     public func getAllBalanceAccounts() throws -> [BalanceAccount] {
         do {
-            let balanceAccounts = try sqliteDatabase.selectBalanceAccounts()
+            let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.select()
+            let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
             return balanceAccounts
         } catch {
             throw error
@@ -205,7 +234,8 @@ public class Storage {
     
     public func getAllBalanceAccountsOrdered() throws -> [BalanceAccount] {
         do {
-            let balanceAccounts = try sqliteDatabase.selectBalanceAccountsOrderedByOrderNumber()
+            let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectOrderByOrderNumber()
+            let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
             return balanceAccounts
         } catch {
             throw error
@@ -214,8 +244,9 @@ public class Storage {
     
     public func getBalanceAccount(id: String) throws -> BalanceAccount {
         do {
-            let balanceAccounts = try sqliteDatabase.selectBalanceAccountsByIds([id]).first
-            return balanceAccounts!
+            let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectOrderByOrderNumber()
+            let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
+            return balanceAccounts.first!
         } catch {
             throw error
         }
@@ -223,7 +254,8 @@ public class Storage {
     
     public func getBalanceAccounts(ids: [String]) throws -> [BalanceAccount] {
         do {
-            let balanceAccounts = try sqliteDatabase.selectBalanceAccountsByIds(ids)
+            let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectWhereIdIn(ids)
+            let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
             return balanceAccounts
         } catch {
             throw error
@@ -233,10 +265,20 @@ public class Storage {
     @discardableResult
     public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws -> BalanceAccount {
         do {
+            try sqliteDatabase.beginTransaction()
             let balanceAccount = BalanceAccount(addingBalanceAccount: addingBalanceAccount)
-            try sqliteDatabase.insertBalanceAccount(balanceAccount)
+            let id = UUID().uuidString
+            let name = addingBalanceAccount.name
+            let amount = Int64(try (addingBalanceAccount.amount * 100).int())
+            let currency = addingBalanceAccount.currency.rawValue
+            let color = addingBalanceAccount.color.rawValue
+            let orderNumber = (try sqliteDatabase.balanceAccountTable.selectMaxOrderNumber() ?? 0) + 1
+            let values = BalanceAccountInsertingValues(id: id, name: name, amount: amount, currency: currency, color: color, orderNumber: orderNumber)
+            try sqliteDatabase.balanceAccountTable.insert(values: values)
+            try sqliteDatabase.commitTransaction()
             return balanceAccount
         } catch {
+            try sqliteDatabase.rollbackTransaction()
             throw error
         }
     }
@@ -257,7 +299,7 @@ public class Storage {
     
     public func removeBalanceAccount(id: String) throws {
         do {
-            try sqliteDatabase.deleteBalanceAccountById(id)
+            try sqliteDatabase.balanceAccountTable.deleteWhereId(id)
         } catch {
             throw error
         }
@@ -266,9 +308,19 @@ public class Storage {
     @discardableResult
     public func updateBalanceAccount(editingBalanceAccount: EditingBalanceAccount) throws -> BalanceAccount {
         do {
-            try sqliteDatabase.updateBalanceAccount(editingBalanceAccount)
-            return BalanceAccount(id: editingBalanceAccount.id, name: editingBalanceAccount.name ?? "", amount: editingBalanceAccount.amount ?? Decimal(), currency: editingBalanceAccount.currency ?? .EUR, color: editingBalanceAccount.color ?? .variant1)
+            try sqliteDatabase.beginTransaction()
+            let id = editingBalanceAccount.id
+            let name = editingBalanceAccount.name
+            let amount = Int64(try (editingBalanceAccount.amount * 100).int())
+            let currency = editingBalanceAccount.currency.rawValue
+            let color = editingBalanceAccount.color.rawValue
+            let values = BalanceAccountUpdatingValues(name: name, amount: amount, currency: currency, color: color)
+            try sqliteDatabase.balanceAccountTable.updateWhereId(id, values: values)
+            try sqliteDatabase.commitTransaction()
+            let balanceAccount = BalanceAccount(id: id, name: name, amount: editingBalanceAccount.amount, currency: editingBalanceAccount.currency, color: editingBalanceAccount.color)
+            return balanceAccount
         } catch {
+            try sqliteDatabase.rollbackTransaction()
             throw error
         }
     }
@@ -281,21 +333,26 @@ public class Storage {
     @discardableResult
     public func addBalanceAccountAmount(id: String, amount: Decimal) throws -> BalanceAccount {
         do {
-            let balanceAccount = try getBalanceAccount(id: id)
-            let newAmount = balanceAccount.amount + amount
-            let editingAccount = EditingBalanceAccount(id: id, name: nil, currency: nil, amount: newAmount, color: nil)
-            try updateBalanceAccount(editingBalanceAccount: editingAccount)
-            let updatedAccount = try getBalanceAccount(id: id)
-            return updatedAccount
+            try sqliteDatabase.beginTransaction()
+            try sqliteDatabase.balanceAccountTable.updateWhereId(id, addingAmount: Int64(try amount.int()))
+            try sqliteDatabase.commitTransaction()
+            return try getBalanceAccount(id: id)
         } catch {
+            try sqliteDatabase.rollbackTransaction()
             throw error
         }
     }
     
-    public func saveBalanceAccountOrder(orderedIds: [BalanceAccount]) throws {
+    public func saveBalanceAccountOrder(orderedIds: [String]) throws {
         do {
-            try sqliteDatabase.updateBalanceAccountsOrderNumbers(orderedIds)
+            try sqliteDatabase.beginTransaction()
+            for (index, id) in orderedIds.enumerated() {
+                let orderNumber = Int64(index)
+                try sqliteDatabase.balanceAccountTable.updateWhereId(id, orderNumber: orderNumber)
+            }
+            try sqliteDatabase.commitTransaction()
         } catch {
+            try sqliteDatabase.rollbackTransaction()
             throw error
         }
     }
@@ -308,10 +365,49 @@ public class Storage {
     }
     
     public func getSelectedCurrency() throws -> Currency? {
-        let ff = try sqliteDatabase.historySqliteView.selectOrderByTimestampDescending()
+        let ff = try sqliteDatabase.historySqliteView.selectOrderByTimestampDesc()
+//        var operations: [Operation] = []
+//        for row in ff {
+//            let error = Error("ggg")
+//            guard let type = row.type else { throw error }
+//            switch type {
+//            case "expense":
+//                
+//            default:
+//                throw error
+//            }
+//        }
+        
         
         let repo = createSelectedCurrencyRepo()
         return try repo.fetch()
+    }
+    
+    private func extractExpense(_ operationSelectedRow: OperationSelectedRow) throws -> Operation {
+        let error = Error("ggg")
+        guard let id = operationSelectedRow.expenseId else { throw error }
+        guard let timestamp = operationSelectedRow.expenseTimestamp else { throw error }
+        guard let amount = operationSelectedRow.expenseAmount else { throw error }
+        guard let balanceAccountId = operationSelectedRow.expenseBalanceAccountId else { throw error }
+        guard let balanceAccountName = operationSelectedRow.expenseBalanceAccountName else { throw error }
+        guard let balanceAccountAmount = operationSelectedRow.expenseBalanceAccountAmount else { throw error }
+        guard let balanceAccountCurrency = operationSelectedRow.expenseBalanceAccountCurrency else { throw error }
+        guard let balanceAccountColor = operationSelectedRow.expenseBalanceAccountColor else { throw error }
+        guard let categoryId = operationSelectedRow.expenseCategoryId else { throw error }
+        guard let categoryName = operationSelectedRow.expenseCategoryName else { throw error }
+        guard let categoryIcon = operationSelectedRow.expenseCategoryIcon else { throw error }
+        guard let categoryColor = operationSelectedRow.expenseCategoryColor else { throw error }
+        let comment = operationSelectedRow.expenseComment
+        
+        let expense = Expense(id: id, amount: Decimal(amount) / 100, date: Date(timeIntervalSince1970: TimeInterval(timestamp)), comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+        let categoryColorEnt = try CategoryColor(categoryColor)
+        let category = Category(id: categoryId, name: categoryName, color: categoryColorEnt, iconName: categoryIcon)
+        
+        let currency = try Currency(balanceAccountCurrency)
+        let balanceAccountColorEnd = BalanceAccountColor(rawValue: balanceAccountColor)!
+        let balanceAccount = BalanceAccount(id: balanceAccountId, name: balanceAccountName, amount: Decimal(balanceAccountAmount) / 100, currency: currency, color: balanceAccountColorEnd)
+        
+        return .expense(expense: expense, category: category, balanceAccount: balanceAccount)
     }
     
     private func createSelectedCurrencyRepo() -> SelectedCurrencyUserDefaultRepo {

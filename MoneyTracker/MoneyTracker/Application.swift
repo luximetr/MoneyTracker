@@ -163,7 +163,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             let balanceAccountAdapter = BalanceAccountAdapter()
             let storageCategories = presentationBalanceAccounts.map({ balanceAccountAdapter.adaptToStorage(presentationAccount: $0) })
-            try storage.saveBalanceAccountOrder(orderedIds: storageCategories)
+            try storage.saveBalanceAccountOrder(orderedIds: storageCategories.map({ $0.id }))
         } catch {
             let error = Error("Cannot order accounts \(presentationBalanceAccounts)\n\(error)")
             throw error
