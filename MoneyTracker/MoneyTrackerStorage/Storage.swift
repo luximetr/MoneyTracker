@@ -30,7 +30,7 @@ public class Storage {
         do {
             try sqliteDatabase.beginTransaction()
             let id = UUID().uuidString
-            let date = Int64(addingBalanceTransfer.date.timeIntervalSinceReferenceDate)
+            let date = Int64(addingBalanceTransfer.date.timeIntervalSince1970)
             let fromBalanceAccountId = addingBalanceTransfer.fromBalanceAccountId
             let fromAmount = addingBalanceTransfer.fromAmount
             let toBalanceAccountId = addingBalanceTransfer.toBalanceAccountId

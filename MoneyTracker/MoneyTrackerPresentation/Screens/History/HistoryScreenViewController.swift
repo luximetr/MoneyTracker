@@ -52,28 +52,12 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         }
         return cellController
     }
-    private func expenseCellControllerForExpense(_ expense: Expense) -> AddExpenseScreenViewController.ExpenseTableViewCellController? {
+    private func expenseCellControllerForExpense(_ expense: Expense) -> ExpenseTableViewCellController? {
         let cellController = expensesSectionController.cellControllers.first { cellController in
-            guard let expenseCellController = cellController as? AddExpenseScreenViewController.ExpenseTableViewCellController else { return false }
+            guard let expenseCellController = cellController as? ExpenseTableViewCellController else { return false }
             return expenseCellController.expense.id == expense.id
         }
-        return cellController as? AddExpenseScreenViewController.ExpenseTableViewCellController
-    }
-    
-    // MARK: Localizer
-    
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "HistoryScreenStrings")
-        return localizer
-    }()
-    
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        setContent()
-    }
-    
-    private func setContent() {
-        screenView.titleLabel.text = localizer.localizeText("title")
+        return cellController as? ExpenseTableViewCellController
     }
     
     // MARK: Events
@@ -108,6 +92,20 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Content
     
+    private lazy var localizer: ScreenLocalizer = {
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "HistoryScreenStrings")
+        return localizer
+    }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    private func setContent() {
+        screenView.titleLabel.text = localizer.localizeText("title")
+    }
+    
     private func setTableViewControllerContent() {
         expensesSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
@@ -121,7 +119,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
                     let expenseCellController = createExpenseTableViewController(expense: expense)
                     cellControllers.append(expenseCellController)
                 case .balanceTransfer(let balanceTransfer):
-                    continue
+                    let balanceTransferCellController = createBalanceTransferTableViewController(balanceTransfer: balanceTransfer)
+                    cellControllers.append(balanceTransferCellController)
                 case .balanceReplenishment(let balanceReplenishment):
                     let balanceReplenishmentCellController = createBalanceReplenishmentTableViewController(balanceReplenishment: balanceReplenishment)
                     cellControllers.append(balanceReplenishmentCellController)
@@ -152,7 +151,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     private func createExpenseTableViewController(expense: Expense) -> AUITableViewCellController {
-        let cellController = AddExpenseScreenViewController.ExpenseTableViewCellController(expense: expense)
+        let cellController = ExpenseTableViewCellController(expense: expense)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.expenseTableViewCell(indexPath)
@@ -166,32 +165,38 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return 0 }
             return self.screenView.expenseTableViewCellHeight()
         }
-//        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
-//            guard let self = self else { return nil }
-//            let title = self.localizer.localizeText("delete")
-//            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
-//                guard let self = self else { return }
-//                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
-//                    success(false)
-//                    return
-//                }
-//                do {
-//                    try deleteExpenseClosure(expense)
-//                    guard let index = self.expenses.firstIndex(where: { expense == $0 }) else {
-//                        success(false)
-//                        return
-//                    }
-//                    self.expenses.remove(at: index)
-//                    let cellControllers: [AUITableViewCellController] = [cellController]
-//                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
-//                        success(true)
-//                    }
-//                } catch {
-//                    success(false)
-//                }
-//            })
-//            return UISwipeActionsConfiguration(actions: [deleteAction])
-//        }
+        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+            guard let self = self else { return nil }
+            let title = self.localizer.localizeText("delete")
+            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
+                guard let self = self else { return }
+                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
+                    success(false)
+                    return
+                }
+                do {
+                    try deleteExpenseClosure(expense)
+                    let firstIndex = self.operations.firstIndex { operation in
+                        if case .expense(let _expense) = operation {
+                            return _expense == expense
+                        }
+                        return false
+                    }
+                    guard let index = firstIndex else {
+                        success(false)
+                        return
+                    }
+                    self.operations.remove(at: index)
+                    let cellControllers: [AUITableViewCellController] = [cellController]
+                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
+                        success(true)
+                    }
+                } catch {
+                    success(false)
+                }
+            })
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
         cellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
             self.selectExpenseClosure?(expense)
@@ -213,6 +218,24 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         cellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
             return self.screenView.balanceReplenishmentTableViewCellHeight()
+        }
+        return cellController
+    }
+    
+    private func createBalanceTransferTableViewController(balanceTransfer: BalanceTransfer) -> AUITableViewCellController {
+        let cellController = BalanceTransferTableViewCellController(language: language, balanceTransfer: balanceTransfer)
+        cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.screenView.balanceTransferTableViewCell(indexPath)
+            return cell
+        }
+        cellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            return self.screenView.balanceTransferTableViewCellEstimatedHeight()
+        }
+        cellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            return self.screenView.balanceTransferTableViewCellHeight()
         }
         return cellController
     }
