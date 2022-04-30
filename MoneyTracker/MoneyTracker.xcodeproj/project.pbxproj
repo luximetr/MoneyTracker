@@ -39,6 +39,7 @@
 		2E5279592811AFAC00BC916B /* SqliteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5279582811AFAC00BC916B /* SqliteDatabase.swift */; };
 		2E52795B2811AFC800BC916B /* CategorySqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */; };
 		2E52795D2811B01300BC916B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52795C2811B01300BC916B /* Error.swift */; };
+		2E72CEEE281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E72CEED281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift */; };
 		2E7F856A281D6AFC0013C3DD /* HistoryScreenBalanceTransferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F8569281D6AFC0013C3DD /* HistoryScreenBalanceTransferTableViewCell.swift */; };
 		2E7F856C281D6B0B0013C3DD /* HistoryScreenBalanceTransferTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F856B281D6B0B0013C3DD /* HistoryScreenBalanceTransferTableViewCellController.swift */; };
 		2E7F856F281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F856E281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift */; };
@@ -534,6 +535,7 @@
 		2E5279582811AFAC00BC916B /* SqliteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteDatabase.swift; sourceTree = "<group>"; };
 		2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySqliteTable.swift; sourceTree = "<group>"; };
 		2E52795C2811B01300BC916B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		2E72CEED281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateSqliteTable.swift; sourceTree = "<group>"; };
 		2E7F8569281D6AFC0013C3DD /* HistoryScreenBalanceTransferTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenBalanceTransferTableViewCell.swift; sourceTree = "<group>"; };
 		2E7F856B281D6B0B0013C3DD /* HistoryScreenBalanceTransferTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenBalanceTransferTableViewCellController.swift; sourceTree = "<group>"; };
 		2E7F856E281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenExpenseTableViewCellController.swift; sourceTree = "<group>"; };
@@ -1871,6 +1873,7 @@
 				2E52795A2811AFC800BC916B /* CategorySqliteTable.swift */,
 				2EDE102A2815B85D008BB8C5 /* BalanceAccountSqliteTable.swift */,
 				2E832AAE2816DBEF0083B77F /* ExpenseSqliteTable.swift */,
+				2E72CEED281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift */,
 				2E5061E32818542900C6C217 /* BalanceTransferSqliteTable.swift */,
 				2E25262028191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift */,
 				2E5061E128184CFE00C6C217 /* OperationSqliteView.swift */,
@@ -3085,6 +3088,7 @@
 			files = (
 				2E926E9D27BC58140081E3AE /* Expense.swift in Sources */,
 				2E926E9F27BC58140081E3AE /* EditingCategory.swift in Sources */,
+				2E72CEEE281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift in Sources */,
 				2E926E9827BC58140081E3AE /* BalanceAccount.swift in Sources */,
 				2EB2E878281080E00017ACDD /* AppearanceSetting.swift in Sources */,
 				2E926EAA27BC59030081E3AE /* Balance.swift in Sources */,

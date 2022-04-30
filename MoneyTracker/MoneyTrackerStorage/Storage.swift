@@ -678,79 +678,95 @@ public class Storage {
     // MARK: - ExpenseTemplate
     
     public func addExpenseTemplate(addingExpenseTemplate: AddingExpenseTemplate) throws -> ExpenseTemplate {
-        let template = ExpenseTemplate(addingExpenseTemplate: addingExpenseTemplate)
-        let repo = createExpenseTemplateRepo()
-        try repo.insert(expenseTemplate: template)
-        try appendToExpenseTemplatesOrder(expenseTemplateId: template.id)
-        return template
+        do {
+            try sqliteDatabase.beginTransaction()
+            let id = UUID().uuidString
+            let name = addingExpenseTemplate.name
+            let amount = Int64(try addingExpenseTemplate.amount.int() * 100)
+            let balanceAccountId = addingExpenseTemplate.balanceAccountId
+            let categoryId = addingExpenseTemplate.categoryId
+            let comment = addingExpenseTemplate.comment
+            let maxOrderNumber = try sqliteDatabase.expenseTemplateTable.selectMaxOrderNumber() ?? 0
+            let nextOrderNumber = maxOrderNumber + 1
+            let expenseTemplateInsertingValues = ExpenseTemplateInsertingValues(id: id, name: name, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment, orderNumber: nextOrderNumber)
+            try sqliteDatabase.expenseTemplateTable.insertValues(expenseTemplateInsertingValues)
+            try sqliteDatabase.commitTransaction()
+            let expenseTemplate = ExpenseTemplate(id: id, name: name, amount: addingExpenseTemplate.amount, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+            return expenseTemplate
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
     }
     
     public func getAllExpenseTemplates() throws -> [ExpenseTemplate] {
-        let repo = createExpenseTemplateRepo()
-        return try repo.fetchAllTemplates()
+        do {
+            let selectedRows = try sqliteDatabase.expenseTemplateTable.select()
+            let expenseTemplates: [ExpenseTemplate] = selectedRows.map { selectedRow in
+                let amount = Decimal(selectedRow.amount) / 100
+                let expenseTemplate = ExpenseTemplate(id: selectedRow.id, name: selectedRow.name, amount: amount, comment: selectedRow.comment, balanceAccountId: selectedRow.balanceAccountId, categoryId: selectedRow.categoryId)
+                return expenseTemplate
+            }
+            return expenseTemplates
+        } catch {
+            throw error
+        }
     }
     
     public func getAllExpenseTemplatesOrdered() throws -> [ExpenseTemplate] {
-        let orderRepo = createExpenseTemplatesOrderRepo()
-        let orderedIds = try orderRepo.fetchOrder()
-        let templates = try getAllExpenseTemplates()
-        return orderExpenseTemplates(templates, orderedIds: orderedIds)
-    }
-    
-    public func getExpenseTemplatesOrdered(limit: Int) throws -> [ExpenseTemplate] {
-        let orderRepo = createExpenseTemplatesOrderRepo()
-        let orderedIds = try orderRepo.fetchOrder(limit: limit)
-        let templatesRepo = createExpenseTemplateRepo()
-        let templates = try templatesRepo.fetchTemplates(ids: orderedIds)
-        return orderExpenseTemplates(templates, orderedIds: orderedIds)
+        do {
+            let selectedRows = try sqliteDatabase.expenseTemplateTable.selectOrderByOrderNumber()
+            let expenseTemplates: [ExpenseTemplate] = selectedRows.map { selectedRow in
+                let amount = Decimal(selectedRow.amount) / 100
+                let expenseTemplate = ExpenseTemplate(id: selectedRow.id, name: selectedRow.name, amount: amount, comment: selectedRow.comment, balanceAccountId: selectedRow.balanceAccountId, categoryId: selectedRow.categoryId)
+                return expenseTemplate
+            }
+            return expenseTemplates
+        } catch {
+            throw error
+        }
     }
     
     public func getExpenseTemplate(expenseTemplateId id: String) throws -> ExpenseTemplate {
-        let repo = createExpenseTemplateRepo()
-        return try repo.fetchTemplate(expenseTemplateId: id)
+        return try getAllExpenseTemplates().first(where: { $0.id == id })!
     }
     
     public func updateExpenseTemplate(editingExpenseTemplate: EditingExpenseTemplate) throws {
-        let repo = createExpenseTemplateRepo()
-        try repo.updateTemplate(editingExpenseTemplate: editingExpenseTemplate)
+        do {
+            try sqliteDatabase.beginTransaction()
+            let amount = Int64(try (editingExpenseTemplate.amount * 100).int())
+            let expenseTemplateUpdatingByIdValues = ExpenseTemplateUpdatingByIdValues(name: editingExpenseTemplate.name, amount: amount, balanceAccountId: editingExpenseTemplate.balanceAccountId, categoryId: editingExpenseTemplate.categoryId, comment: editingExpenseTemplate.comment)
+            try sqliteDatabase.expenseTemplateTable.updateWhere(id: editingExpenseTemplate.id, values: expenseTemplateUpdatingByIdValues)
+            try sqliteDatabase.commitTransaction()
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
+    }
+    
+    public func saveExpenseTemplatesOrder(orderedIds: [String]) throws {
+        do {
+            try sqliteDatabase.beginTransaction()
+            for (index, id) in orderedIds.enumerated() {
+                let orderNumber = Int64(index)
+                try sqliteDatabase.expenseTemplateTable.updateWhereId(id, orderNumber: orderNumber)
+            }
+            try sqliteDatabase.commitTransaction()
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
     }
     
     public func removeExpenseTemplate(expenseTemplateId id: String) throws {
-        let repo = createExpenseTemplateRepo()
-        try repo.removeTemplate(expenseTemplateId: id)
-        try removeFromExpenseTemplatesOrder(expenseTemplateId: id)
-    }
-    
-    private func createExpenseTemplateRepo() -> ExpenseTemplateCoreDataRepo {
-        return ExpenseTemplateCoreDataRepo(coreDataAccessor: coreDataAccessor)
-    }
-    
-    // MARK: - ExpenseTemplates order
-    
-    public func saveExpenseTemplatesOrder(orderedIds: [String]) throws {
-        let repo = createExpenseTemplatesOrderRepo()
-        try repo.updateOrder(orderedIds: orderedIds)
-    }
-    
-    private func orderExpenseTemplates(_ expenseTemplates: [ExpenseTemplate], orderedIds: [ExpenseTemplateId]) -> [ExpenseTemplate] {
-        let sortedTemplates = orderedIds.compactMap { id -> ExpenseTemplate? in
-            return expenseTemplates.first(where: { $0.id == id })
+        do {
+            try sqliteDatabase.beginTransaction()
+            try sqliteDatabase.expenseTemplateTable.deleteById(id)
+            try sqliteDatabase.commitTransaction()
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
         }
-        return sortedTemplates
-    }
-    
-    private func appendToExpenseTemplatesOrder(expenseTemplateId id: ExpenseTemplateId) throws {
-        let repo = createExpenseTemplatesOrderRepo()
-        try repo.appendExpenseTemplateId(id)
-    }
-    
-    private func removeFromExpenseTemplatesOrder(expenseTemplateId id: ExpenseTemplateId) throws {
-        let repo = createExpenseTemplatesOrderRepo()
-        try repo.removeExpenseTemplateId(id)
-    }
-    
-    private func createExpenseTemplatesOrderRepo() -> ExpenseTemplatesOrderCoreDataRepo {
-        return ExpenseTemplatesOrderCoreDataRepo(coreDataAccessor: coreDataAccessor)
     }
     
     // MARK: Operations

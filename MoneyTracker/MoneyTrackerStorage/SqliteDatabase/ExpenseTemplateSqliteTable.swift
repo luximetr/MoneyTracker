@@ -1,39 +1,41 @@
 //
-//  ExpenseSqliteTable.swift
+//  ExpenseTemplateSqliteTable.swift
 //  MoneyTrackerStorage
 //
-//  Created by Job Ihor Myroniuk on 25.04.2022.
+//  Created by Job Ihor Myroniuk on 30.04.2022.
 //
 
 import SQLite3
 
-struct ExpenseInsertingValues {
+struct ExpenseTemplateInsertingValues {
     let id: String
-    let timestamp: Int64
+    let name: String
+    let amount: Int64
+    let balanceAccountId: String
+    let categoryId: String
+    let comment: String?
+    let orderNumber: Int64
+}
+
+struct ExpenseTemplateUpdatingByIdValues {
+    let name: String
     let amount: Int64
     let balanceAccountId: String
     let categoryId: String
     let comment: String?
 }
 
-struct ExpenseUpdatingByIdValues {
-    let timestamp: Int64
-    let amount: Int64
-    let balanceAccountId: String
-    let categoryId: String
-    let comment: String?
-}
-
-struct ExpenseSelectedRow {
+struct ExpenseTemplateSelectedRow {
     let id: String
-    let timestamp: Int64
+    let name: String
     let amount: Int64
     let balanceAccountId: String
     let categoryId: String
     let comment: String?
+    let orderNumber: Int64
 }
 
-class ExpenseSqliteTable {
+class ExpenseTemplateSqliteTable {
     
     private let databaseConnection: OpaquePointer
     
@@ -49,13 +51,14 @@ class ExpenseSqliteTable {
         let statement =
             """
             CREATE TABLE IF NOT EXISTS
-            expense(
+            expense_template(
                 id TEXT PRIMARY KEY,
-                timestamp INTEGER,
+                name TEXT,
                 amount INTEGER,
                 balance_account_id TEXT,
                 category_id TEXT,
                 comment TEXT,
+                order_number INTEGER,
                 FOREIGN KEY(category_id) REFERENCES category(id),
                 FOREIGN KEY(balance_account_id) REFERENCES balance_account(id)
             );
@@ -68,31 +71,32 @@ class ExpenseSqliteTable {
     
     // MARK: - INSERT
     
-    func insertValues(_ values: ExpenseInsertingValues) throws {
+    func insertValues(_ values: ExpenseTemplateInsertingValues) throws {
         let statement =
             """
-            INSERT INTO expense(id, timestamp, amount, balance_account_id, category_id, comment)
-            VALUES (?, ?, ?, ?, ?, ?);
+            INSERT INTO expense_template(id, name, amount, balance_account_id, category_id, comment, order_number)
+            VALUES (?, ?, ?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.timestamp)
+        try sqlite3BindText(databaseConnection, preparedStatement, 2, values.name, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
         try sqlite3BindText(databaseConnection, preparedStatement, 4, values.balanceAccountId, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 5, values.categoryId, -1, nil)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 6, values.comment, -1, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 7, values.orderNumber)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
     // MARK: - UPDATE
     
-    func updateWhere(id: String, values: ExpenseUpdatingByIdValues) throws {
+    func updateWhere(id: String, values: ExpenseTemplateUpdatingByIdValues) throws {
         let statement =
             """
-            UPDATE expense SET
-                timestamp = ?,
+            UPDATE expense_template SET
+                name = ?,
                 amount = ?,
                 balance_account_id = ?,
                 category_id = ?,
@@ -101,7 +105,7 @@ class ExpenseSqliteTable {
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, values.timestamp)
+        try sqlite3BindText(databaseConnection, preparedStatement, 1, values.name, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
         try sqlite3BindText(databaseConnection, preparedStatement, 3, values.balanceAccountId, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 4, values.categoryId, -1, nil)
@@ -111,12 +115,25 @@ class ExpenseSqliteTable {
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }
     
+    func updateWhereId(_ id: String, orderNumber: Int64) throws {
+        let statement =
+            """
+            UPDATE expense_template SET order_number = ? WHERE id = ?;
+            """
+        var preparedStatement: OpaquePointer?
+        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, orderNumber)
+        try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
+        try sqlite3StepDone(databaseConnection, preparedStatement)
+        try sqlite3Finalize(databaseConnection, preparedStatement)
+    }
+    
     // MARK: - DELETE
     
     func deleteById(_ id: String) throws {
         let statement =
             """
-            DELETE FROM expense WHERE id = ?;
+            DELETE FROM expense_template WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -127,103 +144,65 @@ class ExpenseSqliteTable {
     
     // MARK: - SELECT
     
-    private func extractExpenseSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ExpenseSelectedRow {
+    private func extractExpenseTemplateSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ExpenseTemplateSelectedRow {
         let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-        let timestamp = sqlite3ColumnInt64(databaseConnection, preparedStatement, 1)
+        let name = try sqlite3ColumnText(databaseConnection, preparedStatement, 1)
         let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
         let balanceAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
         let categoryId = try sqlite3ColumnText(databaseConnection, preparedStatement, 4)
         let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 5)
-        let expenseSelectedRow = ExpenseSelectedRow(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment)
-        return expenseSelectedRow
+        let orderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 6)
+        let expenseTemplateSelectedRow = ExpenseTemplateSelectedRow(id: id, name: name, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment, orderNumber: orderNumber)
+        return expenseTemplateSelectedRow
     }
     
-    func select() throws -> [ExpenseSelectedRow] {
+    func select() throws -> [ExpenseTemplateSelectedRow] {
         let statement =
             """
-            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense;
+            SELECT id, name, amount, balance_account_id, category_id, comment, order_number FROM expense_template;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        var selectedRows: [ExpenseSelectedRow] = []
+        var selectedRows: [ExpenseTemplateSelectedRow] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
+            let selectedRow = try extractExpenseTemplateSelectedRow(preparedStatement)
             selectedRows.append(selectedRow)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
         return selectedRows
     }
     
-    func selectWhereId(_ id: String) throws -> ExpenseSelectedRow? {
+    func selectOrderByOrderNumber() throws -> [ExpenseTemplateSelectedRow] {
         let statement =
             """
-            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense
-            WHERE id = ?;
+            SELECT id, name, amount, balance_account_id, category_id, comment, order_number FROM expense_template ORDER BY order_number;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
+        var selectedRows: [ExpenseTemplateSelectedRow] = []
         while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
-            return selectedRow
-        }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
-        return nil
-    }
-    
-    func selectWhereDateBetween(startDate: Double, endDate: Double) throws -> [ExpenseSelectedRow] {
-        let statement =
-            """
-            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense
-            WHERE timestamp BETWEEN ? AND ?;
-            """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindDouble(databaseConnection, preparedStatement, 1, startDate)
-        try sqlite3BindDouble(databaseConnection, preparedStatement, 2, endDate)
-        var selectedRows: [ExpenseSelectedRow] = []
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
+            let selectedRow = try extractExpenseTemplateSelectedRow(preparedStatement)
             selectedRows.append(selectedRow)
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
         return selectedRows
     }
     
-    func selectWhereCategoryId(_ categoryId: String) throws -> [ExpenseSelectedRow] {
+    func selectMaxOrderNumber() throws -> Int64? {
         let statement =
             """
-            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense
-            WHERE category_id = ?;
+            SELECT MAX(order_number) FROM expense_template;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, categoryId, -1, nil)
-        var selectedRows: [ExpenseSelectedRow] = []
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
-            selectedRows.append(selectedRow)
+        let maxOrderNumber: Int64?
+        if try sqlite3StepRow(databaseConnection, preparedStatement) {
+            maxOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 0)
+        } else {
+            maxOrderNumber = nil
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
-        return selectedRows
-    }
-    
-    func selectWhereBalanceAccountId(_ balanceAccountId: String) throws -> [ExpenseSelectedRow] {
-        let statement =
-            """
-            SELECT id, timestamp, amount, balance_account_id, category_id, comment FROM expense
-            WHERE balance_account_id = ?;
-            """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, balanceAccountId, -1, nil)
-        var selectedRows: [ExpenseSelectedRow] = []
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
-            let selectedRow = try extractExpenseSelectedRow(preparedStatement)
-            selectedRows.append(selectedRow)
-        }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
-        return selectedRows
+        return maxOrderNumber
     }
     
 }

@@ -117,19 +117,19 @@ class ExpenseTemplateCoreDataRepo {
     
     private func createPropertiesToUpdate(editingTemplate: EditingExpenseTemplate) -> [String : Any] {
         var propertiesToUpdate: [String : Any] = [:]
-        if let name = editingTemplate.name {
-            propertiesToUpdate[#keyPath(ExpenseTemplateMO.name)] = name
-        }
-        if let amount = editingTemplate.amount {
-            propertiesToUpdate[#keyPath(ExpenseTemplateMO.amount)] = amount
-        }
-        propertiesToUpdate[#keyPath(ExpenseTemplateMO.comment)] = editingTemplate.comment ?? ""
-        if let balanceAccountId = editingTemplate.balanceAccountId {
-            propertiesToUpdate[#keyPath(ExpenseTemplateMO.balanceAccountId)] = balanceAccountId
-        }
-        if let categoryId = editingTemplate.categoryId {
-            propertiesToUpdate[#keyPath(ExpenseTemplateMO.categoryId)] = categoryId
-        }
+//        if let name = editingTemplate.name {
+//            propertiesToUpdate[#keyPath(ExpenseTemplateMO.name)] = name
+//        }
+//        if let amount = editingTemplate.amount {
+//            propertiesToUpdate[#keyPath(ExpenseTemplateMO.amount)] = amount
+//        }
+//        propertiesToUpdate[#keyPath(ExpenseTemplateMO.comment)] = editingTemplate.comment ?? ""
+//        if let balanceAccountId = editingTemplate.balanceAccountId {
+//            propertiesToUpdate[#keyPath(ExpenseTemplateMO.balanceAccountId)] = balanceAccountId
+//        }
+//        if let categoryId = editingTemplate.categoryId {
+//            propertiesToUpdate[#keyPath(ExpenseTemplateMO.categoryId)] = categoryId
+//        }
         return propertiesToUpdate
     }
     

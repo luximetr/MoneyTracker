@@ -9,19 +9,19 @@ import Foundation
 
 public struct EditingExpenseTemplate {
     public let id: String
-    public let name: String?
-    public let amount: Decimal?
+    public let name: String
+    public let amount: Decimal
     public let comment: String?
-    public let balanceAccountId: String?
-    public let categoryId: String?
+    public let balanceAccountId: String
+    public let categoryId: String
     
     public init(
         id: String,
-        name: String? = nil,
-        amount: Decimal? = nil,
-        comment: String? = nil,
-        balanceAccountId: String? = nil,
-        categoryId: String? = nil
+        name: String,
+        amount: Decimal,
+        comment: String?,
+        balanceAccountId: String,
+        categoryId: String
     ) {
         self.id = id
         self.name = name
