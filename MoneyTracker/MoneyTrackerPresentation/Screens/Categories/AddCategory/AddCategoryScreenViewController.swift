@@ -159,7 +159,7 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         }
     }
     
-    // MARK: - Snackbar
+    // MARK: - Error Snackbar
     
     private let errorSnackbarViewController: ErrorSnackbarViewController
     
