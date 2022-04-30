@@ -291,8 +291,6 @@
 		DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEFC27EF029500F8CA55 /* ImportingBalanceAccount.swift */; };
 		DB62AF0027EF02E500F8CA55 /* ImportingExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEFF27EF02E500F8CA55 /* ImportingExpensesFile.swift */; };
 		DB62AF0327EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AF0227EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift */; };
-		DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */; };
-		DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */; };
 		DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */; };
 		DB74863427BA5B81004DF67B /* ExpenseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863327BA5B81004DF67B /* ExpenseTemplate.swift */; };
 		DB74863927BA6042004DF67B /* AddTemplateScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74863827BA6042004DF67B /* AddTemplateScreenViewController.swift */; };
@@ -356,8 +354,6 @@
 		DBB7BD3027DDDF20004EF5B7 /* CategoryHorizontalPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD2F27DDDF20004EF5B7 /* CategoryHorizontalPickerController.swift */; };
 		DBB7BD3227DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD3127DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift */; };
 		DBB7BD3427DDE28C004EF5B7 /* CategoryHorizontalPickerItemCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7BD3327DDE28C004EF5B7 /* CategoryHorizontalPickerItemCellController.swift */; };
-		DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */; };
-		DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */; };
 		DBD6ACDF27B2A79F00389236 /* SelectCurrencyScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */; };
 		DBD6ACE127B2A7E200389236 /* SelectCurrencyScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */; };
 		DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBD6ACE627B35BF600389236 /* SelectCurrencyScreenStrings.strings */; };
@@ -852,8 +848,6 @@
 		DB62AEFC27EF029500F8CA55 /* ImportingBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingBalanceAccount.swift; sourceTree = "<group>"; };
 		DB62AEFF27EF02E500F8CA55 /* ImportingExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpensesFile.swift; sourceTree = "<group>"; };
 		DB62AF0227EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpensesFileAdapter.swift; sourceTree = "<group>"; };
-		DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateCoreDataRepo.swift; sourceTree = "<group>"; };
-		DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplatesOrderCoreDataRepo.swift; sourceTree = "<group>"; };
 		DB74863127BA5B35004DF67B /* TemplatesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewController.swift; sourceTree = "<group>"; };
 		DB74863327BA5B81004DF67B /* ExpenseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplate.swift; sourceTree = "<group>"; };
 		DB74863827BA6042004DF67B /* AddTemplateScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTemplateScreenViewController.swift; sourceTree = "<group>"; };
@@ -916,8 +910,6 @@
 		DBB7BD2F27DDDF20004EF5B7 /* CategoryHorizontalPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHorizontalPickerController.swift; sourceTree = "<group>"; };
 		DBB7BD3127DDE098004EF5B7 /* CategoryHorizontalPickerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHorizontalPickerItemCell.swift; sourceTree = "<group>"; };
 		DBB7BD3327DDE28C004EF5B7 /* CategoryHorizontalPickerItemCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHorizontalPickerItemCellController.swift; sourceTree = "<group>"; };
-		DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAccessor.swift; sourceTree = "<group>"; };
-		DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DBD6ACDE27B2A79F00389236 /* SelectCurrencyScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyScreenViewController.swift; sourceTree = "<group>"; };
 		DBD6ACE027B2A7E200389236 /* SelectCurrencyScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyScreenView.swift; sourceTree = "<group>"; };
 		DBD6ACE527B35BF600389236 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SelectCurrencyScreenStrings.strings; sourceTree = "<group>"; };
@@ -1158,7 +1150,6 @@
 			children = (
 				2E91154F27A936B000359F21 /* Storage.swift */,
 				2E91155127A9373E00359F21 /* Data */,
-				DBB7CF7F27AC0E39002C2EAE /* CoreData */,
 				2ECA9CF92814247200DB27A8 /* SqliteDatabase */,
 				DBD6ACF627B4FB9F00389236 /* UserDefaults */,
 				DBB7CF7C27AC0DD4002C2EAE /* Repositories */,
@@ -2595,19 +2586,8 @@
 			isa = PBXGroup;
 			children = (
 				DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */,
-				DB74862B27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift */,
-				DB74862D27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift */,
 			);
 			path = Repositories;
-			sourceTree = "<group>";
-		};
-		DBB7CF7F27AC0E39002C2EAE /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				DBB7CF7A27AC0C70002C2EAE /* CoreDataAccessor.swift */,
-				DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */,
-			);
-			path = CoreData;
 			sourceTree = "<group>";
 		};
 		DBD6ACDD27B2A76600389236 /* SelectCurrency */ = {
@@ -3093,7 +3073,6 @@
 				2EB2E878281080E00017ACDD /* AppearanceSetting.swift in Sources */,
 				2E926EAA27BC59030081E3AE /* Balance.swift in Sources */,
 				2E91155027A936B100359F21 /* Storage.swift in Sources */,
-				DBB7CF7B27AC0C70002C2EAE /* CoreDataAccessor.swift in Sources */,
 				DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */,
 				2E52795D2811B01300BC916B /* Error.swift in Sources */,
 				DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */,
@@ -3110,15 +3089,12 @@
 				2E926EA927BC59030081E3AE /* EditingExpenseTemplate.swift in Sources */,
 				2E252624281921CC0025D2E9 /* AddingBalanceReplenishment.swift in Sources */,
 				2ED82B5B2815397B00789BA4 /* SqliteHelpers.swift in Sources */,
-				DB74862E27BA50A1004DF67B /* ExpenseTemplatesOrderCoreDataRepo.swift in Sources */,
 				DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */,
 				DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */,
 				2ED248EA28087002001E0498 /* Language.swift in Sources */,
 				2E5279592811AFAC00BC916B /* SqliteDatabase.swift in Sources */,
 				DB62AEF927EEFCCB00F8CA55 /* ImportingExpense.swift in Sources */,
 				2E25262128191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift in Sources */,
-				DB74862C27BA4882004DF67B /* ExpenseTemplateCoreDataRepo.swift in Sources */,
-				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
 				DB62AF0027EF02E500F8CA55 /* ImportingExpensesFile.swift in Sources */,
 				2E926E9727BC58140081E3AE /* AddingBalanceAccount.swift in Sources */,
 				2E926E9C27BC58140081E3AE /* EditingExpense.swift in Sources */,
@@ -4489,19 +4465,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		DBB7CF8327AC120B002C2EAE /* CoreDataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */,
-			);
-			currentVersion = DBB7CF8427AC120B002C2EAE /* CoreDataModel.xcdatamodel */;
-			path = CoreDataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 2EB109F227A6C30C00743416 /* Project object */;
 }

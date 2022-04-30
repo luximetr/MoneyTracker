@@ -12,13 +12,11 @@ public class Storage {
     // MARK: - Dependencies
     
     private let sqliteDatabase: SqliteDatabase
-    private let coreDataAccessor: CoreDataAccessor
     private let userDefautlsAccessor: UserDefaultsAccessor
     
     // MARK: - Initiaizer
     
     public init() {
-        coreDataAccessor = CoreDataAccessor(storageName: "CoreDataModel", storeURL: nil)
         userDefautlsAccessor = UserDefaultsAccessor()
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("DatabaseName.sqlite")
         sqliteDatabase = try! SqliteDatabase(fileURL: fileURL)

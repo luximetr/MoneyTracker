@@ -35,11 +35,6 @@ class SelectedCurrencyUserDefaultRepo {
         return try Currency(rawValue)
     }
     
-    // MARK: - Error
-    
-    enum FetchError: Swift.Error {
-        case notFound
-    }
 }
 
 class SelectedLanguageUserDefaultRepo {
@@ -70,11 +65,6 @@ class SelectedLanguageUserDefaultRepo {
         return Language(rawValue: rawValue)
     }
     
-    // MARK: - Error
-    
-    enum FetchError: Swift.Error {
-        case notFound
-    }
 }
 
 class SelectedAppearanceSettingUserDefaultRepo {
@@ -105,9 +95,4 @@ class SelectedAppearanceSettingUserDefaultRepo {
         return AppearanceSetting(rawValue: rawValue)
     }
     
-    // MARK: - Error
-    
-    enum FetchError: Swift.Error {
-        case notFound
-    }
 }
