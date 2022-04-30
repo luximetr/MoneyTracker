@@ -40,7 +40,6 @@ class ErrorSnackbarView: AppearanceView {
     private func setupTitleLabel() {
         titleLabel.numberOfLines = 0
         titleLabel.font = Fonts.default(size: 17, weight: .semibold)
-        titleLabel.text = "Error and long text and long text and long text and long text and long text and long text"
     }
     
     private func setupDismissIcon() {
@@ -100,6 +99,17 @@ class ErrorSnackbarView: AppearanceView {
         return CGSize(width: width, height: height)
     }
     
+    func updateFrame() {
+        let currentFrame = frame
+        let availableSize = CGSize(width: frame.width, height: .greatestFiniteMagnitude)
+        let takenSize = sizeThatFits(availableSize)
+        let updatedFrame = CGRect(
+            origin: currentFrame.origin,
+            size: takenSize
+        )
+        frame = updatedFrame
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
@@ -107,5 +117,25 @@ class ErrorSnackbarView: AppearanceView {
         backgroundColor = appearance.dangerousActionBackground
         titleLabel.textColor = appearance.dangerousActionText
         dismissIcon.tintColor = appearance.dangerousActionText
+    }
+    
+    func show() {
+        alpha = 1
+    }
+    
+    func showAnimated() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.show()
+        })
+    }
+    
+    func hide() {
+        alpha = 0
+    }
+    
+    func hideAnimated() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.hide()
+        })
     }
 }
