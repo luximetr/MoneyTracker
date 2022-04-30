@@ -36,8 +36,8 @@ public protocol PresentationDelegate: AnyObject {
     func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [Expense]
     func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date]
     func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
-    func presentation(_ presentation: Presentation, addTransfer addingTransfer: AddingTransfer) throws -> Transfer
-    func presentation(_ presentation: Presentation, addTopUpAccount addingTopUpAccount: AddingTopUpAccount) throws -> TopUpAccount
+    func presentation(_ presentation: Presentation, addTransfer addingTransfer: AddingBalanceTransfer) throws -> BalanceTransfer
+    func presentation(_ presentation: Presentation, addTopUpAccount addingTopUpAccount: AddingBalanceReplenishment) throws -> BalanceReplenishment
     
     func presentationLanguages(_ presentation: Presentation) throws -> [Language]
     func presentationLanguage(_ presentation: Presentation) throws -> Language
@@ -45,4 +45,6 @@ public protocol PresentationDelegate: AnyObject {
     
     func presentationAppearanceSetting(_ presentation: Presentation) throws -> AppearanceSetting
     func presentation(_ presentation: Presentation, selectAppearanceSetting appearanceSetting: AppearanceSetting) throws
+    
+    func presentationOperations(_ presentation: Presentation) throws -> [Operation]
 }

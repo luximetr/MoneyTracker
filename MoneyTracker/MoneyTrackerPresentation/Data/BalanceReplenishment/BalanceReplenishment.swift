@@ -7,18 +7,18 @@
 
 import Foundation
 
-public struct TopUpAccount: Hashable, Equatable {
+public struct BalanceReplenishment: Hashable, Equatable {
     
     public let id: String
-    public let account: Account
-    public let day: Date
+    public let timestamp: Date
+    public let balanceAccount: Account
     public let amount: Decimal
     public let comment: String?
     
-    public init(id: String, account: Account, day: Date, amount: Decimal, comment: String?) {
+    public init(id: String, timestamp: Date, account: Account, amount: Decimal, comment: String?) {
         self.id = id
-        self.account = account
-        self.day = day
+        self.balanceAccount = account
+        self.timestamp = timestamp
         self.amount = amount
         self.comment = comment
     }

@@ -16,7 +16,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     var selectedAccount: Account?
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
-    var addTopUpAccountClosure: ((AddingTopUpAccount) -> Void)?
+    var addTopUpAccountClosure: ((AddingBalanceReplenishment) -> Void)?
     
     // MARK: Initializer
     
@@ -112,7 +112,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
         let day = screenView.dayDatePickerView.date
         guard let amount = getInputAmount() else { return }
         let comment = screenView.commentTextField.text
-        let addingTopUpAccount = AddingTopUpAccount(account: account, day: day, amount: amount, comment: comment)
+        let addingTopUpAccount = AddingBalanceReplenishment(account: account, day: day, amount: amount, comment: comment)
         addTopUpAccountClosure?(addingTopUpAccount)
     }
     

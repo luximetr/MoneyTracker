@@ -12,7 +12,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
-    private var expenses: [Expense]
+    private var operations: [Operation]
     
     var backClosure: (() -> Void)?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
@@ -20,8 +20,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, expenses: [Expense]) {
-        self.expenses = expenses
+    init(appearance: Appearance, language: Language, operations: [Operation]) {
+        self.operations = operations
         super.init(appearance: appearance, language: language)
     }
     
@@ -83,27 +83,27 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     func deleteExpense(_ deletingExpense: Expense) {
-        if let index = expenses.firstIndex(of: deletingExpense) {
-            expenses.remove(at: index)
-            setTableViewControllerContent()
-        }
+//        if let index = expenses.firstIndex(of: deletingExpense) {
+//            expenses.remove(at: index)
+//            setTableViewControllerContent()
+//        }
     }
     
     func editExpense(_ editedExpense: Expense) {
-        guard let index = expenses.firstIndex(where: { $0.id == editedExpense.id }) else { return }
-        expenses[index] = editedExpense
-        setTableViewControllerContent()
+//        guard let index = expenses.firstIndex(where: { $0.id == editedExpense.id }) else { return }
+//        expenses[index] = editedExpense
+//        setTableViewControllerContent()
     }
     
     func insertExpense(_ expense: Expense) {
-        expenses.append(expense)
-        setTableViewControllerContent()
+//        expenses.append(expense)
+//        setTableViewControllerContent()
     }
     
     func insertExpenses(_ expenses: [Expense]) {
-        guard !expenses.isEmpty else { return }
-        self.expenses.append(contentsOf: expenses)
-        setTableViewControllerContent()
+//        guard !expenses.isEmpty else { return }
+//        self.expenses.append(contentsOf: expenses)
+//        setTableViewControllerContent()
     }
     
     // MARK: Content
@@ -111,13 +111,21 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     private func setTableViewControllerContent() {
         expensesSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        let daysExpenses = Dictionary(grouping: expenses) { Calendar.current.startOfDay(for: $0.date) }.sorted(by: { $0.0 > $1.0 })
-        for (day, expenses) in daysExpenses {
-            let dayCellController = createDayTableViewController(day: day, expenses: expenses)
+        let daysExpenses = Dictionary(grouping: operations) { Calendar.current.startOfDay(for: $0.timestamp) }.sorted(by: { $0.0 > $1.0 })
+        for (day, operations) in daysExpenses {
+            let dayCellController = createDayTableViewController(day: day, expenses: [])
             cellControllers.append(dayCellController)
-            for expense in expenses {
-                let expenseCellController = createExpenseTableViewController(expense: expense)
-                cellControllers.append(expenseCellController)
+            for opeation in operations {
+                switch opeation {
+                case .expense(let expense):
+                    let expenseCellController = createExpenseTableViewController(expense: expense)
+                    cellControllers.append(expenseCellController)
+                case .balanceTransfer(let balanceTransfer):
+                    continue
+                case .balanceReplenishment(let balanceReplenishment):
+                    let balanceReplenishmentCellController = createBalanceReplenishmentTableViewController(balanceReplenishment: balanceReplenishment)
+                    cellControllers.append(balanceReplenishmentCellController)
+                }
             }
         }
         expensesSectionController.cellControllers = cellControllers
@@ -158,35 +166,53 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return 0 }
             return self.screenView.expenseTableViewCellHeight()
         }
-        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
-            guard let self = self else { return nil }
-            let title = self.localizer.localizeText("delete")
-            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
-                guard let self = self else { return }
-                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
-                    success(false)
-                    return
-                }
-                do {
-                    try deleteExpenseClosure(expense)
-                    guard let index = self.expenses.firstIndex(where: { expense == $0 }) else {
-                        success(false)
-                        return
-                    }
-                    self.expenses.remove(at: index)
-                    let cellControllers: [AUITableViewCellController] = [cellController]
-                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
-                        success(true)
-                    }
-                } catch {
-                    success(false)
-                }
-            })
-            return UISwipeActionsConfiguration(actions: [deleteAction])
-        }
+//        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+//            guard let self = self else { return nil }
+//            let title = self.localizer.localizeText("delete")
+//            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
+//                guard let self = self else { return }
+//                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
+//                    success(false)
+//                    return
+//                }
+//                do {
+//                    try deleteExpenseClosure(expense)
+//                    guard let index = self.expenses.firstIndex(where: { expense == $0 }) else {
+//                        success(false)
+//                        return
+//                    }
+//                    self.expenses.remove(at: index)
+//                    let cellControllers: [AUITableViewCellController] = [cellController]
+//                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
+//                        success(true)
+//                    }
+//                } catch {
+//                    success(false)
+//                }
+//            })
+//            return UISwipeActionsConfiguration(actions: [deleteAction])
+//        }
         cellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
             self.selectExpenseClosure?(expense)
+        }
+        return cellController
+    }
+    
+    private func createBalanceReplenishmentTableViewController(balanceReplenishment: BalanceReplenishment) -> AUITableViewCellController {
+        let cellController = BalanceReplenishmentTableViewCellController(language: language, balanceReplenishment: balanceReplenishment)
+        cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.screenView.balanceReplenishmentTableViewCell(indexPath)
+            return cell
+        }
+        cellController.estimatedHeightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            return self.screenView.balanceReplenishmentTableViewCellEstimatedHeight()
+        }
+        cellController.heightClosure = { [weak self] in
+            guard let self = self else { return 0 }
+            return self.screenView.balanceReplenishmentTableViewCellHeight()
         }
         return cellController
     }

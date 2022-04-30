@@ -22,6 +22,10 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         let expenseTableViewCells = tableView.visibleCells.compactMap({ $0 as? AddExpenseScreenViewController.ExpenseTableViewCell })
         return expenseTableViewCells
     }
+    private var balanceReplenishmentTableViewCells: [BalanceReplenishmentTableViewCell]? {
+        let balanceReplenishmentTableViewCells = tableView.visibleCells.compactMap({ $0 as? BalanceReplenishmentTableViewCell })
+        return balanceReplenishmentTableViewCells
+    }
     
     // MARK: - Setup
     
@@ -31,7 +35,8 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
         setupDayTableViewCell()
-        setupAddExpenseScreenViewController()
+        setupExpenseTableViewCell()
+        setupBalanceReplenishmentTableViewCell()
     }
     
     private func setupTableView() {
@@ -46,8 +51,13 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
     }
     
     private let expenseTableViewCellReuseIdentifier = "expenseTableViewCellReuseIdentifier"
-    private func setupAddExpenseScreenViewController() {
+    private func setupExpenseTableViewCell() {
         tableView.register(AddExpenseScreenViewController.ExpenseTableViewCell.self, forCellReuseIdentifier: expenseTableViewCellReuseIdentifier)
+    }
+    
+    private let balanceReplenishmentTableViewCellReuseIdentifier = "balanceReplenishmentTableViewCellReuseIdentifier"
+    private func setupBalanceReplenishmentTableViewCell() {
+        tableView.register(BalanceReplenishmentTableViewCell.self, forCellReuseIdentifier: balanceReplenishmentTableViewCellReuseIdentifier)
     }
     
     // MARK: - Layout
@@ -98,6 +108,22 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         return 53
     }
     
+    // MARK: - BalanceReplenishmentTableViewCell
+    
+    func balanceReplenishmentTableViewCell(_ indexPath: IndexPath) -> BalanceReplenishmentTableViewCell {
+        let balanceReplenishmentTableViewCell = tableView.dequeueReusableCell(withIdentifier: balanceReplenishmentTableViewCellReuseIdentifier, for: indexPath) as! BalanceReplenishmentTableViewCell
+        balanceReplenishmentTableViewCell.setAppearance(appearance)
+        return balanceReplenishmentTableViewCell
+    }
+    
+    func balanceReplenishmentTableViewCellEstimatedHeight() -> CGFloat {
+        return 53
+    }
+    
+    func balanceReplenishmentTableViewCellHeight() -> CGFloat {
+        return 53
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
@@ -106,6 +132,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         tableView.backgroundColor = appearance.primaryBackground
         dayTableViewCells?.forEach({ $0.setAppearance(appearance) })
         expenseTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        balanceReplenishmentTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     
 }

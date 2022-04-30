@@ -8,7 +8,7 @@
 import Foundation
 import MoneyTrackerPresentation
 
-typealias PresentationTopUpAccount = MoneyTrackerPresentation.TopUpAccount
+typealias PresentationTopUpAccount = MoneyTrackerPresentation.BalanceReplenishment
 
 class TopUpAccountAdapter {
     

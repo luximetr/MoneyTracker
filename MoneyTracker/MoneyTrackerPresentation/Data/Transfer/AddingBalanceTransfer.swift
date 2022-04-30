@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AddingTransfer: Hashable, Equatable {
+public struct AddingBalanceTransfer: Hashable, Equatable {
     
     public let fromAccount: Account
     public let toAccount: Account

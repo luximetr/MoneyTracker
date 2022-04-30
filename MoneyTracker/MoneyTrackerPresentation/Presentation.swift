@@ -416,9 +416,9 @@ public final class Presentation: AUIWindowPresentation {
     private weak var pushedHistoryViewController: HistoryScreenViewController?
     private func pushHistoryViewController(_ navigationController: UINavigationController) throws {
         do {
-            let expenses = try delegate.presentationExpenses(self)
+            let operations = try delegate.presentationOperations(self)
             let language = try delegate.presentationLanguage(self)
-            let viewController = HistoryScreenViewController(appearance: appearance, language: language, expenses: expenses)
+            let viewController = HistoryScreenViewController(appearance: appearance, language: language, operations: operations)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)

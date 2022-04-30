@@ -475,12 +475,41 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let comment = presentationAddingTopUpAccount.comment
             let storageAddingBalanceReplenishment = AddingBalanceReplenishment(date: date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
             let storageBalanceTransfer = try storage.addBalanceReplenishment(storageAddingBalanceReplenishment)
-            let presentationTopUpAccount = PresentationTopUpAccount(id: storageBalanceTransfer.id, account: presentationAddingTopUpAccount.account, day: presentationAddingTopUpAccount.day, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
+            let presentationTopUpAccount = PresentationTopUpAccount(id: storageBalanceTransfer.id, timestamp: presentationAddingTopUpAccount.day, account: presentationAddingTopUpAccount.account, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
             return presentationTopUpAccount
         } catch {
             let error = Error("Cannot add presentation top up account \(presentationAddingTopUpAccount)\n\(error)")
             throw error
         }
+    }
+    
+    // MARK: - Operations
+    
+    func presentationOperations(_ presentation: Presentation) throws -> [PresentationOperation] {
+        let storageOperations = try storage.getOperations()
+        var presentationOperations: [PresentationOperation] = []
+        for storageOperation in storageOperations {
+            switch storageOperation {
+            case .expense(let storageExpense, let storageCategory, let storageBalanceAccount):
+                let presentationCategory = CategoryAdapter().adaptToPresentation(storageCategory: storageCategory)
+                let presentationBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
+                let presentationExpense = PresentationExpense(id: storageExpense.id, amount: storageExpense.amount, date: storageExpense.date, comment: storageExpense.comment, account: presentationBalanceAccount, category: presentationCategory)
+                let presentationOperation: PresentationOperation = .expense(presentationExpense)
+                presentationOperations.append(presentationOperation)
+            case .balanceReplenishment(let storageBalanceReplenishment, let storageBalanceAccount):
+                let presentationBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
+                let presentationBalanceReplenishment = PresentationTopUpAccount(id: storageBalanceReplenishment.id, timestamp: storageBalanceReplenishment.date, account: presentationBalanceAccount, amount: storageBalanceReplenishment.amount, comment: storageBalanceReplenishment.comment)
+                let presentationOperation: PresentationOperation = .balanceReplenishment(presentationBalanceReplenishment)
+                presentationOperations.append(presentationOperation)
+            case .balanceTransfer(let storageBalanceTransfer, let storageFromBalanceAccount, let storageToBalanceAccount):
+                let presentationFromBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageFromBalanceAccount)
+                let presentationToBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageToBalanceAccount)
+                let presentationBalanceTransfer = PresentationTransfer(id: storageBalanceTransfer.id, fromAccount: presentationFromBalanceAccount, toAccount: presentationToBalanceAccount, day: storageBalanceTransfer.date, fromAmount: storageBalanceTransfer.fromAmount, toAmount: storageBalanceTransfer.toAmount, comment: storageBalanceTransfer.comment)
+                let presentationOperation: PresentationOperation = .balanceTransfer(presentationBalanceTransfer)
+                presentationOperations.append(presentationOperation)
+            }
+        }
+        return presentationOperations
     }
     
     // MARK: - Language

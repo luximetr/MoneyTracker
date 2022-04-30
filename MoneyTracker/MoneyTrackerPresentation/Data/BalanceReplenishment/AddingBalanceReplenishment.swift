@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AddingTopUpAccount: Hashable, Equatable {
+public struct AddingBalanceReplenishment: Hashable, Equatable {
     
     public let account: Account
     public let day: Date

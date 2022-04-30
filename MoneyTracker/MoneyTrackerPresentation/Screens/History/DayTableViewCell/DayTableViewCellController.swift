@@ -12,6 +12,41 @@ import AFoundation
 extension HistoryScreenViewController {
 final class DayTableViewCellController: AUIClosuresTableViewCellController {
     
+    // MARK: Data
+    
+    private var language: Language
+    let day: Date
+    private let expenses: [Expense]
+    
+    // MARK: Initializer
+    
+    init(language: Language, day: Date, expenses: [Expense]) {
+        self.language = language
+        self.day = day
+        self.expenses = expenses
+    }
+    
+    // MARK: Cell
+    
+    private var dayTableViewCell: DayTableViewCell? {
+        return tableViewCell as? DayTableViewCell
+    }
+    
+    override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
+        guard let dayTableViewCell = super.cellForRowAtIndexPath(indexPath) as? DayTableViewCell else { return UITableViewCell() }
+        setContent()
+        return dayTableViewCell
+    }
+    
+    // MARK: Language
+    
+    func changeLanguage(_ language: Language) {
+        self.language = language
+        setContent()
+    }
+    
+    // MARK: Content
+    
     private static let amountNumberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.decimalSeparator = "."
@@ -31,42 +66,6 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         return dateFormatter
     }()
     
-    // MARK: Data
-    
-    let day: Date
-    let expenses: [Expense]
-    private var language: Language
-    
-    // MARK: Initializer
-    
-    init(language: Language, day: Date, expenses: [Expense]) {
-        self.language = language
-        self.day = day
-        self.expenses = expenses
-    }
-    
-    // MARK: Cell
-    
-    private var dayTableViewCell: DayTableViewCell? {
-        return tableViewCell as? DayTableViewCell
-    }
-    
-    override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = super.cellForRowAtIndexPath(indexPath) as? DayTableViewCell else { return UITableViewCell() }
-        showDay()
-        cell.expensesLabel.text = contentExpensesLabel
-        return cell
-    }
-    
-    // MARK: Language
-    
-    func changeLanguage(_ language: Language) {
-        self.language = language
-        showDay()
-    }
-    
-    // MARK: Content
-    
     private var contentExpensesLabel: String {
         let currenciesExpenses = Dictionary(grouping: expenses) { $0.account.currency }
         let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
@@ -75,8 +74,11 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         return joinedCurrenciesExpenseStrings
     }
     
-    private func showDay() {
-        dayTableViewCell?.dayLabel.text = dayDateFormatter.string(from: day).uppercased()
+    private func setContent() {
+        let day = dayDateFormatter.string(from: day).uppercased()
+        dayTableViewCell?.dayLabel.text = day
+        let expenses = contentExpensesLabel
+        dayTableViewCell?.expensesLabel.text = expenses
     }
 }
 }
