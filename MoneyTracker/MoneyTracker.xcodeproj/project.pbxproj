@@ -338,8 +338,6 @@
 		DBA0546727FD9C1E00DB3892 /* ImportingCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546627FD9C1E00DB3892 /* ImportingCategoryAdapter.swift */; };
 		DBA0546927FFCE0B00DB3892 /* EditingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546827FFCE0B00DB3892 /* EditingCategory.swift */; };
 		DBA0546B27FFCF7300DB3892 /* EditingCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546A27FFCF7300DB3892 /* EditingCategoryAdapter.swift */; };
-		DBA0546E27FFDCA600DB3892 /* DebugError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546D27FFDCA600DB3892 /* DebugError.swift */; };
-		DBA0547027FFDCE200DB3892 /* GroupError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0546F27FFDCE200DB3892 /* GroupError.swift */; };
 		DBA054752801266F00DB3892 /* ImportedExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA054742801266F00DB3892 /* ImportedExpensesFile.swift */; };
 		DBA05479280129A600DB3892 /* ImportedExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA05478280129A600DB3892 /* ImportedExpensesFile.swift */; };
 		DBA0547B28012A3A00DB3892 /* ImportedExpensesFileAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0547A28012A3A00DB3892 /* ImportedExpensesFileAdapter.swift */; };
@@ -899,8 +897,6 @@
 		DBA0546627FD9C1E00DB3892 /* ImportingCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCategoryAdapter.swift; sourceTree = "<group>"; };
 		DBA0546827FFCE0B00DB3892 /* EditingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingCategory.swift; sourceTree = "<group>"; };
 		DBA0546A27FFCF7300DB3892 /* EditingCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingCategoryAdapter.swift; sourceTree = "<group>"; };
-		DBA0546D27FFDCA600DB3892 /* DebugError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugError.swift; sourceTree = "<group>"; };
-		DBA0546F27FFDCE200DB3892 /* GroupError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupError.swift; sourceTree = "<group>"; };
 		DBA054742801266F00DB3892 /* ImportedExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedExpensesFile.swift; sourceTree = "<group>"; };
 		DBA05478280129A600DB3892 /* ImportedExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedExpensesFile.swift; sourceTree = "<group>"; };
 		DBA0547A28012A3A00DB3892 /* ImportedExpensesFileAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedExpensesFileAdapter.swift; sourceTree = "<group>"; };
@@ -1164,8 +1160,6 @@
 				2ECA9CF92814247200DB27A8 /* SqliteDatabase */,
 				DBD6ACF627B4FB9F00389236 /* UserDefaults */,
 				DBB7CF7C27AC0DD4002C2EAE /* Repositories */,
-				DBA0546D27FFDCA600DB3892 /* DebugError.swift */,
-				DBA0546F27FFDCE200DB3892 /* GroupError.swift */,
 				2E52795C2811B01300BC916B /* Error.swift */,
 				2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */,
 			);
@@ -3104,7 +3098,6 @@
 				2EBBD24D281C1DBB00929A97 /* Operation.swift in Sources */,
 				2E926E9B27BC58140081E3AE /* AddingExpense.swift in Sources */,
 				2E926EA727BC59030081E3AE /* ExpenseTemplate.swift in Sources */,
-				DBA0546E27FFDCA600DB3892 /* DebugError.swift in Sources */,
 				2E926E9A27BC58140081E3AE /* Currency.swift in Sources */,
 				2E926E9927BC58140081E3AE /* EditingBalanceAccount.swift in Sources */,
 				2E5061E228184CFE00C6C217 /* OperationSqliteView.swift in Sources */,
@@ -3124,7 +3117,6 @@
 				DBB7CF8527AC120B002C2EAE /* CoreDataModel.xcdatamodeld in Sources */,
 				DB62AF0027EF02E500F8CA55 /* ImportingExpensesFile.swift in Sources */,
 				2E926E9727BC58140081E3AE /* AddingBalanceAccount.swift in Sources */,
-				DBA0547027FFDCE200DB3892 /* GroupError.swift in Sources */,
 				2E926E9C27BC58140081E3AE /* EditingExpense.swift in Sources */,
 				DBA054752801266F00DB3892 /* ImportedExpensesFile.swift in Sources */,
 				2E832AAF2816DBEF0083B77F /* ExpenseSqliteTable.swift in Sources */,

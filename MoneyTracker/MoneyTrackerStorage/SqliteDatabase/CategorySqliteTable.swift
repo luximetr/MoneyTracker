@@ -10,22 +10,22 @@ import SQLite3
 struct CategoryInsertingValues {
     let id: String
     let name: String
-    let iconName: String
-    let colorType: String
+    let icon: String
+    let color: String
     let orderNumber: Int64
 }
 
 struct CategoryUpdatingValues {
     let name: String
-    let iconName: String
-    let colorType: String
+    let icon: String
+    let color: String
 }
 
 struct CategorySelectedRow {
     let id: String
     let name: String
-    let iconName: String
-    let colorType: String
+    let icon: String
+    let color: String
     let orderNumber: Int64
 }
 
@@ -48,8 +48,8 @@ class CategorySqliteTable {
             category(
                 id TEXT PRIMARY KEY,
                 name TEXT,
-                icon_name TEXT,
-                color_type TEXT,
+                icon TEXT,
+                color TEXT,
                 order_number INTEGER
             );
             """
@@ -64,15 +64,15 @@ class CategorySqliteTable {
     func insertValues(_ values: CategoryInsertingValues) throws {
         let statement =
             """
-            INSERT INTO category(id, name, icon_name, color_type, order_number)
+            INSERT INTO category(id, name, icon, color, order_number)
             VALUES (?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 2, values.name, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.iconName, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.colorType, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.icon, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.color, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 5, values.orderNumber)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -83,13 +83,13 @@ class CategorySqliteTable {
     func updateWhereId(_ id: String, values: CategoryUpdatingValues) throws {
         let statement =
             """
-            UPDATE category SET name = ?, icon_name = ?, color_type = ? WHERE id = ?;
+            UPDATE category SET name = ?, icon = ?, color = ? WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.name, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 2, values.iconName, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.colorType, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 2, values.icon, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.color, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 4, id, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -130,14 +130,14 @@ class CategorySqliteTable {
         let iconName = try sqlite3ColumnText(databaseConnection, preparedStatement, 2)
         let colorType = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
         let orderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 4)
-        let selectedRow = CategorySelectedRow(id: id, name: name, iconName: iconName, colorType: colorType, orderNumber: orderNumber)
+        let selectedRow = CategorySelectedRow(id: id, name: name, icon: iconName, color: colorType, orderNumber: orderNumber)
         return selectedRow
     }
     
     func select() throws -> [CategorySelectedRow] {
         let statement =
             """
-            SELECT id, name, icon_name, color_type, order_number FROM category;
+            SELECT id, name, icon, color, order_number FROM category;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -154,7 +154,7 @@ class CategorySqliteTable {
         let statementValues = ids.map({ _ in "?" }).joined(separator: ", ")
         let statement =
             """
-            SELECT id, name, icon_name, color_type, order_number FROM category
+            SELECT id, name, icon, color, order_number FROM category
             WHERE id IN (\(statementValues));
             """
         var preparedStatement: OpaquePointer?
@@ -176,7 +176,7 @@ class CategorySqliteTable {
     func selectOrderByOrderNumber() throws -> [CategorySelectedRow] {
         let statement =
             """
-            SELECT id, name, icon_name, color_type, order_number FROM category ORDER BY order_number;
+            SELECT id, name, icon, color, order_number FROM category ORDER BY order_number;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)

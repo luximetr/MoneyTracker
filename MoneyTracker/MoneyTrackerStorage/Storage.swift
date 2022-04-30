@@ -77,8 +77,8 @@ public class Storage {
         do {
             let selectedRows = try sqliteDatabase.categoryTable.select()
             let categories: [Category] = try selectedRows.map { selectedRow in
-                let categoryColor = try CategoryColor(selectedRow.colorType)
-                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.iconName)
+                let categoryColor = try CategoryColor(selectedRow.color)
+                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
                 return category
             }
             return categories
@@ -91,8 +91,8 @@ public class Storage {
         do {
             let selectedRows = try sqliteDatabase.categoryTable.selectOrderByOrderNumber()
             let categories: [Category] = try selectedRows.map { selectedRow in
-                let categoryColor = try CategoryColor(selectedRow.colorType)
-                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.iconName)
+                let categoryColor = try CategoryColor(selectedRow.color)
+                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
                 return category
             }
             return categories
@@ -105,8 +105,8 @@ public class Storage {
         do {
             let selectedRows = try sqliteDatabase.categoryTable.selectWhereIdIn([id])
             let categories: [Category] = try selectedRows.map { selectedRow in
-                let categoryColor = try CategoryColor(selectedRow.colorType)
-                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.iconName)
+                let categoryColor = try CategoryColor(selectedRow.color)
+                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
                 return category
             }
             return categories.first!
@@ -119,8 +119,8 @@ public class Storage {
         do {
             let selectedRows = try sqliteDatabase.categoryTable.selectWhereIdIn(ids)
             let categories: [Category] = try selectedRows.map { selectedRow in
-                let categoryColor = try CategoryColor(selectedRow.colorType)
-                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.iconName)
+                let categoryColor = try CategoryColor(selectedRow.color)
+                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
                 return category
             }
             return categories
@@ -139,7 +139,7 @@ public class Storage {
             let iconName = addingCategory.iconName
             let maxOrderNumber = try sqliteDatabase.categoryTable.selectMaxOrderNumber() ?? 0
             let nextOrderNumber = maxOrderNumber + 1
-            let values = CategoryInsertingValues(id: id, name: name, iconName: iconName, colorType: color.rawValue, orderNumber: nextOrderNumber)
+            let values = CategoryInsertingValues(id: id, name: name, icon: iconName, color: color.rawValue, orderNumber: nextOrderNumber)
             try sqliteDatabase.categoryTable.insertValues(values)
             let category = Category(id: id, name: name, color: color, iconName: iconName)
             try sqliteDatabase.commitTransaction()
@@ -162,7 +162,7 @@ public class Storage {
                 let iconName = addingCategory.iconName
                 let maxOrderNumber = try sqliteDatabase.categoryTable.selectMaxOrderNumber() ?? 0
                 let nextOrderNumber = maxOrderNumber + 1
-                let values = CategoryInsertingValues(id: id, name: name, iconName: iconName, colorType: color.rawValue, orderNumber: nextOrderNumber)
+                let values = CategoryInsertingValues(id: id, name: name, icon: iconName, color: color.rawValue, orderNumber: nextOrderNumber)
                 try sqliteDatabase.categoryTable.insertValues(values)
                 let category = Category(id: id, name: name, color: color, iconName: iconName)
                 addedCategories.append(category)
@@ -178,7 +178,7 @@ public class Storage {
     public func updateCategory(editingCategory: EditingCategory) throws -> Category {
         do {
             try sqliteDatabase.beginTransaction()
-            let values = CategoryUpdatingValues(name: editingCategory.name, iconName: editingCategory.iconName, colorType: editingCategory.color.rawValue)
+            let values = CategoryUpdatingValues(name: editingCategory.name, icon: editingCategory.iconName, color: editingCategory.color.rawValue)
             try sqliteDatabase.categoryTable.updateWhereId(editingCategory.id, values: values)
             try sqliteDatabase.commitTransaction()
             return Category(id: editingCategory.id, name: editingCategory.name, color: editingCategory.color, iconName: editingCategory.iconName)
