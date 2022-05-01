@@ -20,6 +20,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.fromAmountInputView = SingleLineTextInputView(appearance: appearance)
         self.toAmountInputView = SingleLineTextInputView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
+        self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -35,6 +36,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let toAmountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
     let addButton = TextFilledButton()
+    let errorSnackbarView: ErrorSnackbarView
     
     // MARK: Setup
     
@@ -55,6 +57,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         scrollView.addSubview(toAmountInputView)
         scrollView.addSubview(commentTextField)
         addSubview(addButton)
+        addSubview(errorSnackbarView)
         setupAddButton()
         autoLayout()
         changeAppearance(appearance)
@@ -108,6 +111,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutCommentTextField()
         layoutToAmountInputView()
         layoutAddButton()
+        layoutErrorSnackbarView()
         setScrollViewContentSize()
     }
     
@@ -210,6 +214,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addButton.frame = frame
     }
     
+    private func layoutErrorSnackbarView() {
+        let x: CGFloat = 10
+        let width = bounds.width - x * 2
+        let availableSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let height: CGFloat = errorSnackbarView.sizeThatFits(availableSize).height
+        let y = navigationBarView.frame.minY
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        errorSnackbarView.frame = frame
+    }
+    
     // MARK: Keyboard
     
     private var keyboardFrame: CGRect?
@@ -229,6 +243,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         addButton.backgroundColor = appearance.primaryActionBackground
         addButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        errorSnackbarView.changeAppearance(appearance)
     }
     
 }
