@@ -21,6 +21,7 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         self.accountColors = accountColors
         self.selectedCurrency = selectedCurrency
         self.colorPickerController = BalanceAccountColorHorizontalPickerController(appearance: appearance)
+        self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -94,6 +95,7 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         balanceTextFieldInputController.textField = screenView.amountInputView
         balanceTextFieldInputController.keyboardType = .decimalPad
         balanceTextFieldInputController.textInputValidator = MoneySumTextInputValidator()
+        setupErrorSnackbarViewController()
         setContent()
     }
     
@@ -102,10 +104,22 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
     }
     
     @objc private func editButtonTouchUpInsideEventAction() {
-        guard let name = screenView.nameInputView.text else { return }
-        guard let balanceString = screenView.amountInputView.text else { return }
-        guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else { return }
-        guard let accountColor = selectedAccountColor else { return }
+        guard let name = screenView.nameInputView.text, !name.isEmpty else {
+            showErrorSnackbar(localizer.localizeText("emptyNameErrorMessage"))
+            return
+        }
+        guard let balanceString = screenView.amountInputView.text, !balanceString.isEmpty else {
+            showErrorSnackbar(localizer.localizeText("emptyAmountErrorMessage"))
+            return
+        }
+        guard let amount = balanceNumberFormatter.number(from: balanceString)?.decimalValue else {
+            showErrorSnackbar(localizer.localizeText("invalidAmountErrorMessage"))
+            return
+        }
+        guard let accountColor = selectedAccountColor else {
+            showErrorSnackbar(localizer.localizeText("emptyColorErrorMessage"))
+            return
+        }
         let addingAccount = AddingAccount(name: name, amount: amount, currency: selectedCurrency, color: accountColor)
         addAccountClosure?(addingAccount)
     }
@@ -156,6 +170,18 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
         if let selectedAccountColor = selectedAccountColor {
             didSelectAccountColor(selectedAccountColor)
         }
+    }
+    
+    // MARK: - Error snackbar
+    
+    private let errorSnackbarViewController: ErrorSnackbarViewController
+    
+    private func setupErrorSnackbarViewController() {
+        errorSnackbarViewController.errorSnackbarView = screenView.errorSnackbarView
+    }
+    
+    private func showErrorSnackbar(_ message: String) {
+        errorSnackbarViewController.showMessage(message)
     }
     
 }
