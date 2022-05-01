@@ -24,6 +24,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
         self.accounts = accounts
         self.selectedAccount = selectedAccount
         self.accountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
+        self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -48,6 +49,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+        setupErrorSnackbarViewController()
         setContent()
     }
     
@@ -108,9 +110,15 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     }
     
     @objc private func addButtonTouchUpInsideEventAction() {
-        guard let account = accountPickerController.selectedAccount else { return }
+        guard let account = accountPickerController.selectedAccount else {
+            showErrorSnackbar(localizer.localizeText("emptyAccountErrorMessage"))
+            return
+        }
         let day = screenView.dayDatePickerView.date
-        guard let amount = getInputAmount() else { return }
+        guard let amount = getInputAmount() else {
+            showErrorSnackbar(localizer.localizeText("invalidAmountErrorMessage"))
+            return
+        }
         let comment = screenView.commentTextField.text
         let addingTopUpAccount = AddingTopUpAccount(account: account, day: day, amount: amount, comment: comment)
         addTopUpAccountClosure?(addingTopUpAccount)
@@ -130,6 +138,18 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     func addAccount(_ account: Account) {
         accounts.append(account)
         accountPickerController.showOptions(accounts: accounts)
+    }
+    
+    // MARK: - Error Snackbar
+    
+    private let errorSnackbarViewController: ErrorSnackbarViewController
+    
+    private func setupErrorSnackbarViewController() {
+        errorSnackbarViewController.errorSnackbarView = screenView.errorSnackbarView
+    }
+    
+    private func showErrorSnackbar(_ message: String) {
+        errorSnackbarViewController.showMessage(message)
     }
     
 }

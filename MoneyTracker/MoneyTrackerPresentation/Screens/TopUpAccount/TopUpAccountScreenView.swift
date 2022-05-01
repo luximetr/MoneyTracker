@@ -18,6 +18,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.accountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.amountInputView = SingleLineTextInputView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
+        self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -30,6 +31,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let amountInputView : SingleLineTextInputView
     let commentTextField: PlainTextField
     let addButton = TextFilledButton()
+    let errorSnackbarView: ErrorSnackbarView
     
     // MARK: Setup
     
@@ -47,6 +49,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         scrollView.addSubview(commentTextField)
         addSubview(addButton)
         setupAddButton()
+        addSubview(errorSnackbarView)
         autoLayout()
     }
     
@@ -91,6 +94,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutCommentTextField()
         layoutAddButton()
         setScrollViewContentSize()
+        layoutErrorSnackbarView()
     }
     
     private func layoutScrollView() {
@@ -161,6 +165,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addButton.frame = frame
     }
     
+    private func layoutErrorSnackbarView() {
+        let x: CGFloat = 10
+        let width = bounds.width - x * 2
+        let availableSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let height: CGFloat = errorSnackbarView.sizeThatFits(availableSize).height
+        let y = navigationBarView.frame.minY
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        errorSnackbarView.frame = frame
+    }
+    
     // MARK: Keyboard
     
     private var keyboardFrame: CGRect?
@@ -179,6 +193,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         accountPickerLabel.textColor = appearance.secondaryText
         dayDatePickerView.overrideUserInterfaceStyle = dayDatePickerView.overrideUserInterfaceStyle
         addButton.backgroundColor = appearance.primaryActionBackground
+        errorSnackbarView.changeAppearance(appearance)
     }
     
 }
