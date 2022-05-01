@@ -14,8 +14,9 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     // MARK: - Subviews
     
     let accountLabel = UILabel()
-    let categoryLabel = UILabel()
     let amountLabel = UILabel()
+    let balanceTransferImageView = UIImageView()
+    let categoryLabel = UILabel()
     let commentLabel = UILabel()
     let separatorView = UIView()
     
@@ -26,10 +27,12 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
         selectionStyle = .none
         contentView.addSubview(accountLabel)
         setupAccountLabel()
-        contentView.addSubview(categoryLabel)
-        setupCategoryLabel()
         contentView.addSubview(amountLabel)
         setupAmountLabel()
+        contentView.addSubview(balanceTransferImageView)
+        setupBalanceTransferImageView()
+        contentView.addSubview(categoryLabel)
+        setupCategoryLabel()
         contentView.addSubview(commentLabel)
         setupCommentLabel()
         contentView.addSubview(separatorView)
@@ -39,12 +42,16 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
         accountLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
-    private func setupCategoryLabel() {
-        categoryLabel.font = Fonts.default(size: 16, weight: .regular)
-    }
-    
     private func setupAmountLabel() {
         amountLabel.font = Fonts.default(size: 12, weight: .semibold)
+    }
+    
+    private func setupBalanceTransferImageView() {
+        balanceTransferImageView.contentMode = .scaleAspectFit
+    }
+    
+    private func setupCategoryLabel() {
+        categoryLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
     private func setupCommentLabel() {
@@ -56,28 +63,20 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutAccountLabel()
-        layoutCategoryLabel()
         layoutAmountLabel()
+        layoutBalanceTransferImageView()
+        layoutCategoryLabel()
         layoutCommentLabel()
         layoutSeparatorView()
     }
     
     private func layoutAccountLabel() {
         let x: CGFloat = 16
-        let y: CGFloat = 8
+        let y: CGFloat = 6
         let height: CGFloat = 20
         let width = accountLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width
         let frame = CGRect(x: x, y: y, width: width, height: height)
         accountLabel.frame = frame
-    }
-    
-    private func layoutCategoryLabel() {
-        let x: CGFloat = 16
-        let y: CGFloat = accountLabel.frame.origin.y + accountLabel.frame.size.height
-        let height: CGFloat = 22
-        let width = categoryLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        categoryLabel.frame = frame
     }
     
     private func layoutAmountLabel() {
@@ -88,6 +87,24 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
         let frame = CGRect(x: x, y: y, width: width, height: height)
         amountLabel.frame = frame
         amountLabel.textAlignment = .right
+    }
+    
+    private func layoutBalanceTransferImageView() {
+        let x: CGFloat = 16
+        let y: CGFloat = accountLabel.frame.maxY + 4
+        let height: CGFloat = 12
+        let width: CGFloat = 12
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        balanceTransferImageView.frame = frame
+    }
+    
+    private func layoutCategoryLabel() {
+        let x: CGFloat = balanceTransferImageView.frame.maxX + 4
+        let y: CGFloat = accountLabel.frame.origin.y + accountLabel.frame.size.height
+        let height: CGFloat = 20
+        let width = categoryLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        categoryLabel.frame = frame
     }
     
     private func layoutCommentLabel() {
@@ -115,8 +132,9 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         accountLabel.textColor = appearance.secondaryText
-        categoryLabel.textColor = appearance.primaryText
         amountLabel.textColor = appearance.primaryText
+        balanceTransferImageView.tintColor = appearance.primaryText
+        categoryLabel.textColor = appearance.primaryText
         commentLabel.textColor = appearance.secondaryText
         separatorView.backgroundColor = appearance.secondaryBackground
     }

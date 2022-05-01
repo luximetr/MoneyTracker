@@ -13,8 +13,8 @@ final class BalanceTransferTableViewCellController: AUIClosuresTableViewCellCont
     
     // MARK: - Data
     
-    private var language: Language
-    private var balanceTransfer: BalanceTransfer
+    var language: Language
+    var balanceTransfer: BalanceTransfer
     
     // MARK: - Initializer
     

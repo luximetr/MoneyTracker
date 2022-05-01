@@ -226,7 +226,6 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let addedExpense = try self.delegate.presentation(self, useTemplate: template)
                 self.displayExpenseAddedSnackbarViewController(template: template, expense: addedExpense)
-                self.pushedHistoryViewController?.insertExpense(addedExpense)
                 self.statisticScreen?.addExpense(addedExpense)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
@@ -263,7 +262,6 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { throw Error("") }
                 do {
                     let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
-                    self.pushedHistoryViewController?.insertExpense(addedExpense)
                     self.statisticScreen?.addExpense(addedExpense)
                     return addedExpense
                 } catch {
@@ -275,7 +273,6 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     let deletedExpense = try self.delegate.presentation(self, deleteExpense: expense)
-                    self.pushedHistoryViewController?.deleteExpense(deletedExpense)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -437,6 +434,14 @@ public final class Presentation: AUIWindowPresentation {
                 guard let menuNavigationController = self.menuNavigationController else { return }
                 do {
                     try self.pushEditExpenseViewController(menuNavigationController, expense: expense)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.deleteBalanceTransferClosure = { [weak self] deletingBalanceTransfer in
+                guard let self = self else { return }
+                do {
+                    let deletedExpense = try self.delegate.presentation(self, deleteBalanceTransfer: deletingBalanceTransfer)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -1356,7 +1361,6 @@ public final class Presentation: AUIWindowPresentation {
     public func showDidImportExpensesFile(_ file: ImportedExpensesFile) {
         dashboardViewController?.addAccounts(file.importedAccounts)
         dashboardViewController?.addCategories(file.importedCategories)
-        pushedHistoryViewController?.insertExpenses(file.importedExpenses)
         statisticScreen?.addExpenses(file.importedExpenses)
     }
     

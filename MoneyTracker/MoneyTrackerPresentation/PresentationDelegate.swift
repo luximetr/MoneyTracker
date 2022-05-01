@@ -47,4 +47,6 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, selectAppearanceSetting appearanceSetting: AppearanceSetting) throws
     
     func presentationOperations(_ presentation: Presentation) throws -> [Operation]
+    
+    func presentation(_ presentation: Presentation, deleteBalanceTransfer deletingBalanceTransfer: BalanceTransfer) throws -> BalanceTransfer
 }

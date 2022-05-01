@@ -15,8 +15,8 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
     
     let fromAccountLabel = UILabel()
     let fromAmountLabel = UILabel()
-    let toAccountLabel = UILabel()
     let balanceTransferImageView = UIImageView()
+    let toAccountLabel = UILabel()
     let commentLabel = UILabel()
     let separatorView = UIView()
     
@@ -29,10 +29,10 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         setupFromAccountLabel()
         contentView.addSubview(fromAmountLabel)
         setupFromAmountLabel()
-        contentView.addSubview(toAccountLabel)
-        setupToAccountLabel()
         contentView.addSubview(balanceTransferImageView)
         setupBalanceTransferImageView()
+        contentView.addSubview(toAccountLabel)
+        setupToAccountLabel()
         contentView.addSubview(commentLabel)
         setupCommentLabel()
         contentView.addSubview(separatorView)
@@ -46,13 +46,13 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         toAccountLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
-    private func setupFromAmountLabel() {
-        fromAmountLabel.font = Fonts.default(size: 12, weight: .semibold)
-    }
-    
     private func setupBalanceTransferImageView() {
         balanceTransferImageView.contentMode = .scaleAspectFit
         balanceTransferImageView.image = Images.cycle.withRenderingMode(.alwaysTemplate)
+    }
+    
+    private func setupFromAmountLabel() {
+        fromAmountLabel.font = Fonts.default(size: 12, weight: .semibold)
     }
     
     private func setupCommentLabel() {
@@ -65,8 +65,8 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         super.layoutSubviews()
         layoutFromAccountLabel()
         layoutFromAmountLabel()
-        layoutToAccountLabel()
         layoutBalanceTransferImageView()
+        layoutToAccountLabel()
         layoutCommentLabel()
         layoutSeparatorView()
     }
@@ -81,7 +81,7 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
     }
     
     private func layoutFromAmountLabel() {
-        let x: CGFloat = fromAccountLabel.frame.origin.x + fromAccountLabel.frame.size.width + 16
+        let x: CGFloat = fromAccountLabel.frame.maxX + 16
         let y: CGFloat = 6
         let height: CGFloat = 20
         let width = bounds.width - x - 16
@@ -90,27 +90,27 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         fromAmountLabel.textAlignment = .right
     }
     
-    private func layoutToAccountLabel() {
-        let x: CGFloat = 32
-        let y: CGFloat = fromAccountLabel.frame.origin.y + fromAccountLabel.frame.size.height
-        let height: CGFloat = 20
-        let width = toAccountLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        toAccountLabel.frame = frame
-    }
-    
     private func layoutBalanceTransferImageView() {
         let x: CGFloat = 16
-        let y: CGFloat = fromAccountLabel.frame.origin.y + fromAccountLabel.frame.size.height + 4
+        let y: CGFloat = fromAccountLabel.frame.maxY + 4
         let height: CGFloat = 12
         let width: CGFloat = 12
         let frame = CGRect(x: x, y: y, width: width, height: height)
         balanceTransferImageView.frame = frame
     }
     
+    private func layoutToAccountLabel() {
+        let x: CGFloat = balanceTransferImageView.frame.maxX + 4
+        let y: CGFloat = fromAccountLabel.frame.maxY
+        let height: CGFloat = 20
+        let width = toAccountLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        toAccountLabel.frame = frame
+    }
+    
     private func layoutCommentLabel() {
-        let x: CGFloat = toAccountLabel.frame.origin.x + toAccountLabel.frame.size.width + 16
-        let y: CGFloat = fromAmountLabel.frame.origin.y + fromAmountLabel.frame.size.height
+        let x: CGFloat = toAccountLabel.frame.maxX + 16
+        let y: CGFloat = fromAmountLabel.frame.maxY
         let height: CGFloat = 20
         let width = bounds.width - x - 16
         let frame = CGRect(x: x, y: y, width: width, height: height)

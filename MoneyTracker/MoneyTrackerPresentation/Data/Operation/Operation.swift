@@ -12,6 +12,17 @@ public enum Operation {
     case balanceTransfer(BalanceTransfer)
     case balanceReplenishment(BalanceReplenishment)
     
+    var id: String {
+        switch self {
+        case .expense(let expense):
+            return expense.id
+        case .balanceTransfer(let balanceTransfer):
+            return balanceTransfer.id
+        case .balanceReplenishment(let balanceReplenishment):
+            return balanceReplenishment.id
+        }
+    }
+    
     var timestamp: Date {
         switch self {
         case .expense(let expense):

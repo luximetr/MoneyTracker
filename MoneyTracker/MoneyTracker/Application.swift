@@ -556,4 +556,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         storage.saveSelectedAppearanceSetting(storageAppearanceSetting)
     }
     
+    func presentation(_ presentation: Presentation, deleteBalanceTransfer presentationDeletingBalanceTransfer: PresentationTransfer) throws -> PresentationTransfer {
+        do {
+            let storageBalanceTransfer = StorageBalanceTransfer(id: presentationDeletingBalanceTransfer.id, date: presentationDeletingBalanceTransfer.day, fromBalanceAccountId: presentationDeletingBalanceTransfer.fromAccount.id, fromAmount: presentationDeletingBalanceTransfer.fromAmount, toBalanceAccountId: presentationDeletingBalanceTransfer.toAccount.id, toAmount: presentationDeletingBalanceTransfer.toAmount, comment: presentationDeletingBalanceTransfer.comment)
+            try storage.deleteBalanceTransfer(storageBalanceTransfer)
+            return presentationDeletingBalanceTransfer
+        } catch {
+            throw error
+        }
+    }
 }

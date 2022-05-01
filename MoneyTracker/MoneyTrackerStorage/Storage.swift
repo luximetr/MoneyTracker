@@ -47,6 +47,24 @@ public class Storage {
         }
     }
     
+    public func deleteBalanceTransfer(_ balanceTransfer: BalanceTransfer) throws {
+        do {
+            try sqliteDatabase.beginTransaction()
+            let fromBalanceAccountId = balanceTransfer.fromBalanceAccountId
+            let fromAmount = Int64(try (balanceTransfer.fromAmount * 100).int())
+            try sqliteDatabase.balanceAccountTable.updateWhereId(fromBalanceAccountId, addingAmount: fromAmount)
+            let toBalanceAccountId = balanceTransfer.toBalanceAccountId
+            let toAmount = Int64(try (balanceTransfer.toAmount * 100).int())
+            try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, subtractingAmount: toAmount)
+            let id = balanceTransfer.id
+            try sqliteDatabase.balanceTransferSqliteTable.deleteWhereId(id)
+            try sqliteDatabase.commitTransaction()
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
+    }
+    
     // MARK: - Balance Replenishment
     
     public func addBalanceReplenishment(_ addingBalanceReplenishment: AddingBalanceReplenishment) throws -> BalanceReplenishment {

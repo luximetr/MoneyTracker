@@ -7,8 +7,10 @@
 
 import Foundation
 import MoneyTrackerPresentation
+import MoneyTrackerStorage
 
 typealias PresentationTransfer = MoneyTrackerPresentation.BalanceTransfer
+typealias StorageBalanceTransfer = MoneyTrackerStorage.BalanceTransfer
 
 class TransferAdapter {
     
