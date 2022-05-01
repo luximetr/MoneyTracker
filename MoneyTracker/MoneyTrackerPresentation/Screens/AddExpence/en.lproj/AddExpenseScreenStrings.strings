@@ -2,3 +2,6 @@
 "commentPlaceholder" = "Comment (optional)";
 "delete" = "Delete";
 "add" = "Done";
+"invalidAmountErrorMessage" = "Amount cannot be empty";
+"emptyCategoryErrorMessage" = "Category not selected";
+"emptyAccountErrorMessage" = "Account not selected";
