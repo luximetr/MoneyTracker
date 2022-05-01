@@ -44,6 +44,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.selectCategoryViewController = CategoryVerticalPickerController(appearance: appearance, language: language)
         self.inputDateViewController = InputDateViewController(language: language)
+        self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -97,6 +98,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         }
         setupExpensesTableViewController()
         dayExpenses = (try? dayExpensesClosure?(Date())) ?? []
+        setupErrorSnackbarViewController()
         setContent()
         setExpensesTableViewControllerContent()
         setDayExpensesContent()
@@ -149,9 +151,18 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     @objc func editButtonTouchUpInsideEventAction() {
         let date = inputDateViewController.selectedDay
-        guard let amount = inputAmountViewController.amount else { return }
-        guard let category = selectCategoryViewController.selectedCategory else { return }
-        guard let account = balanceAccountHorizontalPickerController.selectedAccount else { return }
+        guard let amount = inputAmountViewController.amount else {
+            showErrorSnackbar(localizer.localizeText("invalidAmountErrorMessage"))
+            return
+        }
+        guard let category = selectCategoryViewController.selectedCategory else {
+            showErrorSnackbar(localizer.localizeText("emptyCategoryErrorMessage"))
+            return
+        }
+        guard let account = balanceAccountHorizontalPickerController.selectedAccount else {
+            showErrorSnackbar(localizer.localizeText("emptyAccountErrorMessage"))
+            return
+        }
         let comment = screenView.commentTextField.text
         let addingExpense = AddingExpense(amount: amount, date: date, comment: comment, account: account, category: category)
         guard let addExpenseClosure = addExpenseClosure else { return }
@@ -294,6 +305,18 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         screenView.changeAppearance(appearance)
         balanceAccountHorizontalPickerController.changeAppearance(appearance)
         selectCategoryViewController.changeAppearance(appearance)
+    }
+    
+    // MARK: - Error Snackbar
+    
+    private let errorSnackbarViewController: ErrorSnackbarViewController
+    
+    private func setupErrorSnackbarViewController() {
+        errorSnackbarViewController.errorSnackbarView = screenView.errorSnackbarView
+    }
+    
+    private func showErrorSnackbar(_ message: String) {
+        errorSnackbarViewController.showMessage(message)
     }
     
 }

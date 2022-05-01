@@ -19,6 +19,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.amountInputView = SingleLineTextInputView(appearance: appearance)
         self.balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
+        self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -32,6 +33,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let amountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
     let saveButton = TextFilledButton()
+    let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Setup
     
@@ -49,6 +51,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(amountInputView)
         addSubview(commentTextField)
         addSubview(saveButton)
+        addSubview(errorSnackbarView)
         autoLayout()
         changeAppearance(appearance)
     }
@@ -89,6 +92,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutAmountInputView()
         layoutCommentTextField()
         layoutSaveButton()
+        layoutErrorSnackbarView()
     }
     
     private func layoutBalanceAccountPickerHeaderLabel() {
@@ -149,6 +153,14 @@ final class ScreenView: BackTitleNavigationBarScreenView {
             .height(44)
     }
     
+    private func layoutErrorSnackbarView() {
+        errorSnackbarView.pin
+            .left(10)
+            .right(10)
+            .top(to: navigationBarView.edge.top)
+            .sizeToFit(.width)
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
@@ -161,6 +173,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         commentTextField.changeAppearance(appearance)
         saveButton.backgroundColor = appearance.primaryActionBackground
         saveButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        errorSnackbarView.changeAppearance(appearance)
     }
 }
 }

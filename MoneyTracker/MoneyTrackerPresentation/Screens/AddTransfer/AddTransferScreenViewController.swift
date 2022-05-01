@@ -23,6 +23,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         self.accounts = accounts
         self.fromAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.toAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
+        self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -52,6 +53,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
+        setupErrorSnackbarViewController()
         setContent()
     }
     
@@ -152,11 +154,23 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     }
     
     @objc private func addButtonTouchUpInsideEventAction() {
-        guard let fromAccount = fromAccountPickerController.selectedAccount else { return }
-        guard let toAccount = toAccountPickerController.selectedAccount else { return }
+        guard let fromAccount = fromAccountPickerController.selectedAccount else {
+            showErrorSnackbar(localizer.localizeText("emptyFromAccountErrorMessage"))
+            return
+        }
+        guard let toAccount = toAccountPickerController.selectedAccount else {
+            showErrorSnackbar(localizer.localizeText("emptyToAccountErrorMessage"))
+            return
+        }
         let day = screenView.dayDatePickerView.date
-        guard let fromAmount = getInputFromAmount() else { return }
-        guard let toAmount = getInputToAmount() else { return }
+        guard let fromAmount = getInputFromAmount() else {
+            showErrorSnackbar(localizer.localizeText("emptyFromAmountErrorMessage"))
+            return
+        }
+        guard let toAmount = getInputToAmount() else {
+            showErrorSnackbar(localizer.localizeText("emptyToAmountErrorMessage"))
+            return
+        }
         let comment = screenView.commentTextField.text
         let addingTransfer = AddingBalanceTransfer(fromAccount: fromAccount, toAccount: toAccount, day: day, fromAmount: fromAmount, toAmount: toAmount, comment: comment)
         addTransferClosure?(addingTransfer)
@@ -178,6 +192,18 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         accounts.append(account)
         fromAccountPickerController.showOptions(accounts: accounts)
         toAccountPickerController.showOptions(accounts: accounts)
+    }
+    
+    // MARK: - Error Snackbar
+    
+    private let errorSnackbarViewController: ErrorSnackbarViewController
+    
+    private func setupErrorSnackbarViewController() {
+        errorSnackbarViewController.errorSnackbarView = screenView.errorSnackbarView
+    }
+    
+    private func showErrorSnackbar(_ message: String) {
+        errorSnackbarViewController.showMessage(message)
     }
     
 }

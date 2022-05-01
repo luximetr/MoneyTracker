@@ -67,6 +67,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         self.balanceAccounts = balanceAccounts
         self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.categoryPickerController = CategoryHorizontalPickerController(language: language, appearance: appearance)
+        self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -94,6 +95,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         addTemplateScreenView.addButton.addTarget(self, action: #selector(didTapOnAddButton), for: .touchUpInside)
         addTemplateScreenView.backButton.addTarget(self, action: #selector(didTapOnBackButton), for: .touchUpInside)
         showAmountInputCurrencyCode(selectedBalanceAccount?.currency.rawValue)
+        setupErrorSnackbarViewController()
         setContent()
     }
     
@@ -227,10 +229,22 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     
     @objc
     private func didTapOnAddButton() {
-        guard let name = nameTextFieldController.text, !name.isEmpty else { return }
-        guard let selectedAccount = balanceAccountPickerController.selectedAccount else { return }
-        guard let selectedCategory = categoryPickerController.selectedCategory else { return }
-        guard let amount = getInputAmount() else { return }
+        guard let name = nameTextFieldController.text, !name.isEmpty else {
+            showErrorSnackbar(localizer.localizeText("emptyNameErrorMessage"))
+            return
+        }
+        guard let selectedAccount = balanceAccountPickerController.selectedAccount else {
+            showErrorSnackbar(localizer.localizeText("emptyAccountErrorMessage"))
+            return
+        }
+        guard let selectedCategory = categoryPickerController.selectedCategory else {
+            showErrorSnackbar(localizer.localizeText("emptyCategoryErrorMessage"))
+            return
+        }
+        guard let amount = getInputAmount() else {
+            showErrorSnackbar(localizer.localizeText("invalidAmountErrorMessage"))
+            return
+        }
         let comment = commentTextFieldController.text
         let addingTemplate = AddingExpenseTemplate(
             name: name,
@@ -246,5 +260,17 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         guard let amountText = amountInputController.textFieldController.text else { return nil }
         let numberFormatter = NumberFormatter()
         return numberFormatter.number(from: amountText)?.decimalValue
+    }
+    
+    // MARK: - Error snackbar
+        
+    private let errorSnackbarViewController: ErrorSnackbarViewController
+    
+    private func setupErrorSnackbarViewController() {
+        errorSnackbarViewController.errorSnackbarView = addTemplateScreenView.errorSnackbarView
+    }
+    
+    private func showErrorSnackbar(_ message: String) {
+        errorSnackbarViewController.showMessage(message)
     }
 }

@@ -21,6 +21,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     let amountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
     let saveButton = TextFilledButton()
+    let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Initializer
     
@@ -30,6 +31,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         nameTextField = PlainTextField(appearance: appearance)
         amountInputView = SingleLineTextInputView(appearance: appearance)
         commentTextField = PlainTextField(appearance: appearance)
+        errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -45,6 +47,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(amountInputView)
         addSubview(commentTextField)
         addSubview(saveButton)
+        addSubview(errorSnackbarView)
         setupBalanceAccountPickerHeaderLabel()
         setupCategoryPickerHeaderLabel()
         changeAppearance(appearance)
@@ -75,6 +78,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         layoutCategoryPickerHeaderLabel()
         layoutCategoryPickerView()
         layoutSaveButton()
+        layoutErrorSnackbarView()
     }
     
     private func layoutBalanceAccountPickerHeaderLabel() {
@@ -141,6 +145,14 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(44)
     }
     
+    private func layoutErrorSnackbarView() {
+        errorSnackbarView.pin
+            .left(10)
+            .right(10)
+            .top(to: navigationBarView.edge.top)
+            .sizeToFit(.width)
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
@@ -157,5 +169,6 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         commentTextField.changeAppearance(appearance)
         saveButton.backgroundColor = appearance.primaryActionBackground
         saveButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        errorSnackbarView.changeAppearance(appearance)
     }
 }

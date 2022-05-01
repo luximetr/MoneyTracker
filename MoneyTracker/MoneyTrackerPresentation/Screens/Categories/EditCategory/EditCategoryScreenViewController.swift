@@ -26,6 +26,7 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
         self.categoryColors = categoryColors
         self.categoryIconName = category.iconName
         self.colorPickerController = CategoryColorHorizontalPickerController(appearance: appearance)
+        self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -46,9 +47,10 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
         screenView.selectIconButton.addTarget(self, action: #selector(selectIconButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.editButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupColorPickerController()
-        setContent()
         updateView(categoryColor: category.color)
         showCategoryIcon(iconName: categoryIconName)
+        setupErrorSnackbarViewController()
+        setContent()
     }
     
     // MARK: Localizer
@@ -100,7 +102,14 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     @objc private func editButtonTouchUpInsideEventAction() {
         do {
             let name = screenView.nameTextField.text ?? ""
-            let selectedColor = colorPickerController.selectedColor ?? .variant1
+            guard !name.isEmpty else {
+                showErrorSnackbar(message: localizer.localizeText("emptyNameErrorMessage"))
+                return
+            }
+            guard let selectedColor = colorPickerController.selectedColor else {
+                showErrorSnackbar(message: localizer.localizeText("emptyColorErrorMessage"))
+                return
+            }
             let editingCategory = EditingCategory(id: category.id, name: name, color: selectedColor, iconName: categoryIconName)
             try editCategoryClosure?(editingCategory)
         } catch {}
@@ -149,6 +158,18 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     func showCategoryIcon(iconName: String) {
         categoryIconName = iconName
         screenView.iconView.setIcon(named: iconName)
+    }
+    
+    // MARK: - Error snackbar
+    
+    private let errorSnackbarViewController: ErrorSnackbarViewController
+    
+    private func setupErrorSnackbarViewController() {
+        errorSnackbarViewController.errorSnackbarView = screenView.errorSnackbarView
+    }
+    
+    private func showErrorSnackbar(message: String) {
+        errorSnackbarViewController.showMessage(message)
     }
     
 }

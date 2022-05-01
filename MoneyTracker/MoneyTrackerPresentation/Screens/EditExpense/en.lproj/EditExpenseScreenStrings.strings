@@ -6,3 +6,6 @@
 "amountPlaceholder" = "Amount";
 "commentPlaceholder" = "Comment (optional)";
 "dateLocale" = "en_US";
+"emptyAccountErrorMessage" = "Account not selected";
+"emptyCategoryErrorMessage" = "Category not selected";
+"invalidAmountErrorMessage" = "Please, enter valid amount";

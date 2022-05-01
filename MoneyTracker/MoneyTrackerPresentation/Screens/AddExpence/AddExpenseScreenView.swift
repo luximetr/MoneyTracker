@@ -19,6 +19,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.selectAccountView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.inputAmountView = InputAmountView(appearance: appearance)
         self.selectCategoryView = CategoryVerticalPickerView(appearance: appearance)
+        self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -37,7 +38,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let selectAccountView: BalanceAccountHorizontalPickerView
     let inputAmountView: InputAmountView
     let selectCategoryView: CategoryVerticalPickerView
-//    let selectCategoryView: SelectCategoryView
+    let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Setup
     
@@ -56,6 +57,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(selectAccountView)
         addSubview(inputAmountView)
         addSubview(selectCategoryView)
+        addSubview(errorSnackbarView)
         autoLayout()
         changeAppearance(appearance)
     }
@@ -107,6 +109,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutCommentTextField()
         layoutExpensesTableViewContainerView()
         layoutExpenseTableView()
+        layoutErrorSnackbarView()
     }
     
     private func layoutInputAmountView() {
@@ -182,6 +185,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         expensesTableView.layer.cornerRadius = 10
     }
     
+    private func layoutErrorSnackbarView() {
+        let x: CGFloat = 10
+        let width = bounds.width - x * 2
+        let availableSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let height: CGFloat = errorSnackbarView.sizeThatFits(availableSize).height
+        let y = navigationBarView.frame.minY
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        errorSnackbarView.frame = frame
+    }
+    
     // MARK: - ExpensesTableView
     
     func expenseTableViewCell(_ indexPath: IndexPath) -> ExpenseTableViewCell {
@@ -211,6 +224,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addButton.backgroundColor = appearance.primaryActionBackground
         addButton.setTitleColor(appearance.primaryActionText, for: .normal)
         inputAmountView.changeAppearance(appearance)
+        errorSnackbarView.changeAppearance(appearance)
     }
     
 }

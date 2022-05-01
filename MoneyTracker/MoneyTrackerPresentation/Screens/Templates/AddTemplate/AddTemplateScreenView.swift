@@ -21,6 +21,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     let categoryPickerHeaderLabel = UILabel()
     let categoryPickerView: CategoryHorizontalPickerView
     let addButton = TextFilledButton()
+    let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Initializer
     
@@ -30,6 +31,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         commentTextField = PlainTextField(appearance: appearance)
         balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
         categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
+        errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -45,6 +47,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(amountInputView)
         addSubview(commentTextField)
         addSubview(addButton)
+        addSubview(errorSnackbarView)
         setupBalanceAccountPickerHeaderLabel()
         changeAppearance(appearance)
     }
@@ -69,6 +72,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         layoutCategoryPickerHeaderLabel()
         layoutCategoryPickerView()
         layoutAddButton()
+        layoutErrorSnackbarView()
     }
     
     private func layoutBalanceAccountPickerHeaderLabel() {
@@ -135,6 +139,14 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
             .height(44)
     }
     
+    private func layoutErrorSnackbarView() {
+        errorSnackbarView.pin
+            .left(10)
+            .right(10)
+            .top(to: navigationBarView.edge.top)
+            .sizeToFit(.width)
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
@@ -149,5 +161,6 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         categoryPickerHeaderLabel.textColor = appearance.secondaryText
         addButton.backgroundColor = appearance.primaryActionBackground
         addButton.titleLabel?.textColor = appearance.primaryActionText
+        errorSnackbarView.changeAppearance(appearance)
     }
 }

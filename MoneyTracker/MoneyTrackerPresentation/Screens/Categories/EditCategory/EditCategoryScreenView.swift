@@ -16,6 +16,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     init(appearance: Appearance) {
         self.nameTextField = PlainTextField(appearance: appearance)
         self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
+        self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -28,6 +29,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let colorPickerTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
     let editButton = TextFilledButton()
+    let errorSnackbarView: ErrorSnackbarView
     
     // MARK: Setup
     
@@ -44,6 +46,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupColorPickerView()
         addSubview(editButton)
         setupEditButton()
+        addSubview(errorSnackbarView)
         changeAppearance(appearance)
     }
     
@@ -76,6 +79,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutColorPickerTitleLabel()
         layoutColorPickerView()
         layoutEditButton()
+        layoutErrorSnackbarView()
         setScrollViewContentSize()
     }
     
@@ -149,6 +153,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         editButton.frame = frame
     }
     
+    private func layoutErrorSnackbarView() {
+        let x: CGFloat = 10
+        let width = bounds.width - x * 2
+        let availableSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let height: CGFloat = errorSnackbarView.sizeThatFits(availableSize).height
+        let y = navigationBarView.frame.minY
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        errorSnackbarView.frame = frame
+    }
+    
     // MARK: - Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
@@ -157,6 +171,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         iconView.iconImageView.tintColor = appearance.categoryPrimaryText
         colorPickerTitleLabel.textColor = appearance.primaryText
         nameTextField.changeAppearance(appearance)
+        errorSnackbarView.changeAppearance(appearance)
     }
     
 }

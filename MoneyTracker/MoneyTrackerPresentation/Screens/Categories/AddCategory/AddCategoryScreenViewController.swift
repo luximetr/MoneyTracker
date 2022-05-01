@@ -24,6 +24,7 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         self.categoryColors = categoryColors
         self.categoryIconName = categoryIconName
         self.colorPickerController = CategoryColorHorizontalPickerController(appearance: appearance)
+        self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
     
@@ -45,6 +46,7 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         showCategoryIcon(iconName: categoryIconName)
         setupViewTapRecognizer()
         setupColorPickerController()
+        setupErrorSnackbarViewController()
         setContent()
     }
     
@@ -78,8 +80,14 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     
     @objc private func editButtonTouchUpInsideEventAction() {
         do {
-            guard let name = screenView.nameTextField.text, !name.isEmpty else { return }
-            guard let selectedColor = colorPickerController.selectedColor else { return }
+            guard let name = screenView.nameTextField.text, !name.isEmpty else {
+                showErrorSnackbar(localizer.localizeText("emptyNameErrorMessage"))
+                return
+            }
+            guard let selectedColor = colorPickerController.selectedColor else {
+                showErrorSnackbar(localizer.localizeText("emptyColorErrorMessage"))
+                return
+            }
             let addingCategory = AddingCategory(name: name, color: selectedColor, iconName: categoryIconName)
             try addCategoryClosure?(addingCategory)
         } catch { }
@@ -149,6 +157,18 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         if let selectedColor = colorPickerController.selectedColor {
             updateView(categoryColor: selectedColor)
         }
+    }
+    
+    // MARK: - Error Snackbar
+    
+    private let errorSnackbarViewController: ErrorSnackbarViewController
+    
+    private func setupErrorSnackbarViewController() {
+        errorSnackbarViewController.errorSnackbarView = screenView.errorSnackbarView
+    }
+    
+    private func showErrorSnackbar(_ message: String) {
+        errorSnackbarViewController.showMessage(message)
     }
     
 }
