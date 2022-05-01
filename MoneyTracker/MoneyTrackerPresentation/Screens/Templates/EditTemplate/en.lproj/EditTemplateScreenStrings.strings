@@ -5,3 +5,7 @@
 "namePlaceholder" = "Name";
 "amountPlaceholder" = "Amount";
 "commentPlaceholder" = "Comment (optional)";
+"emptyNameErrorMessage" = "Name cannot be empty";
+"emptyAccountErrorMessage" = "Account not selected";
+"emptyCategoryErrorMessage" = "Category not selected";
+"invalidAmountErrorMessage" = "Please, enter valid amount";
