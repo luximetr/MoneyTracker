@@ -8,32 +8,35 @@
 import SQLite3
 import AFoundation
 
-class SqliteDatabase {
+class SqliteDatabase: CustomDebugStringConvertible {
     
     private var databaseConnection: OpaquePointer!
+    
+    // MARK: - Tables
+    
     let categoryTable: CategorySqliteTable
     let balanceAccountTable: BalanceAccountSqliteTable
     let expenseTable: ExpenseSqliteTable
     let expenseTemplateTable: ExpenseTemplateSqliteTable
-    let historySqliteView: OperationSqliteView
     let balanceTransferSqliteTable: BalanceTransferSqliteTable
     let balanceReplenishmentSqliteTable: BalanceReplenishmentSqliteTable
     
+    // MARK: - Views
+    
+    let operationSqliteView: OperationSqliteView
+    
     // MARK: - Initializer
     
-    init(fileURL: URL) throws {
-        let resultCode = sqlite3_open(fileURL.path, &databaseConnection)
-        if resultCode != SQLITE_OK {
-            throw Error("")
-        }
+    init(database: URL) throws {
+        self.databaseConnection = try sqlite3Open(database)
         self.categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
         try categoryTable.createIfNotExists()
         self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
         try balanceAccountTable.createIfNotExists()
         self.expenseTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
         try expenseTable.createIfNotExists()
-        self.historySqliteView = OperationSqliteView(databaseConnection: databaseConnection)
-        try historySqliteView.createIfNotExists()
+        self.operationSqliteView = OperationSqliteView(databaseConnection: databaseConnection)
+        try operationSqliteView.createIfNotExists()
         self.balanceTransferSqliteTable = BalanceTransferSqliteTable(databaseConnection: databaseConnection)
         try balanceTransferSqliteTable.createIfNotExists()
         self.balanceReplenishmentSqliteTable = BalanceReplenishmentSqliteTable(databaseConnection: databaseConnection)
@@ -52,6 +55,7 @@ class SqliteDatabase {
             try sqlite3StepDone(databaseConnection, preparedStatement)
             try sqlite3Finalize(databaseConnection, preparedStatement)
         } catch {
+            let error = Error("\(self) can not begin transaction\n\(error)")
             throw error
         }
     }
@@ -64,6 +68,7 @@ class SqliteDatabase {
             try sqlite3StepDone(databaseConnection, preparedStatement)
             try sqlite3Finalize(databaseConnection, preparedStatement)
         } catch {
+            let error = Error("\(self) can not commit transaction\n\(error)")
             throw error
         }
     }
@@ -76,8 +81,15 @@ class SqliteDatabase {
             try sqlite3StepDone(databaseConnection, preparedStatement)
             try sqlite3Finalize(databaseConnection, preparedStatement)
         } catch {
+            let error = Error("\(self) can not rollback transaction\n\(error)")
             throw error
         }
+    }
+    
+    // MARK: CustomDebugStringConvertible
+    
+    var debugDescription: String {
+        return "\(String(reflecting: Self.self))"
     }
     
 }

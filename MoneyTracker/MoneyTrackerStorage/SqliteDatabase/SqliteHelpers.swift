@@ -7,6 +7,21 @@
 
 import SQLite3
 
+
+
+
+func sqlite3Open(_ filename: URL) throws -> OpaquePointer! {
+    var databaseConnection: OpaquePointer!
+    let resultCode = sqlite3_open(filename.path, &databaseConnection)
+    if resultCode != SQLITE_OK {
+        throw Error("SQLite3 error code \(resultCode)")
+    }
+    return databaseConnection
+}
+
+
+
+
 func sqlite3PrepareV2(_ databaseConnection: OpaquePointer!, _ statement: UnsafePointer<CChar>!, _ nByte: Int32, _ preparedStatement: UnsafeMutablePointer<OpaquePointer?>!, _ pzTail: UnsafeMutablePointer<UnsafePointer<CChar>?>!) throws {
     if sqlite3_prepare_v2(databaseConnection, statement, nByte, preparedStatement, pzTail) != SQLITE_OK {
         let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)

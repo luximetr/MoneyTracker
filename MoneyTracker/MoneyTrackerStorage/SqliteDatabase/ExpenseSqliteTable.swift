@@ -33,7 +33,7 @@ struct ExpenseSelectedRow {
     let comment: String?
 }
 
-class ExpenseSqliteTable {
+class ExpenseSqliteTable: CustomDebugStringConvertible {
     
     private let databaseConnection: OpaquePointer
     
@@ -224,6 +224,12 @@ class ExpenseSqliteTable {
         }
         try sqlite3Finalize(databaseConnection, preparedStatement)
         return selectedRows
+    }
+    
+    // MARK: CustomDebugStringConvertible
+    
+    var debugDescription: String {
+        return "\(String(reflecting: Self.self))"
     }
     
 }

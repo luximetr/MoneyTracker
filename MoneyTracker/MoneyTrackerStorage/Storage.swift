@@ -18,8 +18,8 @@ public class Storage {
     
     public init() {
         userDefautlsAccessor = UserDefaultsAccessor()
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("DatabaseName.sqlite")
-        sqliteDatabase = try! SqliteDatabase(fileURL: fileURL)
+        let database = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("DatabaseName.sqlite")
+        sqliteDatabase = try! SqliteDatabase(database: database)
     }
     
     // MARK: - BalanceTransfer
@@ -697,20 +697,6 @@ public class Storage {
         }
     }
     
-    public func getAllExpenseTemplates() throws -> [ExpenseTemplate] {
-        do {
-            let selectedRows = try sqliteDatabase.expenseTemplateTable.select()
-            let expenseTemplates: [ExpenseTemplate] = selectedRows.map { selectedRow in
-                let amount = Decimal(selectedRow.amount) / 100
-                let expenseTemplate = ExpenseTemplate(id: selectedRow.id, name: selectedRow.name, amount: amount, comment: selectedRow.comment, balanceAccountId: selectedRow.balanceAccountId, categoryId: selectedRow.categoryId)
-                return expenseTemplate
-            }
-            return expenseTemplates
-        } catch {
-            throw error
-        }
-    }
-    
     public func getAllExpenseTemplatesOrdered() throws -> [ExpenseTemplate] {
         do {
             let selectedRows = try sqliteDatabase.expenseTemplateTable.selectOrderByOrderNumber()
@@ -726,7 +712,7 @@ public class Storage {
     }
     
     public func getExpenseTemplate(expenseTemplateId id: String) throws -> ExpenseTemplate {
-        return try getAllExpenseTemplates().first(where: { $0.id == id })!
+        return try getAllExpenseTemplatesOrdered().first(where: { $0.id == id })!
     }
     
     public func updateExpenseTemplate(editingExpenseTemplate: EditingExpenseTemplate) throws {
@@ -770,7 +756,7 @@ public class Storage {
     // MARK: Operations
     
     public func getOperations() throws -> [Operation] {
-        let ff = try sqliteDatabase.historySqliteView.selectOrderByTimestampDesc()
+        let ff = try sqliteDatabase.operationSqliteView.selectOrderByTimestampDesc()
         var operations: [Operation] = []
         for row in ff {
              let type = row.type

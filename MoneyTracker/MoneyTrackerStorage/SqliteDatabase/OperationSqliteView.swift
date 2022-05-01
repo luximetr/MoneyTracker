@@ -10,7 +10,6 @@ import SQLite3
 struct OperationSelectedRow {
     let type: String
     let timestamp: Int64
-    // expense
     let expenseId: String?
     let expenseTimestamp: Int64?
     let expenseAmount: Int64?
@@ -26,7 +25,6 @@ struct OperationSelectedRow {
     let expenseCategoryColor: String?
     let expenseCategoryOrderNumber: Int64?
     let expenseComment: String?
-    // balance replenishment
     let balanceReplenishmentId: String?
     let balanceReplenishmentTimestamp: Int64?
     let balanceReplenishmentAmount: Int64?
@@ -37,7 +35,6 @@ struct OperationSelectedRow {
     let balanceReplenishmentBalanceAccountColor: String?
     let balanceReplenishmentBalanceAccountOrderNumber: Int64?
     let balanceReplenishmentComment: String?
-    // balance transfer
     let balanceTransferId: String?
     let balanceTransferTimestamp: Int64?
     let balanceTransferFromAmount: Int64?
