@@ -100,6 +100,13 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Layout
     
+    private var needDisplayToAmountInputView: Bool = true
+    func displayToAmountInputView(_ need: Bool) {
+        self.needDisplayToAmountInputView = need
+        layoutFromAmountInputView()
+        layoutToAmountInputView()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutScrollView()
@@ -172,21 +179,34 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
 
     private func layoutFromAmountInputView() {
-        let x: CGFloat = 26
-        let y = dayDatePickerView.frame.origin.y + dayDatePickerView.frame.size.height + 10
-        let width = (bounds.width * 0.5) - x - x * 0.5
-        let height: CGFloat = 44
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        fromAmountInputView.frame = frame
+        if needDisplayToAmountInputView {
+            let x: CGFloat = 26
+            let y = dayDatePickerView.frame.origin.y + dayDatePickerView.frame.size.height + 10
+            let width = (bounds.width * 0.5) - x - x * 0.5
+            let height: CGFloat = 44
+            let frame = CGRect(x: x, y: y, width: width, height: height)
+            fromAmountInputView.frame = frame
+        } else {
+            let x: CGFloat = 26
+            let y = dayDatePickerView.frame.origin.y + dayDatePickerView.frame.size.height + 10
+            let width = bounds.width - 2 * x
+            let height: CGFloat = 44
+            let frame = CGRect(x: x, y: y, width: width, height: height)
+            fromAmountInputView.frame = frame
+        }
     }
     
     private func layoutToAmountInputView() {
-        let x = fromAmountInputView.frame.maxX + 26
-        let y = dayDatePickerView.frame.maxY + 10
-        let width = fromAmountInputView.frame.size.width
-        let height = fromAmountInputView.frame.size.height
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        toAmountInputView.frame = frame
+        if needDisplayToAmountInputView {
+            let x = fromAmountInputView.frame.maxX + 26
+            let y = dayDatePickerView.frame.maxY + 10
+            let width = fromAmountInputView.frame.size.width
+            let height = fromAmountInputView.frame.size.height
+            let frame = CGRect(x: x, y: y, width: width, height: height)
+            toAmountInputView.frame = frame
+        } else {
+            toAmountInputView.frame = .zero
+        }
     }
     
     private func layoutCommentTextField() {

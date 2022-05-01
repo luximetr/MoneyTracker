@@ -442,6 +442,7 @@ public class Storage {
             let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment)
             try sqliteDatabase.beginTransaction()
             try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
+            try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, subtractingAmount: amount)
             try sqliteDatabase.commitTransaction()
             let amountDecimal = Decimal(amount) / 100
             let dateDate = Date(timeIntervalSince1970: Double(timestamp))

@@ -41,6 +41,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     private let toAccountPickerController: BalanceAccountHorizontalPickerController
     private let fromAmountInputController = TextFieldLabelController()
     private let toAmountInputController = TextFieldLabelController()
+    private var isSameCurrencies = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupErrorSnackbarViewController()
+        checkSameCurrencies()
         setContent()
     }
     
@@ -70,11 +72,9 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     private func setupFromAccountPickerController() {
         fromAccountPickerController.balanceAccountHorizontalPickerView = screenView.fromAccountPickerView
-        fromAccountPickerController.didSelectAccountClosure = { [weak self] account in
+        fromAccountPickerController.didSelectAccountClosure = { [weak self] balanceAccount in
             guard let self = self else { return }
-            self.screenView.fromAmountInputView.label.text = account.currency.rawValue
-            self.screenView.fromAmountInputView.setNeedsLayout()
-            self.screenView.fromAmountInputView.layoutIfNeeded()
+            self.didSelectFromBalanceAccount(balanceAccount)
         }
         fromAccountPickerController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
@@ -84,11 +84,9 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     private func setupToAccountPickerController() {
         toAccountPickerController.balanceAccountHorizontalPickerView = screenView.toAccountPickerView
-        toAccountPickerController.didSelectAccountClosure = { [weak self] account in
+        toAccountPickerController.didSelectAccountClosure = { [weak self] balanceAccount in
             guard let self = self else { return }
-            self.screenView.toAmountInputView.label.text = account.currency.rawValue
-            self.screenView.toAmountInputView.setNeedsLayout()
-            self.screenView.toAmountInputView.layoutIfNeeded()
+            self.didSelectToBalanceAccount(balanceAccount)
         }
         toAccountPickerController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
@@ -167,10 +165,17 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
             showErrorSnackbar(localizer.localizeText("emptyFromAmountErrorMessage"))
             return
         }
-        guard let toAmount = getInputToAmount() else {
-            showErrorSnackbar(localizer.localizeText("emptyToAmountErrorMessage"))
-            return
+        let toAmount: Decimal
+        if isSameCurrencies {
+            toAmount = fromAmount
+        } else {
+            guard let _toAmount = getInputToAmount() else {
+                showErrorSnackbar(localizer.localizeText("emptyToAmountErrorMessage"))
+                return
+            }
+            toAmount = _toAmount
         }
+        
         let comment = screenView.commentTextField.text
         let addingTransfer = AddingBalanceTransfer(fromAccount: fromAccount, toAccount: toAccount, day: day, fromAmount: fromAmount, toAmount: toAmount, comment: comment)
         addTransferClosure?(addingTransfer)
@@ -192,6 +197,26 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         accounts.append(account)
         fromAccountPickerController.showOptions(accounts: accounts)
         toAccountPickerController.showOptions(accounts: accounts)
+    }
+    
+    private func didSelectFromBalanceAccount(_ balanceAccount: Account) {
+        screenView.fromAmountInputView.label.text = balanceAccount.currency.rawValue
+        screenView.fromAmountInputView.setNeedsLayout()
+        screenView.fromAmountInputView.layoutIfNeeded()
+        checkSameCurrencies()
+    }
+    
+    private func didSelectToBalanceAccount(_ balanceAccount: Account) {
+        screenView.toAmountInputView.label.text = balanceAccount.currency.rawValue
+        screenView.toAmountInputView.setNeedsLayout()
+        screenView.toAmountInputView.layoutIfNeeded()
+        checkSameCurrencies()
+    }
+    
+    private func checkSameCurrencies() {
+        let isSameCurrencies = fromAccountPickerController.selectedAccount?.currency == toAccountPickerController.selectedAccount?.currency
+        screenView.displayToAmountInputView(!isSameCurrencies)
+        self.isSameCurrencies = isSameCurrencies
     }
     
     // MARK: - Error Snackbar

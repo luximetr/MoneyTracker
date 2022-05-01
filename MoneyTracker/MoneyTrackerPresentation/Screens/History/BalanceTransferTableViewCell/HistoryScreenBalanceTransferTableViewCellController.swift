@@ -57,8 +57,7 @@ final class BalanceTransferTableViewCellController: AUIClosuresTableViewCellCont
         balanceTransferTableViewCell?.toAccountLabel.text = toAccount
         let fromAmount = "\(Self.amountNumberFormatter.string(for: balanceTransfer.fromAmount) ?? "") \(currencyCodeLocalizer.code(balanceTransfer.fromAccount.currency))"
         balanceTransferTableViewCell?.fromAmountLabel.text = fromAmount
-        let toAmount = "\(Self.amountNumberFormatter.string(for: balanceTransfer.toAmount) ?? "") \(currencyCodeLocalizer.code(balanceTransfer.toAccount.currency))"
-        balanceTransferTableViewCell?.toAmountLabel.text = toAmount
+        balanceTransferTableViewCell?.commentLabel.text = balanceTransfer.comment
     }
     
 }

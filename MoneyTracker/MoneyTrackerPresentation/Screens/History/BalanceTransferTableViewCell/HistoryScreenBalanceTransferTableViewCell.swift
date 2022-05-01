@@ -16,7 +16,8 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
     let fromAccountLabel = UILabel()
     let fromAmountLabel = UILabel()
     let toAccountLabel = UILabel()
-    let toAmountLabel = UILabel()
+    let balanceTransferImageView = UIImageView()
+    let commentLabel = UILabel()
     let separatorView = UIView()
     
     // MARK: - Setup
@@ -30,8 +31,10 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         setupFromAmountLabel()
         contentView.addSubview(toAccountLabel)
         setupToAccountLabel()
-        contentView.addSubview(toAmountLabel)
-        setupToAmountLabel()
+        contentView.addSubview(balanceTransferImageView)
+        setupBalanceTransferImageView()
+        contentView.addSubview(commentLabel)
+        setupCommentLabel()
         contentView.addSubview(separatorView)
     }
     
@@ -47,8 +50,13 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         fromAmountLabel.font = Fonts.default(size: 12, weight: .semibold)
     }
     
-    private func setupToAmountLabel() {
-        toAmountLabel.font = Fonts.default(size: 12, weight: .semibold)
+    private func setupBalanceTransferImageView() {
+        balanceTransferImageView.contentMode = .scaleAspectFit
+        balanceTransferImageView.image = Images.cycle.withRenderingMode(.alwaysTemplate)
+    }
+    
+    private func setupCommentLabel() {
+        commentLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
     // MARK: - Layout
@@ -56,9 +64,10 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutFromAccountLabel()
-        layoutToAccountLabel()
         layoutFromAmountLabel()
-        layoutToAmountLabel()
+        layoutToAccountLabel()
+        layoutBalanceTransferImageView()
+        layoutCommentLabel()
         layoutSeparatorView()
     }
     
@@ -71,15 +80,6 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         fromAccountLabel.frame = frame
     }
     
-    private func layoutToAccountLabel() {
-        let x: CGFloat = 16
-        let y: CGFloat = fromAccountLabel.frame.origin.y + fromAccountLabel.frame.size.height
-        let height: CGFloat = 20
-        let width = toAccountLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        toAccountLabel.frame = frame
-    }
-    
     private func layoutFromAmountLabel() {
         let x: CGFloat = fromAccountLabel.frame.origin.x + fromAccountLabel.frame.size.width + 16
         let y: CGFloat = 6
@@ -90,14 +90,32 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         fromAmountLabel.textAlignment = .right
     }
     
-    private func layoutToAmountLabel() {
+    private func layoutToAccountLabel() {
+        let x: CGFloat = 32
+        let y: CGFloat = fromAccountLabel.frame.origin.y + fromAccountLabel.frame.size.height
+        let height: CGFloat = 20
+        let width = toAccountLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        toAccountLabel.frame = frame
+    }
+    
+    private func layoutBalanceTransferImageView() {
+        let x: CGFloat = 16
+        let y: CGFloat = fromAccountLabel.frame.origin.y + fromAccountLabel.frame.size.height + 4
+        let height: CGFloat = 12
+        let width: CGFloat = 12
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        balanceTransferImageView.frame = frame
+    }
+    
+    private func layoutCommentLabel() {
         let x: CGFloat = toAccountLabel.frame.origin.x + toAccountLabel.frame.size.width + 16
         let y: CGFloat = fromAmountLabel.frame.origin.y + fromAmountLabel.frame.size.height
         let height: CGFloat = 20
         let width = bounds.width - x - 16
         let frame = CGRect(x: x, y: y, width: width, height: height)
-        toAmountLabel.frame = frame
-        toAmountLabel.textAlignment = .right
+        commentLabel.frame = frame
+        commentLabel.textAlignment = .right
     }
     
     private func layoutSeparatorView() {
@@ -115,9 +133,10 @@ final class BalanceTransferTableViewCell: AppearanceTableViewCell {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         fromAccountLabel.textColor = appearance.secondaryText
+        fromAmountLabel.textColor = appearance.primaryText
         toAccountLabel.textColor = appearance.primaryText
-        fromAmountLabel.textColor = appearance.dangerousActionBackground
-        toAmountLabel.textColor = appearance.successText
+        balanceTransferImageView.tintColor = appearance.primaryText
+        commentLabel.textColor = appearance.secondaryText
         separatorView.backgroundColor = appearance.secondaryBackground
     }
     
