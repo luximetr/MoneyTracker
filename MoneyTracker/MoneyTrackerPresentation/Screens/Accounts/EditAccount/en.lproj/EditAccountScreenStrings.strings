@@ -1,3 +1,6 @@
 "title" = "Edit Account";
 "colorsTitle" = "Colors";
 "edit" = "Edit";
+"emptyNameErrorMessage" = "Name cannot be empty";
+"emptyAmountErrorMessage" = "Amount cannot be empty";
+"invalidAmountErrorMessage" = "Please, enter valid amount";
