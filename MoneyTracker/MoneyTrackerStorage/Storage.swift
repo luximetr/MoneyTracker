@@ -626,10 +626,14 @@ public class Storage {
         try sqliteDatabase.commitTransaction()
     }
     
-    public func removeExpense(expenseId: String) throws {
+    public func removeExpense(_ expense: Expense) throws {
         do {
             try sqliteDatabase.beginTransaction()
-            try sqliteDatabase.expenseTable.deleteById(expenseId)
+            let balanceAccountId = expense.balanceAccountId
+            let amount = Int64(try (expense.amount * 100).int())
+            try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
+            let id = expense.id
+            try sqliteDatabase.expenseTable.deleteById(id)
             try sqliteDatabase.commitTransaction()
         } catch {
             try sqliteDatabase.rollbackTransaction()
@@ -714,7 +718,7 @@ public class Storage {
             try sqliteDatabase.beginTransaction()
             let id = UUID().uuidString
             let name = addingExpenseTemplate.name
-            let amount = Int64(try addingExpenseTemplate.amount.int() * 100)
+            let amount = Int64(try (addingExpenseTemplate.amount * 100).int())
             let balanceAccountId = addingExpenseTemplate.balanceAccountId
             let categoryId = addingExpenseTemplate.categoryId
             let comment = addingExpenseTemplate.comment

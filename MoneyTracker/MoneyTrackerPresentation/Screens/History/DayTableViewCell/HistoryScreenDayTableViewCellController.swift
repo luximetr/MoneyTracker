@@ -16,14 +16,14 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
     
     private var language: Language
     let day: Date
-    private let expenses: [Expense]
+    private var operations: [Operation]
     
     // MARK: Initializer
     
-    init(language: Language, day: Date, expenses: [Expense]) {
+    init(language: Language, day: Date, operations: [Operation]) {
         self.language = language
         self.day = day
-        self.expenses = expenses
+        self.operations = operations
     }
     
     // MARK: Cell
@@ -38,7 +38,12 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         return dayTableViewCell
     }
     
-    // MARK: Language
+    // MARK: Events
+    
+    func setOperations(_ operations: [Operation]) {
+        self.operations = operations
+        setContent()
+    }
     
     func changeLanguage(_ language: Language) {
         self.language = language
@@ -67,6 +72,12 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
     }()
     
     private var contentExpensesLabel: String {
+        let expenses: [Expense] = operations.compactMap { operation in
+            if case let .expense(expense) = operation {
+                return expense
+            }
+            return nil
+        }
         let currenciesExpenses = Dictionary(grouping: expenses) { $0.account.currency }
         let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
         let currenciesExpenseStrings = currenciesExpense.map({ "\(Self.amountNumberFormatter.string(from: NSDecimalNumber(decimal: $1)) ?? "") \($0.rawValue)" })

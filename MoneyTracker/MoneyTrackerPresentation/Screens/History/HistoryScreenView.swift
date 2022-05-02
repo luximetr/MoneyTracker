@@ -18,8 +18,8 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         let dayTableViewCells = tableView.visibleCells.compactMap({ $0 as? DayTableViewCell })
         return dayTableViewCells
     }
-    private var expenseTableViewCells: [AddExpenseScreenViewController.ExpenseTableViewCell]? {
-        let expenseTableViewCells = tableView.visibleCells.compactMap({ $0 as? AddExpenseScreenViewController.ExpenseTableViewCell })
+    private var expenseTableViewCells: [ExpenseTableViewCell]? {
+        let expenseTableViewCells = tableView.visibleCells.compactMap({ $0 as? ExpenseTableViewCell })
         return expenseTableViewCells
     }
     private var balanceReplenishmentTableViewCells: [BalanceReplenishmentTableViewCell]? {

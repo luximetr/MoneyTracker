@@ -14,7 +14,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     // MARK: Data
     
     private var operations: [Operation]
-    func operations(_ day: Date) -> [Operation] {
+    func operations(day: Date) -> [Operation] {
         let operations = self.operations.filter({ Calendar.current.isDate($0.timestamp, inSameDayAs: day) })
         return operations
     }
@@ -51,20 +51,27 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     private let tableViewController = AUIEmptyTableViewController()
-    private let expensesSectionController = AUIEmptyTableViewSectionController()
-    private func dayCellControllerForDay(_ day: Date) -> AUITableViewCellController? {
-        let cellController = expensesSectionController.cellControllers.first { cellController in
+    private let sectionController = AUIEmptyTableViewSectionController()
+    private func dayCellController(day: Date) -> DayTableViewCellController? {
+        let cellController = sectionController.cellControllers.first { cellController in
             guard let dayCellController = cellController as? DayTableViewCellController else { return false }
             return dayCellController.day == Calendar.current.startOfDay(for: day)
         }
-        return cellController
+        return cellController as? DayTableViewCellController
     }
-    private func expenseCellControllerForExpense(_ expense: Expense) -> ExpenseTableViewCellController? {
-        let cellController = expensesSectionController.cellControllers.first { cellController in
-            guard let expenseCellController = cellController as? ExpenseTableViewCellController else { return false }
-            return expenseCellController.expense.id == expense.id
+    private func operationCellController(operation: Operation) -> AUITableViewCellController? {
+        let cellController = sectionController.cellControllers.first { cellController in
+            if let expenseCellController = cellController as? ExpenseTableViewCellController {
+                return expenseCellController.expense.id == operation.id
+            } else if let balanceReplenishmentCellController = cellController as? BalanceReplenishmentTableViewCellController {
+                return balanceReplenishmentCellController.balanceReplenishment.id == operation.id
+            } else if let balanceTransferCellController = cellController as? BalanceTransferTableViewCellController {
+                return balanceTransferCellController.balanceTransfer.id == operation.id
+            } else {
+                return false
+            }
         }
-        return cellController as? ExpenseTableViewCellController
+        return cellController
     }
     
     // MARK: Events
@@ -86,6 +93,46 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         setTableViewControllerContent()
     }
     
+    private func operationDeleteActionHandler(_ operation: Operation, completionHandler: @escaping ((Swift.Error?) -> Void)) {
+        do {
+            switch operation {
+            case .expense(let expense):
+                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
+                    throw Error("deleteExpenseClosure property is not set")
+                }
+                try deleteExpenseClosure(expense)
+            case .balanceTransfer(let balanceTransfer):
+                guard let deleteBalanceTransferClosure = self.deleteBalanceTransferClosure else {
+                    throw Error("deleteBalanceTransferClosure property is not set")
+                }
+                try deleteBalanceTransferClosure(balanceTransfer)
+            case .balanceReplenishment(let balanceReplenishment):
+                guard let deleteBalanceReplenishmentClosure = self.deleteBalanceReplenishmentClosure else {
+                    throw Error("deleteBalanceReplenishmentClosure property is not set")
+                }
+                try deleteBalanceReplenishmentClosure(balanceReplenishment)
+            }
+            guard let index = self.operations.firstIndex(where: { $0.id == operation.id }) else {
+                throw Error("Cannot find operation")
+            }
+            self.operations.remove(at: index)
+            guard let cellController = self.operationCellController(operation: operation) else { return }
+            var cellControllers: [AUITableViewCellController] = [cellController]
+            let day = operation.timestamp
+            let operations = self.operations(day: day)
+            let dayCellController = self.dayCellController(day: day)
+            dayCellController?.setOperations(operations)
+            if self.operations(day: day).isEmpty, let dayCellController = dayCellController {
+                cellControllers.append(dayCellController)
+            }
+            self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
+                completionHandler(nil)
+            }
+        } catch {
+            completionHandler(error)
+        }
+    }
+    
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
@@ -103,11 +150,11 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     private func setTableViewControllerContent() {
-        expensesSectionController.cellControllers = []
+        sectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
         let daysExpenses = Dictionary(grouping: operations) { Calendar.current.startOfDay(for: $0.timestamp) }.sorted(by: { $0.0 > $1.0 })
         for (day, operations) in daysExpenses {
-            let dayCellController = createDayTableViewController(day: day, expenses: [])
+            let dayCellController = createDayTableViewController(day: day, operations: operations)
             cellControllers.append(dayCellController)
             for opeation in operations {
                 switch opeation {
@@ -123,13 +170,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
                 }
             }
         }
-        expensesSectionController.cellControllers = cellControllers
-        tableViewController.sectionControllers = [expensesSectionController]
+        sectionController.cellControllers = cellControllers
+        tableViewController.sectionControllers = [sectionController]
         tableViewController.reload()
     }
     
-    private func createDayTableViewController(day: Date, expenses: [Expense]) -> AUITableViewCellController {
-        let cellController = DayTableViewCellController(language: language, day: day, expenses: expenses)
+    private func createDayTableViewController(day: Date, operations: [Operation]) -> AUITableViewCellController {
+        let cellController = DayTableViewCellController(language: language, day: day, operations: operations)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.dayTableViewCell(indexPath)
@@ -165,29 +212,15 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return nil }
             let title = self.localizer.localizeText("delete")
             let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
+                guard let self = self else { return }
                 let expense = cellController.expense
-                do {
-                    guard let self = self else { return }
-                    guard let deleteExpenseClosure = self.deleteExpenseClosure else {
+                let operation = Operation.expense(expense)
+                self.operationDeleteActionHandler(operation) { error in
+                    if error != nil {
                         success(false)
-                        return
-                    }
-                    try deleteExpenseClosure(expense)
-                    guard let firstIndex = self.operations.firstIndex(where: { $0.id == expense.id }) else {
-                        success(false)
-                        return
-                    }
-                    self.operations.remove(at: firstIndex)
-                    var cellControllers: [AUITableViewCellController] = [cellController]
-                    let day = expense.date
-                    if self.operations(day).isEmpty, let dayCellController = self.dayCellControllerForDay(day) {
-                        cellControllers.append(dayCellController)
-                    }
-                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
+                    } else {
                         success(true)
                     }
-                } catch {
-                    success(false)
                 }
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -218,29 +251,15 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return nil }
             let title = self.localizer.localizeText("delete")
             let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
-                let balanceTransfer = cellController.balanceReplenishment
-                do {
-                    guard let self = self else { return }
-                    guard let deleteBalanceReplenishmentClosure = self.deleteBalanceReplenishmentClosure else {
+                guard let self = self else { return }
+                let balanceReplenishment = cellController.balanceReplenishment
+                let operation = Operation.balanceReplenishment(balanceReplenishment)
+                self.operationDeleteActionHandler(operation) { error in
+                    if error != nil {
                         success(false)
-                        return
-                    }
-                    try deleteBalanceReplenishmentClosure(balanceTransfer)
-                    guard let firstIndex = self.operations.firstIndex(where: { $0.id == balanceReplenishment.id }) else {
-                        success(false)
-                        return
-                    }
-                    self.operations.remove(at: firstIndex)
-                    var cellControllers: [AUITableViewCellController] = [cellController]
-                    let day = balanceTransfer.timestamp
-                    if self.operations(day).isEmpty, let dayCellController = self.dayCellControllerForDay(day) {
-                        cellControllers.append(dayCellController)
-                    }
-                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
+                    } else {
                         success(true)
                     }
-                } catch {
-                    success(false)
                 }
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -267,29 +286,15 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return nil }
             let title = self.localizer.localizeText("delete")
             let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
+                guard let self = self else { return }
                 let balanceTransfer = cellController.balanceTransfer
-                do {
-                    guard let self = self else { return }
-                    guard let deleteBalanceTransferClosure = self.deleteBalanceTransferClosure else {
+                let operation = Operation.balanceTransfer(balanceTransfer)
+                self.operationDeleteActionHandler(operation) { error in
+                    if error != nil {
                         success(false)
-                        return
-                    }
-                    try deleteBalanceTransferClosure(balanceTransfer)
-                    guard let firstIndex = self.operations.firstIndex(where: { $0.id == balanceTransfer.id }) else {
-                        success(false)
-                        return
-                    }
-                    self.operations.remove(at: firstIndex)
-                    var cellControllers: [AUITableViewCellController] = [cellController]
-                    let day = balanceTransfer.day
-                    if self.operations(day).isEmpty, let dayCellController = self.dayCellControllerForDay(day) {
-                        cellControllers.append(dayCellController)
-                    }
-                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
+                    } else {
                         success(true)
                     }
-                } catch {
-                    success(false)
                 }
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])

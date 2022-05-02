@@ -81,8 +81,8 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     
     private func layoutAmountLabel() {
         let x: CGFloat = accountLabel.frame.origin.x + accountLabel.frame.size.width + 16
-        let y: CGFloat = 8
-        let height: CGFloat = 16
+        let y: CGFloat = 6
+        let height: CGFloat = 20
         let width = bounds.width - x - 16
         let frame = CGRect(x: x, y: y, width: width, height: height)
         amountLabel.frame = frame
@@ -109,8 +109,8 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     
     private func layoutCommentLabel() {
         let x: CGFloat = categoryLabel.frame.origin.x + categoryLabel.frame.size.width + 16
-        let y: CGFloat = amountLabel.frame.origin.y + amountLabel.frame.size.height + 6
-        let height: CGFloat = 14
+        let y: CGFloat = amountLabel.frame.origin.y + amountLabel.frame.size.height
+        let height: CGFloat = 20
         let width = bounds.width - x - 16
         let frame = CGRect(x: x, y: y, width: width, height: height)
         commentLabel.frame = frame

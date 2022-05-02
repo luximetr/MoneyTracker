@@ -15,7 +15,7 @@ public struct Expense {
     public let balanceAccountId: String
     public let categoryId: String
     
-    init(
+    public init(
         id: String,
         amount: Decimal,
         date: Date,
