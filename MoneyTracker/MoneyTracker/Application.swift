@@ -565,4 +565,14 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             throw error
         }
     }
+    
+    func presentation(_ presentation: Presentation, deleteBalanceReplenishment presentationDeletingBalanceReplenishment: PresentationReplenishment) throws -> PresentationReplenishment {
+        do {
+            let storageBalanceReplenishment = StorageBalanceReplenishment(id: presentationDeletingBalanceReplenishment.id, date: presentationDeletingBalanceReplenishment.timestamp, balanceAccountId: presentationDeletingBalanceReplenishment.balanceAccount.id, amount: presentationDeletingBalanceReplenishment.amount, comment: presentationDeletingBalanceReplenishment.comment)
+            try storage.deleteBalanceReplenishment(storageBalanceReplenishment)
+            return presentationDeletingBalanceReplenishment
+        } catch {
+            throw error
+        }
+    }
 }

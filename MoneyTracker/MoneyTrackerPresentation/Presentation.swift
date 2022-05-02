@@ -441,7 +441,15 @@ public final class Presentation: AUIWindowPresentation {
             viewController.deleteBalanceTransferClosure = { [weak self] deletingBalanceTransfer in
                 guard let self = self else { return }
                 do {
-                    let deletedExpense = try self.delegate.presentation(self, deleteBalanceTransfer: deletingBalanceTransfer)
+                    _ = try self.delegate.presentation(self, deleteBalanceTransfer: deletingBalanceTransfer)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.deleteBalanceReplenishmentClosure = { [weak self] deletingBalanceReplenishment in
+                guard let self = self else { return }
+                do {
+                    _ = try self.delegate.presentation(self, deleteBalanceReplenishment: deletingBalanceReplenishment)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }

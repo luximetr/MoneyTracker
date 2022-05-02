@@ -14,7 +14,7 @@ final class BalanceReplenishmentTableViewCellController: AUIClosuresTableViewCel
     // MARK: - Data
     
     private var language: Language
-    private var balanceReplenishment: BalanceReplenishment
+    var balanceReplenishment: BalanceReplenishment
     
     // MARK: - Initializer
     

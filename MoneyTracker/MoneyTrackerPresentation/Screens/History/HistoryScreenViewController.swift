@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import MoneyTrackerStorage
 
 final class HistoryScreenViewController: StatusBarScreenViewController {
     
@@ -22,6 +23,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     var deleteExpenseClosure: ((Expense) throws -> Void)?
     var selectExpenseClosure: ((Expense) -> Void)?
     var deleteBalanceTransferClosure: ((BalanceTransfer) throws -> Void)?
+    var deleteBalanceReplenishmentClosure: ((BalanceReplenishment) throws -> Void)?
     
     // MARK: Initializer
     
@@ -211,6 +213,37 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         cellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
             return self.screenView.balanceReplenishmentTableViewCellHeight()
+        }
+        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+            guard let self = self else { return nil }
+            let title = self.localizer.localizeText("delete")
+            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
+                let balanceTransfer = cellController.balanceReplenishment
+                do {
+                    guard let self = self else { return }
+                    guard let deleteBalanceReplenishmentClosure = self.deleteBalanceReplenishmentClosure else {
+                        success(false)
+                        return
+                    }
+                    try deleteBalanceReplenishmentClosure(balanceTransfer)
+                    guard let firstIndex = self.operations.firstIndex(where: { $0.id == balanceReplenishment.id }) else {
+                        success(false)
+                        return
+                    }
+                    self.operations.remove(at: firstIndex)
+                    var cellControllers: [AUITableViewCellController] = [cellController]
+                    let day = balanceTransfer.timestamp
+                    if self.operations(day).isEmpty, let dayCellController = self.dayCellControllerForDay(day) {
+                        cellControllers.append(dayCellController)
+                    }
+                    self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
+                        success(true)
+                    }
+                } catch {
+                    success(false)
+                }
+            })
+            return UISwipeActionsConfiguration(actions: [deleteAction])
         }
         return cellController
     }
