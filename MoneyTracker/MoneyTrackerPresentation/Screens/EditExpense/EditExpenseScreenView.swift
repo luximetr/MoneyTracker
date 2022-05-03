@@ -20,6 +20,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
+        self.dayDatePickerView = DateHorizontalPickerView(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -29,7 +30,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let balanceAccountPickerView: BalanceAccountHorizontalPickerView
     let categoryPickerHeaderLabel = UILabel()
     let categoryPickerView: CategoryHorizontalPickerView
-    let dayDatePickerView = UIDatePicker()
+    let dayDatePickerView: DateHorizontalPickerView
     let amountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
     let saveButton = TextFilledButton()
@@ -46,8 +47,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupCategoryPickerHeaderLabel()
         addSubview(categoryPickerView)
         addSubview(dayDatePickerView)
-        dayDatePickerView.tintColor = appearance.primaryText
-        dayDatePickerView.datePickerMode = .date
         addSubview(amountInputView)
         addSubview(commentTextField)
         addSubview(saveButton)
@@ -76,6 +75,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         dayDatePickerView.translatesAutoresizingMaskIntoConstraints = false
         dayDatePickerView.topAnchor.constraint(equalTo: categoryPickerView.bottomAnchor, constant: 24).isActive = true
         dayDatePickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: marginLeft).isActive = true
+        dayDatePickerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -marginRight).isActive = true
+        dayDatePickerView.heightAnchor.constraint(equalToConstant: 34).isActive = true
     }
     
     // MARK: - Layout

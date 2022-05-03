@@ -39,6 +39,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.categoryPickerController = CategoryHorizontalPickerController(language: language, appearance: appearance)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
+        self.dayDatePickerController = DateHorizontalPickerViewController(language: language)
         super.init(appearance: appearance, language: language)
     }
     
@@ -54,7 +55,6 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     private let balanceAccountPickerController: BalanceAccountHorizontalPickerController
     private let categoryPickerController: CategoryHorizontalPickerController
-    private let dayDatePickerViewController = AUIEmptyDateTimePickerController()
     private let amountInputController = TextFieldLabelController()
     private let commentTextFieldController = AUIEmptyTextFieldController()
     
@@ -96,12 +96,6 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         }
     }
     
-    private func setupDatePickerController() {
-        dayDatePickerViewController.datePicker = screenView.dayDatePickerView
-        dayDatePickerViewController.mode = .date
-        dayDatePickerViewController.setDate(expense.date, animated: false)
-    }
-    
     private func setupAmountTextFieldController() {
         amountInputController.textFieldLabelView = screenView.amountInputView
         let textFieldController = amountInputController.textFieldController
@@ -139,8 +133,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         screenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
-        let locale = Locale(identifier: localizer.localizeText("dateLocale"))
-        dayDatePickerViewController.locale = locale
+        dayDatePickerController.changeLanguage(language)
     }
     
     // MARK: - Appearance
@@ -152,7 +145,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         categoryPickerController.changeAppearance(appearance)
     }
     
-    // MARK: Events
+    // MARK: - Events
     
     private func addAccount() {
         addAccountClosure?()
@@ -179,6 +172,14 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     private func nameTextFieldDidTapReturnKey() {
         view.endEditing(true)
+    }
+    
+    // MARK: - Day picker
+    
+    private let dayDatePickerController: DateHorizontalPickerViewController
+    
+    private func setupDatePickerController() {
+        dayDatePickerController.pickerView = screenView.dayDatePickerView
     }
     
     // MARK: - Amount input - Currency
@@ -221,7 +222,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         let expense = Expense(
             id: expense.id,
             amount: amount,
-            date: dayDatePickerViewController.date,
+            date: dayDatePickerController.selectedDate,
             comment: comment,
             account: selectedAccount,
             category: selectedCategory

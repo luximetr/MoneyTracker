@@ -376,6 +376,10 @@
 		DBDC92FA281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92FC281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings */; };
 		DBDC9301281B8F3C00D8C435 /* ErrorSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9300281B8F3C00D8C435 /* ErrorSnackbarView.swift */; };
 		DBDC9303281B8F5A00D8C435 /* ErrorSnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9302281B8F5A00D8C435 /* ErrorSnackbarViewController.swift */; };
+		DBDC9306281FBA4600D8C435 /* DateHorizontalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */; };
+		DBDC9308281FBA6500D8C435 /* DateHorizontalPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9307281FBA6500D8C435 /* DateHorizontalPickerViewController.swift */; };
+		DBDC930B281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC930A281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift */; };
+		DBDC930D281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC930C281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -942,6 +946,10 @@
 		DBDC92FE281AEB4900D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/MonthCollectionViewCellStrings.strings; sourceTree = "<group>"; };
 		DBDC9300281B8F3C00D8C435 /* ErrorSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSnackbarView.swift; sourceTree = "<group>"; };
 		DBDC9302281B8F5A00D8C435 /* ErrorSnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSnackbarViewController.swift; sourceTree = "<group>"; };
+		DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerView.swift; sourceTree = "<group>"; };
+		DBDC9307281FBA6500D8C435 /* DateHorizontalPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerViewController.swift; sourceTree = "<group>"; };
+		DBDC930A281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerDateCell.swift; sourceTree = "<group>"; };
+		DBDC930C281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerDateCellController.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2571,6 +2579,7 @@
 				DBB7BD2C27DDDEDA004EF5B7 /* CategoryHorizontalPicker */,
 				DBDC92D42819316800D8C435 /* CategoryVerticalPicker */,
 				DBB7BD2227DC75FF004EF5B7 /* BalanceAccountHorizontalPicker */,
+				DBDC9304281FBA2C00D8C435 /* DateHorizontalPicker */,
 			);
 			path = Pickers;
 			sourceTree = "<group>";
@@ -2660,6 +2669,25 @@
 				DBDC9300281B8F3C00D8C435 /* ErrorSnackbarView.swift */,
 			);
 			path = ErrorSnackbar;
+			sourceTree = "<group>";
+		};
+		DBDC9304281FBA2C00D8C435 /* DateHorizontalPicker */ = {
+			isa = PBXGroup;
+			children = (
+				DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */,
+				DBDC9307281FBA6500D8C435 /* DateHorizontalPickerViewController.swift */,
+				DBDC9309281FBC8300D8C435 /* DateCell */,
+			);
+			path = DateHorizontalPicker;
+			sourceTree = "<group>";
+		};
+		DBDC9309281FBC8300D8C435 /* DateCell */ = {
+			isa = PBXGroup;
+			children = (
+				DBDC930A281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift */,
+				DBDC930C281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift */,
+			);
+			path = DateCell;
 			sourceTree = "<group>";
 		};
 		F6CDF223860AC628D18B4DED /* Frameworks */ = {
@@ -3177,6 +3205,7 @@
 			files = (
 				2EB8272428075DC800C6377F /* LanguageNameLocalizer.swift in Sources */,
 				DB45FADD27E6F0950073C677 /* EditingExpenseTemplate.swift in Sources */,
+				DBDC9308281FBA6500D8C435 /* DateHorizontalPickerViewController.swift in Sources */,
 				2EB82735280761CA00C6377F /* SelectLanguageScreenViewController.swift in Sources */,
 				2E98FF5127EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift in Sources */,
 				2EC22DDA2810654900530139 /* AppearanceSettingNameLocalizer.swift in Sources */,
@@ -3266,6 +3295,7 @@
 				2E30391A27BDAF540084B96C /* UnexpectedErrorDetailsScreenView.swift in Sources */,
 				2E92FF5B27B6AB9A00A7306A /* Account.swift in Sources */,
 				2EC6178927F82BFE00845E7A /* DashboardCategoryPickerView.swift in Sources */,
+				DBDC930D281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift in Sources */,
 				2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */,
 				2ECB165927F77FD5009D748D /* DashboardTemplatesViewController.swift in Sources */,
 				2ED18840280AC65000BA52EF /* AppearanceTextField.swift in Sources */,
@@ -3277,6 +3307,7 @@
 				DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */,
 				2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */,
 				DBB7BD2427DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift in Sources */,
+				DBDC9306281FBA4600D8C435 /* DateHorizontalPickerView.swift in Sources */,
 				2E04279D27E66712005F342D /* Error.swift in Sources */,
 				2EB8272D28075FD100C6377F /* LanguageCodeLocalizer.swift in Sources */,
 				DB74863227BA5B35004DF67B /* TemplatesScreenViewController.swift in Sources */,
@@ -3292,6 +3323,7 @@
 				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
 				2E394F1027FCDDC1002C3052 /* TopUpAccountScreenViewController.swift in Sources */,
 				2ECB218927DCA961006D6558 /* AddExpenseScreenView.swift in Sources */,
+				DBDC930B281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift in Sources */,
 				DBA0546927FFCE0B00DB3892 /* EditingCategory.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
 				DB7BA81227F9831700A3B3BA /* ColorHorizontalPickerController.swift in Sources */,
