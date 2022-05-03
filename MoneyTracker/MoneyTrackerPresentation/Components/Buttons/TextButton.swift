@@ -15,8 +15,8 @@ final class TextButton: AppearanceButton {
     override func setup() {
         super.setup()
         titleLabel?.font = Fonts.default(size: 12, weight: .regular)
-        titleLabel?.textColor = Colors.accent
-        setTitleColor(Colors.accent, for: .normal)
+        titleLabel?.textColor = appearance.accent
+        setTitleColor(appearance.accent, for: .normal)
     }
     
     // MARK: States
