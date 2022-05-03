@@ -34,8 +34,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: View
     
-    private var screenView: HistoryScreenView! {
-        return view as? HistoryScreenView
+    private var screenView: HistoryScreenView {
+        return view as! HistoryScreenView
     }
     
     override func loadView() {
@@ -76,21 +76,18 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Events
     
-    @objc private func backButtonTouchUpInsideEventAction() {
-        backClosure?()
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
     }
     
-    func editExpense(_ editedExpense: Expense) {
-        guard let firstIndex = operations.firstIndex(where: { operation in
-            if case let .expense(expense) = operation {
-                return expense.id == editedExpense.id
-            }
-            return false
-        }) else {
-            return
-        }
-        operations[firstIndex] = .expense(editedExpense)
-        setTableViewControllerContent()
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        setContent()
+    }
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
     }
     
     private func operationDeleteActionHandler(_ operation: Operation, completionHandler: @escaping ((Swift.Error?) -> Void)) {
@@ -133,17 +130,29 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         }
     }
     
+    private func selectExpense(_ expense: Expense) {
+        self.selectExpenseClosure?(expense)
+    }
+    
+    func editExpense(_ editedExpense: Expense) {
+        guard let firstIndex = operations.firstIndex(where: { operation in
+            if case let .expense(expense) = operation {
+                return expense.id == editedExpense.id
+            }
+            return false
+        }) else {
+            return
+        }
+        operations[firstIndex] = .expense(editedExpense)
+        setTableViewControllerContent()
+    }
+    
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
         let localizer = ScreenLocalizer(language: language, stringsTableName: "HistoryScreenStrings")
         return localizer
     }()
-    
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        setContent()
-    }
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
@@ -227,7 +236,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         }
         cellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.selectExpenseClosure?(expense)
+            let expense = cellController.expense
+            self.selectExpense(expense)
         }
         return cellController
     }
@@ -300,13 +310,6 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             return UISwipeActionsConfiguration(actions: [deleteAction])
         }
         return cellController
-    }
-    
-    // MARK: - Appearance
-    
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
-        screenView.changeAppearance(appearance)
     }
     
 }
