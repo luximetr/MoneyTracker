@@ -575,4 +575,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             throw error
         }
     }
+    
+    func presentation(_ presentation: Presentation, editReplenishment presentationEditingReplenishment: PresentationEditingReplenishment) throws -> PresentationTopUpAccount {
+        do {
+            let storageEditingReplenishment = StorageEditingReplenishment(id: presentationEditingReplenishment.id, date: presentationEditingReplenishment.timestamp, balanceAccountId: presentationEditingReplenishment.account.id, amount: presentationEditingReplenishment.amount, comment: presentationEditingReplenishment.comment)
+            try storage.editReplenishment(storageEditingReplenishment)
+            return PresentationTopUpAccount(id: presentationEditingReplenishment.id, timestamp: presentationEditingReplenishment.timestamp, account: presentationEditingReplenishment.account, amount: presentationEditingReplenishment.amount, comment: presentationEditingReplenishment.comment)
+        } catch {
+            throw error
+        }
+    }
+    
 }

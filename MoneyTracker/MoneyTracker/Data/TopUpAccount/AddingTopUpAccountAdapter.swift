@@ -10,6 +10,8 @@ import MoneyTrackerPresentation
 
 typealias PresentationAddingTopUpAccount = MoneyTrackerPresentation.AddingBalanceReplenishment
 
+typealias PresentationEditingReplenishment = MoneyTrackerPresentation.EditingReplenishment
+
 class AddingTopUpAccountAdapter {
     
 }

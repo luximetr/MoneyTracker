@@ -454,6 +454,15 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
+            viewController.selectReplenishmentClosure = { [weak self] replenishment in
+                guard let self = self else { return }
+                guard let menuNavigationController = self.menuNavigationController else { return }
+                do {
+                    try self.pushEditReplenishmentViewController(menuNavigationController, replenishment: replenishment)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
             self.pushedHistoryViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
@@ -507,6 +516,45 @@ public final class Presentation: AUIWindowPresentation {
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push EditExpenseViewController\n\(error)")
+            throw error
+        }
+    }
+    
+    // MARK: - Edit Expense View Controller
+    
+    private weak var pushedEditReplenishmentViewController: EditReplenishmentScreenViewController?
+    private func pushEditReplenishmentViewController(_ navigationController: UINavigationController, replenishment: BalanceReplenishment) throws {
+        do {
+            let accounts = try delegate.presentationAccounts(self)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = EditReplenishmentScreenViewController(appearance: appearance, language: language, replenishment: replenishment, accounts: accounts)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
+            }
+            viewController.addAccountClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.editReplenishmentClosure = { [weak self, weak navigationController] editingReplenishment in
+                guard let self = self else { return }
+                guard let navigationController = navigationController else { return }
+                do {
+                    _ = try self.delegate.presentation(self, editReplenishment: editingReplenishment)
+                    navigationController.popViewController(animated: true)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            pushedEditReplenishmentViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push TopUpAccountViewController\n\(error)")
             throw error
         }
     }

@@ -24,6 +24,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     var selectExpenseClosure: ((Expense) -> Void)?
     var deleteBalanceTransferClosure: ((BalanceTransfer) throws -> Void)?
     var deleteBalanceReplenishmentClosure: ((BalanceReplenishment) throws -> Void)?
+    var selectReplenishmentClosure: ((BalanceReplenishment) -> Void)?
     
     // MARK: Initializer
     
@@ -145,6 +146,10 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         }
         operations[firstIndex] = .expense(editedExpense)
         setTableViewControllerContent()
+    }
+    
+    private func selectReplenishment(_ replenishment: BalanceReplenishment) {
+        self.selectReplenishmentClosure?(replenishment)
     }
     
     // MARK: Content
@@ -273,6 +278,11 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
                 }
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
+        cellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            let replenishment = cellController.balanceReplenishment
+            self.selectReplenishment(replenishment)
         }
         return cellController
     }

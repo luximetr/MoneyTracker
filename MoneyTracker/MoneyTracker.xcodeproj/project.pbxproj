@@ -82,6 +82,9 @@
 		2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */; };
 		2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */; };
 		2E98FF5127EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E98FF5027EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift */; };
+		2E9F46E62821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E52821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift */; };
+		2E9F46E82821A8DB00F4E048 /* EditReplenishmentScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E72821A8DB00F4E048 /* EditReplenishmentScreenView.swift */; };
+		2E9F46EA2821ADD300F4E048 /* EditingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E92821ADD300F4E048 /* EditingReplenishment.swift */; };
 		2EA18A7227B51F7B00C512BE /* CurrencyTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA18A7127B51F7B00C512BE /* CurrencyTableViewCellController.swift */; };
 		2EA3B732280CA19300E64374 /* AppearanceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3B731280CA19300E64374 /* AppearanceCollectionViewCell.swift */; };
 		2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7066A27B5BA4300FF08B2 /* AddAccountScreenView.swift */; };
@@ -573,6 +576,9 @@
 		2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenView.swift; sourceTree = "<group>"; };
 		2E96212D27AFD94C00DF0DD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
 		2E98FF5027EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddedSnackbarViewController.swift; sourceTree = "<group>"; };
+		2E9F46E52821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplenishmentScreenViewController.swift; sourceTree = "<group>"; };
+		2E9F46E72821A8DB00F4E048 /* EditReplenishmentScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplenishmentScreenView.swift; sourceTree = "<group>"; };
+		2E9F46E92821ADD300F4E048 /* EditingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingReplenishment.swift; sourceTree = "<group>"; };
 		2EA18A7127B51F7B00C512BE /* CurrencyTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCellController.swift; sourceTree = "<group>"; };
 		2EA3B731280CA19300E64374 /* AppearanceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceCollectionViewCell.swift; sourceTree = "<group>"; };
 		2EA7066A27B5BA4300FF08B2 /* AddAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenView.swift; sourceTree = "<group>"; };
@@ -1367,6 +1373,15 @@
 			path = EditCategory;
 			sourceTree = "<group>";
 		};
+		2E9F46E42821A89100F4E048 /* EditReplenishment */ = {
+			isa = PBXGroup;
+			children = (
+				2E9F46E52821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift */,
+				2E9F46E72821A8DB00F4E048 /* EditReplenishmentScreenView.swift */,
+			);
+			path = EditReplenishment;
+			sourceTree = "<group>";
+		};
 		2EA3B730280CA15700E64374 /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1467,6 +1482,7 @@
 				2E394F0E27FCDD8E002C3052 /* TopUpAccount */,
 				2ED8BD7027E908C90007F60B /* History */,
 				2E2A6ED527EC4F710084054C /* EditExpense */,
+				2E9F46E42821A89100F4E048 /* EditReplenishment */,
 				DB7486E327D0658F004DF67B /* Statistic */,
 				2E9289F927AFF9A7002F3403 /* Settings */,
 				2EC96DE627F609F5009A9AEA /* Categories */,
@@ -2147,6 +2163,7 @@
 			children = (
 				2EE1897927FEBD18006D7DA9 /* AddingBalanceReplenishment.swift */,
 				2EE1897727FEBD08006D7DA9 /* BalanceReplenishment.swift */,
+				2E9F46E92821ADD300F4E048 /* EditingReplenishment.swift */,
 			);
 			path = BalanceReplenishment;
 			sourceTree = "<group>";
@@ -3224,6 +3241,7 @@
 				DB40041C280EA697004073D0 /* CategoryColor.swift in Sources */,
 				2EB10A3A27A6FEAE00743416 /* Colors.swift in Sources */,
 				2ED7E48A2809FADC00B35F02 /* StatusBarScreenViewController.swift in Sources */,
+				2E9F46EA2821ADD300F4E048 /* EditingReplenishment.swift in Sources */,
 				DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */,
 				DB400421280EC105004073D0 /* BalanceAccountColorHorizontalPickerColorCellController.swift in Sources */,
 				DB45FAD627E6EFC00073C677 /* EditTemplateScreenView.swift in Sources */,
@@ -3274,6 +3292,7 @@
 				2EB82737280761DB00C6377F /* SelectLanguageScreenView.swift in Sources */,
 				2ED7E490280A06C600B35F02 /* AppearanceTableViewCell.swift in Sources */,
 				DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */,
+				2E9F46E62821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift in Sources */,
 				2E394F1027FCDDC1002C3052 /* TopUpAccountScreenViewController.swift in Sources */,
 				2ECB218927DCA961006D6558 /* AddExpenseScreenView.swift in Sources */,
 				DBA0546927FFCE0B00DB3892 /* EditingCategory.swift in Sources */,
@@ -3296,6 +3315,7 @@
 				2E9289FD27AFF9E3002F3403 /* SettingsScreenView.swift in Sources */,
 				2EC6179027F8393300845E7A /* DashboardCategoryPickerViewController.swift in Sources */,
 				2EDCEBF2281CFB90001F3F58 /* Operation.swift in Sources */,
+				2E9F46E82821A8DB00F4E048 /* EditReplenishmentScreenView.swift in Sources */,
 				2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */,
 				DB40041A280EA67D004073D0 /* CategoryColorUIColorProvider.swift in Sources */,
 				2E09CC3727F4F9720015DA1E /* PlainTextField.swift in Sources */,

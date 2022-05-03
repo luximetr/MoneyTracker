@@ -102,6 +102,26 @@ public class Storage {
         }
     }
     
+    public func editReplenishment(_ editingReplenishment: EditingReplenishment) throws {
+        do {
+            try sqliteDatabase.beginTransaction()
+            let id = editingReplenishment.id
+            let balanceAccountId = editingReplenishment.balanceAccountId
+            let comment = editingReplenishment.comment
+            let amount = Int64(try (editingReplenishment.amount * 100).int())
+            if let beforeReplenishment = try sqliteDatabase.balanceReplenishmentSqliteTable.selectWhereId(id) {
+                let amountDifference = amount - beforeReplenishment.amount
+                try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amountDifference)
+            }
+            let values = ReplenishmentUpdatingValues(timestamp: Int64(editingReplenishment.date.timeIntervalSince1970), amount: amount, balanceAccountId: balanceAccountId, comment: comment)
+            try sqliteDatabase.balanceReplenishmentSqliteTable.updateWhereId(balanceAccountId, values: values)
+            try sqliteDatabase.commitTransaction()
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
+    }
+    
     // MARK: - Categories
     
     public func getCategories() throws -> [Category] {
