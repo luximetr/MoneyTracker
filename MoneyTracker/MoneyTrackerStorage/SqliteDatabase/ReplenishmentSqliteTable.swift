@@ -125,8 +125,8 @@ class ReplenishmentSqliteTable {
         let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
         let accountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
         let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 4)
-        let balanceReplenishmentSelectedRow = ReplenishmentSelectedRow(id: id, timestamp: timestamp, amount: amount, accountId: accountId, comment: comment)
-        return balanceReplenishmentSelectedRow
+        let replenishmentSelectedRow = ReplenishmentSelectedRow(id: id, timestamp: timestamp, amount: amount, accountId: accountId, comment: comment)
+        return replenishmentSelectedRow
     }
     
     func selectWhereId(_ id: String) throws -> ReplenishmentSelectedRow? {
