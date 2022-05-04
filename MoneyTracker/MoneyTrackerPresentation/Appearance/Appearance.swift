@@ -76,4 +76,5 @@ protocol Appearance {
     var categoryVariant17PrimaryBackground: UIColor { get }
     var categoryVariant18PrimaryBackground: UIColor { get }
     var categoryVariant19PrimaryBackground: UIColor { get }
+    var cardPrimaryText: UIColor { get }
 }

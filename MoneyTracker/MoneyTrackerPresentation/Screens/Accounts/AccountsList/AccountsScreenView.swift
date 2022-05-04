@@ -85,6 +85,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     func accountCollectionViewCell(_ indexPath: IndexPath) -> AccountCollectionViewCell {
         let accountCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: accountCollectionViewCellReuseIdentifier, for: indexPath) as! AccountCollectionViewCell
+        accountCollectionViewCell.setAppearance(appearance)
         return accountCollectionViewCell
     }
 

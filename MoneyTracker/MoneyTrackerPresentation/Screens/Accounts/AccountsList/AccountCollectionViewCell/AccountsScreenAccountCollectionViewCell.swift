@@ -9,11 +9,11 @@ import UIKit
 import AUIKit
 
 extension AccountsScreenViewController {
-final class AccountCollectionViewCell: AUICollectionViewCell {
-    
+final class AccountCollectionViewCell: AppearanceCollectionViewCell {
+
     // MARK: Subviews
     
-    private let _accountView = AccountView()
+    private let _accountView = AccountView(appearance: LightAppearance())
     var accountView: UIView { return _accountView }
     var nameLabel: UILabel { return _accountView.nameLabel }
     var balanceLabel: UILabel { return _accountView.balanceLabel }
@@ -30,7 +30,7 @@ final class AccountCollectionViewCell: AUICollectionViewCell {
     }
     
     private func setupDeleteButton() {
-        deleteButton.backgroundColor = Colors.dangerousActionBackground
+//        deleteButton.backgroundColor = Colors.dangerousActionBackground
 //        deleteButton.layer.shadowColor = Colors.black.withAlphaComponent(0.85).cgColor
 //        deleteButton.layer.shadowOpacity = 1
 //        deleteButton.layer.shadowRadius = 6
@@ -38,7 +38,7 @@ final class AccountCollectionViewCell: AUICollectionViewCell {
     }
     
     private func setupContainerView() {
-        _accountView.layer.shadowColor = Colors.black.withAlphaComponent(0.35).cgColor
+        _accountView.layer.shadowColor = UIColor.black.withAlphaComponent(0.35).cgColor
         _accountView.layer.shadowOpacity = 1
         _accountView.layer.shadowRadius = 6
         _accountView.layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -117,11 +117,17 @@ final class AccountCollectionViewCell: AUICollectionViewCell {
             }
         }
     }
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        _accountView.changeAppearance(appearance)
+        deleteButton.backgroundColor = appearance.dangerousActionBackground
+    }
         
 }
 }
 
-private class AccountView: AUIView {
+private class AccountView: AppearanceView {
     
     // MARK: Subviews
     
@@ -139,11 +145,17 @@ private class AccountView: AUIView {
     }
     
     private func setupNameLabel() {
-        nameLabel.textColor = Colors.white
+        nameLabel.textColor = appearance.cardPrimaryText
     }
     
     private func setupBalanceLabel() {
-        balanceLabel.textColor = Colors.white
+        balanceLabel.textColor = appearance.cardPrimaryText
+    }
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        nameLabel.textColor = appearance.cardPrimaryText
+        balanceLabel.textColor = appearance.cardPrimaryText
     }
     
     // MARK: Layout

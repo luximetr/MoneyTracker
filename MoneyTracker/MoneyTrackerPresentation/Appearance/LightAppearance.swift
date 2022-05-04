@@ -76,4 +76,5 @@ struct LightAppearance: Appearance {
     let categoryVariant17PrimaryBackground = UIColor(red: 0.106, green: 0.11, blue: 0.118, alpha: 1)
     let categoryVariant18PrimaryBackground = UIColor(red: 0.408, green: 0.475, blue: 0.482, alpha: 1)
     let categoryVariant19PrimaryBackground = UIColor(red: 0.714, green: 0.765, blue: 0.78, alpha: 1)
+    let cardPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 }

@@ -45,7 +45,7 @@ final class ScreenView: AppearanceView {
     
     private func setupTabBarView() {
         tabBarView.backgroundColor = appearance.primaryBackground
-        tabBarView.layer.shadowColor = Colors.black.withAlphaComponent(0.12).cgColor
+        tabBarView.layer.shadowColor = UIColor.black.withAlphaComponent(0.12).cgColor
         tabBarView.layer.shadowOpacity = 0.6
         tabBarView.layer.shadowRadius = 12
         tabBarView.layer.shadowOffset = CGSize(width: 0, height: -12)
