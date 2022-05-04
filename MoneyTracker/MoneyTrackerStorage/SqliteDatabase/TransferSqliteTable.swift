@@ -33,7 +33,7 @@ class TransferSqliteTable {
         let statement =
             """
             CREATE TABLE IF NOT EXISTS
-            balance_transfer(
+            transfer(
                 id TEXT PRIMARY KEY,
                 timestamp INTEGER,
                 from_balance_account_id TEXT,
@@ -56,7 +56,7 @@ class TransferSqliteTable {
     func insertValues(_ values: TransferInsertingValues) throws {
         let statement =
             """
-            INSERT INTO balance_transfer(id, timestamp, from_balance_account_id, from_amount, to_balance_account_id, to_amount, comment)
+            INSERT INTO transfer(id, timestamp, from_balance_account_id, from_amount, to_balance_account_id, to_amount, comment)
             VALUES (?, ?, ?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
@@ -77,7 +77,7 @@ class TransferSqliteTable {
     func deleteWhereId(_ id: String) throws {
         let statement =
             """
-            DELETE FROM balance_transfer WHERE id = ?;
+            DELETE FROM transfer WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
