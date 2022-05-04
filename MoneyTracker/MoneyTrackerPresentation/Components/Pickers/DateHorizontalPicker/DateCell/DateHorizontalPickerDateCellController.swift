@@ -13,11 +13,13 @@ class DateCellController: AUIClosuresCollectionViewCellController {
     
     // MARK: - Data
     
+    let date: Date
     private(set) var title: String
     
     // MARK: - Initializer
     
-    init(title: String) {
+    init(date: Date, title: String) {
+        self.date = date
         self.title = title
         super.init()
     }

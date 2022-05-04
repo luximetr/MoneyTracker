@@ -380,6 +380,7 @@
 		DBDC9308281FBA6500D8C435 /* DateHorizontalPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9307281FBA6500D8C435 /* DateHorizontalPickerViewController.swift */; };
 		DBDC930B281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC930A281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift */; };
 		DBDC930D281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC930C281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift */; };
+		DBDC9310282219C400D8C435 /* DateHorizontalPickerViewStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC9312282219C400D8C435 /* DateHorizontalPickerViewStrings.strings */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -950,6 +951,9 @@
 		DBDC9307281FBA6500D8C435 /* DateHorizontalPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerViewController.swift; sourceTree = "<group>"; };
 		DBDC930A281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerDateCell.swift; sourceTree = "<group>"; };
 		DBDC930C281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerDateCellController.swift; sourceTree = "<group>"; };
+		DBDC9311282219C400D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DateHorizontalPickerViewStrings.strings; sourceTree = "<group>"; };
+		DBDC9313282219C500D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DateHorizontalPickerViewStrings.strings; sourceTree = "<group>"; };
+		DBDC9314282219C600D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DateHorizontalPickerViewStrings.strings; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2674,8 +2678,9 @@
 		DBDC9304281FBA2C00D8C435 /* DateHorizontalPicker */ = {
 			isa = PBXGroup;
 			children = (
-				DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */,
 				DBDC9307281FBA6500D8C435 /* DateHorizontalPickerViewController.swift */,
+				DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */,
+				DBDC9312282219C400D8C435 /* DateHorizontalPickerViewStrings.strings */,
 				DBDC9309281FBC8300D8C435 /* DateCell */,
 			);
 			path = DateHorizontalPicker;
@@ -2978,6 +2983,7 @@
 				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				DB7BA80827F87D7500A3B3BA /* SelectIconScreenStrings.strings in Resources */,
+				DBDC9310282219C400D8C435 /* DateHorizontalPickerViewStrings.strings in Resources */,
 				2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */,
 				2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */,
 				2E394F0B27FCDA2F002C3052 /* AddTransferScreenStrings.strings in Resources */,
@@ -3904,6 +3910,16 @@
 				DBDC92FE281AEB4900D8C435 /* uk */,
 			);
 			name = MonthCollectionViewCellStrings.strings;
+			sourceTree = "<group>";
+		};
+		DBDC9312282219C400D8C435 /* DateHorizontalPickerViewStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBDC9311282219C400D8C435 /* en */,
+				DBDC9313282219C500D8C435 /* th */,
+				DBDC9314282219C600D8C435 /* uk */,
+			);
+			name = DateHorizontalPickerViewStrings.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

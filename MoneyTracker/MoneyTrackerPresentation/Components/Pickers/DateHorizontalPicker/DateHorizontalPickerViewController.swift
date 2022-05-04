@@ -37,6 +37,17 @@ class DateHorizontalPickerViewController: EmptyViewController {
         collectionViewController.collectionView = nil
     }
     
+    // MARK: - Content
+    
+    private lazy var localizer: ScreenLocalizer = {
+        return ScreenLocalizer(language: language, stringsTableName: "DateHorizontalPickerViewStrings")
+    }()
+    
+    override func changeLanguage(_ language: Language) {
+        super.changeLanguage(language)
+        findTodayCellController()?.setTitle(localizer.localizeText("today"))
+    }
+    
     // MARK: - Dates
     
     private func reloadDates() {
@@ -81,7 +92,9 @@ class DateHorizontalPickerViewController: EmptyViewController {
     }()
     
     private func createDateCellController(date: Date) -> DateCellController {
-        let controller = DateCellController(title: dateFormatter.string(from: date))
+        let isToday = calendar.isDateInToday(date)
+        let title = isToday ? localizer.localizeText("today") : dateFormatter.string(from: date)
+        let controller = DateCellController(date: date, title: title)
         controller.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             return self?.pickerView?.createDateCell(indexPath: indexPath) ?? UICollectionViewCell()
         }
@@ -92,6 +105,14 @@ class DateHorizontalPickerViewController: EmptyViewController {
             self?.didSelectDateCell(date: date)
         }
         return controller
+    }
+    
+    private func findDateCells() -> [DateCellController] {
+        return sectionController.cellControllers.compactMap { $0 as? DateCellController }
+    }
+    
+    private func findTodayCellController() -> DateCellController? {
+        return findDateCells().first(where: { calendar.isDateInToday($0.date) })
     }
     
     // MARK: - Date cell - Select
