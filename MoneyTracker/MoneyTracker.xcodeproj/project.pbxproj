@@ -381,6 +381,7 @@
 		DBDC930B281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC930A281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift */; };
 		DBDC930D281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC930C281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift */; };
 		DBDC9310282219C400D8C435 /* DateHorizontalPickerViewStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC9312282219C400D8C435 /* DateHorizontalPickerViewStrings.strings */; };
+		DBDC93162822931400D8C435 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC93152822931400D8C435 /* PassthroughView.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -954,6 +955,7 @@
 		DBDC9311282219C400D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DateHorizontalPickerViewStrings.strings; sourceTree = "<group>"; };
 		DBDC9313282219C500D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DateHorizontalPickerViewStrings.strings; sourceTree = "<group>"; };
 		DBDC9314282219C600D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DateHorizontalPickerViewStrings.strings; sourceTree = "<group>"; };
+		DBDC93152822931400D8C435 /* PassthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughView.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1984,6 +1986,7 @@
 			isa = PBXGroup;
 			children = (
 				2ED1883C280AC17A00BA52EF /* AppearanceView.swift */,
+				DBDC93152822931400D8C435 /* PassthroughView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3340,6 +3343,7 @@
 				2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */,
 				DB45FAD127E4B8BE0073C677 /* SingleLineTextInputView.swift in Sources */,
 				2EC6178C27F82DA300845E7A /* DashboardAccountPickerView.swift in Sources */,
+				DBDC93162822931400D8C435 /* PassthroughView.swift in Sources */,
 				2ED9047E27F885DF0091FCA5 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				DB74863927BA6042004DF67B /* AddTemplateScreenViewController.swift in Sources */,
 				DB74863427BA5B81004DF67B /* ExpenseTemplate.swift in Sources */,

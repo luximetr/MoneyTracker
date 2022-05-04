@@ -31,7 +31,8 @@ class DateHorizontalPickerViewController: EmptyViewController {
     override func setupView() {
         super.setupView()
         setupCollectionViewController()
-        reloadDates()
+        setupDatePicker()
+        reloadDatesIfNeeded()
     }
     
     override func unsetupView() {
@@ -52,7 +53,9 @@ class DateHorizontalPickerViewController: EmptyViewController {
     
     // MARK: - Dates
     
-    private func reloadDates() {
+    private func reloadDatesIfNeeded() {
+        let isSelectedDateDisplayed = findDateCells().first(where: { calendar.isDate($0.date, inSameDayAs: selectedDate) }) != nil
+        guard isSelectedDateDisplayed == false else { return }
         let dates = createDates(selectedDate: selectedDate)
         showDates(dates)
     }
@@ -187,9 +190,22 @@ class DateHorizontalPickerViewController: EmptyViewController {
     
     func setSelectedDate(_ date: Date) {
         self.selectedDate = date
-        reloadDates()
+        reloadDatesIfNeeded()
         guard let dateCellController = findDateCellController(date: date) else { return }
         guard let indexPath = findIndexPath(cellController: dateCellController) else { return }
         pickerView?.showSelected(indexPath: indexPath)
+    }
+    
+    // MARK: - Date picker
+    
+    private func setupDatePicker() {
+        pickerView?.datePicker.maximumDate = Date()
+        pickerView?.datePicker.addTarget(self, action: #selector(datePickerDidEndSelecting), for: .editingDidEnd)
+    }
+    
+    @objc private func datePickerDidEndSelecting() {
+        guard let datePickerSelectedDate = pickerView?.datePicker.date else { return }
+        setSelectedDate(datePickerSelectedDate)
+        didSelectDateClosure?(datePickerSelectedDate)
     }
 }

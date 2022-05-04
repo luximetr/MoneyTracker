@@ -16,8 +16,8 @@ class DateHorizontalPickerView: AppearanceView {
     let collectionView: UICollectionView
     private let collectionViewLayout: UICollectionViewFlowLayout
     private let collectionFadeView = UIView()
-    let pickDayButton = UIButton()
-    private let pickDayButtonBackground = UIView()
+    let datePicker = UIDatePicker()
+    private let pickDayButtonBackground = PassthroughView()
     private let pickDayButtonIcon = UIImageView()
     private let pickDayButtonGradientView = UIView()
     private let pickDayButtonGradientLayer = CAGradientLayer()
@@ -39,14 +39,16 @@ class DateHorizontalPickerView: AppearanceView {
         setupCollectionView()
         addSubview(collectionFadeView)
         setupCollectionFadeView()
+        addSubview(datePicker)
+        setupDatePicker()
         addSubview(pickDayButtonBackground)
         addSubview(pickDayButtonGradientView)
         setupPickDayButtonGradientView()
         addSubview(pickDayButtonIcon)
         setupPickDayButtonIcon()
-        addSubview(pickDayButton)
         addSubview(selectedDayFrameView)
         setupSelectedDayFrameView()
+        
     }
     
     private func setupCollectionView() {
@@ -59,8 +61,12 @@ class DateHorizontalPickerView: AppearanceView {
     }
     
     private func setupCollectionFadeView() {
-        collectionFadeView.alpha = 0.4
         collectionFadeView.isUserInteractionEnabled = false
+    }
+    
+    private func setupDatePicker() {
+        datePicker.preferredDatePickerStyle = .compact
+        datePicker.datePickerMode = .date
     }
     
     private func setupPickDayButtonIcon() {
@@ -87,8 +93,8 @@ class DateHorizontalPickerView: AppearanceView {
         super.layoutSubviews()
         layoutCollectionView()
         layoutPickDayButtonIcon()
-        layoutPickDayButton()
         layoutPickDayButtonBackground()
+        layoutDatePicker()
         layoutPickDayButtonGradientView()
         layoutSelectedDayFrameView()
         layoutCollectionFadeView()
@@ -110,20 +116,16 @@ class DateHorizontalPickerView: AppearanceView {
             .height(15)
     }
     
-    private func layoutPickDayButton() {
-        pickDayButton.pin
+    private func layoutPickDayButtonBackground() {
+        pickDayButtonBackground.pin
             .left()
             .top()
             .bottom()
             .width(31)
     }
     
-    private func layoutPickDayButtonBackground() {
-        pickDayButtonBackground.pin
-            .left()
-            .top()
-            .bottom()
-            .right(to: pickDayButton.edge.right)
+    private func layoutDatePicker() {
+        datePicker.frame = pickDayButtonBackground.frame
     }
     
     private func layoutPickDayButtonGradientView() {
@@ -160,7 +162,7 @@ class DateHorizontalPickerView: AppearanceView {
         pickDayButtonIcon.tintColor = appearance.primaryText
         pickDayButtonGradientLayer.colors = [appearance.primaryBackground.withAlphaComponent(1).cgColor, appearance.primaryBackground.withAlphaComponent(0).cgColor]
         selectedDayFrameView.layer.borderColor = appearance.secondaryBackground.cgColor
-        collectionFadeView.backgroundColor = appearance.primaryBackground
+        collectionFadeView.backgroundColor = appearance.primaryBackground.withAlphaComponent(0.4)
         findDateCells().forEach { $0.setAppearance(appearance) }
     }
     
@@ -188,7 +190,6 @@ class DateHorizontalPickerView: AppearanceView {
     
     func findNearestCellIndexPathUnderSelectedDayFrameView() -> IndexPath? {
         let selectionViewFrameTranslatedToCollectionView = self.convert(selectedDayFrameView.frame, to: collectionView)
-        let cellWidth = getDateCellSize().width
         let scrollThresholdPoint = CGPoint(x: selectionViewFrameTranslatedToCollectionView.midX, y: selectionViewFrameTranslatedToCollectionView.midY)
         return collectionView.indexPathForItem(at: scrollThresholdPoint)
     }
