@@ -1,5 +1,5 @@
 //
-//  Transfer.swift
+//  AddingTransfer.swift
 //  MoneyTrackerPresentation
 //
 //  Created by Job Ihor Myroniuk on 06.04.2022.
@@ -7,21 +7,19 @@
 
 import Foundation
 
-public struct BalanceTransfer: Hashable, Equatable {
+public struct AddingTransfer: Hashable, Equatable {
     
-    public let id: String
+    public let timestamp: Date
     public let fromAccount: Account
-    public let toAccount: Account
-    public let day: Date
     public let fromAmount: Decimal
+    public let toAccount: Account
     public let toAmount: Decimal
     public let comment: String?
     
-    public init(id: String, fromAccount: Account, toAccount: Account, day: Date, fromAmount: Decimal, toAmount: Decimal, comment: String?) {
-        self.id = id
+    public init(fromAccount: Account, toAccount: Account, day: Date, fromAmount: Decimal, toAmount: Decimal, comment: String?) {
         self.fromAccount = fromAccount
         self.toAccount = toAccount
-        self.day = day
+        self.timestamp = day
         self.fromAmount = fromAmount
         self.toAmount = toAmount
         self.comment = comment

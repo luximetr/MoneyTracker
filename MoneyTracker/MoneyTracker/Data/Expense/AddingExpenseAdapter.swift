@@ -17,7 +17,7 @@ class AddingExpenseAdapter {
     func adaptToStorage(presentationAddingExpense: PresentationAddingExpense) -> StorageAddingExpense {
         return StorageAddingExpense(
             amount: presentationAddingExpense.amount,
-            date: presentationAddingExpense.date,
+            date: presentationAddingExpense.timestamp,
             comment: presentationAddingExpense.comment,
             balanceAccountId: presentationAddingExpense.account.id,
             categoryId: presentationAddingExpense.category.id

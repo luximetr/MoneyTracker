@@ -99,7 +99,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     private func setupDatePickerController() {
         dayDatePickerViewController.datePicker = screenView.dayDatePickerView
         dayDatePickerViewController.mode = .date
-        dayDatePickerViewController.setDate(expense.date, animated: false)
+        dayDatePickerViewController.setDate(expense.timestamp, animated: false)
     }
     
     private func setupAmountTextFieldController() {
@@ -220,11 +220,11 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         let comment = commentTextFieldController.text
         let expense = Expense(
             id: expense.id,
+            timestamp: dayDatePickerViewController.date,
             amount: amount,
-            date: dayDatePickerViewController.date,
-            comment: comment,
             account: selectedAccount,
-            category: selectedCategory
+            category: selectedCategory,
+            comment: comment
         )
         editExpenseClosure?(expense)
         backClosure?()

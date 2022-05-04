@@ -164,7 +164,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             return
         }
         let comment = screenView.commentTextField.text
-        let addingExpense = AddingExpense(amount: amount, date: date, comment: comment, account: account, category: category)
+        let addingExpense = AddingExpense(timestamp: date, amount: amount, account: account, category: category, comment: comment)
         guard let addExpenseClosure = addExpenseClosure else { return }
         do {
             let addedExpense = try addExpenseClosure(addingExpense)

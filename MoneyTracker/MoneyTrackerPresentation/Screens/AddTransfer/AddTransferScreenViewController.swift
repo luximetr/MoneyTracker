@@ -15,7 +15,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     var accounts: [Account]
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
-    var addTransferClosure: ((AddingBalanceTransfer) -> Void)?
+    var addTransferClosure: ((AddingTransfer) -> Void)?
     
     // MARK: Initializer
     
@@ -177,7 +177,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         }
         
         let comment = screenView.commentTextField.text
-        let addingTransfer = AddingBalanceTransfer(fromAccount: fromAccount, toAccount: toAccount, day: day, fromAmount: fromAmount, toAmount: toAmount, comment: comment)
+        let addingTransfer = AddingTransfer(fromAccount: fromAccount, toAccount: toAccount, day: day, fromAmount: fromAmount, toAmount: toAmount, comment: comment)
         addTransferClosure?(addingTransfer)
     }
     

@@ -27,11 +27,11 @@ class ExpenseAdapter {
         let storageAccount = try storage.getBalanceAccount(id: storageExpense.balanceAccountId)
         return PresentationExpense(
             id: storageExpense.id,
+            timestamp: storageExpense.date,
             amount: storageExpense.amount,
-            date: storageExpense.date,
-            comment: storageExpense.comment,
             account: accountAdapter.adaptToPresentation(storageAccount: storageAccount),
-            category: categoryAdapter.adaptToPresentation(storageCategory: storageCategory)
+            category: categoryAdapter.adaptToPresentation(storageCategory: storageCategory),
+            comment: storageExpense.comment
         )
     }
 }

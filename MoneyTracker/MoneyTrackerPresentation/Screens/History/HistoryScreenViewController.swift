@@ -22,7 +22,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     var backClosure: (() -> Void)?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
     var selectExpenseClosure: ((Expense) -> Void)?
-    var deleteBalanceTransferClosure: ((BalanceTransfer) throws -> Void)?
+    var deleteBalanceTransferClosure: ((Transfer) throws -> Void)?
     var deleteBalanceReplenishmentClosure: ((Replenishment) throws -> Void)?
     var selectReplenishmentClosure: ((Replenishment) -> Void)?
     
@@ -302,7 +302,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         return cellController
     }
     
-    private func createBalanceTransferTableViewController(balanceTransfer: BalanceTransfer) -> AUITableViewCellController {
+    private func createBalanceTransferTableViewController(balanceTransfer: Transfer) -> AUITableViewCellController {
         let cellController = BalanceTransferTableViewCellController(language: language, balanceTransfer: balanceTransfer)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }

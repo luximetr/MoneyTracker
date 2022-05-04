@@ -9,7 +9,7 @@ import Foundation
 import MoneyTrackerPresentation
 import MoneyTrackerStorage
 
-typealias PresentationTransfer = MoneyTrackerPresentation.BalanceTransfer
+typealias PresentationTransfer = MoneyTrackerPresentation.Transfer
 typealias PresentationReplenishment = MoneyTrackerPresentation.Replenishment
 typealias StorageBalanceTransfer = MoneyTrackerStorage.BalanceTransfer
 typealias StorageBalanceReplenishment = MoneyTrackerStorage.BalanceReplenishment

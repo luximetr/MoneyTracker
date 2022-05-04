@@ -14,11 +14,11 @@ final class BalanceTransferTableViewCellController: AUIClosuresTableViewCellCont
     // MARK: - Data
     
     var language: Language
-    var balanceTransfer: BalanceTransfer
+    var balanceTransfer: Transfer
     
     // MARK: - Initializer
     
-    init(language: Language, balanceTransfer: BalanceTransfer) {
+    init(language: Language, balanceTransfer: Transfer) {
         self.language = language
         self.balanceTransfer = balanceTransfer
     }

@@ -9,15 +9,15 @@ import Foundation
 
 public enum Operation {
     case expense(Expense)
-    case transfer(BalanceTransfer)
+    case transfer(Transfer)
     case replenishment(Replenishment)
     
     var id: String {
         switch self {
         case .expense(let expense):
             return expense.id
-        case .transfer(let balanceTransfer):
-            return balanceTransfer.id
+        case .transfer(let transfer):
+            return transfer.id
         case .replenishment(let balanceReplenishment):
             return balanceReplenishment.id
         }
@@ -26,9 +26,9 @@ public enum Operation {
     var timestamp: Date {
         switch self {
         case .expense(let expense):
-            return expense.date
-        case .transfer(let balanceTransfer):
-            return balanceTransfer.day
+            return expense.timestamp
+        case .transfer(let transfer):
+            return transfer.timestamp
         case .replenishment(let balanceReplenishment):
             return balanceReplenishment.timestamp
         }

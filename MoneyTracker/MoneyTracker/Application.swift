@@ -287,7 +287,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, editExpense editingExpense: PresentationExpense) throws -> PresentationExpense {
         do {
             let currentExpense = try storage.getExpense(id: editingExpense.id)
-            let storageEditingExpense = MoneyTrackerStorage.EditingExpense(amount: editingExpense.amount, date: editingExpense.date, comment: editingExpense.comment, balanceAccountId: editingExpense.account.id, categoryId: editingExpense.category.id)
+            let storageEditingExpense = MoneyTrackerStorage.EditingExpense(amount: editingExpense.amount, date: editingExpense.timestamp, comment: editingExpense.comment, balanceAccountId: editingExpense.account.id, categoryId: editingExpense.category.id)
             try storage.updateExpense(expenseId: editingExpense.id, editingExpense: storageEditingExpense)
             if let newAmount = storageEditingExpense.amount {
                 let amountDifference = currentExpense.amount - newAmount
@@ -381,7 +381,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: PresentationExpense) throws -> PresentationExpense {
-        let storageDeletingExpense = StorageExpense(id: deletingExpense.id, amount: deletingExpense.amount, date: deletingExpense.date, comment: deletingExpense.comment, balanceAccountId: deletingExpense.account.id, categoryId: deletingExpense.category.id)
+        let storageDeletingExpense = StorageExpense(id: deletingExpense.id, amount: deletingExpense.amount, date: deletingExpense.timestamp, comment: deletingExpense.comment, balanceAccountId: deletingExpense.account.id, categoryId: deletingExpense.category.id)
         try storage.removeExpense(storageDeletingExpense)
         return deletingExpense
     }
@@ -449,7 +449,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addTransfer presentationAddingTransfer: PresentationAddingTransfer) throws -> PresentationTransfer {
         do {
-            let date = presentationAddingTransfer.day
+            let date = presentationAddingTransfer.timestamp
             let fromBalanceAccountId = presentationAddingTransfer.fromAccount.id
             let fromAmount = Int64(try (presentationAddingTransfer.fromAmount * 100).int())
             let toBalanceAccountId = presentationAddingTransfer.toAccount.id
@@ -457,7 +457,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let comment = presentationAddingTransfer.comment
             let addingBalanceTransfer = AddingBalanceTransfer(date: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
             let storageBalanceTransfer = try storage.addBalanceTransfer(addingBalanceTransfer)
-            let presentationBalanceTransfer = PresentationTransfer(id: storageBalanceTransfer.id, fromAccount: presentationAddingTransfer.fromAccount, toAccount: presentationAddingTransfer.toAccount, day: presentationAddingTransfer.day, fromAmount: presentationAddingTransfer.fromAmount, toAmount: presentationAddingTransfer.toAmount, comment: presentationAddingTransfer.comment)
+            let presentationBalanceTransfer = PresentationTransfer(id: storageBalanceTransfer.id, fromAccount: presentationAddingTransfer.fromAccount, toAccount: presentationAddingTransfer.toAccount, day: presentationAddingTransfer.timestamp, fromAmount: presentationAddingTransfer.fromAmount, toAmount: presentationAddingTransfer.toAmount, comment: presentationAddingTransfer.comment)
             return presentationBalanceTransfer
         } catch {
             let error = Error("Cannot add presentation transfer \(presentationAddingTransfer)\n\(error)")
@@ -493,7 +493,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             case .expense(let storageExpense, let storageCategory, let storageBalanceAccount):
                 let presentationCategory = CategoryAdapter().adaptToPresentation(storageCategory: storageCategory)
                 let presentationBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
-                let presentationExpense = PresentationExpense(id: storageExpense.id, amount: storageExpense.amount, date: storageExpense.date, comment: storageExpense.comment, account: presentationBalanceAccount, category: presentationCategory)
+                let presentationExpense = PresentationExpense(id: storageExpense.id, timestamp: storageExpense.date, amount: storageExpense.amount, account: presentationBalanceAccount, category: presentationCategory, comment: storageExpense.comment)
                 let presentationOperation: PresentationOperation = .expense(presentationExpense)
                 presentationOperations.append(presentationOperation)
             case .balanceReplenishment(let storageBalanceReplenishment, let storageBalanceAccount):
@@ -558,7 +558,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, deleteBalanceTransfer presentationDeletingBalanceTransfer: PresentationTransfer) throws -> PresentationTransfer {
         do {
-            let storageBalanceTransfer = StorageBalanceTransfer(id: presentationDeletingBalanceTransfer.id, date: presentationDeletingBalanceTransfer.day, fromBalanceAccountId: presentationDeletingBalanceTransfer.fromAccount.id, fromAmount: presentationDeletingBalanceTransfer.fromAmount, toBalanceAccountId: presentationDeletingBalanceTransfer.toAccount.id, toAmount: presentationDeletingBalanceTransfer.toAmount, comment: presentationDeletingBalanceTransfer.comment)
+            let storageBalanceTransfer = StorageBalanceTransfer(id: presentationDeletingBalanceTransfer.id, date: presentationDeletingBalanceTransfer.timestamp, fromBalanceAccountId: presentationDeletingBalanceTransfer.fromAccount.id, fromAmount: presentationDeletingBalanceTransfer.fromAmount, toBalanceAccountId: presentationDeletingBalanceTransfer.toAccount.id, toAmount: presentationDeletingBalanceTransfer.toAmount, comment: presentationDeletingBalanceTransfer.comment)
             try storage.deleteBalanceTransfer(storageBalanceTransfer)
             return presentationDeletingBalanceTransfer
         } catch {
