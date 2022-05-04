@@ -51,7 +51,8 @@ class DateHorizontalPickerView: AppearanceView {
     
     private func setupCollectionView() {
         collectionViewLayout.scrollDirection = .horizontal
-        collectionViewLayout.minimumInteritemSpacing = 5
+        collectionViewLayout.minimumInteritemSpacing = 0
+        collectionViewLayout.minimumLineSpacing = 0
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.semanticContentAttribute = .forceRightToLeft
         collectionView.register(DateCell.self, forCellWithReuseIdentifier: dateCellIdentifier)
@@ -75,6 +76,7 @@ class DateHorizontalPickerView: AppearanceView {
     }
     
     private func setupSelectedDayFrameView() {
+        selectedDayFrameView.isUserInteractionEnabled = false
         selectedDayFrameView.layer.borderWidth = 1
         selectedDayFrameView.layer.cornerRadius = 5
     }
@@ -138,7 +140,7 @@ class DateHorizontalPickerView: AppearanceView {
             .right()
             .top()
             .bottom()
-            .width(49)
+            .width(cellWidth)
     }
     
     private func layoutCollectionFadeView() {
@@ -171,11 +173,26 @@ class DateHorizontalPickerView: AppearanceView {
         return cell
     }
     
+    private let cellWidth: CGFloat = 54
+    
     func getDateCellSize() -> CGSize {
-        return CGSize(width: 49, height: collectionView.frame.height)
+        return CGSize(width: cellWidth, height: collectionView.frame.height)
     }
     
     private func findDateCells() -> [DateCell] {
         return collectionView.visibleCells.compactMap { $0 as? DateCell }
+    }
+    
+    // MARK: - Scroll
+    
+    func findNearestCellIndexPathUnderSelectedDayFrameView() -> IndexPath? {
+        let selectionViewFrameTranslatedToCollectionView = self.convert(selectedDayFrameView.frame, to: collectionView)
+        let cellWidth = getDateCellSize().width
+        let scrollThresholdPoint = CGPoint(x: selectionViewFrameTranslatedToCollectionView.midX, y: selectionViewFrameTranslatedToCollectionView.midY)
+        return collectionView.indexPathForItem(at: scrollThresholdPoint)
+    }
+    
+    func showSelected(indexPath: IndexPath) {
+        collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
     }
 }

@@ -15,6 +15,8 @@ class DateHorizontalPickerViewController: EmptyViewController {
     
     // MARK: - Delegations
     
+    var didSelectDateClosure: ((Date) -> Void)?
+    
     // MARK: - Initializer
     
     // MARK: - View
@@ -28,7 +30,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     
     override func setupView() {
         super.setupView()
-        collectionViewController.collectionView = pickerView?.collectionView
+        setupCollectionViewController()
         reloadDates()
     }
     
@@ -67,9 +69,23 @@ class DateHorizontalPickerViewController: EmptyViewController {
         return dates
     }
     
-    // MARK: - Date cells
+    // MARK: - Collection view controller
     
     private let collectionViewController = AUIEmptyCollectionViewController()
+    
+    private func setupCollectionViewController() {
+        collectionViewController.collectionView = pickerView?.collectionView
+        collectionViewController.scrollViewDidEndDraggingClosure = { [weak self] willDecelerate in
+            guard willDecelerate == false else { return }
+            self?.scrollToNearestDate()
+        }
+        collectionViewController.scrollViewDidEndDeceleratingClosure = { [weak self] in
+            self?.scrollToNearestDate()
+        }
+    }
+    
+    // MARK: - Date cells
+    
     private let sectionController = AUIEmptyCollectionViewSectionController()
     
     private func showDates(_ dates: [Date]) {
@@ -101,11 +117,14 @@ class DateHorizontalPickerViewController: EmptyViewController {
         controller.sizeForCellClosure = { [weak self] in
             return self?.pickerView?.getDateCellSize() ?? .zero
         }
-        controller.didSelectClosure = { [weak self] in
-            self?.didSelectDateCell(date: date)
+        controller.didSelectClosure = { [weak self, weak controller] in
+            guard let controller = controller else { return }
+            self?.didSelectDateCell(cellController: controller)
         }
         return controller
     }
+    
+    // MARK: - Date cell - Find
     
     private func findDateCells() -> [DateCellController] {
         return sectionController.cellControllers.compactMap { $0 as? DateCellController }
@@ -115,9 +134,41 @@ class DateHorizontalPickerViewController: EmptyViewController {
         return findDateCells().first(where: { calendar.isDateInToday($0.date) })
     }
     
+    private func findIndexPath(cellController: DateCellController) -> IndexPath? {
+        let index = sectionController.cellControllers.firstIndex(where: { $0 === cellController })
+        guard let index = index else { return nil }
+        return IndexPath(row: index, section: 0)
+    }
+    
+    private func findDateCellController(indexPath: IndexPath) -> DateCellController? {
+        return sectionController.cellControllers[safe: indexPath.row] as? DateCellController
+    }
+    
+    private func findDateCellController(date: Date) -> DateCellController? {
+        return findDateCells().first(where: { calendar.isDate(date, inSameDayAs: $0.date) })
+    }
+    
     // MARK: - Date cell - Select
     
-    private func didSelectDateCell(date: Date) {
-        
+    private func didSelectDateCell(cellController: DateCellController) {
+        guard let indexPath = findIndexPath(cellController: cellController) else { return }
+        pickerView?.showSelected(indexPath: indexPath)
+        selectedDate = cellController.date
+        didSelectDateClosure?(selectedDate)
+    }
+    
+    private func scrollToNearestDate() {
+        guard let indexPath = pickerView?.findNearestCellIndexPathUnderSelectedDayFrameView() else { return }
+        guard let dateCellController = findDateCellController(indexPath: indexPath) else { return }
+        pickerView?.showSelected(indexPath: indexPath)
+        selectedDate = dateCellController.date
+        didSelectDateClosure?(selectedDate)
+    }
+    
+    func setSelectedDate(_ date: Date) {
+        self.selectedDate = date
+        guard let dateCellController = findDateCellController(date: date) else { return }
+        guard let indexPath = findIndexPath(cellController: dateCellController) else { return }
+        pickerView?.showSelected(indexPath: indexPath)
     }
 }
