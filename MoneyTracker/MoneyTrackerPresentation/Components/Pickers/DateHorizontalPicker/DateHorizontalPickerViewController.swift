@@ -83,7 +83,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     
     private func createDatesUntilTodayAfter(selectedDate: Date) -> [Date] {
         let todayDate = Date()
-        guard let daysDistanceUntilToday = calendar.dateComponents([.day], from: todayDate, to: selectedDate).day else { return [] }
+        guard let daysDistanceUntilToday = calendar.dateComponents([.day], from: selectedDate, to: todayDate).day else { return [] }
         var dates: [Date] = []
         for dateOffset in 0...daysDistanceUntilToday {
             guard let date = calendar.date(byAdding: .day, value: -dateOffset, to: todayDate) else { continue }
