@@ -1866,8 +1866,8 @@
 				2EDE102A2815B85D008BB8C5 /* BalanceAccountSqliteTable.swift */,
 				2E832AAE2816DBEF0083B77F /* ExpenseSqliteTable.swift */,
 				2E72CEED281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift */,
-				2E5061E32818542900C6C217 /* TransferSqliteTable.swift */,
 				2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */,
+				2E5061E32818542900C6C217 /* TransferSqliteTable.swift */,
 				2E5061E128184CFE00C6C217 /* OperationSqliteView.swift */,
 				2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */,
 			);

@@ -37,7 +37,7 @@ public class Storage {
             let balanceTransferInsertingValues = TransferInsertingValues(id: id, timestamp: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
             try sqliteDatabase.balanceAccountTable.updateWhereId(fromBalanceAccountId, subtractingAmount: fromAmount)
             try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, addingAmount: toAmount)
-            try sqliteDatabase.balanceTransferSqliteTable.insertValues(balanceTransferInsertingValues)
+            try sqliteDatabase.transferSqliteTable.insertValues(balanceTransferInsertingValues)
             try sqliteDatabase.commitTransaction()
             let balanceTransfer = BalanceTransfer(id: id, date: addingBalanceTransfer.date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: Decimal(fromAmount) / 100, toBalanceAccountId: toBalanceAccountId, toAmount: Decimal(toAmount) / 100, comment: comment)
             return balanceTransfer
@@ -57,7 +57,7 @@ public class Storage {
             let toAmount = Int64(try (balanceTransfer.toAmount * 100).int())
             try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, subtractingAmount: toAmount)
             let id = balanceTransfer.id
-            try sqliteDatabase.balanceTransferSqliteTable.deleteWhereId(id)
+            try sqliteDatabase.transferSqliteTable.deleteWhereId(id)
             try sqliteDatabase.commitTransaction()
         } catch {
             try sqliteDatabase.rollbackTransaction()
@@ -77,7 +77,7 @@ public class Storage {
             let comment = addingBalanceReplenishment.comment
             let balanceReplenishmentInsertingValues = ReplenishmentInsertingValues(id: id, timestamp: timestamp, amount: amount, accountId: balanceAccountId, comment: comment)
             try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
-            try sqliteDatabase.balanceReplenishmentSqliteTable.insertValues(balanceReplenishmentInsertingValues)
+            try sqliteDatabase.replenishmentSqliteTable.insertValues(balanceReplenishmentInsertingValues)
             try sqliteDatabase.commitTransaction()
             let balanceReplenishment = Replenishment(id: id, timestamp: addingBalanceReplenishment.timestamp, accountId: balanceAccountId, amount: Decimal(amount) / 100, comment: comment)
             return balanceReplenishment
@@ -94,7 +94,7 @@ public class Storage {
             let amount = Int64(try (balanceReplenishment.amount * 100).int())
             try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, subtractingAmount: amount)
             let id = balanceReplenishment.id
-            try sqliteDatabase.balanceReplenishmentSqliteTable.deleteWhereId(id)
+            try sqliteDatabase.replenishmentSqliteTable.deleteWhereId(id)
             try sqliteDatabase.commitTransaction()
         } catch {
             try sqliteDatabase.rollbackTransaction()
@@ -109,7 +109,7 @@ public class Storage {
             let balanceAccountId = editingReplenishment.accountId
             let comment = editingReplenishment.comment
             let amount = Int64(try (editingReplenishment.amount * 100).int())
-            if let beforeReplenishment = try sqliteDatabase.balanceReplenishmentSqliteTable.selectWhereId(id) {
+            if let beforeReplenishment = try sqliteDatabase.replenishmentSqliteTable.selectWhereId(id) {
                 if beforeReplenishment.id == balanceAccountId {
                     let amountDifference = amount - beforeReplenishment.amount
                     try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amountDifference)
@@ -119,7 +119,7 @@ public class Storage {
                 }
             }
             let values = ReplenishmentUpdatingValues(timestamp: Int64(editingReplenishment.timestamp.timeIntervalSince1970), amount: amount, accountId: balanceAccountId, comment: comment)
-            try sqliteDatabase.balanceReplenishmentSqliteTable.updateWhereId(id, values: values)
+            try sqliteDatabase.replenishmentSqliteTable.updateWhereId(id, values: values)
             try sqliteDatabase.commitTransaction()
         } catch {
             try sqliteDatabase.rollbackTransaction()
