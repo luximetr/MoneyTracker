@@ -82,6 +82,7 @@
 		2E96212927AFD93C00DF0DD4 /* EditCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */; };
 		2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */; };
 		2E98FF5127EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E98FF5027EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift */; };
+		2E99FBF0282256B8005B6948 /* EditReplenishmentScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E99FBF2282256B8005B6948 /* EditReplenishmentScreenStrings.strings */; };
 		2E9F46E62821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E52821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift */; };
 		2E9F46E82821A8DB00F4E048 /* EditReplenishmentScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E72821A8DB00F4E048 /* EditReplenishmentScreenView.swift */; };
 		2E9F46EA2821ADD300F4E048 /* EditingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E92821ADD300F4E048 /* EditingReplenishment.swift */; };
@@ -576,6 +577,9 @@
 		2E96212827AFD93C00DF0DD4 /* EditCategoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryScreenView.swift; sourceTree = "<group>"; };
 		2E96212D27AFD94C00DF0DD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCategoryScreenStrings.strings; sourceTree = "<group>"; };
 		2E98FF5027EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddedSnackbarViewController.swift; sourceTree = "<group>"; };
+		2E99FBF1282256B8005B6948 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditReplenishmentScreenStrings.strings; sourceTree = "<group>"; };
+		2E99FBF3282256B9005B6948 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/EditReplenishmentScreenStrings.strings; sourceTree = "<group>"; };
+		2E99FBF4282256BA005B6948 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/EditReplenishmentScreenStrings.strings; sourceTree = "<group>"; };
 		2E9F46E52821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplenishmentScreenViewController.swift; sourceTree = "<group>"; };
 		2E9F46E72821A8DB00F4E048 /* EditReplenishmentScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplenishmentScreenView.swift; sourceTree = "<group>"; };
 		2E9F46E92821ADD300F4E048 /* EditingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingReplenishment.swift; sourceTree = "<group>"; };
@@ -1378,6 +1382,7 @@
 			children = (
 				2E9F46E52821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift */,
 				2E9F46E72821A8DB00F4E048 /* EditReplenishmentScreenView.swift */,
+				2E99FBF2282256B8005B6948 /* EditReplenishmentScreenStrings.strings */,
 			);
 			path = EditReplenishment;
 			sourceTree = "<group>";
@@ -2955,6 +2960,7 @@
 				DB7BA80827F87D7500A3B3BA /* SelectIconScreenStrings.strings in Resources */,
 				2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */,
 				2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */,
+				2E99FBF0282256B8005B6948 /* EditReplenishmentScreenStrings.strings in Resources */,
 				2E394F0B27FCDA2F002C3052 /* AddTransferScreenStrings.strings in Resources */,
 				2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */,
 				2EC19ADB27A8238F00E1A6FA /* CategoriesListScreenStrings.strings in Resources */,
@@ -3565,6 +3571,16 @@
 				2EC7CAB5280891EA00E3DBF6 /* th */,
 			);
 			name = EditCategoryScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2E99FBF2282256B8005B6948 /* EditReplenishmentScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E99FBF1282256B8005B6948 /* en */,
+				2E99FBF3282256B9005B6948 /* th */,
+				2E99FBF4282256BA005B6948 /* uk */,
+			);
+			name = EditReplenishmentScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2EA7067227B5BA7B00FF08B2 /* AddAccountScreenStrings.strings */ = {

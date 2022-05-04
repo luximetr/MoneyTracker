@@ -92,8 +92,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutAccountPickerView()
         layoutAmountInputView()
         layoutCommentTextField()
-        layoutAddButton()
         setScrollViewContentSize()
+        layoutAddButton()
         layoutErrorSnackbarView()
     }
     
@@ -194,6 +194,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         addButton.backgroundColor = appearance.primaryActionBackground
         errorSnackbarView.changeAppearance(appearance)
+        commentTextField.changeAppearance(appearance)
+        accountPickerView.changeAppearance(appearance)
+        amountInputView.changeAppearance(appearance)
     }
     
 }

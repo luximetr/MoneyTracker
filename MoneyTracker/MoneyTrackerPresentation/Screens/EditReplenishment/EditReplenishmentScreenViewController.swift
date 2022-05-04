@@ -80,7 +80,7 @@ final class EditReplenishmentScreenViewController: StatusBarScreenViewController
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "TopUpAccountScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "EditReplenishmentScreenStrings")
         return localizer
     }()
     
@@ -154,6 +154,11 @@ final class EditReplenishmentScreenViewController: StatusBarScreenViewController
     
     private func showErrorSnackbar(_ message: String) {
         errorSnackbarViewController.showMessage(message)
+    }
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
     }
     
 }
