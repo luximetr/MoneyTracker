@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class TopUpAccountScreenViewController: StatusBarScreenViewController {
+final class AddReplenishmentScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
@@ -16,7 +16,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     var selectedAccount: Account?
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
-    var addTopUpAccountClosure: ((AddingReplenishment) -> Void)?
+    var addReplenishmentClosure: ((AddingReplenishment) -> Void)?
     
     // MARK: Initializer
     
@@ -74,7 +74,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "TopUpAccountScreenStrings")
+        let localizer = ScreenLocalizer(language: language, stringsTableName: "AddReplenishmentScreenStrings")
         return localizer
     }()
     
@@ -97,6 +97,11 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     }
     
     // MARK: Events
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        screenView.changeAppearance(appearance)
+    }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
@@ -121,7 +126,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
         }
         let comment = screenView.commentTextField.text
         let addingReplenishment = AddingReplenishment(timestamp: timestamp, amount: amount, account: account, comment: comment)
-        addTopUpAccountClosure?(addingReplenishment)
+        addReplenishmentClosure?(addingReplenishment)
     }
     
     private func getInputAmount() -> Decimal? {

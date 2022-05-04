@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import PinLayout
 
-extension TopUpAccountScreenViewController {
+extension AddReplenishmentScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Initializer
@@ -191,9 +191,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         accountPickerLabel.textColor = appearance.secondaryText
-        dayDatePickerView.overrideUserInterfaceStyle = dayDatePickerView.overrideUserInterfaceStyle
+        dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         addButton.backgroundColor = appearance.primaryActionBackground
         errorSnackbarView.changeAppearance(appearance)
+        commentTextField.changeAppearance(appearance)
+        accountPickerView.changeAppearance(appearance)
+        amountInputView.changeAppearance(appearance)
     }
     
 }

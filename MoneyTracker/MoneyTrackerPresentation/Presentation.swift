@@ -84,6 +84,7 @@ public final class Presentation: AUIWindowPresentation {
         exportCSVScreen?.changeAppearance(appearance)
         expenseAddedSnackbarViewControllers.forEach { $0.changeAppearance(appearance) }
         pushedEditReplenishmentViewController?.changeAppearance(appearance)
+        pushedAddReplenishmentViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -200,7 +201,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
-                try self.pushTopUpAccountViewController(menuNavigationController, selectedAccount: account)
+                try self.pushAddReplenishmentViewController(menuNavigationController, selectedAccount: account)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
@@ -273,7 +274,7 @@ public final class Presentation: AUIWindowPresentation {
             viewController.deleteExpenseClosure = { [weak self] expense in
                 guard let self = self else { return }
                 do {
-                    let deletedExpense = try self.delegate.presentation(self, deleteExpense: expense)
+                    _ = try self.delegate.presentation(self, deleteExpense: expense)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -344,12 +345,12 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Top Up Account View Controller
     
-    private weak var pushedTopUpAccountViewController: TopUpAccountScreenViewController?
-    private func pushTopUpAccountViewController(_ navigationController: UINavigationController, selectedAccount: Account) throws {
+    private weak var pushedAddReplenishmentViewController: AddReplenishmentScreenViewController?
+    private func pushAddReplenishmentViewController(_ navigationController: UINavigationController, selectedAccount: Account) throws {
         do {
             let accounts = try delegate.presentationAccounts(self)
             let language = try delegate.presentationLanguage(self)
-            let viewController = TopUpAccountScreenViewController(appearance: appearance, language: language, accounts: accounts, selectedAccount: selectedAccount)
+            let viewController = AddReplenishmentScreenViewController(appearance: appearance, language: language, accounts: accounts, selectedAccount: selectedAccount)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -363,7 +364,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            viewController.addTopUpAccountClosure = { [weak self, weak navigationController] addingTopUpAccount in
+            viewController.addReplenishmentClosure = { [weak self, weak navigationController] addingTopUpAccount in
                 guard let self = self else { return }
                 guard let navigationController = navigationController else { return }
                 do {
@@ -373,7 +374,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            pushedTopUpAccountViewController = viewController
+            pushedAddReplenishmentViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push TopUpAccountViewController\n\(error)")
@@ -1083,7 +1084,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedAddExpenseViewController?.addAccount(addedAccount)
                     self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
                     self.pushedAddTransferViewController?.addAccount(addedAccount)
-                    self.pushedTopUpAccountViewController?.addAccount(addedAccount)
+                    self.pushedAddReplenishmentViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
@@ -1133,7 +1134,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedAddExpenseViewController?.addAccount(addedAccount)
                     self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
                     self.pushedAddTransferViewController?.addAccount(addedAccount)
-                    self.pushedTopUpAccountViewController?.addAccount(addedAccount)
+                    self.pushedAddReplenishmentViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
                     self.pushedEditReplenishmentViewController?.addAccount(addedAccount)
                 } catch {
