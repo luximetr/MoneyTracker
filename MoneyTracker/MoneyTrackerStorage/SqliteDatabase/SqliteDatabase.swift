@@ -19,7 +19,7 @@ class SqliteDatabase: CustomDebugStringConvertible {
     let expenseTable: ExpenseSqliteTable
     let expenseTemplateTable: ExpenseTemplateSqliteTable
     let balanceTransferSqliteTable: BalanceTransferSqliteTable
-    let balanceReplenishmentSqliteTable: BalanceReplenishmentSqliteTable
+    let balanceReplenishmentSqliteTable: ReplenishmentSqliteTable
     
     // MARK: - Views
     
@@ -39,7 +39,7 @@ class SqliteDatabase: CustomDebugStringConvertible {
         try operationSqliteView.createIfNotExists()
         self.balanceTransferSqliteTable = BalanceTransferSqliteTable(databaseConnection: databaseConnection)
         try balanceTransferSqliteTable.createIfNotExists()
-        self.balanceReplenishmentSqliteTable = BalanceReplenishmentSqliteTable(databaseConnection: databaseConnection)
+        self.balanceReplenishmentSqliteTable = ReplenishmentSqliteTable(databaseConnection: databaseConnection)
         try balanceReplenishmentSqliteTable.createIfNotExists()
         self.expenseTemplateTable = ExpenseTemplateSqliteTable(databaseConnection: databaseConnection)
         try expenseTemplateTable.createIfNotExists()

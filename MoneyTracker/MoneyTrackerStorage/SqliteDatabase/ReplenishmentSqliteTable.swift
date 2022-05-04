@@ -7,7 +7,7 @@
 
 import SQLite3
 
-struct BalanceReplenishmentSelectedRow {
+struct ReplenishmentSelectedRow {
     let id: String
     let timestamp: Int64
     let amount: Int64
@@ -15,7 +15,7 @@ struct BalanceReplenishmentSelectedRow {
     let comment: String?
 }
 
-struct BalanceReplenishmentInsertingValues {
+struct ReplenishmentInsertingValues {
     let id: String
     let timestamp: Int64
     let amount: Int64
@@ -30,7 +30,7 @@ struct ReplenishmentUpdatingValues {
     let comment: String?
 }
 
-class BalanceReplenishmentSqliteTable {
+class ReplenishmentSqliteTable {
     
     private let databaseConnection: OpaquePointer
     
@@ -46,7 +46,7 @@ class BalanceReplenishmentSqliteTable {
         let statement =
             """
             CREATE TABLE IF NOT EXISTS
-            balance_replenishment(
+            replenishment(
                 id TEXT PRIMARY KEY,
                 timestamp INTEGER,
                 amount INTEGER,
@@ -63,10 +63,10 @@ class BalanceReplenishmentSqliteTable {
     
     // MARK: - INSERT
     
-    func insertValues(_ values: BalanceReplenishmentInsertingValues) throws {
+    func insertValues(_ values: ReplenishmentInsertingValues) throws {
         let statement =
             """
-            INSERT INTO balance_replenishment(id, timestamp, amount, balance_account_id, comment)
+            INSERT INTO replenishment(id, timestamp, amount, balance_account_id, comment)
             VALUES (?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
@@ -85,7 +85,7 @@ class BalanceReplenishmentSqliteTable {
     func updateWhereId(_ id: String, values: ReplenishmentUpdatingValues) throws {
         let statement =
             """
-            UPDATE balance_replenishment SET
+            UPDATE replenishment SET
                 timestamp = ?,
                 amount = ?,
                 balance_account_id = ?,
@@ -108,7 +108,7 @@ class BalanceReplenishmentSqliteTable {
     func deleteWhereId(_ id: String) throws {
         let statement =
             """
-            DELETE FROM balance_replenishment WHERE id = ?;
+            DELETE FROM replenishment WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -119,20 +119,20 @@ class BalanceReplenishmentSqliteTable {
     
     // MARK: - SELECT
 
-    private func extractReplenishmentSelectedRow(_ preparedStatement: OpaquePointer?) throws -> BalanceReplenishmentSelectedRow {
+    private func extractReplenishmentSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ReplenishmentSelectedRow {
         let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
         let timestamp = sqlite3ColumnInt64(databaseConnection, preparedStatement, 1)
         let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
         let balanceAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
         let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 4)
-        let balanceReplenishmentSelectedRow = BalanceReplenishmentSelectedRow(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, comment: comment)
+        let balanceReplenishmentSelectedRow = ReplenishmentSelectedRow(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, comment: comment)
         return balanceReplenishmentSelectedRow
     }
     
-    func selectWhereId(_ id: String) throws -> BalanceReplenishmentSelectedRow? {
+    func selectWhereId(_ id: String) throws -> ReplenishmentSelectedRow? {
         let statement =
             """
-            SELECT id, timestamp, amount, balance_account_id, comment FROM balance_replenishment
+            SELECT id, timestamp, amount, balance_account_id, comment FROM replenishment
             WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?

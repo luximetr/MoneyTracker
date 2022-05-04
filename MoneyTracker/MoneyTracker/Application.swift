@@ -469,11 +469,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingTopUpAccount) throws -> PresentationTopUpAccount {
         do {
-            let date = presentationAddingTopUpAccount.timestamp
+            let timestamp = presentationAddingTopUpAccount.timestamp
             let balanceAccountId = presentationAddingTopUpAccount.account.id
             let amount = Int64(try (presentationAddingTopUpAccount.amount * 100).int())
             let comment = presentationAddingTopUpAccount.comment
-            let storageAddingBalanceReplenishment = AddingBalanceReplenishment(date: date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
+            let storageAddingBalanceReplenishment = AddingReplenishment(timestamp: timestamp, accountId: balanceAccountId, amount: amount, comment: comment)
             let storageBalanceTransfer = try storage.addBalanceReplenishment(storageAddingBalanceReplenishment)
             let presentationTopUpAccount = PresentationTopUpAccount(id: storageBalanceTransfer.id, timestamp: presentationAddingTopUpAccount.timestamp, account: presentationAddingTopUpAccount.account, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
             return presentationTopUpAccount
@@ -498,7 +498,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                 presentationOperations.append(presentationOperation)
             case .balanceReplenishment(let storageBalanceReplenishment, let storageBalanceAccount):
                 let presentationBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
-                let presentationBalanceReplenishment = PresentationTopUpAccount(id: storageBalanceReplenishment.id, timestamp: storageBalanceReplenishment.date, account: presentationBalanceAccount, amount: storageBalanceReplenishment.amount, comment: storageBalanceReplenishment.comment)
+                let presentationBalanceReplenishment = PresentationTopUpAccount(id: storageBalanceReplenishment.id, timestamp: storageBalanceReplenishment.timestamp, account: presentationBalanceAccount, amount: storageBalanceReplenishment.amount, comment: storageBalanceReplenishment.comment)
                 let presentationOperation: PresentationOperation = .replenishment(presentationBalanceReplenishment)
                 presentationOperations.append(presentationOperation)
             case .balanceTransfer(let storageBalanceTransfer, let storageFromBalanceAccount, let storageToBalanceAccount):
@@ -568,7 +568,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, deleteBalanceReplenishment presentationDeletingBalanceReplenishment: PresentationReplenishment) throws -> PresentationReplenishment {
         do {
-            let storageBalanceReplenishment = StorageBalanceReplenishment(id: presentationDeletingBalanceReplenishment.id, date: presentationDeletingBalanceReplenishment.timestamp, balanceAccountId: presentationDeletingBalanceReplenishment.account.id, amount: presentationDeletingBalanceReplenishment.amount, comment: presentationDeletingBalanceReplenishment.comment)
+            let storageBalanceReplenishment = StorageBalanceReplenishment(id: presentationDeletingBalanceReplenishment.id, timestamp: presentationDeletingBalanceReplenishment.timestamp, accountId: presentationDeletingBalanceReplenishment.account.id, amount: presentationDeletingBalanceReplenishment.amount, comment: presentationDeletingBalanceReplenishment.comment)
             try storage.deleteBalanceReplenishment(storageBalanceReplenishment)
             return presentationDeletingBalanceReplenishment
         } catch {
@@ -578,7 +578,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, editReplenishment presentationEditingReplenishment: PresentationEditingReplenishment) throws -> PresentationTopUpAccount {
         do {
-            let storageEditingReplenishment = StorageEditingReplenishment(id: presentationEditingReplenishment.id, date: presentationEditingReplenishment.timestamp, balanceAccountId: presentationEditingReplenishment.account.id, amount: presentationEditingReplenishment.amount, comment: presentationEditingReplenishment.comment)
+            let storageEditingReplenishment = StorageEditingReplenishment(id: presentationEditingReplenishment.id, timestamp: presentationEditingReplenishment.timestamp, accountId: presentationEditingReplenishment.account.id, amount: presentationEditingReplenishment.amount, comment: presentationEditingReplenishment.comment)
             try storage.editReplenishment(storageEditingReplenishment)
             return PresentationTopUpAccount(id: presentationEditingReplenishment.id, timestamp: presentationEditingReplenishment.timestamp, account: presentationEditingReplenishment.account, amount: presentationEditingReplenishment.amount, comment: presentationEditingReplenishment.comment)
         } catch {

@@ -12,7 +12,7 @@ import MoneyTrackerStorage
 typealias PresentationTransfer = MoneyTrackerPresentation.Transfer
 typealias PresentationReplenishment = MoneyTrackerPresentation.Replenishment
 typealias StorageBalanceTransfer = MoneyTrackerStorage.BalanceTransfer
-typealias StorageBalanceReplenishment = MoneyTrackerStorage.BalanceReplenishment
+typealias StorageBalanceReplenishment = MoneyTrackerStorage.Replenishment
 
 class TransferAdapter {
     

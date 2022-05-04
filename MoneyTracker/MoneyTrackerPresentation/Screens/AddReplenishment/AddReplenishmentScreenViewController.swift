@@ -51,6 +51,8 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupErrorSnackbarViewController()
         setContent()
+        accountPickerController.showOptions(accounts: accounts)
+        accountPickerController.setSelectedAccount(selectedAccount)
     }
     
     private func setupAccountPickerController() {
@@ -89,8 +91,6 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
         screenView.accountPickerLabel.text = localizer.localizeText("account")
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
-        accountPickerController.showOptions(accounts: accounts)
-        accountPickerController.setSelectedAccount(selectedAccount)
         amountInputController.labelController.text = selectedAccount?.currency.rawValue
         let locale = Locale(identifier: localizer.localizeText("dateLocale"))
         screenView.dayDatePickerView.locale = locale

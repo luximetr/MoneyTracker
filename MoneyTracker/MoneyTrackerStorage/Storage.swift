@@ -67,19 +67,19 @@ public class Storage {
     
     // MARK: - Balance Replenishment
     
-    public func addBalanceReplenishment(_ addingBalanceReplenishment: AddingBalanceReplenishment) throws -> BalanceReplenishment {
+    public func addBalanceReplenishment(_ addingBalanceReplenishment: AddingReplenishment) throws -> Replenishment {
         do {
             try sqliteDatabase.beginTransaction()
             let id = UUID().uuidString
-            let timestamp = Int64(addingBalanceReplenishment.date.timeIntervalSince1970)
-            let balanceAccountId = addingBalanceReplenishment.balanceAccountId
+            let timestamp = Int64(addingBalanceReplenishment.timestamp.timeIntervalSince1970)
+            let balanceAccountId = addingBalanceReplenishment.accountId
             let amount = addingBalanceReplenishment.amount
             let comment = addingBalanceReplenishment.comment
-            let balanceReplenishmentInsertingValues = BalanceReplenishmentInsertingValues(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, comment: comment)
+            let balanceReplenishmentInsertingValues = ReplenishmentInsertingValues(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, comment: comment)
             try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
             try sqliteDatabase.balanceReplenishmentSqliteTable.insertValues(balanceReplenishmentInsertingValues)
             try sqliteDatabase.commitTransaction()
-            let balanceReplenishment = BalanceReplenishment(id: id, date: addingBalanceReplenishment.date, balanceAccountId: balanceAccountId, amount: Decimal(amount) / 100, comment: comment)
+            let balanceReplenishment = Replenishment(id: id, timestamp: addingBalanceReplenishment.timestamp, accountId: balanceAccountId, amount: Decimal(amount) / 100, comment: comment)
             return balanceReplenishment
         } catch {
             try sqliteDatabase.rollbackTransaction()
@@ -87,10 +87,10 @@ public class Storage {
         }
     }
     
-    public func deleteBalanceReplenishment(_ balanceReplenishment: BalanceReplenishment) throws {
+    public func deleteBalanceReplenishment(_ balanceReplenishment: Replenishment) throws {
         do {
             try sqliteDatabase.beginTransaction()
-            let balanceAccountId = balanceReplenishment.balanceAccountId
+            let balanceAccountId = balanceReplenishment.accountId
             let amount = Int64(try (balanceReplenishment.amount * 100).int())
             try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, subtractingAmount: amount)
             let id = balanceReplenishment.id
@@ -106,7 +106,7 @@ public class Storage {
         do {
             try sqliteDatabase.beginTransaction()
             let id = editingReplenishment.id
-            let balanceAccountId = editingReplenishment.balanceAccountId
+            let balanceAccountId = editingReplenishment.accountId
             let comment = editingReplenishment.comment
             let amount = Int64(try (editingReplenishment.amount * 100).int())
             if let beforeReplenishment = try sqliteDatabase.balanceReplenishmentSqliteTable.selectWhereId(id) {
@@ -118,7 +118,7 @@ public class Storage {
                     try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
                 }
             }
-            let values = ReplenishmentUpdatingValues(timestamp: Int64(editingReplenishment.date.timeIntervalSince1970), amount: amount, balanceAccountId: balanceAccountId, comment: comment)
+            let values = ReplenishmentUpdatingValues(timestamp: Int64(editingReplenishment.timestamp.timeIntervalSince1970), amount: amount, balanceAccountId: balanceAccountId, comment: comment)
             try sqliteDatabase.balanceReplenishmentSqliteTable.updateWhereId(id, values: values)
             try sqliteDatabase.commitTransaction()
         } catch {
@@ -827,7 +827,7 @@ public class Storage {
             case "expense":
                 let expenseOperation = try extractExpense(row)
                 operations.append(expenseOperation)
-            case "balance_replenishment":
+            case "replenishment":
                 let balanceReplenishmentOperation = try extractBalanceReplenishment(row)
                 operations.append(balanceReplenishmentOperation)
             case "balance_transfer":
@@ -880,7 +880,7 @@ public class Storage {
         let currency = try Currency(balanceAccountCurrency)
         let balanceAccountColorEnd = BalanceAccountColor(rawValue: balanceAccountColor)!
         let balanceAccount = BalanceAccount(id: balanceAccountId, name: balanceAccountName, amount: Decimal(balanceAccountAmount) / 100, currency: currency, color: balanceAccountColorEnd)
-        let balanceReplenishment = BalanceReplenishment(id: id, date: balanceReplenishmentDate, balanceAccountId: balanceAccountId, amount: balanceReplenishmentAmount, comment: comment)
+        let balanceReplenishment = Replenishment(id: id, timestamp: balanceReplenishmentDate, accountId: balanceAccountId, amount: balanceReplenishmentAmount, comment: comment)
         return .balanceReplenishment(balanceReplenishment: balanceReplenishment, balanceAccount: balanceAccount)
     }
     

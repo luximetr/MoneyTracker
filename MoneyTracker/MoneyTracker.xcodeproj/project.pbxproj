@@ -18,9 +18,9 @@
 		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
 		2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */; };
 		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
-		2E25262128191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25262028191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift */; };
-		2E252624281921CC0025D2E9 /* AddingBalanceReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252623281921CC0025D2E9 /* AddingBalanceReplenishment.swift */; };
-		2E252626281922230025D2E9 /* BalanceReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252625281922230025D2E9 /* BalanceReplenishment.swift */; };
+		2E25262128191CF70025D2E9 /* ReplenishmentSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */; };
+		2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252623281921CC0025D2E9 /* AddingReplenishment.swift */; };
+		2E252626281922230025D2E9 /* Replenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252625281922230025D2E9 /* Replenishment.swift */; };
 		2E2A6EDA27EC4FBB0084054C /* EditExpenseScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDC27EC4FBB0084054C /* EditExpenseScreenStrings.strings */; };
 		2E2A6EDE27EC4FD70084054C /* EditExpenseScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDD27EC4FD70084054C /* EditExpenseScreenView.swift */; };
 		2E2A6EE027EC4FEC0084054C /* EditExpenseScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A6EDF27EC4FEC0084054C /* EditExpenseScreenViewController.swift */; };
@@ -71,6 +71,7 @@
 		2E928A0727AFFDC5002F3403 /* SettingsScreenTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E928A0627AFFDC5002F3403 /* SettingsScreenTitleTableViewCell.swift */; };
 		2E92FF5B27B6AB9A00A7306A /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92FF5A27B6AB9A00A7306A /* Account.swift */; };
 		2E92FF5D27B6AD5100A7306A /* AddingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92FF5C27B6AD5100A7306A /* AddingAccount.swift */; };
+		2E944D7C2822796A00CF03BE /* EditingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E944D7B2822796A00CF03BE /* EditingReplenishment.swift */; };
 		2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */; };
 		2E95BB2A27B315B80097CA46 /* PictureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2927B315B80097CA46 /* PictureButton.swift */; };
 		2E95BB2D27B31AB50097CA46 /* AccountsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */; };
@@ -512,9 +513,9 @@
 		2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddedSnackbarView.swift; sourceTree = "<group>"; };
 		2E16BA0A27FC81F4000F2466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExpenseAddedSnackbarStrings.strings; sourceTree = "<group>"; };
-		2E25262028191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceReplenishmentSqliteTable.swift; sourceTree = "<group>"; };
-		2E252623281921CC0025D2E9 /* AddingBalanceReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingBalanceReplenishment.swift; sourceTree = "<group>"; };
-		2E252625281922230025D2E9 /* BalanceReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceReplenishment.swift; sourceTree = "<group>"; };
+		2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishmentSqliteTable.swift; sourceTree = "<group>"; };
+		2E252623281921CC0025D2E9 /* AddingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingReplenishment.swift; sourceTree = "<group>"; };
+		2E252625281922230025D2E9 /* Replenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replenishment.swift; sourceTree = "<group>"; };
 		2E2A6EDB27EC4FBB0084054C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditExpenseScreenStrings.strings; sourceTree = "<group>"; };
 		2E2A6EDD27EC4FD70084054C /* EditExpenseScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseScreenView.swift; sourceTree = "<group>"; };
 		2E2A6EDF27EC4FEC0084054C /* EditExpenseScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseScreenViewController.swift; sourceTree = "<group>"; };
@@ -564,6 +565,7 @@
 		2E928A0627AFFDC5002F3403 /* SettingsScreenTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleTableViewCell.swift; sourceTree = "<group>"; };
 		2E92FF5A27B6AB9A00A7306A /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		2E92FF5C27B6AD5100A7306A /* AddingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingAccount.swift; sourceTree = "<group>"; };
+		2E944D7B2822796A00CF03BE /* EditingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingReplenishment.swift; sourceTree = "<group>"; };
 		2E95BB2727B313810097CA46 /* BackTitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackTitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E95BB2927B315B80097CA46 /* PictureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureButton.swift; sourceTree = "<group>"; };
 		2E95BB2C27B31AB50097CA46 /* AccountsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreenViewController.swift; sourceTree = "<group>"; };
@@ -1058,13 +1060,14 @@
 			path = ExpenseAdded;
 			sourceTree = "<group>";
 		};
-		2E252622281921B90025D2E9 /* BalanceReplenishment */ = {
+		2E252622281921B90025D2E9 /* Replenishment */ = {
 			isa = PBXGroup;
 			children = (
-				2E252623281921CC0025D2E9 /* AddingBalanceReplenishment.swift */,
-				2E252625281922230025D2E9 /* BalanceReplenishment.swift */,
+				2E252623281921CC0025D2E9 /* AddingReplenishment.swift */,
+				2E252625281922230025D2E9 /* Replenishment.swift */,
+				2E944D7B2822796A00CF03BE /* EditingReplenishment.swift */,
 			);
-			path = BalanceReplenishment;
+			path = Replenishment;
 			sourceTree = "<group>";
 		};
 		2E2A6ED527EC4F710084054C /* EditExpense */ = {
@@ -1160,8 +1163,7 @@
 		2E91155127A9373E00359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2E252622281921B90025D2E9 /* BalanceReplenishment */,
-				2EB2143B281869220058242F /* BalanceTransfer */,
+				2EB2143B281869220058242F /* Transfer */,
 				2EB2E876281080CD0017ACDD /* AppearanceSetting */,
 				2ED248E828086FF3001E0498 /* Language */,
 				DB62AEFE27EF02D500F8CA55 /* ExpensesFile */,
@@ -1170,6 +1172,7 @@
 				2E926E9327BC58140081E3AE /* Category */,
 				2E926E8D27BC58130081E3AE /* Currency */,
 				2E926E8F27BC58140081E3AE /* Expense */,
+				2E252622281921B90025D2E9 /* Replenishment */,
 				2EBBD24B281C1D9D00929A97 /* Operation */,
 			);
 			path = Data;
@@ -1560,13 +1563,13 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		2EB2143B281869220058242F /* BalanceTransfer */ = {
+		2EB2143B281869220058242F /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
 				2EB2143C2818694E0058242F /* AddingBalanceTransfer.swift */,
 				2EB2144028187F0F0058242F /* BalanceTransfer.swift */,
 			);
-			path = BalanceTransfer;
+			path = Transfer;
 			sourceTree = "<group>";
 		};
 		2EB2E876281080CD0017ACDD /* AppearanceSetting */ = {
@@ -1864,7 +1867,7 @@
 				2E832AAE2816DBEF0083B77F /* ExpenseSqliteTable.swift */,
 				2E72CEED281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift */,
 				2E5061E32818542900C6C217 /* BalanceTransferSqliteTable.swift */,
-				2E25262028191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift */,
+				2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */,
 				2E5061E128184CFE00C6C217 /* OperationSqliteView.swift */,
 				2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */,
 			);
@@ -3092,18 +3095,19 @@
 				2E926EA727BC59030081E3AE /* ExpenseTemplate.swift in Sources */,
 				2E926E9A27BC58140081E3AE /* Currency.swift in Sources */,
 				2E926E9927BC58140081E3AE /* EditingBalanceAccount.swift in Sources */,
+				2E944D7C2822796A00CF03BE /* EditingReplenishment.swift in Sources */,
 				2E5061E228184CFE00C6C217 /* OperationSqliteView.swift in Sources */,
 				2E926EA027BC58140081E3AE /* Category.swift in Sources */,
 				2E926EA827BC59030081E3AE /* AddingExpenseTemplate.swift in Sources */,
 				2E926EA927BC59030081E3AE /* EditingExpenseTemplate.swift in Sources */,
-				2E252624281921CC0025D2E9 /* AddingBalanceReplenishment.swift in Sources */,
+				2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */,
 				2ED82B5B2815397B00789BA4 /* SqliteHelpers.swift in Sources */,
 				DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */,
 				DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */,
 				2ED248EA28087002001E0498 /* Language.swift in Sources */,
 				2E5279592811AFAC00BC916B /* SqliteDatabase.swift in Sources */,
 				DB62AEF927EEFCCB00F8CA55 /* ImportingExpense.swift in Sources */,
-				2E25262128191CF70025D2E9 /* BalanceReplenishmentSqliteTable.swift in Sources */,
+				2E25262128191CF70025D2E9 /* ReplenishmentSqliteTable.swift in Sources */,
 				DB62AF0027EF02E500F8CA55 /* ImportingExpensesFile.swift in Sources */,
 				2E926E9727BC58140081E3AE /* AddingBalanceAccount.swift in Sources */,
 				2E926E9C27BC58140081E3AE /* EditingExpense.swift in Sources */,
@@ -3112,7 +3116,7 @@
 				2EB2143D2818694E0058242F /* AddingBalanceTransfer.swift in Sources */,
 				DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB40042F280FA8C4004073D0 /* CategoryColor.swift in Sources */,
-				2E252626281922230025D2E9 /* BalanceReplenishment.swift in Sources */,
+				2E252626281922230025D2E9 /* Replenishment.swift in Sources */,
 				DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */,
 				2E52795B2811AFC800BC916B /* CategorySqliteTable.swift in Sources */,
 				2EB2144128187F0F0058242F /* BalanceTransfer.swift in Sources */,

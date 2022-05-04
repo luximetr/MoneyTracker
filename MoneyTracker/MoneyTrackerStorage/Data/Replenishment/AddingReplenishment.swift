@@ -7,16 +7,18 @@
 
 import Foundation
 
-public struct AddingBalanceReplenishment {
-    public let date: Date
-    public let balanceAccountId: String
+public struct AddingReplenishment {
+    
+    public let timestamp: Date
+    public let accountId: String
     public let amount: Int64
     public let comment: String?
     
-    public init(date: Date, balanceAccountId: String, amount: Int64, comment: String?) {
-        self.date = date
-        self.balanceAccountId = balanceAccountId
+    public init(timestamp: Date, accountId: String, amount: Int64, comment: String?) {
+        self.timestamp = timestamp
+        self.accountId = accountId
         self.amount = amount
         self.comment = comment
     }
+    
 }
