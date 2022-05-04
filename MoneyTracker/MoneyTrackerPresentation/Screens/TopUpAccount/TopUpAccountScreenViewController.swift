@@ -16,7 +16,7 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
     var selectedAccount: Account?
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
-    var addTopUpAccountClosure: ((AddingBalanceReplenishment) -> Void)?
+    var addTopUpAccountClosure: ((AddingReplenishment) -> Void)?
     
     // MARK: Initializer
     
@@ -114,14 +114,14 @@ final class TopUpAccountScreenViewController: StatusBarScreenViewController {
             showErrorSnackbar(localizer.localizeText("emptyAccountErrorMessage"))
             return
         }
-        let day = screenView.dayDatePickerView.date
+        let timestamp = screenView.dayDatePickerView.date
         guard let amount = getInputAmount() else {
             showErrorSnackbar(localizer.localizeText("invalidAmountErrorMessage"))
             return
         }
         let comment = screenView.commentTextField.text
-        let addingTopUpAccount = AddingBalanceReplenishment(account: account, day: day, amount: amount, comment: comment)
-        addTopUpAccountClosure?(addingTopUpAccount)
+        let addingReplenishment = AddingReplenishment(timestamp: timestamp, amount: amount, account: account, comment: comment)
+        addTopUpAccountClosure?(addingReplenishment)
     }
     
     private func getInputAmount() -> Decimal? {

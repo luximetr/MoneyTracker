@@ -12,7 +12,7 @@ final class EditReplenishmentScreenViewController: StatusBarScreenViewController
     
     // MARK: - Data
     
-    let replenishment: BalanceReplenishment
+    let replenishment: Replenishment
     var accounts: [Account]
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
@@ -20,7 +20,7 @@ final class EditReplenishmentScreenViewController: StatusBarScreenViewController
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, replenishment: BalanceReplenishment, accounts: [Account]) {
+    init(appearance: Appearance, language: Language, replenishment: Replenishment, accounts: [Account]) {
         self.replenishment = replenishment
         self.accounts = accounts
         self.accountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
@@ -52,9 +52,9 @@ final class EditReplenishmentScreenViewController: StatusBarScreenViewController
         setupErrorSnackbarViewController()
         setContent()
         
-        accountPickerController.setSelectedAccount(replenishment.balanceAccount)
+        accountPickerController.setSelectedAccount(replenishment.account)
         screenView.dayDatePickerView.date = replenishment.timestamp
-        amountInputController.labelController.text = replenishment.balanceAccount.currency.rawValue
+        amountInputController.labelController.text = replenishment.account.currency.rawValue
         amountInputController.textFieldController.text = NumberFormatter().string(from: replenishment.amount as NSNumber)
         screenView.commentTextField.text = replenishment.comment
     }

@@ -23,8 +23,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     var deleteExpenseClosure: ((Expense) throws -> Void)?
     var selectExpenseClosure: ((Expense) -> Void)?
     var deleteBalanceTransferClosure: ((BalanceTransfer) throws -> Void)?
-    var deleteBalanceReplenishmentClosure: ((BalanceReplenishment) throws -> Void)?
-    var selectReplenishmentClosure: ((BalanceReplenishment) -> Void)?
+    var deleteBalanceReplenishmentClosure: ((Replenishment) throws -> Void)?
+    var selectReplenishmentClosure: ((Replenishment) -> Void)?
     
     // MARK: Initializer
     
@@ -64,7 +64,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         let cellController = sectionController.cellControllers.first { cellController in
             if let expenseCellController = cellController as? ExpenseTableViewCellController {
                 return expenseCellController.expense.id == operation.id
-            } else if let balanceReplenishmentCellController = cellController as? BalanceReplenishmentTableViewCellController {
+            } else if let balanceReplenishmentCellController = cellController as? ReplenishmentTableViewCellController {
                 return balanceReplenishmentCellController.balanceReplenishment.id == operation.id
             } else if let balanceTransferCellController = cellController as? BalanceTransferTableViewCellController {
                 return balanceTransferCellController.balanceTransfer.id == operation.id
@@ -99,16 +99,16 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
                     throw Error("deleteExpenseClosure property is not set")
                 }
                 try deleteExpenseClosure(expense)
-            case .balanceTransfer(let balanceTransfer):
+            case .transfer(let balanceTransfer):
                 guard let deleteBalanceTransferClosure = self.deleteBalanceTransferClosure else {
                     throw Error("deleteBalanceTransferClosure property is not set")
                 }
                 try deleteBalanceTransferClosure(balanceTransfer)
-            case .balanceReplenishment(let balanceReplenishment):
-                guard let deleteBalanceReplenishmentClosure = self.deleteBalanceReplenishmentClosure else {
-                    throw Error("deleteBalanceReplenishmentClosure property is not set")
+            case .replenishment(let replenishment):
+                guard let deleteReplenishmentClosure = self.deleteBalanceReplenishmentClosure else {
+                    throw Error("deleteReplenishmentClosure property is not set")
                 }
-                try deleteBalanceReplenishmentClosure(balanceReplenishment)
+                try deleteReplenishmentClosure(replenishment)
             }
             guard let index = self.operations.firstIndex(where: { $0.id == operation.id }) else {
                 throw Error("Cannot find operation")
@@ -149,20 +149,20 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         setTableViewControllerContent()
     }
     
-    private func selectReplenishment(_ replenishment: BalanceReplenishment) {
+    private func selectReplenishment(_ replenishment: Replenishment) {
         self.selectReplenishmentClosure?(replenishment)
     }
     
-    func editReplenishment(_ editedReplenishment: BalanceReplenishment) {
+    func editReplenishment(_ editedReplenishment: Replenishment) {
         guard let firstIndex = operations.firstIndex(where: { operation in
-            if case let .balanceReplenishment(expense) = operation {
+            if case let .replenishment(expense) = operation {
                 return expense.id == editedReplenishment.id
             }
             return false
         }) else {
             return
         }
-        self.operations[firstIndex] = .balanceReplenishment(editedReplenishment)
+        self.operations[firstIndex] = .replenishment(editedReplenishment)
         self.operations.sort(by: { $0.timestamp > $1.timestamp })
         setTableViewControllerContent()
     }
@@ -190,12 +190,12 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
                 case .expense(let expense):
                     let expenseCellController = createExpenseTableViewController(expense: expense)
                     cellControllers.append(expenseCellController)
-                case .balanceTransfer(let balanceTransfer):
+                case .transfer(let balanceTransfer):
                     let balanceTransferCellController = createBalanceTransferTableViewController(balanceTransfer: balanceTransfer)
                     cellControllers.append(balanceTransferCellController)
-                case .balanceReplenishment(let balanceReplenishment):
-                    let balanceReplenishmentCellController = createBalanceReplenishmentTableViewController(balanceReplenishment: balanceReplenishment)
-                    cellControllers.append(balanceReplenishmentCellController)
+                case .replenishment(let replenishment):
+                    let replenishmentCellController = createReplenishmentTableViewController(balanceReplenishment: replenishment)
+                    cellControllers.append(replenishmentCellController)
                 }
             }
         }
@@ -262,20 +262,20 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         return cellController
     }
     
-    private func createBalanceReplenishmentTableViewController(balanceReplenishment: BalanceReplenishment) -> AUITableViewCellController {
-        let cellController = BalanceReplenishmentTableViewCellController(language: language, balanceReplenishment: balanceReplenishment)
+    private func createReplenishmentTableViewController(balanceReplenishment: Replenishment) -> AUITableViewCellController {
+        let cellController = ReplenishmentTableViewCellController(language: language, balanceReplenishment: balanceReplenishment)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
-            let cell = self.screenView.balanceReplenishmentTableViewCell(indexPath)
+            let cell = self.screenView.replenishmentTableViewCell(indexPath)
             return cell
         }
         cellController.estimatedHeightClosure = { [weak self] in
             guard let self = self else { return 0 }
-            return self.screenView.balanceReplenishmentTableViewCellEstimatedHeight()
+            return self.screenView.replenishmentTableViewCellEstimatedHeight()
         }
         cellController.heightClosure = { [weak self] in
             guard let self = self else { return 0 }
-            return self.screenView.balanceReplenishmentTableViewCellHeight()
+            return self.screenView.replenishmentTableViewCellHeight()
         }
         cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
             guard let self = self else { return nil }
@@ -283,7 +283,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
                 guard let self = self else { return }
                 let balanceReplenishment = cellController.balanceReplenishment
-                let operation = Operation.balanceReplenishment(balanceReplenishment)
+                let operation = Operation.replenishment(balanceReplenishment)
                 self.operationDeleteActionHandler(operation) { error in
                     if error != nil {
                         success(false)
@@ -323,7 +323,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
                 guard let self = self else { return }
                 let balanceTransfer = cellController.balanceTransfer
-                let operation = Operation.balanceTransfer(balanceTransfer)
+                let operation = Operation.transfer(balanceTransfer)
                 self.operationDeleteActionHandler(operation) { error in
                     if error != nil {
                         success(false)

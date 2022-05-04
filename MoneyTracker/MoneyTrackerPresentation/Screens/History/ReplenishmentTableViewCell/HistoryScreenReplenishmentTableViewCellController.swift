@@ -1,5 +1,5 @@
 //
-//  BalanceReplenishmentTableViewCellController.swift
+//  ReplenishmentTableViewCellController.swift
 //  MoneyTrackerPresentation
 //
 //  Created by Job Ihor Myroniuk on 30.04.2022.
@@ -9,28 +9,28 @@ import UIKit
 import AUIKit
 
 extension HistoryScreenViewController {
-final class BalanceReplenishmentTableViewCellController: AUIClosuresTableViewCellController {
+final class ReplenishmentTableViewCellController: AUIClosuresTableViewCellController {
     
     // MARK: - Data
     
     private var language: Language
-    var balanceReplenishment: BalanceReplenishment
+    var balanceReplenishment: Replenishment
     
     // MARK: - Initializer
     
-    init(language: Language, balanceReplenishment: BalanceReplenishment) {
+    init(language: Language, balanceReplenishment: Replenishment) {
         self.language = language
         self.balanceReplenishment = balanceReplenishment
     }
     
     // MARK: - Cell
     
-    private var balanceReplenishmentTableViewCell: BalanceReplenishmentTableViewCell? {
-        return tableViewCell as? BalanceReplenishmentTableViewCell
+    private var replenishmentTableViewCell: ReplenishmentTableViewCell? {
+        return tableViewCell as? ReplenishmentTableViewCell
     }
     
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
-        guard let balanceReplenishmentTableViewCell = super.cellForRowAtIndexPath(indexPath) as? BalanceReplenishmentTableViewCell else { return UITableViewCell() }
+        guard let balanceReplenishmentTableViewCell = super.cellForRowAtIndexPath(indexPath) as? ReplenishmentTableViewCell else { return UITableViewCell() }
         setContent()
         return balanceReplenishmentTableViewCell
     }
@@ -51,12 +51,12 @@ final class BalanceReplenishmentTableViewCellController: AUIClosuresTableViewCel
     }()
     
     private func setContent() {
-        let name = balanceReplenishment.balanceAccount.name
-        balanceReplenishmentTableViewCell?.accountLabel.text = name
-        let amount = "\(Self.amountNumberFormatter.string(for: balanceReplenishment.amount) ?? "") \(currencyCodeLocalizer.code(balanceReplenishment.balanceAccount.currency))"
-        balanceReplenishmentTableViewCell?.amountLabel.text = amount
+        let name = balanceReplenishment.account.name
+        replenishmentTableViewCell?.accountLabel.text = name
+        let amount = "\(Self.amountNumberFormatter.string(for: balanceReplenishment.amount) ?? "") \(currencyCodeLocalizer.code(balanceReplenishment.account.currency))"
+        replenishmentTableViewCell?.amountLabel.text = amount
         let comment = balanceReplenishment.comment
-        balanceReplenishmentTableViewCell?.commentLabel.text = comment
+        replenishmentTableViewCell?.commentLabel.text = comment
     }
     
 }

@@ -22,9 +22,9 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         let expenseTableViewCells = tableView.visibleCells.compactMap({ $0 as? ExpenseTableViewCell })
         return expenseTableViewCells
     }
-    private var balanceReplenishmentTableViewCells: [BalanceReplenishmentTableViewCell]? {
-        let balanceReplenishmentTableViewCells = tableView.visibleCells.compactMap({ $0 as? BalanceReplenishmentTableViewCell })
-        return balanceReplenishmentTableViewCells
+    private var replenishmentTableViewCells: [ReplenishmentTableViewCell]? {
+        let replenishmentTableViewCells = tableView.visibleCells.compactMap({ $0 as? ReplenishmentTableViewCell })
+        return replenishmentTableViewCells
     }
     private var balanceTransferTableViewCells: [BalanceTransferTableViewCell]? {
         let balanceTransferTableViewCells = tableView.visibleCells.compactMap({ $0 as? BalanceTransferTableViewCell })
@@ -40,7 +40,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         setupTableView()
         setupDayTableViewCell()
         setupExpenseTableViewCell()
-        setupBalanceReplenishmentTableViewCell()
+        setupReplenishmentTableViewCell()
         setupBalanceTransferTableViewCell()
     }
     
@@ -60,9 +60,9 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         tableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: expenseTableViewCellReuseIdentifier)
     }
     
-    private let balanceReplenishmentTableViewCellReuseIdentifier = "balanceReplenishmentTableViewCellReuseIdentifier"
-    private func setupBalanceReplenishmentTableViewCell() {
-        tableView.register(BalanceReplenishmentTableViewCell.self, forCellReuseIdentifier: balanceReplenishmentTableViewCellReuseIdentifier)
+    private let replenishmentTableViewCellReuseIdentifier = "replenishmentTableViewCellReuseIdentifier"
+    private func setupReplenishmentTableViewCell() {
+        tableView.register(ReplenishmentTableViewCell.self, forCellReuseIdentifier: replenishmentTableViewCellReuseIdentifier)
     }
     
     private let balanceTransferTableViewCellReuseIdentifier = "balanceTransferTableViewCellReuseIdentifier"
@@ -119,19 +119,19 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         return 53
     }
     
-    // MARK: - BalanceReplenishmentTableViewCell
+    // MARK: - ReplenishmentTableViewCell
     
-    func balanceReplenishmentTableViewCell(_ indexPath: IndexPath) -> BalanceReplenishmentTableViewCell {
-        let balanceReplenishmentTableViewCell = tableView.dequeueReusableCell(withIdentifier: balanceReplenishmentTableViewCellReuseIdentifier, for: indexPath) as! BalanceReplenishmentTableViewCell
-        balanceReplenishmentTableViewCell.setAppearance(appearance)
-        return balanceReplenishmentTableViewCell
+    func replenishmentTableViewCell(_ indexPath: IndexPath) -> ReplenishmentTableViewCell {
+        let replenishmentTableViewCell = tableView.dequeueReusableCell(withIdentifier: replenishmentTableViewCellReuseIdentifier, for: indexPath) as! ReplenishmentTableViewCell
+        replenishmentTableViewCell.setAppearance(appearance)
+        return replenishmentTableViewCell
     }
     
-    func balanceReplenishmentTableViewCellEstimatedHeight() -> CGFloat {
+    func replenishmentTableViewCellEstimatedHeight() -> CGFloat {
         return 53
     }
     
-    func balanceReplenishmentTableViewCellHeight() -> CGFloat {
+    func replenishmentTableViewCellHeight() -> CGFloat {
         return 53
     }
     
@@ -159,7 +159,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         tableView.backgroundColor = appearance.primaryBackground
         dayTableViewCells?.forEach({ $0.setAppearance(appearance) })
         expenseTableViewCells?.forEach({ $0.setAppearance(appearance) })
-        balanceReplenishmentTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        replenishmentTableViewCells?.forEach({ $0.setAppearance(appearance) })
         balanceTransferTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     

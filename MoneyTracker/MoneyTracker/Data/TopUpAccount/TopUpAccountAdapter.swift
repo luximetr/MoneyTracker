@@ -9,7 +9,7 @@ import Foundation
 import MoneyTrackerPresentation
 import MoneyTrackerStorage
 
-typealias PresentationTopUpAccount = MoneyTrackerPresentation.BalanceReplenishment
+typealias PresentationTopUpAccount = MoneyTrackerPresentation.Replenishment
 typealias StorageEditingReplenishment = MoneyTrackerStorage.EditingReplenishment
 
 class TopUpAccountAdapter {

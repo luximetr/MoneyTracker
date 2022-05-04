@@ -524,7 +524,7 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Edit Replenishment View Controller
     
     private weak var pushedEditReplenishmentViewController: EditReplenishmentScreenViewController?
-    private func pushEditReplenishmentViewController(_ navigationController: UINavigationController, replenishment: BalanceReplenishment) throws {
+    private func pushEditReplenishmentViewController(_ navigationController: UINavigationController, replenishment: Replenishment) throws {
         do {
             let accounts = try delegate.presentationAccounts(self)
             let language = try delegate.presentationLanguage(self)

@@ -1,5 +1,5 @@
 //
-//  BalanceReplenishmentTableViewCell.swift
+//  ReplenishmentTableViewCell.swift
 //  MoneyTrackerPresentation
 //
 //  Created by Job Ihor Myroniuk on 30.04.2022.
@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension HistoryScreenViewController {
-final class BalanceReplenishmentTableViewCell: AppearanceTableViewCell {
+final class ReplenishmentTableViewCell: AppearanceTableViewCell {
     
     // MARK: - Subviews
     

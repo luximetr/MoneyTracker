@@ -469,13 +469,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingTopUpAccount) throws -> PresentationTopUpAccount {
         do {
-            let date = presentationAddingTopUpAccount.day
+            let date = presentationAddingTopUpAccount.timestamp
             let balanceAccountId = presentationAddingTopUpAccount.account.id
             let amount = Int64(try (presentationAddingTopUpAccount.amount * 100).int())
             let comment = presentationAddingTopUpAccount.comment
             let storageAddingBalanceReplenishment = AddingBalanceReplenishment(date: date, balanceAccountId: balanceAccountId, amount: amount, comment: comment)
             let storageBalanceTransfer = try storage.addBalanceReplenishment(storageAddingBalanceReplenishment)
-            let presentationTopUpAccount = PresentationTopUpAccount(id: storageBalanceTransfer.id, timestamp: presentationAddingTopUpAccount.day, account: presentationAddingTopUpAccount.account, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
+            let presentationTopUpAccount = PresentationTopUpAccount(id: storageBalanceTransfer.id, timestamp: presentationAddingTopUpAccount.timestamp, account: presentationAddingTopUpAccount.account, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
             return presentationTopUpAccount
         } catch {
             let error = Error("Cannot add presentation top up account \(presentationAddingTopUpAccount)\n\(error)")
@@ -499,13 +499,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             case .balanceReplenishment(let storageBalanceReplenishment, let storageBalanceAccount):
                 let presentationBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
                 let presentationBalanceReplenishment = PresentationTopUpAccount(id: storageBalanceReplenishment.id, timestamp: storageBalanceReplenishment.date, account: presentationBalanceAccount, amount: storageBalanceReplenishment.amount, comment: storageBalanceReplenishment.comment)
-                let presentationOperation: PresentationOperation = .balanceReplenishment(presentationBalanceReplenishment)
+                let presentationOperation: PresentationOperation = .replenishment(presentationBalanceReplenishment)
                 presentationOperations.append(presentationOperation)
             case .balanceTransfer(let storageBalanceTransfer, let storageFromBalanceAccount, let storageToBalanceAccount):
                 let presentationFromBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageFromBalanceAccount)
                 let presentationToBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageToBalanceAccount)
                 let presentationBalanceTransfer = PresentationTransfer(id: storageBalanceTransfer.id, fromAccount: presentationFromBalanceAccount, toAccount: presentationToBalanceAccount, day: storageBalanceTransfer.date, fromAmount: storageBalanceTransfer.fromAmount, toAmount: storageBalanceTransfer.toAmount, comment: storageBalanceTransfer.comment)
-                let presentationOperation: PresentationOperation = .balanceTransfer(presentationBalanceTransfer)
+                let presentationOperation: PresentationOperation = .transfer(presentationBalanceTransfer)
                 presentationOperations.append(presentationOperation)
             }
         }
@@ -568,7 +568,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, deleteBalanceReplenishment presentationDeletingBalanceReplenishment: PresentationReplenishment) throws -> PresentationReplenishment {
         do {
-            let storageBalanceReplenishment = StorageBalanceReplenishment(id: presentationDeletingBalanceReplenishment.id, date: presentationDeletingBalanceReplenishment.timestamp, balanceAccountId: presentationDeletingBalanceReplenishment.balanceAccount.id, amount: presentationDeletingBalanceReplenishment.amount, comment: presentationDeletingBalanceReplenishment.comment)
+            let storageBalanceReplenishment = StorageBalanceReplenishment(id: presentationDeletingBalanceReplenishment.id, date: presentationDeletingBalanceReplenishment.timestamp, balanceAccountId: presentationDeletingBalanceReplenishment.account.id, amount: presentationDeletingBalanceReplenishment.amount, comment: presentationDeletingBalanceReplenishment.comment)
             try storage.deleteBalanceReplenishment(storageBalanceReplenishment)
             return presentationDeletingBalanceReplenishment
         } catch {

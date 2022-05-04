@@ -10,7 +10,7 @@ import MoneyTrackerPresentation
 import MoneyTrackerStorage
 
 typealias PresentationTransfer = MoneyTrackerPresentation.BalanceTransfer
-typealias PresentationReplenishment = MoneyTrackerPresentation.BalanceReplenishment
+typealias PresentationReplenishment = MoneyTrackerPresentation.Replenishment
 typealias StorageBalanceTransfer = MoneyTrackerStorage.BalanceTransfer
 typealias StorageBalanceReplenishment = MoneyTrackerStorage.BalanceReplenishment
 

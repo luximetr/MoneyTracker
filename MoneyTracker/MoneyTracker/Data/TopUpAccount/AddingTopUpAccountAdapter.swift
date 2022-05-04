@@ -8,7 +8,7 @@
 import Foundation
 import MoneyTrackerPresentation
 
-typealias PresentationAddingTopUpAccount = MoneyTrackerPresentation.AddingBalanceReplenishment
+typealias PresentationAddingTopUpAccount = MoneyTrackerPresentation.AddingReplenishment
 
 typealias PresentationEditingReplenishment = MoneyTrackerPresentation.EditingReplenishment
 
