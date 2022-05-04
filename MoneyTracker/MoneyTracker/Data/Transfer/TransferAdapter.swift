@@ -13,6 +13,8 @@ typealias PresentationTransfer = MoneyTrackerPresentation.Transfer
 typealias PresentationReplenishment = MoneyTrackerPresentation.Replenishment
 typealias StorageBalanceTransfer = MoneyTrackerStorage.Transfer
 typealias StorageBalanceReplenishment = MoneyTrackerStorage.Replenishment
+typealias PresentationEditingTransfer = MoneyTrackerPresentation.EditingTransfer
+typealias StorageEditingTransfer = MoneyTrackerStorage.EditingTransfer
 
 class TransferAdapter {
     

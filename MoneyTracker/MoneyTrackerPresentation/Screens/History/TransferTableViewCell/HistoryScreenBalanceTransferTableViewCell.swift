@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 
 extension HistoryScreenViewController {
-final class BalanceTransferTableViewCell: AppearanceTableViewCell {
+final class TransferTableViewCell: AppearanceTableViewCell {
     
     // MARK: - Subviews
     

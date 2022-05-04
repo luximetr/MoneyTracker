@@ -1,25 +1,27 @@
 //
-//  TransferScreenViewController.swift
+//  EditTransferScreenViewController.swift
 //  MoneyTrackerPresentation
 //
-//  Created by Job Ihor Myroniuk on 05.04.2022.
+//  Created by Job Ihor Myroniuk on 04.05.2022.
 //
 
 import UIKit
 import AUIKit
 
-final class AddTransferScreenViewController: StatusBarScreenViewController {
+final class EditTransferScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Data
     
+    let transfer: Transfer
     var accounts: [Account]
     var backClosure: (() -> Void)?
     var addAccountClosure: (() -> Void)?
-    var addTransferClosure: ((AddingTransfer) -> Void)?
+    var editTransferClosure: ((EditingTransfer) -> Void)?
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, accounts: [Account]) {
+    init(appearance: Appearance, language: Language, accounts: [Account], transfer: Transfer) {
+        self.transfer = transfer
         self.accounts = accounts
         self.fromAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.toAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
@@ -57,6 +59,12 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         setupErrorSnackbarViewController()
         checkSameCurrencies()
         setContent()
+        fromAccountPickerController.setSelectedAccount(transfer.fromAccount)
+        fromAmountInputController.textFieldController.text = NumberFormatter().string(from: transfer.fromAmount as NSNumber)
+        toAccountPickerController.setSelectedAccount(transfer.toAccount)
+        toAmountInputController.textFieldController.text = NumberFormatter().string(from: transfer.toAmount as NSNumber)
+        screenView.commentTextField.text = transfer.comment
+        checkSameCurrencies()
     }
     
     private func setupViewTapRecognizer() {
@@ -115,12 +123,13 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
         fromAccountPickerController.showOptions(accounts: accounts)
-        let firstAccount = accounts.first
+        let firstAccount = transfer.fromAccount
         fromAccountPickerController.setSelectedAccount(firstAccount)
-        fromAmountInputController.labelController.text = firstAccount?.currency.rawValue
+        fromAmountInputController.labelController.text = firstAccount.currency.rawValue
         toAccountPickerController.showOptions(accounts: accounts)
-        toAccountPickerController.setSelectedAccount(firstAccount)
-        toAmountInputController.labelController.text = firstAccount?.currency.rawValue
+        let toAccount = transfer.toAccount
+        toAccountPickerController.setSelectedAccount(toAccount)
+        toAmountInputController.labelController.text = toAccount.currency.rawValue
         screenView.toAccountPickerLabel.text = localizer.localizeText("toAccount")
         let locale = Locale(identifier: localizer.localizeText("datePickerLocale"))
         screenView.dayDatePickerView.locale = locale
@@ -157,6 +166,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     }
     
     @objc private func addButtonTouchUpInsideEventAction() {
+        let id = transfer.id
         guard let fromAccount = fromAccountPickerController.selectedAccount else {
             showErrorSnackbar(localizer.localizeText("emptyFromAccountErrorMessage"))
             return
@@ -182,8 +192,8 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         }
         
         let comment = screenView.commentTextField.text
-        let addingTransfer = AddingTransfer(fromAccount: fromAccount, toAccount: toAccount, day: day, fromAmount: fromAmount, toAmount: toAmount, comment: comment)
-        addTransferClosure?(addingTransfer)
+        let editingTransfer = EditingTransfer(id: id, fromAccount: fromAccount, toAccount: toAccount, day: day, fromAmount: fromAmount, toAmount: toAmount, comment: comment)
+        editTransferClosure?(editingTransfer)
     }
     
     private func getInputFromAmount() -> Decimal? {

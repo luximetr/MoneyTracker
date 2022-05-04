@@ -8,6 +8,7 @@
 import Foundation
 
 public struct AddingTransfer {
+    
     public let date: Date
     public let fromBalanceAccountId: String
     public let fromAmount: Int64
@@ -23,4 +24,5 @@ public struct AddingTransfer {
         self.toAmount = toAmount
         self.comment = comment
     }
+    
 }

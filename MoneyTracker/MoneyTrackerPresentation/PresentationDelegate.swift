@@ -49,7 +49,9 @@ public protocol PresentationDelegate: AnyObject {
     func presentationOperations(_ presentation: Presentation) throws -> [Operation]
     
     func presentation(_ presentation: Presentation, deleteBalanceTransfer deletingBalanceTransfer: Transfer) throws -> Transfer
+    func presentation(_ presentation: Presentation, editTransfer editingTransfer: EditingTransfer) throws -> Transfer
     
     func presentation(_ presentation: Presentation, deleteBalanceReplenishment deletingBalanceReplenishment: Replenishment) throws -> Replenishment
     func presentation(_ presentation: Presentation, editReplenishment editingReplenishment: EditingReplenishment) throws -> Replenishment
+
 }

@@ -14,13 +14,13 @@ final class ReplenishmentTableViewCellController: AUIClosuresTableViewCellContro
     // MARK: - Data
     
     private var language: Language
-    var balanceReplenishment: Replenishment
+    var replenishment: Replenishment
     
     // MARK: - Initializer
     
-    init(language: Language, balanceReplenishment: Replenishment) {
+    init(language: Language, replenishment: Replenishment) {
         self.language = language
-        self.balanceReplenishment = balanceReplenishment
+        self.replenishment = replenishment
     }
     
     // MARK: - Cell
@@ -51,11 +51,11 @@ final class ReplenishmentTableViewCellController: AUIClosuresTableViewCellContro
     }()
     
     private func setContent() {
-        let name = balanceReplenishment.account.name
+        let name = replenishment.account.name
         replenishmentTableViewCell?.accountLabel.text = name
-        let amount = "\(Self.amountNumberFormatter.string(for: balanceReplenishment.amount) ?? "") \(currencyCodeLocalizer.code(balanceReplenishment.account.currency))"
+        let amount = "\(Self.amountNumberFormatter.string(for: replenishment.amount) ?? "") \(currencyCodeLocalizer.code(replenishment.account.currency))"
         replenishmentTableViewCell?.amountLabel.text = amount
-        let comment = balanceReplenishment.comment
+        let comment = replenishment.comment
         replenishmentTableViewCell?.commentLabel.text = comment
     }
     

@@ -85,6 +85,8 @@ public final class Presentation: AUIWindowPresentation {
         expenseAddedSnackbarViewControllers.forEach { $0.changeAppearance(appearance) }
         pushedEditReplenishmentViewController?.changeAppearance(appearance)
         pushedAddReplenishmentViewController?.changeAppearance(appearance)
+        pushedAddTransferViewController?.changeAppearance(appearance)
+        pushedEditTransferViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -440,10 +442,19 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            viewController.deleteBalanceTransferClosure = { [weak self] deletingBalanceTransfer in
+            viewController.deleteTransferClosure = { [weak self] deletingTransfer in
                 guard let self = self else { return }
                 do {
-                    _ = try self.delegate.presentation(self, deleteBalanceTransfer: deletingBalanceTransfer)
+                    _ = try self.delegate.presentation(self, deleteBalanceTransfer: deletingTransfer)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.selectTransferClosure = { [weak self] transfer in
+                guard let self = self else { return }
+                guard let menuNavigationController = self.menuNavigationController else { return }
+                do {
+                    try self.pushEditTransferViewController(menuNavigationController, transfer: transfer)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -558,6 +569,46 @@ public final class Presentation: AUIWindowPresentation {
             navigationController.pushViewController(viewController, animated: true)
         } catch {
             let error = Error("Cannot push TopUpAccountViewController\n\(error)")
+            throw error
+        }
+    }
+    
+    // MARK: - Edit Transfer View Controller
+    
+    private weak var pushedEditTransferViewController: EditTransferScreenViewController?
+    private func pushEditTransferViewController(_ navigationController: UINavigationController, transfer: Transfer) throws {
+        do {
+            let accounts = try delegate.presentationAccounts(self)
+            let language = try delegate.presentationLanguage(self)
+            let viewController = EditTransferScreenViewController(appearance: appearance, language: language, accounts: accounts, transfer: transfer)
+            viewController.backClosure = { [weak navigationController] in
+                guard let navigationController = navigationController else { return }
+                navigationController.popViewController(animated: true)
+            }
+            viewController.addAccountClosure = { [weak self, weak viewController] in
+                guard let self = self else { return }
+                guard let viewController = viewController else { return }
+                do {
+                    try self.presentAddAccountViewController(viewController)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            viewController.editTransferClosure = { [weak self, weak navigationController] editingTransfer in
+                guard let self = self else { return }
+                guard let navigationController = navigationController else { return }
+                do {
+                    let editedTransfer = try self.delegate.presentation(self, editTransfer: editingTransfer)
+                    self.pushedHistoryViewController?.editTransfer(editedTransfer)
+                    navigationController.popViewController(animated: true)
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                }
+            }
+            pushedEditTransferViewController = viewController
+            navigationController.pushViewController(viewController, animated: true)
+        } catch {
+            let error = Error("Cannot push EditTransferScreenViewController\n\(error)")
             throw error
         }
     }
@@ -1086,6 +1137,8 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedAddTransferViewController?.addAccount(addedAccount)
                     self.pushedAddReplenishmentViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
+                    self.pushedEditReplenishmentViewController?.addAccount(addedAccount)
+                    self.pushedEditTransferViewController?.addAccount(addedAccount)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -1137,6 +1190,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedAddReplenishmentViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
                     self.pushedEditReplenishmentViewController?.addAccount(addedAccount)
+                    self.pushedEditTransferViewController?.addAccount(addedAccount)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }

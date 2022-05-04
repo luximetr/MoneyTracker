@@ -26,9 +26,9 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         let replenishmentTableViewCells = tableView.visibleCells.compactMap({ $0 as? ReplenishmentTableViewCell })
         return replenishmentTableViewCells
     }
-    private var balanceTransferTableViewCells: [BalanceTransferTableViewCell]? {
-        let balanceTransferTableViewCells = tableView.visibleCells.compactMap({ $0 as? BalanceTransferTableViewCell })
-        return balanceTransferTableViewCells
+    private var transferTableViewCells: [TransferTableViewCell]? {
+        let transferTableViewCells = tableView.visibleCells.compactMap({ $0 as? TransferTableViewCell })
+        return transferTableViewCells
     }
     
     // MARK: - Setup
@@ -41,7 +41,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         setupDayTableViewCell()
         setupExpenseTableViewCell()
         setupReplenishmentTableViewCell()
-        setupBalanceTransferTableViewCell()
+        setupTransferTableViewCell()
     }
     
     private func setupTableView() {
@@ -65,9 +65,9 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         tableView.register(ReplenishmentTableViewCell.self, forCellReuseIdentifier: replenishmentTableViewCellReuseIdentifier)
     }
     
-    private let balanceTransferTableViewCellReuseIdentifier = "balanceTransferTableViewCellReuseIdentifier"
-    private func setupBalanceTransferTableViewCell() {
-        tableView.register(BalanceTransferTableViewCell.self, forCellReuseIdentifier: balanceTransferTableViewCellReuseIdentifier)
+    private let transferTableViewCellReuseIdentifier = "transferTableViewCellReuseIdentifier"
+    private func setupTransferTableViewCell() {
+        tableView.register(TransferTableViewCell.self, forCellReuseIdentifier: transferTableViewCellReuseIdentifier)
     }
     
     // MARK: - Layout
@@ -137,17 +137,17 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - BalanceTransferTableViewCell
     
-    func balanceTransferTableViewCell(_ indexPath: IndexPath) -> BalanceTransferTableViewCell {
-        let balanceTransferTableViewCell = tableView.dequeueReusableCell(withIdentifier: balanceTransferTableViewCellReuseIdentifier, for: indexPath) as! BalanceTransferTableViewCell
-        balanceTransferTableViewCell.setAppearance(appearance)
-        return balanceTransferTableViewCell
+    func transferTableViewCell(_ indexPath: IndexPath) -> TransferTableViewCell {
+        let transferTableViewCell = tableView.dequeueReusableCell(withIdentifier: transferTableViewCellReuseIdentifier, for: indexPath) as! TransferTableViewCell
+        transferTableViewCell.setAppearance(appearance)
+        return transferTableViewCell
     }
     
-    func balanceTransferTableViewCellEstimatedHeight() -> CGFloat {
+    func transferTableViewCellEstimatedHeight() -> CGFloat {
         return 53
     }
     
-    func balanceTransferTableViewCellHeight() -> CGFloat {
+    func transferTableViewCellHeight() -> CGFloat {
         return 53
     }
     
@@ -160,7 +160,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         dayTableViewCells?.forEach({ $0.setAppearance(appearance) })
         expenseTableViewCells?.forEach({ $0.setAppearance(appearance) })
         replenishmentTableViewCells?.forEach({ $0.setAppearance(appearance) })
-        balanceTransferTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        transferTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     
 }

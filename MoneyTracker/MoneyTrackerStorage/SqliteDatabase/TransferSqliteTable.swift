@@ -113,6 +113,7 @@ class TransferSqliteTable {
         try sqlite3BindText(databaseConnection, preparedStatement, 4, values.toAccountId, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 5, values.toAmount)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 6, values.comment, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 7, id, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
     }

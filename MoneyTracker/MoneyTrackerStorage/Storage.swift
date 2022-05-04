@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AFoundation
 
 public class Storage {
     
@@ -41,6 +42,45 @@ public class Storage {
             try sqliteDatabase.commitTransaction()
             let balanceTransfer = Transfer(id: id, date: addingBalanceTransfer.date, fromAccountId: fromBalanceAccountId, fromAmount: Decimal(fromAmount) / 100, toAccountId: toBalanceAccountId, toAmount: Decimal(toAmount) / 100, comment: comment)
             return balanceTransfer
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
+        }
+    }
+    
+    public func editTransfer(_ editingTransfer: EditingTransfer) throws {
+        do {
+            try sqliteDatabase.beginTransaction()
+            let id = editingTransfer.id
+            let timestamp = Int64(editingTransfer.timestamp.timeIntervalSince1970)
+            let fromAccountId = editingTransfer.fromAccountId
+            let fromAmount = Int64(try (editingTransfer.fromAmount * 100).int())
+            let toAccountId = editingTransfer.toAccountId
+            let toAmount = Int64(try (editingTransfer.toAmount * 100).int())
+            let comment = editingTransfer.comment
+            if let transfer = try sqliteDatabase.transferSqliteTable.selectWhereId(id) {
+                let transferFromAccountId = transfer.fromAccountId
+                let transferFromAmount = transfer.fromAmount
+                if transferFromAccountId != fromAccountId {
+                    try sqliteDatabase.balanceAccountTable.updateWhereId(transferFromAccountId, addingAmount: transferFromAmount)
+                    try sqliteDatabase.balanceAccountTable.updateWhereId(fromAccountId, subtractingAmount: fromAmount)
+                } else {
+                    let fromAmountDifference = transferFromAmount - fromAmount
+                    try sqliteDatabase.balanceAccountTable.updateWhereId(transferFromAccountId, addingAmount: fromAmountDifference)
+                }
+                let transferToAccountId = transfer.toAccountId
+                let transferToAmount = transfer.toAmount
+                if transferToAccountId != toAccountId {
+                    try sqliteDatabase.balanceAccountTable.updateWhereId(transferToAccountId, subtractingAmount: transferToAmount)
+                    try sqliteDatabase.balanceAccountTable.updateWhereId(toAccountId, addingAmount: toAmount)
+                } else {
+                    let toAmountDifference = transferToAmount - toAmount
+                    try sqliteDatabase.balanceAccountTable.updateWhereId(transferToAccountId, subtractingAmount: toAmountDifference)
+                }
+            }
+            let values = TransferUpdatingValues(timestamp: timestamp, fromAccountId: fromAccountId, fromAmount: fromAmount, toAccountId: toAccountId, toAmount: toAmount, comment: comment)
+            try sqliteDatabase.transferSqliteTable.updateWhereId(id, values: values)
+            try sqliteDatabase.commitTransaction()
         } catch {
             try sqliteDatabase.rollbackTransaction()
             throw error

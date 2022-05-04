@@ -586,4 +586,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentation(_ presentation: Presentation, editTransfer presentationEditingTransfer: PresentationEditingTransfer) throws -> PresentationTransfer {
+        do {
+            let storageEditingTransfer = StorageEditingTransfer(id: presentationEditingTransfer.id, timestamp: presentationEditingTransfer.timestamp, fromAccountId: presentationEditingTransfer.fromAccount.id, fromAmount: presentationEditingTransfer.fromAmount, toAccountId: presentationEditingTransfer.toAccount.id, toAmount: presentationEditingTransfer.toAmount, comment: presentationEditingTransfer.comment)
+            try storage.editTransfer(storageEditingTransfer)
+            let presentationTransfer = PresentationTransfer(id: presentationEditingTransfer.id, fromAccount: presentationEditingTransfer.fromAccount, toAccount: presentationEditingTransfer.toAccount, day: presentationEditingTransfer.timestamp, fromAmount: presentationEditingTransfer.fromAmount, toAmount: presentationEditingTransfer.toAmount, comment: presentationEditingTransfer.comment)
+            return presentationTransfer
+        } catch {
+            throw error
+        }
+    }
+    
 }

@@ -1,15 +1,15 @@
 //
-//  TransferScreenView.swift
+//  EditTransferScreenView.swift
 //  MoneyTrackerPresentation
 //
-//  Created by Job Ihor Myroniuk on 05.04.2022.
+//  Created by Job Ihor Myroniuk on 04.05.2022.
 //
 
 import UIKit
 import AUIKit
 import PinLayout
 
-extension AddTransferScreenViewController {
+extension EditTransferScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Initializer
@@ -274,3 +274,4 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
 }
 }
+

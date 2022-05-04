@@ -1,0 +1,10 @@
+"title" = "Transfer";
+"fromAccount" = "From";
+"toAccount" = "To";
+"commentPlaceholder" = "Comment (optional)";
+"add" = "Done";
+"datePickerLocale" = "en_US";
+"emptyFromAccountErrorMessage" = "Account 'from' not selected";
+"emptyToAccountErrorMessage" = "Account 'to' not selected";
+"emptyFromAmountErrorMessage" = "Please, enter valid 'from' amount";
+"emptyToAmountErrorMessage" = "Please, enter valid 'to' amount";
