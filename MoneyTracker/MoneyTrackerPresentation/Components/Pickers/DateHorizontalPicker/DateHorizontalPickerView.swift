@@ -149,6 +149,7 @@ class DateHorizontalPickerView: AppearanceView {
             .right(to: selectedDayFrameView.edge.left)
             .top()
             .bottom()
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: collectionFadeView.frame.width, bottom: 0, right: 0)
     }
     
     // MARK: - Appearance

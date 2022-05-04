@@ -53,16 +53,36 @@ class DateHorizontalPickerViewController: EmptyViewController {
     // MARK: - Dates
     
     private func reloadDates() {
-        let dates = createDates()
+        let dates = createDates(selectedDate: selectedDate)
         showDates(dates)
     }
     
     private let calendar = Calendar.current
     
-    private func createDates() -> [Date] {
-        let todayDate = Date()
+    private func createDates(selectedDate: Date) -> [Date] {
+        let datesBefore = createDatesBefore(selectedDate: selectedDate)
+        let datesAfter = createDatesUntilTodayAfter(selectedDate: selectedDate)
         var dates: [Date] = []
-        for dateOffset in 0...31 {
+        dates.append(contentsOf: datesBefore)
+        dates.append(contentsOf: datesAfter)
+        let sortedDates = dates.sorted(by: >)
+        return sortedDates
+    }
+    
+    private func createDatesBefore(selectedDate: Date) -> [Date] {
+        var dates: [Date] = []
+        for dateOffset in 1...400 {
+            guard let date = calendar.date(byAdding: .day, value: -dateOffset, to: selectedDate) else { continue }
+            dates.append(date)
+        }
+        return dates
+    }
+    
+    private func createDatesUntilTodayAfter(selectedDate: Date) -> [Date] {
+        let todayDate = Date()
+        guard let daysDistanceUntilToday = calendar.dateComponents([.day], from: todayDate, to: selectedDate).day else { return [] }
+        var dates: [Date] = []
+        for dateOffset in 0...daysDistanceUntilToday {
             guard let date = calendar.date(byAdding: .day, value: -dateOffset, to: todayDate) else { continue }
             dates.append(date)
         }
@@ -167,6 +187,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     
     func setSelectedDate(_ date: Date) {
         self.selectedDate = date
+        reloadDates()
         guard let dateCellController = findDateCellController(date: date) else { return }
         guard let indexPath = findIndexPath(cellController: dateCellController) else { return }
         pickerView?.showSelected(indexPath: indexPath)

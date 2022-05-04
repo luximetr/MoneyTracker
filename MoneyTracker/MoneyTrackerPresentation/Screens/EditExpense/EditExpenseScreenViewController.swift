@@ -180,9 +180,6 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     private func setupDatePickerController() {
         dayDatePickerController.pickerView = screenView.dayDatePickerView
-        dayDatePickerController.didSelectDateClosure = { date in
-            print(date)
-        }
     }
     
     // MARK: - Amount input - Currency
