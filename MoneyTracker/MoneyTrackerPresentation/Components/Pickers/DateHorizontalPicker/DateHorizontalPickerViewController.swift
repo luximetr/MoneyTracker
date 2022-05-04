@@ -185,6 +185,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
         guard let dateCellController = findDateCellController(indexPath: indexPath) else { return }
         pickerView?.showSelected(indexPath: indexPath)
         selectedDate = dateCellController.date
+        pickerView?.datePicker.setDate(selectedDate, animated: false)
         didSelectDateClosure?(selectedDate)
     }
     
@@ -194,6 +195,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
         guard let dateCellController = findDateCellController(date: date) else { return }
         guard let indexPath = findIndexPath(cellController: dateCellController) else { return }
         pickerView?.showSelected(indexPath: indexPath)
+        pickerView?.datePicker.setDate(date, animated: false)
     }
     
     // MARK: - Date picker
@@ -201,6 +203,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     private func setupDatePicker() {
         pickerView?.datePicker.maximumDate = Date()
         pickerView?.datePicker.addTarget(self, action: #selector(datePickerDidEndSelecting), for: .editingDidEnd)
+        pickerView?.datePicker.setDate(selectedDate, animated: false)
     }
     
     @objc private func datePickerDidEndSelecting() {

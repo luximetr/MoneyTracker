@@ -195,6 +195,16 @@ class DateHorizontalPickerView: AppearanceView {
     }
     
     func showSelected(indexPath: IndexPath) {
-        collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+        if collectionView.visibleCells.isNonEmpty {
+            collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+        } else {
+            showSelectedIndexPathIfNoVisibleCellsYet(indexPath: indexPath)
+        }
+    }
+    
+    private func showSelectedIndexPathIfNoVisibleCellsYet(indexPath: IndexPath) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+            self.collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
+        })
     }
 }
