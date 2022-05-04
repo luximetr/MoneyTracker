@@ -102,6 +102,11 @@ final class EditReplenishmentScreenViewController: StatusBarScreenViewController
     
     // MARK: Events
     
+    @objc
+    private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
+    
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardFrameEndUser = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
@@ -132,11 +137,6 @@ final class EditReplenishmentScreenViewController: StatusBarScreenViewController
         guard let amountText = amountInputController.textFieldController.text else { return nil }
         let numberFormatter = NumberFormatter()
         return numberFormatter.number(from: amountText)?.decimalValue
-    }
-    
-    @objc
-    private func backButtonTouchUpInsideEventAction() {
-        backClosure?()
     }
     
     func addAccount(_ account: Account) {

@@ -83,6 +83,7 @@ public final class Presentation: AUIWindowPresentation {
         importCSVScreen?.changeAppearance(appearance)
         exportCSVScreen?.changeAppearance(appearance)
         expenseAddedSnackbarViewControllers.forEach { $0.changeAppearance(appearance) }
+        pushedEditReplenishmentViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -520,7 +521,7 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: - Edit Expense View Controller
+    // MARK: - Edit Replenishment View Controller
     
     private weak var pushedEditReplenishmentViewController: EditReplenishmentScreenViewController?
     private func pushEditReplenishmentViewController(_ navigationController: UINavigationController, replenishment: BalanceReplenishment) throws {
@@ -545,7 +546,8 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 guard let navigationController = navigationController else { return }
                 do {
-                    _ = try self.delegate.presentation(self, editReplenishment: editingReplenishment)
+                    let editedReplenishment = try self.delegate.presentation(self, editReplenishment: editingReplenishment)
+                    self.pushedHistoryViewController?.editReplenishment(editedReplenishment)
                     navigationController.popViewController(animated: true)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
@@ -1133,6 +1135,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.pushedAddTransferViewController?.addAccount(addedAccount)
                     self.pushedTopUpAccountViewController?.addAccount(addedAccount)
                     self.pushedAddTemplateScreenViewController?.addAccount(addedAccount)
+                    self.pushedEditReplenishmentViewController?.addAccount(addedAccount)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }

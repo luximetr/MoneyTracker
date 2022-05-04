@@ -144,12 +144,27 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         }) else {
             return
         }
-        operations[firstIndex] = .expense(editedExpense)
+        self.operations[firstIndex] = .expense(editedExpense)
+        self.operations.sort(by: { $0.timestamp > $1.timestamp })
         setTableViewControllerContent()
     }
     
     private func selectReplenishment(_ replenishment: BalanceReplenishment) {
         self.selectReplenishmentClosure?(replenishment)
+    }
+    
+    func editReplenishment(_ editedReplenishment: BalanceReplenishment) {
+        guard let firstIndex = operations.firstIndex(where: { operation in
+            if case let .balanceReplenishment(expense) = operation {
+                return expense.id == editedReplenishment.id
+            }
+            return false
+        }) else {
+            return
+        }
+        self.operations[firstIndex] = .balanceReplenishment(editedReplenishment)
+        self.operations.sort(by: { $0.timestamp > $1.timestamp })
+        setTableViewControllerContent()
     }
     
     // MARK: Content
