@@ -113,8 +113,8 @@
 		2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A4527A7068E00743416 /* MenuScreenStrings.strings */; };
 		2EB10A4827A7075700743416 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4727A7075700743416 /* Bundle.swift */; };
 		2EB10A4A27A707A300743416 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4927A707A300743416 /* Language.swift */; };
-		2EB2143D2818694E0058242F /* AddingBalanceTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2143C2818694E0058242F /* AddingBalanceTransfer.swift */; };
-		2EB2144128187F0F0058242F /* BalanceTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2144028187F0F0058242F /* BalanceTransfer.swift */; };
+		2EB2143D2818694E0058242F /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2143C2818694E0058242F /* AddingTransfer.swift */; };
+		2EB2144128187F0F0058242F /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2144028187F0F0058242F /* Transfer.swift */; };
 		2EB2E878281080E00017ACDD /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E877281080E00017ACDD /* AppearanceSetting.swift */; };
 		2EB2E87B281083550017ACDD /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87A281083550017ACDD /* AppearanceSetting.swift */; };
 		2EB2E87D281083820017ACDD /* PresentationAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */; };
@@ -609,8 +609,8 @@
 		2EB10A4427A7068E00743416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MenuScreenStrings.strings; sourceTree = "<group>"; };
 		2EB10A4727A7075700743416 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		2EB10A4927A707A300743416 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
-		2EB2143C2818694E0058242F /* AddingBalanceTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingBalanceTransfer.swift; sourceTree = "<group>"; };
-		2EB2144028187F0F0058242F /* BalanceTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTransfer.swift; sourceTree = "<group>"; };
+		2EB2143C2818694E0058242F /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
+		2EB2144028187F0F0058242F /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		2EB2E877281080E00017ACDD /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
 		2EB2E87A281083550017ACDD /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
 		2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationAppearanceSettingMapper.swift; sourceTree = "<group>"; };
@@ -1163,7 +1163,6 @@
 		2E91155127A9373E00359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2EB2143B281869220058242F /* Transfer */,
 				2EB2E876281080CD0017ACDD /* AppearanceSetting */,
 				2ED248E828086FF3001E0498 /* Language */,
 				DB62AEFE27EF02D500F8CA55 /* ExpensesFile */,
@@ -1173,6 +1172,7 @@
 				2E926E8D27BC58130081E3AE /* Currency */,
 				2E926E8F27BC58140081E3AE /* Expense */,
 				2E252622281921B90025D2E9 /* Replenishment */,
+				2EB2143B281869220058242F /* Transfer */,
 				2EBBD24B281C1D9D00929A97 /* Operation */,
 			);
 			path = Data;
@@ -1566,8 +1566,8 @@
 		2EB2143B281869220058242F /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
-				2EB2143C2818694E0058242F /* AddingBalanceTransfer.swift */,
-				2EB2144028187F0F0058242F /* BalanceTransfer.swift */,
+				2EB2143C2818694E0058242F /* AddingTransfer.swift */,
+				2EB2144028187F0F0058242F /* Transfer.swift */,
 			);
 			path = Transfer;
 			sourceTree = "<group>";
@@ -3113,13 +3113,13 @@
 				2E926E9C27BC58140081E3AE /* EditingExpense.swift in Sources */,
 				DBA054752801266F00DB3892 /* ImportedExpensesFile.swift in Sources */,
 				2E832AAF2816DBEF0083B77F /* ExpenseSqliteTable.swift in Sources */,
-				2EB2143D2818694E0058242F /* AddingBalanceTransfer.swift in Sources */,
+				2EB2143D2818694E0058242F /* AddingTransfer.swift in Sources */,
 				DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB40042F280FA8C4004073D0 /* CategoryColor.swift in Sources */,
 				2E252626281922230025D2E9 /* Replenishment.swift in Sources */,
 				DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */,
 				2E52795B2811AFC800BC916B /* CategorySqliteTable.swift in Sources */,
-				2EB2144128187F0F0058242F /* BalanceTransfer.swift in Sources */,
+				2EB2144128187F0F0058242F /* Transfer.swift in Sources */,
 				DB7793BD2810321000150822 /* BalanceAccountColor.swift in Sources */,
 				2E5061E42818542900C6C217 /* TransferSqliteTable.swift in Sources */,
 				2E926E9E27BC58140081E3AE /* AddingCategory.swift in Sources */,

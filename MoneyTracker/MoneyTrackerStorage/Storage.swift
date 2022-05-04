@@ -24,7 +24,7 @@ public class Storage {
     
     // MARK: - BalanceTransfer
     
-    public func addBalanceTransfer(_ addingBalanceTransfer: AddingBalanceTransfer) throws -> BalanceTransfer {
+    public func addBalanceTransfer(_ addingBalanceTransfer: AddingTransfer) throws -> Transfer {
         do {
             try sqliteDatabase.beginTransaction()
             let id = UUID().uuidString
@@ -39,7 +39,7 @@ public class Storage {
             try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, addingAmount: toAmount)
             try sqliteDatabase.transferSqliteTable.insertValues(balanceTransferInsertingValues)
             try sqliteDatabase.commitTransaction()
-            let balanceTransfer = BalanceTransfer(id: id, date: addingBalanceTransfer.date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: Decimal(fromAmount) / 100, toBalanceAccountId: toBalanceAccountId, toAmount: Decimal(toAmount) / 100, comment: comment)
+            let balanceTransfer = Transfer(id: id, date: addingBalanceTransfer.date, fromAccountId: fromBalanceAccountId, fromAmount: Decimal(fromAmount) / 100, toAccountId: toBalanceAccountId, toAmount: Decimal(toAmount) / 100, comment: comment)
             return balanceTransfer
         } catch {
             try sqliteDatabase.rollbackTransaction()
@@ -47,13 +47,13 @@ public class Storage {
         }
     }
     
-    public func deleteBalanceTransfer(_ balanceTransfer: BalanceTransfer) throws {
+    public func deleteBalanceTransfer(_ balanceTransfer: Transfer) throws {
         do {
             try sqliteDatabase.beginTransaction()
-            let fromBalanceAccountId = balanceTransfer.fromBalanceAccountId
+            let fromBalanceAccountId = balanceTransfer.fromAccountId
             let fromAmount = Int64(try (balanceTransfer.fromAmount * 100).int())
             try sqliteDatabase.balanceAccountTable.updateWhereId(fromBalanceAccountId, addingAmount: fromAmount)
-            let toBalanceAccountId = balanceTransfer.toBalanceAccountId
+            let toBalanceAccountId = balanceTransfer.toAccountId
             let toAmount = Int64(try (balanceTransfer.toAmount * 100).int())
             try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, subtractingAmount: toAmount)
             let id = balanceTransfer.id
@@ -913,7 +913,7 @@ public class Storage {
         let toBalanceAccount = BalanceAccount(id: toBalanceAccountId, name: toBalanceAccountName, amount: Decimal(toBalanceAccountAmount) / 100, currency: toCurrency, color: toBalanceAccountColorEnd)
         
         let comment = operationSelectedRow.balanceTransferComment
-        let balanceTransfer = BalanceTransfer(id: id, date: balanceTransferDate, fromBalanceAccountId: fromBalanceAccountId, fromAmount: balanceTransferFromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: balanceTransferToAmount, comment: comment)
+        let balanceTransfer = Transfer(id: id, date: balanceTransferDate, fromAccountId: fromBalanceAccountId, fromAmount: balanceTransferFromAmount, toAccountId: toBalanceAccountId, toAmount: balanceTransferToAmount, comment: comment)
         return .balanceTransfer(balanceTransfer: balanceTransfer, fromBalanceAccount: fromBalanceAccount, toBalanceAccount: toBalanceAccount)
     }
     

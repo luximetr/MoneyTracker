@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AddingBalanceTransfer {
+public struct AddingTransfer {
     public let date: Date
     public let fromBalanceAccountId: String
     public let fromAmount: Int64
@@ -15,11 +15,11 @@ public struct AddingBalanceTransfer {
     public let toAmount: Int64
     public let comment: String?
     
-    public init(date: Date, fromBalanceAccountId: String, fromAmount: Int64, toBalanceAccountId: String, toAmount: Int64, comment: String?) {
+    public init(date: Date, fromAccountId: String, fromAmount: Int64, toAccountId: String, toAmount: Int64, comment: String?) {
         self.date = date
-        self.fromBalanceAccountId = fromBalanceAccountId
+        self.fromBalanceAccountId = fromAccountId
         self.fromAmount = fromAmount
-        self.toBalanceAccountId = toBalanceAccountId
+        self.toBalanceAccountId = toAccountId
         self.toAmount = toAmount
         self.comment = comment
     }
