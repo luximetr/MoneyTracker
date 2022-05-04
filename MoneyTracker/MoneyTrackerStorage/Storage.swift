@@ -34,7 +34,7 @@ public class Storage {
             let toBalanceAccountId = addingBalanceTransfer.toBalanceAccountId
             let toAmount = addingBalanceTransfer.toAmount
             let comment = addingBalanceTransfer.comment
-            let balanceTransferInsertingValues = TransferInsertingValues(id: id, timestamp: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
+            let balanceTransferInsertingValues = TransferInsertingValues(id: id, timestamp: date, fromAccountId: fromBalanceAccountId, fromAmount: fromAmount, toAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
             try sqliteDatabase.balanceAccountTable.updateWhereId(fromBalanceAccountId, subtractingAmount: fromAmount)
             try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, addingAmount: toAmount)
             try sqliteDatabase.transferSqliteTable.insertValues(balanceTransferInsertingValues)
@@ -477,7 +477,7 @@ public class Storage {
                 let comment = expense.comment
                 let categoryId = expense.categoryId
                 let balanceAccountId = expense.balanceAccountId
-                let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment)
+                let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, accountId: balanceAccountId, categoryId: categoryId, comment: comment)
                 try sqliteDatabase.beginTransaction()
                 try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
             }
@@ -497,7 +497,7 @@ public class Storage {
             let comment = addingExpense.comment
             let categoryId = addingExpense.categoryId
             let balanceAccountId = addingExpense.balanceAccountId
-            let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment)
+            let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, accountId: balanceAccountId, categoryId: categoryId, comment: comment)
             try sqliteDatabase.beginTransaction()
             try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
             try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, subtractingAmount: amount)
@@ -524,7 +524,7 @@ public class Storage {
                 let comment = addingExpense.comment
                 let categoryId = addingExpense.categoryId
                 let balanceAccountId = addingExpense.balanceAccountId
-                let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment)
+                let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, accountId: balanceAccountId, categoryId: categoryId, comment: comment)
                 try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
                 let amountDecimal = Decimal(amount) / 100
                 let dateDate = Date(timeIntervalSince1970: Double(timestamp))
@@ -550,7 +550,7 @@ public class Storage {
                 let date = expenseSelectedRow.timestamp
                 let comment = expenseSelectedRow.comment
                 let categoryId = expenseSelectedRow.categoryId
-                let balanceAccountId = expenseSelectedRow.balanceAccountId
+                let balanceAccountId = expenseSelectedRow.accountId
                 let amountDecimal = Decimal(amount) / 100
                 let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
@@ -569,7 +569,7 @@ public class Storage {
         let date = expenseSelectedRow.timestamp
         let comment = expenseSelectedRow.comment
         let categoryId = expenseSelectedRow.categoryId
-        let balanceAccountId = expenseSelectedRow.balanceAccountId
+        let balanceAccountId = expenseSelectedRow.accountId
         let amountDecimal = Decimal(amount) / 100
         let dateDate = Date(timeIntervalSince1970: Double(date))
         let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
@@ -585,7 +585,7 @@ public class Storage {
                 let date = expenseSelectedRow.timestamp
                 let comment = expenseSelectedRow.comment
                 let categoryId = expenseSelectedRow.categoryId
-                let balanceAccountId = expenseSelectedRow.balanceAccountId
+                let balanceAccountId = expenseSelectedRow.accountId
                 let amountDecimal = Decimal(amount) / 100
                 let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
@@ -606,7 +606,7 @@ public class Storage {
                 let date = expenseSelectedRow.timestamp
                 let comment = expenseSelectedRow.comment
                 let categoryId = expenseSelectedRow.categoryId
-                let balanceAccountId = expenseSelectedRow.balanceAccountId
+                let balanceAccountId = expenseSelectedRow.accountId
                 let amountDecimal = Decimal(amount) / 100
                 let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
@@ -627,7 +627,7 @@ public class Storage {
                 let date = expenseSelectedRow.timestamp
                 let comment = expenseSelectedRow.comment
                 let categoryId = expenseSelectedRow.categoryId
-                let balanceAccountId = expenseSelectedRow.balanceAccountId
+                let balanceAccountId = expenseSelectedRow.accountId
                 let amountDecimal = Decimal(amount) / 100
                 let dateDate = Date(timeIntervalSince1970: Double(date))
                 let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
@@ -645,7 +645,7 @@ public class Storage {
         let comment = editingExpense.comment
         let categoryId = editingExpense.categoryId!
         let balanceAccountId = editingExpense.balanceAccountId!
-        let expenseUpdatingByIdValues = ExpenseUpdatingByIdValues(timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment)
+        let expenseUpdatingByIdValues = ExpenseUpdatingByIdValues(timestamp: timestamp, amount: amount, accountId: balanceAccountId, categoryId: categoryId, comment: comment)
         try sqliteDatabase.beginTransaction()
         try sqliteDatabase.expenseTable.updateWhere(id: expenseId, values: expenseUpdatingByIdValues)
         try sqliteDatabase.commitTransaction()
@@ -866,17 +866,17 @@ public class Storage {
     
     private func extractBalanceReplenishment(_ operationSelectedRow: OperationSelectedRow) throws -> Operation {
         let error = Error("ggg")
-        guard let id = operationSelectedRow.balanceReplenishmentId else { throw error }
-        guard let timestamp = operationSelectedRow.balanceReplenishmentTimestamp else { throw error }
+        guard let id = operationSelectedRow.replenishmentId else { throw error }
+        guard let timestamp = operationSelectedRow.replenishmentTimestamp else { throw error }
         let balanceReplenishmentDate = Date(timeIntervalSince1970: TimeInterval(timestamp))
-        guard let amount = operationSelectedRow.balanceReplenishmentAmount else { throw error }
+        guard let amount = operationSelectedRow.replenishmentAmount else { throw error }
         let balanceReplenishmentAmount = Decimal(amount) / 100
-        let comment = operationSelectedRow.balanceReplenishmentComment
-        guard let balanceAccountId = operationSelectedRow.balanceReplenishmentBalanceAccountId else { throw error }
-        guard let balanceAccountName = operationSelectedRow.balanceReplenishmentBalanceAccountName else { throw error }
-        guard let balanceAccountAmount = operationSelectedRow.balanceReplenishmentBalanceAccountAmount else { throw error }
-        guard let balanceAccountCurrency = operationSelectedRow.balanceReplenishmentBalanceAccountCurrency else { throw error }
-        guard let balanceAccountColor = operationSelectedRow.balanceReplenishmentBalanceAccountColor else { throw error }
+        let comment = operationSelectedRow.replenishmentComment
+        guard let balanceAccountId = operationSelectedRow.replenishmentBalanceAccountId else { throw error }
+        guard let balanceAccountName = operationSelectedRow.replenishmentBalanceAccountName else { throw error }
+        guard let balanceAccountAmount = operationSelectedRow.replenishmentBalanceAccountAmount else { throw error }
+        guard let balanceAccountCurrency = operationSelectedRow.replenishmentBalanceAccountCurrency else { throw error }
+        guard let balanceAccountColor = operationSelectedRow.replenishmentBalanceAccountColor else { throw error }
         let currency = try Currency(balanceAccountCurrency)
         let balanceAccountColorEnd = BalanceAccountColor(rawValue: balanceAccountColor)!
         let balanceAccount = BalanceAccount(id: balanceAccountId, name: balanceAccountName, amount: Decimal(balanceAccountAmount) / 100, currency: currency, color: balanceAccountColorEnd)

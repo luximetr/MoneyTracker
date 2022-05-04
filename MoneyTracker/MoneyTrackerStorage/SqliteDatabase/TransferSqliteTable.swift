@@ -10,9 +10,9 @@ import SQLite3
 struct TransferInsertingValues {
     let id: String
     let timestamp: Int64
-    let fromBalanceAccountId: String
+    let fromAccountId: String
     let fromAmount: Int64
-    let toBalanceAccountId: String
+    let toAccountId: String
     let toAmount: Int64
     let comment: String?
 }
@@ -36,13 +36,13 @@ class TransferSqliteTable {
             transfer(
                 id TEXT PRIMARY KEY,
                 timestamp INTEGER,
-                from_balance_account_id TEXT,
+                from_account_id TEXT,
                 from_amount INTEGER,
-                to_balance_account_id TEXT,
+                to_account_id TEXT,
                 to_amount INTEGER,
                 comment TEXT,
-                FOREIGN KEY(from_balance_account_id) REFERENCES balance_account(id),
-                FOREIGN KEY(to_balance_account_id) REFERENCES balance_account(id)
+                FOREIGN KEY(from_account_id) REFERENCES balance_account(id),
+                FOREIGN KEY(to_account_id) REFERENCES balance_account(id)
             );
             """
         var preparedStatement: OpaquePointer?
@@ -56,16 +56,16 @@ class TransferSqliteTable {
     func insertValues(_ values: TransferInsertingValues) throws {
         let statement =
             """
-            INSERT INTO transfer(id, timestamp, from_balance_account_id, from_amount, to_balance_account_id, to_amount, comment)
+            INSERT INTO transfer(id, timestamp, from_account_id, from_amount, to_account_id, to_amount, comment)
             VALUES (?, ?, ?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.timestamp)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.fromBalanceAccountId, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.fromAccountId, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 4, values.fromAmount)
-        try sqlite3BindText(databaseConnection, preparedStatement, 5, values.toBalanceAccountId, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 5, values.toAccountId, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 6, values.toAmount)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 7, values.comment, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)

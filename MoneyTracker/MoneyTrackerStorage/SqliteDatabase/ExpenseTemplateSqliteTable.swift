@@ -55,12 +55,12 @@ class ExpenseTemplateSqliteTable {
                 id TEXT PRIMARY KEY,
                 name TEXT,
                 amount INTEGER,
-                balance_account_id TEXT,
+                account_id TEXT,
                 category_id TEXT,
                 comment TEXT,
                 order_number INTEGER,
                 FOREIGN KEY(category_id) REFERENCES category(id),
-                FOREIGN KEY(balance_account_id) REFERENCES balance_account(id)
+                FOREIGN KEY(account_id) REFERENCES balance_account(id)
             );
             """
         var preparedStatement: OpaquePointer?
@@ -74,7 +74,7 @@ class ExpenseTemplateSqliteTable {
     func insertValues(_ values: ExpenseTemplateInsertingValues) throws {
         let statement =
             """
-            INSERT INTO expense_template(id, name, amount, balance_account_id, category_id, comment, order_number)
+            INSERT INTO expense_template(id, name, amount, account_id, category_id, comment, order_number)
             VALUES (?, ?, ?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
@@ -98,7 +98,7 @@ class ExpenseTemplateSqliteTable {
             UPDATE expense_template SET
                 name = ?,
                 amount = ?,
-                balance_account_id = ?,
+                account_id = ?,
                 category_id = ?,
                 comment = ?
             WHERE id = ?;
@@ -159,7 +159,7 @@ class ExpenseTemplateSqliteTable {
     func select() throws -> [ExpenseTemplateSelectedRow] {
         let statement =
             """
-            SELECT id, name, amount, balance_account_id, category_id, comment, order_number FROM expense_template;
+            SELECT id, name, amount, account_id, category_id, comment, order_number FROM expense_template;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
@@ -175,7 +175,7 @@ class ExpenseTemplateSqliteTable {
     func selectOrderByOrderNumber() throws -> [ExpenseTemplateSelectedRow] {
         let statement =
             """
-            SELECT id, name, amount, balance_account_id, category_id, comment, order_number FROM expense_template ORDER BY order_number;
+            SELECT id, name, amount, account_id, category_id, comment, order_number FROM expense_template ORDER BY order_number;
             """
         var preparedStatement: OpaquePointer?
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)

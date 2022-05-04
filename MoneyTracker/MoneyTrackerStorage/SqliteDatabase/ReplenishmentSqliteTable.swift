@@ -50,9 +50,9 @@ class ReplenishmentSqliteTable {
                 id TEXT PRIMARY KEY,
                 timestamp INTEGER,
                 amount INTEGER,
-                balance_account_id TEXT,
+                account_id TEXT,
                 comment TEXT,
-                FOREIGN KEY(balance_account_id) REFERENCES balance_account(id)
+                FOREIGN KEY(account_id) REFERENCES balance_account(id)
             );
             """
         var preparedStatement: OpaquePointer?
@@ -66,7 +66,7 @@ class ReplenishmentSqliteTable {
     func insertValues(_ values: ReplenishmentInsertingValues) throws {
         let statement =
             """
-            INSERT INTO replenishment(id, timestamp, amount, balance_account_id, comment)
+            INSERT INTO replenishment(id, timestamp, amount, account_id, comment)
             VALUES (?, ?, ?, ?, ?);
             """
         var preparedStatement: OpaquePointer?
@@ -88,7 +88,7 @@ class ReplenishmentSqliteTable {
             UPDATE replenishment SET
                 timestamp = ?,
                 amount = ?,
-                balance_account_id = ?,
+                account_id = ?,
                 comment = ?
             WHERE id = ?;
             """
@@ -132,7 +132,7 @@ class ReplenishmentSqliteTable {
     func selectWhereId(_ id: String) throws -> ReplenishmentSelectedRow? {
         let statement =
             """
-            SELECT id, timestamp, amount, balance_account_id, comment FROM replenishment
+            SELECT id, timestamp, amount, account_id, comment FROM replenishment
             WHERE id = ?;
             """
         var preparedStatement: OpaquePointer?
