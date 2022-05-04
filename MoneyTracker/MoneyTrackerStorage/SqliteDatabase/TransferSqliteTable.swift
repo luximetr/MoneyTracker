@@ -7,7 +7,7 @@
 
 import SQLite3
 
-struct BalanceTransferInsertingValues {
+struct TransferInsertingValues {
     let id: String
     let timestamp: Int64
     let fromBalanceAccountId: String
@@ -17,7 +17,7 @@ struct BalanceTransferInsertingValues {
     let comment: String?
 }
 
-class BalanceTransferSqliteTable {
+class TransferSqliteTable {
     
     private let databaseConnection: OpaquePointer
     
@@ -53,7 +53,7 @@ class BalanceTransferSqliteTable {
     
     // MARK: - INSERT
     
-    func insertValues(_ values: BalanceTransferInsertingValues) throws {
+    func insertValues(_ values: TransferInsertingValues) throws {
         let statement =
             """
             INSERT INTO balance_transfer(id, timestamp, from_balance_account_id, from_amount, to_balance_account_id, to_amount, comment)

@@ -11,7 +11,7 @@ struct ReplenishmentSelectedRow {
     let id: String
     let timestamp: Int64
     let amount: Int64
-    let balanceAccountId: String
+    let accountId: String
     let comment: String?
 }
 
@@ -19,14 +19,14 @@ struct ReplenishmentInsertingValues {
     let id: String
     let timestamp: Int64
     let amount: Int64
-    let balanceAccountId: String
+    let accountId: String
     let comment: String?
 }
 
 struct ReplenishmentUpdatingValues {
     let timestamp: Int64
     let amount: Int64
-    let balanceAccountId: String
+    let accountId: String
     let comment: String?
 }
 
@@ -74,7 +74,7 @@ class ReplenishmentSqliteTable {
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.timestamp)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
-        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.balanceAccountId, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.accountId, -1, nil)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 5, values.comment, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
         try sqlite3Finalize(databaseConnection, preparedStatement)
@@ -96,7 +96,7 @@ class ReplenishmentSqliteTable {
         try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 1, values.timestamp)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.balanceAccountId, -1, nil)
+        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.accountId, -1, nil)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 4, values.comment, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 5, id, -1, nil)
         try sqlite3StepDone(databaseConnection, preparedStatement)
@@ -123,9 +123,9 @@ class ReplenishmentSqliteTable {
         let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
         let timestamp = sqlite3ColumnInt64(databaseConnection, preparedStatement, 1)
         let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
-        let balanceAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
+        let accountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
         let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 4)
-        let balanceReplenishmentSelectedRow = ReplenishmentSelectedRow(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, comment: comment)
+        let balanceReplenishmentSelectedRow = ReplenishmentSelectedRow(id: id, timestamp: timestamp, amount: amount, accountId: accountId, comment: comment)
         return balanceReplenishmentSelectedRow
     }
     

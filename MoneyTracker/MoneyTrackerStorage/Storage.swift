@@ -34,7 +34,7 @@ public class Storage {
             let toBalanceAccountId = addingBalanceTransfer.toBalanceAccountId
             let toAmount = addingBalanceTransfer.toAmount
             let comment = addingBalanceTransfer.comment
-            let balanceTransferInsertingValues = BalanceTransferInsertingValues(id: id, timestamp: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
+            let balanceTransferInsertingValues = TransferInsertingValues(id: id, timestamp: date, fromBalanceAccountId: fromBalanceAccountId, fromAmount: fromAmount, toBalanceAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
             try sqliteDatabase.balanceAccountTable.updateWhereId(fromBalanceAccountId, subtractingAmount: fromAmount)
             try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, addingAmount: toAmount)
             try sqliteDatabase.balanceTransferSqliteTable.insertValues(balanceTransferInsertingValues)
@@ -75,7 +75,7 @@ public class Storage {
             let balanceAccountId = addingBalanceReplenishment.accountId
             let amount = addingBalanceReplenishment.amount
             let comment = addingBalanceReplenishment.comment
-            let balanceReplenishmentInsertingValues = ReplenishmentInsertingValues(id: id, timestamp: timestamp, amount: amount, balanceAccountId: balanceAccountId, comment: comment)
+            let balanceReplenishmentInsertingValues = ReplenishmentInsertingValues(id: id, timestamp: timestamp, amount: amount, accountId: balanceAccountId, comment: comment)
             try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
             try sqliteDatabase.balanceReplenishmentSqliteTable.insertValues(balanceReplenishmentInsertingValues)
             try sqliteDatabase.commitTransaction()
@@ -114,11 +114,11 @@ public class Storage {
                     let amountDifference = amount - beforeReplenishment.amount
                     try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amountDifference)
                 } else {
-                    try sqliteDatabase.balanceAccountTable.updateWhereId(beforeReplenishment.balanceAccountId, subtractingAmount: amount)
+                    try sqliteDatabase.balanceAccountTable.updateWhereId(beforeReplenishment.accountId, subtractingAmount: amount)
                     try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
                 }
             }
-            let values = ReplenishmentUpdatingValues(timestamp: Int64(editingReplenishment.timestamp.timeIntervalSince1970), amount: amount, balanceAccountId: balanceAccountId, comment: comment)
+            let values = ReplenishmentUpdatingValues(timestamp: Int64(editingReplenishment.timestamp.timeIntervalSince1970), amount: amount, accountId: balanceAccountId, comment: comment)
             try sqliteDatabase.balanceReplenishmentSqliteTable.updateWhereId(id, values: values)
             try sqliteDatabase.commitTransaction()
         } catch {
