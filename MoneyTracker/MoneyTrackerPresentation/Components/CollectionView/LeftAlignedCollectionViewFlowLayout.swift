@@ -10,11 +10,11 @@ import UIKit
 class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let attributes = super.layoutAttributesForElements(in: rect)
-
+        let attributesForElements = super.layoutAttributesForElements(in: rect)
+        let attributesForElementsCopy = attributesForElements?.map({ $0.copy() as! UICollectionViewLayoutAttributes })
         var leftMargin = sectionInset.left
         var maxY: CGFloat = -1.0
-        attributes?.forEach { layoutAttribute in
+        attributesForElementsCopy?.forEach { layoutAttribute in
             if layoutAttribute.frame.origin.y >= maxY {
                 leftMargin = sectionInset.left
             }
@@ -25,6 +25,6 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
             maxY = max(layoutAttribute.frame.maxY , maxY)
         }
 
-        return attributes
+        return attributesForElementsCopy
     }
 }
