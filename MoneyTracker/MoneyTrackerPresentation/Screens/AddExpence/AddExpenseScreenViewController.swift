@@ -20,19 +20,9 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     var addAccountClosure: (() -> Void)?
     var addCategoryClosure: (() -> Void)?
     var addExpenseClosure: ((AddingExpense) throws -> Expense)?
+    var editExpenseClosure: ((Expense) throws -> Expense)?
     var dayExpensesClosure: ((Date) throws -> [Expense])?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
-    
-    func addAccount(_ account: Account) {
-        accounts.append(account)
-        balanceAccountHorizontalPickerController.showOptions(accounts: accounts)
-    }
-    
-    func addCategory(_ category: Category) {
-        categories.append(category)
-        selectCategoryViewController.setCategories(categories)
-        selectCategoryViewController.setSelectedCategory(category)
-    }
 
     // MARK: Initializer
     
@@ -66,12 +56,12 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     private let selectCategoryViewController: CategoryVerticalPickerController
     private let expensesTableViewController = AUIEmptyTableViewController()
     private let expensesSectionController = AUIEmptyTableViewSectionController()
-    private func expenseCellControllerForExpense(_ expense: Expense) -> AUITableViewCellController? {
+    private func expenseCellController(expense: Expense) -> ExpenseTableViewCellController? {
         let cellController = expensesSectionController.cellControllers.first { cellController in
-            guard let expenseCellController = cellController as? AddExpenseScreenViewController.ExpenseTableViewCellController else { return false }
-            return expenseCellController.expense == expense
+            guard let expenseCellController = cellController as? ExpenseTableViewCellController else { return false }
+            return expenseCellController.expense.id == expense.id
         }
-        return cellController
+        return cellController as? ExpenseTableViewCellController
     }
     
     override func viewDidLoad() {
@@ -164,16 +154,27 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             return
         }
         let comment = screenView.commentTextField.text
-        let addingExpense = AddingExpense(timestamp: date, amount: amount, account: account, category: category, comment: comment)
-        guard let addExpenseClosure = addExpenseClosure else { return }
-        do {
-            let addedExpense = try addExpenseClosure(addingExpense)
-            addExpense(addedExpense)
-            inputAmountViewController.input = ""
-            commentTextFieldController.text = nil
-            view.endEditing(true)
-        } catch {
-            
+        if let editingExpense = self.editingExpense {
+            do {
+                let addingExpense = Expense(id: editingExpense.id, timestamp: editingExpense.timestamp, amount: amount, account: account, category: category, comment: comment)
+                _ = try editExpenseClosure?(addingExpense)
+                self.editExpense(addingExpense)
+                self.selectExpense(nil)
+            } catch {
+                
+            }
+        } else {
+            let addingExpense = AddingExpense(timestamp: date, amount: amount, account: account, category: category, comment: comment)
+            guard let addExpenseClosure = addExpenseClosure else { return }
+            do {
+                let addedExpense = try addExpenseClosure(addingExpense)
+                addExpense(addedExpense)
+                inputAmountViewController.input = ""
+                commentTextFieldController.text = nil
+                view.endEditing(true)
+            } catch {
+                
+            }
         }
     }
     
@@ -188,6 +189,14 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
     }
     
+    func editExpense(_ expense: Expense) {
+        guard let index = dayExpenses.firstIndex(where: { $0.id == expense.id }) else { return }
+        dayExpenses[index] = expense
+        setDayExpensesContent()
+        let cellController = expenseCellController(expense: expense)
+        cellController?.editExpense(expense)
+    }
+    
     func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {
         view.endEditing(true)
     }
@@ -195,11 +204,57 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     func deleteExpense(_ deletingExpense: Expense) {
         if let index = dayExpenses.firstIndex(of: deletingExpense) {
             dayExpenses.remove(at: index)
-            if let cellController = expenseCellControllerForExpense(deletingExpense) {
+            if let cellController = expenseCellController(expense: deletingExpense) {
                 expensesTableViewController.deleteCellControllerAnimated(cellController, .left, completion: nil)
             }
         }
         setDayExpensesContent()
+    }
+    
+    func addAccount(_ account: Account) {
+        accounts.append(account)
+        balanceAccountHorizontalPickerController.showOptions(accounts: accounts)
+    }
+    
+    func addCategory(_ category: Category) {
+        categories.append(category)
+        selectCategoryViewController.setCategories(categories)
+        selectCategoryViewController.setSelectedCategory(category)
+    }
+    
+    private var editingExpense: Expense?
+    func selectExpense(_ expense: Expense?) {
+        if let expense = expense {
+            if expense.id == editingExpense?.id {
+                editingExpense = nil
+                let cellController = expenseCellController(expense: expense)
+                cellController?.setIsSelected(false, animated: true)
+                inputAmountViewController.input = ""
+                commentTextFieldController.text = nil
+            } else {
+                if let editingExpense = self.editingExpense {
+                    let cellController = expenseCellController(expense: editingExpense)
+                    cellController?.setIsSelected(false, animated: true)
+                }
+                self.editingExpense = expense
+                let cellController = expenseCellController(expense: expense)
+                cellController?.setIsSelected(true, animated: true)
+                
+                inputAmountViewController.setAmount(expense.amount)
+                commentTextFieldController.text = expense.comment
+                balanceAccountHorizontalPickerController.setSelectedAccount(expense.account)
+                selectCategoryViewController.setSelectedCategory(expense.category)
+            }
+        } else {
+            if let editingExpense = self.editingExpense {
+                let cellController = expenseCellController(expense: editingExpense)
+                cellController?.setIsSelected(false, animated: true)
+            }
+            editingExpense = nil
+            inputAmountViewController.input = ""
+            commentTextFieldController.text = nil
+        }
+        
     }
     
     // MARK: Content
@@ -294,6 +349,11 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
                 }
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
+        cellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            let expense = cellController.expense
+            self.selectExpense(expense)
         }
         return cellController
     }

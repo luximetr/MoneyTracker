@@ -273,6 +273,18 @@ public final class Presentation: AUIWindowPresentation {
                     throw error
                 }
             }
+            viewController.editExpenseClosure = { [weak self] editingExpense in
+                guard let self = self else { throw Error("") }
+                do {
+                    let addedExpense = try self.delegate.presentation(self, editExpense: editingExpense)
+                    self.statisticScreen?.editExpense(addedExpense)
+                    return addedExpense
+                } catch {
+                    self.presentUnexpectedErrorAlertScreen(error)
+                    throw error
+                }
+                
+            }
             viewController.deleteExpenseClosure = { [weak self] expense in
                 guard let self = self else { return }
                 do {

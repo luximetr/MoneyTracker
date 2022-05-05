@@ -580,9 +580,7 @@ public class Storage {
     }
     
     public func getAllExpenses() throws -> [Expense] {
-        do {
-            //let gg = try sqliteDatabase.historySqliteView.selectOrderByDayDescending()
-            
+        do {            
             let expenseSelectedRows = try sqliteDatabase.expenseTable.select()
             let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
                 let id = expenseSelectedRow.id

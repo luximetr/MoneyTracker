@@ -11,14 +11,6 @@ import AUIKit
 extension AddExpenseScreenViewController {
 final class ExpenseTableViewCellController: AUIClosuresTableViewCellController {
     
-    private static let amountNumberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.decimalSeparator = "."
-        numberFormatter.minimumFractionDigits = 0
-        numberFormatter.maximumFractionDigits = 2
-        return numberFormatter
-    }()
-    
     // MARK: Data
     
     var expense: Expense
@@ -37,21 +29,44 @@ final class ExpenseTableViewCellController: AUIClosuresTableViewCellController {
     
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = super.cellForRowAtIndexPath(indexPath) as? ExpenseTableViewCell else { return UITableViewCell() }
-        cell.accountLabel.text = expense.account.name
-        cell.categoryLabel.text = expense.category.name
-        cell.amountLabel.text = "\(Self.amountNumberFormatter.string(for: expense.amount) ?? "") \(expense.account.currency.rawValue.uppercased())"
-        cell.commentLabel.text = expense.comment
+        cell.setIsSelected(_isSelected, animated: false)
+        setContent()
         return cell
     }
     
-    func editExpense(_ expense: Expense) {
-        self.expense = expense
+    // MARK: - Content
+    
+    private static let amountNumberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.decimalSeparator = "."
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }()
+    
+    private func setContent() {
         expenseTableViewCell?.accountLabel.text = expense.account.name
         expenseTableViewCell?.categoryLabel.text = expense.category.name
         expenseTableViewCell?.amountLabel.text = "\(Self.amountNumberFormatter.string(for: expense.amount) ?? "") \(expense.account.currency.rawValue.uppercased())"
         expenseTableViewCell?.commentLabel.text = expense.comment
+    }
+    
+    // MARK: - Events
+    
+    func editExpense(_ expense: Expense) {
+        self.expense = expense
+        setContent()
         expenseTableViewCell?.setNeedsLayout()
         expenseTableViewCell?.layoutIfNeeded()
     }
+    
+    // MARK: - Selected
+    
+    private var _isSelected: Bool = false
+    func setIsSelected(_ isSelected: Bool, animated: Bool) {
+        self._isSelected = isSelected
+        expenseTableViewCell?.setIsSelected(isSelected, animated: true)
+    }
+        
 }
 }

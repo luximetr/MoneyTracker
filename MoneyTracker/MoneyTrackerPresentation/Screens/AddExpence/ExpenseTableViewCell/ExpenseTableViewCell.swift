@@ -123,6 +123,19 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
         setupAmountLabel(appearance: appearance)
         setupCommentLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)
+        setIsSelected(_isSelected, animated: false)
+    }
+    
+    // MARK: - Selection
+    
+    private var _isSelected: Bool = false
+    func setIsSelected(_ isSelected: Bool, animated: Bool) {
+        self._isSelected = isSelected
+        if isSelected {
+            backgroundColor = appearance?.selectedBackground
+        } else {
+            backgroundColor = .clear
+        }
     }
     
 }

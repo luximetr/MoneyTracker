@@ -13,6 +13,11 @@ final class InputAmountViewController: AUIEmptyViewController {
     
     // MARK: Amount
     
+    func setAmount(_ amount: Decimal) {
+        let string = amountNumberFormatter.string(from: amount as NSNumber)
+        input = string ?? ""
+    }
+    
     var amount: Decimal? {
         let amountNumber = amountNumberFormatter.number(from: input)
         let amount = amountNumber?.decimalValue
