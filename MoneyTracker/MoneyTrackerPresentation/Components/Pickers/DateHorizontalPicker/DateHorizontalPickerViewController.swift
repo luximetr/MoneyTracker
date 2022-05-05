@@ -74,7 +74,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     
     private func createDatesBefore(selectedDate: Date) -> [Date] {
         var dates: [Date] = []
-        for dateOffset in 1...400 {
+        for dateOffset in 1...100 {
             guard let date = calendar.date(byAdding: .day, value: -dateOffset, to: selectedDate) else { continue }
             dates.append(date)
         }
