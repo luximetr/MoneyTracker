@@ -35,23 +35,23 @@ struct OperationSelectedRow {
     let replenishmentBalanceAccountColor: String?
     let replenishmentBalanceAccountOrderNumber: Int64?
     let replenishmentComment: String?
-    let balanceTransferId: String?
-    let balanceTransferTimestamp: Int64?
-    let balanceTransferFromAmount: Int64?
-    let balanceTransferFromBalanceAccountId: String?
-    let balanceTransferFromBalanceAccountName: String?
-    let balanceTransferFromBalanceAccountAmount: Int64?
-    let balanceTransferFromBalanceAccountCurrency: String?
-    let balanceTransferFromBalanceAccountColor: String?
-    let balanceTransferFromBalanceAccountOrderNumber: Int64?
-    let balanceTransferToAmount: Int64?
-    let balanceTransferToBalanceAccountId: String?
-    let balanceTransferToBalanceAccountName: String?
-    let balanceTransferToBalanceAccountAmount: Int64?
-    let balanceTransferToBalanceAccountCurrency: String?
-    let balanceTransferToBalanceAccountColor: String?
-    let balanceTransferToBalanceAccountOrderNumber: Int64?
-    let balanceTransferComment: String?
+    let transferId: String?
+    let transferTimestamp: Int64?
+    let transferFromAmount: Int64?
+    let transferFromBalanceAccountId: String?
+    let transferFromBalanceAccountName: String?
+    let transferFromBalanceAccountAmount: Int64?
+    let transferFromBalanceAccountCurrency: String?
+    let transferFromBalanceAccountColor: String?
+    let transferFromBalanceAccountOrderNumber: Int64?
+    let transferToAmount: Int64?
+    let transferToBalanceAccountId: String?
+    let transferToBalanceAccountName: String?
+    let transferToBalanceAccountAmount: Int64?
+    let transferToBalanceAccountCurrency: String?
+    let transferToBalanceAccountColor: String?
+    let transferToBalanceAccountOrderNumber: Int64?
+    let transferComment: String?
 }
 
 class OperationSqliteView {
@@ -159,7 +159,7 @@ class OperationSqliteView {
             INNER JOIN balance_account AS replenishment_balance_account ON replenishment.account_id == replenishment_balance_account.id
             UNION
             SELECT
-                'balance_transfer' AS type,
+                'transfer' AS type,
                 transfer.timestamp AS timestamp,
                 NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                 NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -237,7 +237,7 @@ class OperationSqliteView {
         let transferToBalanceAccountColor = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 41)
         let transferToBalanceAccountOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 42)
         let transferComment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 43)
-        let operationSelectedRow = OperationSelectedRow(type: type, timestamp: timestamp, expenseId: expenseId, expenseTimestamp: expenseTimestamp, expenseAmount: expenseAmount, expenseBalanceAccountId: expenseBalanceAccountId, expenseBalanceAccountName: expenseBalanceAccountName, expenseBalanceAccountAmount: expenseBalanceAccountAmount, expenseBalanceAccountCurrency: expenseBalanceAccountCurrency, expenseBalanceAccountColor: expenseBalanceAccountColor, expenseBalanceAccountOrderNumber: expenseBalanceAccountOrderNumber, expenseCategoryId: expenseCategoryId, expenseCategoryName: expenseCategoryName, expenseCategoryIcon: expenseCategoryIcon, expenseCategoryColor: expenseCategoryColor, expenseCategoryOrderNumber: expenseCategoryOrderNumber, expenseComment: expenseComment, replenishmentId: replenishmentId, replenishmentTimestamp: replenishmentTimestamp, replenishmentAmount: replenishmentAmount, replenishmentBalanceAccountId: replenishmentBalanceAccountId, replenishmentBalanceAccountName: replenishmentBalanceAccountName, replenishmentBalanceAccountAmount: replenishmentBalanceAccountAmount, replenishmentBalanceAccountCurrency: replenishmentBalanceAccountCurrency, replenishmentBalanceAccountColor: replenishmentBalanceAccountColor, replenishmentBalanceAccountOrderNumber: replenishmentBalanceAccountOrderNumber, replenishmentComment: replenishmentComment, balanceTransferId: transferId, balanceTransferTimestamp: transferTimestamp, balanceTransferFromAmount: transferFromAmount, balanceTransferFromBalanceAccountId: transferFromBalanceAccountId, balanceTransferFromBalanceAccountName: transferFromBalanceAccountName, balanceTransferFromBalanceAccountAmount: transferFromBalanceAccountAmount, balanceTransferFromBalanceAccountCurrency: transferFromBalanceAccountCurrency, balanceTransferFromBalanceAccountColor: transferFromBalanceAccountColor, balanceTransferFromBalanceAccountOrderNumber: transferFromBalanceAccountOrderNumber, balanceTransferToAmount: transferToAmount, balanceTransferToBalanceAccountId: transferToBalanceAccountId, balanceTransferToBalanceAccountName: transferToBalanceAccountName, balanceTransferToBalanceAccountAmount: transferToBalanceAccountAmount, balanceTransferToBalanceAccountCurrency: transferToBalanceAccountCurrency, balanceTransferToBalanceAccountColor: transferToBalanceAccountColor, balanceTransferToBalanceAccountOrderNumber: transferToBalanceAccountOrderNumber, balanceTransferComment: transferComment)
+        let operationSelectedRow = OperationSelectedRow(type: type, timestamp: timestamp, expenseId: expenseId, expenseTimestamp: expenseTimestamp, expenseAmount: expenseAmount, expenseBalanceAccountId: expenseBalanceAccountId, expenseBalanceAccountName: expenseBalanceAccountName, expenseBalanceAccountAmount: expenseBalanceAccountAmount, expenseBalanceAccountCurrency: expenseBalanceAccountCurrency, expenseBalanceAccountColor: expenseBalanceAccountColor, expenseBalanceAccountOrderNumber: expenseBalanceAccountOrderNumber, expenseCategoryId: expenseCategoryId, expenseCategoryName: expenseCategoryName, expenseCategoryIcon: expenseCategoryIcon, expenseCategoryColor: expenseCategoryColor, expenseCategoryOrderNumber: expenseCategoryOrderNumber, expenseComment: expenseComment, replenishmentId: replenishmentId, replenishmentTimestamp: replenishmentTimestamp, replenishmentAmount: replenishmentAmount, replenishmentBalanceAccountId: replenishmentBalanceAccountId, replenishmentBalanceAccountName: replenishmentBalanceAccountName, replenishmentBalanceAccountAmount: replenishmentBalanceAccountAmount, replenishmentBalanceAccountCurrency: replenishmentBalanceAccountCurrency, replenishmentBalanceAccountColor: replenishmentBalanceAccountColor, replenishmentBalanceAccountOrderNumber: replenishmentBalanceAccountOrderNumber, replenishmentComment: replenishmentComment, transferId: transferId, transferTimestamp: transferTimestamp, transferFromAmount: transferFromAmount, transferFromBalanceAccountId: transferFromBalanceAccountId, transferFromBalanceAccountName: transferFromBalanceAccountName, transferFromBalanceAccountAmount: transferFromBalanceAccountAmount, transferFromBalanceAccountCurrency: transferFromBalanceAccountCurrency, transferFromBalanceAccountColor: transferFromBalanceAccountColor, transferFromBalanceAccountOrderNumber: transferFromBalanceAccountOrderNumber, transferToAmount: transferToAmount, transferToBalanceAccountId: transferToBalanceAccountId, transferToBalanceAccountName: transferToBalanceAccountName, transferToBalanceAccountAmount: transferToBalanceAccountAmount, transferToBalanceAccountCurrency: transferToBalanceAccountCurrency, transferToBalanceAccountColor: transferToBalanceAccountColor, transferToBalanceAccountOrderNumber: transferToBalanceAccountOrderNumber, transferComment: transferComment)
         return operationSelectedRow
     }
     
@@ -272,23 +272,23 @@ class OperationSqliteView {
                 replenishment_balance_account_color,
                 replenishment_balance_account_order_number,
                 replenishment_comment,
-               transfer_id,
-               transfer_timestamp,
-               transfer_from_amount,
-               transfer_from_account_id,
-               transfer_from_balance_account_name,
-               transfer_from_balance_account_amount,
-               transfer_from_balance_account_currency,
-               transfer_from_balance_account_color,
-               transfer_from_balance_account_order_number,
-               transfer_to_amount,
-               transfer_to_account_id,
-               transfer_to_balance_account_name,
-               transfer_to_balance_account_amount,
-               transfer_to_balance_account_currency,
-               transfer_to_balance_account_color,
-               transfer_to_balance_account_order_number,
-               transfer_comment
+                transfer_id,
+                transfer_timestamp,
+                transfer_from_amount,
+                transfer_from_account_id,
+                transfer_from_balance_account_name,
+                transfer_from_balance_account_amount,
+                transfer_from_balance_account_currency,
+                transfer_from_balance_account_color,
+                transfer_from_balance_account_order_number,
+                transfer_to_amount,
+                transfer_to_account_id,
+                transfer_to_balance_account_name,
+                transfer_to_balance_account_amount,
+                transfer_to_balance_account_currency,
+                transfer_to_balance_account_color,
+                transfer_to_balance_account_order_number,
+                transfer_comment
             FROM operation
             ORDER BY timestamp DESC;
             """
