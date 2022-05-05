@@ -430,7 +430,7 @@ public class Storage {
     public func addBalanceAccountAmount(id: String, amount: Decimal) throws -> BalanceAccount {
         do {
             try sqliteDatabase.beginTransaction()
-            try sqliteDatabase.balanceAccountTable.updateWhereId(id, addingAmount: Int64(try amount.int()))
+            try sqliteDatabase.balanceAccountTable.updateWhereId(id, addingAmount: Int64(try (amount * 100).int()))
             try sqliteDatabase.commitTransaction()
             return try getBalanceAccount(id: id)
         } catch {
