@@ -123,6 +123,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     override func changeLanguage(_ language: Language) {
         super.changeLanguage(language)
         balanceAccountPickerController.changeLanguage(language)
+        dayDatePickerController.changeLanguage(language)
         setContent()
     }
     

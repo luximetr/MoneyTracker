@@ -48,7 +48,7 @@ class DateHorizontalPickerView: AppearanceView {
         setupPickDayButtonIcon()
         addSubview(selectedDayFrameView)
         setupSelectedDayFrameView()
-        
+        changeAppearance(appearance)
     }
     
     private func setupCollectionView() {
@@ -163,6 +163,7 @@ class DateHorizontalPickerView: AppearanceView {
         pickDayButtonGradientLayer.colors = [appearance.primaryBackground.withAlphaComponent(1).cgColor, appearance.primaryBackground.withAlphaComponent(0).cgColor]
         selectedDayFrameView.layer.borderColor = appearance.secondaryBackground.cgColor
         collectionFadeView.backgroundColor = appearance.primaryBackground.withAlphaComponent(0.4)
+        datePicker.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         findDateCells().forEach { $0.setAppearance(appearance) }
     }
     
