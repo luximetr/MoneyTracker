@@ -27,5 +27,6 @@ enum Images {
     static var expensesHistory: UIImage { return _UIImage(named: "expensesHistory") }
     static var close: UIImage { return _UIImage(named: "close") }
     static var cycle: UIImage { return _UIImage(named: "cycle") }
+    static var calendar: UIImage { return _UIImage(named: "calendar") }
     
 }
