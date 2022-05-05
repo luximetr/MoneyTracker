@@ -23,6 +23,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         self.accounts = accounts
         self.fromAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
         self.toAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
+        self.dayDatePickerController = DateHorizontalPickerViewController(language: language)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
@@ -56,6 +57,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         screenView.addButton.addTarget(self, action: #selector(addButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupErrorSnackbarViewController()
         checkSameCurrencies()
+        setupDayDatePickerController()
         setContent()
     }
     
@@ -122,8 +124,6 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         toAccountPickerController.setSelectedAccount(firstAccount)
         toAmountInputController.labelController.text = firstAccount?.currency.rawValue
         screenView.toAccountPickerLabel.text = localizer.localizeText("toAccount")
-        let locale = Locale(identifier: localizer.localizeText("datePickerLocale"))
-        screenView.dayDatePickerView.locale = locale
     }
     
     // MARK: Events
@@ -136,6 +136,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     override func changeLanguage(_ language: Language) {
         super.changeLanguage(language)
         localizer.changeLanguage(language)
+        dayDatePickerController.changeLanguage(language)
         fromAccountPickerController.changeLanguage(language)
         toAccountPickerController.changeLanguage(language)
         setContent()
@@ -165,7 +166,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
             showErrorSnackbar(localizer.localizeText("emptyToAccountErrorMessage"))
             return
         }
-        let day = screenView.dayDatePickerView.date
+        let day = dayDatePickerController.selectedDate
         guard let fromAmount = getInputFromAmount() else {
             showErrorSnackbar(localizer.localizeText("emptyFromAmountErrorMessage"))
             return
@@ -222,6 +223,14 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         let isSameCurrencies = fromAccountPickerController.selectedAccount?.currency == toAccountPickerController.selectedAccount?.currency
         screenView.displayToAmountInputView(!isSameCurrencies)
         self.isSameCurrencies = isSameCurrencies
+    }
+    
+    // MARK: - Date selection
+    
+    private let dayDatePickerController: DateHorizontalPickerViewController
+    
+    private func setupDayDatePickerController() {
+        dayDatePickerController.pickerView = screenView.dayDatePickerView
     }
     
     // MARK: - Error Snackbar
