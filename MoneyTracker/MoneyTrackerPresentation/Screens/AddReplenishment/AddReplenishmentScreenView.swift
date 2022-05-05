@@ -18,6 +18,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.accountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.amountInputView = SingleLineTextInputView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
+        self.dayDatePickerView = DateHorizontalPickerView(appearance: appearance)
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
@@ -27,7 +28,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let scrollView = UIScrollView()
     let accountPickerLabel = UILabel()
     let accountPickerView: BalanceAccountHorizontalPickerView
-    let dayDatePickerView = UIDatePicker()
+    let dayDatePickerView: DateHorizontalPickerView
     let amountInputView : SingleLineTextInputView
     let commentTextField: PlainTextField
     let addButton = TextFilledButton()
@@ -44,7 +45,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupAccountPickerLabel()
         scrollView.addSubview(accountPickerView)
         scrollView.addSubview(dayDatePickerView)
-        setupDayDatePickerView()
         scrollView.addSubview(amountInputView)
         scrollView.addSubview(commentTextField)
         addSubview(addButton)
@@ -62,11 +62,6 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         accountPickerLabel.textColor = appearance.secondaryText
     }
     
-    private func setupDayDatePickerView() {
-        dayDatePickerView.overrideUserInterfaceStyle = dayDatePickerView.overrideUserInterfaceStyle
-        dayDatePickerView.datePickerMode = .date
-    }
-    
     private func setupAddButton() {
         addButton.backgroundColor = appearance.primaryActionBackground
     }
@@ -80,7 +75,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private func autoLayoutDayDatePickerView() {
         dayDatePickerView.translatesAutoresizingMaskIntoConstraints = false
         dayDatePickerView.topAnchor.constraint(equalTo: accountPickerView.bottomAnchor, constant: 24).isActive = true
-        dayDatePickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 26).isActive = true
+        dayDatePickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
+        dayDatePickerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24).isActive = true
+        dayDatePickerView.heightAnchor.constraint(equalToConstant: 34).isActive = true
     }
     
     // MARK: Layout
@@ -191,7 +188,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         accountPickerLabel.textColor = appearance.secondaryText
-        dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        dayDatePickerView.changeAppearance(appearance)
         addButton.backgroundColor = appearance.primaryActionBackground
         errorSnackbarView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)

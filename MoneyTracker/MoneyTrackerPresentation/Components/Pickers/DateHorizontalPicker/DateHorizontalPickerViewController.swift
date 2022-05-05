@@ -49,8 +49,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     override func changeLanguage(_ language: Language) {
         super.changeLanguage(language)
         localizer.changeLanguage(language)
-        let locale = Locale(identifier: localizer.localizeText("dateLocale"))
-        pickerView?.datePicker.locale = locale
+        setupDatePickerLocal()
         findTodayCellController()?.setTitle(localizer.localizeText("today"))
     }
     
@@ -207,6 +206,12 @@ class DateHorizontalPickerViewController: EmptyViewController {
         pickerView?.datePicker.maximumDate = Date()
         pickerView?.datePicker.addTarget(self, action: #selector(datePickerDidEndSelecting), for: .editingDidEnd)
         pickerView?.datePicker.setDate(selectedDate, animated: false)
+        setupDatePickerLocal()
+    }
+    
+    private func setupDatePickerLocal() {
+        let locale = Locale(identifier: localizer.localizeText("dateLocale"))
+        pickerView?.datePicker.locale = locale
     }
     
     @objc private func datePickerDidEndSelecting() {

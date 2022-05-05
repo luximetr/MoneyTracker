@@ -158,6 +158,8 @@ class DateHorizontalPickerView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
+        backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.primaryBackground
         pickDayButtonBackground.backgroundColor = appearance.primaryBackground
         pickDayButtonIcon.tintColor = appearance.primaryText
         pickDayButtonGradientLayer.colors = [appearance.primaryBackground.withAlphaComponent(1).cgColor, appearance.primaryBackground.withAlphaComponent(0).cgColor]

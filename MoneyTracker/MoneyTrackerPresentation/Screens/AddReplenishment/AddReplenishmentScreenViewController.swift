@@ -24,6 +24,7 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
         self.accounts = accounts
         self.selectedAccount = selectedAccount
         self.accountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
+        self.dayDatePickerController = DateHorizontalPickerViewController(language: language)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
         super.init(appearance: appearance, language: language)
     }
@@ -53,6 +54,7 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
         setContent()
         accountPickerController.showOptions(accounts: accounts)
         accountPickerController.setSelectedAccount(selectedAccount)
+        setupDayDatePickerController()
     }
     
     private func setupAccountPickerController() {
@@ -83,6 +85,7 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
     override func changeLanguage(_ language: Language) {
         super.changeLanguage(language)
         accountPickerController.changeLanguage(language)
+        dayDatePickerController.changeLanguage(language)
         setContent()
     }
     
@@ -92,8 +95,6 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
         amountInputController.labelController.text = selectedAccount?.currency.rawValue
-        let locale = Locale(identifier: localizer.localizeText("dateLocale"))
-        screenView.dayDatePickerView.locale = locale
     }
     
     // MARK: Events
@@ -119,7 +120,7 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
             showErrorSnackbar(localizer.localizeText("emptyAccountErrorMessage"))
             return
         }
-        let timestamp = screenView.dayDatePickerView.date
+        let timestamp = dayDatePickerController.selectedDate
         guard let amount = getInputAmount() else {
             showErrorSnackbar(localizer.localizeText("invalidAmountErrorMessage"))
             return
@@ -143,6 +144,14 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
     func addAccount(_ account: Account) {
         accounts.append(account)
         accountPickerController.showOptions(accounts: accounts)
+    }
+    
+    // MARK: - Date
+    
+    private let dayDatePickerController: DateHorizontalPickerViewController
+        
+    private func setupDayDatePickerController() {
+        dayDatePickerController.pickerView = screenView.dayDatePickerView
     }
     
     // MARK: - Error Snackbar
