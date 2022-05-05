@@ -2,6 +2,5 @@
 "account" = "From";
 "commentPlaceholder" = "Comment (optional)";
 "add" = "Done";
-"dateLocale" = "en_US";
 "emptyAccountErrorMessage" = "Account not selected";
 "invalidAmountErrorMessage" = "Please, enter valid amount";
