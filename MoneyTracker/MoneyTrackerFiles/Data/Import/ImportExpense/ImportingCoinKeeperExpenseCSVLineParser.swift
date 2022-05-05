@@ -47,17 +47,11 @@ class ImportingCoinKeeperExpenseCSVLineParser {
     
     // MARK: - Parse amount
     
-    private var amountFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.decimalSeparator = "."
-        return formatter
-    }()
-    
     private func parseAmount(components: [String]) throws -> Decimal {
         guard let amountString = components[safe: amountIndex] else {
             throw ConvertError.noAmount
         }
-        guard let amount = amountFormatter.number(from: amountString)?.decimalValue else {
+        guard let amount = Decimal(string: amountString) else {
             throw ConvertError.unsupportedAmountFormat
         }
         return amount
