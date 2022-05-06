@@ -726,14 +726,24 @@ public class Storage {
         let allCategories = try getCategories()
         let allBalanceAccounts = try getAllBalanceAccounts()
         
-        let addingExpenses = file.expenses.compactMap { importingExpense -> AddingExpense? in
-            guard let category = allCategories.first(where: { $0.name.lowercased() == importingExpense.category.lowercased() }) else { return nil }
-            guard let balanceAccount = allBalanceAccounts.first(where: { $0.name.lowercased() == importingExpense.balanceAccount.lowercased() }) else { return nil }
-            return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
-        }
-        let importedExpenses = try addExpenses(addingExpenses: addingExpenses)
-        try importedExpenses.forEach {
-            try deductBalanceAccountAmount(id: $0.balanceAccountId, amount: $0.amount)
+        let maxDate = file.expenses.max(by: { $0.date < $1.date })?.date
+        let minDate = file.expenses.min(by: { $0.date < $1.date })?.date
+        
+        var importedExpenses: [Expense] = []
+        if let minDate = minDate, let maxDate = maxDate {
+            let expenses = try getExpenses(startDate: minDate, endDate: maxDate)
+            let uniqueImportingExpenses = file.expenses.filter { importingExpense in
+                return !expenses.contains(where: { findIfExpensesEqual(importingExpense: importingExpense, expense: $0) })
+            }
+            let addingExpenses = uniqueImportingExpenses.compactMap { importingExpense -> AddingExpense? in
+                guard let category = allCategories.first(where: { $0.name.lowercased() == importingExpense.category.lowercased() }) else { return nil }
+                guard let balanceAccount = allBalanceAccounts.first(where: { $0.name.lowercased() == importingExpense.balanceAccount.lowercased() }) else { return nil }
+                return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
+            }
+            importedExpenses = try addExpenses(addingExpenses: addingExpenses)
+            try importedExpenses.forEach {
+                try deductBalanceAccountAmount(id: $0.balanceAccountId, amount: $0.amount)
+            }
         }
         
         let importedFile = ImportedExpensesFile(
@@ -772,6 +782,12 @@ public class Storage {
     private func findIfBalanceAccountsEqual(importingBalanceAccount: ImportingBalanceAccount, balanceAccount: BalanceAccount) -> Bool {
         return importingBalanceAccount.name.lowercased() == balanceAccount.name.lowercased() &&
                importingBalanceAccount.currency.lowercased() == balanceAccount.currency.rawValue.lowercased()
+    }
+    
+    private func findIfExpensesEqual(importingExpense: ImportingExpense, expense: Expense) -> Bool {
+        return importingExpense.date == expense.date &&
+               importingExpense.amount == expense.amount &&
+               importingExpense.comment.lowercased() == expense.comment?.lowercased()
     }
 
     // MARK: - ExpenseTemplate
