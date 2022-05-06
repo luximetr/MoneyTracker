@@ -60,6 +60,7 @@ class ImportingCoinKeeperExpenseCSVLineParser {
     // MARK: - Indexes
     
     private let dateIndex = 0
+    private let typeIndex = 1
     private let balanceAccountIndex = 2
     private let categoryIndex = 3
     private let amountIndex = 5

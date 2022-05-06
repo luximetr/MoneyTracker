@@ -2336,14 +2336,14 @@
 			path = ImportExpensesFile;
 			sourceTree = "<group>";
 		};
-		DB62AED027EDFE1000F8CA55 /* ImportingCategory */ = {
+		DB62AED027EDFE1000F8CA55 /* ImportCategory */ = {
 			isa = PBXGroup;
 			children = (
 				DB62AED627EEA18B00F8CA55 /* ImportingCategory.swift */,
 				DB62AEE227EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift */,
 				DB62AEE827EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift */,
 			);
-			path = ImportingCategory;
+			path = ImportCategory;
 			sourceTree = "<group>";
 		};
 		DB62AED127EDFE1900F8CA55 /* ImportBalanceAccount */ = {
@@ -2356,23 +2356,13 @@
 			path = ImportBalanceAccount;
 			sourceTree = "<group>";
 		};
-		DB62AED227EDFE1F00F8CA55 /* ImportExpense */ = {
-			isa = PBXGroup;
-			children = (
-				DB62AEDA27EEA23300F8CA55 /* ImportingExpense.swift */,
-				DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift */,
-				DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift */,
-			);
-			path = ImportExpense;
-			sourceTree = "<group>";
-		};
 		DB62AED327EDFE2600F8CA55 /* Import */ = {
 			isa = PBXGroup;
 			children = (
 				DB62AECF27EDFE0400F8CA55 /* ImportExpensesFile */,
 				DB62AED127EDFE1900F8CA55 /* ImportBalanceAccount */,
-				DB62AED027EDFE1000F8CA55 /* ImportingCategory */,
-				DB62AED227EDFE1F00F8CA55 /* ImportExpense */,
+				DB62AED027EDFE1000F8CA55 /* ImportCategory */,
+				DBDC93172824AF5500D8C435 /* ImportBalanceAccountOperation */,
 			);
 			path = Import;
 			sourceTree = "<group>";
@@ -2729,6 +2719,16 @@
 				DBDC930C281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift */,
 			);
 			path = DateCell;
+			sourceTree = "<group>";
+		};
+		DBDC93172824AF5500D8C435 /* ImportBalanceAccountOperation */ = {
+			isa = PBXGroup;
+			children = (
+				DB62AEDA27EEA23300F8CA55 /* ImportingExpense.swift */,
+				DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift */,
+				DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift */,
+			);
+			path = ImportBalanceAccountOperation;
 			sourceTree = "<group>";
 		};
 		F6CDF223860AC628D18B4DED /* Frameworks */ = {
