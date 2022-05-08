@@ -308,8 +308,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let storageTemplates = try storage.getAllExpenseTemplatesOrdered()
             let storageCategoriesIds = storageTemplates.map { $0.categoryId }
             let storageBalanceAccountsIds = storageTemplates.map { $0.balanceAccountId }
-            let storageCategories = try storage.getCategories(ids: storageCategoriesIds)
-            let storageBalanceAccounts = try storage.getBalanceAccounts(ids: storageBalanceAccountsIds)
+            let storageCategories = try storage.getCategoriesOrdered()
+            let storageBalanceAccounts = try storage.getAllBalanceAccountsOrdered()
             let presentationTemplates = storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
                 guard let storageCategory = storageCategories.first(where: { $0.id == storageTemplate.categoryId }) else { return nil }
                 guard let storageBalanceAccount = storageBalanceAccounts.first(where: { $0.id == storageTemplate.balanceAccountId }) else { return nil }
@@ -427,7 +427,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let storageCategories = try storage.getCategoriesOrdered()
         let filesCategories = storageCategories.map { categoriesAdapter.adaptToFiles(storageCategory: $0) }
         let balanceAccountsAdapter = ExportBalanceAccountAdapter()
-        let storageBalanceAccounts = try storage.getAllBalanceAccounts()
+        let storageBalanceAccounts = try storage.getAllBalanceAccountsOrdered()
         let filesBalanceAccounts = storageBalanceAccounts.map { balanceAccountsAdapter.adaptToFiles(storageAccount: $0) }
         let expensesAdapter = ExportExpenseAdapter()
         let storageExpenses = try storage.getAllExpenses()

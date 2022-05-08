@@ -169,20 +169,6 @@ public class Storage {
     
     // MARK: - Categories
     
-    public func getCategories() throws -> [Category] {
-        do {
-            let selectedRows = try sqliteDatabase.categoryTable.select()
-            let categories: [Category] = try selectedRows.map { selectedRow in
-                let categoryColor = try CategoryColor(selectedRow.color)
-                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
-                return category
-            }
-            return categories
-        } catch {
-            throw error
-        }
-    }
-    
     public func getCategoriesOrdered() throws -> [Category] {
         do {
             let selectedRows = try sqliteDatabase.categoryTable.selectOrderByOrderNumber()
@@ -206,20 +192,6 @@ public class Storage {
                 return category
             }
             return categories.first!
-        } catch {
-            throw error
-        }
-    }
-    
-    public func getCategories(ids: [String]) throws -> [Category] {
-        do {
-            let selectedRows = try sqliteDatabase.categoryTable.selectWhereIdIn(ids)
-            let categories: [Category] = try selectedRows.map { selectedRow in
-                let categoryColor = try CategoryColor(selectedRow.color)
-                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
-                return category
-            }
-            return categories
         } catch {
             throw error
         }
@@ -318,16 +290,6 @@ public class Storage {
         return balanceAccount
     }
     
-    public func getAllBalanceAccounts() throws -> [BalanceAccount] {
-        do {
-            let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.select()
-            let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
-            return balanceAccounts
-        } catch {
-            throw error
-        }
-    }
-    
     public func getAllBalanceAccountsOrdered() throws -> [BalanceAccount] {
         do {
             let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectOrderByOrderNumber()
@@ -343,16 +305,6 @@ public class Storage {
             let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectOrderByOrderNumber()
             let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
             return balanceAccounts.first!
-        } catch {
-            throw error
-        }
-    }
-    
-    public func getBalanceAccounts(ids: [String]) throws -> [BalanceAccount] {
-        do {
-            let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectWhereIdIn(ids)
-            let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
-            return balanceAccounts
         } catch {
             throw error
         }
@@ -505,8 +457,8 @@ public class Storage {
     
     public func addExpenses(coinKeeperExpenses: [CoinKeeperExpense]) throws {
         do {
-            let categories = try getCategories()
-            let accounts = try getAllBalanceAccounts()
+            let categories = try getCategoriesOrdered()
+            let accounts = try getAllBalanceAccountsOrdered()
             let converter = CoinKeeperExpenseToExpenseConverter()
             let expenses = converter.convert(coinKeeperExpenses: coinKeeperExpenses, categories: categories, balanceAccounts: accounts)
             try sqliteDatabase.beginTransaction()
@@ -708,7 +660,7 @@ public class Storage {
     
     @discardableResult
     public func saveImportingExpensesFile(_ file: ImportingExpensesFile) throws -> ImportedExpensesFile {
-        let categories = try getCategories()
+        let categories = try getCategoriesOrdered()
         let uniqueImportingCategories = file.categories.filter { importingCategory in
             return !categories.contains(where: { findIfCategoriesEqual(importingCategory: importingCategory, category: $0) })
         }
@@ -716,15 +668,15 @@ public class Storage {
         let addingCategories = uniqueImportingCategories.map { importingCategoryAdapter.adaptToAdding(importingCategory: $0) }
         let importedCategories = try addCategories(addingCategories)
         
-        let balanceAccounts = try getAllBalanceAccounts()
+        let balanceAccounts = try getAllBalanceAccountsOrdered()
         let uniqueImportingBalanceAccounts = file.balanceAccounts.filter { importingBalanceAccount in
             return !balanceAccounts.contains(where: { findIfBalanceAccountsEqual(importingBalanceAccount: importingBalanceAccount, balanceAccount: $0) })
         }
         let addingBalanceAccounts = createAddingBalanceAccounts(importingBalanceAccounts: uniqueImportingBalanceAccounts)
         let importedBalanceAccounts = addBalanceAccounts(addingBalanceAccounts)
         
-        let allCategories = try getCategories()
-        let allBalanceAccounts = try getAllBalanceAccounts()
+        let allCategories = try getCategoriesOrdered()
+        let allBalanceAccounts = try getAllBalanceAccountsOrdered()
         
         let addingExpenses = file.expenses.compactMap { importingExpense -> AddingExpense? in
             guard let category = allCategories.first(where: { $0.name.lowercased() == importingExpense.category.lowercased() }) else { return nil }
