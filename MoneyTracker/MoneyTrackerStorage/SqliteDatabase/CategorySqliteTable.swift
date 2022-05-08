@@ -72,11 +72,11 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 VALUES (?, ?, ?, ?, ?);
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 2, values.name, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 3, values.icon, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 4, values.color, -1, nil)
-            try sqlite3BindInt64(databaseConnection, preparedStatement, 5, values.orderNumber)
+            try sqlite3BindText(preparedStatement, 1, values.id, -1, nil)
+            try sqlite3BindText(preparedStatement, 2, values.name, -1, nil)
+            try sqlite3BindText(preparedStatement, 3, values.icon, -1, nil)
+            try sqlite3BindText(preparedStatement, 4, values.color, -1, nil)
+            try sqlite3BindInt64(preparedStatement, 5, values.orderNumber)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -93,10 +93,10 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 UPDATE category SET name = ?, icon = ?, color = ? WHERE id = ?;
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 1, values.name, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 2, values.icon, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 3, values.color, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 4, id, -1, nil)
+            try sqlite3BindText(preparedStatement, 1, values.name, -1, nil)
+            try sqlite3BindText(preparedStatement, 2, values.icon, -1, nil)
+            try sqlite3BindText(preparedStatement, 3, values.color, -1, nil)
+            try sqlite3BindText(preparedStatement, 4, id, -1, nil)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -111,8 +111,8 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 UPDATE category SET order_number = ? WHERE id = ?;
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindInt64(databaseConnection, preparedStatement, 1, orderNumber)
-            try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
+            try sqlite3BindInt64(preparedStatement, 1, orderNumber)
+            try sqlite3BindText(preparedStatement, 2, id, -1, nil)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -129,7 +129,7 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 DELETE FROM category WHERE id = ?;
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
+            try sqlite3BindText(preparedStatement, 1, id, -1, nil)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -141,11 +141,11 @@ class CategorySqliteTable: CustomDebugStringConvertible {
     
     private func extractSelectedRow(_ preparedStatement: OpaquePointer?) throws -> CategorySelectedRow {
         do {
-            let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-            let name = try sqlite3ColumnText(databaseConnection, preparedStatement, 1)
-            let iconName = try sqlite3ColumnText(databaseConnection, preparedStatement, 2)
-            let colorType = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
-            let orderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 4)
+            let id = try sqlite3ColumnText(preparedStatement, 0)
+            let name = try sqlite3ColumnText(preparedStatement, 1)
+            let iconName = try sqlite3ColumnText(preparedStatement, 2)
+            let colorType = try sqlite3ColumnText(preparedStatement, 3)
+            let orderNumber = try sqlite3ColumnInt64(preparedStatement, 4)
             let selectedRow = CategorySelectedRow(id: id, name: name, icon: iconName, color: colorType, orderNumber: orderNumber)
             return selectedRow
         } catch {
@@ -184,7 +184,7 @@ class CategorySqliteTable: CustomDebugStringConvertible {
             for (index, id) in ids.enumerated() {
                 let index = Int32(index + 1)
                 let value = id
-                try sqlite3BindText(databaseConnection, preparedStatement, index, value, -1, nil)
+                try sqlite3BindText(preparedStatement, index, value, -1, nil)
             }
             var selectedRows: [CategorySelectedRow] = []
             while(try sqlite3StepRow(preparedStatement)) {
@@ -226,7 +226,7 @@ class CategorySqliteTable: CustomDebugStringConvertible {
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             let maxOrderNumber: Int64?
             if try sqlite3StepRow(preparedStatement) {
-                maxOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 0)
+                maxOrderNumber = try sqlite3ColumnInt64Null(preparedStatement, 0)
             } else {
                 maxOrderNumber = nil
             }

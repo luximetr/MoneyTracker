@@ -76,12 +76,12 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
                 VALUES (?, ?, ?, ?, ?, ?);
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 2, values.name, -1, nil)
-            try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
-            try sqlite3BindText(databaseConnection, preparedStatement, 4, values.currency, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 5, values.color, -1, nil)
-            try sqlite3BindInt64(databaseConnection, preparedStatement, 6, values.orderNumber)
+            try sqlite3BindText(preparedStatement, 1, values.id, -1, nil)
+            try sqlite3BindText(preparedStatement, 2, values.name, -1, nil)
+            try sqlite3BindInt64(preparedStatement, 3, values.amount)
+            try sqlite3BindText(preparedStatement, 4, values.currency, -1, nil)
+            try sqlite3BindText(preparedStatement, 5, values.color, -1, nil)
+            try sqlite3BindInt64(preparedStatement, 6, values.orderNumber)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -98,11 +98,11 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
                 UPDATE balance_account SET name = ?, amount = ?, currency = ?, color = ? WHERE id = ?;
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 1, values.name, -1, nil)
-            try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
-            try sqlite3BindText(databaseConnection, preparedStatement, 3, values.currency, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 4, values.color, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 5, id, -1, nil)
+            try sqlite3BindText(preparedStatement, 1, values.name, -1, nil)
+            try sqlite3BindInt64(preparedStatement, 2, values.amount)
+            try sqlite3BindText(preparedStatement, 3, values.currency, -1, nil)
+            try sqlite3BindText(preparedStatement, 4, values.color, -1, nil)
+            try sqlite3BindText(preparedStatement, 5, id, -1, nil)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -117,8 +117,8 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
                 UPDATE balance_account SET order_number = ? WHERE id = ?;
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindInt64(databaseConnection, preparedStatement, 1, orderNumber)
-            try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
+            try sqlite3BindInt64(preparedStatement, 1, orderNumber)
+            try sqlite3BindText(preparedStatement, 2, id, -1, nil)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -133,8 +133,8 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
                 UPDATE balance_account SET amount = amount + ? WHERE id = ?;
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindInt64(databaseConnection, preparedStatement, 1, amount)
-            try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
+            try sqlite3BindInt64(preparedStatement, 1, amount)
+            try sqlite3BindText(preparedStatement, 2, id, -1, nil)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -149,8 +149,8 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
                 UPDATE balance_account SET amount = amount - ? WHERE id = ?;
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindInt64(databaseConnection, preparedStatement, 1, amount)
-            try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
+            try sqlite3BindInt64(preparedStatement, 1, amount)
+            try sqlite3BindText(preparedStatement, 2, id, -1, nil)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -167,7 +167,7 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
                 DELETE FROM balance_account WHERE id = ?;
                 """
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-            try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
+            try sqlite3BindText(preparedStatement, 1, id, -1, nil)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -179,12 +179,12 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
     
     private func extractBalanceAccountSelectedRow(_ preparedStatement: OpaquePointer?) throws -> BalanceAccountSelectedRow {
         do {
-            let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-            let name = try sqlite3ColumnText(databaseConnection, preparedStatement, 1)
-            let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
-            let currency = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
-            let color = try sqlite3ColumnText(databaseConnection, preparedStatement, 4)
-            let orderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 5)
+            let id = try sqlite3ColumnText(preparedStatement, 0)
+            let name = try sqlite3ColumnText(preparedStatement, 1)
+            let amount = try sqlite3ColumnInt64(preparedStatement, 2)
+            let currency = try sqlite3ColumnText(preparedStatement, 3)
+            let color = try sqlite3ColumnText(preparedStatement, 4)
+            let orderNumber = try sqlite3ColumnInt64(preparedStatement, 5)
             let balanceAccount = BalanceAccountSelectedRow(id: id, name: name, amount: amount, currency: currency, color: color, orderNumber: orderNumber)
             return balanceAccount
         } catch {
@@ -222,7 +222,7 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             for (index, id) in ids.enumerated() {
                 let index = Int32(index + 1)
-                try sqlite3BindText(databaseConnection, preparedStatement, index, id, -1, nil)
+                try sqlite3BindText(preparedStatement, index, id, -1, nil)
             }
             var balanceAccountSelectedRows: [BalanceAccountSelectedRow] = []
             while(try sqlite3StepRow(preparedStatement)) {
@@ -264,7 +264,7 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
             let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             var maxOrderNumber: Int64?
             while(try sqlite3StepRow(preparedStatement)) {
-                maxOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 0)
+                maxOrderNumber = try sqlite3ColumnInt64Null(preparedStatement, 0)
             }
             try sqlite3Finalize(preparedStatement)
             return maxOrderNumber

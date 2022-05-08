@@ -71,52 +71,43 @@ func sqlite3Finalize(_ preparedStatement: OpaquePointer!) throws {
 
 
 
-func sqlite3BindTextNull(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String?, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
+
+
+
+func sqlite3BindTextNull(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String?, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
     if let value = value {
         let utf8String = (value as NSString).utf8String
-        if sqlite3_bind_text(preparedStatement, index, utf8String, -1, nil) != SQLITE_OK {
-            let errorCode = sqlite3_errcode(databaseConnection)
-            let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+        let resultCode = sqlite3_bind_text(preparedStatement, index, utf8String, -1, nil)
+        if resultCode != SQLITE_OK {
+            let errorCode = resultCode
+            let errorMessage = String(cString: sqlite3_errstr(resultCode))
             throw Error("SQLite failure: \(errorCode) \(errorMessage)")
         }
     } else {
-        if sqlite3_bind_null(preparedStatement, index) != SQLITE_OK {
-            let errorCode = sqlite3_errcode(databaseConnection)
-            let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+        let resultCode = sqlite3_bind_null(preparedStatement, index)
+        if resultCode != SQLITE_OK {
+            let errorCode = resultCode
+            let errorMessage = String(cString: sqlite3_errstr(resultCode))
             throw Error("SQLite failure: \(errorCode) \(errorMessage)")
         }
     }
 }
 
-func sqlite3BindText(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
+func sqlite3BindText(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
     let utf8String = (value as NSString).utf8String
-    if sqlite3_bind_text(preparedStatement, index, utf8String, -1, nil) != SQLITE_OK {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+    let resultCode = sqlite3_bind_text(preparedStatement, index, utf8String, -1, nil)
+    if resultCode != SQLITE_OK {
+        let errorCode = resultCode
+        let errorMessage = String(cString: sqlite3_errstr(resultCode))
         throw Error("SQLite failure: \(errorCode) \(errorMessage)")
     }
 }
 
-func sqlite3BindInt(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: Int32) throws {
-    if sqlite3_bind_int(preparedStatement, index, value) != SQLITE_OK {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
-        throw Error("SQLite failure: \(errorCode) \(errorMessage)")
-    }
-}
-
-func sqlite3BindInt64(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: Int64) throws {
-    if sqlite3_bind_int64(preparedStatement, index, value) != SQLITE_OK {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
-        throw Error("SQLite failure: \(errorCode) \(errorMessage)")
-    }
-}
-
-func sqlite3BindDouble(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32, _ value: Double) throws {
-    if sqlite3_bind_double(preparedStatement, index, value) != SQLITE_OK {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+func sqlite3BindInt64(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: Int64) throws {
+    let resultCode = sqlite3_bind_int64(preparedStatement, index, value)
+    if resultCode != SQLITE_OK {
+        let errorCode = resultCode
+        let errorMessage = String(cString: sqlite3_errstr(resultCode))
         throw Error("SQLite failure: \(errorCode) \(errorMessage)")
     }
 }
@@ -126,47 +117,58 @@ func sqlite3BindDouble(_ databaseConnection: OpaquePointer!, _ preparedStatement
 
 
 
-func sqlite3ColumnText(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32) throws -> String {
-    if let value = sqlite3_column_text(preparedStatement, index) {
-        let string = String(cString: value)
-        return string
-    } else {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        if errorCode == SQLITE_ROW {
-            throw Error("Unexpected SQL NULL value")
+
+
+
+
+func sqlite3ColumnText(_ preparedStatement: OpaquePointer!, _ index: Int32) throws -> String {
+    let columnType = sqlite3_column_type(preparedStatement, index)
+    if columnType == SQLITE_TEXT {
+        if let value = sqlite3_column_text(preparedStatement, index) {
+            let string = String(cString: value)
+            return string
         } else {
-            let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error("SQLite3 error code \(errorCode) and message \(errorMessage)")
+            throw Error("Unexpected")
         }
-    }
-}
-
-func sqlite3ColumnTextNull(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32) throws -> String? {
-    if let value = sqlite3_column_text(preparedStatement, index) {
-        let string = String(cString: value)
-        return string
     } else {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        if errorCode == SQLITE_ROW {
-            return nil
-        } else {
-            let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error("SQLite3 error code \(errorCode) and message \(errorMessage)")
-        }
+        throw Error("Unexpected column type \(columnType)")
     }
 }
 
-func sqlite3ColumnInt(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32) -> Int32 {
-    let value = sqlite3_column_int(preparedStatement, index)
-    return value
+func sqlite3ColumnTextNull(_ preparedStatement: OpaquePointer!, _ index: Int32) throws -> String? {
+    let columnType = sqlite3_column_type(preparedStatement, index)
+    if columnType == SQLITE_TEXT {
+        if let value = sqlite3_column_text(preparedStatement, index) {
+            let string = String(cString: value)
+            return string
+        } else {
+            throw Error("Unexpected")
+        }
+    } else if columnType == SQLITE_NULL {
+        return nil
+    } else {
+        throw Error("Unexpected column type \(columnType)")
+    }
 }
 
-func sqlite3ColumnInt64(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32) -> Int64 {
-    let value = sqlite3_column_int64(preparedStatement, index)
-    return value
+func sqlite3ColumnInt64(_ preparedStatement: OpaquePointer!, _ index: Int32) throws -> Int64 {
+    let columnType = sqlite3_column_type(preparedStatement, index)
+    if columnType == SQLITE_INTEGER {
+        let value = sqlite3_column_int64(preparedStatement, index)
+        return value
+    } else {
+        throw Error("Unexpected column type \(columnType)")
+    }
 }
 
-func sqlite3ColumnDouble(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!, _ index: Int32) -> Double {
-    let value = sqlite3_column_double(preparedStatement, index)
-    return value
+func sqlite3ColumnInt64Null(_ preparedStatement: OpaquePointer!, _ index: Int32) throws -> Int64? {
+    let columnType = sqlite3_column_type(preparedStatement, index)
+    if columnType == SQLITE_INTEGER {
+        let value = sqlite3_column_int64(preparedStatement, index)
+        return value
+    } else if columnType == SQLITE_NULL {
+        return nil
+    } else {
+        throw Error("Unexpected column type \(columnType)")
+    }
 }

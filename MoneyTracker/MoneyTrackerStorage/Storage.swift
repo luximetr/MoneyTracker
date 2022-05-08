@@ -658,7 +658,7 @@ public class Storage {
     
     public func getExpenses(startDate: Date, endDate: Date) throws -> [Expense] {
         do {            
-            let expenseSelectedRows = try sqliteDatabase.expenseTable.selectWhereDateBetween(startDate: startDate.timeIntervalSince1970, endDate: endDate.timeIntervalSince1970)
+            let expenseSelectedRows = try sqliteDatabase.expenseTable.selectWhereDateBetween(startDate: Int64(startDate.timeIntervalSince1970), endDate: Int64(endDate.timeIntervalSince1970))
             let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
                 let id = expenseSelectedRow.id
                 let amount = expenseSelectedRow.amount
