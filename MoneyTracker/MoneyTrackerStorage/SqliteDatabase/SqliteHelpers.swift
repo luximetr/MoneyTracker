@@ -10,7 +10,7 @@ import SQLite3
 
 
 
-func sqlite3Open(_ filename: URL) throws -> OpaquePointer! {
+func sqlite3Open(_ filename: URL) throws -> OpaquePointer {
     var databaseConnection: OpaquePointer!
     let resultCode = sqlite3_open(filename.path, &databaseConnection)
     if resultCode != SQLITE_OK {
@@ -23,40 +23,45 @@ func sqlite3Open(_ filename: URL) throws -> OpaquePointer! {
 
 
 
+func sqlite3PrepareV2(_ databaseConnection: OpaquePointer!, _ statement: UnsafePointer<CChar>!, _ nByte: Int32, _ pzTail: UnsafeMutablePointer<UnsafePointer<CChar>?>!) throws -> OpaquePointer {
+    var preparedStatement: OpaquePointer!
+    let resultCode = sqlite3_prepare_v2(databaseConnection, statement, nByte, &preparedStatement, pzTail)
+    if resultCode != SQLITE_OK {
+        let errorCode = resultCode
+        let errorMessage = String(cString: sqlite3_errstr(resultCode))
+        throw Error("SQLite failure: \(errorCode) \(errorMessage)")
+    }
+    return preparedStatement
+}
 
-func sqlite3PrepareV2(_ databaseConnection: OpaquePointer!, _ statement: UnsafePointer<CChar>!, _ nByte: Int32, _ preparedStatement: UnsafeMutablePointer<OpaquePointer?>!, _ pzTail: UnsafeMutablePointer<UnsafePointer<CChar>?>!) throws {
-    if sqlite3_prepare_v2(databaseConnection, statement, nByte, preparedStatement, pzTail) != SQLITE_OK {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+
+func sqlite3StepDone(_ preparedStatement: OpaquePointer!) throws {
+    let resultCode = sqlite3_step(preparedStatement)
+    if resultCode != SQLITE_DONE {
+        let errorCode = resultCode
+        let errorMessage = String(cString: sqlite3_errstr(resultCode))
         throw Error("SQLite failure: \(errorCode) \(errorMessage)")
     }
 }
 
-func sqlite3StepDone(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!) throws {
-    if sqlite3_step(preparedStatement) != SQLITE_DONE {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
-        throw Error("SQLite failure: \(errorCode) \(errorMessage)")
-    }
-}
-
-func sqlite3StepRow(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!) throws -> Bool {
+func sqlite3StepRow(_ preparedStatement: OpaquePointer!) throws -> Bool {
     let resultCode = sqlite3_step(preparedStatement)
     if resultCode == SQLITE_ROW {
         return true
     } else if resultCode == SQLITE_DONE {
         return false
     } else {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+        let errorCode = resultCode
+        let errorMessage = String(cString: sqlite3_errstr(resultCode))
         throw Error("SQLite failure: \(errorCode) \(errorMessage)")
     }
 }
 
-func sqlite3Finalize(_ databaseConnection: OpaquePointer!, _ preparedStatement: OpaquePointer!) throws {
-    if sqlite3_finalize(preparedStatement) != SQLITE_OK {
-        let errorCode = sqlite3_errcode(databaseConnection)
-        let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+func sqlite3Finalize(_ preparedStatement: OpaquePointer!) throws {
+    let resultCode = sqlite3_finalize(preparedStatement)
+    if resultCode != SQLITE_OK {
+        let errorCode = resultCode
+        let errorMessage = String(cString: sqlite3_errstr(resultCode))
         throw Error("SQLite failure: \(errorCode) \(errorMessage)")
     }
 }
@@ -126,12 +131,12 @@ func sqlite3ColumnText(_ databaseConnection: OpaquePointer!, _ preparedStatement
         let string = String(cString: value)
         return string
     } else {
-        let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)
-        if sqlite3ErrorCode == SQLITE_ROW {
+        let errorCode = sqlite3_errcode(databaseConnection)
+        if errorCode == SQLITE_ROW {
             throw Error("Unexpected SQL NULL value")
         } else {
-            let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
+            let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+            throw Error("SQLite3 error code \(errorCode) and message \(errorMessage)")
         }
     }
 }
@@ -141,12 +146,12 @@ func sqlite3ColumnTextNull(_ databaseConnection: OpaquePointer!, _ preparedState
         let string = String(cString: value)
         return string
     } else {
-        let sqlite3ErrorCode = sqlite3_errcode(databaseConnection)
-        if sqlite3ErrorCode == SQLITE_ROW {
+        let errorCode = sqlite3_errcode(databaseConnection)
+        if errorCode == SQLITE_ROW {
             return nil
         } else {
-            let sqlite3ErrorMessage = String(cString: sqlite3_errmsg(databaseConnection))
-            throw Error("SQLite3 error code \(sqlite3ErrorCode) and message \(sqlite3ErrorMessage)")
+            let errorMessage = String(cString: sqlite3_errmsg(databaseConnection))
+            throw Error("SQLite3 error code \(errorCode) and message \(errorMessage)")
         }
     }
 }

@@ -50,10 +50,9 @@ class SqliteDatabase: CustomDebugStringConvertible {
     func beginTransaction() throws {
         do {
             let statement = "BEGIN TRANSACTION;"
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-            try sqlite3StepDone(databaseConnection, preparedStatement)
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
         } catch {
             let error = Error("\(self) can not begin transaction\n\(error)")
             throw error
@@ -63,10 +62,9 @@ class SqliteDatabase: CustomDebugStringConvertible {
     func commitTransaction() throws {
         do {
             let statement = "COMMIT TRANSACTION;"
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-            try sqlite3StepDone(databaseConnection, preparedStatement)
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
         } catch {
             let error = Error("\(self) can not commit transaction\n\(error)")
             throw error
@@ -76,10 +74,9 @@ class SqliteDatabase: CustomDebugStringConvertible {
     func rollbackTransaction() throws {
         do {
             let statement = "ROLLBACK TRANSACTION;"
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-            try sqlite3StepDone(databaseConnection, preparedStatement)
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
         } catch {
             let error = Error("\(self) can not rollback transaction\n\(error)")
             throw error

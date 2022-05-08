@@ -184,10 +184,9 @@ class OperationSqliteView {
             INNER JOIN balance_account AS transfer_from_balance_account ON transfer.from_account_id == transfer_from_balance_account.id
             INNER JOIN balance_account AS transfer_to_balance_account ON transfer.to_account_id == transfer_to_balance_account.id
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - SELECT
@@ -292,14 +291,13 @@ class OperationSqliteView {
             FROM operation
             ORDER BY timestamp DESC;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         var selectedRows: [OperationSelectedRow] = []
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+        while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractHistorySelectedRow(preparedStatement)
             selectedRows.append(selectedRow)
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return selectedRows
     }
     

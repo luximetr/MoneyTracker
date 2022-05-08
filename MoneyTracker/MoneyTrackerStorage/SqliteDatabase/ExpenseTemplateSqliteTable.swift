@@ -63,10 +63,9 @@ class ExpenseTemplateSqliteTable {
                 FOREIGN KEY(account_id) REFERENCES balance_account(id)
             );
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - INSERT
@@ -77,8 +76,7 @@ class ExpenseTemplateSqliteTable {
             INSERT INTO expense_template(id, name, amount, account_id, category_id, comment, order_number)
             VALUES (?, ?, ?, ?, ?, ?, ?);
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 2, values.name, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
@@ -86,8 +84,8 @@ class ExpenseTemplateSqliteTable {
         try sqlite3BindText(databaseConnection, preparedStatement, 5, values.categoryId, -1, nil)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 6, values.comment, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 7, values.orderNumber)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - UPDATE
@@ -103,16 +101,15 @@ class ExpenseTemplateSqliteTable {
                 comment = ?
             WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.name, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
         try sqlite3BindText(databaseConnection, preparedStatement, 3, values.balanceAccountId, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 4, values.categoryId, -1, nil)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 5, values.comment, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 6, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     func updateWhereId(_ id: String, orderNumber: Int64) throws {
@@ -120,12 +117,11 @@ class ExpenseTemplateSqliteTable {
             """
             UPDATE expense_template SET order_number = ? WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 1, orderNumber)
         try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - DELETE
@@ -135,11 +131,10 @@ class ExpenseTemplateSqliteTable {
             """
             DELETE FROM expense_template WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - SELECT
@@ -161,14 +156,13 @@ class ExpenseTemplateSqliteTable {
             """
             SELECT id, name, amount, account_id, category_id, comment, order_number FROM expense_template;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         var selectedRows: [ExpenseTemplateSelectedRow] = []
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+        while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractExpenseTemplateSelectedRow(preparedStatement)
             selectedRows.append(selectedRow)
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return selectedRows
     }
     
@@ -177,14 +171,13 @@ class ExpenseTemplateSqliteTable {
             """
             SELECT id, name, amount, account_id, category_id, comment, order_number FROM expense_template ORDER BY order_number;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         var selectedRows: [ExpenseTemplateSelectedRow] = []
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+        while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractExpenseTemplateSelectedRow(preparedStatement)
             selectedRows.append(selectedRow)
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return selectedRows
     }
     
@@ -193,15 +186,14 @@ class ExpenseTemplateSqliteTable {
             """
             SELECT MAX(order_number) FROM expense_template;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         let maxOrderNumber: Int64?
-        if try sqlite3StepRow(databaseConnection, preparedStatement) {
+        if try sqlite3StepRow(preparedStatement) {
             maxOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 0)
         } else {
             maxOrderNumber = nil
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return maxOrderNumber
     }
     

@@ -55,10 +55,9 @@ class ReplenishmentSqliteTable {
                 FOREIGN KEY(account_id) REFERENCES balance_account(id)
             );
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - INSERT
@@ -69,15 +68,14 @@ class ReplenishmentSqliteTable {
             INSERT INTO replenishment(id, timestamp, amount, account_id, comment)
             VALUES (?, ?, ?, ?, ?);
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.timestamp)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
         try sqlite3BindText(databaseConnection, preparedStatement, 4, values.accountId, -1, nil)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 5, values.comment, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - UPDATE
@@ -92,15 +90,14 @@ class ReplenishmentSqliteTable {
                 comment = ?
             WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 1, values.timestamp)
         try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
         try sqlite3BindText(databaseConnection, preparedStatement, 3, values.accountId, -1, nil)
         try sqlite3BindTextNull(databaseConnection, preparedStatement, 4, values.comment, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 5, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - DELETE
@@ -110,11 +107,10 @@ class ReplenishmentSqliteTable {
             """
             DELETE FROM replenishment WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - SELECT
@@ -135,14 +131,13 @@ class ReplenishmentSqliteTable {
             SELECT id, timestamp, amount, account_id, comment FROM replenishment
             WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
         try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+        while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractReplenishmentSelectedRow(preparedStatement)
             return selectedRow
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return nil
     }
     

@@ -54,10 +54,9 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                     order_number INTEGER
                 );
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-            try sqlite3StepDone(databaseConnection, preparedStatement)
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
         } catch {
             throw error
         }
@@ -72,15 +71,14 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 INSERT INTO category(id, name, icon, color, order_number)
                 VALUES (?, ?, ?, ?, ?);
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 2, values.name, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 3, values.icon, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 4, values.color, -1, nil)
             try sqlite3BindInt64(databaseConnection, preparedStatement, 5, values.orderNumber)
-            try sqlite3StepDone(databaseConnection, preparedStatement)
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
         } catch {
             throw error
         }
@@ -94,14 +92,13 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 """
                 UPDATE category SET name = ?, icon = ?, color = ? WHERE id = ?;
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 1, values.name, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 2, values.icon, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 3, values.color, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 4, id, -1, nil)
-            try sqlite3StepDone(databaseConnection, preparedStatement)
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
         } catch {
             throw error
         }
@@ -113,12 +110,11 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 """
                 UPDATE category SET order_number = ? WHERE id = ?;
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             try sqlite3BindInt64(databaseConnection, preparedStatement, 1, orderNumber)
             try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
-            try sqlite3StepDone(databaseConnection, preparedStatement)
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
         } catch {
             throw error
         }
@@ -132,11 +128,10 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 """
                 DELETE FROM category WHERE id = ?;
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
-            try sqlite3StepDone(databaseConnection, preparedStatement)
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
         } catch {
             throw error
         }
@@ -164,14 +159,13 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 """
                 SELECT id, name, icon, color, order_number FROM category;
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             var selectedRows: [CategorySelectedRow] = []
-            while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            while(try sqlite3StepRow(preparedStatement)) {
                 let selectedRow = try extractSelectedRow(preparedStatement)
                 selectedRows.append(selectedRow)
             }
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            try sqlite3Finalize(preparedStatement)
             return selectedRows
         } catch {
             throw error
@@ -186,19 +180,18 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 SELECT id, name, icon, color, order_number FROM category
                 WHERE id IN (\(statementValues));
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             for (index, id) in ids.enumerated() {
                 let index = Int32(index + 1)
                 let value = id
                 try sqlite3BindText(databaseConnection, preparedStatement, index, value, -1, nil)
             }
             var selectedRows: [CategorySelectedRow] = []
-            while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            while(try sqlite3StepRow(preparedStatement)) {
                 let selectedRow = try extractSelectedRow(preparedStatement)
                 selectedRows.append(selectedRow)
             }
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            try sqlite3Finalize(preparedStatement)
             return selectedRows
         } catch {
             throw error
@@ -211,14 +204,13 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 """
                 SELECT id, name, icon, color, order_number FROM category ORDER BY order_number;
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             var selectedRows: [CategorySelectedRow] = []
-            while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+            while(try sqlite3StepRow(preparedStatement)) {
                 let selectedRow = try extractSelectedRow(preparedStatement)
                 selectedRows.append(selectedRow)
             }
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            try sqlite3Finalize(preparedStatement)
             return selectedRows
         } catch {
             throw error
@@ -231,15 +223,14 @@ class CategorySqliteTable: CustomDebugStringConvertible {
                 """
                 SELECT MAX(order_number) FROM category;
                 """
-            var preparedStatement: OpaquePointer?
-            try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
             let maxOrderNumber: Int64?
-            if try sqlite3StepRow(databaseConnection, preparedStatement) {
+            if try sqlite3StepRow(preparedStatement) {
                 maxOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 0)
             } else {
                 maxOrderNumber = nil
             }
-            try sqlite3Finalize(databaseConnection, preparedStatement)
+            try sqlite3Finalize(preparedStatement)
             return maxOrderNumber
         } catch {
             throw error
