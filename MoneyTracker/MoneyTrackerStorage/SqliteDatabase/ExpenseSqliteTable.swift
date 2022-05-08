@@ -60,7 +60,7 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
                 FOREIGN KEY(account_id) REFERENCES balance_account(id)
             );
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         try sqlite3StepDone(preparedStatement)
         try sqlite3Finalize(preparedStatement)
     }
@@ -73,13 +73,13 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
             INSERT INTO expense(id, timestamp, amount, account_id, category_id, comment)
             VALUES (?, ?, ?, ?, ?, ?);
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-        try sqlite3BindText(preparedStatement, 1, values.id, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, values.id)
         try sqlite3BindInt64(preparedStatement, 2, values.timestamp)
         try sqlite3BindInt64(preparedStatement, 3, values.amount)
-        try sqlite3BindText(preparedStatement, 4, values.accountId, -1, nil)
-        try sqlite3BindText(preparedStatement, 5, values.categoryId, -1, nil)
-        try sqlite3BindTextNull(preparedStatement, 6, values.comment, -1, nil)
+        try sqlite3BindText(preparedStatement, 4, values.accountId)
+        try sqlite3BindText(preparedStatement, 5, values.categoryId)
+        try sqlite3BindTextNull(preparedStatement, 6, values.comment)
         try sqlite3StepDone(preparedStatement)
         try sqlite3Finalize(preparedStatement)
     }
@@ -97,13 +97,13 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
                 comment = ?
             WHERE id = ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         try sqlite3BindInt64(preparedStatement, 1, values.timestamp)
         try sqlite3BindInt64(preparedStatement, 2, values.amount)
-        try sqlite3BindText(preparedStatement, 3, values.accountId, -1, nil)
-        try sqlite3BindText(preparedStatement, 4, values.categoryId, -1, nil)
-        try sqlite3BindTextNull(preparedStatement, 5, values.comment, -1, nil)
-        try sqlite3BindText(preparedStatement, 6, id, -1, nil)
+        try sqlite3BindText(preparedStatement, 3, values.accountId)
+        try sqlite3BindText(preparedStatement, 4, values.categoryId)
+        try sqlite3BindTextNull(preparedStatement, 5, values.comment)
+        try sqlite3BindText(preparedStatement, 6, id)
         try sqlite3StepDone(preparedStatement)
         try sqlite3Finalize(preparedStatement)
     }
@@ -115,8 +115,8 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
             """
             DELETE FROM expense WHERE id = ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-        try sqlite3BindText(preparedStatement, 1, id, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, id)
         try sqlite3StepDone(preparedStatement)
         try sqlite3Finalize(preparedStatement)
     }
@@ -139,7 +139,7 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
             """
             SELECT id, timestamp, amount, account_id, category_id, comment FROM expense;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         var selectedRows: [ExpenseSelectedRow] = []
         while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractExpenseSelectedRow(preparedStatement)
@@ -155,8 +155,8 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
             SELECT id, timestamp, amount, account_id, category_id, comment FROM expense
             WHERE id = ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-        try sqlite3BindText(preparedStatement, 1, id, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, id)
         while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractExpenseSelectedRow(preparedStatement)
             return selectedRow
@@ -171,7 +171,7 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
             SELECT id, timestamp, amount, account_id, category_id, comment FROM expense
             WHERE timestamp BETWEEN ? AND ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         try sqlite3BindInt64(preparedStatement, 1, startDate)
         try sqlite3BindInt64(preparedStatement, 2, endDate)
         var selectedRows: [ExpenseSelectedRow] = []
@@ -189,8 +189,8 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
             SELECT id, timestamp, amount, account_id, category_id, comment FROM expense
             WHERE category_id = ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-        try sqlite3BindText(preparedStatement, 1, categoryId, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, categoryId)
         var selectedRows: [ExpenseSelectedRow] = []
         while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractExpenseSelectedRow(preparedStatement)
@@ -206,8 +206,8 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
             SELECT id, timestamp, amount, account_id, category_id, comment FROM expense
             WHERE account_id = ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-        try sqlite3BindText(preparedStatement, 1, balanceAccountId, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, balanceAccountId)
         var selectedRows: [ExpenseSelectedRow] = []
         while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractExpenseSelectedRow(preparedStatement)

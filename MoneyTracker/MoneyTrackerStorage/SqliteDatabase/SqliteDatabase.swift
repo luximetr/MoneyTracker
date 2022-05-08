@@ -50,7 +50,7 @@ class SqliteDatabase: CustomDebugStringConvertible {
     func beginTransaction() throws {
         do {
             let statement = "BEGIN TRANSACTION;"
-            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -62,7 +62,7 @@ class SqliteDatabase: CustomDebugStringConvertible {
     func commitTransaction() throws {
         do {
             let statement = "COMMIT TRANSACTION;"
-            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {
@@ -74,7 +74,7 @@ class SqliteDatabase: CustomDebugStringConvertible {
     func rollbackTransaction() throws {
         do {
             let statement = "ROLLBACK TRANSACTION;"
-            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
             try sqlite3StepDone(preparedStatement)
             try sqlite3Finalize(preparedStatement)
         } catch {

@@ -21,9 +21,11 @@ func sqlite3Open(_ filename: URL) throws -> OpaquePointer {
     return databaseConnection
 }
 
-func sqlite3PrepareV2(_ databaseConnection: OpaquePointer!, _ statement: UnsafePointer<CChar>!, _ nByte: Int32, _ pzTail: UnsafeMutablePointer<UnsafePointer<CChar>?>!) throws -> OpaquePointer {
+func sqlite3PrepareV2(_ databaseConnection: OpaquePointer!, _ statement: String) throws -> OpaquePointer {
+    let utf8Statement = (statement as NSString).utf8String
+    let utf8StatementLength = Int32(statement.maximumLengthOfBytes(using: .utf8))
     var preparedStatement: OpaquePointer!
-    let resultCode = sqlite3_prepare_v2(databaseConnection, statement, nByte, &preparedStatement, pzTail)
+    let resultCode = sqlite3_prepare_v2(databaseConnection, utf8Statement, utf8StatementLength, &preparedStatement, nil)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode
         let errorMessage = String(cString: sqlite3_errstr(resultCode))
@@ -71,7 +73,7 @@ func sqlite3Finalize(_ preparedStatement: OpaquePointer!) throws {
 
 
 
-func sqlite3BindTextNull(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String?, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
+func sqlite3BindTextNull(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String?) throws {
     if let value = value {
         let utf8String = (value as NSString).utf8String
         let utf8StringLength = Int32(value.maximumLengthOfBytes(using: .utf8))
@@ -91,7 +93,7 @@ func sqlite3BindTextNull(_ preparedStatement: OpaquePointer!, _ index: Int32, _ 
     }
 }
 
-func sqlite3BindText(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String, _: Int32, _: (@convention(c) (UnsafeMutableRawPointer?) -> Void)!) throws {
+func sqlite3BindText(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String) throws {
     let utf8String = (value as NSString).utf8String
     let utf8StringLength = Int32(value.maximumLengthOfBytes(using: .utf8))
     let resultCode = sqlite3_bind_text(preparedStatement, index, utf8String, utf8StringLength, SQLITE_TRANSIENT)

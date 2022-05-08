@@ -64,7 +64,7 @@ class TransferSqliteTable {
                 FOREIGN KEY(to_account_id) REFERENCES balance_account(id)
             );
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         try sqlite3StepDone(preparedStatement)
         try sqlite3Finalize(preparedStatement)
     }
@@ -77,14 +77,14 @@ class TransferSqliteTable {
             INSERT INTO transfer(id, timestamp, from_account_id, from_amount, to_account_id, to_amount, comment)
             VALUES (?, ?, ?, ?, ?, ?, ?);
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-        try sqlite3BindText(preparedStatement, 1, values.id, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, values.id)
         try sqlite3BindInt64(preparedStatement, 2, values.timestamp)
-        try sqlite3BindText(preparedStatement, 3, values.fromAccountId, -1, nil)
+        try sqlite3BindText(preparedStatement, 3, values.fromAccountId)
         try sqlite3BindInt64(preparedStatement, 4, values.fromAmount)
-        try sqlite3BindText(preparedStatement, 5, values.toAccountId, -1, nil)
+        try sqlite3BindText(preparedStatement, 5, values.toAccountId)
         try sqlite3BindInt64(preparedStatement, 6, values.toAmount)
-        try sqlite3BindTextNull(preparedStatement, 7, values.comment, -1, nil)
+        try sqlite3BindTextNull(preparedStatement, 7, values.comment)
         try sqlite3StepDone(preparedStatement)
         try sqlite3Finalize(preparedStatement)
     }
@@ -103,14 +103,14 @@ class TransferSqliteTable {
                 comment = ?
             WHERE id = ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         try sqlite3BindInt64(preparedStatement, 1, values.timestamp)
-        try sqlite3BindText(preparedStatement, 2, values.fromAccountId, -1, nil)
+        try sqlite3BindText(preparedStatement, 2, values.fromAccountId)
         try sqlite3BindInt64(preparedStatement, 3, values.fromAmount)
-        try sqlite3BindText(preparedStatement, 4, values.toAccountId, -1, nil)
+        try sqlite3BindText(preparedStatement, 4, values.toAccountId)
         try sqlite3BindInt64(preparedStatement, 5, values.toAmount)
-        try sqlite3BindTextNull(preparedStatement, 6, values.comment, -1, nil)
-        try sqlite3BindText(preparedStatement, 7, id, -1, nil)
+        try sqlite3BindTextNull(preparedStatement, 6, values.comment)
+        try sqlite3BindText(preparedStatement, 7, id)
         try sqlite3StepDone(preparedStatement)
         try sqlite3Finalize(preparedStatement)
     }
@@ -122,8 +122,8 @@ class TransferSqliteTable {
             """
             DELETE FROM transfer WHERE id = ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-        try sqlite3BindText(preparedStatement, 1, id, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, id)
         try sqlite3StepDone(preparedStatement)
         try sqlite3Finalize(preparedStatement)
     }
@@ -148,8 +148,8 @@ class TransferSqliteTable {
             SELECT id, timestamp, from_account_id, from_amount, to_account_id, to_amount, comment FROM transfer
             WHERE id = ?;
             """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement, -1, nil)
-        try sqlite3BindText(preparedStatement, 1, id, -1, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, id)
         while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractTransferSelectedRow(preparedStatement)
             return selectedRow
