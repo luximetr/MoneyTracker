@@ -21,7 +21,7 @@ func sqlite3Open(_ filename: URL) throws -> OpaquePointer {
     return databaseConnection
 }
 
-func sqlite3PrepareV2(_ databaseConnection: OpaquePointer!, _ statement: String) throws -> OpaquePointer {
+func sqlite3PrepareV2(_ databaseConnection: OpaquePointer, _ statement: String) throws -> OpaquePointer {
     let utf8Statement = (statement as NSString).utf8String
     let utf8StatementLength = Int32(statement.maximumLengthOfBytes(using: .utf8))
     var preparedStatement: OpaquePointer!
@@ -34,7 +34,7 @@ func sqlite3PrepareV2(_ databaseConnection: OpaquePointer!, _ statement: String)
     return preparedStatement
 }
 
-func sqlite3StepDone(_ preparedStatement: OpaquePointer!) throws {
+func sqlite3StepDone(_ preparedStatement: OpaquePointer) throws {
     let resultCode = sqlite3_step(preparedStatement)
     if resultCode != SQLITE_DONE {
         let errorCode = resultCode
@@ -43,7 +43,7 @@ func sqlite3StepDone(_ preparedStatement: OpaquePointer!) throws {
     }
 }
 
-func sqlite3StepRow(_ preparedStatement: OpaquePointer!) throws -> Bool {
+func sqlite3StepRow(_ preparedStatement: OpaquePointer) throws -> Bool {
     let resultCode = sqlite3_step(preparedStatement)
     if resultCode == SQLITE_ROW {
         return true
@@ -56,7 +56,7 @@ func sqlite3StepRow(_ preparedStatement: OpaquePointer!) throws -> Bool {
     }
 }
 
-func sqlite3Finalize(_ preparedStatement: OpaquePointer!) throws {
+func sqlite3Finalize(_ preparedStatement: OpaquePointer) throws {
     let resultCode = sqlite3_finalize(preparedStatement)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode
@@ -65,26 +65,20 @@ func sqlite3Finalize(_ preparedStatement: OpaquePointer!) throws {
     }
 }
 
+// MARK: - Bind
 
-
-
-
-
-
-
-
-func sqlite3BindTextNull(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String?) throws {
-    if let value = value {
-        let utf8String = (value as NSString).utf8String
-        let utf8StringLength = Int32(value.maximumLengthOfBytes(using: .utf8))
-        let resultCode = sqlite3_bind_text(preparedStatement, index, utf8String, utf8StringLength, SQLITE_TRANSIENT)
+func sqlite3BindTextNull(_ preparedStatement: OpaquePointer, _ parameterIndex: Int32, _ parameterValue: String?) throws {
+    if let parameterValue = parameterValue {
+        let utf8String = (parameterValue as NSString).utf8String
+        let utf8StringLength = Int32(parameterValue.maximumLengthOfBytes(using: .utf8))
+        let resultCode = sqlite3_bind_text(preparedStatement, parameterIndex, utf8String, utf8StringLength, SQLITE_TRANSIENT)
         if resultCode != SQLITE_OK {
             let errorCode = resultCode
             let errorMessage = String(cString: sqlite3_errstr(resultCode))
             throw Error("SQLite3 failure: \(errorCode) \(errorMessage)")
         }
     } else {
-        let resultCode = sqlite3_bind_null(preparedStatement, index)
+        let resultCode = sqlite3_bind_null(preparedStatement, parameterIndex)
         if resultCode != SQLITE_OK {
             let errorCode = resultCode
             let errorMessage = String(cString: sqlite3_errstr(resultCode))
@@ -93,10 +87,10 @@ func sqlite3BindTextNull(_ preparedStatement: OpaquePointer!, _ index: Int32, _ 
     }
 }
 
-func sqlite3BindText(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: String) throws {
-    let utf8String = (value as NSString).utf8String
-    let utf8StringLength = Int32(value.maximumLengthOfBytes(using: .utf8))
-    let resultCode = sqlite3_bind_text(preparedStatement, index, utf8String, utf8StringLength, SQLITE_TRANSIENT)
+func sqlite3BindText(_ preparedStatement: OpaquePointer, _ parameterIndex: Int32, _ parameterValue: String) throws {
+    let utf8String = (parameterValue as NSString).utf8String
+    let utf8StringLength = Int32(parameterValue.maximumLengthOfBytes(using: .utf8))
+    let resultCode = sqlite3_bind_text(preparedStatement, parameterIndex, utf8String, utf8StringLength, SQLITE_TRANSIENT)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode
         let errorMessage = String(cString: sqlite3_errstr(resultCode))
@@ -104,8 +98,8 @@ func sqlite3BindText(_ preparedStatement: OpaquePointer!, _ index: Int32, _ valu
     }
 }
 
-func sqlite3BindInt64(_ preparedStatement: OpaquePointer!, _ index: Int32, _ value: Int64) throws {
-    let resultCode = sqlite3_bind_int64(preparedStatement, index, value)
+func sqlite3BindInt64(_ preparedStatement: OpaquePointer, _ parameterIndex: Int32, _ parameterValue: Int64) throws {
+    let resultCode = sqlite3_bind_int64(preparedStatement, parameterIndex, parameterValue)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode
         let errorMessage = String(cString: sqlite3_errstr(resultCode))
@@ -113,63 +107,56 @@ func sqlite3BindInt64(_ preparedStatement: OpaquePointer!, _ index: Int32, _ val
     }
 }
 
+// MARK: - Column
 
-
-
-
-
-
-
-
-
-func sqlite3ColumnText(_ preparedStatement: OpaquePointer!, _ index: Int32) throws -> String {
-    let columnType = sqlite3_column_type(preparedStatement, index)
+func sqlite3ColumnText(_ preparedStatement: OpaquePointer, _ columnIndex: Int32) throws -> String {
+    let columnType = sqlite3_column_type(preparedStatement, columnIndex)
     if columnType == SQLITE_TEXT {
-        if let value = sqlite3_column_text(preparedStatement, index) {
+        if let value = sqlite3_column_text(preparedStatement, columnIndex) {
             let string = String(cString: value)
             return string
         } else {
-            throw Error("Unexpected")
+            throw Error("Unexpected nil value")
         }
     } else {
         throw Error("Unexpected column type \(columnType)")
     }
 }
 
-func sqlite3ColumnTextNull(_ preparedStatement: OpaquePointer!, _ index: Int32) throws -> String? {
-    let columnType = sqlite3_column_type(preparedStatement, index)
+func sqlite3ColumnTextNull(_ preparedStatement: OpaquePointer, _ columnIndex: Int32) throws -> String? {
+    let columnType = sqlite3_column_type(preparedStatement, columnIndex)
     if columnType == SQLITE_TEXT {
-        if let value = sqlite3_column_text(preparedStatement, index) {
+        if let value = sqlite3_column_text(preparedStatement, columnIndex) {
             let string = String(cString: value)
             return string
         } else {
-            throw Error("Unexpected")
+            throw Error("Unexpected nil value")
         }
     } else if columnType == SQLITE_NULL {
         return nil
     } else {
-        throw Error("Unexpected column type \(columnType)")
+        throw Error("Unexpected column type \(String(reflecting: columnType))")
     }
 }
 
-func sqlite3ColumnInt64(_ preparedStatement: OpaquePointer!, _ index: Int32) throws -> Int64 {
-    let columnType = sqlite3_column_type(preparedStatement, index)
+func sqlite3ColumnInt64(_ preparedStatement: OpaquePointer, _ columnIndex: Int32) throws -> Int64 {
+    let columnType = sqlite3_column_type(preparedStatement, columnIndex)
     if columnType == SQLITE_INTEGER {
-        let value = sqlite3_column_int64(preparedStatement, index)
+        let value = sqlite3_column_int64(preparedStatement, columnIndex)
         return value
     } else {
-        throw Error("Unexpected column type \(columnType)")
+        throw Error("Unexpected column type \(String(reflecting: columnType))")
     }
 }
 
-func sqlite3ColumnInt64Null(_ preparedStatement: OpaquePointer!, _ index: Int32) throws -> Int64? {
-    let columnType = sqlite3_column_type(preparedStatement, index)
+func sqlite3ColumnInt64Null(_ preparedStatement: OpaquePointer, _ columnIndex: Int32) throws -> Int64? {
+    let columnType = sqlite3_column_type(preparedStatement, columnIndex)
     if columnType == SQLITE_INTEGER {
-        let value = sqlite3_column_int64(preparedStatement, index)
+        let value = sqlite3_column_int64(preparedStatement, columnIndex)
         return value
     } else if columnType == SQLITE_NULL {
         return nil
     } else {
-        throw Error("Unexpected column type \(columnType)")
+        throw Error("Unexpected column type \(String(reflecting: columnType))")
     }
 }

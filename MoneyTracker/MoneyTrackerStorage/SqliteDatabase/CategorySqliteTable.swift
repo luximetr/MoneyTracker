@@ -139,7 +139,7 @@ class CategorySqliteTable: CustomDebugStringConvertible {
     
     // MARK: - SELECT
     
-    private func extractSelectedRow(_ preparedStatement: OpaquePointer?) throws -> CategorySelectedRow {
+    private func extractSelectedRow(_ preparedStatement: OpaquePointer) throws -> CategorySelectedRow {
         do {
             let id = try sqlite3ColumnText(preparedStatement, 0)
             let name = try sqlite3ColumnText(preparedStatement, 1)

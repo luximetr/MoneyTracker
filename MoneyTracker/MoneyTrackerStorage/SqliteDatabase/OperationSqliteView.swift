@@ -191,7 +191,7 @@ class OperationSqliteView {
     
     // MARK: - SELECT
     
-    private func extractHistorySelectedRow(_ preparedStatement: OpaquePointer?) throws -> OperationSelectedRow {
+    private func extractHistorySelectedRow(_ preparedStatement: OpaquePointer) throws -> OperationSelectedRow {
         let type = try sqlite3ColumnText(preparedStatement, 0)
         let timestamp = try sqlite3ColumnInt64(preparedStatement, 1)
         let expenseId = try sqlite3ColumnTextNull(preparedStatement, 2)

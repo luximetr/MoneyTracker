@@ -177,7 +177,7 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
     
     // MARK: - SELECT
     
-    private func extractBalanceAccountSelectedRow(_ preparedStatement: OpaquePointer?) throws -> BalanceAccountSelectedRow {
+    private func extractBalanceAccountSelectedRow(_ preparedStatement: OpaquePointer) throws -> BalanceAccountSelectedRow {
         do {
             let id = try sqlite3ColumnText(preparedStatement, 0)
             let name = try sqlite3ColumnText(preparedStatement, 1)

@@ -123,7 +123,7 @@ class ExpenseSqliteTable: CustomDebugStringConvertible {
     
     // MARK: - SELECT
     
-    private func extractExpenseSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ExpenseSelectedRow {
+    private func extractExpenseSelectedRow(_ preparedStatement: OpaquePointer) throws -> ExpenseSelectedRow {
         let id = try sqlite3ColumnText(preparedStatement, 0)
         let timestamp = try sqlite3ColumnInt64(preparedStatement, 1)
         let amount = try sqlite3ColumnInt64(preparedStatement, 2)

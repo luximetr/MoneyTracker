@@ -139,7 +139,7 @@ class ExpenseTemplateSqliteTable {
     
     // MARK: - SELECT
     
-    private func extractExpenseTemplateSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ExpenseTemplateSelectedRow {
+    private func extractExpenseTemplateSelectedRow(_ preparedStatement: OpaquePointer) throws -> ExpenseTemplateSelectedRow {
         let id = try sqlite3ColumnText(preparedStatement, 0)
         let name = try sqlite3ColumnText(preparedStatement, 1)
         let amount = try sqlite3ColumnInt64(preparedStatement, 2)

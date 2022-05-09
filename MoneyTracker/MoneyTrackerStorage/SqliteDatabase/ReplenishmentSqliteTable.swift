@@ -115,7 +115,7 @@ class ReplenishmentSqliteTable {
     
     // MARK: - SELECT
 
-    private func extractReplenishmentSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ReplenishmentSelectedRow {
+    private func extractReplenishmentSelectedRow(_ preparedStatement: OpaquePointer) throws -> ReplenishmentSelectedRow {
         let id = try sqlite3ColumnText(preparedStatement, 0)
         let timestamp = try sqlite3ColumnInt64(preparedStatement, 1)
         let amount = try sqlite3ColumnInt64(preparedStatement, 2)

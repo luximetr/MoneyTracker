@@ -130,7 +130,7 @@ class TransferSqliteTable {
     
     // MARK: - SELECT
 
-    private func extractTransferSelectedRow(_ preparedStatement: OpaquePointer?) throws -> TransferSelectedRow {
+    private func extractTransferSelectedRow(_ preparedStatement: OpaquePointer) throws -> TransferSelectedRow {
         let id = try sqlite3ColumnText(preparedStatement, 0)
         let timestamp = try sqlite3ColumnInt64(preparedStatement, 1)
         let fromAccountId = try sqlite3ColumnText(preparedStatement, 2)
