@@ -10,9 +10,9 @@ import SQLite3
 let SQLITE_STATIC = unsafeBitCast(0, to: sqlite3_destructor_type.self)
 let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
 
-func sqlite3Open(_ filename: URL) throws -> OpaquePointer {
+func sqlite3Open(_ filename: String) throws -> OpaquePointer {
     var databaseConnection: OpaquePointer!
-    let resultCode = sqlite3_open(filename.path, &databaseConnection)
+    let resultCode = sqlite3_open(filename, &databaseConnection)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode
         let errorMessage = String(cString: sqlite3_errstr(resultCode))

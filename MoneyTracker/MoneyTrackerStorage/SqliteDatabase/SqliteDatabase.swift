@@ -28,7 +28,7 @@ class SqliteDatabase: CustomDebugStringConvertible {
     // MARK: - Initializer
     
     init(database: URL) throws {
-        self.databaseConnection = try sqlite3Open(database)
+        self.databaseConnection = try sqlite3Open(database.path)
         self.categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
         try categoryTable.createIfNotExists()
         self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
