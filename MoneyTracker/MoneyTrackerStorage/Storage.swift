@@ -185,7 +185,7 @@ public class Storage {
     
     public func getCategory(id: String) throws -> Category {
         do {
-            let selectedRows = try sqliteDatabase.categoryTable.selectWhereIdIn([id])
+            let selectedRows = try sqliteDatabase.categoryTable.selectOrderByOrderNumber()
             let categories: [Category] = try selectedRows.map { selectedRow in
                 let categoryColor = try CategoryColor(selectedRow.color)
                 let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)

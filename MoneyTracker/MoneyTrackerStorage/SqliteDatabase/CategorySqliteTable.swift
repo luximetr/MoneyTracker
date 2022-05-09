@@ -153,51 +153,6 @@ class CategorySqliteTable: CustomDebugStringConvertible {
         }
     }
     
-    func select() throws -> [CategorySelectedRow] {
-        do {
-            let statement =
-                """
-                SELECT id, name, icon, color, order_number FROM category;
-                """
-            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
-            var selectedRows: [CategorySelectedRow] = []
-            while(try sqlite3StepRow(preparedStatement)) {
-                let selectedRow = try extractSelectedRow(preparedStatement)
-                selectedRows.append(selectedRow)
-            }
-            try sqlite3Finalize(preparedStatement)
-            return selectedRows
-        } catch {
-            throw error
-        }
-    }
-    
-    func selectWhereIdIn(_ ids: [String]) throws -> [CategorySelectedRow] {
-        do {
-            let statementValues = ids.map({ _ in "?" }).joined(separator: ", ")
-            let statement =
-                """
-                SELECT id, name, icon, color, order_number FROM category
-                WHERE id IN (\(statementValues));
-                """
-            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
-            for (index, id) in ids.enumerated() {
-                let index = Int32(index + 1)
-                let value = id
-                try sqlite3BindText(preparedStatement, index, value)
-            }
-            var selectedRows: [CategorySelectedRow] = []
-            while(try sqlite3StepRow(preparedStatement)) {
-                let selectedRow = try extractSelectedRow(preparedStatement)
-                selectedRows.append(selectedRow)
-            }
-            try sqlite3Finalize(preparedStatement)
-            return selectedRows
-        } catch {
-            throw error
-        }
-    }
-    
     func selectOrderByOrderNumber() throws -> [CategorySelectedRow] {
         do {
             let statement =
