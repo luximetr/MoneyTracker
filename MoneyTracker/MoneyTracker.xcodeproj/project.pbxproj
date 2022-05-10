@@ -280,14 +280,14 @@
 		DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */; };
 		DB62AED727EEA18B00F8CA55 /* ImportingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AED627EEA18B00F8CA55 /* ImportingCategory.swift */; };
 		DB62AED927EEA21800F8CA55 /* ImportingBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AED827EEA21800F8CA55 /* ImportingBalanceAccount.swift */; };
-		DB62AEDB27EEA23300F8CA55 /* ImportingExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEDA27EEA23300F8CA55 /* ImportingExpense.swift */; };
+		DB62AEDB27EEA23300F8CA55 /* ImportingBalanceAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEDA27EEA23300F8CA55 /* ImportingBalanceAccountOperation.swift */; };
 		DB62AEDD27EEA37300F8CA55 /* ImportingExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEDC27EEA37300F8CA55 /* ImportingExpensesFile.swift */; };
 		DB62AEE127EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE027EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift */; };
 		DB62AEE327EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE227EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift */; };
 		DB62AEE527EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE427EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift */; };
-		DB62AEE727EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift */; };
+		DB62AEE727EEB14700F8CA55 /* ImportingCoinKeeperBalanceAccountOperationCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperBalanceAccountOperationCSVLineParser.swift */; };
 		DB62AEE927EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEE827EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift */; };
-		DB62AEEB27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift */; };
+		DB62AEEB27EEB4AB00F8CA55 /* ImportingMoneyTrackerBalanceAccountOperationCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerBalanceAccountOperationCSVLineParser.swift */; };
 		DB62AEED27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEEC27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift */; };
 		DB62AEEF27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEEE27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift */; };
 		DB62AEF127EEB78500F8CA55 /* ImportingCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEF027EEB78500F8CA55 /* ImportingCategoryAdapter.swift */; };
@@ -389,6 +389,9 @@
 		DBDC930D281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC930C281FBDF000D8C435 /* DateHorizontalPickerDateCellController.swift */; };
 		DBDC9310282219C400D8C435 /* DateHorizontalPickerViewStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC9312282219C400D8C435 /* DateHorizontalPickerViewStrings.strings */; };
 		DBDC93162822931400D8C435 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC93152822931400D8C435 /* PassthroughView.swift */; };
+		DBDC931E282A6A1E00D8C435 /* ImportingBalanceAccountOperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC931D282A6A1E00D8C435 /* ImportingBalanceAccountOperationType.swift */; };
+		DBDC9326282A6BC700D8C435 /* ImportingCoinKeeperBalanceAccountOperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9325282A6BC700D8C435 /* ImportingCoinKeeperBalanceAccountOperationType.swift */; };
+		DBDC9328282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9327282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -856,14 +859,14 @@
 		DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpenseAdapter.swift; sourceTree = "<group>"; };
 		DB62AED627EEA18B00F8CA55 /* ImportingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCategory.swift; sourceTree = "<group>"; };
 		DB62AED827EEA21800F8CA55 /* ImportingBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingBalanceAccount.swift; sourceTree = "<group>"; };
-		DB62AEDA27EEA23300F8CA55 /* ImportingExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpense.swift; sourceTree = "<group>"; };
+		DB62AEDA27EEA23300F8CA55 /* ImportingBalanceAccountOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingBalanceAccountOperation.swift; sourceTree = "<group>"; };
 		DB62AEDC27EEA37300F8CA55 /* ImportingExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingExpensesFile.swift; sourceTree = "<group>"; };
 		DB62AEE027EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperExpensesFileCSVParser.swift; sourceTree = "<group>"; };
 		DB62AEE227EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperCategoryCSVLineParser.swift; sourceTree = "<group>"; };
 		DB62AEE427EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperBalanceAccountCSVLineParser.swift; sourceTree = "<group>"; };
-		DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperExpenseCSVLineParser.swift; sourceTree = "<group>"; };
+		DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperBalanceAccountOperationCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperBalanceAccountOperationCSVLineParser.swift; sourceTree = "<group>"; };
 		DB62AEE827EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerCategoryCSVLineParser.swift; sourceTree = "<group>"; };
-		DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerExpenseCSVLineParser.swift; sourceTree = "<group>"; };
+		DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerBalanceAccountOperationCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerBalanceAccountOperationCSVLineParser.swift; sourceTree = "<group>"; };
 		DB62AEEC27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerBalanceAccountCSVLineParser.swift; sourceTree = "<group>"; };
 		DB62AEEE27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingMoneyTrackerExpensesFileCSVParser.swift; sourceTree = "<group>"; };
 		DB62AEF027EEB78500F8CA55 /* ImportingCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCategoryAdapter.swift; sourceTree = "<group>"; };
@@ -974,6 +977,9 @@
 		DBDC9313282219C500D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DateHorizontalPickerViewStrings.strings; sourceTree = "<group>"; };
 		DBDC9314282219C600D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DateHorizontalPickerViewStrings.strings; sourceTree = "<group>"; };
 		DBDC93152822931400D8C435 /* PassthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughView.swift; sourceTree = "<group>"; };
+		DBDC931D282A6A1E00D8C435 /* ImportingBalanceAccountOperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingBalanceAccountOperationType.swift; sourceTree = "<group>"; };
+		DBDC9325282A6BC700D8C435 /* ImportingCoinKeeperBalanceAccountOperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperBalanceAccountOperationType.swift; sourceTree = "<group>"; };
+		DBDC9327282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperBalanceAccountOperationTypeParser.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2363,6 +2369,7 @@
 				DB62AED127EDFE1900F8CA55 /* ImportBalanceAccount */,
 				DB62AED027EDFE1000F8CA55 /* ImportCategory */,
 				DBDC93172824AF5500D8C435 /* ImportBalanceAccountOperation */,
+				DBDC9320282A6A7900D8C435 /* ImportingBalanceAccountOperationType */,
 			);
 			path = Import;
 			sourceTree = "<group>";
@@ -2724,11 +2731,21 @@
 		DBDC93172824AF5500D8C435 /* ImportBalanceAccountOperation */ = {
 			isa = PBXGroup;
 			children = (
-				DB62AEDA27EEA23300F8CA55 /* ImportingExpense.swift */,
-				DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift */,
-				DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift */,
+				DB62AEDA27EEA23300F8CA55 /* ImportingBalanceAccountOperation.swift */,
+				DB62AEE627EEB14700F8CA55 /* ImportingCoinKeeperBalanceAccountOperationCSVLineParser.swift */,
+				DB62AEEA27EEB4AB00F8CA55 /* ImportingMoneyTrackerBalanceAccountOperationCSVLineParser.swift */,
 			);
 			path = ImportBalanceAccountOperation;
+			sourceTree = "<group>";
+		};
+		DBDC9320282A6A7900D8C435 /* ImportingBalanceAccountOperationType */ = {
+			isa = PBXGroup;
+			children = (
+				DBDC931D282A6A1E00D8C435 /* ImportingBalanceAccountOperationType.swift */,
+				DBDC9325282A6BC700D8C435 /* ImportingCoinKeeperBalanceAccountOperationType.swift */,
+				DBDC9327282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift */,
+			);
+			path = ImportingBalanceAccountOperationType;
 			sourceTree = "<group>";
 		};
 		F6CDF223860AC628D18B4DED /* Frameworks */ = {
@@ -3478,24 +3495,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB62AEE727EEB14700F8CA55 /* ImportingCoinKeeperExpenseCSVLineParser.swift in Sources */,
-				DB62AEEB27EEB4AB00F8CA55 /* ImportingMoneyTrackerExpenseCSVLineParser.swift in Sources */,
+				DBDC931E282A6A1E00D8C435 /* ImportingBalanceAccountOperationType.swift in Sources */,
+				DB62AEE727EEB14700F8CA55 /* ImportingCoinKeeperBalanceAccountOperationCSVLineParser.swift in Sources */,
+				DB62AEEB27EEB4AB00F8CA55 /* ImportingMoneyTrackerBalanceAccountOperationCSVLineParser.swift in Sources */,
 				DB62AED727EEA18B00F8CA55 /* ImportingCategory.swift in Sources */,
 				DB62AEE327EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift in Sources */,
 				DB62AEC427EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift in Sources */,
 				DB62AEEF27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift in Sources */,
 				DB62AEC627EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift in Sources */,
 				DB62AED927EEA21800F8CA55 /* ImportingBalanceAccount.swift in Sources */,
-				DB62AEDB27EEA23300F8CA55 /* ImportingExpense.swift in Sources */,
+				DB62AEDB27EEA23300F8CA55 /* ImportingBalanceAccountOperation.swift in Sources */,
 				DB62AEE527EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift in Sources */,
 				DB7486C927CCE410004DF67B /* Files.swift in Sources */,
 				DB62AEC827EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift in Sources */,
 				DB62AEED27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift in Sources */,
+				DBDC9328282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift in Sources */,
 				DB62AEBE27EDC97F00F8CA55 /* ExportExpense.swift in Sources */,
 				DB62AEE127EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift in Sources */,
 				DB62AEE927EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift in Sources */,
 				DB62AEBA27EDB98100F8CA55 /* ExportBalanceAccount.swift in Sources */,
 				DB62AEC227EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift in Sources */,
+				DBDC9326282A6BC700D8C435 /* ImportingCoinKeeperBalanceAccountOperationType.swift in Sources */,
 				DB62AEDD27EEA37300F8CA55 /* ImportingExpensesFile.swift in Sources */,
 				DB62AEC027EDCA8600F8CA55 /* ExportExpensesFile.swift in Sources */,
 				DB62AEBC27EDC94F00F8CA55 /* ExportCategory.swift in Sources */,

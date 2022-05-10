@@ -13,11 +13,11 @@ class ImportingCoinKeeperExpensesFileCSVParser {
     func parseCSV(_ csvString: String) throws -> ImportingExpensesFile {
         try verifyFormat(csvString)
         let csvLines = csvString.components(separatedBy: "\r\n")
-        let expenses = parseExpenses(csvLines: csvLines)
         let balanceAccounts = parseBalanceAccounts(csvLines: csvLines)
         let categories = parseCategories(csvLines: csvLines)
+        let expenses = parseExpenses(csvLines: csvLines, balanceAccounts: balanceAccounts)
         return ImportingExpensesFile(
-            expenses: expenses,
+            operations: expenses,
             categories: categories,
             balanceAccounts: balanceAccounts
         )
@@ -33,16 +33,16 @@ class ImportingCoinKeeperExpensesFileCSVParser {
     
     // MARK: - Parse expenses
     
-    private let expenseParser = ImportingCoinKeeperExpenseCSVLineParser()
+    private let expenseParser = ImportingCoinKeeperBalanceAccountOperationCSVLineParser()
     
-    private func parseExpenses(csvLines: [String]) -> [ImportingExpense] {
+    private func parseExpenses(csvLines: [String], balanceAccounts accounts: [ImportingBalanceAccount]) -> [ImportingBalanceAccountOperation] {
         let expensesCSVLines = findExpensesCSVLines(in: csvLines)
-        return expensesCSVLines.compactMap { parseExpense(csvLine: $0) }
+        return expensesCSVLines.compactMap { parseExpense(csvLine: $0, balanceAccounts: accounts) }
     }
     
-    private func parseExpense(csvLine: String) -> ImportingExpense? {
+    private func parseExpense(csvLine: String, balanceAccounts accounts: [ImportingBalanceAccount]) -> ImportingBalanceAccountOperation? {
         do {
-            return try expenseParser.parse(csvLine: csvLine)
+            return try expenseParser.parse(csvLine: csvLine, balanceAccounts: accounts)
         } catch {
             print(error)
             return nil

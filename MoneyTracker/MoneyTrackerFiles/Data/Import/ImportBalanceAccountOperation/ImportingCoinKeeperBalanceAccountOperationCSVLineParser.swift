@@ -1,5 +1,5 @@
 //
-//  ImportingCoinKeeperExpenseCSVLineParser.swift
+//  ImportingCoinKeeperBalanceAccountOperationCSVLineParser.swift
 //  MoneyTrackerFiles
 //
 //  Created by Oleksandr Orlov on 26.03.2022.
@@ -7,20 +7,22 @@
 
 import Foundation
 
-class ImportingCoinKeeperExpenseCSVLineParser {
+class ImportingCoinKeeperBalanceAccountOperationCSVLineParser {
     
-    func parse(csvLine: String) throws -> ImportingExpense {
+    func parse(csvLine: String, balanceAccounts accounts: [ImportingBalanceAccount]) throws -> ImportingBalanceAccountOperation {
         let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
         let date = try parseDate(components: components)
+        let from = components[safe: fromIndex] ?? ""
+        let to = components[safe: toIndex] ?? ""
+        let operationType = try parseOperationType(components: components, fromField: from, accounts: accounts)
         let amount = try parseAmount(components: components)
-        let balanceAccount = components[safe: balanceAccountIndex]
-        let category = components[safe: categoryIndex]
         let currency = components[safe: currencyIndex]
         let comment = components[safe: commentIndex]
-        return ImportingExpense(
+        return ImportingBalanceAccountOperation(
             date: date,
-            balanceAccount: balanceAccount ?? "",
-            category: category ?? "",
+            operationType: operationType,
+            from: from,
+            to: to,
             amount: amount,
             currency: currency ?? "",
             comment: comment ?? ""
@@ -45,6 +47,21 @@ class ImportingCoinKeeperExpenseCSVLineParser {
         return date
     }
     
+    // MARK: - Parse operation type
+    
+    private let operationTypeParser = ImportingCoinKeeperBalanceAccountOperationTypeParser()
+    
+    private func parseOperationType(
+        components: [String],
+        fromField: String,
+        accounts: [ImportingBalanceAccount]
+    ) throws -> ImportingBalanceAccountOperationType {
+        guard let operationTypeRaw = components[safe: typeIndex], operationTypeRaw.isNonEmpty else {
+            throw ConvertError.noOperationType
+        }
+        return try operationTypeParser.parseType(operationTypeRaw: operationTypeRaw, fromField: fromField, balanceAccounts: accounts)
+    }
+    
     // MARK: - Parse amount
     
     private func parseAmount(components: [String]) throws -> Decimal {
@@ -61,8 +78,8 @@ class ImportingCoinKeeperExpenseCSVLineParser {
     
     private let dateIndex = 0
     private let typeIndex = 1
-    private let balanceAccountIndex = 2
-    private let categoryIndex = 3
+    private let fromIndex = 2
+    private let toIndex = 3
     private let amountIndex = 5
     private let currencyIndex = 6
     private let commentIndex = 10
@@ -72,6 +89,7 @@ class ImportingCoinKeeperExpenseCSVLineParser {
     enum ConvertError: Error {
         case noDate
         case unsupportedDateFormat
+        case noOperationType
         case noAmount
         case unsupportedAmountFormat
     }

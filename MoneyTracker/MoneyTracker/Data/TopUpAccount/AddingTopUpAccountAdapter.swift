@@ -7,10 +7,12 @@
 
 import Foundation
 import MoneyTrackerPresentation
+import MoneyTrackerStorage
 
 typealias PresentationAddingTopUpAccount = MoneyTrackerPresentation.AddingReplenishment
 
 typealias PresentationEditingReplenishment = MoneyTrackerPresentation.EditingReplenishment
+typealias StorageAddingReplenishment = MoneyTrackerStorage.AddingReplenishment
 
 class AddingTopUpAccountAdapter {
     

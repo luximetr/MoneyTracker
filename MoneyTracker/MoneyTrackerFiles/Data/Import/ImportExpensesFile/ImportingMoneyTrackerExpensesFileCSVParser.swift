@@ -16,7 +16,7 @@ class ImportingMoneyTrackerExpensesFileCSVParser {
         let balanceAccounts = parseBalanceAccounts(csvLines: csvLines)
         let categories = parseCategories(csvLines: csvLines)
         return ImportingExpensesFile(
-            expenses: expenses,
+            operations: expenses,
             categories: categories,
             balanceAccounts: balanceAccounts
         )
@@ -32,14 +32,14 @@ class ImportingMoneyTrackerExpensesFileCSVParser {
     
     // MARK: - Parse expenses
     
-    private let expenseParser = ImportingMoneyTrackerExpenseCSVLineParser()
+    private let expenseParser = ImportingMoneyTrackerBalanceAccountOperationCSVLineParser()
     
-    private func parseExpenses(csvLines: [String]) -> [ImportingExpense] {
+    private func parseExpenses(csvLines: [String]) -> [ImportingBalanceAccountOperation] {
         let expensesCSVLines = findExpensesCSVLines(in: csvLines)
         return expensesCSVLines.compactMap { parseExpense(csvLine: $0) }
     }
     
-    private func parseExpense(csvLine: String) -> ImportingExpense? {
+    private func parseExpense(csvLine: String) -> ImportingBalanceAccountOperation? {
         do {
             return try expenseParser.parse(csvLine: csvLine)
         } catch {

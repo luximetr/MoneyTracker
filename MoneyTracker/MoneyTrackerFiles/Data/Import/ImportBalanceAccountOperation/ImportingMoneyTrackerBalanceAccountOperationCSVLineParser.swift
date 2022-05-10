@@ -1,5 +1,5 @@
 //
-//  ImportingMoneyTrackerExpenseCSVLineParser.swift
+//  ImportingMoneyTrackerBalanceAccountOperationCSVLineParser.swift
 //  MoneyTrackerFiles
 //
 //  Created by Oleksandr Orlov on 26.03.2022.
@@ -7,20 +7,22 @@
 
 import Foundation
 
-class ImportingMoneyTrackerExpenseCSVLineParser {
+class ImportingMoneyTrackerBalanceAccountOperationCSVLineParser {
     
-    func parse(csvLine: String) throws -> ImportingExpense {
+    func parse(csvLine: String) throws -> ImportingBalanceAccountOperation {
         let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
         let date = try parseDate(components: components)
+        let operationType = try parseOperationType(components: components)
         let amount = try parseAmount(components: components)
-        let balanceAccount = components[safe: balanceAccountIndex]
-        let category = components[safe: categoryIndex]
+        let from = components[safe: fromIndex]
+        let to = components[safe: toIndex]
         let currency = components[safe: currencyIndex]
         let comment = components[safe: commentIndex]
-        return ImportingExpense(
+        return ImportingBalanceAccountOperation(
             date: date,
-            balanceAccount: balanceAccount ?? "",
-            category: category ?? "",
+            operationType: operationType,
+            from: from ?? "",
+            to: to ?? "",
             amount: amount,
             currency: currency ?? "",
             comment: comment ?? ""
@@ -45,6 +47,18 @@ class ImportingMoneyTrackerExpenseCSVLineParser {
         return date
     }
     
+    // MARK: - Parse operation type
+    
+    private func parseOperationType(components: [String]) throws -> ImportingBalanceAccountOperationType {
+        guard let operationTypeRaw = components[safe: typeIndex], operationTypeRaw.isNonEmpty else {
+            throw ConvertError.noOperationType
+        }
+        guard let operationType = ImportingBalanceAccountOperationType(rawValue: operationTypeRaw) else {
+            throw ConvertError.unsupportedOperationType
+        }
+        return operationType
+    }
+    
     // MARK: - Parse amount
     
     private func parseAmount(components: [String]) throws -> Decimal {
@@ -59,18 +73,21 @@ class ImportingMoneyTrackerExpenseCSVLineParser {
     
     // MARK: - Indexes
     
-    private let balanceAccountIndex = 0
-    private let categoryIndex = 1
+    private let fromIndex = 0
+    private let toIndex = 1
     private let dateIndex = 2
     private let amountIndex = 3
     private let currencyIndex = 4
     private let commentIndex = 5
+    private let typeIndex = 6
     
     // MARK: - Errors
     
     enum ConvertError: Error {
         case noDate
         case unsupportedDateFormat
+        case noOperationType
+        case unsupportedOperationType
         case noAmount
         case unsupportedAmountFormat
     }
