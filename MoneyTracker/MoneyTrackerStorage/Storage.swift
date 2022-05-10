@@ -169,20 +169,6 @@ public class Storage {
     
     // MARK: - Categories
     
-    public func getCategories() throws -> [Category] {
-        do {
-            let selectedRows = try sqliteDatabase.categoryTable.select()
-            let categories: [Category] = try selectedRows.map { selectedRow in
-                let categoryColor = try CategoryColor(selectedRow.color)
-                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
-                return category
-            }
-            return categories
-        } catch {
-            throw error
-        }
-    }
-    
     public func getCategoriesOrdered() throws -> [Category] {
         do {
             let selectedRows = try sqliteDatabase.categoryTable.selectOrderByOrderNumber()
@@ -199,27 +185,13 @@ public class Storage {
     
     public func getCategory(id: String) throws -> Category {
         do {
-            let selectedRows = try sqliteDatabase.categoryTable.selectWhereIdIn([id])
+            let selectedRows = try sqliteDatabase.categoryTable.selectOrderByOrderNumber()
             let categories: [Category] = try selectedRows.map { selectedRow in
                 let categoryColor = try CategoryColor(selectedRow.color)
                 let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
                 return category
             }
             return categories.first!
-        } catch {
-            throw error
-        }
-    }
-    
-    public func getCategories(ids: [String]) throws -> [Category] {
-        do {
-            let selectedRows = try sqliteDatabase.categoryTable.selectWhereIdIn(ids)
-            let categories: [Category] = try selectedRows.map { selectedRow in
-                let categoryColor = try CategoryColor(selectedRow.color)
-                let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
-                return category
-            }
-            return categories
         } catch {
             throw error
         }
@@ -318,16 +290,6 @@ public class Storage {
         return balanceAccount
     }
     
-    public func getAllBalanceAccounts() throws -> [BalanceAccount] {
-        do {
-            let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.select()
-            let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
-            return balanceAccounts
-        } catch {
-            throw error
-        }
-    }
-    
     public func getAllBalanceAccountsOrdered() throws -> [BalanceAccount] {
         do {
             let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectOrderByOrderNumber()
@@ -343,16 +305,6 @@ public class Storage {
             let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectOrderByOrderNumber()
             let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
             return balanceAccounts.first!
-        } catch {
-            throw error
-        }
-    }
-    
-    public func getBalanceAccounts(ids: [String]) throws -> [BalanceAccount] {
-        do {
-            let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectWhereIdIn(ids)
-            let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
-            return balanceAccounts
         } catch {
             throw error
         }
@@ -505,8 +457,8 @@ public class Storage {
     
     public func addExpenses(coinKeeperExpenses: [CoinKeeperExpense]) throws {
         do {
-            let categories = try getCategories()
-            let accounts = try getAllBalanceAccounts()
+            let categories = try getCategoriesOrdered()
+            let accounts = try getAllBalanceAccountsOrdered()
             let converter = CoinKeeperExpenseToExpenseConverter()
             let expenses = converter.convert(coinKeeperExpenses: coinKeeperExpenses, categories: categories, balanceAccounts: accounts)
             try sqliteDatabase.beginTransaction()
@@ -658,7 +610,7 @@ public class Storage {
     
     public func getExpenses(startDate: Date, endDate: Date) throws -> [Expense] {
         do {            
-            let expenseSelectedRows = try sqliteDatabase.expenseTable.selectWhereDateBetween(startDate: startDate.timeIntervalSince1970, endDate: endDate.timeIntervalSince1970)
+            let expenseSelectedRows = try sqliteDatabase.expenseTable.selectWhereDateBetween(startDate: Int64(startDate.timeIntervalSince1970), endDate: Int64(endDate.timeIntervalSince1970))
             let expenses: [Expense] = expenseSelectedRows.map { expenseSelectedRow in
                 let id = expenseSelectedRow.id
                 let amount = expenseSelectedRow.amount
@@ -708,7 +660,7 @@ public class Storage {
     
     @discardableResult
     public func saveImportingExpensesFile(_ file: ImportingExpensesFile) throws -> ImportedExpensesFile {
-        let categories = try getCategories()
+        let categories = try getCategoriesOrdered()
         let uniqueImportingCategories = file.categories.filter { importingCategory in
             return !categories.contains(where: { findIfCategoriesEqual(importingCategory: importingCategory, category: $0) })
         }
@@ -716,15 +668,15 @@ public class Storage {
         let addingCategories = uniqueImportingCategories.map { importingCategoryAdapter.adaptToAdding(importingCategory: $0) }
         let importedCategories = try addCategories(addingCategories)
         
-        let balanceAccounts = try getAllBalanceAccounts()
+        let balanceAccounts = try getAllBalanceAccountsOrdered()
         let uniqueImportingBalanceAccounts = file.balanceAccounts.filter { importingBalanceAccount in
             return !balanceAccounts.contains(where: { findIfBalanceAccountsEqual(importingBalanceAccount: importingBalanceAccount, balanceAccount: $0) })
         }
         let addingBalanceAccounts = createAddingBalanceAccounts(importingBalanceAccounts: uniqueImportingBalanceAccounts)
         let importedBalanceAccounts = addBalanceAccounts(addingBalanceAccounts)
         
-        let allCategories = try getCategories()
-        let allBalanceAccounts = try getAllBalanceAccounts()
+        let allCategories = try getCategoriesOrdered()
+        let allBalanceAccounts = try getAllBalanceAccountsOrdered()
         
         let maxDate = file.expenses.max(by: { $0.date < $1.date })?.date
         let minDate = file.expenses.min(by: { $0.date < $1.date })?.date
@@ -884,7 +836,7 @@ public class Storage {
             case "replenishment":
                 let balanceReplenishmentOperation = try extractBalanceReplenishment(row)
                 operations.append(balanceReplenishmentOperation)
-            case "balance_transfer":
+            case "transfer":
                 let balanceReplenishmentOperation = try extractBalanceTransfer(row)
                 operations.append(balanceReplenishmentOperation)
             default:
@@ -940,33 +892,33 @@ public class Storage {
     
     private func extractBalanceTransfer(_ operationSelectedRow: OperationSelectedRow) throws -> Operation {
         let error = Error("ggg")
-        guard let id = operationSelectedRow.balanceTransferId else { throw error }
-        guard let timestamp = operationSelectedRow.balanceTransferTimestamp else { throw error }
+        guard let id = operationSelectedRow.transferId else { throw error }
+        guard let timestamp = operationSelectedRow.transferTimestamp else { throw error }
         let balanceTransferDate = Date(timeIntervalSince1970: TimeInterval(timestamp))
         
-        guard let fromAmount = operationSelectedRow.balanceTransferFromAmount else { throw error }
+        guard let fromAmount = operationSelectedRow.transferFromAmount else { throw error }
         let balanceTransferFromAmount = Decimal(fromAmount) / 100
-        guard let fromBalanceAccountId = operationSelectedRow.balanceTransferFromBalanceAccountId else { throw error }
-        guard let fromBalanceAccountName = operationSelectedRow.balanceTransferFromBalanceAccountName else { throw error }
-        guard let fromBalanceAccountAmount = operationSelectedRow.balanceTransferFromBalanceAccountAmount else { throw error }
-        guard let fromBalanceAccountCurrency = operationSelectedRow.balanceTransferFromBalanceAccountCurrency else { throw error }
-        guard let fromBalanceAccountColor = operationSelectedRow.balanceTransferFromBalanceAccountColor else { throw error }
+        guard let fromBalanceAccountId = operationSelectedRow.transferFromBalanceAccountId else { throw error }
+        guard let fromBalanceAccountName = operationSelectedRow.transferFromBalanceAccountName else { throw error }
+        guard let fromBalanceAccountAmount = operationSelectedRow.transferFromBalanceAccountAmount else { throw error }
+        guard let fromBalanceAccountCurrency = operationSelectedRow.transferFromBalanceAccountCurrency else { throw error }
+        guard let fromBalanceAccountColor = operationSelectedRow.transferFromBalanceAccountColor else { throw error }
         let fromCurrency = try Currency(fromBalanceAccountCurrency)
         let fromBalanceAccountColorEnd = BalanceAccountColor(rawValue: fromBalanceAccountColor)!
         let fromBalanceAccount = BalanceAccount(id: fromBalanceAccountId, name: fromBalanceAccountName, amount: Decimal(fromBalanceAccountAmount) / 100, currency: fromCurrency, color: fromBalanceAccountColorEnd)
         
-        guard let toAmount = operationSelectedRow.balanceTransferToAmount else { throw error }
+        guard let toAmount = operationSelectedRow.transferToAmount else { throw error }
         let balanceTransferToAmount = Decimal(toAmount) / 100
-        guard let toBalanceAccountId = operationSelectedRow.balanceTransferToBalanceAccountId else { throw error }
-        guard let toBalanceAccountName = operationSelectedRow.balanceTransferToBalanceAccountName else { throw error }
-        guard let toBalanceAccountAmount = operationSelectedRow.balanceTransferToBalanceAccountAmount else { throw error }
-        guard let toBalanceAccountCurrency = operationSelectedRow.balanceTransferToBalanceAccountCurrency else { throw error }
-        guard let toBalanceAccountColor = operationSelectedRow.balanceTransferToBalanceAccountColor else { throw error }
+        guard let toBalanceAccountId = operationSelectedRow.transferToBalanceAccountId else { throw error }
+        guard let toBalanceAccountName = operationSelectedRow.transferToBalanceAccountName else { throw error }
+        guard let toBalanceAccountAmount = operationSelectedRow.transferToBalanceAccountAmount else { throw error }
+        guard let toBalanceAccountCurrency = operationSelectedRow.transferToBalanceAccountCurrency else { throw error }
+        guard let toBalanceAccountColor = operationSelectedRow.transferToBalanceAccountColor else { throw error }
         let toCurrency = try Currency(toBalanceAccountCurrency)
         let toBalanceAccountColorEnd = BalanceAccountColor(rawValue: toBalanceAccountColor)!
         let toBalanceAccount = BalanceAccount(id: toBalanceAccountId, name: toBalanceAccountName, amount: Decimal(toBalanceAccountAmount) / 100, currency: toCurrency, color: toBalanceAccountColorEnd)
         
-        let comment = operationSelectedRow.balanceTransferComment
+        let comment = operationSelectedRow.transferComment
         let balanceTransfer = Transfer(id: id, date: balanceTransferDate, fromAccountId: fromBalanceAccountId, fromAmount: balanceTransferFromAmount, toAccountId: toBalanceAccountId, toAmount: balanceTransferToAmount, comment: comment)
         return .balanceTransfer(balanceTransfer: balanceTransfer, fromBalanceAccount: fromBalanceAccount, toBalanceAccount: toBalanceAccount)
     }

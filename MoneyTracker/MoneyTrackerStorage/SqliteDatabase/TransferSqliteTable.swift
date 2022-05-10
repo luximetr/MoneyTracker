@@ -64,10 +64,9 @@ class TransferSqliteTable {
                 FOREIGN KEY(to_account_id) REFERENCES balance_account(id)
             );
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - INSERT
@@ -78,17 +77,16 @@ class TransferSqliteTable {
             INSERT INTO transfer(id, timestamp, from_account_id, from_amount, to_account_id, to_amount, comment)
             VALUES (?, ?, ?, ?, ?, ?, ?);
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.timestamp)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.fromAccountId, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 4, values.fromAmount)
-        try sqlite3BindText(databaseConnection, preparedStatement, 5, values.toAccountId, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 6, values.toAmount)
-        try sqlite3BindTextNull(databaseConnection, preparedStatement, 7, values.comment, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, values.id)
+        try sqlite3BindInt64(preparedStatement, 2, values.timestamp)
+        try sqlite3BindText(preparedStatement, 3, values.fromAccountId)
+        try sqlite3BindInt64(preparedStatement, 4, values.fromAmount)
+        try sqlite3BindText(preparedStatement, 5, values.toAccountId)
+        try sqlite3BindInt64(preparedStatement, 6, values.toAmount)
+        try sqlite3BindTextNull(preparedStatement, 7, values.comment)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - UPDATE
@@ -105,17 +103,16 @@ class TransferSqliteTable {
                 comment = ?
             WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, values.timestamp)
-        try sqlite3BindText(databaseConnection, preparedStatement, 2, values.fromAccountId, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.fromAmount)
-        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.toAccountId, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 5, values.toAmount)
-        try sqlite3BindTextNull(databaseConnection, preparedStatement, 6, values.comment, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 7, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindInt64(preparedStatement, 1, values.timestamp)
+        try sqlite3BindText(preparedStatement, 2, values.fromAccountId)
+        try sqlite3BindInt64(preparedStatement, 3, values.fromAmount)
+        try sqlite3BindText(preparedStatement, 4, values.toAccountId)
+        try sqlite3BindInt64(preparedStatement, 5, values.toAmount)
+        try sqlite3BindTextNull(preparedStatement, 6, values.comment)
+        try sqlite3BindText(preparedStatement, 7, id)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - DELETE
@@ -125,23 +122,22 @@ class TransferSqliteTable {
             """
             DELETE FROM transfer WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, id)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - SELECT
 
-    private func extractTransferSelectedRow(_ preparedStatement: OpaquePointer?) throws -> TransferSelectedRow {
-        let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-        let timestamp = sqlite3ColumnInt64(databaseConnection, preparedStatement, 1)
-        let fromAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 2)
-        let fromAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 3)
-        let toAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 4)
-        let toAmount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 5)
-        let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 6)
+    private func extractTransferSelectedRow(_ preparedStatement: OpaquePointer) throws -> TransferSelectedRow {
+        let id = try sqlite3ColumnText(preparedStatement, 0)
+        let timestamp = try sqlite3ColumnInt64(preparedStatement, 1)
+        let fromAccountId = try sqlite3ColumnText(preparedStatement, 2)
+        let fromAmount = try sqlite3ColumnInt64(preparedStatement, 3)
+        let toAccountId = try sqlite3ColumnText(preparedStatement, 4)
+        let toAmount = try sqlite3ColumnInt64(preparedStatement, 5)
+        let comment = try sqlite3ColumnTextNull(preparedStatement, 6)
         let transferSelectedRow = TransferSelectedRow(id: id, timestamp: timestamp, fromAccountId: fromAccountId, fromAmount: fromAmount, toAccountId: toAccountId, toAmount: toAmount, comment: comment)
         return transferSelectedRow
     }
@@ -152,14 +148,13 @@ class TransferSqliteTable {
             SELECT id, timestamp, from_account_id, from_amount, to_account_id, to_amount, comment FROM transfer
             WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, id)
+        while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractTransferSelectedRow(preparedStatement)
             return selectedRow
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return nil
     }
 

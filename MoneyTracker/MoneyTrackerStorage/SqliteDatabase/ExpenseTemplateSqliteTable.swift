@@ -63,10 +63,9 @@ class ExpenseTemplateSqliteTable {
                 FOREIGN KEY(account_id) REFERENCES balance_account(id)
             );
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - INSERT
@@ -77,17 +76,16 @@ class ExpenseTemplateSqliteTable {
             INSERT INTO expense_template(id, name, amount, account_id, category_id, comment, order_number)
             VALUES (?, ?, ?, ?, ?, ?, ?);
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, values.id, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 2, values.name, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 3, values.amount)
-        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.balanceAccountId, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 5, values.categoryId, -1, nil)
-        try sqlite3BindTextNull(databaseConnection, preparedStatement, 6, values.comment, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 7, values.orderNumber)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, values.id)
+        try sqlite3BindText(preparedStatement, 2, values.name)
+        try sqlite3BindInt64(preparedStatement, 3, values.amount)
+        try sqlite3BindText(preparedStatement, 4, values.balanceAccountId)
+        try sqlite3BindText(preparedStatement, 5, values.categoryId)
+        try sqlite3BindTextNull(preparedStatement, 6, values.comment)
+        try sqlite3BindInt64(preparedStatement, 7, values.orderNumber)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - UPDATE
@@ -103,16 +101,15 @@ class ExpenseTemplateSqliteTable {
                 comment = ?
             WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, values.name, -1, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 2, values.amount)
-        try sqlite3BindText(databaseConnection, preparedStatement, 3, values.balanceAccountId, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 4, values.categoryId, -1, nil)
-        try sqlite3BindTextNull(databaseConnection, preparedStatement, 5, values.comment, -1, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 6, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, values.name)
+        try sqlite3BindInt64(preparedStatement, 2, values.amount)
+        try sqlite3BindText(preparedStatement, 3, values.balanceAccountId)
+        try sqlite3BindText(preparedStatement, 4, values.categoryId)
+        try sqlite3BindTextNull(preparedStatement, 5, values.comment)
+        try sqlite3BindText(preparedStatement, 6, id)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     func updateWhereId(_ id: String, orderNumber: Int64) throws {
@@ -120,12 +117,11 @@ class ExpenseTemplateSqliteTable {
             """
             UPDATE expense_template SET order_number = ? WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindInt64(databaseConnection, preparedStatement, 1, orderNumber)
-        try sqlite3BindText(databaseConnection, preparedStatement, 2, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindInt64(preparedStatement, 1, orderNumber)
+        try sqlite3BindText(preparedStatement, 2, id)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - DELETE
@@ -135,23 +131,22 @@ class ExpenseTemplateSqliteTable {
             """
             DELETE FROM expense_template WHERE id = ?;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
-        try sqlite3BindText(databaseConnection, preparedStatement, 1, id, -1, nil)
-        try sqlite3StepDone(databaseConnection, preparedStatement)
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, id)
+        try sqlite3StepDone(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
     }
     
     // MARK: - SELECT
     
-    private func extractExpenseTemplateSelectedRow(_ preparedStatement: OpaquePointer?) throws -> ExpenseTemplateSelectedRow {
-        let id = try sqlite3ColumnText(databaseConnection, preparedStatement, 0)
-        let name = try sqlite3ColumnText(databaseConnection, preparedStatement, 1)
-        let amount = sqlite3ColumnInt64(databaseConnection, preparedStatement, 2)
-        let balanceAccountId = try sqlite3ColumnText(databaseConnection, preparedStatement, 3)
-        let categoryId = try sqlite3ColumnText(databaseConnection, preparedStatement, 4)
-        let comment = try sqlite3ColumnTextNull(databaseConnection, preparedStatement, 5)
-        let orderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 6)
+    private func extractExpenseTemplateSelectedRow(_ preparedStatement: OpaquePointer) throws -> ExpenseTemplateSelectedRow {
+        let id = try sqlite3ColumnText(preparedStatement, 0)
+        let name = try sqlite3ColumnText(preparedStatement, 1)
+        let amount = try sqlite3ColumnInt64(preparedStatement, 2)
+        let balanceAccountId = try sqlite3ColumnText(preparedStatement, 3)
+        let categoryId = try sqlite3ColumnText(preparedStatement, 4)
+        let comment = try sqlite3ColumnTextNull(preparedStatement, 5)
+        let orderNumber = try sqlite3ColumnInt64(preparedStatement, 6)
         let expenseTemplateSelectedRow = ExpenseTemplateSelectedRow(id: id, name: name, amount: amount, balanceAccountId: balanceAccountId, categoryId: categoryId, comment: comment, orderNumber: orderNumber)
         return expenseTemplateSelectedRow
     }
@@ -161,14 +156,13 @@ class ExpenseTemplateSqliteTable {
             """
             SELECT id, name, amount, account_id, category_id, comment, order_number FROM expense_template;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         var selectedRows: [ExpenseTemplateSelectedRow] = []
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+        while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractExpenseTemplateSelectedRow(preparedStatement)
             selectedRows.append(selectedRow)
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return selectedRows
     }
     
@@ -177,14 +171,13 @@ class ExpenseTemplateSqliteTable {
             """
             SELECT id, name, amount, account_id, category_id, comment, order_number FROM expense_template ORDER BY order_number;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         var selectedRows: [ExpenseTemplateSelectedRow] = []
-        while(try sqlite3StepRow(databaseConnection, preparedStatement)) {
+        while(try sqlite3StepRow(preparedStatement)) {
             let selectedRow = try extractExpenseTemplateSelectedRow(preparedStatement)
             selectedRows.append(selectedRow)
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return selectedRows
     }
     
@@ -193,15 +186,14 @@ class ExpenseTemplateSqliteTable {
             """
             SELECT MAX(order_number) FROM expense_template;
             """
-        var preparedStatement: OpaquePointer?
-        try sqlite3PrepareV2(databaseConnection, statement, -1, &preparedStatement, nil)
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
         let maxOrderNumber: Int64?
-        if try sqlite3StepRow(databaseConnection, preparedStatement) {
-            maxOrderNumber = sqlite3ColumnInt64(databaseConnection, preparedStatement, 0)
+        if try sqlite3StepRow(preparedStatement) {
+            maxOrderNumber = try sqlite3ColumnInt64Null(preparedStatement, 0)
         } else {
             maxOrderNumber = nil
         }
-        try sqlite3Finalize(databaseConnection, preparedStatement)
+        try sqlite3Finalize(preparedStatement)
         return maxOrderNumber
     }
     
