@@ -310,6 +310,11 @@ public class Storage {
         }
     }
     
+    public func getBalanceAccount(name: String) throws -> BalanceAccount {
+        let row = try sqliteDatabase.balanceAccountTable.selectWhereNameIsEqualTo(name)
+        return try mapBalanceAccountSelectedRowToBalanceAccount(row)
+    }
+    
     @discardableResult
     public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws -> BalanceAccount {
         do {
@@ -454,31 +459,6 @@ public class Storage {
     }
     
     // MARK: - Expenses
-    
-    public func addExpenses(coinKeeperExpenses: [CoinKeeperExpense]) throws {
-        do {
-            let categories = try getCategoriesOrdered()
-            let accounts = try getAllBalanceAccountsOrdered()
-            let converter = CoinKeeperExpenseToExpenseConverter()
-            let expenses = converter.convert(coinKeeperExpenses: coinKeeperExpenses, categories: categories, balanceAccounts: accounts)
-            try sqliteDatabase.beginTransaction()
-            for expense in expenses {
-                let id = expense.id
-                let amount = Int64(try (expense.amount * 100).int())
-                let timestamp = Int64(expense.date.timeIntervalSince1970)
-                let comment = expense.comment
-                let categoryId = expense.categoryId
-                let balanceAccountId = expense.balanceAccountId
-                let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, accountId: balanceAccountId, categoryId: categoryId, comment: comment)
-                try sqliteDatabase.beginTransaction()
-                try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
-            }
-            try sqliteDatabase.commitTransaction()
-        } catch {
-            try sqliteDatabase.rollbackTransaction()
-            throw error
-        }
-    }
     
     @discardableResult
     public func addExpense(addingExpense: AddingExpense) throws -> Expense {

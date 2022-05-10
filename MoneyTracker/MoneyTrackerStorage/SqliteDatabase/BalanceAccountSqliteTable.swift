@@ -236,6 +236,19 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
         }
     }
     
+    func selectWhereNameIsEqualTo(_ name: String) throws -> BalanceAccountSelectedRow {
+        let statement =
+            """
+            SELECT id, name, amount, currency, color, order_number FROM balance_account
+            WHERE name = ?;
+            """
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, name)
+        _ = try sqlite3StepRow(preparedStatement)
+        try sqlite3Finalize(preparedStatement)
+        return try extractBalanceAccountSelectedRow(preparedStatement)
+    }
+    
     func selectOrderByOrderNumber() throws -> [BalanceAccountSelectedRow] {
         do {
             let statement =

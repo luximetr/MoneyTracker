@@ -314,8 +314,6 @@
 		DB7486C327CCE38E004DF67B /* MoneyTrackerFiles.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7486BD27CCE38E004DF67B /* MoneyTrackerFiles.framework */; };
 		DB7486C427CCE38E004DF67B /* MoneyTrackerFiles.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB7486BD27CCE38E004DF67B /* MoneyTrackerFiles.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB7486C927CCE410004DF67B /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486C827CCE410004DF67B /* Files.swift */; };
-		DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486D927CDD1FA004DF67B /* CoinKeeperExpense.swift */; };
-		DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E027CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift */; };
 		DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */; };
 		DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E627D065EA004DF67B /* StatisticScreenView.swift */; };
 		DB7793BD2810321000150822 /* BalanceAccountColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793BC2810321000150822 /* BalanceAccountColor.swift */; };
@@ -892,8 +890,6 @@
 		DB7486BD27CCE38E004DF67B /* MoneyTrackerFiles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerFiles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7486BF27CCE38E004DF67B /* MoneyTrackerFiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerFiles.h; sourceTree = "<group>"; };
 		DB7486C827CCE410004DF67B /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
-		DB7486D927CDD1FA004DF67B /* CoinKeeperExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpense.swift; sourceTree = "<group>"; };
-		DB7486E027CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKeeperExpenseToExpenseConverter.swift; sourceTree = "<group>"; };
 		DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticScreenViewController.swift; sourceTree = "<group>"; };
 		DB7486E627D065EA004DF67B /* StatisticScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticScreenView.swift; sourceTree = "<group>"; };
 		DB7793BC2810321000150822 /* BalanceAccountColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountColor.swift; sourceTree = "<group>"; };
@@ -1223,15 +1219,15 @@
 		2E91155427A93D4800359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2EDCEBF3281CFCFD001F3F58 /* Operation */,
 				2EB2E879281083410017ACDD /* AppearanceSetting */,
 				2ED248E328086BDF001E0498 /* Language */,
 				DB62AF0127EF03D200F8CA55 /* ExpensesFile */,
 				DB45FADE27E6F3290073C677 /* ExpenseTemplate */,
-				DB7486DB27CDD30C004DF67B /* Expense */,
 				2E926E8827BC55AD0081E3AE /* Currency */,
 				2E926E8227BC537D0081E3AE /* Category */,
 				2E926E8327BC538F0081E3AE /* Account */,
+				2EDCEBF3281CFCFD001F3F58 /* Operation */,
+				DB7486DB27CDD30C004DF67B /* Expense */,
 				2ED15EC827FE250500208386 /* Transfer */,
 				2EE1897B27FEBF29006D7DA9 /* TopUpAccount */,
 			);
@@ -1345,8 +1341,6 @@
 				2E926E9027BC58140081E3AE /* AddingExpense.swift */,
 				2E926E9127BC58140081E3AE /* EditingExpense.swift */,
 				2E926E9227BC58140081E3AE /* Expense.swift */,
-				DB7486D927CDD1FA004DF67B /* CoinKeeperExpense.swift */,
-				DB7486E027CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift */,
 				DB62AEF827EEFCCB00F8CA55 /* ImportingExpense.swift */,
 			);
 			path = Expense;
@@ -3195,7 +3189,6 @@
 				2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */,
 				2ED82B5B2815397B00789BA4 /* SqliteHelpers.swift in Sources */,
 				DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */,
-				DB7486E127CFB124004DF67B /* CoinKeeperExpenseToExpenseConverter.swift in Sources */,
 				2ED248EA28087002001E0498 /* Language.swift in Sources */,
 				2E5279592811AFAC00BC916B /* SqliteDatabase.swift in Sources */,
 				DB62AEF927EEFCCB00F8CA55 /* ImportingExpense.swift in Sources */,
@@ -3209,7 +3202,6 @@
 				DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB40042F280FA8C4004073D0 /* CategoryColor.swift in Sources */,
 				2E252626281922230025D2E9 /* Replenishment.swift in Sources */,
-				DB7486DA27CDD1FA004DF67B /* CoinKeeperExpense.swift in Sources */,
 				2E52795B2811AFC800BC916B /* CategorySqliteTable.swift in Sources */,
 				2EB2144128187F0F0058242F /* Transfer.swift in Sources */,
 				DB7793BD2810321000150822 /* BalanceAccountColor.swift in Sources */,

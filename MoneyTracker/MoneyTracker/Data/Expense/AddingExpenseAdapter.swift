@@ -14,6 +14,12 @@ typealias StorageAddingExpense = MoneyTrackerStorage.AddingExpense
 
 class AddingExpenseAdapter {
     
+    private let storage: Storage
+    
+    init(storage: Storage) {
+        self.storage = storage
+    }
+    
     func adaptToStorage(presentationAddingExpense: PresentationAddingExpense) -> StorageAddingExpense {
         return StorageAddingExpense(
             amount: presentationAddingExpense.amount,
@@ -21,6 +27,17 @@ class AddingExpenseAdapter {
             comment: presentationAddingExpense.comment,
             balanceAccountId: presentationAddingExpense.account.id,
             categoryId: presentationAddingExpense.category.id
+        )
+    }
+    
+    func adaptToStorage(filesImportingOperation: FilesImportingBalanceAccountOperation) throws -> StorageAddingExpense {
+        let account = try storage.getBalanceAccount(name: filesImportingOperation.from)
+        return StorageAddingExpense(
+            amount: filesImportingOperation.amount,
+            date: filesImportingOperation.date,
+            comment: filesImportingOperation.comment,
+            balanceAccountId: account.id,
+            categoryId: ""
         )
     }
 }

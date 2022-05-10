@@ -274,7 +274,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, addExpense presentationAddingExpense: PresentationAddingExpense) throws -> PresentationExpense {
         do {
-            let storageAddingExpense = AddingExpenseAdapter().adaptToStorage(presentationAddingExpense: presentationAddingExpense)
+            let storageAddingExpense = AddingExpenseAdapter(storage: storage).adaptToStorage(presentationAddingExpense: presentationAddingExpense)
             let storageAddedExpense = try storage.addExpense(addingExpense: storageAddingExpense)
             let presentationExpense = try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: storageAddedExpense)
             return presentationExpense
