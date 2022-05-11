@@ -70,7 +70,6 @@ func sqlite3Finalize(_ preparedStatement: OpaquePointer) throws {
 func sqlite3BindTextNull(_ preparedStatement: OpaquePointer, _ parameterIndex: Int32, _ parameterValue: String?) throws {
     if let parameterValue = parameterValue {
         let utf8String = (parameterValue as NSString).utf8String
-        let utf8StringLength = Int32(parameterValue.maximumLengthOfBytes(using: .utf8))
         let resultCode = sqlite3_bind_text(preparedStatement, parameterIndex, utf8String, -1, SQLITE_TRANSIENT)
         if resultCode != SQLITE_OK {
             let errorCode = resultCode
@@ -89,7 +88,6 @@ func sqlite3BindTextNull(_ preparedStatement: OpaquePointer, _ parameterIndex: I
 
 func sqlite3BindText(_ preparedStatement: OpaquePointer, _ parameterIndex: Int32, _ parameterValue: String) throws {
     let utf8String = (parameterValue as NSString).utf8String
-    let utf8StringLength = Int32(parameterValue.maximumLengthOfBytes(using: .utf8))
     let resultCode = sqlite3_bind_text(preparedStatement, parameterIndex, utf8String, -1, SQLITE_TRANSIENT)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode
