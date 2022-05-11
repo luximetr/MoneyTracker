@@ -310,6 +310,14 @@ public class Storage {
         }
     }
     
+    public func getBalanceAccount(name: String) throws -> BalanceAccount {
+        guard let row = try sqliteDatabase.balanceAccountTable.selectWhereName(name) else {
+            throw Error("Balance account not found")
+        }
+        let balanceAccount = try mapBalanceAccountSelectedRowToBalanceAccount(row)
+        return balanceAccount
+    }
+    
     @discardableResult
     public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws -> BalanceAccount {
         do {
