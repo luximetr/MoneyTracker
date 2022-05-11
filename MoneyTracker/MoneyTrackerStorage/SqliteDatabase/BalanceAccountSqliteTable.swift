@@ -211,6 +211,24 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
         }
     }
     
+    func selectWhereName(_ name: String) throws -> BalanceAccountSelectedRow? {
+        let statement =
+            """
+            SELECT id, name, amount, currency, color, order_number FROM balance_account
+            WHERE name = ?;
+            """
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, name)
+        let selectedRow: BalanceAccountSelectedRow?
+        if try sqlite3StepRow(preparedStatement) {
+            selectedRow = try extractBalanceAccountSelectedRow(preparedStatement)
+        } else {
+            selectedRow = nil
+        }
+        try sqlite3Finalize(preparedStatement)
+        return selectedRow
+    }
+    
     func selectWhereIdIn(_ ids: [String]) throws -> [BalanceAccountSelectedRow] {
         do {
             let statementValues = ids.map({ _ in "?" }).joined(separator: ", ")
@@ -234,19 +252,6 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
         } catch {
             throw error
         }
-    }
-    
-    func selectWhereNameIsEqualTo(_ name: String) throws -> BalanceAccountSelectedRow {
-        let statement =
-            """
-            SELECT id, name, amount, currency, color, order_number FROM balance_account
-            WHERE name = ?;
-            """
-        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
-        try sqlite3BindText(preparedStatement, 1, name)
-        _ = try sqlite3StepRow(preparedStatement)
-        try sqlite3Finalize(preparedStatement)
-        return try extractBalanceAccountSelectedRow(preparedStatement)
     }
     
     func selectOrderByOrderNumber() throws -> [BalanceAccountSelectedRow] {

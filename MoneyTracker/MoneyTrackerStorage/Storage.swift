@@ -311,7 +311,9 @@ public class Storage {
     }
     
     public func getBalanceAccount(name: String) throws -> BalanceAccount {
-        let row = try sqliteDatabase.balanceAccountTable.selectWhereNameIsEqualTo(name)
+        guard let row = try sqliteDatabase.balanceAccountTable.selectWhereName(name) else {
+            throw Error("Balance account not found")
+        }
         return try mapBalanceAccountSelectedRowToBalanceAccount(row)
     }
     
