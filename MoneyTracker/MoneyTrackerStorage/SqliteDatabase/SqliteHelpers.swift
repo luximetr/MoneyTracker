@@ -23,9 +23,8 @@ func sqlite3Open(_ filename: String) throws -> OpaquePointer {
 
 func sqlite3PrepareV2(_ databaseConnection: OpaquePointer, _ statement: String) throws -> OpaquePointer {
     let utf8Statement = (statement as NSString).utf8String
-    let utf8StatementLength = Int32(statement.maximumLengthOfBytes(using: .utf8))
     var preparedStatement: OpaquePointer!
-    let resultCode = sqlite3_prepare_v2(databaseConnection, utf8Statement, utf8StatementLength, &preparedStatement, nil)
+    let resultCode = sqlite3_prepare_v2(databaseConnection, utf8Statement, -1, &preparedStatement, nil)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode
         let errorMessage = String(cString: sqlite3_errstr(resultCode))
