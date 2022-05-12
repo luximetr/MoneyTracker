@@ -838,6 +838,28 @@ public class Storage {
         return operations
     }
     
+    public func getOperations(startDate: Date, endDate: Date) throws -> [Operation] {
+        let ff = try sqliteDatabase.operationSqliteView.selectWhereTimestampBetween(startTimestamp: Int64(startDate.timeIntervalSince1970), endTimestamp: Int64(endDate.timeIntervalSince1970))
+        var operations: [Operation] = []
+        for row in ff {
+             let type = row.type
+            switch type {
+            case "expense":
+                let expenseOperation = try extractExpense(row)
+                operations.append(expenseOperation)
+            case "replenishment":
+                let balanceReplenishmentOperation = try extractBalanceReplenishment(row)
+                operations.append(balanceReplenishmentOperation)
+            case "transfer":
+                let balanceReplenishmentOperation = try extractBalanceTransfer(row)
+                operations.append(balanceReplenishmentOperation)
+            default:
+                continue
+            }
+        }
+        return operations
+    }
+    
     private func extractExpense(_ operationSelectedRow: OperationSelectedRow) throws -> Operation {
         let error = Error("ggg")
         guard let id = operationSelectedRow.expenseId else { throw error }
