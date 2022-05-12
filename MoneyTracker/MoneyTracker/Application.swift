@@ -400,10 +400,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) throws {
         do {
-            let importingFile = try files.parseExpensesCSV(url: url)
-            let fileAdapter = ImportingExpensesFileAdapter()
-            let storageFile = fileAdapter.adaptToStorage(filesImportingExpensesFile: importingFile)
-            let storageImportedFile = try storage.saveImportingExpensesFile(storageFile)
+            let filesImportingFile = try files.parseExpensesCSV(url: url)
+            let fileAdapter = ImportingExpensesFileAdapter(storage: storage)
+            let storageImportingFile = fileAdapter.adaptToStorage(filesImportingExpensesFile: filesImportingFile)
+            let storageImportedFile = try storage.saveImportingExpensesFile(storageImportingFile)
             let importedFileAdapter = ImportedExpensesFileAdapter(storage: storage)
             let presentationImportedFile = try importedFileAdapter.adaptToPresentation(storageImportedExpensesFile: storageImportedFile)
             presentation.showDidImportExpensesFile(presentationImportedFile)

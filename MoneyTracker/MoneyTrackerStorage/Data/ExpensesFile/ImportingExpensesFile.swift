@@ -8,16 +8,16 @@
 import Foundation
 
 public struct ImportingExpensesFile {
-    public let expenses: [ImportingExpense]
+    public let operations: [ImportingOperation]
     public let categories: [ImportingCategory]
     public let balanceAccounts: [ImportingBalanceAccount]
     
     public init(
-        expenses: [ImportingExpense],
+        operations: [ImportingOperation],
         categories: [ImportingCategory],
         balanceAccounts: [ImportingBalanceAccount]
     ) {
-        self.expenses = expenses
+        self.operations = operations
         self.categories = categories
         self.balanceAccounts = balanceAccounts
     }

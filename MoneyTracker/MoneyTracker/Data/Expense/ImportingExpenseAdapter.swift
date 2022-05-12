@@ -9,29 +9,26 @@ import Foundation
 import MoneyTrackerFiles
 import MoneyTrackerStorage
 
-typealias FilesImportingBalanceAccountOperation = MoneyTrackerFiles.ImportingBalanceAccountOperation
 typealias StorageImportingExpense = MoneyTrackerStorage.ImportingExpense
 
 class ImportingExpenseAdapter {
     
-    func adaptToStorageAdding(filesImporingExpense: FilesImportingBalanceAccountOperation) -> StorageAddingExpense {
-        return StorageAddingExpense(
-            amount: filesImporingExpense.amount,
-            date: filesImporingExpense.date,
-            comment: filesImporingExpense.comment,
-            balanceAccountId: filesImporingExpense.from,
-            categoryId: filesImporingExpense.to
-        )
+    private let storage: Storage
+    
+    init(storage: Storage) {
+        self.storage = storage
     }
     
-    func adaptToStorage(filesImportingExpense: FilesImportingBalanceAccountOperation) -> StorageImportingExpense {
+    func adaptToStorage(filesImportingOperation: FilesImportingOperation) throws -> StorageImportingExpense {
+        let account = try storage.getBalanceAccount(name: filesImportingOperation.from)
+        let category = try storage.getCategory(name: filesImportingOperation.to)
         return StorageImportingExpense(
-            date: filesImportingExpense.date,
-            balanceAccount: filesImportingExpense.from,
-            category: filesImportingExpense.to,
-            amount: filesImportingExpense.amount,
-            currency: filesImportingExpense.currency,
-            comment: filesImportingExpense.comment
+            timestamp: filesImportingOperation.date,
+            balanceAccountId: account.id,
+            categoryId: category.id,
+            amount: filesImportingOperation.amount,
+            currency: filesImportingOperation.currency,
+            comment: filesImportingOperation.comment
         )
     }
 }

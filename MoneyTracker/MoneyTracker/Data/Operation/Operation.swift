@@ -6,19 +6,8 @@
 //
 
 import Foundation
-import MoneyTrackerPresentation
-typealias PresentationOperation = MoneyTrackerPresentation.Operation
 import MoneyTrackerStorage
-typealias StorageOperation = MoneyTrackerStorage.Operation
+import MoneyTrackerPresentation
 
-class OperationAdapter {
-    
-    func adaptToStorage(filesImportingOperation: FilesImportingBalanceAccountOperation) -> StorageOperation {
-        switch filesImportingOperation.operationType {
-            case .expense: fatalError()
-            case .transfer: fatalError()
-            case .replenishment: fatalError()
-        }
-        fatalError()
-    }
-}
+typealias StorageOperation = MoneyTrackerStorage.Operation
+typealias PresentationOperation = MoneyTrackerPresentation.Operation

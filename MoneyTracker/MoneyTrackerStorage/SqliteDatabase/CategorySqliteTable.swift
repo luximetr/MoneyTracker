@@ -153,6 +153,24 @@ class CategorySqliteTable: CustomDebugStringConvertible {
         }
     }
     
+    func selectWhereName(_ name: String) throws -> CategorySelectedRow? {
+        let statement =
+            """
+            SELECT id, name, icon, color, order_number FROM category
+            WHERE name = ?;
+            """
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindText(preparedStatement, 1, name)
+        let selectedRow: CategorySelectedRow?
+        if try sqlite3StepRow(preparedStatement) {
+            selectedRow = try extractSelectedRow(preparedStatement)
+        } else {
+            selectedRow = nil
+        }
+        try sqlite3Finalize(preparedStatement)
+        return selectedRow
+    }
+    
     func selectOrderByOrderNumber() throws -> [CategorySelectedRow] {
         do {
             let statement =

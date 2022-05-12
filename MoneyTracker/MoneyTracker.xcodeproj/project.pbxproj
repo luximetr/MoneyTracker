@@ -390,6 +390,12 @@
 		DBDC931E282A6A1E00D8C435 /* ImportingBalanceAccountOperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC931D282A6A1E00D8C435 /* ImportingBalanceAccountOperationType.swift */; };
 		DBDC9326282A6BC700D8C435 /* ImportingCoinKeeperBalanceAccountOperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9325282A6BC700D8C435 /* ImportingCoinKeeperBalanceAccountOperationType.swift */; };
 		DBDC9328282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9327282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift */; };
+		DBDC932A282D4F9200D8C435 /* ImportingOperationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9329282D4F9200D8C435 /* ImportingOperationAdapter.swift */; };
+		DBDC932C282D501200D8C435 /* ImportingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC932B282D501200D8C435 /* ImportingReplenishment.swift */; };
+		DBDC932E282D508E00D8C435 /* ImportingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC932D282D508E00D8C435 /* ImportingTransfer.swift */; };
+		DBDC9330282D50FA00D8C435 /* ImportingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC932F282D50FA00D8C435 /* ImportingOperation.swift */; };
+		DBDC9332282D52E300D8C435 /* ImportingTransferAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9331282D52E300D8C435 /* ImportingTransferAdapter.swift */; };
+		DBDC9334282D53F000D8C435 /* ImportingReplenishmentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9333282D53F000D8C435 /* ImportingReplenishmentAdapter.swift */; };
 		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -976,6 +982,12 @@
 		DBDC931D282A6A1E00D8C435 /* ImportingBalanceAccountOperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingBalanceAccountOperationType.swift; sourceTree = "<group>"; };
 		DBDC9325282A6BC700D8C435 /* ImportingCoinKeeperBalanceAccountOperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperBalanceAccountOperationType.swift; sourceTree = "<group>"; };
 		DBDC9327282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingCoinKeeperBalanceAccountOperationTypeParser.swift; sourceTree = "<group>"; };
+		DBDC9329282D4F9200D8C435 /* ImportingOperationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingOperationAdapter.swift; sourceTree = "<group>"; };
+		DBDC932B282D501200D8C435 /* ImportingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingReplenishment.swift; sourceTree = "<group>"; };
+		DBDC932D282D508E00D8C435 /* ImportingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingTransfer.swift; sourceTree = "<group>"; };
+		DBDC932F282D50FA00D8C435 /* ImportingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingOperation.swift; sourceTree = "<group>"; };
+		DBDC9331282D52E300D8C435 /* ImportingTransferAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingTransferAdapter.swift; sourceTree = "<group>"; };
+		DBDC9333282D53F000D8C435 /* ImportingReplenishmentAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingReplenishmentAdapter.swift; sourceTree = "<group>"; };
 		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
 		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1096,6 +1108,7 @@
 				2E252623281921CC0025D2E9 /* AddingReplenishment.swift */,
 				2E252625281922230025D2E9 /* Replenishment.swift */,
 				2E944D7B2822796A00CF03BE /* EditingReplenishment.swift */,
+				DBDC932B282D501200D8C435 /* ImportingReplenishment.swift */,
 			);
 			path = Replenishment;
 			sourceTree = "<group>";
@@ -1617,6 +1630,7 @@
 				2EB2143C2818694E0058242F /* AddingTransfer.swift */,
 				2EB2144028187F0F0058242F /* Transfer.swift */,
 				2EA8C97C2822B11B00E192B6 /* EditingTransfer.swift */,
+				DBDC932D282D508E00D8C435 /* ImportingTransfer.swift */,
 			);
 			path = Transfer;
 			sourceTree = "<group>";
@@ -1706,6 +1720,7 @@
 			isa = PBXGroup;
 			children = (
 				2EBBD24C281C1DBB00929A97 /* Operation.swift */,
+				DBDC932F282D50FA00D8C435 /* ImportingOperation.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -2010,6 +2025,7 @@
 			children = (
 				DB7793C42810EA0B00150822 /* TransferAdapter.swift */,
 				DB7793C62810EA4D00150822 /* AddingTransferAdapter.swift */,
+				DBDC9331282D52E300D8C435 /* ImportingTransferAdapter.swift */,
 			);
 			path = Transfer;
 			sourceTree = "<group>";
@@ -2190,6 +2206,7 @@
 			isa = PBXGroup;
 			children = (
 				2EDCEBF4281CFD0B001F3F58 /* Operation.swift */,
+				DBDC9329282D4F9200D8C435 /* ImportingOperationAdapter.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -2218,6 +2235,7 @@
 			children = (
 				DB7793C82810EA7300150822 /* TopUpAccountAdapter.swift */,
 				DB7793CA2810EA9900150822 /* AddingTopUpAccountAdapter.swift */,
+				DBDC9333282D53F000D8C435 /* ImportingReplenishmentAdapter.swift */,
 			);
 			path = TopUpAccount;
 			sourceTree = "<group>";
@@ -3173,6 +3191,7 @@
 				DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */,
 				2E52795D2811B01300BC916B /* Error.swift in Sources */,
 				DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */,
+				DBDC9330282D50FA00D8C435 /* ImportingOperation.swift in Sources */,
 				DBA0546727FD9C1E00DB3892 /* ImportingCategoryAdapter.swift in Sources */,
 				2EDE102B2815B85D008BB8C5 /* BalanceAccountSqliteTable.swift in Sources */,
 				2EBBD24D281C1DBB00929A97 /* Operation.swift in Sources */,
@@ -3199,6 +3218,7 @@
 				DBA054752801266F00DB3892 /* ImportedExpensesFile.swift in Sources */,
 				2E832AAF2816DBEF0083B77F /* ExpenseSqliteTable.swift in Sources */,
 				2EB2143D2818694E0058242F /* AddingTransfer.swift in Sources */,
+				DBDC932E282D508E00D8C435 /* ImportingTransfer.swift in Sources */,
 				DB62AEFD27EF029500F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB40042F280FA8C4004073D0 /* CategoryColor.swift in Sources */,
 				2E252626281922230025D2E9 /* Replenishment.swift in Sources */,
@@ -3207,6 +3227,7 @@
 				DB7793BD2810321000150822 /* BalanceAccountColor.swift in Sources */,
 				2E5061E42818542900C6C217 /* TransferSqliteTable.swift in Sources */,
 				2E926E9E27BC58140081E3AE /* AddingCategory.swift in Sources */,
+				DBDC932C282D501200D8C435 /* ImportingReplenishment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3217,6 +3238,7 @@
 				2EB2E87B281083550017ACDD /* AppearanceSetting.swift in Sources */,
 				DB62AEF127EEB78500F8CA55 /* ImportingCategoryAdapter.swift in Sources */,
 				2EDCEBF5281CFD0B001F3F58 /* Operation.swift in Sources */,
+				DBDC932A282D4F9200D8C435 /* ImportingOperationAdapter.swift in Sources */,
 				DB7793CB2810EA9900150822 /* AddingTopUpAccountAdapter.swift in Sources */,
 				DB400436280FB149004073D0 /* AddingCategoryAdapter.swift in Sources */,
 				DB62AF0327EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift in Sources */,
@@ -3225,7 +3247,9 @@
 				2EB2E87F281083960017ACDD /* StorageAppearanceSettingMapper.swift in Sources */,
 				DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */,
 				DBDC92D32814F0C100D8C435 /* EditingBalanceAccountAdapter.swift in Sources */,
+				DBDC9332282D52E300D8C435 /* ImportingTransferAdapter.swift in Sources */,
 				DB400432280FAC79004073D0 /* CategoryColorAdapter.swift in Sources */,
+				DBDC9334282D53F000D8C435 /* ImportingReplenishmentAdapter.swift in Sources */,
 				DB7793C52810EA0B00150822 /* TransferAdapter.swift in Sources */,
 				2EDB3EF027C43FB5003A9FDD /* ExpenseTemplateAdapter.swift in Sources */,
 				DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */,

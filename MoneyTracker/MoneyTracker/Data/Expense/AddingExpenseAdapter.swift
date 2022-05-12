@@ -30,14 +30,14 @@ class AddingExpenseAdapter {
         )
     }
     
-    func adaptToStorage(filesImportingOperation: FilesImportingBalanceAccountOperation) throws -> StorageAddingExpense {
-        let account = try storage.getBalanceAccount(name: filesImportingOperation.from)
-        return StorageAddingExpense(
-            amount: filesImportingOperation.amount,
-            date: filesImportingOperation.date,
-            comment: filesImportingOperation.comment,
-            balanceAccountId: account.id,
-            categoryId: ""
-        )
-    }
+//    func adaptToStorage(filesImportingOperation: FilesImportingBalanceAccountOperation) throws -> StorageAddingExpense {
+//        let account = try storage.getBalanceAccount(name: filesImportingOperation.from)
+//        return StorageAddingExpense(
+//            amount: filesImportingOperation.amount,
+//            date: filesImportingOperation.date,
+//            comment: filesImportingOperation.comment,
+//            balanceAccountId: account.id,
+//            categoryId: ""
+//        )
+//    }
 }

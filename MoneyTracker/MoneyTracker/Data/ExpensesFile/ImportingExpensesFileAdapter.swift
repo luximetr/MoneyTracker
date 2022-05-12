@@ -16,17 +16,30 @@ class ImportingExpensesFileAdapter {
     
     private let balanceAccountAdapter = ImportingBalanceAccountAdapter()
     private let categoryAdapter = ImportingCategoryAdapter()
-    private let expenseAdapter = ImportingExpenseAdapter()
+    private let operationsAdapter: ImportingOperationAdapter
+    
+    init(storage: Storage) {
+        operationsAdapter = ImportingOperationAdapter(storage: storage)
+    }
     
     func adaptToStorage(filesImportingExpensesFile: FilesImportingExpensesFile) -> StorageImportingExpensesFile {
-        let expenses = filesImportingExpensesFile.operations.map { expenseAdapter.adaptToStorage(filesImportingExpense: $0) }
+        let operations = filesImportingExpensesFile.operations.compactMap { tryAdaptOperationToStorage(filesImportingOperation: $0) }
         let categories = filesImportingExpensesFile.categories.map { categoryAdapter.adaptToStorage(filesImportingCategory: $0) }
         let balanceAccounts = filesImportingExpensesFile.balanceAccounts.map { balanceAccountAdapter.adaptToStorage(filesImportingBalanceAccount: $0) }
         return StorageImportingExpensesFile(
-            expenses: expenses,
+            operations: operations,
             categories: categories,
             balanceAccounts: balanceAccounts
         )
+    }
+    
+    private func tryAdaptOperationToStorage(filesImportingOperation: FilesImportingOperation) -> StorageImportingOperation? {
+        do {
+            return try operationsAdapter.adaptToStorage(filesImportingOperation: filesImportingOperation)
+        } catch {
+            print(error)
+            return nil
+        }
     }
     
 }

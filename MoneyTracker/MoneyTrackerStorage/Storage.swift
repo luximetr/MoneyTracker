@@ -197,6 +197,15 @@ public class Storage {
         }
     }
     
+    public func getCategory(name: String) throws -> Category {
+        guard let selectedRow = try sqliteDatabase.categoryTable.selectWhereName(name) else {
+            throw Error("Category with name \(name) not found")
+        }
+        let categoryColor = try CategoryColor(selectedRow.color)
+        let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
+        return category
+    }
+    
     @discardableResult
     public func addCategory(_ addingCategory: AddingCategory) throws -> Category {
         do {
@@ -660,24 +669,24 @@ public class Storage {
         let allCategories = try getCategoriesOrdered()
         let allBalanceAccounts = try getAllBalanceAccountsOrdered()
         
-        let maxDate = file.expenses.max(by: { $0.date < $1.date })?.date
-        let minDate = file.expenses.min(by: { $0.date < $1.date })?.date
+        let maxDate = file.operations.max(by: { $0.timestamp < $1.timestamp })?.timestamp
+        let minDate = file.operations.min(by: { $0.timestamp < $1.timestamp })?.timestamp
         
         var importedExpenses: [Expense] = []
         if let minDate = minDate, let maxDate = maxDate {
-            let expenses = try getExpenses(startDate: minDate, endDate: maxDate)
-            let uniqueImportingExpenses = file.expenses.filter { importingExpense in
-                return !expenses.contains(where: { findIfExpensesEqual(importingExpense: importingExpense, expense: $0) })
-            }
-            let addingExpenses = uniqueImportingExpenses.compactMap { importingExpense -> AddingExpense? in
-                guard let category = allCategories.first(where: { $0.name.lowercased() == importingExpense.category.lowercased() }) else { return nil }
-                guard let balanceAccount = allBalanceAccounts.first(where: { $0.name.lowercased() == importingExpense.balanceAccount.lowercased() }) else { return nil }
-                return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
-            }
-            importedExpenses = try addExpenses(addingExpenses: addingExpenses)
-            try importedExpenses.forEach {
-                try deductBalanceAccountAmount(id: $0.balanceAccountId, amount: $0.amount)
-            }
+//            let expenses = try getExpenses(startDate: minDate, endDate: maxDate)
+//            let uniqueImportingExpenses = file.expenses.filter { importingExpense in
+//                return !expenses.contains(where: { findIfExpensesEqual(importingExpense: importingExpense, expense: $0) })
+//            }
+//            let addingExpenses = uniqueImportingExpenses.compactMap { importingExpense -> AddingExpense? in
+//                guard let category = allCategories.first(where: { $0.name.lowercased() == importingExpense.category.lowercased() }) else { return nil }
+//                guard let balanceAccount = allBalanceAccounts.first(where: { $0.name.lowercased() == importingExpense.balanceAccount.lowercased() }) else { return nil }
+//                return AddingExpense(amount: importingExpense.amount, date: importingExpense.date, comment: importingExpense.comment, balanceAccountId: balanceAccount.id, categoryId: category.id)
+//            }
+//            importedExpenses = try addExpenses(addingExpenses: addingExpenses)
+//            try importedExpenses.forEach {
+//                try deductBalanceAccountAmount(id: $0.balanceAccountId, amount: $0.amount)
+//            }
         }
         
         let importedFile = ImportedExpensesFile(
@@ -719,7 +728,7 @@ public class Storage {
     }
     
     private func findIfExpensesEqual(importingExpense: ImportingExpense, expense: Expense) -> Bool {
-        return importingExpense.date == expense.date &&
+        return importingExpense.timestamp == expense.date &&
                importingExpense.amount == expense.amount &&
                importingExpense.comment.lowercased() == expense.comment?.lowercased()
     }
@@ -804,7 +813,7 @@ public class Storage {
         }
     }
     
-    // MARK: Operations
+    // MARK: - Operations
     
     public func getOperations() throws -> [Operation] {
         let ff = try sqliteDatabase.operationSqliteView.selectOrderByTimestampDesc()
