@@ -23,9 +23,8 @@ func sqlite3Open(_ filename: String) throws -> OpaquePointer {
 
 func sqlite3PrepareV2(_ databaseConnection: OpaquePointer, _ statement: String) throws -> OpaquePointer {
     let utf8Statement = (statement as NSString).utf8String
-    let utf8StatementLength = Int32(statement.maximumLengthOfBytes(using: .utf8))
     var preparedStatement: OpaquePointer!
-    let resultCode = sqlite3_prepare_v2(databaseConnection, utf8Statement, utf8StatementLength, &preparedStatement, nil)
+    let resultCode = sqlite3_prepare_v2(databaseConnection, utf8Statement, -1, &preparedStatement, nil)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode
         let errorMessage = String(cString: sqlite3_errstr(resultCode))
@@ -70,7 +69,6 @@ func sqlite3Finalize(_ preparedStatement: OpaquePointer) throws {
 func sqlite3BindTextNull(_ preparedStatement: OpaquePointer, _ parameterIndex: Int32, _ parameterValue: String?) throws {
     if let parameterValue = parameterValue {
         let utf8String = (parameterValue as NSString).utf8String
-        let utf8StringLength = Int32(parameterValue.maximumLengthOfBytes(using: .utf8))
         let resultCode = sqlite3_bind_text(preparedStatement, parameterIndex, utf8String, -1, SQLITE_TRANSIENT)
         if resultCode != SQLITE_OK {
             let errorCode = resultCode
@@ -89,7 +87,6 @@ func sqlite3BindTextNull(_ preparedStatement: OpaquePointer, _ parameterIndex: I
 
 func sqlite3BindText(_ preparedStatement: OpaquePointer, _ parameterIndex: Int32, _ parameterValue: String) throws {
     let utf8String = (parameterValue as NSString).utf8String
-    let utf8StringLength = Int32(parameterValue.maximumLengthOfBytes(using: .utf8))
     let resultCode = sqlite3_bind_text(preparedStatement, parameterIndex, utf8String, -1, SQLITE_TRANSIENT)
     if resultCode != SQLITE_OK {
         let errorCode = resultCode

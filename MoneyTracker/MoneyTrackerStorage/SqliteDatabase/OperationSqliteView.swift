@@ -301,4 +301,68 @@ class OperationSqliteView {
         return selectedRows
     }
     
+    func selectWhereTimestampBetween(startTimestamp: Int64, endTimestamp: Int64) throws -> [OperationSelectedRow] {
+        let statement =
+            """
+            SELECT
+                type,
+                timestamp,
+                expense_id,
+                expense_timestamp,
+                expense_amount,
+                expense_account_id,
+                expense_balance_account_name,
+                expense_balance_account_amount,
+                expense_balance_account_currency,
+                expense_balance_account_color,
+                expense_balance_account_order_number,
+                expense_category_id,
+                expense_category_name,
+                expense_category_icon,
+                expense_category_color,
+                expense_category_order_number,
+                expense_comment,
+                replenishment_id,
+                replenishment_timestamp,
+                replenishment_amount,
+                replenishment_account_id,
+                replenishment_balance_account_name,
+                replenishment_balance_account_amount,
+                replenishment_balance_account_currency,
+                replenishment_balance_account_color,
+                replenishment_balance_account_order_number,
+                replenishment_comment,
+                transfer_id,
+                transfer_timestamp,
+                transfer_from_amount,
+                transfer_from_account_id,
+                transfer_from_balance_account_name,
+                transfer_from_balance_account_amount,
+                transfer_from_balance_account_currency,
+                transfer_from_balance_account_color,
+                transfer_from_balance_account_order_number,
+                transfer_to_amount,
+                transfer_to_account_id,
+                transfer_to_balance_account_name,
+                transfer_to_balance_account_amount,
+                transfer_to_balance_account_currency,
+                transfer_to_balance_account_color,
+                transfer_to_balance_account_order_number,
+                transfer_comment
+            FROM operation
+            WHERE timestamp BETWEEN ? AND ?
+            ORDER BY timestamp DESC;
+            """
+        let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+        try sqlite3BindInt64(preparedStatement, 1, startTimestamp)
+        try sqlite3BindInt64(preparedStatement, 2, endTimestamp)
+        var selectedRows: [OperationSelectedRow] = []
+        while(try sqlite3StepRow(preparedStatement)) {
+            let selectedRow = try extractHistorySelectedRow(preparedStatement)
+            selectedRows.append(selectedRow)
+        }
+        try sqlite3Finalize(preparedStatement)
+        return selectedRows
+    }
+    
 }
