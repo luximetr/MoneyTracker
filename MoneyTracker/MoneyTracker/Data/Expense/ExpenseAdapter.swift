@@ -34,4 +34,19 @@ class ExpenseAdapter {
             comment: storageExpense.comment
         )
     }
+    
+    func adaptToPresentation(
+        storageExpense: StorageExpense,
+        presentationBalanceAccount: PresentationBalanceAccount,
+        presentationCategory: PresentationCategory
+    ) -> PresentationExpense {
+        return PresentationExpense(
+            id: storageExpense.id,
+            timestamp: storageExpense.date,
+            amount: storageExpense.amount,
+            account: presentationBalanceAccount,
+            category: presentationCategory,
+            comment: storageExpense.comment
+        )
+    }
 }

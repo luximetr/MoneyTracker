@@ -306,8 +306,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             let adapter = ExpenseTemplateAdapter()
             let storageTemplates = try storage.getAllExpenseTemplatesOrdered()
-            let storageCategoriesIds = storageTemplates.map { $0.categoryId }
-            let storageBalanceAccountsIds = storageTemplates.map { $0.balanceAccountId }
             let storageCategories = try storage.getCategoriesOrdered()
             let storageBalanceAccounts = try storage.getAllBalanceAccountsOrdered()
             let presentationTemplates = storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in
@@ -487,28 +485,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentationOperations(_ presentation: Presentation) throws -> [PresentationOperation] {
         let storageOperations = try storage.getOperations()
-        var presentationOperations: [PresentationOperation] = []
-        for storageOperation in storageOperations {
-            switch storageOperation {
-            case .expense(let storageExpense, let storageCategory, let storageBalanceAccount):
-                let presentationCategory = CategoryAdapter().adaptToPresentation(storageCategory: storageCategory)
-                let presentationBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
-                let presentationExpense = PresentationExpense(id: storageExpense.id, timestamp: storageExpense.date, amount: storageExpense.amount, account: presentationBalanceAccount, category: presentationCategory, comment: storageExpense.comment)
-                let presentationOperation: PresentationOperation = .expense(presentationExpense)
-                presentationOperations.append(presentationOperation)
-            case .balanceReplenishment(let storageBalanceReplenishment, let storageBalanceAccount):
-                let presentationBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageBalanceAccount)
-                let presentationBalanceReplenishment = PresentationTopUpAccount(id: storageBalanceReplenishment.id, timestamp: storageBalanceReplenishment.timestamp, account: presentationBalanceAccount, amount: storageBalanceReplenishment.amount, comment: storageBalanceReplenishment.comment)
-                let presentationOperation: PresentationOperation = .replenishment(presentationBalanceReplenishment)
-                presentationOperations.append(presentationOperation)
-            case .balanceTransfer(let storageBalanceTransfer, let storageFromBalanceAccount, let storageToBalanceAccount):
-                let presentationFromBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageFromBalanceAccount)
-                let presentationToBalanceAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: storageToBalanceAccount)
-                let presentationBalanceTransfer = PresentationTransfer(id: storageBalanceTransfer.id, fromAccount: presentationFromBalanceAccount, toAccount: presentationToBalanceAccount, day: storageBalanceTransfer.date, fromAmount: storageBalanceTransfer.fromAmount, toAmount: storageBalanceTransfer.toAmount, comment: storageBalanceTransfer.comment)
-                let presentationOperation: PresentationOperation = .transfer(presentationBalanceTransfer)
-                presentationOperations.append(presentationOperation)
-            }
-        }
+        let operationAdapter = OperationAdapter(storage: storage)
+        let presentationOperations = storageOperations.map { operationAdapter.adaptToPresentation(storageOperation: $0) }
         return presentationOperations
     }
     

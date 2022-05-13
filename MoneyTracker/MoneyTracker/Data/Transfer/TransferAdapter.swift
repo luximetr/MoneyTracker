@@ -18,5 +18,19 @@ typealias StorageEditingTransfer = MoneyTrackerStorage.EditingTransfer
 
 class TransferAdapter {
     
-    
+    func adaptToPresentation(
+        storageTransfer: StorageBalanceTransfer,
+        fromPresentationAccount: PresentationBalanceAccount,
+        toPresentationAccount: PresentationBalanceAccount
+    ) -> PresentationTransfer {
+        return PresentationTransfer(
+            id: storageTransfer.id,
+            fromAccount: fromPresentationAccount,
+            toAccount: toPresentationAccount,
+            day: storageTransfer.date,
+            fromAmount: storageTransfer.fromAmount,
+            toAmount: storageTransfer.toAmount,
+            comment: storageTransfer.comment
+        )
+    }
 }
