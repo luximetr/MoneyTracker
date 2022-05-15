@@ -40,7 +40,6 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, addTopUpAccount addingTopUpAccount: AddingReplenishment) throws -> Replenishment
     
     func presentationLanguages(_ presentation: Presentation) throws -> [Language]
-    func presentationLanguage(_ presentation: Presentation) throws -> Language
     func presentation(_ presentation: Presentation, selectLanguage language: Language) throws
     
     func presentationAppearanceSetting(_ presentation: Presentation) throws -> AppearanceSetting
