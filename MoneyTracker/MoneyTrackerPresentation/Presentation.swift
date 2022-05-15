@@ -10,7 +10,7 @@ import AUIKit
 import MessageUI
 
 public final class Presentation: AUIWindowPresentation {
-    
+        
     // MARK: Initializer
     
     public init(window: UIWindow, appearanceSetting: AppearanceSetting) {

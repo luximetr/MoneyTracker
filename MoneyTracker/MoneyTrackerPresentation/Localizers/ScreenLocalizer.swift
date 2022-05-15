@@ -19,11 +19,11 @@ final class ScreenLocalizer {
     func changeLanguage(_ language: Language) {
         self.language = language
         var textLocalizers: [TextLocalizer] = []
-        if let stringsTableName = stringsTableName, let bundle = Bundle.forLanguage(language) {
+        if let stringsTableName = stringsTableName, let bundle = Bundle.localizedFor(language: language) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }
-        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.forLanguage(language) {
+        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.localizedFor(language: language) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsdictTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }
@@ -37,11 +37,11 @@ final class ScreenLocalizer {
         self.stringsTableName = stringsTableName
         self.stringsdictTableName = stringsdictTableName
         var textLocalizers: [TextLocalizer] = []
-        if let stringsTableName = stringsTableName, let bundle = Bundle.forLanguage(language) {
+        if let stringsTableName = stringsTableName, let bundle = Bundle.localizedFor(language: language) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }
-        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.forLanguage(language) {
+        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.localizedFor(language: language) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsdictTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }

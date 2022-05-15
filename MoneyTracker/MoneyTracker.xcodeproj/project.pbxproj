@@ -117,7 +117,7 @@
 		2EB10A3D27A7034400743416 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A3C27A7034400743416 /* Fonts.swift */; };
 		2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A3F27A7065B00743416 /* ScreenLocalizer.swift */; };
 		2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A4527A7068E00743416 /* MenuScreenStrings.strings */; };
-		2EB10A4827A7075700743416 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4727A7075700743416 /* Bundle.swift */; };
+		2EB10A4827A7075700743416 /* BundleLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4727A7075700743416 /* BundleLocalization.swift */; };
 		2EB10A4A27A707A300743416 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4927A707A300743416 /* Language.swift */; };
 		2EB2143D2818694E0058242F /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2143C2818694E0058242F /* AddingTransfer.swift */; };
 		2EB2144128187F0F0058242F /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2144028187F0F0058242F /* Transfer.swift */; };
@@ -627,7 +627,7 @@
 		2EB10A3C27A7034400743416 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		2EB10A3F27A7065B00743416 /* ScreenLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLocalizer.swift; sourceTree = "<group>"; };
 		2EB10A4427A7068E00743416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MenuScreenStrings.strings; sourceTree = "<group>"; };
-		2EB10A4727A7075700743416 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		2EB10A4727A7075700743416 /* BundleLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleLocalization.swift; sourceTree = "<group>"; };
 		2EB10A4927A707A300743416 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		2EB2143C2818694E0058242F /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
 		2EB2144028187F0F0058242F /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
@@ -1504,7 +1504,6 @@
 		2EB10A1B27A6CAE500743416 /* MoneyTrackerPresentation */ = {
 			isa = PBXGroup;
 			children = (
-				2E732E93282309AE0061008B /* Locale */,
 				2EB10A2927A6CAFF00743416 /* Presentation.swift */,
 				2ED347BA2805CC1A0005529A /* PresentationDelegate.swift */,
 				2EB10A4B27A7083200743416 /* Data */,
@@ -1515,6 +1514,7 @@
 				2EB10A3E27A7063A00743416 /* Localizers */,
 				2EB10A3327A6FE6B00743416 /* Images */,
 				2EB10A3B27A7032F00743416 /* Fonts */,
+				2E732E93282309AE0061008B /* Locale */,
 				2EB10A4627A7074A00743416 /* Bundle */,
 				2E04279C27E66712005F342D /* Error.swift */,
 				2EB10A1C27A6CAE500743416 /* MoneyTrackerPresentation.h */,
@@ -1588,7 +1588,7 @@
 		2EB10A4627A7074A00743416 /* Bundle */ = {
 			isa = PBXGroup;
 			children = (
-				2EB10A4727A7075700743416 /* Bundle.swift */,
+				2EB10A4727A7075700743416 /* BundleLocalization.swift */,
 			);
 			path = Bundle;
 			sourceTree = "<group>";
@@ -3282,7 +3282,7 @@
 				DBDC92E92819417B00D8C435 /* CategoryVerticalPickerCellController.swift in Sources */,
 				2EC19AD827A8110600E1A6FA /* CategoriesListScreenCategoryTableViewCell.swift in Sources */,
 				2EB8271A280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift in Sources */,
-				2EB10A4827A7075700743416 /* Bundle.swift in Sources */,
+				2EB10A4827A7075700743416 /* BundleLocalization.swift in Sources */,
 				2ED3E93927F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift in Sources */,
 				2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */,
 				2EC22DD72810648D00530139 /* AppearanceSetting.swift in Sources */,
