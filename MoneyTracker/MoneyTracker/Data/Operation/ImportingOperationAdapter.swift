@@ -18,17 +18,23 @@ class ImportingOperationAdapter {
     private let transferAdapter: ImportingTransferAdapter
     private let replenishmentAdapter: ImportingReplenishmentAdapter
     
-    init(storage: Storage) {
-        expenseAdapter = ImportingExpenseAdapter(storage: storage)
-        transferAdapter = ImportingTransferAdapter(storage: storage)
-        replenishmentAdapter = ImportingReplenishmentAdapter(storage: storage)
+    init() {
+        expenseAdapter = ImportingExpenseAdapter()
+        transferAdapter = ImportingTransferAdapter()
+        replenishmentAdapter = ImportingReplenishmentAdapter()
     }
     
-    func adaptToStorage(filesImportingOperation: FilesImportingOperation) throws -> StorageImportingOperation {
+    func adaptToStorage(filesImportingOperation: FilesImportingOperation) -> StorageImportingOperation {
         switch filesImportingOperation.operationType {
-            case .expense: return .expense(expense: try expenseAdapter.adaptToStorage(filesImportingOperation: filesImportingOperation))
-            case .transfer: return .transfer(transfer: try transferAdapter.adaptToStorage(filesImportingOperation: filesImportingOperation))
-            case .replenishment: return .replenishment(replenishment: try replenishmentAdapter.adaptToStorage(filesImportingOperation: filesImportingOperation))
+            case .expense:
+                let expense = expenseAdapter.adaptToStorage(filesImportingOperation: filesImportingOperation)
+                return .expense(expense: expense)
+            case .transfer:
+                let transfer = transferAdapter.adaptToStorage(filesImportingOperation: filesImportingOperation)
+                return .transfer(transfer: transfer)
+            case .replenishment:
+                let replenishment = replenishmentAdapter.adaptToStorage(filesImportingOperation: filesImportingOperation)
+                return .replenishment(replenishment: replenishment)
         }
     }
     

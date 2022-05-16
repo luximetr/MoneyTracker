@@ -399,7 +399,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) throws {
         do {
             let filesImportingFile = try files.parseExpensesCSV(url: url)
-            let fileAdapter = ImportingExpensesFileAdapter(storage: storage)
+            let fileAdapter = ImportingExpensesFileAdapter()
             let storageImportingFile = fileAdapter.adaptToStorage(filesImportingExpensesFile: filesImportingFile)
             let storageImportedFile = try storage.saveImportingExpensesFile(storageImportingFile)
             let importedFileAdapter = ImportedExpensesFileAdapter(storage: storage)

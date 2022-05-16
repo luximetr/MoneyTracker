@@ -12,17 +12,10 @@ typealias StorageImportingReplenishment = MoneyTrackerStorage.ImportingReplenish
 
 class ImportingReplenishmentAdapter {
     
-    private let storage: Storage
-    
-    init(storage: Storage) {
-        self.storage = storage
-    }
-    
-    func adaptToStorage(filesImportingOperation: FilesImportingOperation) throws -> StorageImportingReplenishment {
-        let toAccount = try storage.getBalanceAccount(name: filesImportingOperation.to)
+    func adaptToStorage(filesImportingOperation: FilesImportingOperation) -> StorageImportingReplenishment {
         return StorageImportingReplenishment(
             timestamp: filesImportingOperation.date,
-            accountId: toAccount.id,
+            accountName: filesImportingOperation.to,
             amount: filesImportingOperation.amount,
             comment: filesImportingOperation.comment
         )

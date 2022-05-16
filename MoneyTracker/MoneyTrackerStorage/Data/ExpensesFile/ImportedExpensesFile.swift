@@ -8,7 +8,7 @@
 import Foundation
 
 public struct ImportedExpensesFile {
-    public let importedExpenses: [Expense]
+    public let importedOperations: [Operation]
     public let importedCategories: [Category]
     public let importedAccounts: [BalanceAccount]
 }

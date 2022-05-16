@@ -18,32 +18,22 @@ class ImportedExpensesFileAdapter {
     private let categoryAdapter = CategoryAdapter()
     private let accountAdapter = BalanceAccountAdapter()
     private let expenseAdapter: ExpenseAdapter
+    private let operationAdapter: OperationAdapter
     
     init(storage: Storage) {
         self.storage = storage
         self.expenseAdapter = ExpenseAdapter(storage: storage)
+        self.operationAdapter = OperationAdapter(storage: storage)
     }
     
     func adaptToPresentation(storageImportedExpensesFile importedFile: StorageImportedExpensesFile) throws -> PresentationImportedExpensesFile {
-        let importedExpenses = try adaptExpensesToPresentation(importedFile: importedFile)
+        let importedOperations = importedFile.importedOperations.map { operationAdapter.adaptToPresentation(storageOperation: $0) }
         let importedCategories = importedFile.importedCategories.map { categoryAdapter.adaptToPresentation(storageCategory: $0)  }
         let importedAccounts = importedFile.importedAccounts.map { accountAdapter.adaptToPresentation(storageAccount: $0) }
         return PresentationImportedExpensesFile(
-            importedExpenses: importedExpenses,
+            importedOperations: importedOperations,
             importedCategories: importedCategories,
             importedAccounts: importedAccounts
         )
-    }
-    
-    private func adaptExpensesToPresentation(importedFile: StorageImportedExpensesFile) throws -> [PresentationExpense] {
-        let expenses = importedFile.importedExpenses.compactMap { importedExpense -> PresentationExpense? in
-            do {
-                return try expenseAdapter.adaptToPresentation(storageExpense: importedExpense)
-            } catch {
-                print("ImportedExpensesFileAdapter error \(error)")
-                return nil
-            }
-        }
-        return expenses
     }
 }

@@ -10,13 +10,13 @@ import Foundation
 public struct ImportingReplenishment {
     
     public let timestamp: Date
-    public let accountId: String
+    public let accountName: String
     public let amount: Decimal
     public let comment: String?
     
-    public init(timestamp: Date, accountId: String, amount: Decimal, comment: String?) {
+    public init(timestamp: Date, accountName: String, amount: Decimal, comment: String?) {
         self.timestamp = timestamp
-        self.accountId = accountId
+        self.accountName = accountName
         self.amount = amount
         self.comment = comment
     }

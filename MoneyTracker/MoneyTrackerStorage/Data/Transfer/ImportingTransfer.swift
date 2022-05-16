@@ -10,17 +10,17 @@ import Foundation
 public struct ImportingTransfer {
     
     public let timestamp: Date
-    public let fromBalanceAccountId: String
+    public let fromBalanceAccountName: String
     public let fromAmount: Decimal
-    public let toBalanceAccountId: String
+    public let toBalanceAccountName: String
     public let toAmount: Decimal
     public let comment: String?
     
-    public init(timestamp: Date, fromAccountId: String, fromAmount: Decimal, toAccountId: String, toAmount: Decimal, comment: String?) {
+    public init(timestamp: Date, fromAccountName: String, fromAmount: Decimal, toAccountName: String, toAmount: Decimal, comment: String?) {
         self.timestamp = timestamp
-        self.fromBalanceAccountId = fromAccountId
+        self.fromBalanceAccountName = fromAccountName
         self.fromAmount = fromAmount
-        self.toBalanceAccountId = toAccountId
+        self.toBalanceAccountName = toAccountName
         self.toAmount = toAmount
         self.comment = comment
     }

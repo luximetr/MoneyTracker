@@ -1487,7 +1487,6 @@ public final class Presentation: AUIWindowPresentation {
     public func showDidImportExpensesFile(_ file: ImportedExpensesFile) {
         dashboardViewController?.addAccounts(file.importedAccounts)
         dashboardViewController?.addCategories(file.importedCategories)
-        statisticScreen?.addExpenses(file.importedExpenses)
     }
     
     // MARK: - Export CSV Screen

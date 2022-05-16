@@ -666,85 +666,123 @@ public class Storage {
         let addingBalanceAccounts = createAddingBalanceAccounts(importingBalanceAccounts: uniqueImportingBalanceAccounts)
         let importedBalanceAccounts = addBalanceAccounts(addingBalanceAccounts)
         
-        let allCategories = try getCategoriesOrdered()
-        let allBalanceAccounts = try getAllBalanceAccountsOrdered()
+        let allBalanceAccounts = balanceAccounts + importedBalanceAccounts
+        let allCategories = categories + importedCategories
         
         let maxDate = file.operations.max(by: { $0.timestamp < $1.timestamp })?.timestamp
         let minDate = file.operations.min(by: { $0.timestamp < $1.timestamp })?.timestamp
         
-        var importedExpenses: [Expense] = []
+        var importedOperations: [Operation] = []
         if let minDate = minDate, let maxDate = maxDate {
             let operations = try getOperations(startDate: minDate, endDate: maxDate)
             let uniqueImportingOperations = file.operations.filter { importingOperation in
-                return operations.contains(where: { findIfOperationsEqual(importingOperation: importingOperation, operation: $0) })
+                return !operations.contains(where: { findIfOperationsEqual(importingOperation: importingOperation, operation: $0) })
             }
-            addImportingOperations(uniqueImportingOperations)
-//            importedExpenses = try addExpenses(addingExpenses: addingExpenses)
-//            try importedExpenses.forEach {
-//                try deductBalanceAccountAmount(id: $0.balanceAccountId, amount: $0.amount)
-//            }
+            importedOperations = addImportingOperations(uniqueImportingOperations, accounts: allBalanceAccounts, categories: allCategories)
         }
         
         let importedFile = ImportedExpensesFile(
-            importedExpenses: importedExpenses,
+            importedOperations: importedOperations,
             importedCategories: importedCategories,
             importedAccounts: importedBalanceAccounts
         )
         return importedFile
     }
     
-    private func addImportingOperations(_ operations: [ImportingOperation]) {
-        operations.forEach {
+    private func addImportingOperations(
+        _ operations: [ImportingOperation],
+        accounts: [BalanceAccount],
+        categories: [Category]
+    ) -> [Operation] {
+        return operations.compactMap {
             do {
-                try addImportingOperation($0)
+                return try addImportingOperation($0, accounts: accounts, categories: categories)
             } catch {
                 print(error)
+                return nil
             }
         }
     }
     
-    private func addImportingOperation(_ operation: ImportingOperation) throws {
+    private func addImportingOperation(
+        _ operation: ImportingOperation,
+        accounts: [BalanceAccount],
+        categories: [Category]
+    ) throws -> Operation {
         switch operation {
             case .expense(let importingExpense):
-                let addingExpense = createAddingExpense(importingExpense: importingExpense)
-                try addExpense(addingExpense: addingExpense)
+                let balanceAccount = try findBalanceAccount(name: importingExpense.balanceAccountName, in: accounts)
+                let category = try findCategory(name: importingExpense.categoryName, in: categories)
+                let addingExpense = createAddingExpense(importingExpense: importingExpense, balanceAccount: balanceAccount, category: category)
+                let addedExpense = try addExpense(addingExpense: addingExpense)
+                return .expense(expense: addedExpense, category: category, balanceAccount: balanceAccount)
             case .transfer(let importingTransfer):
-                let addingTransfer = try createAddingTransfer(importingTransfer: importingTransfer)
-                _ = try addBalanceTransfer(addingTransfer)
+                let fromAccount = try findBalanceAccount(name: importingTransfer.fromBalanceAccountName, in: accounts)
+                let toAccount = try findBalanceAccount(name: importingTransfer.toBalanceAccountName, in: accounts)
+                let addingTransfer = try createAddingTransfer(importingTransfer: importingTransfer, fromAccount: fromAccount, toAccount: toAccount)
+                let addedTransfer = try addBalanceTransfer(addingTransfer)
+                return .balanceTransfer(balanceTransfer: addedTransfer, fromBalanceAccount: fromAccount, toBalanceAccount: toAccount)
             case .replenishment(let importingReplenishment):
-                let addingReplenishment = try createAddingReplenishment(importingReplenishment: importingReplenishment)
-                _ = try addBalanceReplenishment(addingReplenishment)
+                let account = try findBalanceAccount(name: importingReplenishment.accountName, in: accounts)
+                let addingReplenishment = try createAddingReplenishment(importingReplenishment: importingReplenishment, account: account)
+                let addedReplenishment = try addBalanceReplenishment(addingReplenishment)
+                return .balanceReplenishment(balanceReplenishment: addedReplenishment, balanceAccount: account)
         }
     }
     
-    private func createAddingExpense(importingExpense: ImportingExpense) -> AddingExpense {
+    private func createAddingExpense(
+        importingExpense: ImportingExpense,
+        balanceAccount: BalanceAccount,
+        category: Category
+    ) -> AddingExpense {
         return AddingExpense(
             amount: importingExpense.amount,
             date: importingExpense.timestamp,
             comment: importingExpense.comment,
-            balanceAccountId: importingExpense.balanceAccountId,
-            categoryId: importingExpense.categoryId
+            balanceAccountId: balanceAccount.id,
+            categoryId: category.id
         )
     }
     
-    private func createAddingTransfer(importingTransfer: ImportingTransfer) throws -> AddingTransfer {
+    private func createAddingTransfer(
+        importingTransfer: ImportingTransfer,
+        fromAccount: BalanceAccount,
+        toAccount: BalanceAccount
+    ) throws -> AddingTransfer {
         return AddingTransfer(
             date: importingTransfer.timestamp,
-            fromAccountId: importingTransfer.fromBalanceAccountId,
+            fromAccountId: fromAccount.id,
             fromAmount: Int64(try (importingTransfer.fromAmount * Decimal(100)).int()),
-            toAccountId: importingTransfer.toBalanceAccountId,
+            toAccountId: toAccount.id,
             toAmount: Int64(try (importingTransfer.toAmount * Decimal(100)).int()),
             comment: importingTransfer.comment
         )
     }
     
-    private func createAddingReplenishment(importingReplenishment: ImportingReplenishment) throws -> AddingReplenishment {
+    private func createAddingReplenishment(
+        importingReplenishment: ImportingReplenishment,
+        account: BalanceAccount
+    ) throws -> AddingReplenishment {
         return AddingReplenishment(
             timestamp: importingReplenishment.timestamp,
-            accountId: importingReplenishment.accountId,
+            accountId: account.id,
             amount: Int64(try (importingReplenishment.amount * Decimal(100)).int()),
             comment: importingReplenishment.comment
         )
+    }
+    
+    private func findBalanceAccount(name: String, in accounts: [BalanceAccount]) throws -> BalanceAccount {
+        guard let account = accounts.first(where: { $0.name.lowercased() == name.lowercased() }) else {
+            throw Error("Can't find balance account with name \(name)")
+        }
+        return account
+    }
+    
+    private func findCategory(name: String, in categories: [Category]) throws -> Category {
+        guard let category = categories.first(where: { $0.name.lowercased() == name.lowercased() }) else {
+            throw Error("Can't find category with name \(name)")
+        }
+        return category
     }
     
     private func createAddingBalanceAccounts(importingBalanceAccounts: [ImportingBalanceAccount]) -> [AddingBalanceAccount] {
@@ -777,46 +815,54 @@ public class Storage {
                importingBalanceAccount.currency.lowercased() == balanceAccount.currency.rawValue.lowercased()
     }
     
-//    private func findIfExpensesEqual(importingExpense: ImportingExpense, expense: Expense) -> Bool {
-//        return importingExpense.timestamp == expense.date &&
-//               importingExpense.amount == expense.amount &&
-//               importingExpense.comment.lowercased() == expense.comment?.lowercased()
-//    }
-    
     private func findIfOperationsEqual(importingOperation: ImportingOperation, operation: Operation) -> Bool {
         switch (importingOperation, operation) {
-            case (.expense(let importingExpense), .expense(let expense, _, _)):
-                return findIfExpensesEqual(importingExpense: importingExpense, expense: expense)
-            case (.transfer(let importingTransfer), .balanceTransfer(let transfer, _, _)):
-                return findIfTransfersEqual(importingTransfer: importingTransfer, transfer: transfer)
-            case (.replenishment(let importingReplenishment), .balanceReplenishment(let replenishment, _)):
-                return findIfReplenishmentEqual(importingReplenishment: importingReplenishment, replenishment: replenishment)
+            case (.expense(let importingExpense), .expense(let expense, let category, let balanceAccount)):
+                return findIfExpensesEqual(importingExpense: importingExpense, expense: expense, expenseCategory: category, expenseBalanceAccount: balanceAccount)
+            case (.transfer(let importingTransfer), .balanceTransfer(let transfer, let fromAccount, let toAccount)):
+                return findIfTransfersEqual(importingTransfer: importingTransfer, transfer: transfer, transferFromAccount: fromAccount, transferToAccount: toAccount)
+            case (.replenishment(let importingReplenishment), .balanceReplenishment(let replenishment, let account)):
+                return findIfReplenishmentEqual(importingReplenishment: importingReplenishment, replenishment: replenishment, replenishmentAccount: account)
             default: return false
         }
     }
     
-    private func findIfExpensesEqual(importingExpense: ImportingExpense, expense: Expense) -> Bool {
+    private func findIfExpensesEqual(
+        importingExpense: ImportingExpense,
+        expense: Expense,
+        expenseCategory: Category,
+        expenseBalanceAccount: BalanceAccount
+    ) -> Bool {
         return
             importingExpense.timestamp == expense.date &&
             importingExpense.amount == expense.amount &&
-            importingExpense.categoryId == expense.categoryId &&
-            importingExpense.balanceAccountId == expense.balanceAccountId &&
+            importingExpense.categoryName.lowercased() == expenseCategory.name.lowercased() &&
+            importingExpense.balanceAccountName.lowercased() == expenseBalanceAccount.name.lowercased() &&
             importingExpense.comment == expense.comment
     }
     
-    private func findIfTransfersEqual(importingTransfer: ImportingTransfer, transfer: Transfer) -> Bool {
+    private func findIfTransfersEqual(
+        importingTransfer: ImportingTransfer,
+        transfer: Transfer,
+        transferFromAccount: BalanceAccount,
+        transferToAccount: BalanceAccount
+    ) -> Bool {
         return
             importingTransfer.timestamp == transfer.date &&
-            importingTransfer.fromBalanceAccountId == transfer.fromAccountId &&
+            importingTransfer.fromBalanceAccountName.lowercased() == transferFromAccount.name.lowercased() &&
             importingTransfer.fromAmount == transfer.fromAmount &&
-            importingTransfer.toBalanceAccountId == transfer.toAccountId &&
+            importingTransfer.toBalanceAccountName.lowercased() == transferToAccount.name.lowercased() &&
             importingTransfer.comment == transfer.comment
     }
     
-    private func findIfReplenishmentEqual(importingReplenishment: ImportingReplenishment, replenishment: Replenishment) -> Bool {
+    private func findIfReplenishmentEqual(
+        importingReplenishment: ImportingReplenishment,
+        replenishment: Replenishment,
+        replenishmentAccount: BalanceAccount
+    ) -> Bool {
         return
             importingReplenishment.timestamp == replenishment.timestamp &&
-            importingReplenishment.accountId == replenishment.accountId &&
+            importingReplenishment.accountName.lowercased() == replenishmentAccount.name.lowercased() &&
             importingReplenishment.amount == replenishment.amount &&
             importingReplenishment.comment == replenishment.comment
     }
