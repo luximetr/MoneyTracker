@@ -21,6 +21,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.fromAmountInputView = SingleLineTextInputView(appearance: appearance)
         self.toAmountInputView = SingleLineTextInputView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
@@ -36,7 +37,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let fromAmountInputView: SingleLineTextInputView
     let toAmountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: Setup
@@ -68,12 +69,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupFromAccountPickerLabel() {
-        fromAccountPickerLabel.font = Fonts.default(size: 14)
+        fromAccountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
         fromAccountPickerLabel.textColor = appearance.secondaryText
     }
     
     private func setupToAccountPickerLabel() {
-        toAccountPickerLabel.font = Fonts.default(size: 14)
+        toAccountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
         toAccountPickerLabel.textColor = appearance.secondaryText
     }
     

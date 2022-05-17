@@ -30,48 +30,13 @@ extension TemplatesScreenView {
             super.setup()
             selectionStyle = .none
             contentView.addSubview(nameLabel)
-            setupNameLabel()
             contentView.addSubview(amountLabel)
-            setupAmountLabel()
             contentView.addSubview(balanceAccountPrefixLabel)
-            setupBalanceAccountPrefixLabel()
             contentView.addSubview(balanceAccountLabel)
-            setupBalanceAccountLabel()
             contentView.addSubview(categoryPrefixLabel)
-            setupCategoryPrefixLabel()
             contentView.addSubview(categoryLabel)
-            setupCategoryLabel()
             contentView.addSubview(commentLabel)
-            setupCommentLabel()
             contentView.addSubview(separatorView)
-        }
-        
-        private func setupNameLabel() {
-            nameLabel.font = Fonts.default(size: 17)
-        }
-        
-        private func setupAmountLabel() {
-            amountLabel.font = Fonts.default(size: 17)
-        }
-        
-        private func setupBalanceAccountPrefixLabel() {
-            balanceAccountPrefixLabel.font = Fonts.default(size: 11)
-        }
-        
-        private func setupBalanceAccountLabel() {
-            balanceAccountLabel.font = Fonts.default(size: 14)
-        }
-        
-        private func setupCategoryPrefixLabel() {
-            categoryPrefixLabel.font = Fonts.default(size: 11)
-        }
-        
-        private func setupCategoryLabel() {
-            categoryLabel.font = Fonts.default(size: 14)
-        }
-        
-        private func setupCommentLabel() {
-            commentLabel.font = Fonts.default(size: 13)
         }
         
         // MARK: - Layout
@@ -147,12 +112,19 @@ extension TemplatesScreenView {
             super.setAppearance(appearance)
             backgroundColor = appearance.primaryBackground
             nameLabel.textColor = appearance.primaryText
+            nameLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
             amountLabel.textColor = appearance.primaryText
+            amountLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
             balanceAccountPrefixLabel.textColor = appearance.secondaryText
+            balanceAccountPrefixLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
             balanceAccountLabel.textColor = appearance.primaryText
+            balanceAccountLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
             categoryPrefixLabel.textColor = appearance.secondaryText
+            categoryPrefixLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
             categoryLabel.textColor = appearance.primaryText
+            categoryLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
             commentLabel.textColor = appearance.secondaryText
+            commentLabel.font = appearance.fonts.primary(size: 13, weight: .regular)
             separatorView.backgroundColor = appearance.secondaryBackground
         }
     }

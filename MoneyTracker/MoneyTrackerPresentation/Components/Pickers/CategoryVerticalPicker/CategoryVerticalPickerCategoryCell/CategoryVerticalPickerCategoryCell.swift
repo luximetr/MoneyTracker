@@ -32,7 +32,6 @@ class CategoryCell: AppearanceTableViewCell {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 16, weight: .regular)
         titleLabel.numberOfLines = 1
     }
     
@@ -65,6 +64,7 @@ class CategoryCell: AppearanceTableViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
+        titleLabel.font = appearance.fonts.primary(size: 16, weight: .regular)
     }
 }
 }

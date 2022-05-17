@@ -20,7 +20,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     let balanceAccountPickerView: BalanceAccountHorizontalPickerView
     let categoryPickerHeaderLabel = UILabel()
     let categoryPickerView: CategoryHorizontalPickerView
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Initializer
@@ -32,6 +32,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         balanceAccountPickerView = BalanceAccountHorizontalPickerView(appearance: appearance)
         categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
         errorSnackbarView = ErrorSnackbarView(appearance: appearance)
+        addButton = TextFilledButton(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -53,7 +54,7 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupBalanceAccountPickerHeaderLabel() {
-        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     

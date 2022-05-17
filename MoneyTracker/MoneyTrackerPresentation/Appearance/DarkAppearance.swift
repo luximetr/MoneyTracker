@@ -9,6 +9,10 @@ import UIKit
 
 struct DarkAppearance: Appearance {
     
+    // MARK: - Fonts
+    
+    var fonts: AppearanceFonts = DefaultAppearanceFonts()
+    
     let statusBarStyle = UIStatusBarStyle.lightContent
     let overrideUserInterfaceStyle = UIUserInterfaceStyle.dark
     

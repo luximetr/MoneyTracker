@@ -26,36 +26,16 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(accountLabel)
-        setupAccountLabel()
         contentView.addSubview(amountLabel)
-        setupAmountLabel()
         contentView.addSubview(balanceTransferImageView)
         setupBalanceTransferImageView()
         contentView.addSubview(categoryLabel)
-        setupCategoryLabel()
         contentView.addSubview(commentLabel)
-        setupCommentLabel()
         contentView.addSubview(separatorView)
-    }
-    
-    private func setupAccountLabel() {
-        accountLabel.font = Fonts.default(size: 12, weight: .regular)
-    }
-    
-    private func setupAmountLabel() {
-        amountLabel.font = Fonts.default(size: 12, weight: .semibold)
     }
     
     private func setupBalanceTransferImageView() {
         balanceTransferImageView.contentMode = .scaleAspectFit
-    }
-    
-    private func setupCategoryLabel() {
-        categoryLabel.font = Fonts.default(size: 12, weight: .regular)
-    }
-    
-    private func setupCommentLabel() {
-        commentLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
     // MARK: - Layout
@@ -132,10 +112,14 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         accountLabel.textColor = appearance.secondaryText
+        accountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         amountLabel.textColor = appearance.primaryText
+        amountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         balanceTransferImageView.tintColor = appearance.primaryText
         categoryLabel.textColor = appearance.primaryText
+        categoryLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         commentLabel.textColor = appearance.secondaryText
+        commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         separatorView.backgroundColor = appearance.secondaryBackground
     }
     

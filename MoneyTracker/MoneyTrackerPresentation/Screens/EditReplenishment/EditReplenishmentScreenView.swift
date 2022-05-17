@@ -19,6 +19,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.amountInputView = SingleLineTextInputView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
         self.dayDatePickerView = DateHorizontalPickerView(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
@@ -31,7 +32,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let dayDatePickerView: DateHorizontalPickerView
     let amountInputView : SingleLineTextInputView
     let commentTextField: PlainTextField
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: Setup

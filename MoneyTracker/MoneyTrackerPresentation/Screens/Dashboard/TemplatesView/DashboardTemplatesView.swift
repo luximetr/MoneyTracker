@@ -48,7 +48,7 @@ final class TemplatesView: AppearanceView {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 18, weight: .regular)
+        titleLabel.font = appearance.fonts.primary(size: 18, weight: .regular)
     }
     
     private func setupCollectionView() {

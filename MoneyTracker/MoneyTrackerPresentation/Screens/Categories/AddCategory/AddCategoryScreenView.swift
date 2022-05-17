@@ -19,7 +19,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let nameTextField: PlainTextField
     let colorPickerTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Initializer
@@ -28,6 +28,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         self.nameTextField = PlainTextField(appearance: appearance)
         self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         super.init(appearance: appearance)
     }
     

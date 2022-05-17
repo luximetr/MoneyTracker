@@ -32,7 +32,6 @@ class AddCollectionViewCell: AppearanceCollectionViewCell {
     }
     
     private func setupTextLabel() {
-        textLabel.font = Fonts.default(size: 12, weight: .regular)
         textLabel.textAlignment = .center
     }
     
@@ -61,6 +60,7 @@ class AddCollectionViewCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         textLabel.textColor = appearance.secondaryText
+        textLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         borderLayer.strokeColor = appearance.secondaryBackground.cgColor
     }
     

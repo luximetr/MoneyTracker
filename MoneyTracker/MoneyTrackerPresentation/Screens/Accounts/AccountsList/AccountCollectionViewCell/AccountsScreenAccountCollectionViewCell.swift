@@ -17,7 +17,7 @@ final class AccountCollectionViewCell: AppearanceCollectionViewCell {
     var accountView: UIView { return _accountView }
     var nameLabel: UILabel { return _accountView.nameLabel }
     var balanceLabel: UILabel { return _accountView.balanceLabel }
-    let deleteButton = TextFilledButton()
+    let deleteButton = TextFilledButton(appearance: LightAppearance())
     
     // MARK: Setup
     

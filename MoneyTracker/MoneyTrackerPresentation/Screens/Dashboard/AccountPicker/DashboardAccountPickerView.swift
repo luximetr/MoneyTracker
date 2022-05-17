@@ -39,7 +39,7 @@ final class AccountPickerView: AppearanceView {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 18, weight: .regular)
+        titleLabel.font = appearance.fonts.primary(size: 18, weight: .regular)
     }
     
     private let accountCollectionViewCellReuseIdentifier = "accountCollectionViewCellReuseIdentifier"

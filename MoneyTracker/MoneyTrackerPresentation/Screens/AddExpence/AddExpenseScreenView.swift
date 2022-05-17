@@ -16,6 +16,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     init(appearance: Appearance) {
         self.inputDateView = InputDateView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         self.selectAccountView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.inputAmountView = InputAmountView(appearance: appearance)
         self.selectCategoryView = CategoryVerticalPickerView(appearance: appearance)
@@ -34,7 +35,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         return expenseTableViewCells
     }
     let commentTextField: PlainTextField
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let selectAccountView: BalanceAccountHorizontalPickerView
     let inputAmountView: InputAmountView
     let selectCategoryView: CategoryVerticalPickerView
@@ -63,7 +64,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupDayExpensesLabel() {
-        dayExpensesLabel.font = Fonts.default(size: 14, weight: .bold)
+        dayExpensesLabel.font = appearance.fonts.primary(size: 14, weight: .bold)
         dayExpensesLabel.adjustsFontSizeToFitWidth = true
     }
     

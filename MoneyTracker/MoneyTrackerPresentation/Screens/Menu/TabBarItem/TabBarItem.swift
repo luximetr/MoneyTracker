@@ -31,7 +31,7 @@ final class TabBarItem: AppearanceButton {
     }
     
     private func setupTitleLabel() {
-        textLabel.font = Fonts.default(size: 14)
+        textLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
         textLabel.textColor = appearance.primaryText
         textLabel.adjustsFontSizeToFitWidth = true
         textLabel.minimumScaleFactor = 0.5

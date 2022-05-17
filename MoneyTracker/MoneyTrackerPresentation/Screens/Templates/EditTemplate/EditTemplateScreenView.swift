@@ -20,7 +20,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     let nameTextField: PlainTextField
     let amountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
-    let saveButton = TextFilledButton()
+    let saveButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Initializer
@@ -31,6 +31,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         nameTextField = PlainTextField(appearance: appearance)
         amountInputView = SingleLineTextInputView(appearance: appearance)
         commentTextField = PlainTextField(appearance: appearance)
+        self.saveButton = TextFilledButton(appearance: appearance)
         errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
@@ -54,12 +55,12 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupBalanceAccountPickerHeaderLabel() {
-        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     
     private func setupCategoryPickerHeaderLabel() {
-        categoryPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        categoryPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         categoryPickerHeaderLabel.numberOfLines = 1
     }
     

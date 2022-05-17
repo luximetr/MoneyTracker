@@ -34,12 +34,12 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
     }
     
     private func setupTextField() {
-        textField.font = Fonts.default(size: 17, weight: .regular)
+        textField.font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     private func setupLabel() {
         label.numberOfLines = 1
-        label.font = Fonts.default(size: 14, weight: .regular)
+        label.font = appearance.fonts.primary(size: 14, weight: .regular)
     }
     
     // MARK: - Layout
@@ -74,7 +74,7 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
         set {
             guard let string = newValue else { return }
             let attributes: [NSAttributedString.Key : Any] = [
-                .font: Fonts.default(size: 17, weight: .regular),
+                .font: appearance.fonts.primary(size: 17, weight: .regular),
                 .foregroundColor: appearance.tertiaryText
             ]
             let attributedString = NSAttributedString(string: string, attributes: attributes)

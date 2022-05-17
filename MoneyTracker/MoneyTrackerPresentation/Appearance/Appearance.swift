@@ -9,6 +9,10 @@ import UIKit
 
 protocol Appearance {
     
+    // MARK: - Fonts
+    
+    var fonts: AppearanceFonts { get }
+    
     var statusBarStyle: UIStatusBarStyle { get }
     var overrideUserInterfaceStyle: UIUserInterfaceStyle { get }
     

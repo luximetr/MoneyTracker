@@ -18,7 +18,7 @@ final class PlainTextField: AppearanceTextField {
         tintColor = appearance.accent
         textColor = appearance.primaryText
         backgroundColor = appearance.primaryBackground
-        font = Fonts.default(size: 17, weight: .regular)
+        font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     func setupBorder() {
@@ -67,7 +67,7 @@ final class PlainTextField: AppearanceTextField {
         set {
             guard let string = newValue else { return }
             let attributes: [NSAttributedString.Key : Any] = [
-                .font: Fonts.default(size: 17, weight: .regular),
+                .font: appearance.fonts.primary(size: 17, weight: .regular),
                 .foregroundColor: appearance.tertiaryText
             ]
             let attributedString = NSAttributedString(string: string, attributes: attributes)

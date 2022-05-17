@@ -18,6 +18,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         self.nameInputView = PlainTextField(appearance: appearance)
         self.amountInputView = PlainTextField(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -30,7 +31,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let amountInputView: PlainTextField
     let colorsTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Setup
@@ -62,7 +63,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupCurrencyInputView() {
-        currencyInputView.titleLabel?.font = Fonts.default(size: 14, weight: .semibold)
+        currencyInputView.titleLabel?.font = appearance.fonts.primary(size: 14, weight: .semibold)
         currencyInputView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
     }
     

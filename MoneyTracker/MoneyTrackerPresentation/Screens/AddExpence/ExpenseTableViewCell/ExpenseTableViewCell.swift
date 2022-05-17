@@ -32,22 +32,22 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupAccountLabel(appearance: Appearance) {
-        accountLabel.font = Fonts.default(size: 12, weight: .regular)
+        accountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         accountLabel.textColor = appearance.secondaryText
     }
     
     private func setupCategoryLabel(appearance: Appearance) {
-        categoryLabel.font = Fonts.default(size: 16, weight: .regular)
+        categoryLabel.font = appearance.fonts.primary(size: 16, weight: .regular)
         categoryLabel.textColor = appearance.primaryText
     }
     
     private func setupAmountLabel(appearance: Appearance) {
-        amountLabel.font = Fonts.default(size: 12, weight: .semibold)
+        amountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         amountLabel.textColor = appearance.primaryText
     }
     
     private func setupCommentLabel(appearance: Appearance) {
-        commentLabel.font = Fonts.default(size: 12, weight: .regular)
+        commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         commentLabel.textColor = appearance.secondaryText
     }
     

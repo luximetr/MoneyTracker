@@ -37,7 +37,6 @@ class CategoryHorizontalPickerItemCell: AppearanceCollectionViewCell {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 11, weight: .regular)
         titleLabel.textAlignment = .center
     }
     
@@ -103,6 +102,7 @@ class CategoryHorizontalPickerItemCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
+        titleLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
         coloredView.layer.borderColor = appearance.secondaryBackground.cgColor
     }
     

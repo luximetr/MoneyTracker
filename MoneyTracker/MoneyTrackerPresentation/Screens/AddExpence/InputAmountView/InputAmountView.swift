@@ -95,7 +95,7 @@ final class InputAmountView: AppearanceView {
     }
     
     private func setupInputLabel() {
-        inputLabel.font = Fonts.default(size: 20, weight: .regular)
+        inputLabel.font = appearance.fonts.primary(size: 20, weight: .regular)
         inputLabel.numberOfLines = 1
         inputLabel.adjustsFontSizeToFitWidth = true
     }
@@ -371,7 +371,7 @@ final class KeyButton: AppearanceButton {
     
     override func setup() {
         super.setup()
-        titleLabel?.font = Fonts.default(size: 20, weight: .semibold)
+        titleLabel?.font = appearance.fonts.primary(size: 20, weight: .regular)
         changeAppearance(appearance)
     }
     
@@ -405,7 +405,7 @@ final class OperationKeyButton: AppearanceButton {
     
     override func setup() {
         super.setup()
-        titleLabel?.font = Fonts.default(size: 20, weight: .semibold)
+        titleLabel?.font = appearance.fonts.primary(size: 20, weight: .regular)
         changeAppearance(appearance)
     }
     
