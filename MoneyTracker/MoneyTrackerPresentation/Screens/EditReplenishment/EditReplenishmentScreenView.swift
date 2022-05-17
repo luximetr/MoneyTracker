@@ -59,7 +59,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupAccountPickerLabel() {
-        accountPickerLabel.font = Fonts.default(size: 14)
+        accountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
         accountPickerLabel.textColor = appearance.secondaryText
     }
     

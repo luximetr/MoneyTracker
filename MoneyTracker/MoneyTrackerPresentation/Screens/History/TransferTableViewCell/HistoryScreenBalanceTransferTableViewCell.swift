@@ -26,37 +26,17 @@ final class TransferTableViewCell: AppearanceTableViewCell {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(fromAccountLabel)
-        setupFromAccountLabel()
         contentView.addSubview(fromAmountLabel)
-        setupFromAmountLabel()
         contentView.addSubview(balanceTransferImageView)
         setupBalanceTransferImageView()
         contentView.addSubview(toAccountLabel)
-        setupToAccountLabel()
         contentView.addSubview(commentLabel)
-        setupCommentLabel()
         contentView.addSubview(separatorView)
-    }
-    
-    private func setupFromAccountLabel() {
-        fromAccountLabel.font = Fonts.default(size: 12, weight: .regular)
-    }
-    
-    private func setupToAccountLabel() {
-        toAccountLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
     private func setupBalanceTransferImageView() {
         balanceTransferImageView.contentMode = .scaleAspectFit
         balanceTransferImageView.image = Images.cycle.withRenderingMode(.alwaysTemplate)
-    }
-    
-    private func setupFromAmountLabel() {
-        fromAmountLabel.font = Fonts.default(size: 12, weight: .semibold)
-    }
-    
-    private func setupCommentLabel() {
-        commentLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
     // MARK: - Layout
@@ -133,10 +113,14 @@ final class TransferTableViewCell: AppearanceTableViewCell {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         fromAccountLabel.textColor = appearance.secondaryText
+        fromAccountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         fromAmountLabel.textColor = appearance.primaryText
+        toAccountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         toAccountLabel.textColor = appearance.primaryText
+        fromAmountLabel.font = appearance.fonts.primary(size: 12, weight: .semibold)
         balanceTransferImageView.tintColor = appearance.primaryText
         commentLabel.textColor = appearance.secondaryText
+        commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         separatorView.backgroundColor = appearance.secondaryBackground
     }
     

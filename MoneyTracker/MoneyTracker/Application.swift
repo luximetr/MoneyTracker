@@ -309,8 +309,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             let adapter = ExpenseTemplateAdapter()
             let storageTemplates = try storage.getAllExpenseTemplatesOrdered()
-            let storageCategoriesIds = storageTemplates.map { $0.categoryId }
-            let storageBalanceAccountsIds = storageTemplates.map { $0.balanceAccountId }
             let storageCategories = try storage.getCategoriesOrdered()
             let storageBalanceAccounts = try storage.getAllBalanceAccountsOrdered()
             let presentationTemplates = storageTemplates.compactMap { storageTemplate -> PresentationExpenseTemplate? in

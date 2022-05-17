@@ -45,7 +45,7 @@ final class TitleValueTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupValueLabel(appearance: Appearance) {
-        valueLabel.font = Fonts.default(size: 13)
+        valueLabel.font = appearance.fonts.primary(size: 13, weight: .regular)
         valueLabel.textColor = appearance.secondaryText
     }
     

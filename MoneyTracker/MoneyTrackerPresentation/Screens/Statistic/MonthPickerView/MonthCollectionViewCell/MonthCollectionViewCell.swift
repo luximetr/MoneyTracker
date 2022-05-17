@@ -20,11 +20,6 @@ class MonthCollectionViewCell: AppearanceCollectionViewCell {
     override func setup() {
         super.setup()
         contentView.addSubview(monthLabel)
-        setupMonthLabel()
-    }
-    
-    private func setupMonthLabel() {
-        monthLabel.font = Fonts.default(size: 12, weight: .medium)
     }
     
     // MARK: - Layout
@@ -79,6 +74,7 @@ class MonthCollectionViewCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         setSelected(_isSelected)
+        monthLabel.font = appearance.fonts.primary(size: 12, weight: .medium)
     }
     
 }

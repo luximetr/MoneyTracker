@@ -43,7 +43,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     }
     
     private func setupMonthExpensesLabel() {
-        monthExpensesLabel.font = Fonts.default(size: 24, weight: .medium)
+        monthExpensesLabel.font = appearance.fonts.primary(size: 24, weight: .medium)
         monthExpensesLabel.textColor = appearance.primaryText
         monthExpensesLabel.adjustsFontSizeToFitWidth = true
     }

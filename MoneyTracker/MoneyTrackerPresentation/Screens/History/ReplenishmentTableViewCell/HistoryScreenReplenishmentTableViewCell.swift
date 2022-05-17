@@ -24,24 +24,9 @@ final class ReplenishmentTableViewCell: AppearanceTableViewCell {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(accountLabel)
-        setupAccountLabel()
         contentView.addSubview(amountLabel)
-        setupAmountLabel()
         contentView.addSubview(commentLabel)
-        setupCommentLabel()
         contentView.addSubview(separatorView)
-    }
-    
-    private func setupAccountLabel() {
-        accountLabel.font = Fonts.default(size: 12, weight: .regular)
-    }
-    
-    private func setupAmountLabel() {
-        amountLabel.font = Fonts.default(size: 12, weight: .semibold)
-    }
-    
-    private func setupCommentLabel() {
-        commentLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
     // MARK: - Layout
@@ -98,8 +83,11 @@ final class ReplenishmentTableViewCell: AppearanceTableViewCell {
         super.setAppearance(appearance)
         backgroundColor = appearance.primaryBackground
         accountLabel.textColor = appearance.primaryText
+        accountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         amountLabel.textColor = appearance.successText
+        amountLabel.font = appearance.fonts.primary(size: 12, weight: .semibold)
         commentLabel.textColor = appearance.secondaryText
+        commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         separatorView.backgroundColor = appearance.secondaryBackground
     }
     

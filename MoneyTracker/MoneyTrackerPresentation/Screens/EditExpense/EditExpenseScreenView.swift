@@ -57,12 +57,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupBalanceAccountPickerHeaderLabel() {
-        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     
     private func setupCategoryPickerHeaderLabel() {
-        categoryPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        categoryPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         categoryPickerHeaderLabel.numberOfLines = 1
     }
     

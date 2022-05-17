@@ -58,11 +58,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupColorPickerTitleLabel() {
         colorPickerTitleLabel.numberOfLines = 1
-        colorPickerTitleLabel.font = Fonts.default(size: 17, weight: .regular)
+        colorPickerTitleLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     private func setupEditButton() {
-        editButton.titleLabel?.font = Fonts.default(size: 17, weight: .semibold)
+        editButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     private func setupColorPickerView() {

@@ -90,7 +90,7 @@ final class InputAmountView: AppearanceView {
     }
     
     private func setupPlaceholderLabel() {
-        placeholderLabel.font = Fonts.default(size: 20, weight: .regular)
+        placeholderLabel.font = appearance.fonts.primary(size: 20, weight: .regular)
         placeholderLabel.numberOfLines = 1
     }
     

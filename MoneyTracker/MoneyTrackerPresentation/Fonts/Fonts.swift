@@ -6,11 +6,11 @@
 //
 
 import UIKit
-
-enum Fonts {
-    
-    static func `default`(size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
-        return UIFont.systemFont(ofSize: size, weight: weight)
-    }
-    
-}
+//
+//enum Fonts {
+//    
+//    static func `default`(size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
+//        return UIFont.systemFont(ofSize: size, weight: weight)
+//    }
+//    
+//}
