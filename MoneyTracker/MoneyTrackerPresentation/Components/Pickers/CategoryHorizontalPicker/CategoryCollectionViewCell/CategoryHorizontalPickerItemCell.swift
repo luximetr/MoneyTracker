@@ -103,7 +103,7 @@ class CategoryHorizontalPickerItemCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         titleLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
-        coloredView.layer.borderColor = appearance.secondaryBackground.cgColor
+        coloredView.layer.borderColor = appearance.colors.secondaryBackground.cgColor
     }
     
 }

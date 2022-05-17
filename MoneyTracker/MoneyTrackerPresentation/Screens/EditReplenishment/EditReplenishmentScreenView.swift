@@ -39,7 +39,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         addSubview(scrollView)
         setupScrollView()
         scrollView.addSubview(accountPickerLabel)
@@ -187,7 +187,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         accountPickerLabel.textColor = appearance.secondaryText
         dayDatePickerView.changeAppearance(appearance)
         addButton.backgroundColor = appearance.primaryActionBackground

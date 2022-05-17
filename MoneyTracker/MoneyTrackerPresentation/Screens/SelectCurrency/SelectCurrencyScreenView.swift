@@ -19,14 +19,14 @@ class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
         setupCurrencyTableViewCell()
     }
     
     private func setupTableView() {
-        tableView.backgroundColor = appearance.primaryBackground
+        tableView.backgroundColor = appearance.colors.primaryBackground
         tableView.separatorStyle = .none
     }
     
@@ -71,7 +71,7 @@ class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         setupTableView()
     }
     

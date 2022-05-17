@@ -111,7 +111,7 @@ final class TransferTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         fromAccountLabel.textColor = appearance.secondaryText
         fromAccountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         fromAmountLabel.textColor = appearance.primaryText
@@ -121,7 +121,7 @@ final class TransferTableViewCell: AppearanceTableViewCell {
         balanceTransferImageView.tintColor = appearance.primaryText
         commentLabel.textColor = appearance.secondaryText
         commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
 }

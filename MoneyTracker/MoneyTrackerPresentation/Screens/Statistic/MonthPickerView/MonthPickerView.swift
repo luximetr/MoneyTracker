@@ -31,7 +31,7 @@ final class MonthPickerView: AppearanceView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         addSubview(collectionView)
         setupCollectionView()
         setupMonthCollectionViewCell()
@@ -39,7 +39,7 @@ final class MonthPickerView: AppearanceView {
     
     private func setupCollectionView() {
         collectionViewFlowLayout.scrollDirection = .horizontal
-        collectionView.backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
     }
@@ -96,8 +96,8 @@ final class MonthPickerView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        collectionView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
         monthTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     

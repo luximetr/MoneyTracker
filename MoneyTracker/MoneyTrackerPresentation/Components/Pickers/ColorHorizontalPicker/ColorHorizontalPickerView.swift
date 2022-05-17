@@ -62,7 +62,7 @@ final class ColorHorizontalPickerView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        collectionView.backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
     }
     
     // MARK: - Color cell

@@ -32,7 +32,7 @@ final class CategoryTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: - Layout
@@ -92,7 +92,7 @@ final class CategoryTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         iconView.iconImageView.tintColor = appearance.categoryPrimaryText
         setupNameLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)

@@ -7,21 +7,28 @@
 
 import UIKit
 
+struct DarkAppearanceColors: AppearanceColors {
+    let primaryBackground = UIColor(red: 0.106, green: 0.11, blue: 0.118, alpha: 1)
+    let secondaryBackground = UIColor(red: 0.158, green: 0.158, blue: 0.158, alpha: 1)
+    let tertiaryBackground = UIColor(red: 0.349, green: 0.349, blue: 0.349, alpha: 1)
+    let selectedBackground = UIColor(red: 0.093, green: 0.212, blue: 0.392, alpha: 1)
+}
+
 struct DarkAppearance: Appearance {
     
     // MARK: - Fonts
     
     var fonts: AppearanceFonts = DefaultAppearanceFonts()
     
+    // MARK: - Colors
+    
+    var colors: AppearanceColors = DarkAppearanceColors()
+    
     let statusBarStyle = UIStatusBarStyle.lightContent
     let overrideUserInterfaceStyle = UIUserInterfaceStyle.dark
     
     // MARK: - Colors
     
-    let primaryBackground = UIColor(red: 0.106, green: 0.11, blue: 0.118, alpha: 1)
-    let secondaryBackground = UIColor(red: 0.158, green: 0.158, blue: 0.158, alpha: 1)
-    let tertiaryBackground = UIColor(red: 0.349, green: 0.349, blue: 0.349, alpha: 1)
-    let selectedBackground = UIColor(red: 0.093, green: 0.212, blue: 0.392, alpha: 1)
     let dangerousActionBackground = UIColor(red: 0.65, green: 0.184, blue: 0.184, alpha: 1)
     let dangerousActionText = UIColor(red: 0.949, green: 0.949, blue: 0.949, alpha: 1)
     let primaryActionBackground = UIColor(red: 0.167, green: 0.404, blue: 0.758, alpha: 1)

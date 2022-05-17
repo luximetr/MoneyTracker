@@ -89,7 +89,7 @@ class AddCollectionViewCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        borderLayer.strokeColor = appearance.secondaryBackground.cgColor
+        borderLayer.strokeColor = appearance.colors.secondaryBackground.cgColor
         textLabel.textColor = appearance.secondaryText
         textLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
     }

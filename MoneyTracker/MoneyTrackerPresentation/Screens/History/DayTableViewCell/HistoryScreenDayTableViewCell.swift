@@ -67,7 +67,7 @@ final class DayTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         setupDayLabel(appearance: appearance)
         setupExpensesLabel(appearance: appearance)
     }

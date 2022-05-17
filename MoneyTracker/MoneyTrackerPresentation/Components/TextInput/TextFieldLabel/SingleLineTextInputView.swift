@@ -96,12 +96,12 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        layer.borderColor = appearance.secondaryBackground.cgColor
+        backgroundColor = appearance.colors.primaryBackground
+        layer.borderColor = appearance.colors.secondaryBackground.cgColor
         textField.tintColor = appearance.accent
         textField.textColor = appearance.primaryText
-        textField.backgroundColor = appearance.primaryBackground
-        textField.layer.borderColor = appearance.secondaryBackground.cgColor
+        textField.backgroundColor = appearance.colors.primaryBackground
+        textField.layer.borderColor = appearance.colors.secondaryBackground.cgColor
         label.textColor = appearance.secondaryText
         placeholder = placeholder
     }

@@ -13,15 +13,19 @@ protocol Appearance {
     
     var fonts: AppearanceFonts { get }
     
+    // MARK: - Colors
+    
+    var colors: AppearanceColors { get }
+    
     var statusBarStyle: UIStatusBarStyle { get }
     var overrideUserInterfaceStyle: UIUserInterfaceStyle { get }
     
     // MARK: - Colors
     
-    var primaryBackground: UIColor { get }
-    var secondaryBackground: UIColor { get }
-    var tertiaryBackground: UIColor { get }
-    var selectedBackground: UIColor { get }
+//    var primaryBackground: UIColor { get }
+//    var secondaryBackground: UIColor { get }
+//    var tertiaryBackground: UIColor { get }
+//    var selectedBackground: UIColor { get }
     var primaryActionBackground: UIColor { get }
     var primaryActionText: UIColor { get }
     var primaryActionBackgroundDisabled: UIColor { get }

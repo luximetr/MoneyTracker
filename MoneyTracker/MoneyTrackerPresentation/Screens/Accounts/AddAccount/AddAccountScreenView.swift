@@ -38,7 +38,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         setupBackgroundView()
@@ -197,7 +197,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         colorsTitleLabel.textColor = appearance.primaryText
         currencyInputView.setTitleColor(appearance.secondaryText, for: .normal)
     }

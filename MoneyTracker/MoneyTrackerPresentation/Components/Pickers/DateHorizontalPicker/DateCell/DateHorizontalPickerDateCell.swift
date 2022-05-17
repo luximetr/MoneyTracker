@@ -47,7 +47,7 @@ class DateCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         titleLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         titleLabel.textColor = appearance.primaryText
     }
 }

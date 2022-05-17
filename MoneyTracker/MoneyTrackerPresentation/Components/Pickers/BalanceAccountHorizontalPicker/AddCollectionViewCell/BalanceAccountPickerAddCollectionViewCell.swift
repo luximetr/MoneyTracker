@@ -61,7 +61,7 @@ class AddCollectionViewCell: AppearanceCollectionViewCell {
         super.setAppearance(appearance)
         textLabel.textColor = appearance.secondaryText
         textLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
-        borderLayer.strokeColor = appearance.secondaryBackground.cgColor
+        borderLayer.strokeColor = appearance.colors.secondaryBackground.cgColor
     }
     
     // MARK: Size

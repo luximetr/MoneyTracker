@@ -69,8 +69,8 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        contentView.backgroundColor = appearance.primaryBackground
-        contentView.layer.borderColor = appearance.tertiaryBackground.cgColor
+        contentView.backgroundColor = appearance.colors.primaryBackground
+        contentView.layer.borderColor = appearance.colors.tertiaryBackground.cgColor
         titleLabel.textColor = appearance.primaryText
         titleLabel.font = appearance.fonts.primary(size: 18, weight: .regular)
     }

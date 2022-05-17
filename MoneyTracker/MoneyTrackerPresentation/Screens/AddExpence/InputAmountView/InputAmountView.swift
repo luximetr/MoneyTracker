@@ -339,10 +339,10 @@ final class InputAmountView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         placeholderLabel.textColor = appearance.secondaryText
         inputLabel.textColor = appearance.primaryText
-        separatorView.backgroundColor = appearance.tertiaryBackground
+        separatorView.backgroundColor = appearance.colors.tertiaryBackground
         deleteKeyButton.changeAppearance(appearance)
         sevenKeyButton.changeAppearance(appearance)
         eightKeyButton.changeAppearance(appearance)

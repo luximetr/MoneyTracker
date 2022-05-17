@@ -33,7 +33,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         addSubview(monthPickerView)
         addSubview(monthExpensesLabel)
         setupMonthExpensesLabel()
@@ -49,7 +49,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     }
     
     private func setupMonthCategoriesExpensesTableView() {
-        monthCategoriesExpensesTableView.backgroundColor = appearance.primaryBackground
+        monthCategoriesExpensesTableView.backgroundColor = appearance.colors.primaryBackground
         monthCategoriesExpensesTableView.separatorStyle = .none
     }
     
@@ -116,10 +116,10 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         monthPickerView.changeAppearance(appearance)
         monthExpensesLabel.textColor = appearance.primaryText
-        monthCategoriesExpensesTableView.backgroundColor = appearance.primaryBackground
+        monthCategoriesExpensesTableView.backgroundColor = appearance.colors.primaryBackground
         monthCategoryExpensesTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     

@@ -158,13 +158,13 @@ class DateHorizontalPickerView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        collectionView.backgroundColor = appearance.primaryBackground
-        pickDayButtonBackground.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
+        pickDayButtonBackground.backgroundColor = appearance.colors.primaryBackground
         pickDayButtonIcon.tintColor = appearance.primaryText
-        pickDayButtonGradientLayer.colors = [appearance.primaryBackground.withAlphaComponent(1).cgColor, appearance.primaryBackground.withAlphaComponent(0).cgColor]
-        selectedDayFrameView.layer.borderColor = appearance.secondaryBackground.cgColor
-        collectionFadeView.backgroundColor = appearance.primaryBackground.withAlphaComponent(0.4)
+        pickDayButtonGradientLayer.colors = [appearance.colors.primaryBackground.withAlphaComponent(1).cgColor, appearance.colors.primaryBackground.withAlphaComponent(0).cgColor]
+        selectedDayFrameView.layer.borderColor = appearance.colors.secondaryBackground.cgColor
+        collectionFadeView.backgroundColor = appearance.colors.primaryBackground.withAlphaComponent(0.4)
         datePicker.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
         findDateCells().forEach { $0.setAppearance(appearance) }
     }

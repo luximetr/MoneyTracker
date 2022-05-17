@@ -122,10 +122,10 @@ final class AccountPickerView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         titleLabel.textColor = appearance.primaryText
         transferButton.setTitleColor(appearance.accent, for: .normal)
-        collectionView.backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
     }
     
 }

@@ -30,12 +30,12 @@ class StatusBarScreenView: AUIStatusBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
     }
     
     override func setupStatusBarView() {
         super.setupStatusBarView()
-        statusBarView.backgroundColor = appearance.primaryBackground
+        statusBarView.backgroundColor = appearance.colors.primaryBackground
     }
     
 }

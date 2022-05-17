@@ -53,10 +53,10 @@ class TemplatesScreenView: BackTitleRightButtonNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        statusBarView.backgroundColor = appearance.primaryBackground
-        navigationBarView.backgroundColor = appearance.primaryBackground
-        tableView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        statusBarView.backgroundColor = appearance.colors.primaryBackground
+        navigationBarView.backgroundColor = appearance.colors.primaryBackground
+        tableView.backgroundColor = appearance.colors.primaryBackground
         appearanceTableViewCells.forEach { $0.setAppearance(appearance) }
     }
     

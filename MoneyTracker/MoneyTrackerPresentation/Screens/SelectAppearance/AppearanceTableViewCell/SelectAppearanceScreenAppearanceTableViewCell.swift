@@ -31,7 +31,7 @@ final class AppearanceSettingTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: - Layout
@@ -94,7 +94,7 @@ final class AppearanceSettingTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         setupNameLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)
     }

@@ -43,7 +43,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupTableView() {
-        tableView.backgroundColor = appearance.primaryBackground
+        tableView.backgroundColor = appearance.colors.primaryBackground
         tableView.separatorStyle = .none
     }
     

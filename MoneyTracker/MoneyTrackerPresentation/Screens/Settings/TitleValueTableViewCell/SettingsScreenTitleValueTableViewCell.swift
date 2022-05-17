@@ -15,7 +15,7 @@ final class TitleValueTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         setupTitleLabel(appearance: appearance)
         setupValueLabel(appearance: appearance)
         setupForwardImageView(appearance: appearance)
@@ -56,7 +56,7 @@ final class TitleValueTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: - Layout

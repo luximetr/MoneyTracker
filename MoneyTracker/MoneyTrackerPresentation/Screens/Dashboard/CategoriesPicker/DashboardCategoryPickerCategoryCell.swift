@@ -106,7 +106,7 @@ final class CategoryCell: AppearanceCollectionViewCell {
         titleLabel.textColor = appearance.secondaryText
         titleLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
         coloredView.backgroundColor = appearance.transparent
-        coloredView.layer.borderColor = appearance.secondaryBackground.cgColor
+        coloredView.layer.borderColor = appearance.colors.secondaryBackground.cgColor
     }
 }
 }

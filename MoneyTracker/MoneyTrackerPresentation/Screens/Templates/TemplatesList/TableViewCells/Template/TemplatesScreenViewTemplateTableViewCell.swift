@@ -110,7 +110,7 @@ extension TemplatesScreenView {
         
         override func setAppearance(_ appearance: Appearance) {
             super.setAppearance(appearance)
-            backgroundColor = appearance.primaryBackground
+            backgroundColor = appearance.colors.primaryBackground
             nameLabel.textColor = appearance.primaryText
             nameLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
             amountLabel.textColor = appearance.primaryText
@@ -125,7 +125,7 @@ extension TemplatesScreenView {
             categoryLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
             commentLabel.textColor = appearance.secondaryText
             commentLabel.font = appearance.fonts.primary(size: 13, weight: .regular)
-            separatorView.backgroundColor = appearance.secondaryBackground
+            separatorView.backgroundColor = appearance.colors.secondaryBackground
         }
     }
 }

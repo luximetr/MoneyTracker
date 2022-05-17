@@ -30,7 +30,7 @@ class NavigationBarScreenView: StatusBarScreenView {
     }
     
     func setupNavigationBarView() {
-        navigationBarView.backgroundColor = appearance.primaryBackground
+        navigationBarView.backgroundColor = appearance.colors.primaryBackground
         navigationBarView.layer.shadowColor = UIColor.black.withAlphaComponent(0.12).cgColor
         navigationBarView.layer.shadowOpacity = 0.6
         navigationBarView.layer.shadowRadius = 12

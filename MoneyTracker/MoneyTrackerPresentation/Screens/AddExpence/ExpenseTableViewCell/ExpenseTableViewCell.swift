@@ -52,7 +52,7 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: - Layout
@@ -117,7 +117,7 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         setupAccountLabel(appearance: appearance)
         setupCategoryLabel(appearance: appearance)
         setupAmountLabel(appearance: appearance)
@@ -132,7 +132,7 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     func setIsSelected(_ isSelected: Bool, animated: Bool) {
         self._isSelected = isSelected
         if isSelected {
-            backgroundColor = appearance?.selectedBackground
+            backgroundColor = appearance?.colors.selectedBackground
         } else {
             backgroundColor = .clear
         }

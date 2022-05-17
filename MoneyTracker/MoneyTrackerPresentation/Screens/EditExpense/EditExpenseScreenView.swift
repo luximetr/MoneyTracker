@@ -167,7 +167,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         balanceAccountPickerHeaderLabel.textColor = appearance.secondaryText
         categoryPickerHeaderLabel.textColor = appearance.secondaryText
         dayDatePickerView.changeAppearance(appearance)

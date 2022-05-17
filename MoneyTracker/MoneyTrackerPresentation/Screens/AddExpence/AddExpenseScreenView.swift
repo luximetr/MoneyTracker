@@ -74,7 +74,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupExpenseTableView() {
-        expensesTableView.backgroundColor = appearance.primaryBackground
+        expensesTableView.backgroundColor = appearance.colors.primaryBackground
         expensesTableView.clipsToBounds = true
         expensesTableView.separatorStyle = .none
         expensesTableView.showsVerticalScrollIndicator = false
@@ -216,10 +216,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         inputDateView.changeAppearance(appearance)
         dayExpensesLabel.textColor = appearance.primaryText
-        expensesTableView.backgroundColor = appearance.primaryBackground
+        expensesTableView.backgroundColor = appearance.colors.primaryBackground
         commentTextField.changeAppearance(appearance)
         expensTableViewCells?.forEach({ $0.setAppearance(appearance) })
         addButton.backgroundColor = appearance.primaryActionBackground

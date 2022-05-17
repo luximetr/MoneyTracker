@@ -152,9 +152,9 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        statusBarView.backgroundColor = appearance.primaryBackground
-        navigationBarView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        statusBarView.backgroundColor = appearance.colors.primaryBackground
+        navigationBarView.backgroundColor = appearance.colors.primaryBackground
         nameTextField.changeAppearance(appearance)
         amountInputView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)

@@ -167,11 +167,11 @@ final class TemplatesView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         addButton.setTitleColor(appearance.accent, for: .normal)
-        panGestureView.backgroundColor = appearance.secondaryBackground
+        panGestureView.backgroundColor = appearance.colors.secondaryBackground
         titleLabel.textColor = appearance.primaryText
-        collectionView.backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
         visibleCollectionCells.forEach { $0.setAppearance(appearance) }
     }
     

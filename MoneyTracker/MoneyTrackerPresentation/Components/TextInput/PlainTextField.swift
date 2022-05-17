@@ -17,12 +17,12 @@ final class PlainTextField: AppearanceTextField {
         setupBorder()
         tintColor = appearance.accent
         textColor = appearance.primaryText
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     func setupBorder() {
-        layer.borderColor = appearance.secondaryBackground.cgColor
+        layer.borderColor = appearance.colors.secondaryBackground.cgColor
     }
     
     // MARK: - Layout
@@ -54,7 +54,7 @@ final class PlainTextField: AppearanceTextField {
         setupBorder()
         tintColor = appearance.primaryText
         textColor = appearance.primaryText
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         placeholder = placeholder
     }
     

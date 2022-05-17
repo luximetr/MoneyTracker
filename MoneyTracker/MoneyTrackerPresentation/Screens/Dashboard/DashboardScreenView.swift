@@ -144,7 +144,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         historyButton.imageView?.tintColor = appearance.primaryText
         categoryPickerView.changeAppearance(appearance)
         accountPickerView.changeAppearance(appearance)
