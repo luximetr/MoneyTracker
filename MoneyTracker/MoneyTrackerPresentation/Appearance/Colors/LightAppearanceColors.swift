@@ -39,7 +39,7 @@ struct LightAppearance: Appearance {
     
     // MARK: - Fonts
     
-    var fonts: AppearanceFonts = DefaultAppearanceFonts()
+    var fonts: AppearanceFonts = SystemAppearanceFonts()
     
     // MARK: - Colors
     

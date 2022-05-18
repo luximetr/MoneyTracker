@@ -242,7 +242,7 @@
 		2EE1897827FEBD08006D7DA9 /* Replenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897727FEBD08006D7DA9 /* Replenishment.swift */; };
 		2EE1897A27FEBD18006D7DA9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897927FEBD18006D7DA9 /* AddingReplenishment.swift */; };
 		2EFCCE3E283431B800E1F85F /* AppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3D283431B800E1F85F /* AppearanceFonts.swift */; };
-		2EFCCE40283431F700E1F85F /* DefaultAppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3F283431F700E1F85F /* DefaultAppearanceFonts.swift */; };
+		2EFCCE40283431F700E1F85F /* SystemAppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3F283431F700E1F85F /* SystemAppearanceFonts.swift */; };
 		2EFCCE4328343C0900E1F85F /* AppearanceColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE4228343C0900E1F85F /* AppearanceColors.swift */; };
 		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
 		DB400412280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400411280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift */; };
@@ -815,7 +815,7 @@
 		2EE1897727FEBD08006D7DA9 /* Replenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replenishment.swift; sourceTree = "<group>"; };
 		2EE1897927FEBD18006D7DA9 /* AddingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingReplenishment.swift; sourceTree = "<group>"; };
 		2EFCCE3D283431B800E1F85F /* AppearanceFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceFonts.swift; sourceTree = "<group>"; };
-		2EFCCE3F283431F700E1F85F /* DefaultAppearanceFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppearanceFonts.swift; sourceTree = "<group>"; };
+		2EFCCE3F283431F700E1F85F /* SystemAppearanceFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAppearanceFonts.swift; sourceTree = "<group>"; };
 		2EFCCE4228343C0900E1F85F /* AppearanceColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceColors.swift; sourceTree = "<group>"; };
 		3BF952E2EAD51B56319BC964 /* Pods-MoneyTrackerPresentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.release.xcconfig"; sourceTree = "<group>"; };
 		419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2221,7 +2221,7 @@
 			isa = PBXGroup;
 			children = (
 				2EFCCE3D283431B800E1F85F /* AppearanceFonts.swift */,
-				2EFCCE3F283431F700E1F85F /* DefaultAppearanceFonts.swift */,
+				2EFCCE3F283431F700E1F85F /* SystemAppearanceFonts.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -3360,7 +3360,7 @@
 				2E7F856F281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift in Sources */,
 				DB7BA81927F988D900A3B3BA /* ColorHorizontalPickerColorCellController.swift in Sources */,
 				DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */,
-				2EFCCE40283431F700E1F85F /* DefaultAppearanceFonts.swift in Sources */,
+				2EFCCE40283431F700E1F85F /* SystemAppearanceFonts.swift in Sources */,
 				2ECB218727DCA957006D6558 /* AddExpenseScreenViewController.swift in Sources */,
 				2EC22DD228105EAF00530139 /* SelectAppearanceScreenAppearanceTableViewCell.swift in Sources */,
 				DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */,

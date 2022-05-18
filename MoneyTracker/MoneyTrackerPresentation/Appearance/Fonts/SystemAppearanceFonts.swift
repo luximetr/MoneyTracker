@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DefaultAppearanceFonts: AppearanceFonts {
+class SystemAppearanceFonts: AppearanceFonts {
     
     func primary(size: CGFloat, weight: UIFont.Weight) -> UIFont {
         return UIFont.systemFont(ofSize: size, weight: weight)
