@@ -48,7 +48,7 @@ class DateCell: AppearanceCollectionViewCell {
         super.setAppearance(appearance)
         titleLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
         backgroundColor = appearance.colors.primaryBackground
-        titleLabel.textColor = appearance.primaryText
+        titleLabel.textColor = appearance.colors.primaryText
     }
 }
 }

@@ -161,7 +161,7 @@ class DateHorizontalPickerView: AppearanceView {
         backgroundColor = appearance.colors.primaryBackground
         collectionView.backgroundColor = appearance.colors.primaryBackground
         pickDayButtonBackground.backgroundColor = appearance.colors.primaryBackground
-        pickDayButtonIcon.tintColor = appearance.primaryText
+        pickDayButtonIcon.tintColor = appearance.colors.primaryText
         pickDayButtonGradientLayer.colors = [appearance.colors.primaryBackground.withAlphaComponent(1).cgColor, appearance.colors.primaryBackground.withAlphaComponent(0).cgColor]
         selectedDayFrameView.layer.borderColor = appearance.colors.secondaryBackground.cgColor
         collectionFadeView.backgroundColor = appearance.colors.primaryBackground.withAlphaComponent(0.4)

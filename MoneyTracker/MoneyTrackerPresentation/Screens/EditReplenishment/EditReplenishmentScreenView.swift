@@ -60,11 +60,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupAccountPickerLabel() {
         accountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
-        accountPickerLabel.textColor = appearance.secondaryText
+        accountPickerLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupAddButton() {
-        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
     }
     
     // MARK: AutoLayout
@@ -188,9 +188,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        accountPickerLabel.textColor = appearance.secondaryText
+        accountPickerLabel.textColor = appearance.colors.secondaryText
         dayDatePickerView.changeAppearance(appearance)
-        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
         errorSnackbarView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)
         accountPickerView.changeAppearance(appearance)

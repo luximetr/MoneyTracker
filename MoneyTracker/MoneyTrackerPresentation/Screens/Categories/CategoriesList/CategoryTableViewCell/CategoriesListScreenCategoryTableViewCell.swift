@@ -28,7 +28,7 @@ final class CategoryTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupNameLabel(appearance: Appearance) {
-        nameLabel.textColor = appearance.primaryText
+        nameLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupSeparatorView(appearance: Appearance) {

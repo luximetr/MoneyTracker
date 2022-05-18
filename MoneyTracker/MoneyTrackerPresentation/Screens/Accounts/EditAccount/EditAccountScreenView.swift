@@ -72,7 +72,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupColorsTitleLabel() {
-        colorsTitleLabel.textColor = appearance.primaryText
+        colorsTitleLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupColorPickerView() {
@@ -198,8 +198,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        colorsTitleLabel.textColor = appearance.primaryText
-        currencyInputView.setTitleColor(appearance.secondaryText, for: .normal)
+        colorsTitleLabel.textColor = appearance.colors.primaryText
+        currencyInputView.setTitleColor(appearance.colors.secondaryText, for: .normal)
         errorSnackbarView.changeAppearance(appearance)
     }
     

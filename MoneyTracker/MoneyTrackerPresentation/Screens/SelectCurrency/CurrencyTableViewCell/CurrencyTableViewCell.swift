@@ -59,9 +59,9 @@ class CurrencyTableViewCell: AppearanceTableViewCell {
     
     private func getCodeLabelColor(isSelected: Bool) -> UIColor {
         if isSelected {
-            return appearance?.accent ?? .clear
+            return appearance?.colors.accent ?? .clear
         } else {
-            return appearance?.primaryText ?? .clear
+            return appearance?.colors.primaryText ?? .clear
         }
     }
     
@@ -70,7 +70,7 @@ class CurrencyTableViewCell: AppearanceTableViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        nameLabel.textColor = appearance.primaryText
+        nameLabel.textColor = appearance.colors.primaryText
     }
 }
 }

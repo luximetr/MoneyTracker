@@ -75,7 +75,7 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
             guard let string = newValue else { return }
             let attributes: [NSAttributedString.Key : Any] = [
                 .font: appearance.fonts.primary(size: 17, weight: .regular),
-                .foregroundColor: appearance.tertiaryText
+                .foregroundColor: appearance.colors.tertiaryText
             ]
             let attributedString = NSAttributedString(string: string, attributes: attributes)
             textField.attributedPlaceholder = attributedString
@@ -98,11 +98,11 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         layer.borderColor = appearance.colors.secondaryBackground.cgColor
-        textField.tintColor = appearance.accent
-        textField.textColor = appearance.primaryText
+        textField.tintColor = appearance.colors.accent
+        textField.textColor = appearance.colors.primaryText
         textField.backgroundColor = appearance.colors.primaryBackground
         textField.layer.borderColor = appearance.colors.secondaryBackground.cgColor
-        label.textColor = appearance.secondaryText
+        label.textColor = appearance.colors.secondaryText
         placeholder = placeholder
     }
 }

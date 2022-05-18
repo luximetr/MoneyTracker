@@ -70,16 +70,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupFromAccountPickerLabel() {
         fromAccountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
-        fromAccountPickerLabel.textColor = appearance.secondaryText
+        fromAccountPickerLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupToAccountPickerLabel() {
         toAccountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
-        toAccountPickerLabel.textColor = appearance.secondaryText
+        toAccountPickerLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupAddButton() {
-        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
     }
     
     // MARK: AutoLayout
@@ -257,17 +257,17 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        fromAccountPickerLabel.textColor = appearance.secondaryText
+        fromAccountPickerLabel.textColor = appearance.colors.secondaryText
         fromAccountPickerView.changeAppearance(appearance)
         dayDatePickerView.changeAppearance(appearance)
         fromAmountInputView.changeAppearance(appearance)
-        toAccountPickerLabel.textColor = appearance.secondaryText
+        toAccountPickerLabel.textColor = appearance.colors.secondaryText
         toAccountPickerView.changeAppearance(appearance)
         toAmountInputView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
-        addButton.backgroundColor = appearance.primaryActionBackground
-        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
+        addButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         errorSnackbarView.changeAppearance(appearance)
     }
     

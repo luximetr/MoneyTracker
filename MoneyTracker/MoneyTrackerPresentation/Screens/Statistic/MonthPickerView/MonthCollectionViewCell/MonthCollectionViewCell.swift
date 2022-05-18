@@ -61,11 +61,11 @@ class MonthCollectionViewCell: AppearanceCollectionViewCell {
     func setSelected(_ isSelected: Bool) {
         self._isSelected = isSelected
         if isSelected {
-            contentView.backgroundColor = appearance?.primaryActionBackground ?? .clear
+            contentView.backgroundColor = appearance?.colors.primaryActionBackground ?? .clear
             monthLabel.textColor = .white
         } else {
             contentView.backgroundColor = .clear
-            monthLabel.textColor = appearance?.secondaryText
+            monthLabel.textColor = appearance?.colors.secondaryText
         }
     }
     

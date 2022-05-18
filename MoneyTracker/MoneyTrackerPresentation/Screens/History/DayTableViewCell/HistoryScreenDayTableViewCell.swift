@@ -27,12 +27,12 @@ final class DayTableViewCell: AppearanceTableViewCell {
     
     private func setupDayLabel(appearance: Appearance) {
         dayLabel.font = appearance.fonts.primary(size: 10, weight: .regular)
-        dayLabel.textColor = appearance.accent
+        dayLabel.textColor = appearance.colors.accent
     }
     
     private func setupExpensesLabel(appearance: Appearance) {
         expensesLabel.font = appearance.fonts.primary(size: 10, weight: .regular)
-        expensesLabel.textColor = appearance.accent
+        expensesLabel.textColor = appearance.colors.accent
     }
     
     // MARK: - Layout

@@ -71,7 +71,7 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
         super.setAppearance(appearance)
         contentView.backgroundColor = appearance.colors.primaryBackground
         contentView.layer.borderColor = appearance.colors.tertiaryBackground.cgColor
-        titleLabel.textColor = appearance.primaryText
+        titleLabel.textColor = appearance.colors.primaryText
         titleLabel.font = appearance.fonts.primary(size: 18, weight: .regular)
     }
     

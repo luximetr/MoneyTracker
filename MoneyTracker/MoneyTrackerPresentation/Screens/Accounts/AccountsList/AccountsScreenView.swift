@@ -39,7 +39,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupAddButton() {
         addButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .regular)
-        addButton.setTitleColor(appearance.accent, for: .normal)
+        addButton.setTitleColor(appearance.colors.accent, for: .normal)
     }
     
     private func setupCollectionView() {

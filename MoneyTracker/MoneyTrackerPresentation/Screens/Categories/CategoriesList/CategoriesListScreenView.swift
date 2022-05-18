@@ -39,7 +39,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupAddButton() {
-        addButton.setTitleColor(appearance.accent, for: .normal)
+        addButton.setTitleColor(appearance.colors.accent, for: .normal)
     }
     
     private func setupTableView() {

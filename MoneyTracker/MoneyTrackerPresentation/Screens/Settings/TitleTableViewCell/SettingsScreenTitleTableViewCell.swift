@@ -38,13 +38,13 @@ final class TitleTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupTitleLabel(appearance: Appearance) {
-        titleLabel.textColor = appearance.primaryText
+        titleLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupForwardImageView(appearance: Appearance) {
         forwardImageView.contentMode = .scaleAspectFit
         forwardImageView.image = Images.forwardArrow.withRenderingMode(.alwaysTemplate)
-        forwardImageView.tintColor = appearance.primaryText
+        forwardImageView.tintColor = appearance.colors.primaryText
     }
     
     private func setupSeparatorView(appearance: Appearance) {

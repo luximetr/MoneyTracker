@@ -32,7 +32,7 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
     
     private func setupTextView() {
         textView.isEditable = false
-        textView.textColor = appearance.primaryText
+        textView.textColor = appearance.colors.primaryText
     }
     
     // MARK: Layout

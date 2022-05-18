@@ -111,19 +111,19 @@ extension TemplatesScreenView {
         override func setAppearance(_ appearance: Appearance) {
             super.setAppearance(appearance)
             backgroundColor = appearance.colors.primaryBackground
-            nameLabel.textColor = appearance.primaryText
+            nameLabel.textColor = appearance.colors.primaryText
             nameLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
-            amountLabel.textColor = appearance.primaryText
+            amountLabel.textColor = appearance.colors.primaryText
             amountLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
-            balanceAccountPrefixLabel.textColor = appearance.secondaryText
+            balanceAccountPrefixLabel.textColor = appearance.colors.secondaryText
             balanceAccountPrefixLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
-            balanceAccountLabel.textColor = appearance.primaryText
+            balanceAccountLabel.textColor = appearance.colors.primaryText
             balanceAccountLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
-            categoryPrefixLabel.textColor = appearance.secondaryText
+            categoryPrefixLabel.textColor = appearance.colors.secondaryText
             categoryPrefixLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
-            categoryLabel.textColor = appearance.primaryText
+            categoryLabel.textColor = appearance.colors.primaryText
             categoryLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
-            commentLabel.textColor = appearance.secondaryText
+            commentLabel.textColor = appearance.colors.secondaryText
             commentLabel.font = appearance.fonts.primary(size: 13, weight: .regular)
             separatorView.backgroundColor = appearance.colors.secondaryBackground
         }

@@ -121,7 +121,7 @@ final class AccountCollectionViewCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         _accountView.changeAppearance(appearance)
-        deleteButton.backgroundColor = appearance.dangerousActionBackground
+        deleteButton.backgroundColor = appearance.colors.dangerousActionBackground
     }
         
 }

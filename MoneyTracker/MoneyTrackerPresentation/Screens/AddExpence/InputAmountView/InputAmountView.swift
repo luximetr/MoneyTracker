@@ -340,8 +340,8 @@ final class InputAmountView: AppearanceView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        placeholderLabel.textColor = appearance.secondaryText
-        inputLabel.textColor = appearance.primaryText
+        placeholderLabel.textColor = appearance.colors.secondaryText
+        inputLabel.textColor = appearance.colors.primaryText
         separatorView.backgroundColor = appearance.colors.tertiaryBackground
         deleteKeyButton.changeAppearance(appearance)
         sevenKeyButton.changeAppearance(appearance)
@@ -394,7 +394,7 @@ final class KeyButton: AppearanceButton {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        setTitleColor(appearance.primaryText, for: .normal)
+        setTitleColor(appearance.colors.primaryText, for: .normal)
     }
     
 }
@@ -428,7 +428,7 @@ final class OperationKeyButton: AppearanceButton {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        setTitleColor(appearance.tertiaryText, for: .normal)
+        setTitleColor(appearance.colors.tertiaryText, for: .normal)
     }
     
 }

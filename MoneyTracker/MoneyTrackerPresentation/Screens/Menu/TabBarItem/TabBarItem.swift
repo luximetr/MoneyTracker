@@ -27,12 +27,12 @@ final class TabBarItem: AppearanceButton {
     
     private func setupPictureImageView() {
         pictureImageView.contentMode = .scaleAspectFit
-        pictureImageView.tintColor = appearance.primaryText
+        pictureImageView.tintColor = appearance.colors.primaryText
     }
     
     private func setupTitleLabel() {
         textLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
-        textLabel.textColor = appearance.primaryText
+        textLabel.textColor = appearance.colors.primaryText
         textLabel.adjustsFontSizeToFitWidth = true
         textLabel.minimumScaleFactor = 0.5
     }
@@ -70,11 +70,11 @@ final class TabBarItem: AppearanceButton {
     func setSelected(_ selected: Bool, animated: Bool) {
         self._selected = selected
         if selected {
-            pictureImageView.tintColor = appearance.accent
-            textLabel.textColor = appearance.accent
+            pictureImageView.tintColor = appearance.colors.accent
+            textLabel.textColor = appearance.colors.accent
         } else {
-            pictureImageView.tintColor = appearance.primaryText
-            textLabel.textColor = appearance.primaryText
+            pictureImageView.tintColor = appearance.colors.primaryText
+            textLabel.textColor = appearance.colors.primaryText
         }
     }
     
@@ -82,8 +82,8 @@ final class TabBarItem: AppearanceButton {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        pictureImageView.tintColor = appearance.primaryText
-        textLabel.textColor = appearance.primaryText
+        pictureImageView.tintColor = appearance.colors.primaryText
+        textLabel.textColor = appearance.colors.primaryText
         setSelected(_selected, animated: false)
     }
     

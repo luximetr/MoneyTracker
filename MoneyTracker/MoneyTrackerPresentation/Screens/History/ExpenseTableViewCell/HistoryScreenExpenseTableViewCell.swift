@@ -111,14 +111,14 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        accountLabel.textColor = appearance.secondaryText
+        accountLabel.textColor = appearance.colors.secondaryText
         accountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
-        amountLabel.textColor = appearance.primaryText
+        amountLabel.textColor = appearance.colors.primaryText
         amountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
-        balanceTransferImageView.tintColor = appearance.primaryText
-        categoryLabel.textColor = appearance.primaryText
+        balanceTransferImageView.tintColor = appearance.colors.primaryText
+        categoryLabel.textColor = appearance.colors.primaryText
         categoryLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
-        commentLabel.textColor = appearance.secondaryText
+        commentLabel.textColor = appearance.colors.secondaryText
         commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         separatorView.backgroundColor = appearance.colors.secondaryBackground
     }

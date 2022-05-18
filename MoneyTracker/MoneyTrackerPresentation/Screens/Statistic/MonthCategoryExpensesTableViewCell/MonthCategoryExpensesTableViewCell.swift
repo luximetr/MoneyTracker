@@ -31,12 +31,12 @@ final class MonthCategoryExpensesTableViewCell: AppearanceTableViewCell {
     
     private func setupCategoryLabel(appearance: Appearance) {
         categoryLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
-        categoryLabel.textColor = appearance.primaryText
+        categoryLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupAmountLabel(appearance: Appearance) {
         amountLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
-        amountLabel.textColor = appearance.primaryText
+        amountLabel.textColor = appearance.colors.primaryText
         amountLabel.adjustsFontSizeToFitWidth = true
     }
     

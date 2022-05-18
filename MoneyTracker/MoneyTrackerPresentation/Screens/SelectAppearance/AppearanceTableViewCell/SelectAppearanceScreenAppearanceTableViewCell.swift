@@ -27,7 +27,7 @@ final class AppearanceSettingTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupNameLabel(appearance: Appearance) {
-        nameLabel.textColor = appearance.primaryText
+        nameLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupSeparatorView(appearance: Appearance) {
@@ -84,9 +84,9 @@ final class AppearanceSettingTableViewCell: AppearanceTableViewCell {
     
     private func getCodeLabelColor(isSelected: Bool) -> UIColor {
         if isSelected {
-            return appearance?.accent ?? .clear
+            return appearance?.colors.accent ?? .clear
         } else {
-            return appearance?.primaryText ?? .clear
+            return appearance?.colors.primaryText ?? .clear
         }
     }
     

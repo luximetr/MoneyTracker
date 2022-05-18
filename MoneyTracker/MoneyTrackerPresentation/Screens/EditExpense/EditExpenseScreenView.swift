@@ -168,13 +168,13 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        balanceAccountPickerHeaderLabel.textColor = appearance.secondaryText
-        categoryPickerHeaderLabel.textColor = appearance.secondaryText
+        balanceAccountPickerHeaderLabel.textColor = appearance.colors.secondaryText
+        categoryPickerHeaderLabel.textColor = appearance.colors.secondaryText
         dayDatePickerView.changeAppearance(appearance)
         amountInputView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)
-        saveButton.backgroundColor = appearance.primaryActionBackground
-        saveButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        saveButton.backgroundColor = appearance.colors.primaryActionBackground
+        saveButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         errorSnackbarView.changeAppearance(appearance)
     }
 }

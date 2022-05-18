@@ -170,10 +170,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         scrollView.backgroundColor = appearance.colors.primaryBackground
         iconView.iconImageView.tintColor = appearance.categoryPrimaryText
-        colorPickerTitleLabel.textColor = appearance.primaryText
+        colorPickerTitleLabel.textColor = appearance.colors.primaryText
         nameTextField.changeAppearance(appearance)
-        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
-        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
         errorSnackbarView.changeAppearance(appearance)
     }
     

@@ -102,8 +102,8 @@ final class CategoryCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        iconView.tintColor = appearance.secondaryText
-        titleLabel.textColor = appearance.secondaryText
+        iconView.tintColor = appearance.colors.secondaryText
+        titleLabel.textColor = appearance.colors.secondaryText
         titleLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
         coloredView.backgroundColor = appearance.transparent
         coloredView.layer.borderColor = appearance.colors.secondaryBackground.cgColor

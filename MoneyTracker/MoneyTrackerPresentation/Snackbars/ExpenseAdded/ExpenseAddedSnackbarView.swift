@@ -72,9 +72,9 @@ final class ExpenseAddedSnackbarView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.successActionBackground
-        messageLabel.textColor = appearance.successActionText
-        okButton.setTitleColor(appearance.successActionText, for: .normal)
+        backgroundColor = appearance.colors.successActionBackground
+        messageLabel.textColor = appearance.colors.successActionText
+        okButton.setTitleColor(appearance.colors.successActionText, for: .normal)
     }
     
     // MARK: Size

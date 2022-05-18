@@ -44,7 +44,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     private func setupMonthExpensesLabel() {
         monthExpensesLabel.font = appearance.fonts.primary(size: 24, weight: .medium)
-        monthExpensesLabel.textColor = appearance.primaryText
+        monthExpensesLabel.textColor = appearance.colors.primaryText
         monthExpensesLabel.adjustsFontSizeToFitWidth = true
     }
     
@@ -118,7 +118,7 @@ final class ScreenView: TitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         monthPickerView.changeAppearance(appearance)
-        monthExpensesLabel.textColor = appearance.primaryText
+        monthExpensesLabel.textColor = appearance.colors.primaryText
         monthCategoriesExpensesTableView.backgroundColor = appearance.colors.primaryBackground
         monthCategoryExpensesTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }

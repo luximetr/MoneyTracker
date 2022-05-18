@@ -127,8 +127,8 @@ final class CategoryPickerView: AppearanceView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        titleLabel.textColor = appearance.primaryText
-        addExpenseButton.setTitleColor(appearance.accent, for: .normal)
+        titleLabel.textColor = appearance.colors.primaryText
+        addExpenseButton.setTitleColor(appearance.colors.accent, for: .normal)
         collectionView.backgroundColor = appearance.colors.primaryBackground
     }
     

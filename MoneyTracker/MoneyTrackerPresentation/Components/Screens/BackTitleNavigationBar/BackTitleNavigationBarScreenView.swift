@@ -35,12 +35,12 @@ class BackTitleNavigationBarScreenView: NavigationBarScreenView {
     
     func setupBackButton() {
         backButton.setImage(Images.backArrow.withRenderingMode(.alwaysTemplate), for: .normal)
-        backButton.imageView?.tintColor = appearance.accent
+        backButton.imageView?.tintColor = appearance.colors.accent
     }
     
     func setupTitleLabel() {
         titleLabel.font = appearance.fonts.primary(size: 24, weight: .semibold)
-        titleLabel.textColor = appearance.primaryText
+        titleLabel.textColor = appearance.colors.primaryText
     }
     
     // MARK: - Layout

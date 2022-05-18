@@ -218,12 +218,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         inputDateView.changeAppearance(appearance)
-        dayExpensesLabel.textColor = appearance.primaryText
+        dayExpensesLabel.textColor = appearance.colors.primaryText
         expensesTableView.backgroundColor = appearance.colors.primaryBackground
         commentTextField.changeAppearance(appearance)
         expensTableViewCells?.forEach({ $0.setAppearance(appearance) })
-        addButton.backgroundColor = appearance.primaryActionBackground
-        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
+        addButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         inputAmountView.changeAppearance(appearance)
         errorSnackbarView.changeAppearance(appearance)
     }
