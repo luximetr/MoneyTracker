@@ -25,5 +25,12 @@ protocol AppearanceColors {
     var primaryText: UIColor { get }
     var secondaryText: UIColor { get }
     var tertiaryText: UIColor { get }
+    var successText: UIColor { get }
+    var dangerousText: UIColor { get }
+    var transparent: UIColor { get }
+    var balanceAccountPrimaryText: UIColor { get }
+    var balanceAccountSecondaryText: UIColor { get }
+    var categoryPrimaryText: UIColor { get }
+    var cardPrimaryText: UIColor { get }
     
 }

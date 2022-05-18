@@ -105,7 +105,7 @@ final class CategoryCell: AppearanceCollectionViewCell {
         iconView.tintColor = appearance.colors.secondaryText
         titleLabel.textColor = appearance.colors.secondaryText
         titleLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
-        coloredView.backgroundColor = appearance.transparent
+        coloredView.backgroundColor = appearance.colors.transparent
         coloredView.layer.borderColor = appearance.colors.secondaryBackground.cgColor
     }
 }

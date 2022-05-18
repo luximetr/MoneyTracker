@@ -17,16 +17,16 @@ protocol Appearance {
     
     var colors: AppearanceColors { get }
     
+    // MARK: - UIStatusBarStyle
+    
     var statusBarStyle: UIStatusBarStyle { get }
+    
+    // MARK: - UIUserInterfaceStyle
+    
     var overrideUserInterfaceStyle: UIUserInterfaceStyle { get }
     
     // MARK: - Colors
     
-    var successText: UIColor { get }
-    var dangerousText: UIColor { get }
-    var transparent: UIColor { get }
-    var balanceAccountPrimaryText: UIColor { get }
-    var balanceAccountSecondaryText: UIColor { get }
     var balanceAccountSecondaryBackground: UIColor { get }
     var balanceAccountVariant1PrimaryBackground: UIColor { get }
     var balanceAccountVariant2PrimaryBackground: UIColor { get }
@@ -48,7 +48,6 @@ protocol Appearance {
     var balanceAccountVariant18PrimaryBackground: UIColor { get }
     var balanceAccountVariant19PrimaryBackground: UIColor { get }
     var balanceAccountVariant20PrimaryBackground: UIColor { get }
-    var categoryPrimaryText: UIColor { get }
     var categoryVariant1PrimaryBackground: UIColor { get }
     var categoryVariant2PrimaryBackground: UIColor { get }
     var categoryVariant3PrimaryBackground: UIColor { get }
@@ -68,5 +67,4 @@ protocol Appearance {
     var categoryVariant17PrimaryBackground: UIColor { get }
     var categoryVariant18PrimaryBackground: UIColor { get }
     var categoryVariant19PrimaryBackground: UIColor { get }
-    var cardPrimaryText: UIColor { get }
 }

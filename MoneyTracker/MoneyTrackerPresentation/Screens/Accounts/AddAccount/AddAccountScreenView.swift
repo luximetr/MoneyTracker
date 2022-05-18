@@ -44,15 +44,15 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupBackgroundView()
         backgroundView.addSubview(nameInputView)
         nameInputView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
-        nameInputView.textColor = appearance.cardPrimaryText
-        nameInputView.tintColor = appearance.cardPrimaryText
+        nameInputView.textColor = appearance.colors.cardPrimaryText
+        nameInputView.tintColor = appearance.colors.cardPrimaryText
         nameInputView.layer.borderColor = UIColor.clear.cgColor
         backgroundView.addSubview(currencyInputView)
         setupCurrencyInputView()
         backgroundView.addSubview(amountInputView)
         amountInputView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
-        amountInputView.textColor = appearance.cardPrimaryText
-        amountInputView.tintColor = appearance.cardPrimaryText
+        amountInputView.textColor = appearance.colors.cardPrimaryText
+        amountInputView.tintColor = appearance.colors.cardPrimaryText
         amountInputView.layer.borderColor = UIColor.clear.cgColor
         scrollView.addSubview(colorsTitleLabel)
         setupColorsTitleLabel()

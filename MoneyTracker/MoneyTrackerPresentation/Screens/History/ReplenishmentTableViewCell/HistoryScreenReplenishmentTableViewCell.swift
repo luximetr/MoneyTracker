@@ -84,7 +84,7 @@ final class ReplenishmentTableViewCell: AppearanceTableViewCell {
         backgroundColor = appearance.colors.primaryBackground
         accountLabel.textColor = appearance.colors.primaryText
         accountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
-        amountLabel.textColor = appearance.successText
+        amountLabel.textColor = appearance.colors.successText
         amountLabel.font = appearance.fonts.primary(size: 12, weight: .semibold)
         commentLabel.textColor = appearance.colors.secondaryText
         commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)

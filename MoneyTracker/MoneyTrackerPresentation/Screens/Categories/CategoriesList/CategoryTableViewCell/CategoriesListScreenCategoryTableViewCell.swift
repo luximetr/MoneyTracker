@@ -93,7 +93,7 @@ final class CategoryTableViewCell: AppearanceTableViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        iconView.iconImageView.tintColor = appearance.categoryPrimaryText
+        iconView.iconImageView.tintColor = appearance.colors.categoryPrimaryText
         setupNameLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)
     }

@@ -100,7 +100,7 @@ final class MonthCategoryExpensesTableViewCell: AppearanceTableViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        categoryIconView.iconImageView.tintColor = appearance.categoryPrimaryText
+        categoryIconView.iconImageView.tintColor = appearance.colors.categoryPrimaryText
         setupCategoryLabel(appearance: appearance)
         setupAmountLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)

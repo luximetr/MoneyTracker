@@ -57,7 +57,7 @@ class BalanceAccountHorizontalPickerItemCell: AppearanceCollectionViewCell {
     
     func update(isSelected: Bool) {
         if isSelected {
-            titleLabel.textColor = appearance?.balanceAccountPrimaryText
+            titleLabel.textColor = appearance?.colors.balanceAccountPrimaryText
             coloredView.backgroundColor = color
         } else {
             titleLabel.textColor = color
@@ -100,7 +100,7 @@ class BalanceAccountHorizontalPickerItemCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         titleLabel.font = appearance.fonts.primary(size: 12, weight: .semibold)
-        titleLabel.textColor = appearance.balanceAccountPrimaryText
+        titleLabel.textColor = appearance.colors.balanceAccountPrimaryText
     }
     
 }

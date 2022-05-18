@@ -145,17 +145,17 @@ private class AccountView: AppearanceView {
     }
     
     private func setupNameLabel() {
-        nameLabel.textColor = appearance.cardPrimaryText
+        nameLabel.textColor = appearance.colors.cardPrimaryText
     }
     
     private func setupBalanceLabel() {
-        balanceLabel.textColor = appearance.cardPrimaryText
+        balanceLabel.textColor = appearance.colors.cardPrimaryText
     }
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        nameLabel.textColor = appearance.cardPrimaryText
-        balanceLabel.textColor = appearance.cardPrimaryText
+        nameLabel.textColor = appearance.colors.cardPrimaryText
+        balanceLabel.textColor = appearance.colors.cardPrimaryText
     }
     
     // MARK: Layout
