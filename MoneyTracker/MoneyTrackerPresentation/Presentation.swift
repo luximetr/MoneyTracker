@@ -37,14 +37,14 @@ public final class Presentation: AUIWindowPresentation {
     private static func appearance(_ appearanceSetting: AppearanceSetting, window: UIWindow) -> Appearance {
         switch appearanceSetting {
         case .light:
-            return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: LightAppearanceColors())
+            return CompositeAppearance(fonts: DefaultAppearanceFonts(), colors: LightAppearanceColors(), images: DefaultAppearanceImages())
         case .dark:
-            return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: DarkAppearanceColors())
+            return CompositeAppearance(fonts: DefaultAppearanceFonts(), colors: DarkAppearanceColors(), images: DefaultAppearanceImages())
         case .system:
             let userInterfaceStyle = window.traitCollection.userInterfaceStyle
             switch userInterfaceStyle {
-                case .dark: return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: DarkAppearanceColors())
-                default: return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: LightAppearanceColors())
+                case .dark: return CompositeAppearance(fonts: DefaultAppearanceFonts(), colors: DarkAppearanceColors(), images: DefaultAppearanceImages())
+                default: return CompositeAppearance(fonts: DefaultAppearanceFonts(), colors: LightAppearanceColors(), images: DefaultAppearanceImages())
             }
         }
     }
@@ -99,8 +99,8 @@ public final class Presentation: AUIWindowPresentation {
     
     private func getAppearance(userInterfaceStyle: UIUserInterfaceStyle) -> Appearance {
         switch userInterfaceStyle {
-            case .dark: return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: DarkAppearanceColors())
-            default: return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: LightAppearanceColors())
+            case .dark: return CompositeAppearance(fonts: DefaultAppearanceFonts(), colors: DarkAppearanceColors(), images: DefaultAppearanceImages())
+            default: return CompositeAppearance(fonts: DefaultAppearanceFonts(), colors: LightAppearanceColors(), images: DefaultAppearanceImages())
         }
     }
     

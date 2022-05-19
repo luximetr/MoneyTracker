@@ -70,7 +70,9 @@ final class ColorHorizontalPickerView: AppearanceView {
     private let colorCellId = "colorCellId"
     
     func createColorCell(indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: colorCellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: colorCellId, for: indexPath) as! ColorCell
+        cell.setAppearance(appearance)
+        return cell
     }
     
     func getColorCellSize() -> CGSize {

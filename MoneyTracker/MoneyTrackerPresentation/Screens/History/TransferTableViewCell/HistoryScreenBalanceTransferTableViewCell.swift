@@ -36,7 +36,6 @@ final class TransferTableViewCell: AppearanceTableViewCell {
     
     private func setupBalanceTransferImageView() {
         balanceTransferImageView.contentMode = .scaleAspectFit
-        balanceTransferImageView.image = Images.cycle.withRenderingMode(.alwaysTemplate)
     }
     
     // MARK: - Layout
@@ -119,6 +118,7 @@ final class TransferTableViewCell: AppearanceTableViewCell {
         toAccountLabel.textColor = appearance.colors.primaryText
         fromAmountLabel.font = appearance.fonts.primary(size: 12, weight: .semibold)
         balanceTransferImageView.tintColor = appearance.colors.primaryText
+        balanceTransferImageView.image = appearance.images.cycle.withRenderingMode(.alwaysTemplate)
         commentLabel.textColor = appearance.colors.secondaryText
         commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
         separatorView.backgroundColor = appearance.colors.secondaryBackground

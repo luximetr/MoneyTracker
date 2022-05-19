@@ -34,7 +34,7 @@ class BackTitleNavigationBarScreenView: NavigationBarScreenView {
     }
     
     func setupBackButton() {
-        backButton.setImage(Images.backArrow.withRenderingMode(.alwaysTemplate), for: .normal)
+        backButton.setImage(appearance.images.backArrow.withRenderingMode(.alwaysTemplate), for: .normal)
         backButton.imageView?.tintColor = appearance.colors.accent
     }
     

@@ -71,7 +71,7 @@ class DateHorizontalPickerView: AppearanceView {
     
     private func setupPickDayButtonIcon() {
         pickDayButtonIcon.contentMode = .scaleAspectFit
-        pickDayButtonIcon.image = Images.calendar
+        pickDayButtonIcon.image = appearance.images.calendar
     }
     
     private func setupPickDayButtonGradientView() {

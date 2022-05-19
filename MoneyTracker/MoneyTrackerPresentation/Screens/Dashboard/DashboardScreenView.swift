@@ -42,7 +42,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     }
     
     private func setupHistoryButton() {
-        historyButton.setImage(Images.expensesHistory.withRenderingMode(.alwaysTemplate), for: .normal)
+        historyButton.setImage(appearance.images.expensesHistory.withRenderingMode(.alwaysTemplate), for: .normal)
         historyButton.imageView?.tintColor = appearance.colors.primaryText
     }
     

@@ -43,7 +43,7 @@ class ErrorSnackbarView: AppearanceView {
     }
     
     private func setupDismissIcon() {
-        dismissIcon.image = Images.close
+        dismissIcon.image = appearance.images.close
     }
     
     // MARK: - Layout

@@ -10,7 +10,7 @@ import AUIKit
 import PinLayout
 
 extension ColorHorizontalPickerView {
-final class ColorCell: AUICollectionViewCell {
+final class ColorCell: AppearanceCollectionViewCell {
     
     // MARK: Subviews
     
@@ -33,7 +33,6 @@ final class ColorCell: AUICollectionViewCell {
     
     private func setupCheckImageView() {
         checkImageView.contentMode = .scaleAspectFit
-        checkImageView.image = Images.check
     }
     
     // MARK: Layout
@@ -65,6 +64,11 @@ final class ColorCell: AUICollectionViewCell {
         } else {
             checkImageView.isHidden = true
         }
+    }
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        checkImageView.image = appearance.images.check
     }
 }
 }

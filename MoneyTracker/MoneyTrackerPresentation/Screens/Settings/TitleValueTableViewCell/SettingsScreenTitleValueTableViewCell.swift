@@ -51,7 +51,7 @@ final class TitleValueTableViewCell: AppearanceTableViewCell {
     
     private func setupForwardImageView(appearance: Appearance) {
         forwardImageView.contentMode = .scaleAspectFit
-        forwardImageView.image = Images.forwardArrow.withRenderingMode(.alwaysTemplate)
+        forwardImageView.image = appearance.images.forwardArrow.withRenderingMode(.alwaysTemplate)
         forwardImageView.tintColor = appearance.colors.primaryText
     }
     

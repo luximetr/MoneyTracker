@@ -36,11 +36,11 @@ final class ScreenView: AppearanceView {
         addSubview(tabBarView)
         setupTabBarView()
         tabBarView.addSubview(mainTabBarItem)
-        mainTabBarItem.pictureImageView.image = Images.card.withRenderingMode(.alwaysTemplate)
+        mainTabBarItem.pictureImageView.image = appearance.images.card.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(statisticTabBarItem)
-        statisticTabBarItem.pictureImageView.image = Images.statistic.withRenderingMode(.alwaysTemplate)
+        statisticTabBarItem.pictureImageView.image = appearance.images.statistic.withRenderingMode(.alwaysTemplate)
         tabBarView.addSubview(settingsTabBarItem)
-        settingsTabBarItem.pictureImageView.image = Images.gear.withRenderingMode(.alwaysTemplate)
+        settingsTabBarItem.pictureImageView.image = appearance.images.gear.withRenderingMode(.alwaysTemplate)
     }
     
     private func setupTabBarView() {
