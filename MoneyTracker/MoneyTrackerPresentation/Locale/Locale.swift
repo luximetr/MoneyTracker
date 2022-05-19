@@ -7,11 +7,17 @@
 
 import Foundation
 
-extension Locale {
+class MyLocale {
     
-    // MARK: Initializer
+    let language: Language
+    let scriptCode: String?
+    let regionCode: String?
+    let locale: Locale
     
     init(language: Language, scriptCode: String?, regionCode: String?) {
+        self.language = language
+        self.scriptCode = scriptCode
+        self.regionCode = regionCode
         let languageCode: String
         switch language {
         case .english: languageCode = "en"
@@ -21,22 +27,7 @@ extension Locale {
         var identifier = languageCode
         if let scriptCode = scriptCode { identifier += "-\(scriptCode)" }
         if let regionCode = regionCode { identifier += "_\(regionCode)" }
-        self.init(identifier: identifier)
-    }
-    
-    // MARK: Language
-  
-    func language() throws -> Language? {
-        guard let languageCode = languageCode else { return nil }
-        let language: Language
-        switch languageCode {
-        case "en": language = .english
-        case "uk": language = .ukrainian
-        case "th": language = .thai
-        default:
-            throw Error("Cannot get \(String(reflecting: Language.self)) for \(String(reflecting: Locale.self))(\(String(reflecting: self)))")
-        }
-        return language
+        self.locale = Locale(identifier: identifier)
     }
     
 }
