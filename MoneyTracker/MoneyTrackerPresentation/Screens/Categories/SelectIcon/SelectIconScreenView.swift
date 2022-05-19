@@ -80,9 +80,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        navigationBarView.backgroundColor = appearance.primaryBackground
-        collectionView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        navigationBarView.backgroundColor = appearance.colors.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
         appearanceCollectionViewCells.forEach { $0.setAppearance(appearance) }
     }
 }

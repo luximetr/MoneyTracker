@@ -37,7 +37,6 @@ final class CategoryCell: AppearanceCollectionViewCell {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 11, weight: .regular)
         titleLabel.textAlignment = .center
     }
     
@@ -103,10 +102,11 @@ final class CategoryCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        iconView.tintColor = appearance.secondaryText
-        titleLabel.textColor = appearance.secondaryText
-        coloredView.backgroundColor = appearance.transparent
-        coloredView.layer.borderColor = appearance.secondaryBackground.cgColor
+        iconView.tintColor = appearance.colors.secondaryText
+        titleLabel.textColor = appearance.colors.secondaryText
+        titleLabel.font = appearance.fonts.primary(size: 11, weight: .regular)
+        coloredView.backgroundColor = appearance.colors.transparent
+        coloredView.layer.borderColor = appearance.colors.secondaryBackground.cgColor
     }
 }
 }

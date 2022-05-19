@@ -17,6 +17,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.nameTextField = PlainTextField(appearance: appearance)
         self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
+        self.editButton = TextFilledButton(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -28,7 +29,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let nameTextField: PlainTextField
     let colorPickerTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
-    let editButton = TextFilledButton()
+    let editButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: Setup
@@ -57,11 +58,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func setupColorPickerTitleLabel() {
         colorPickerTitleLabel.numberOfLines = 1
-        colorPickerTitleLabel.font = Fonts.default(size: 17, weight: .regular)
+        colorPickerTitleLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     private func setupEditButton() {
-        editButton.titleLabel?.font = Fonts.default(size: 17, weight: .semibold)
+        editButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     private func setupColorPickerView() {
@@ -167,9 +168,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        iconView.iconImageView.tintColor = appearance.categoryPrimaryText
-        colorPickerTitleLabel.textColor = appearance.primaryText
+        backgroundColor = appearance.colors.primaryBackground
+        iconView.iconImageView.tintColor = appearance.colors.categoryPrimaryText
+        colorPickerTitleLabel.textColor = appearance.colors.primaryText
         nameTextField.changeAppearance(appearance)
         errorSnackbarView.changeAppearance(appearance)
     }

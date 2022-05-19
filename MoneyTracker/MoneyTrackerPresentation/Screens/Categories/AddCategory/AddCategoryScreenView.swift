@@ -19,7 +19,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let nameTextField: PlainTextField
     let colorPickerTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Initializer
@@ -28,6 +28,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         self.nameTextField = PlainTextField(appearance: appearance)
         self.colorPickerView = ColorHorizontalPickerView(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -36,7 +37,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         addSubview(scrollView)
-        iconView.backgroundColor = appearance.secondaryBackground
+        iconView.backgroundColor = appearance.colors.secondaryBackground
         scrollView.addSubview(iconView)
         scrollView.addSubview(selectIconButton)
         scrollView.addSubview(nameTextField)
@@ -57,7 +58,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupColorPickerTitleLabel() {
-        colorPickerTitleLabel.font = Fonts.default(size: 17, weight: .regular)
+        colorPickerTitleLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     private func setupColorPickerView() {
@@ -65,7 +66,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupAddButton() {
-        addButton.titleLabel?.font = Fonts.default(size: 17, weight: .semibold)
+        addButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .semibold)
     }
     
     // MARK: - Layout
@@ -167,12 +168,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        scrollView.backgroundColor = appearance.primaryBackground
-        iconView.iconImageView.tintColor = appearance.categoryPrimaryText
-        colorPickerTitleLabel.textColor = appearance.primaryText
+        scrollView.backgroundColor = appearance.colors.primaryBackground
+        iconView.iconImageView.tintColor = appearance.colors.categoryPrimaryText
+        colorPickerTitleLabel.textColor = appearance.colors.primaryText
         nameTextField.changeAppearance(appearance)
-        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
-        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
         errorSnackbarView.changeAppearance(appearance)
     }
     

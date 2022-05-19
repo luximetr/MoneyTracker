@@ -21,6 +21,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.fromAmountInputView = SingleLineTextInputView(appearance: appearance)
         self.toAmountInputView = SingleLineTextInputView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
@@ -36,14 +37,14 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let fromAmountInputView: SingleLineTextInputView
     let toAmountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         addSubview(scrollView)
         setupScrollView()
         scrollView.addSubview(fromAccountPickerLabel)
@@ -68,17 +69,17 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupFromAccountPickerLabel() {
-        fromAccountPickerLabel.font = Fonts.default(size: 14)
-        fromAccountPickerLabel.textColor = appearance.secondaryText
+        fromAccountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
+        fromAccountPickerLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupToAccountPickerLabel() {
-        toAccountPickerLabel.font = Fonts.default(size: 14)
-        toAccountPickerLabel.textColor = appearance.secondaryText
+        toAccountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
+        toAccountPickerLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupAddButton() {
-        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
     }
     
     // MARK: AutoLayout
@@ -255,18 +256,18 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        fromAccountPickerLabel.textColor = appearance.secondaryText
+        backgroundColor = appearance.colors.primaryBackground
+        fromAccountPickerLabel.textColor = appearance.colors.secondaryText
         fromAccountPickerView.changeAppearance(appearance)
         dayDatePickerView.changeAppearance(appearance)
         fromAmountInputView.changeAppearance(appearance)
-        toAccountPickerLabel.textColor = appearance.secondaryText
+        toAccountPickerLabel.textColor = appearance.colors.secondaryText
         toAccountPickerView.changeAppearance(appearance)
         toAmountInputView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)
         dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
-        addButton.backgroundColor = appearance.primaryActionBackground
-        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
+        addButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         errorSnackbarView.changeAppearance(appearance)
     }
     

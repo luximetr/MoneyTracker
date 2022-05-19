@@ -8,13 +8,13 @@
 import Foundation
 import AUIKit
 
-final class TextFilledButton: AUIButton {
+final class TextFilledButton: AppearanceButton {
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        titleLabel?.font = Fonts.default(size: 17, weight: .semibold)
+        titleLabel?.font = appearance.fonts.primary(size: 17, weight: .semibold)
     }
     
     // MARK: Layout

@@ -49,6 +49,6 @@ class BackTitleRightButtonNavigationBarScreenView: BackTitleNavigationBarScreenV
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        rightButton.setTitleColor(appearance.accent, for: .normal)
+        rightButton.setTitleColor(appearance.colors.accent, for: .normal)
     }
 }

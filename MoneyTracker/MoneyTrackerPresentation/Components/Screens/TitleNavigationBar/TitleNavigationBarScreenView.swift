@@ -30,8 +30,8 @@ class TitleNavigationBarScreenView: NavigationBarScreenView {
     }
     
     func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 24, weight: .semibold)
-        titleLabel.textColor = appearance.primaryText
+        titleLabel.font = appearance.fonts.primary(size: 24, weight: .semibold)
+        titleLabel.textColor = appearance.colors.primaryText
     }
     
     // MARK: - Layout

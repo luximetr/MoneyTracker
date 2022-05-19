@@ -38,7 +38,7 @@ final class IconCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        iconView.iconImageView.tintColor = appearance.categoryPrimaryText
+        iconView.iconImageView.tintColor = appearance.colors.categoryPrimaryText
     }
 }
 }

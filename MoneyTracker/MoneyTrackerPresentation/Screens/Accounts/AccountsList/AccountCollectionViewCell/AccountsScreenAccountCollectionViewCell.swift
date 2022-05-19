@@ -17,7 +17,7 @@ final class AccountCollectionViewCell: AppearanceCollectionViewCell {
     var accountView: UIView { return _accountView }
     var nameLabel: UILabel { return _accountView.nameLabel }
     var balanceLabel: UILabel { return _accountView.balanceLabel }
-    let deleteButton = TextFilledButton()
+    let deleteButton = TextFilledButton(appearance: LightAppearance())
     
     // MARK: Setup
     
@@ -121,7 +121,7 @@ final class AccountCollectionViewCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         _accountView.changeAppearance(appearance)
-        deleteButton.backgroundColor = appearance.dangerousActionBackground
+        deleteButton.backgroundColor = appearance.colors.dangerousActionBackground
     }
         
 }
@@ -145,17 +145,17 @@ private class AccountView: AppearanceView {
     }
     
     private func setupNameLabel() {
-        nameLabel.textColor = appearance.cardPrimaryText
+        nameLabel.textColor = appearance.colors.cardPrimaryText
     }
     
     private func setupBalanceLabel() {
-        balanceLabel.textColor = appearance.cardPrimaryText
+        balanceLabel.textColor = appearance.colors.cardPrimaryText
     }
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        nameLabel.textColor = appearance.cardPrimaryText
-        balanceLabel.textColor = appearance.cardPrimaryText
+        nameLabel.textColor = appearance.colors.cardPrimaryText
+        balanceLabel.textColor = appearance.colors.cardPrimaryText
     }
     
     // MARK: Layout

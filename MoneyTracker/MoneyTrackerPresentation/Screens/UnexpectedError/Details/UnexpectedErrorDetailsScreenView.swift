@@ -19,7 +19,7 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         navigationBarView.addSubview(shareButton)
         setupShareButton()
         insertSubview(textView, belowSubview: navigationBarView)
@@ -32,7 +32,7 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
     
     private func setupTextView() {
         textView.isEditable = false
-        textView.textColor = appearance.primaryText
+        textView.textColor = appearance.colors.primaryText
     }
     
     // MARK: Layout

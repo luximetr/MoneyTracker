@@ -27,11 +27,11 @@ final class AppearanceSettingTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupNameLabel(appearance: Appearance) {
-        nameLabel.textColor = appearance.primaryText
+        nameLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: - Layout
@@ -84,9 +84,9 @@ final class AppearanceSettingTableViewCell: AppearanceTableViewCell {
     
     private func getCodeLabelColor(isSelected: Bool) -> UIColor {
         if isSelected {
-            return appearance?.accent ?? .clear
+            return appearance?.colors.accent ?? .clear
         } else {
-            return appearance?.primaryText ?? .clear
+            return appearance?.colors.primaryText ?? .clear
         }
     }
     
@@ -94,7 +94,7 @@ final class AppearanceSettingTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         setupNameLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)
     }

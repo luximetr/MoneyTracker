@@ -34,12 +34,12 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
     }
     
     private func setupTextField() {
-        textField.font = Fonts.default(size: 17, weight: .regular)
+        textField.font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
     private func setupLabel() {
         label.numberOfLines = 1
-        label.font = Fonts.default(size: 14, weight: .regular)
+        label.font = appearance.fonts.primary(size: 14, weight: .regular)
     }
     
     // MARK: - Layout
@@ -74,8 +74,8 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
         set {
             guard let string = newValue else { return }
             let attributes: [NSAttributedString.Key : Any] = [
-                .font: Fonts.default(size: 17, weight: .regular),
-                .foregroundColor: appearance.tertiaryText
+                .font: appearance.fonts.primary(size: 17, weight: .regular),
+                .foregroundColor: appearance.colors.tertiaryText
             ]
             let attributedString = NSAttributedString(string: string, attributes: attributes)
             textField.attributedPlaceholder = attributedString
@@ -96,13 +96,13 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        layer.borderColor = appearance.secondaryBackground.cgColor
-        textField.tintColor = appearance.accent
-        textField.textColor = appearance.primaryText
-        textField.backgroundColor = appearance.primaryBackground
-        textField.layer.borderColor = appearance.secondaryBackground.cgColor
-        label.textColor = appearance.secondaryText
+        backgroundColor = appearance.colors.primaryBackground
+        layer.borderColor = appearance.colors.secondaryBackground.cgColor
+        textField.tintColor = appearance.colors.accent
+        textField.textColor = appearance.colors.primaryText
+        textField.backgroundColor = appearance.colors.primaryBackground
+        textField.layer.borderColor = appearance.colors.secondaryBackground.cgColor
+        label.textColor = appearance.colors.secondaryText
         placeholder = placeholder
     }
 }

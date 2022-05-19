@@ -16,6 +16,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     init(appearance: Appearance) {
         self.inputDateView = InputDateView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         self.selectAccountView = BalanceAccountHorizontalPickerView(appearance: appearance)
         self.inputAmountView = InputAmountView(appearance: appearance)
         self.selectCategoryView = CategoryVerticalPickerView(appearance: appearance)
@@ -34,7 +35,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         return expenseTableViewCells
     }
     let commentTextField: PlainTextField
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let selectAccountView: BalanceAccountHorizontalPickerView
     let inputAmountView: InputAmountView
     let selectCategoryView: CategoryVerticalPickerView
@@ -63,7 +64,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupDayExpensesLabel() {
-        dayExpensesLabel.font = Fonts.default(size: 14, weight: .bold)
+        dayExpensesLabel.font = appearance.fonts.primary(size: 14, weight: .bold)
         dayExpensesLabel.adjustsFontSizeToFitWidth = true
     }
     
@@ -73,7 +74,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupExpenseTableView() {
-        expensesTableView.backgroundColor = appearance.primaryBackground
+        expensesTableView.backgroundColor = appearance.colors.primaryBackground
         expensesTableView.clipsToBounds = true
         expensesTableView.separatorStyle = .none
         expensesTableView.showsVerticalScrollIndicator = false
@@ -215,14 +216,14 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         inputDateView.changeAppearance(appearance)
-        dayExpensesLabel.textColor = appearance.primaryText
-        expensesTableView.backgroundColor = appearance.primaryBackground
+        dayExpensesLabel.textColor = appearance.colors.primaryText
+        expensesTableView.backgroundColor = appearance.colors.primaryBackground
         commentTextField.changeAppearance(appearance)
         expensTableViewCells?.forEach({ $0.setAppearance(appearance) })
-        addButton.backgroundColor = appearance.primaryActionBackground
-        addButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
+        addButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         inputAmountView.changeAppearance(appearance)
         errorSnackbarView.changeAppearance(appearance)
     }

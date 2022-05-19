@@ -28,11 +28,11 @@ final class CategoryTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupNameLabel(appearance: Appearance) {
-        nameLabel.textColor = appearance.primaryText
+        nameLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: - Layout
@@ -92,8 +92,8 @@ final class CategoryTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        iconView.iconImageView.tintColor = appearance.categoryPrimaryText
+        backgroundColor = appearance.colors.primaryBackground
+        iconView.iconImageView.tintColor = appearance.colors.categoryPrimaryText
         setupNameLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)
     }

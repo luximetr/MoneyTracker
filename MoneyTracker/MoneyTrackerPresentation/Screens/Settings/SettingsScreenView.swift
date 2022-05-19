@@ -51,11 +51,11 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func setupTitleLabel() {
         super.setupTitleLabel()
-        titleLabel.textColor = appearance.primaryText
+        titleLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupTableView() {
-        tableView.backgroundColor = appearance.primaryBackground
+        tableView.backgroundColor = appearance.colors.primaryBackground
         tableView.separatorStyle = .none
     }
     

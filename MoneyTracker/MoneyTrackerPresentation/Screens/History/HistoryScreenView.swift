@@ -35,7 +35,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
         setupDayTableViewCell()
@@ -45,7 +45,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupTableView() {
-        tableView.backgroundColor = appearance.primaryBackground
+        tableView.backgroundColor = appearance.colors.primaryBackground
         tableView.separatorStyle = .none
         tableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: expenseTableViewCellReuseIdentifier)
     }
@@ -155,8 +155,8 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        tableView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        tableView.backgroundColor = appearance.colors.primaryBackground
         dayTableViewCells?.forEach({ $0.setAppearance(appearance) })
         expenseTableViewCells?.forEach({ $0.setAppearance(appearance) })
         replenishmentTableViewCells?.forEach({ $0.setAppearance(appearance) })

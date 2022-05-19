@@ -39,12 +39,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupAddButton() {
-        addButton.titleLabel?.font = Fonts.default(size: 17)
-        addButton.setTitleColor(appearance.accent, for: .normal)
+        addButton.setTitleColor(appearance.colors.accent, for: .normal)
     }
     
     private func setupTableView() {
-        tableView.backgroundColor = appearance.primaryBackground
+        tableView.backgroundColor = appearance.colors.primaryBackground
         tableView.separatorStyle = .none
     }
     
@@ -104,6 +103,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         setupAddButton()
         setupTableView()
         categoryTableViewCells?.forEach({ $0.setAppearance(appearance) })
+        addButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .regular)
     }
 
 }

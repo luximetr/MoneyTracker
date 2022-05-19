@@ -29,7 +29,6 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
     private func setupTitleLabel() {
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
-        titleLabel.font = Fonts.default(size: 18, weight: .regular)
     }
     
     // MARK: - Layout
@@ -70,9 +69,10 @@ final class TemplateCollectionViewCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        contentView.backgroundColor = appearance.primaryBackground
-        contentView.layer.borderColor = appearance.tertiaryBackground.cgColor
-        titleLabel.textColor = appearance.primaryText
+        contentView.backgroundColor = appearance.colors.primaryBackground
+        contentView.layer.borderColor = appearance.colors.tertiaryBackground.cgColor
+        titleLabel.textColor = appearance.colors.primaryText
+        titleLabel.font = appearance.fonts.primary(size: 18, weight: .regular)
     }
     
 }

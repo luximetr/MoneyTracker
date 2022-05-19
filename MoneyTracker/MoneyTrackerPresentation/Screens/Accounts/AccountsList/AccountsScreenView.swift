@@ -29,7 +29,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         navigationBarView.addSubview(addButton)
         setupAddButton()
         insertSubview(collectionView, belowSubview: navigationBarView)
@@ -38,12 +38,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupAddButton() {
-        addButton.titleLabel?.font = Fonts.default(size: 17)
-        addButton.setTitleColor(appearance.accent, for: .normal)
+        addButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .regular)
+        addButton.setTitleColor(appearance.colors.accent, for: .normal)
     }
     
     private func setupCollectionView() {
-        collectionView.backgroundColor = appearance.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
         collectionView.alwaysBounceVertical = true
     }
     
@@ -100,8 +100,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        collectionView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
     }
     
 }

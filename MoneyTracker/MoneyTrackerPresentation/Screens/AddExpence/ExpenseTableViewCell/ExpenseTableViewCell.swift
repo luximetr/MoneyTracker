@@ -32,27 +32,27 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupAccountLabel(appearance: Appearance) {
-        accountLabel.font = Fonts.default(size: 12, weight: .regular)
-        accountLabel.textColor = appearance.secondaryText
+        accountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
+        accountLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupCategoryLabel(appearance: Appearance) {
-        categoryLabel.font = Fonts.default(size: 16, weight: .regular)
-        categoryLabel.textColor = appearance.primaryText
+        categoryLabel.font = appearance.fonts.primary(size: 16, weight: .regular)
+        categoryLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupAmountLabel(appearance: Appearance) {
-        amountLabel.font = Fonts.default(size: 12, weight: .semibold)
-        amountLabel.textColor = appearance.primaryText
+        amountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
+        amountLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupCommentLabel(appearance: Appearance) {
-        commentLabel.font = Fonts.default(size: 12, weight: .regular)
-        commentLabel.textColor = appearance.secondaryText
+        commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
+        commentLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: - Layout
@@ -117,7 +117,7 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         setupAccountLabel(appearance: appearance)
         setupCategoryLabel(appearance: appearance)
         setupAmountLabel(appearance: appearance)
@@ -132,7 +132,7 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     func setIsSelected(_ isSelected: Bool, animated: Bool) {
         self._isSelected = isSelected
         if isSelected {
-            backgroundColor = appearance?.selectedBackground
+            backgroundColor = appearance?.colors.selectedBackground
         } else {
             backgroundColor = .clear
         }

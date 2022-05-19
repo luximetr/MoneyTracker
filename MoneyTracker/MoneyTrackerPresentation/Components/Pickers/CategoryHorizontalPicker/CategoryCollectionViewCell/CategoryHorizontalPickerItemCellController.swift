@@ -67,13 +67,13 @@ class CategoryHorizontalPickerItemCellController: AUIClosuresCollectionViewCellC
         let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
         pickerItemCell?.coloredView.backgroundColor = categoryUIColor
         pickerItemCell?.coloredView.layer.borderWidth = 0
-        pickerItemCell?.iconView.tintColor = appearance.categoryPrimaryText
-        pickerItemCell?.titleLabel.textColor = appearance.categoryPrimaryText
+        pickerItemCell?.iconView.tintColor = appearance.colors.categoryPrimaryText
+        pickerItemCell?.titleLabel.textColor = appearance.colors.categoryPrimaryText
     }
     
     private func showCellDeselected() {
         let categoryUIColor = uiColorProvider.getUIColor(categoryColor: category.color, appearance: appearance)
-        pickerItemCell?.coloredView.backgroundColor = appearance.primaryBackground
+        pickerItemCell?.coloredView.backgroundColor = appearance.colors.primaryBackground
         pickerItemCell?.coloredView.layer.borderWidth = 1
         pickerItemCell?.iconView.tintColor = categoryUIColor
         pickerItemCell?.titleLabel.textColor = categoryUIColor

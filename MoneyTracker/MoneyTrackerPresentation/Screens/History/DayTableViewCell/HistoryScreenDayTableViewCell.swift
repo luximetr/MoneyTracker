@@ -26,13 +26,13 @@ final class DayTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupDayLabel(appearance: Appearance) {
-        dayLabel.font = Fonts.default(size: 10, weight: .regular)
-        dayLabel.textColor = appearance.accent
+        dayLabel.font = appearance.fonts.primary(size: 10, weight: .regular)
+        dayLabel.textColor = appearance.colors.accent
     }
     
     private func setupExpensesLabel(appearance: Appearance) {
-        expensesLabel.font = Fonts.default(size: 10, weight: .regular)
-        expensesLabel.textColor = appearance.accent
+        expensesLabel.font = appearance.fonts.primary(size: 10, weight: .regular)
+        expensesLabel.textColor = appearance.colors.accent
     }
     
     // MARK: - Layout
@@ -67,7 +67,7 @@ final class DayTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         setupDayLabel(appearance: appearance)
         setupExpensesLabel(appearance: appearance)
     }

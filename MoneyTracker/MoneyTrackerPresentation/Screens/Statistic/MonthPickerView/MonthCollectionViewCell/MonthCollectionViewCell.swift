@@ -20,11 +20,6 @@ class MonthCollectionViewCell: AppearanceCollectionViewCell {
     override func setup() {
         super.setup()
         contentView.addSubview(monthLabel)
-        setupMonthLabel()
-    }
-    
-    private func setupMonthLabel() {
-        monthLabel.font = Fonts.default(size: 12, weight: .medium)
     }
     
     // MARK: - Layout
@@ -66,11 +61,11 @@ class MonthCollectionViewCell: AppearanceCollectionViewCell {
     func setSelected(_ isSelected: Bool) {
         self._isSelected = isSelected
         if isSelected {
-            contentView.backgroundColor = appearance?.primaryActionBackground ?? .clear
+            contentView.backgroundColor = appearance?.colors.primaryActionBackground ?? .clear
             monthLabel.textColor = .white
         } else {
             contentView.backgroundColor = .clear
-            monthLabel.textColor = appearance?.secondaryText
+            monthLabel.textColor = appearance?.colors.secondaryText
         }
     }
     
@@ -79,6 +74,7 @@ class MonthCollectionViewCell: AppearanceCollectionViewCell {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         setSelected(_isSelected)
+        monthLabel.font = appearance.fonts.primary(size: 12, weight: .medium)
     }
     
 }

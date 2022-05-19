@@ -20,7 +20,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     let nameTextField: PlainTextField
     let amountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
-    let saveButton = TextFilledButton()
+    let saveButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Initializer
@@ -31,6 +31,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         nameTextField = PlainTextField(appearance: appearance)
         amountInputView = SingleLineTextInputView(appearance: appearance)
         commentTextField = PlainTextField(appearance: appearance)
+        self.saveButton = TextFilledButton(appearance: appearance)
         errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
@@ -54,12 +55,12 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupBalanceAccountPickerHeaderLabel() {
-        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     
     private func setupCategoryPickerHeaderLabel() {
-        categoryPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        categoryPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         categoryPickerHeaderLabel.numberOfLines = 1
     }
     
@@ -157,18 +158,18 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        statusBarView.backgroundColor = appearance.primaryBackground
-        navigationBarView.backgroundColor = appearance.primaryBackground
-        balanceAccountPickerHeaderLabel.textColor = appearance.secondaryText
+        backgroundColor = appearance.colors.primaryBackground
+        statusBarView.backgroundColor = appearance.colors.primaryBackground
+        navigationBarView.backgroundColor = appearance.colors.primaryBackground
+        balanceAccountPickerHeaderLabel.textColor = appearance.colors.secondaryText
         balanceAccountPickerView.changeAppearance(appearance)
-        categoryPickerHeaderLabel.textColor = appearance.secondaryText
+        categoryPickerHeaderLabel.textColor = appearance.colors.secondaryText
         categoryPickerView.changeAppearance(appearance)
         nameTextField.changeAppearance(appearance)
         amountInputView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)
-        saveButton.backgroundColor = appearance.primaryActionBackground
-        saveButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        saveButton.backgroundColor = appearance.colors.primaryActionBackground
+        saveButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         errorSnackbarView.changeAppearance(appearance)
     }
 }

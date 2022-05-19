@@ -43,7 +43,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     private func setupHistoryButton() {
         historyButton.setImage(Images.expensesHistory.withRenderingMode(.alwaysTemplate), for: .normal)
-        historyButton.imageView?.tintColor = appearance.primaryText
+        historyButton.imageView?.tintColor = appearance.colors.primaryText
     }
     
     // MARK: - Layout
@@ -144,8 +144,8 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        historyButton.imageView?.tintColor = appearance.primaryText
+        backgroundColor = appearance.colors.primaryBackground
+        historyButton.imageView?.tintColor = appearance.colors.primaryText
         categoryPickerView.changeAppearance(appearance)
         accountPickerView.changeAppearance(appearance)
         templatesView.changeAppearance(appearance)

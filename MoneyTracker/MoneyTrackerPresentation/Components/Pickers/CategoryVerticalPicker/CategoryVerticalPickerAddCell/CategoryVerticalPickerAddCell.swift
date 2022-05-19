@@ -30,13 +30,11 @@ class AddCell: AppearanceTableViewCell {
     private func setupPrefixLabel() {
         prefixLabel.numberOfLines = 1
         prefixLabel.text = "+"
-        prefixLabel.font = Fonts.default(size: 16, weight: .regular)
     }
     
     private func setupTitleLabel() {
         titleLabel.numberOfLines = 1
         titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.font = Fonts.default(size: 16, weight: .regular)
     }
     
     // MARK: - Layout
@@ -66,9 +64,11 @@ class AddCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        prefixLabel.textColor = appearance.primaryText
-        titleLabel.textColor = appearance.primaryText
+        backgroundColor = appearance.colors.primaryBackground
+        prefixLabel.textColor = appearance.colors.primaryText
+        prefixLabel.font = appearance.fonts.primary(size: 16, weight: .regular)
+        titleLabel.textColor = appearance.colors.primaryText
+        titleLabel.font = appearance.fonts.primary(size: 16, weight: .regular)
     }
 }
 }

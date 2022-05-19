@@ -19,6 +19,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.amountInputView = SingleLineTextInputView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
         self.dayDatePickerView = DateHorizontalPickerView(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         super.init(appearance: appearance)
     }
@@ -31,14 +32,14 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let dayDatePickerView: DateHorizontalPickerView
     let amountInputView : SingleLineTextInputView
     let commentTextField: PlainTextField
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         addSubview(scrollView)
         setupScrollView()
         scrollView.addSubview(accountPickerLabel)
@@ -58,12 +59,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupAccountPickerLabel() {
-        accountPickerLabel.font = Fonts.default(size: 14)
-        accountPickerLabel.textColor = appearance.secondaryText
+        accountPickerLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
+        accountPickerLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupAddButton() {
-        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
     }
     
     // MARK: AutoLayout
@@ -186,10 +187,10 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        accountPickerLabel.textColor = appearance.secondaryText
+        backgroundColor = appearance.colors.primaryBackground
+        accountPickerLabel.textColor = appearance.colors.secondaryText
         dayDatePickerView.changeAppearance(appearance)
-        addButton.backgroundColor = appearance.primaryActionBackground
+        addButton.backgroundColor = appearance.colors.primaryActionBackground
         errorSnackbarView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)
         accountPickerView.changeAppearance(appearance)

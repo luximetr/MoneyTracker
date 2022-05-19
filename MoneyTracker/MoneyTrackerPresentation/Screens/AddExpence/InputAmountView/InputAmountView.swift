@@ -90,12 +90,12 @@ final class InputAmountView: AppearanceView {
     }
     
     private func setupPlaceholderLabel() {
-        placeholderLabel.font = Fonts.default(size: 20, weight: .regular)
+        placeholderLabel.font = appearance.fonts.primary(size: 20, weight: .regular)
         placeholderLabel.numberOfLines = 1
     }
     
     private func setupInputLabel() {
-        inputLabel.font = Fonts.default(size: 20, weight: .regular)
+        inputLabel.font = appearance.fonts.primary(size: 20, weight: .regular)
         inputLabel.numberOfLines = 1
         inputLabel.adjustsFontSizeToFitWidth = true
     }
@@ -339,10 +339,10 @@ final class InputAmountView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        placeholderLabel.textColor = appearance.secondaryText
-        inputLabel.textColor = appearance.primaryText
-        separatorView.backgroundColor = appearance.tertiaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        placeholderLabel.textColor = appearance.colors.secondaryText
+        inputLabel.textColor = appearance.colors.primaryText
+        separatorView.backgroundColor = appearance.colors.tertiaryBackground
         deleteKeyButton.changeAppearance(appearance)
         sevenKeyButton.changeAppearance(appearance)
         eightKeyButton.changeAppearance(appearance)
@@ -371,7 +371,7 @@ final class KeyButton: AppearanceButton {
     
     override func setup() {
         super.setup()
-        titleLabel?.font = Fonts.default(size: 20, weight: .semibold)
+        titleLabel?.font = appearance.fonts.primary(size: 20, weight: .regular)
         changeAppearance(appearance)
     }
     
@@ -394,7 +394,7 @@ final class KeyButton: AppearanceButton {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        setTitleColor(appearance.primaryText, for: .normal)
+        setTitleColor(appearance.colors.primaryText, for: .normal)
     }
     
 }
@@ -405,7 +405,7 @@ final class OperationKeyButton: AppearanceButton {
     
     override func setup() {
         super.setup()
-        titleLabel?.font = Fonts.default(size: 20, weight: .semibold)
+        titleLabel?.font = appearance.fonts.primary(size: 20, weight: .regular)
         changeAppearance(appearance)
     }
     
@@ -428,7 +428,7 @@ final class OperationKeyButton: AppearanceButton {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        setTitleColor(appearance.tertiaryText, for: .normal)
+        setTitleColor(appearance.colors.tertiaryText, for: .normal)
     }
     
 }

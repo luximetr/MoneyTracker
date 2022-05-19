@@ -30,18 +30,18 @@ final class MonthCategoryExpensesTableViewCell: AppearanceTableViewCell {
     }
     
     private func setupCategoryLabel(appearance: Appearance) {
-        categoryLabel.font = Fonts.default(size: 17, weight: .regular)
-        categoryLabel.textColor = appearance.primaryText
+        categoryLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
+        categoryLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupAmountLabel(appearance: Appearance) {
-        amountLabel.font = Fonts.default(size: 17, weight: .regular)
-        amountLabel.textColor = appearance.primaryText
+        amountLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
+        amountLabel.textColor = appearance.colors.primaryText
         amountLabel.adjustsFontSizeToFitWidth = true
     }
     
     private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.secondaryBackground
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: Layout
@@ -99,8 +99,8 @@ final class MonthCategoryExpensesTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        categoryIconView.iconImageView.tintColor = appearance.categoryPrimaryText
+        backgroundColor = appearance.colors.primaryBackground
+        categoryIconView.iconImageView.tintColor = appearance.colors.categoryPrimaryText
         setupCategoryLabel(appearance: appearance)
         setupAmountLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)

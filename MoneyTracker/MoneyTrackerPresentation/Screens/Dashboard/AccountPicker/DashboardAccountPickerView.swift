@@ -39,7 +39,7 @@ final class AccountPickerView: AppearanceView {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 18, weight: .regular)
+        titleLabel.font = appearance.fonts.primary(size: 18, weight: .regular)
     }
     
     private let accountCollectionViewCellReuseIdentifier = "accountCollectionViewCellReuseIdentifier"
@@ -122,10 +122,10 @@ final class AccountPickerView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        titleLabel.textColor = appearance.primaryText
-        transferButton.setTitleColor(appearance.accent, for: .normal)
-        collectionView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        titleLabel.textColor = appearance.colors.primaryText
+        transferButton.setTitleColor(appearance.colors.accent, for: .normal)
+        collectionView.backgroundColor = appearance.colors.primaryBackground
     }
     
 }

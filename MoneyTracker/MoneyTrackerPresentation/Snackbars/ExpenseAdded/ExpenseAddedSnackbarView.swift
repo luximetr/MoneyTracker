@@ -29,13 +29,13 @@ final class ExpenseAddedSnackbarView: AppearanceView {
     }
     
     private func setupMessageLabel() {
-        messageLabel.font = Fonts.default(size: 17, weight: .semibold)
+        messageLabel.font = appearance.fonts.primary(size: 17, weight: .semibold)
         messageLabel.numberOfLines = 2
         messageLabel.adjustsFontSizeToFitWidth = true
     }
     
     private func setupOkButton() {
-        okButton.titleLabel?.font = Fonts.default(size: 14, weight: .semibold)
+        okButton.titleLabel?.font = appearance.fonts.primary(size: 14, weight: .semibold)
     }
     
     // MARK: Layout
@@ -72,9 +72,9 @@ final class ExpenseAddedSnackbarView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.successActionBackground
-        messageLabel.textColor = appearance.successActionText
-        okButton.setTitleColor(appearance.successActionText, for: .normal)
+        backgroundColor = appearance.colors.successActionBackground
+        messageLabel.textColor = appearance.colors.successActionText
+        okButton.setTitleColor(appearance.colors.successActionText, for: .normal)
     }
     
     // MARK: Size

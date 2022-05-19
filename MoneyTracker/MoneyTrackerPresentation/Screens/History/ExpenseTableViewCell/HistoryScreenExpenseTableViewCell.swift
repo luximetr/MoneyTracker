@@ -26,36 +26,16 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(accountLabel)
-        setupAccountLabel()
         contentView.addSubview(amountLabel)
-        setupAmountLabel()
         contentView.addSubview(balanceTransferImageView)
         setupBalanceTransferImageView()
         contentView.addSubview(categoryLabel)
-        setupCategoryLabel()
         contentView.addSubview(commentLabel)
-        setupCommentLabel()
         contentView.addSubview(separatorView)
-    }
-    
-    private func setupAccountLabel() {
-        accountLabel.font = Fonts.default(size: 12, weight: .regular)
-    }
-    
-    private func setupAmountLabel() {
-        amountLabel.font = Fonts.default(size: 12, weight: .semibold)
     }
     
     private func setupBalanceTransferImageView() {
         balanceTransferImageView.contentMode = .scaleAspectFit
-    }
-    
-    private func setupCategoryLabel() {
-        categoryLabel.font = Fonts.default(size: 12, weight: .regular)
-    }
-    
-    private func setupCommentLabel() {
-        commentLabel.font = Fonts.default(size: 12, weight: .regular)
     }
     
     // MARK: - Layout
@@ -130,13 +110,17 @@ final class ExpenseTableViewCell: AppearanceTableViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        accountLabel.textColor = appearance.secondaryText
-        amountLabel.textColor = appearance.primaryText
-        balanceTransferImageView.tintColor = appearance.primaryText
-        categoryLabel.textColor = appearance.primaryText
-        commentLabel.textColor = appearance.secondaryText
-        separatorView.backgroundColor = appearance.secondaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        accountLabel.textColor = appearance.colors.secondaryText
+        accountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
+        amountLabel.textColor = appearance.colors.primaryText
+        amountLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
+        balanceTransferImageView.tintColor = appearance.colors.primaryText
+        categoryLabel.textColor = appearance.colors.primaryText
+        categoryLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
+        commentLabel.textColor = appearance.colors.secondaryText
+        commentLabel.font = appearance.fonts.primary(size: 12, weight: .regular)
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
 }

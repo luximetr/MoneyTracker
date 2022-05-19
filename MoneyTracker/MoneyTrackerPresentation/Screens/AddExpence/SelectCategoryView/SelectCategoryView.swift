@@ -49,7 +49,7 @@ final class SelectCategoryView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         pickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
     }
     

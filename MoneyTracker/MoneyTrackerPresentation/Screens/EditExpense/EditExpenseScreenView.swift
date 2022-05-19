@@ -21,6 +21,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.categoryPickerView = CategoryHorizontalPickerView(appearance: appearance)
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         self.dayDatePickerView = DateHorizontalPickerView(appearance: appearance)
+        self.saveButton = TextFilledButton(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -33,7 +34,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let dayDatePickerView: DateHorizontalPickerView
     let amountInputView: SingleLineTextInputView
     let commentTextField: PlainTextField
-    let saveButton = TextFilledButton()
+    let saveButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Setup
@@ -56,12 +57,12 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupBalanceAccountPickerHeaderLabel() {
-        balanceAccountPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        balanceAccountPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         balanceAccountPickerHeaderLabel.numberOfLines = 1
     }
     
     private func setupCategoryPickerHeaderLabel() {
-        categoryPickerHeaderLabel.font = Fonts.default(size: 17, weight: .regular)
+        categoryPickerHeaderLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         categoryPickerHeaderLabel.numberOfLines = 1
     }
     
@@ -166,14 +167,14 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        balanceAccountPickerHeaderLabel.textColor = appearance.secondaryText
-        categoryPickerHeaderLabel.textColor = appearance.secondaryText
+        backgroundColor = appearance.colors.primaryBackground
+        balanceAccountPickerHeaderLabel.textColor = appearance.colors.secondaryText
+        categoryPickerHeaderLabel.textColor = appearance.colors.secondaryText
         dayDatePickerView.changeAppearance(appearance)
         amountInputView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)
-        saveButton.backgroundColor = appearance.primaryActionBackground
-        saveButton.setTitleColor(appearance.primaryActionText, for: .normal)
+        saveButton.backgroundColor = appearance.colors.primaryActionBackground
+        saveButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         errorSnackbarView.changeAppearance(appearance)
     }
 }

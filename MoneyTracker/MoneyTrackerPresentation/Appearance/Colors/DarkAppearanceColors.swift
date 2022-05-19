@@ -7,12 +7,7 @@
 
 import UIKit
 
-struct DarkAppearance: Appearance {
-    
-    let statusBarStyle = UIStatusBarStyle.lightContent
-    let overrideUserInterfaceStyle = UIUserInterfaceStyle.dark
-    
-    // MARK: - Colors
+struct DarkAppearanceColors: AppearanceColors {
     
     let primaryBackground = UIColor(red: 0.106, green: 0.11, blue: 0.118, alpha: 1)
     let secondaryBackground = UIColor(red: 0.158, green: 0.158, blue: 0.158, alpha: 1)
@@ -35,6 +30,31 @@ struct DarkAppearance: Appearance {
     let transparent = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     let balanceAccountPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     let balanceAccountSecondaryText = UIColor(red: 0.808, green: 0.808, blue: 0.808, alpha: 1)
+    let categoryPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    let cardPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    
+}
+
+struct DarkAppearance: Appearance {
+    
+    // MARK: - Fonts
+    
+    var fonts: AppearanceFonts = SystemAppearanceFonts()
+    
+    // MARK: - Colors
+    
+    var colors: AppearanceColors = DarkAppearanceColors()
+    
+    // MARK: - UIStatusBarStyle
+    
+    let statusBarStyle = UIStatusBarStyle.lightContent
+    
+    // MARK: - UIUserInterfaceStyle
+    
+    let overrideUserInterfaceStyle = UIUserInterfaceStyle.dark
+    
+    // MARK: - Colors
+
     let balanceAccountSecondaryBackground = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
     let balanceAccountVariant1PrimaryBackground = UIColor(red: 0.7, green: 0.49, blue: 0.692, alpha: 1)
     let balanceAccountVariant2PrimaryBackground = UIColor(red: 0.617, green: 0.262, blue: 0.47, alpha: 1)
@@ -56,7 +76,6 @@ struct DarkAppearance: Appearance {
     let balanceAccountVariant18PrimaryBackground = UIColor(red: 0.408, green: 0.475, blue: 0.482, alpha: 1)
     let balanceAccountVariant19PrimaryBackground = UIColor(red: 0.714, green: 0.765, blue: 0.78, alpha: 1)
     let balanceAccountVariant20PrimaryBackground = UIColor(red: 0.827, green: 0.875, blue: 0.882, alpha: 1)
-    let categoryPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     let categoryVariant1PrimaryBackground = UIColor(red: 0.7, green: 0.49, blue: 0.692, alpha: 1)
     let categoryVariant2PrimaryBackground = UIColor(red: 0.617, green: 0.262, blue: 0.47, alpha: 1)
     let categoryVariant3PrimaryBackground = UIColor(red: 0.704, green: 0.059, blue: 0.295, alpha: 1)
@@ -76,5 +95,4 @@ struct DarkAppearance: Appearance {
     let categoryVariant17PrimaryBackground = UIColor(red: 0.471, green: 0.471, blue: 0.471, alpha: 1)
     let categoryVariant18PrimaryBackground = UIColor(red: 0.408, green: 0.475, blue: 0.482, alpha: 1)
     let categoryVariant19PrimaryBackground = UIColor(red: 0.714, green: 0.765, blue: 0.78, alpha: 1)
-    let cardPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 }

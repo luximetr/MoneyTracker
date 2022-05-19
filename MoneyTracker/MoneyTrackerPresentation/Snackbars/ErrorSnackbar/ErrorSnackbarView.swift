@@ -39,7 +39,7 @@ class ErrorSnackbarView: AppearanceView {
     
     private func setupTitleLabel() {
         titleLabel.numberOfLines = 0
-        titleLabel.font = Fonts.default(size: 17, weight: .semibold)
+        titleLabel.font = appearance.fonts.primary(size: 17, weight: .semibold)
     }
     
     private func setupDismissIcon() {
@@ -114,9 +114,9 @@ class ErrorSnackbarView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.dangerousActionBackground
-        titleLabel.textColor = appearance.dangerousActionText
-        dismissIcon.tintColor = appearance.dangerousActionText
+        backgroundColor = appearance.colors.dangerousActionBackground
+        titleLabel.textColor = appearance.colors.dangerousActionText
+        dismissIcon.tintColor = appearance.colors.dangerousActionText
     }
     
     func show() {

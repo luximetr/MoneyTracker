@@ -48,7 +48,7 @@ final class TemplatesView: AppearanceView {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 18, weight: .regular)
+        titleLabel.font = appearance.fonts.primary(size: 18, weight: .regular)
     }
     
     private func setupCollectionView() {
@@ -167,11 +167,11 @@ final class TemplatesView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        addButton.setTitleColor(appearance.accent, for: .normal)
-        panGestureView.backgroundColor = appearance.secondaryBackground
-        titleLabel.textColor = appearance.primaryText
-        collectionView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        addButton.setTitleColor(appearance.colors.accent, for: .normal)
+        panGestureView.backgroundColor = appearance.colors.secondaryBackground
+        titleLabel.textColor = appearance.colors.primaryText
+        collectionView.backgroundColor = appearance.colors.primaryBackground
         visibleCollectionCells.forEach { $0.setAppearance(appearance) }
     }
     

@@ -114,8 +114,8 @@ class CategoryHorizontalPickerView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        collectionView.backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
+        collectionView.backgroundColor = appearance.colors.primaryBackground
         appearanceCollectionViewCell.forEach { $0.setAppearance(appearance) }
     }
     

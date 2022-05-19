@@ -18,6 +18,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         self.errorSnackbarView = ErrorSnackbarView(appearance: appearance)
         self.nameInputView = PlainTextField(appearance: appearance)
         self.amountInputView = PlainTextField(appearance: appearance)
+        self.addButton = TextFilledButton(appearance: appearance)
         super.init(appearance: appearance)
     }
     
@@ -30,28 +31,28 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     let amountInputView: PlainTextField
     let colorsTitleLabel = UILabel()
     let colorPickerView: ColorHorizontalPickerView
-    let addButton = TextFilledButton()
+    let addButton: TextFilledButton
     let errorSnackbarView: ErrorSnackbarView
     
     // MARK: - Setup
     
     override func setup() {
         super.setup()
-        backgroundColor = appearance.primaryBackground
+        backgroundColor = appearance.colors.primaryBackground
         addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         setupBackgroundView()
         backgroundView.addSubview(nameInputView)
         nameInputView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
-        nameInputView.textColor = appearance.cardPrimaryText
-        nameInputView.tintColor = appearance.cardPrimaryText
+        nameInputView.textColor = appearance.colors.cardPrimaryText
+        nameInputView.tintColor = appearance.colors.cardPrimaryText
         nameInputView.layer.borderColor = UIColor.clear.cgColor
         backgroundView.addSubview(currencyInputView)
         setupCurrencyInputView()
         backgroundView.addSubview(amountInputView)
         amountInputView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
-        amountInputView.textColor = appearance.cardPrimaryText
-        amountInputView.tintColor = appearance.cardPrimaryText
+        amountInputView.textColor = appearance.colors.cardPrimaryText
+        amountInputView.tintColor = appearance.colors.cardPrimaryText
         amountInputView.layer.borderColor = UIColor.clear.cgColor
         scrollView.addSubview(colorsTitleLabel)
         setupColorsTitleLabel()
@@ -62,7 +63,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupCurrencyInputView() {
-        currencyInputView.titleLabel?.font = Fonts.default(size: 14, weight: .semibold)
+        currencyInputView.titleLabel?.font = appearance.fonts.primary(size: 14, weight: .semibold)
         currencyInputView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
     }
     
@@ -71,7 +72,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private func setupColorsTitleLabel() {
-        colorsTitleLabel.textColor = appearance.primaryText
+        colorsTitleLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupColorPickerView() {
@@ -196,9 +197,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        colorsTitleLabel.textColor = appearance.primaryText
-        currencyInputView.setTitleColor(appearance.secondaryText, for: .normal)
+        backgroundColor = appearance.colors.primaryBackground
+        colorsTitleLabel.textColor = appearance.colors.primaryText
+        currencyInputView.setTitleColor(appearance.colors.secondaryText, for: .normal)
     }
     
 }

@@ -24,7 +24,6 @@ class DateCell: AppearanceCollectionViewCell {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.default(size: 14, weight: .regular)
         titleLabel.textAlignment = .center
     }
     
@@ -47,8 +46,9 @@ class DateCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        backgroundColor = appearance.primaryBackground
-        titleLabel.textColor = appearance.primaryText
+        titleLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
+        backgroundColor = appearance.colors.primaryBackground
+        titleLabel.textColor = appearance.colors.primaryText
     }
 }
 }
