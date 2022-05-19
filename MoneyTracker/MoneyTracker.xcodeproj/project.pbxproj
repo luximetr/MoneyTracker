@@ -1532,8 +1532,7 @@
 				2E0F71EA27EB80B3009E7C28 /* Snackbars */,
 				2EC19AD327A7F75600E1A6FA /* Components */,
 				2ECAD4F52809A2E50003BB26 /* Appearance */,
-				2EB10A3E27A7063A00743416 /* Localizers */,
-				2E732E93282309AE0061008B /* Locale */,
+				2ED04A3A2836E1F40048B931 /* Localization */,
 				2EB10A4627A7074A00743416 /* Bundle */,
 				2E04279C27E66712005F342D /* Error.swift */,
 				2EB10A1C27A6CAE500743416 /* MoneyTrackerPresentation.h */,
@@ -2009,6 +2008,15 @@
 				2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */,
 			);
 			path = Alert;
+			sourceTree = "<group>";
+		};
+		2ED04A3A2836E1F40048B931 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				2EB10A3E27A7063A00743416 /* Localizers */,
+				2E732E93282309AE0061008B /* Locale */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		2ED15EC327FE20F100208386 /* Transfer */ = {
