@@ -7,14 +7,14 @@
 
 import Foundation
 
-class MyLocale {
+public class MyLocale {
     
     let language: Language
     let scriptCode: String?
     let regionCode: String?
     let locale: Locale
     
-    init(language: Language, scriptCode: String?, regionCode: String?) {
+    public init(language: Language, scriptCode: String?, regionCode: String?) {
         self.language = language
         self.scriptCode = scriptCode
         self.regionCode = regionCode

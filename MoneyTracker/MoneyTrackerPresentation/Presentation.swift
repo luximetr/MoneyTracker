@@ -14,8 +14,8 @@ public final class Presentation: AUIWindowPresentation {
         
     // MARK: Initializer
     
-    public init(window: UIWindow, language: Language, appearanceSetting: AppearanceSetting) {
-        self.language = language
+    public init(window: UIWindow, locale: MyLocale, appearanceSetting: AppearanceSetting) {
+        self.locale = locale
         self.appearanceSetting = appearanceSetting
         self.appearance = Presentation.appearance(appearanceSetting, window: window)
         super.init(window: window)
@@ -106,10 +106,11 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Language
     
-    private var language: Language
+    private var locale: MyLocale
+    private var language: Language { locale.language }
     
-    func changeLanguage(_ language: Language) {
-        self.language = language
+    func changeLocale(_ locale: MyLocale) {
+        self.locale = locale
         menuScreenViewController?.changeLanguage(language)
         dashboardViewController?.changeLanguage(language)
         settingsScreenViewController?.changeLanguage(language)
@@ -993,7 +994,8 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     try self.delegate.presentation(self, selectLanguage: language)
-                    self.changeLanguage(language)
+                    let locale = MyLocale(language: language, scriptCode: self.locale.scriptCode, regionCode: self.locale.regionCode)
+                    self.changeLocale(locale)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                     throw error
