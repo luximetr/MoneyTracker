@@ -26,7 +26,7 @@ class ImportCSVScreenViewController: UIDocumentPickerViewController, UIDocumentP
         let types = UTType.types(tag: "csv", tagClass: UTTagClass.filenameExtension, conformingTo: nil)
         super.init(forOpeningContentTypes: types, asCopy: false)
         allowsMultipleSelection = false
-        overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        overrideUserInterfaceStyle = appearance.colors.overrideUserInterfaceStyle
         delegate = self
     }
     
@@ -38,7 +38,7 @@ class ImportCSVScreenViewController: UIDocumentPickerViewController, UIDocumentP
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        overrideUserInterfaceStyle = appearance.colors.overrideUserInterfaceStyle
     }
     
     // MARK: - UIDocumentPickerDelegate

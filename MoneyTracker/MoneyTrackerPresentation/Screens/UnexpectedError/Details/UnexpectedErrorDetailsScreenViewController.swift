@@ -29,7 +29,7 @@ final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewContr
     // MARK: View
     
     override func loadView() {
-        view = UnexpectedErrorDetailsScreenView()
+        view = UnexpectedErrorDetailsScreenView(frame: .zero, appearance: appearance)
     }
     
     private var unexpectedErrorDetailsScreenView: UnexpectedErrorDetailsScreenView! {

@@ -40,7 +40,7 @@ final class InputDateView: AppearanceView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        datePicker.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        datePicker.overrideUserInterfaceStyle = appearance.colors.overrideUserInterfaceStyle
     }
     
 }

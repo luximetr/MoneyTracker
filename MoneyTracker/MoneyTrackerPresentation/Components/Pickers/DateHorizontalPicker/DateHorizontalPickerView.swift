@@ -165,7 +165,7 @@ class DateHorizontalPickerView: AppearanceView {
         pickDayButtonGradientLayer.colors = [appearance.colors.primaryBackground.withAlphaComponent(1).cgColor, appearance.colors.primaryBackground.withAlphaComponent(0).cgColor]
         selectedDayFrameView.layer.borderColor = appearance.colors.secondaryBackground.cgColor
         collectionFadeView.backgroundColor = appearance.colors.primaryBackground.withAlphaComponent(0.4)
-        datePicker.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        datePicker.overrideUserInterfaceStyle = appearance.colors.overrideUserInterfaceStyle
         findDateCells().forEach { $0.setAppearance(appearance) }
     }
     

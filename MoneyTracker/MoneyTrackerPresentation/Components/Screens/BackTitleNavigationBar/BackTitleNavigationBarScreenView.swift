@@ -17,7 +17,7 @@ class BackTitleNavigationBarScreenView: NavigationBarScreenView {
     
     // MARK: - Initializer
     
-    init(frame: CGRect = .zero, appearance: Appearance = LightAppearance(), statusBarView: UIView = UIView(), navigationBarView: UIView = UIView(), backButton: UIButton = PictureButton(), titleLabel: UILabel = UILabel()) {
+    init(frame: CGRect = .zero, appearance: Appearance, statusBarView: UIView = UIView(), navigationBarView: UIView = UIView(), backButton: UIButton = PictureButton(), titleLabel: UILabel = UILabel()) {
         self.backButton = backButton
         self.titleLabel = titleLabel
         super.init(frame: frame, appearance: appearance, statusBarView: statusBarView, navigationBarView: navigationBarView)

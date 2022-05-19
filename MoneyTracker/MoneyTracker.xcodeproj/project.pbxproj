@@ -41,6 +41,7 @@
 		2E52795D2811B01300BC916B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52795C2811B01300BC916B /* Error.swift */; };
 		2E72CEEE281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E72CEED281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift */; };
 		2E732E95282309BE0061008B /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E732E94282309BE0061008B /* Locale.swift */; };
+		2E76A975283677100046627C /* CompositeAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E76A974283677100046627C /* CompositeAppearance.swift */; };
 		2E7F856A281D6AFC0013C3DD /* HistoryScreenBalanceTransferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F8569281D6AFC0013C3DD /* HistoryScreenBalanceTransferTableViewCell.swift */; };
 		2E7F856C281D6B0B0013C3DD /* HistoryScreenBalanceTransferTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F856B281D6B0B0013C3DD /* HistoryScreenBalanceTransferTableViewCellController.swift */; };
 		2E7F856F281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F856E281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift */; };
@@ -557,6 +558,7 @@
 		2E52795C2811B01300BC916B /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		2E72CEED281DCC3C00B2EFDE /* ExpenseTemplateSqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTemplateSqliteTable.swift; sourceTree = "<group>"; };
 		2E732E94282309BE0061008B /* Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
+		2E76A974283677100046627C /* CompositeAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeAppearance.swift; sourceTree = "<group>"; };
 		2E7F8569281D6AFC0013C3DD /* HistoryScreenBalanceTransferTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenBalanceTransferTableViewCell.swift; sourceTree = "<group>"; };
 		2E7F856B281D6B0B0013C3DD /* HistoryScreenBalanceTransferTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenBalanceTransferTableViewCellController.swift; sourceTree = "<group>"; };
 		2E7F856E281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenExpenseTableViewCellController.swift; sourceTree = "<group>"; };
@@ -1947,6 +1949,7 @@
 			isa = PBXGroup;
 			children = (
 				2ECAD4F62809A3180003BB26 /* Appearance.swift */,
+				2E76A974283677100046627C /* CompositeAppearance.swift */,
 				2EFCCE3C2834310A00E1F85F /* Fonts */,
 				2EFCCE4128343BBA00E1F85F /* Colors */,
 			);
@@ -3371,6 +3374,7 @@
 				2EC19ACE27A7F64000E1A6FA /* CategoriesListScreenViewController.swift in Sources */,
 				2E2A6EE027EC4FEC0084054C /* EditExpenseScreenViewController.swift in Sources */,
 				2ED1883D280AC17A00BA52EF /* AppearanceView.swift in Sources */,
+				2E76A975283677100046627C /* CompositeAppearance.swift in Sources */,
 				DB7793CD28117F0500150822 /* DashboardCategoryPickerCategoryCell.swift in Sources */,
 				DBA05479280129A600DB3892 /* ImportedExpensesFile.swift in Sources */,
 				DB7BA81427F983C700A3B3BA /* ColorHorizontalPickerView.swift in Sources */,

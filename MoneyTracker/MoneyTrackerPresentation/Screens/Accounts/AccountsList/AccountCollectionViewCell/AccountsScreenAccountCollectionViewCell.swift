@@ -13,11 +13,11 @@ final class AccountCollectionViewCell: AppearanceCollectionViewCell {
 
     // MARK: Subviews
     
-    private let _accountView = AccountView(appearance: LightAppearance())
+    private let _accountView = AccountView(appearance: CompositeAppearance(fonts: SystemAppearanceFonts(), colors: DarkAppearanceColors()))
     var accountView: UIView { return _accountView }
     var nameLabel: UILabel { return _accountView.nameLabel }
     var balanceLabel: UILabel { return _accountView.balanceLabel }
-    let deleteButton = TextFilledButton(appearance: LightAppearance())
+    let deleteButton = TextFilledButton(appearance: CompositeAppearance(fonts: SystemAppearanceFonts(), colors: DarkAppearanceColors()))
     
     // MARK: Setup
     

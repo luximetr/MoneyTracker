@@ -37,14 +37,14 @@ public final class Presentation: AUIWindowPresentation {
     private static func appearance(_ appearanceSetting: AppearanceSetting, window: UIWindow) -> Appearance {
         switch appearanceSetting {
         case .light:
-            return LightAppearance()
+            return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: LightAppearanceColors())
         case .dark:
-            return DarkAppearance()
+            return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: DarkAppearanceColors())
         case .system:
             let userInterfaceStyle = window.traitCollection.userInterfaceStyle
             switch userInterfaceStyle {
-                case .dark: return DarkAppearance()
-                default: return LightAppearance()
+                case .dark: return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: DarkAppearanceColors())
+                default: return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: LightAppearanceColors())
             }
         }
     }
@@ -99,8 +99,8 @@ public final class Presentation: AUIWindowPresentation {
     
     private func getAppearance(userInterfaceStyle: UIUserInterfaceStyle) -> Appearance {
         switch userInterfaceStyle {
-            case .dark: return DarkAppearance()
-            default: return LightAppearance()
+            case .dark: return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: DarkAppearanceColors())
+            default: return CompositeAppearance(fonts: SystemAppearanceFonts(), colors: LightAppearanceColors())
         }
     }
     

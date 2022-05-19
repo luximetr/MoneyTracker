@@ -265,7 +265,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         toAccountPickerView.changeAppearance(appearance)
         toAmountInputView.changeAppearance(appearance)
         commentTextField.changeAppearance(appearance)
-        dayDatePickerView.overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        dayDatePickerView.overrideUserInterfaceStyle = appearance.colors.overrideUserInterfaceStyle
         addButton.backgroundColor = appearance.colors.primaryActionBackground
         addButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         errorSnackbarView.changeAppearance(appearance)

@@ -18,13 +18,13 @@ class ExportCSVScreenViewController: UIActivityViewController {
     init(appearance: Appearance, activityItems: [Any]) {
         self.appearance = appearance
         super.init(activityItems: activityItems, applicationActivities: nil)
-        overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        overrideUserInterfaceStyle = appearance.colors.overrideUserInterfaceStyle
     }
     
     // MARK: - Appearance
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        overrideUserInterfaceStyle = appearance.overrideUserInterfaceStyle
+        overrideUserInterfaceStyle = appearance.colors.overrideUserInterfaceStyle
     }
 }

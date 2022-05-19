@@ -9,6 +9,8 @@ import UIKit
 
 struct LightAppearanceColors: AppearanceColors {
     
+    let statusBarStyle = UIStatusBarStyle.darkContent
+    let overrideUserInterfaceStyle = UIUserInterfaceStyle.light
     let primaryBackground = UIColor(red: 0.977, green: 0.977, blue: 0.977, alpha: 1)
     let secondaryBackground = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
     let tertiaryBackground = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
@@ -32,30 +34,6 @@ struct LightAppearanceColors: AppearanceColors {
     let balanceAccountSecondaryText = UIColor(red: 0.808, green: 0.808, blue: 0.808, alpha: 1)
     let categoryPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     let cardPrimaryText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-    
-}
-
-struct LightAppearance: Appearance {
-    
-    // MARK: - Fonts
-    
-    var fonts: AppearanceFonts = SystemAppearanceFonts()
-    
-    // MARK: - Colors
-    
-    var colors: AppearanceColors = LightAppearanceColors()
-    
-    // MARK: - UIStatusBarStyle
-    
-    let statusBarStyle = UIStatusBarStyle.darkContent
-    
-    // MARK: - UIUserInterfaceStyle
-    
-    let overrideUserInterfaceStyle = UIUserInterfaceStyle.light
-    
-    // MARK: - Colors
-
-    let balanceAccountSecondaryBackground = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
     let balanceAccountVariant1PrimaryBackground = UIColor(red: 0.18, green: 0.071, blue: 0.176, alpha: 1)
     let balanceAccountVariant2PrimaryBackground = UIColor(red: 0.325, green: 0.012, blue: 0.196, alpha: 1)
     let balanceAccountVariant3PrimaryBackground = UIColor(red: 0.502, green: 0.031, blue: 0.204, alpha: 1)
@@ -95,4 +73,5 @@ struct LightAppearance: Appearance {
     let categoryVariant17PrimaryBackground = UIColor(red: 0.106, green: 0.11, blue: 0.118, alpha: 1)
     let categoryVariant18PrimaryBackground = UIColor(red: 0.408, green: 0.475, blue: 0.482, alpha: 1)
     let categoryVariant19PrimaryBackground = UIColor(red: 0.714, green: 0.765, blue: 0.78, alpha: 1)
+    
 }

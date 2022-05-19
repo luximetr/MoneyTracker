@@ -16,7 +16,7 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        self.statusBarStyle = appearance.statusBarStyle
+        self.statusBarStyle = appearance.colors.statusBarStyle
         didSetStatusBarStyle()
     }
     
@@ -30,7 +30,7 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
         self.appearance = appearance
         self.language = language
         super.init()
-        self.statusBarStyle = appearance.statusBarStyle
+        self.statusBarStyle = appearance.colors.statusBarStyle
     }
   
     // MARK: - Events

@@ -10,12 +10,19 @@ import AUIKit
 
 final class ExpenseAddedSnackbarView: AppearanceView {
     
-    // MARK: Subviews
+    // MARK: - Subviews
     
     let messageLabel = UILabel()
-    let okButton = TextButton(appearance: LightAppearance())
+    let okButton: TextButton
     
-    // MARK: Setup
+    // MARK: - Initializer
+    
+    override init(frame: CGRect = .zero, appearance: Appearance) {
+        self.okButton = TextButton(appearance: appearance)
+        super.init(frame: frame, appearance: appearance)
+    }
+    
+    // MARK: - Setup
     
     override func setup() {
         super.setup()
@@ -38,7 +45,7 @@ final class ExpenseAddedSnackbarView: AppearanceView {
         okButton.titleLabel?.font = appearance.fonts.primary(size: 14, weight: .semibold)
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -68,7 +75,7 @@ final class ExpenseAddedSnackbarView: AppearanceView {
         messageLabel.frame = frame
     }
     
-    // MARK: Appearance
+    // MARK: -Appearance
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
@@ -77,7 +84,7 @@ final class ExpenseAddedSnackbarView: AppearanceView {
         okButton.setTitleColor(appearance.colors.successActionText, for: .normal)
     }
     
-    // MARK: Size
+    // MARK: - Size
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let width = size.width
