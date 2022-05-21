@@ -8,7 +8,6 @@
 import UIKit
 import AUIKit
 import MessageUI
-import MoneyTrackerStorage
 
 public final class Presentation: AUIWindowPresentation {
         

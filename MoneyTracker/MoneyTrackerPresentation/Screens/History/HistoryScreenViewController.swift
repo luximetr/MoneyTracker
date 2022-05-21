@@ -7,7 +7,6 @@
 
 import UIKit
 import AUIKit
-import MoneyTrackerStorage
 
 final class HistoryScreenViewController: StatusBarScreenViewController {
     
