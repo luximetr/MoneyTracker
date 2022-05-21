@@ -1512,7 +1512,6 @@
 				2EC19AD327A7F75600E1A6FA /* Components */,
 				2ECAD4F52809A2E50003BB26 /* Appearance */,
 				2ED04A3A2836E1F40048B931 /* Localization */,
-				2EB10A4627A7074A00743416 /* Bundle */,
 				2E04279C27E66712005F342D /* Error.swift */,
 				2EB10A1C27A6CAE500743416 /* MoneyTrackerPresentation.h */,
 			);
@@ -1565,14 +1564,6 @@
 				2EB10A3627A6FE9800743416 /* DefaultAppearanceImages.xcassets */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		2EB10A4627A7074A00743416 /* Bundle */ = {
-			isa = PBXGroup;
-			children = (
-				2EB10A4727A7075700743416 /* BundleLocalization.swift */,
-			);
-			path = Bundle;
 			sourceTree = "<group>";
 		};
 		2EB10A4B27A7083200743416 /* Data */ = {
@@ -1984,8 +1975,9 @@
 		2ED04A3A2836E1F40048B931 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				2E732E94282309BE0061008B /* Locale.swift */,
 				2EB10A3F27A7065B00743416 /* Localizer.swift */,
+				2E732E94282309BE0061008B /* Locale.swift */,
+				2EB10A4727A7075700743416 /* BundleLocalization.swift */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
