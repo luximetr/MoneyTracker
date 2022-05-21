@@ -26,8 +26,8 @@ final class AppearanceSettingNameLocalizer {
     
     // MARK: - Localizer
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "AppearanceSettingNameStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: language, stringsTableName: "AppearanceSettingNameStrings")
         return localizer
     }()
     

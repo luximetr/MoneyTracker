@@ -114,7 +114,7 @@
 		2EB10A3127A6E7B500743416 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A2E27A6E7B500743416 /* TabBarItem.swift */; };
 		2EB10A3227A6E7B500743416 /* MenuScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A2F27A6E7B500743416 /* MenuScreenViewController.swift */; };
 		2EB10A3727A6FE9800743416 /* DefaultAppearanceImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A3627A6FE9800743416 /* DefaultAppearanceImages.xcassets */; };
-		2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A3F27A7065B00743416 /* ScreenLocalizer.swift */; };
+		2EB10A4027A7065B00743416 /* Localizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A3F27A7065B00743416 /* Localizer.swift */; };
 		2EB10A4327A7068E00743416 /* MenuScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A4527A7068E00743416 /* MenuScreenStrings.strings */; };
 		2EB10A4827A7075700743416 /* BundleLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4727A7075700743416 /* BundleLocalization.swift */; };
 		2EB10A4A27A707A300743416 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A4927A707A300743416 /* Language.swift */; };
@@ -632,7 +632,7 @@
 		2EB10A2E27A6E7B500743416 /* TabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		2EB10A2F27A6E7B500743416 /* MenuScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScreenViewController.swift; sourceTree = "<group>"; };
 		2EB10A3627A6FE9800743416 /* DefaultAppearanceImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DefaultAppearanceImages.xcassets; sourceTree = "<group>"; };
-		2EB10A3F27A7065B00743416 /* ScreenLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLocalizer.swift; sourceTree = "<group>"; };
+		2EB10A3F27A7065B00743416 /* Localizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizer.swift; sourceTree = "<group>"; };
 		2EB10A4427A7068E00743416 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MenuScreenStrings.strings; sourceTree = "<group>"; };
 		2EB10A4727A7075700743416 /* BundleLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleLocalization.swift; sourceTree = "<group>"; };
 		2EB10A4927A707A300743416 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
@@ -1157,14 +1157,6 @@
 			path = AddReplenishment;
 			sourceTree = "<group>";
 		};
-		2E732E93282309AE0061008B /* Locale */ = {
-			isa = PBXGroup;
-			children = (
-				2E732E94282309BE0061008B /* Locale.swift */,
-			);
-			path = Locale;
-			sourceTree = "<group>";
-		};
 		2E7F8568281D6AD30013C3DD /* TransferTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1573,14 +1565,6 @@
 				2EB10A3627A6FE9800743416 /* DefaultAppearanceImages.xcassets */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		2EB10A3E27A7063A00743416 /* Localizers */ = {
-			isa = PBXGroup;
-			children = (
-				2EB10A3F27A7065B00743416 /* ScreenLocalizer.swift */,
-			);
-			path = Localizers;
 			sourceTree = "<group>";
 		};
 		2EB10A4627A7074A00743416 /* Bundle */ = {
@@ -2000,8 +1984,8 @@
 		2ED04A3A2836E1F40048B931 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				2E732E93282309AE0061008B /* Locale */,
-				2EB10A3E27A7063A00743416 /* Localizers */,
+				2E732E94282309BE0061008B /* Locale.swift */,
+				2EB10A3F27A7065B00743416 /* Localizer.swift */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -3372,7 +3356,7 @@
 				DBA05479280129A600DB3892 /* ImportedExpensesFile.swift in Sources */,
 				DB7BA81427F983C700A3B3BA /* ColorHorizontalPickerView.swift in Sources */,
 				2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */,
-				2EB10A4027A7065B00743416 /* ScreenLocalizer.swift in Sources */,
+				2EB10A4027A7065B00743416 /* Localizer.swift in Sources */,
 				2ED76C8B27F58009000F8622 /* BalanceAccountPickerAddCollectionViewCell.swift in Sources */,
 				2E394F0627FCDA06002C3052 /* AddTransferScreenViewController.swift in Sources */,
 				2EFCCE4328343C0900E1F85F /* AppearanceColors.swift in Sources */,

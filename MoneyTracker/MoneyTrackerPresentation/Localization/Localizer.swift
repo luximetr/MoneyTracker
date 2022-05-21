@@ -8,7 +8,7 @@
 import Foundation
 import AFoundation
 
-final class ScreenLocalizer {
+final class Localizer {
     
     // MARK: - Language
     
@@ -18,7 +18,7 @@ final class ScreenLocalizer {
     
     func changeLanguage(_ language: Language) {
         self.language = language
-        var textLocalizers: [TextLocalizer] = []
+        var textLocalizers: [AFoundation.TextLocalizer] = []
         if let stringsTableName = stringsTableName, let bundle = Bundle.localizedFor(language: language) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
@@ -36,7 +36,7 @@ final class ScreenLocalizer {
         self.language = language
         self.stringsTableName = stringsTableName
         self.stringsdictTableName = stringsdictTableName
-        var textLocalizers: [TextLocalizer] = []
+        var textLocalizers: [AFoundation.TextLocalizer] = []
         if let stringsTableName = stringsTableName, let bundle = Bundle.localizedFor(language: language) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
@@ -50,7 +50,7 @@ final class ScreenLocalizer {
     
     // MARK: - Localizer
     
-    private var textLocalizer: TextLocalizer
+    private var textLocalizer: AFoundation.TextLocalizer
     
     func localizeText(_ text: String, _ arguments: CVarArg...) -> String {
         let text = textLocalizer.localizeText(text, arguments: arguments) ?? ""

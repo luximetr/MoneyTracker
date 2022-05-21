@@ -29,8 +29,8 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     // MARK: - Language
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "CategoryVerticalPickerStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: locale.language, stringsTableName: "CategoryVerticalPickerStrings")
         return localizer
     }()
     

@@ -187,8 +187,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Content
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "HistoryScreenStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: locale.language, stringsTableName: "HistoryScreenStrings")
         return localizer
     }()
     

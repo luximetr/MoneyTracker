@@ -26,8 +26,8 @@ final class LanguageCodeLocalizer {
     
     // MARK: - Localizer
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "LanguageCodeStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: language, stringsTableName: "LanguageCodeStrings")
         return localizer
     }()
     

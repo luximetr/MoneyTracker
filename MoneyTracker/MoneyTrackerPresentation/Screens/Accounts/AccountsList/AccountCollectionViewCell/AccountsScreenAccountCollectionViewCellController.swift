@@ -18,7 +18,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     
     // MARK: Initializer
         
-    init(account: Account, localizer: ScreenLocalizer, appearance: Appearance) {
+    init(account: Account, localizer: Localizer, appearance: Appearance) {
         self.account = account
         self.localizer = localizer
         self.appearance = appearance
@@ -58,7 +58,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     
     // MARK: Localizer
     
-    private let localizer: ScreenLocalizer
+    private let localizer: Localizer
     
     // MARK: Content
     

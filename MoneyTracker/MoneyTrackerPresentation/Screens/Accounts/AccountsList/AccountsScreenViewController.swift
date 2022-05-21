@@ -62,8 +62,8 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
     
     // MARK: Localizer
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "AccountsScreenStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: locale.language, stringsTableName: "AccountsScreenStrings")
         return localizer
     }()
     

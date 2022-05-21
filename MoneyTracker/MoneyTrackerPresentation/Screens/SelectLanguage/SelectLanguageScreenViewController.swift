@@ -84,8 +84,8 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
     
     // MARK: Content
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: selectedLanguage, stringsTableName: "SelectLanguageScreenStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: selectedLanguage, stringsTableName: "SelectLanguageScreenStrings")
         return localizer
     }()
     

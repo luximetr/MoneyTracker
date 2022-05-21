@@ -83,8 +83,8 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
         
     // MARK: Content
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "StatisticScreenStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: locale.language, stringsTableName: "StatisticScreenStrings")
         return localizer
     }()
     

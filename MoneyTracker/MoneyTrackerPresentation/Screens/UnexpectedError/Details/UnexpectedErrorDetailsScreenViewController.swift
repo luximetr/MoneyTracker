@@ -38,8 +38,8 @@ final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewContr
         
     // MARK: Localizer
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "UnexpectedErrorDetailsScreenStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: locale.language, stringsTableName: "UnexpectedErrorDetailsScreenStrings")
         return localizer
     }()
     

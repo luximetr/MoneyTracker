@@ -64,8 +64,8 @@ final class TemplatesViewController: EmptyViewController {
     
     // MARK: Content
     
-    private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "DashboardTemplatesViewStrings")
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(language: locale.language, stringsTableName: "DashboardTemplatesViewStrings")
         return localizer
     }()
     
