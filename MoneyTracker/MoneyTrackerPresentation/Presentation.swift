@@ -106,7 +106,6 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Locale
     
     private var locale: Locale
-    private var language: Language { locale.language }
     
     func changeLocale(_ locale: Locale) {
         self.locale = locale
@@ -114,6 +113,7 @@ public final class Presentation: AUIWindowPresentation {
         dashboardViewController?.changeLocale(locale)
         settingsScreenViewController?.changeLocale(locale)
         statisticScreen?.changeLocale(locale)
+        pushedSelectLanguageViewController?.changeLocale(locale)
     }
     
     // MARK: - Display
