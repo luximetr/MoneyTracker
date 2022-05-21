@@ -2013,8 +2013,8 @@
 		2ED04A3A2836E1F40048B931 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				2EB10A3E27A7063A00743416 /* Localizers */,
 				2E732E93282309AE0061008B /* Locale */,
+				2EB10A3E27A7063A00743416 /* Localizers */,
 			);
 			path = Localization;
 			sourceTree = "<group>";

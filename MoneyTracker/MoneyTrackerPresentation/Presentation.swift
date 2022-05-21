@@ -104,7 +104,7 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: - Language
+    // MARK: - Locale
     
     private var locale: MyLocale
     private var language: Language { locale.language }
