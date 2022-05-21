@@ -20,12 +20,12 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Init
     
-    init(appearance: Appearance, language: Language, categoryColors: [CategoryColor], categoryIconName: String) {
+    init(appearance: Appearance, locale: MyLocale, categoryColors: [CategoryColor], categoryIconName: String) {
         self.categoryColors = categoryColors
         self.categoryIconName = categoryIconName
         self.colorPickerController = CategoryColorHorizontalPickerController(appearance: appearance)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: View
@@ -53,12 +53,12 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "AddCategoryScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "AddCategoryScreenStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
         setContent()
     }
     

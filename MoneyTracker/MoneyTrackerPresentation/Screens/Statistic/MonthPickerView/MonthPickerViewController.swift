@@ -107,7 +107,7 @@ final class MonthPickerViewController: EmptyViewController {
     }
     
     private func createMonthCollectionViewCellController(month: Date) -> MonthCollectionViewCellController {
-        let cellController = MonthCollectionViewCellController(language: language, month: month, isSelected: month == selectedMonth)
+        let cellController = MonthCollectionViewCellController(locale: locale, month: month, isSelected: month == selectedMonth)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             let monthCollectionViewCell = self.monthPickerView!.monthCollectionViewCell(indexPath)

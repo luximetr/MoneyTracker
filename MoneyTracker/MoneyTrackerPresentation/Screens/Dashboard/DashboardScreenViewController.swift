@@ -24,12 +24,12 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, language: Language, categories: [Category], accounts: [Account], templates: [ExpenseTemplate]) {
+    init(appearance: Appearance, locale: MyLocale, categories: [Category], accounts: [Account], templates: [ExpenseTemplate]) {
         self.templates = templates
-        self.categoryPickerViewController = CategoryPickerViewController(language: language, appearance: appearance, categories: categories)
-        self.accountPickerViewController = AccountPickerViewController(language: language, appearance: appearance, accounts: accounts)
-        self.templatesViewController = TemplatesViewController(language: language, appearance: appearance, templates: templates)
-        super.init(appearance: appearance, language: language)
+        self.categoryPickerViewController = CategoryPickerViewController(locale: locale, appearance: appearance, categories: categories)
+        self.accountPickerViewController = AccountPickerViewController(locale: locale, appearance: appearance, accounts: accounts)
+        self.templatesViewController = TemplatesViewController(locale: locale, appearance: appearance, templates: templates)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: - View
@@ -105,16 +105,17 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "DashboardScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "DashboardScreenStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        let language = locale.language
         localizer.changeLanguage(language)
-        categoryPickerViewController.changeLanguage(language)
-        accountPickerViewController.changeLanguage(language)
-        templatesViewController.changeLanguage(language)
+        categoryPickerViewController.changeLocale(locale)
+        accountPickerViewController.changeLocale(locale)
+        templatesViewController.changeLocale(locale)
         setContent()
     }
     

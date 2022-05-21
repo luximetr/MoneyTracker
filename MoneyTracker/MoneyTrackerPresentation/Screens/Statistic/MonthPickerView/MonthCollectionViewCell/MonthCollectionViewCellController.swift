@@ -13,7 +13,7 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     // MARK: Data
         
-    private var language: Language
+    private var locale: MyLocale
     let month: Date
     private(set) var isSelected: Bool
     
@@ -24,8 +24,8 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     // MARK: Initializer
         
-    init(language: Language, month: Date, isSelected: Bool) {
-        self.language = language
+    init(locale: MyLocale, month: Date, isSelected: Bool) {
+        self.locale = locale
         self.month = month
         self.isSelected = isSelected
         super.init()
@@ -56,12 +56,12 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     // MARK: - Language
     
     private lazy var localizer: ScreenLocalizer = {
-        return ScreenLocalizer(language: language, stringsTableName: "MonthCollectionViewCellStrings")
+        return ScreenLocalizer(language: locale.language, stringsTableName: "MonthCollectionViewCellStrings")
     }()
     
-    func changeLanguage(_ language: Language) {
-        self.language = language
-        localizer.changeLanguage(language)
+    func changeLanguage(_ locale: MyLocale) {
+        self.locale = locale
+        localizer.changeLanguage(locale.language)
         setContent()
     }
     

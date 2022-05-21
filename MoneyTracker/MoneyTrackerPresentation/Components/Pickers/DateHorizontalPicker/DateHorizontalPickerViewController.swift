@@ -43,12 +43,12 @@ class DateHorizontalPickerViewController: EmptyViewController {
     // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
-        return ScreenLocalizer(language: language, stringsTableName: "DateHorizontalPickerViewStrings")
+        return ScreenLocalizer(language: locale.language, stringsTableName: "DateHorizontalPickerViewStrings")
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        localizer.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        localizer.changeLanguage(locale.language)
         setupDatePickerLocal()
         findTodayCellController()?.setTitle(localizer.localizeText("today"))
     }

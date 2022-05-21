@@ -26,16 +26,16 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
 
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, accounts: [Account], categories: [Category], selectedCategory: Category?) {
+    init(appearance: Appearance, locale: MyLocale, accounts: [Account], categories: [Category], selectedCategory: Category?) {
         self.accounts = accounts
         self.categories = categories
         self.selectedCategory = selectedCategory ?? categories.first
         self.inputAmountViewController = InputAmountViewController()
-        self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
-        self.selectCategoryViewController = CategoryVerticalPickerController(appearance: appearance, language: language)
-        self.inputDateViewController = InputDateViewController(language: language)
+        self.balanceAccountHorizontalPickerController = BalanceAccountHorizontalPickerController(locale: locale, appearance: appearance)
+        self.selectCategoryViewController = CategoryVerticalPickerController(appearance: appearance, locale: locale)
+        self.inputDateViewController = InputDateViewController(locale: locale)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: View
@@ -260,16 +260,17 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     // MARK: Content
 
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "AddExpenseScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "AddExpenseScreenStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        let language = locale.language
         localizer.changeLanguage(language)
-        selectCategoryViewController.changeLanguage(language)
-        balanceAccountHorizontalPickerController.changeLanguage(language)
-        inputDateViewController.changeLanguage(language)
+        selectCategoryViewController.changeLocale(locale)
+        balanceAccountHorizontalPickerController.changeLocale(locale)
+        inputDateViewController.changeLocale(locale)
         setContent()
     }
     

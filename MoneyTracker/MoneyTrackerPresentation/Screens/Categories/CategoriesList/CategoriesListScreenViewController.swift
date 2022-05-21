@@ -21,9 +21,9 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, language: Language, categories: [Category]) {
+    init(appearance: Appearance, locale: MyLocale, categories: [Category]) {
         self.categories = categories
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: - View
@@ -113,7 +113,7 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
     // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "CategoriesListScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "CategoriesListScreenStrings")
         return localizer
     }()
     

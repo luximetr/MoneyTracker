@@ -18,13 +18,13 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, account: Account, accountColors: [AccountColor]) {
+    init(appearance: Appearance, locale: MyLocale, account: Account, accountColors: [AccountColor]) {
         self.account = account
         self.selectedCurrency = account.currency
         self.accountColors = accountColors
         self.colorPickerController = BalanceAccountColorHorizontalPickerController(appearance: appearance)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: Delegation
@@ -36,12 +36,12 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "EditAccountScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "EditAccountScreenStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
         setContent()
     }
     

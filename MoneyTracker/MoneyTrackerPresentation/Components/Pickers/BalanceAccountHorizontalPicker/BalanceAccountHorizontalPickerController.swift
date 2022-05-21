@@ -26,15 +26,15 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "BalanceAccountHorizontalPickerStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "BalanceAccountHorizontalPickerStrings")
         return localizer
     }()
     
     // MARK: - Initializer
     
-    init(language: Language, appearance: Appearance) {
+    init(locale: MyLocale, appearance: Appearance) {
         self.appearance = appearance
-        super.init(language: language)
+        super.init(locale: locale)
     }
     
     // MARK: - Appearance

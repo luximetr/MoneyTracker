@@ -111,10 +111,10 @@ public final class Presentation: AUIWindowPresentation {
     
     func changeLocale(_ locale: MyLocale) {
         self.locale = locale
-        menuScreenViewController?.changeLanguage(language)
-        dashboardViewController?.changeLanguage(language)
-        settingsScreenViewController?.changeLanguage(language)
-        statisticScreen?.changeLanguage(language)
+        menuScreenViewController?.changeLocale(locale)
+        dashboardViewController?.changeLocale(locale)
+        settingsScreenViewController?.changeLocale(locale)
+        statisticScreen?.changeLocale(locale)
     }
     
     // MARK: - Display
@@ -138,7 +138,7 @@ public final class Presentation: AUIWindowPresentation {
         self.settingsScreenViewController = settingsViewController
         self.settingsNavigationController = settingsNavigationController
         // Menu
-        let menuViewController = MenuScreenViewController(appearance: appearance, language: language, dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
+        let menuViewController = MenuScreenViewController(appearance: appearance, locale: locale, dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
         let menuNavigationController = AUINavigationBarHiddenNavigationController()
         menuNavigationController.viewControllers = [menuViewController]
         self.menuNavigationController = menuNavigationController
@@ -166,7 +166,7 @@ public final class Presentation: AUIWindowPresentation {
         let categories = (try? delegate.presentationCategories(self)) ?? []
         let accounts = (try? delegate.presentationAccounts(self)) ?? []
         let templates = (try? delegate.presentationExpenseTemplates(self)) ?? []
-        let viewController = DashboardScreenViewController(appearance: appearance, language: language, categories: categories, accounts: accounts, templates: templates)
+        let viewController = DashboardScreenViewController(appearance: appearance, locale: locale, categories: categories, accounts: accounts, templates: templates)
         viewController.historyClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
@@ -250,7 +250,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             let categories = try delegate.presentationCategories(self)
-            let viewController = AddExpenseScreenViewController(appearance: appearance, language: language, accounts: accounts, categories: categories, selectedCategory: selectedCategory)
+            let viewController = AddExpenseScreenViewController(appearance: appearance, locale: locale, accounts: accounts, categories: categories, selectedCategory: selectedCategory)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -328,7 +328,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             
-            let viewController = AddTransferScreenViewController(appearance: appearance, language: language, accounts: accounts)
+            let viewController = AddTransferScreenViewController(appearance: appearance, locale: locale, accounts: accounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -367,7 +367,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             
-            let viewController = AddReplenishmentScreenViewController(appearance: appearance, language: language, accounts: accounts, selectedAccount: selectedAccount)
+            let viewController = AddReplenishmentScreenViewController(appearance: appearance, locale: locale, accounts: accounts, selectedAccount: selectedAccount)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -403,7 +403,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private var expenseAddedSnackbarViewControllers: [ExpenseAddedSnackbarViewController] = []
     private func displayExpenseAddedSnackbarViewController(template: ExpenseTemplate, expense: Expense) {
-        let viewController = ExpenseAddedSnackbarViewController(appearance: appearance, language: language, template: template, expense: expense)
+        let viewController = ExpenseAddedSnackbarViewController(appearance: appearance, locale: locale, template: template, expense: expense)
         let view = ExpenseAddedSnackbarView(appearance: appearance)
         viewController.expenseAddedSnackbarView = view
         expenseAddedSnackbarViewControllers.append(viewController)
@@ -433,7 +433,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let operations = try delegate.presentationOperations(self)
             
-            let viewController = HistoryScreenViewController(appearance: appearance, language: language, operations: operations)
+            let viewController = HistoryScreenViewController(appearance: appearance, locale: locale, operations: operations)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -506,7 +506,7 @@ public final class Presentation: AUIWindowPresentation {
             let accounts = try delegate.presentationAccounts(self)
             let categories = try delegate.presentationCategories(self)
             
-            let viewController = EditExpenseScreenViewController(appearance: appearance, language: language, expense: expense, categories: categories, balanceAccounts: accounts)
+            let viewController = EditExpenseScreenViewController(appearance: appearance, locale: locale, expense: expense, categories: categories, balanceAccounts: accounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -554,7 +554,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             
-            let viewController = EditReplenishmentScreenViewController(appearance: appearance, language: language, replenishment: replenishment, accounts: accounts)
+            let viewController = EditReplenishmentScreenViewController(appearance: appearance, locale: locale, replenishment: replenishment, accounts: accounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -594,7 +594,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             
-            let viewController = EditTransferScreenViewController(appearance: appearance, language: language, accounts: accounts, transfer: transfer)
+            let viewController = EditTransferScreenViewController(appearance: appearance, locale: locale, accounts: accounts, transfer: transfer)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -631,7 +631,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var statisticScreen: StatisticScreenViewController?
     private func createStatisticScreen() -> StatisticScreenViewController {
-        let viewController = StatisticScreenViewController(appearance: appearance, language: language)
+        let viewController = StatisticScreenViewController(appearance: appearance, locale: locale)
         viewController.monthsClosure = { [weak self] in
             guard let self = self else { return [] }
             let months = (try? self.delegate.presentationExpensesMonths(self)) ?? []
@@ -662,7 +662,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let categories: [Category] = try delegate.presentationCategories(self)
             
-            let viewController = CategoriesListScreenViewController(appearance: appearance, language: language, categories: categories)
+            let viewController = CategoriesListScreenViewController(appearance: appearance, locale: locale, categories: categories)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -718,7 +718,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private var pushedAddCategoryViewController: AddCategoryScreenViewController?
     private func pushAddCategoryScreenViewController(_ navigationController: UINavigationController) throws {
-        let viewController = AddCategoryScreenViewController(appearance: appearance, language: language, categoryColors: CategoryColor.allCases, categoryIconName: CategoryIconNames.variant1)
+        let viewController = AddCategoryScreenViewController(appearance: appearance, locale: locale, categoryColors: CategoryColor.allCases, categoryIconName: CategoryIconNames.variant1)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)
@@ -754,7 +754,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private var presentedAddCategoryViewController: AddCategoryScreenViewController?
     private func presentAddCategoryScreenViewController(_ presentingViewController: UIViewController) throws {
-        let viewController = AddCategoryScreenViewController(appearance: appearance, language: language, categoryColors: CategoryColor.allCases, categoryIconName: CategoryIconNames.variant1)
+        let viewController = AddCategoryScreenViewController(appearance: appearance, locale: locale, categoryColors: CategoryColor.allCases, categoryIconName: CategoryIconNames.variant1)
         viewController.backClosure = { [weak viewController] in
             guard let viewController = viewController else { return }
             viewController.dismiss(animated: true, completion: nil)
@@ -793,7 +793,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var pushedEditCategoryViewController: EditCategoryScreenViewController?
     private func pushEditCategoryScreenViewController(_ navigationController: UINavigationController, category: Category) throws {
-        let viewController = EditCategoryScreenViewController(appearance: appearance, language: language, category: category, categoryColors: CategoryColor.allCases)
+        let viewController = EditCategoryScreenViewController(appearance: appearance, locale: locale, category: category, categoryColors: CategoryColor.allCases)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)
@@ -832,7 +832,7 @@ public final class Presentation: AUIWindowPresentation {
         color: CategoryColor,
         onSelectIcon: @escaping (String) -> Void
     ) -> SelectIconScreenViewController {
-        let viewController = SelectIconScreenViewController(appearance: appearance, language: language, iconNames: CategoryIconNames.variants, color: color)
+        let viewController = SelectIconScreenViewController(appearance: appearance, locale: locale, iconNames: CategoryIconNames.variants, color: color)
         viewController.didSelectIconClosure = { [weak viewController] iconName in
             onSelectIcon(iconName)
             viewController?.dismiss(animated: true)
@@ -847,7 +847,7 @@ public final class Presentation: AUIWindowPresentation {
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
         let defaultCurrency = try! delegate.presentationSelectedCurrency(self)
         let appearanceSetting = try! self.delegate.presentationAppearanceSetting(self)
-        let viewController = SettingsScreenViewController(appearance: appearance, language: language, defaultCurrency: defaultCurrency, appearanceSetting: appearanceSetting)
+        let viewController = SettingsScreenViewController(appearance: appearance, locale: locale, defaultCurrency: defaultCurrency, appearanceSetting: appearanceSetting)
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
@@ -936,7 +936,7 @@ public final class Presentation: AUIWindowPresentation {
             let currencies = delegate.presentationCurrencies(self)
             let selectedCurrency = try selectedCurrency ?? delegate.presentationSelectedCurrency(self)
             
-            let viewController = SelectCurrencyScreenViewController(appearance: appearance, language: language, currencies: currencies, selectedCurrency: selectedCurrency)
+            let viewController = SelectCurrencyScreenViewController(appearance: appearance, locale: locale, currencies: currencies, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak presentingViewController] in
                 guard let presentingViewController = presentingViewController else { return }
                 presentingViewController.dismiss(animated: true, completion: nil)
@@ -960,7 +960,7 @@ public final class Presentation: AUIWindowPresentation {
             let currencies = delegate.presentationCurrencies(self)
             let selectedCurrency = try selectedCurrency ?? delegate.presentationSelectedCurrency(self)
             
-            let viewController = SelectCurrencyScreenViewController(appearance: appearance, language: language, currencies: currencies, selectedCurrency: selectedCurrency)
+            let viewController = SelectCurrencyScreenViewController(appearance: appearance, locale: locale, currencies: currencies, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -985,7 +985,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let languages = try delegate.presentationLanguages(self)
             let selectedLanguage = language
-            let viewController = SelectLanguageScreenViewController(appearance: appearance, languages: languages, selectedLanguage: selectedLanguage)
+            let viewController = SelectLanguageScreenViewController(appearance: appearance, languages: languages, locale: locale)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1016,7 +1016,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             
             let appearanceSetting = try self.delegate.presentationAppearanceSetting(self)
-            let viewController = SelectAppearanceScreenViewController(appearance: appearance, language: language, appearanceSettings: [.light, .dark, .system], selectedAppearanceSetting: appearanceSetting)
+            let viewController = SelectAppearanceScreenViewController(appearance: appearance, locale: locale, appearanceSettings: [.light, .dark, .system], selectedAppearanceSetting: appearanceSetting)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1046,7 +1046,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             
-            let viewController = AccountsScreenViewController(appearance: appearance, language: language, accounts: accounts)
+            let viewController = AccountsScreenViewController(appearance: appearance, locale: locale, accounts: accounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1098,7 +1098,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let selectedCurrency = try delegate.presentationSelectedCurrency(self)
             
-            let viewController = AddAccountScreenViewController(appearance: appearance, language: language, accountColors: AccountColor.allCases, selectedCurrency: selectedCurrency)
+            let viewController = AddAccountScreenViewController(appearance: appearance, locale: locale, accountColors: AccountColor.allCases, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1151,7 +1151,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let selectedCurrency = try delegate.presentationSelectedCurrency(self)
             
-            let viewController = AddAccountScreenViewController(appearance: appearance, language: language, accountColors: AccountColor.allCases, selectedCurrency: selectedCurrency)
+            let viewController = AddAccountScreenViewController(appearance: appearance, locale: locale, accountColors: AccountColor.allCases, selectedCurrency: selectedCurrency)
             viewController.backClosure = { [weak self] in
                 guard let self = self else { return }
                 self.menuNavigationController?.dismiss(animated: true, completion: nil)
@@ -1201,7 +1201,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var pushedEditAccoutScreenViewController: EditAccountScreenViewController?
     private func pushEditAccountViewController(_ navigationController: UINavigationController, editingAccount: Account) {
-        let viewController = EditAccountScreenViewController(appearance: appearance, language: language, account: editingAccount, accountColors: AccountColor.allCases)
+        let viewController = EditAccountScreenViewController(appearance: appearance, locale: locale, account: editingAccount, accountColors: AccountColor.allCases)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)
@@ -1211,7 +1211,7 @@ public final class Presentation: AUIWindowPresentation {
             guard let navigationController = navigationController else { return }
             let currencies = self.delegate.presentationCurrencies(self)
             let selectedCurrency = viewController.selectedCurrency
-            let selectCurrencyViewController = SelectCurrencyScreenViewController(appearance: self.appearance, language: self.language, currencies: currencies, selectedCurrency: selectedCurrency)
+            let selectCurrencyViewController = SelectCurrencyScreenViewController(appearance: self.appearance, locale: self.locale, currencies: currencies, selectedCurrency: selectedCurrency)
             selectCurrencyViewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1247,7 +1247,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let templates = try delegate.presentationExpenseTemplates(self)
             
-            let viewController = TemplatesScreenViewController(appearance: appearance, language: language, templates: templates)
+            let viewController = TemplatesScreenViewController(appearance: appearance, locale: locale, templates: templates)
             viewController.addTemplateClosure = { [weak self] in
                 guard let self = self else { return }
                 guard let menuNavigationController = self.menuNavigationController else { return }
@@ -1304,7 +1304,7 @@ public final class Presentation: AUIWindowPresentation {
             let categories = try delegate.presentationCategories(self)
             let balanceAccounts = try delegate.presentationAccounts(self)
             
-            let viewController = AddTemplateScreenViewController(appearance: appearance, language: language, categories: categories, balanceAccounts: balanceAccounts)
+            let viewController = AddTemplateScreenViewController(appearance: appearance, locale: locale, categories: categories, balanceAccounts: balanceAccounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1353,7 +1353,7 @@ public final class Presentation: AUIWindowPresentation {
             let categories = try delegate.presentationCategories(self)
             let balanceAccounts = try delegate.presentationAccounts(self)
             
-            let viewController = AddTemplateScreenViewController(appearance: appearance, language: language, categories: categories, balanceAccounts: balanceAccounts)
+            let viewController = AddTemplateScreenViewController(appearance: appearance, locale: locale, categories: categories, balanceAccounts: balanceAccounts)
             viewController.backClosure = { [weak viewController] in
                 guard let viewController = viewController else { return }
                 viewController.dismiss(animated: true, completion: nil)
@@ -1404,7 +1404,7 @@ public final class Presentation: AUIWindowPresentation {
             let categories = try delegate.presentationCategories(self)
             let balanceAccounts = try delegate.presentationAccounts(self)
             
-            let viewController = EditTemplateScreenViewController(appearance: appearance, language: language, expenseTemplate: expenseTemplate, categories: categories, balanceAccounts: balanceAccounts)
+            let viewController = EditTemplateScreenViewController(appearance: appearance, locale: locale, expenseTemplate: expenseTemplate, categories: categories, balanceAccounts: balanceAccounts)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -1506,7 +1506,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var unexpectedErrorDetailsScreenViewController: UnexpectedErrorDetailsScreenViewController?
     private func displayUnexpectedErrorDetailsScreen(_ error: Swift.Error) {
-        let viewController = UnexpectedErrorDetailsScreenViewController(appearance: appearance, language: language, error: error)
+        let viewController = UnexpectedErrorDetailsScreenViewController(appearance: appearance, locale: locale, error: error)
         viewController.modalPresentationStyle = .fullScreen
         viewController.backClosure = {
             viewController.dismiss(animated: true, completion: nil)

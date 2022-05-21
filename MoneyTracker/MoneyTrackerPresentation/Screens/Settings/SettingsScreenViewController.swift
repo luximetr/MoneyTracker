@@ -25,10 +25,10 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, language: Language, defaultCurrency: Currency, appearanceSetting: AppearanceSetting) {
+    init(appearance: Appearance, locale: MyLocale, defaultCurrency: Currency, appearanceSetting: AppearanceSetting) {
         self.defaultCurrency = defaultCurrency
         self.appearanceSetting = appearanceSetting
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: - View
@@ -56,8 +56,9 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Events
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        let language = locale.language
         localizer.changeLanguage(language)
         currencyCodeLocalizer.changeLanguage(language)
         languageCodeLocalizer.changeLanguage(language)
@@ -111,22 +112,22 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "SettingsScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "SettingsScreenStrings")
         return localizer
     }()
     
     private lazy var currencyCodeLocalizer: CurrencyCodeLocalizer = {
-        let localizer = CurrencyCodeLocalizer(language: language)
+        let localizer = CurrencyCodeLocalizer(language: locale.language)
         return localizer
     }()
     
     private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
-        let localizer = LanguageCodeLocalizer(language: language)
+        let localizer = LanguageCodeLocalizer(language: locale.language)
         return localizer
     }()
     
     private lazy var appearanceTypeNameLocalizer: AppearanceSettingNameLocalizer = {
-        let localizer = AppearanceSettingNameLocalizer(language: language)
+        let localizer = AppearanceSettingNameLocalizer(language: locale.language)
         return localizer
     }()
     
@@ -156,7 +157,7 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.titleValueTableViewCell(indexPath)
             cell.titleLabel.text = self.localizer.localizeText("language")
-            cell.valueLabel.text = self.languageCodeLocalizer.code(self.language)
+            cell.valueLabel.text = self.languageCodeLocalizer.code(self.locale.language)
             return cell
         }
         languageCellController.didSelectClosure = { [weak self] in

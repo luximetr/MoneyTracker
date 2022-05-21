@@ -19,10 +19,10 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, language: Language, appearanceSettings: [AppearanceSetting], selectedAppearanceSetting: AppearanceSetting) {
+    init(appearance: Appearance, locale: MyLocale, appearanceSettings: [AppearanceSetting], selectedAppearanceSetting: AppearanceSetting) {
         self.appearanceSettings = appearanceSettings
         self.selectedAppearanceSetting = selectedAppearanceSetting
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: - View
@@ -74,8 +74,8 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
             let selectedCellController = appearanceSettingTableViewCellController(appearanceType)
             selectedCellController?.setIsSelected(true)
             selectedAppearanceSetting = appearanceType
-            localizer.changeLanguage(language)
-            appearanceTypeNameLocalizer.changeLanguage(language)
+            localizer.changeLanguage(locale.language)
+            appearanceTypeNameLocalizer.changeLanguage(locale.language)
             setContent()
             tableViewController.reload()
         } catch { }
@@ -84,19 +84,19 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "SelectAppearanceScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "SelectAppearanceScreenStrings")
         return localizer
     }()
     
     private lazy var appearanceTypeNameLocalizer: AppearanceSettingNameLocalizer = {
-        let localizer = AppearanceSettingNameLocalizer(language: language)
+        let localizer = AppearanceSettingNameLocalizer(language: locale.language)
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        localizer.changeLanguage(language)
-        appearanceTypeNameLocalizer.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        localizer.changeLanguage(locale.language)
+        appearanceTypeNameLocalizer.changeLanguage(locale.language)
         setContent()
     }
     

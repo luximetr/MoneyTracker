@@ -13,13 +13,13 @@ final class TransferTableViewCellController: AUIClosuresTableViewCellController 
     
     // MARK: - Data
     
-    var language: Language
+    var locale: MyLocale
     var transfer: Transfer
     
     // MARK: - Initializer
     
-    init(language: Language, transfer: Transfer) {
-        self.language = language
+    init(locale: MyLocale, transfer: Transfer) {
+        self.locale = locale
         self.transfer = transfer
     }
     
@@ -46,7 +46,7 @@ final class TransferTableViewCellController: AUIClosuresTableViewCellController 
     }()
     
     private lazy var currencyCodeLocalizer: CurrencyCodeLocalizer = {
-        let localizer = CurrencyCodeLocalizer(language: language)
+        let localizer = CurrencyCodeLocalizer(language: locale.language)
         return localizer
     }()
     

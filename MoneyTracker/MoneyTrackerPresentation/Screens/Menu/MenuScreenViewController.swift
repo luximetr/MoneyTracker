@@ -12,11 +12,11 @@ final class MenuScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, language: Language, dashboardScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
+    init(appearance: Appearance, locale: MyLocale, dashboardScreenViewController: UIViewController, statisticScreenViewController: UIViewController, settingsScreenViewController: UIViewController) {
         self.dashboardScreenViewController = dashboardScreenViewController
         self.statisticScreenViewController = statisticScreenViewController
         self.settingsScreenViewController = settingsScreenViewController
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: - View
@@ -75,16 +75,16 @@ final class MenuScreenViewController: StatusBarScreenViewController {
         screenController = settingsScreenViewController
     }
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        localizer.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        localizer.changeLanguage(locale.language)
         setContent()
     }
     
     // MARK: - Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "MenuScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "MenuScreenStrings")
         return localizer
     }()
     

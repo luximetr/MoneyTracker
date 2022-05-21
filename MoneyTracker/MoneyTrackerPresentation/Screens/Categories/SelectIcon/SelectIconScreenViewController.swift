@@ -21,10 +21,10 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
 
     // MARK: - Life cycle
     
-    init(appearance: Appearance, language: Language, iconNames: [String], color: CategoryColor) {
+    init(appearance: Appearance, locale: MyLocale, iconNames: [String], color: CategoryColor) {
         self.iconNames = iconNames
         self.color = color
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: - View
@@ -46,12 +46,12 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     // MARK: - Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "SelectIconScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "SelectIconScreenStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
         setContent()
     }
     

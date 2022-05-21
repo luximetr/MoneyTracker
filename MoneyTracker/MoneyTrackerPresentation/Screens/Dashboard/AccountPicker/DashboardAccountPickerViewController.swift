@@ -18,10 +18,10 @@ final class AccountPickerViewController: EmptyViewController {
     
     // MARK: Initializer
     
-    init(language: Language, appearance: Appearance, accounts: [Account]) {
+    init(locale: MyLocale, appearance: Appearance, accounts: [Account]) {
         self.accounts = accounts
         self.appearance = appearance
-        super.init(language: language)
+        super.init(locale: locale)
     }
     
     // MARK: AccountPickerView
@@ -68,13 +68,13 @@ final class AccountPickerViewController: EmptyViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "DashboardAccountPickerStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "DashboardAccountPickerStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        localizer.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        localizer.changeLanguage(locale.language)
         setContent()
     }
     

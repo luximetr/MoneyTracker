@@ -22,15 +22,15 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, language: Language) {
+    init(appearance: Appearance, locale: MyLocale) {
         self.appearance = appearance
-        super.init(language: language)
+        super.init(locale: locale)
     }
     
     // MARK: - Language
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "CategoryVerticalPickerStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "CategoryVerticalPickerStrings")
         return localizer
     }()
     

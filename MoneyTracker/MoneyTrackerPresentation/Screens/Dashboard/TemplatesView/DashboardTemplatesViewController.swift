@@ -18,10 +18,10 @@ final class TemplatesViewController: EmptyViewController {
     
     // MARK: Initializer
     
-    init(language: Language, appearance: Appearance, templates: [ExpenseTemplate]) {
+    init(locale: MyLocale, appearance: Appearance, templates: [ExpenseTemplate]) {
         self.appearance = appearance
         self.templates = templates
-        super.init(language: language)
+        super.init(locale: locale)
     }
     
     // MARK: CategoryPickerView
@@ -65,13 +65,13 @@ final class TemplatesViewController: EmptyViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "DashboardTemplatesViewStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "DashboardTemplatesViewStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        localizer.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        localizer.changeLanguage(locale.language)
         setContent()
     }
     

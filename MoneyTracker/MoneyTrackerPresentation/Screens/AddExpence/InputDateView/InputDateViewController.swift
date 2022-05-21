@@ -61,13 +61,13 @@ final class InputDateViewController: EmptyViewController, AUIControlControllerDi
     // MARK: - Language
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "InputDateViewStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "InputDateViewStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        localizer.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        localizer.changeLanguage(locale.language)
         setContent()
     }
     

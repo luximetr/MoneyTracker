@@ -13,13 +13,13 @@ final class ReplenishmentTableViewCellController: AUIClosuresTableViewCellContro
     
     // MARK: - Data
     
-    private var language: Language
+    private var locale: MyLocale
     var replenishment: Replenishment
     
     // MARK: - Initializer
     
-    init(language: Language, replenishment: Replenishment) {
-        self.language = language
+    init(locale: MyLocale, replenishment: Replenishment) {
+        self.locale = locale
         self.replenishment = replenishment
     }
     
@@ -46,7 +46,7 @@ final class ReplenishmentTableViewCellController: AUIClosuresTableViewCellContro
     }()
     
     private lazy var currencyCodeLocalizer: CurrencyCodeLocalizer = {
-        let localizer = CurrencyCodeLocalizer(language: language)
+        let localizer = CurrencyCodeLocalizer(language: locale.language)
         return localizer
     }()
     

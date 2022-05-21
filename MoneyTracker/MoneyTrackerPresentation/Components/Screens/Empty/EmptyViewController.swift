@@ -11,16 +11,16 @@ class EmptyViewController: AUIEmptyViewController {
     
     // MARK: - Initializer
     
-    init(language: Language) {
-        self.language = language
+    init(locale: MyLocale) {
+        self.locale = locale
         super.init()
     }
     
     // MARK: - Language
     
-    private (set) var language: Language
+    private (set) var locale: MyLocale
     
-    func changeLanguage(_ language: Language) {
-        self.language = language
+    func changeLocale(_ locale: MyLocale) {
+        self.locale = locale
     }
 }

@@ -29,9 +29,9 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, operations: [Operation]) {
+    init(appearance: Appearance, locale: MyLocale, operations: [Operation]) {
         self.operations = operations
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: View
@@ -83,8 +83,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         screenView.changeAppearance(appearance)
     }
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
         setContent()
     }
     
@@ -189,7 +189,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "HistoryScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "HistoryScreenStrings")
         return localizer
     }()
     
@@ -224,7 +224,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     private func createDayTableViewController(day: Date, operations: [Operation]) -> AUITableViewCellController {
-        let cellController = DayTableViewCellController(language: language, day: day, operations: operations)
+        let cellController = DayTableViewCellController(locale: locale, day: day, operations: operations)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.dayTableViewCell(indexPath)
@@ -282,7 +282,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     private func createReplenishmentTableViewController(replenishment: Replenishment) -> AUITableViewCellController {
-        let cellController = ReplenishmentTableViewCellController(language: language, replenishment: replenishment)
+        let cellController = ReplenishmentTableViewCellController(locale: locale, replenishment: replenishment)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.replenishmentTableViewCell(indexPath)
@@ -322,7 +322,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     private func createTransferTableViewController(transfer: Transfer) -> AUITableViewCellController {
-        let cellController = TransferTableViewCellController(language: language, transfer: transfer)
+        let cellController = TransferTableViewCellController(locale: locale, transfer: transfer)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.transferTableViewCell(indexPath)

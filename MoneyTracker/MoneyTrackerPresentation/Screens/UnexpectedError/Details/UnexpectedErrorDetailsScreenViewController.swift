@@ -16,9 +16,9 @@ final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewContr
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, error: Swift.Error) {
+    init(appearance: Appearance, locale: MyLocale, error: Swift.Error) {
         self.error = error
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: Delegation
@@ -39,12 +39,12 @@ final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewContr
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "UnexpectedErrorDetailsScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "UnexpectedErrorDetailsScreenStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
         setContent()
     }
     

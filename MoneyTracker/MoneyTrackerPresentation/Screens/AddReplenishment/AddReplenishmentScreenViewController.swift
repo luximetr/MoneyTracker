@@ -20,13 +20,13 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, accounts: [Account], selectedAccount: Account?) {
+    init(appearance: Appearance, locale: MyLocale, accounts: [Account], selectedAccount: Account?) {
         self.accounts = accounts
         self.selectedAccount = selectedAccount
-        self.accountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
-        self.dayDatePickerController = DateHorizontalPickerViewController(language: language)
+        self.accountPickerController = BalanceAccountHorizontalPickerController(locale: locale, appearance: appearance)
+        self.dayDatePickerController = DateHorizontalPickerViewController(locale: locale)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
-        super.init(appearance: appearance, language: language)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: - View
@@ -78,14 +78,14 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "AddReplenishmentScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "AddReplenishmentScreenStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        accountPickerController.changeLanguage(language)
-        dayDatePickerController.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        accountPickerController.changeLocale(locale)
+        dayDatePickerController.changeLocale(locale)
         setContent()
     }
     

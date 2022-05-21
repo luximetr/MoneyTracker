@@ -19,11 +19,11 @@ final class ExpenseAddedSnackbarViewController: EmptyViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, language: Language, template: ExpenseTemplate, expense: Expense) {
+    init(appearance: Appearance, locale: MyLocale, template: ExpenseTemplate, expense: Expense) {
         self.appearance = appearance
         self.template = template
         self.expense = expense
-        super.init(language: language)
+        super.init(locale: locale)
     }
     
     // MARK: ExpenseAddedSnackbarView
@@ -55,7 +55,7 @@ final class ExpenseAddedSnackbarViewController: EmptyViewController {
     // MARK: Content
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "ExpenseAddedSnackbarStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "ExpenseAddedSnackbarStrings")
         return localizer
     }()
     
@@ -64,8 +64,8 @@ final class ExpenseAddedSnackbarViewController: EmptyViewController {
         expenseAddedSnackbarView?.okButton.setTitle(localizer.localizeText("ok"), for: .normal)
     }
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
         setContent()
     }
     

@@ -32,15 +32,15 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     // MARK: - Life cycle
     
-    init(appearance: Appearance, language: Language, expense: Expense, categories: [Category], balanceAccounts: [Account]) {
+    init(appearance: Appearance, locale: MyLocale, expense: Expense, categories: [Category], balanceAccounts: [Account]) {
         self.expense = expense
         self.categories = categories
         self.balanceAccounts = balanceAccounts
-        self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(language: language, appearance: appearance)
-        self.categoryPickerController = CategoryHorizontalPickerController(language: language, appearance: appearance)
+        self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(locale: locale, appearance: appearance)
+        self.categoryPickerController = CategoryHorizontalPickerController(locale: locale, appearance: appearance)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
-        self.dayDatePickerController = DateHorizontalPickerViewController(language: language)
-        super.init(appearance: appearance, language: language)
+        self.dayDatePickerController = DateHorizontalPickerViewController(locale: locale)
+        super.init(appearance: appearance, locale: locale)
     }
     
     // MARK: - View
@@ -116,14 +116,14 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     // MARK: Localizer
     
     private lazy var localizer: ScreenLocalizer = {
-        let localizer = ScreenLocalizer(language: language, stringsTableName: "EditExpenseScreenStrings")
+        let localizer = ScreenLocalizer(language: locale.language, stringsTableName: "EditExpenseScreenStrings")
         return localizer
     }()
     
-    override func changeLanguage(_ language: Language) {
-        super.changeLanguage(language)
-        balanceAccountPickerController.changeLanguage(language)
-        dayDatePickerController.changeLanguage(language)
+    override func changeLocale(_ locale: MyLocale) {
+        super.changeLocale(locale)
+        balanceAccountPickerController.changeLocale(locale)
+        dayDatePickerController.changeLocale(locale)
         setContent()
     }
     
@@ -134,7 +134,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         screenView.amountInputView.placeholder = localizer.localizeText("amountPlaceholder")
         screenView.commentTextField.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.saveButton.setTitle(localizer.localizeText("saveButtonTitle"), for: .normal)
-        dayDatePickerController.changeLanguage(language)
+        dayDatePickerController.changeLocale(locale)
     }
     
     // MARK: - Appearance
