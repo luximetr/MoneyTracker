@@ -18,13 +18,12 @@ final class Localizer {
     
     func changeLocale(_ locale: Locale) {
         self.locale = locale
-        let language = locale.language
         var textLocalizers: [AFoundation.TextLocalizer] = []
-        if let stringsTableName = stringsTableName, let bundle = Bundle.localizedFor(language: language) {
+        if let stringsTableName = stringsTableName, let bundle = Bundle.forLocale(locale) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }
-        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.localizedFor(language: language) {
+        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.forLocale(locale) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsdictTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }
@@ -38,12 +37,11 @@ final class Localizer {
         self.stringsTableName = stringsTableName
         self.stringsdictTableName = stringsdictTableName
         var textLocalizers: [AFoundation.TextLocalizer] = []
-        let language = locale.language
-        if let stringsTableName = stringsTableName, let bundle = Bundle.localizedFor(language: language) {
+        if let stringsTableName = stringsTableName, let bundle = Bundle.forLocale(locale) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }
-        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.localizedFor(language: language) {
+        if let stringsdictTableName = stringsdictTableName, let bundle = Bundle.forLocale(locale) {
             let textLocalizer = TableNameBundleTextLocalizer(tableName: stringsdictTableName, bundle: bundle)
             textLocalizers.append(textLocalizer)
         }

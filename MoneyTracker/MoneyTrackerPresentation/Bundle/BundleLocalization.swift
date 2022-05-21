@@ -11,7 +11,8 @@ private class Class { }
 
 extension Bundle {
     
-    class func localizedFor(language: Language) -> Bundle? {
+    class func forLocale(_ locale: Locale) -> Bundle? {
+        let language = locale.language
         let languageCode: String
         switch language {
         case .english: languageCode = "en"
