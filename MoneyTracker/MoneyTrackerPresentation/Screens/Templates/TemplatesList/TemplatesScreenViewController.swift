@@ -32,7 +32,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
     // MARK: - Localizer
     
     private lazy var localizer: Localizer = {
-        return Localizer(language: locale.language, stringsTableName: "TemplatesScreenStrings")
+        return Localizer(locale: locale, stringsTableName: "TemplatesScreenStrings")
     }()
     
     override func changeLocale(_ locale: Locale) {

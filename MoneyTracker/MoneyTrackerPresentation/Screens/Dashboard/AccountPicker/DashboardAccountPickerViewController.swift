@@ -68,13 +68,13 @@ final class AccountPickerViewController: EmptyViewController {
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "DashboardAccountPickerStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "DashboardAccountPickerStrings")
         return localizer
     }()
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        localizer.changeLanguage(locale.language)
+        localizer.changeLocale(locale)
         setContent()
     }
     

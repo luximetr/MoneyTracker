@@ -55,7 +55,7 @@ final class ExpenseAddedSnackbarViewController: EmptyViewController {
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "ExpenseAddedSnackbarStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "ExpenseAddedSnackbarStrings")
         return localizer
     }()
     

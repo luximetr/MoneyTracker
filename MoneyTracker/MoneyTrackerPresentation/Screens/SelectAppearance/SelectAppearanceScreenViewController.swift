@@ -74,8 +74,8 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
             let selectedCellController = appearanceSettingTableViewCellController(appearanceType)
             selectedCellController?.setIsSelected(true)
             selectedAppearanceSetting = appearanceType
-            localizer.changeLanguage(locale.language)
-            appearanceTypeNameLocalizer.changeLanguage(locale.language)
+            localizer.changeLocale(locale)
+            appearanceTypeNameLocalizer.changeLocale(locale)
             setContent()
             tableViewController.reload()
         } catch { }
@@ -84,19 +84,19 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "SelectAppearanceScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "SelectAppearanceScreenStrings")
         return localizer
     }()
     
     private lazy var appearanceTypeNameLocalizer: AppearanceSettingNameLocalizer = {
-        let localizer = AppearanceSettingNameLocalizer(language: locale.language)
+        let localizer = AppearanceSettingNameLocalizer(locale: locale)
         return localizer
     }()
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        localizer.changeLanguage(locale.language)
-        appearanceTypeNameLocalizer.changeLanguage(locale.language)
+        localizer.changeLocale(locale)
+        appearanceTypeNameLocalizer.changeLocale(locale)
         setContent()
     }
     

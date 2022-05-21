@@ -74,9 +74,9 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
             let selectedCellController = languageCellController(language)
             selectedCellController?.setIsSelected(true)
             selectedLanguage = language
-            localizer.changeLanguage(language)
-            languageNameLocalizer.changeLanguage(language)
-            languageCodeLocalizer.changeLanguage(language)
+            localizer.changeLocale(locale)
+            languageNameLocalizer.changeLocale(locale)
+            languageCodeLocalizer.changeLocale(locale)
             setContent()
             tableViewController.reload()
         } catch { }
@@ -85,17 +85,17 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: selectedLanguage, stringsTableName: "SelectLanguageScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "SelectLanguageScreenStrings")
         return localizer
     }()
     
     private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
-        let localizer = LanguageCodeLocalizer(language: selectedLanguage)
+        let localizer = LanguageCodeLocalizer(locale: locale)
         return localizer
     }()
     
     private lazy var languageNameLocalizer: LanguageNameLocalizer = {
-        let localizer = LanguageNameLocalizer(language: selectedLanguage)
+        let localizer = LanguageNameLocalizer(locale: locale)
         return localizer
     }()
     

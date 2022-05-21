@@ -33,7 +33,7 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "EditTemplateScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "EditTemplateScreenStrings")
         return localizer
     }()
     

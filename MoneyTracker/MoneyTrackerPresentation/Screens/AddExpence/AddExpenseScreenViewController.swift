@@ -260,14 +260,13 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     // MARK: Content
 
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "AddExpenseScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "AddExpenseScreenStrings")
         return localizer
     }()
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        let language = locale.language
-        localizer.changeLanguage(language)
+        localizer.changeLocale(locale)
         selectCategoryViewController.changeLocale(locale)
         balanceAccountHorizontalPickerController.changeLocale(locale)
         inputDateViewController.changeLocale(locale)

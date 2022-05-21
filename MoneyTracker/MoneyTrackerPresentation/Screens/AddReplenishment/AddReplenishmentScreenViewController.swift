@@ -78,7 +78,7 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "AddReplenishmentScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "AddReplenishmentScreenStrings")
         return localizer
     }()
     

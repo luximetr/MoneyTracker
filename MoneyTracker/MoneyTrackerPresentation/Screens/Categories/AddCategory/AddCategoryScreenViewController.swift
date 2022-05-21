@@ -53,7 +53,7 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "AddCategoryScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "AddCategoryScreenStrings")
         return localizer
     }()
     

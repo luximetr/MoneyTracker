@@ -65,13 +65,13 @@ final class TemplatesViewController: EmptyViewController {
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "DashboardTemplatesViewStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "DashboardTemplatesViewStrings")
         return localizer
     }()
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        localizer.changeLanguage(locale.language)
+        localizer.changeLocale(locale)
         setContent()
     }
     

@@ -11,23 +11,23 @@ final class CurrencyCodeLocalizer {
     
     // MARK: - Data
     
-    private var language: Language
+    private var locale: Locale
     
-    func changeLanguage(_ language: Language) {
-        self.language = language
-        localizer.changeLanguage(language)
+    func changeLocale(_ locale: Locale) {
+        self.locale = locale
+        localizer.changeLocale(locale)
     }
     
     // MARK: - Initializer
     
-    init(language: Language) {
-        self.language = language
+    init(locale: Locale) {
+        self.locale = locale
     }
     
     // MARK: - Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: .english, stringsTableName: "CurrencyCodeStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "CurrencyCodeStrings")
         return localizer
     }()
     

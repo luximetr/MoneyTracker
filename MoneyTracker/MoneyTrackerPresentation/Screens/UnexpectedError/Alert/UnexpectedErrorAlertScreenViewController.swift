@@ -23,17 +23,17 @@ final class UnexpectedErrorAlertScreenViewController: UIAlertController {
     
     // MARK: Language
     
-    var language: Language!
+    var locale: Locale!
     
-    func changeLanguage(_ language: Language) {
-        self.language = language
+    func changeLocale(_ locale: Locale) {
+        self.locale = locale
         setContent()
     }
     
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: language, stringsTableName: "UnexpectedErrorAlertScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "UnexpectedErrorAlertScreenStrings")
         return localizer
     }()
     

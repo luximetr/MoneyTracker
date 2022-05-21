@@ -46,7 +46,7 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     // MARK: - Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "SelectIconScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "SelectIconScreenStrings")
         return localizer
     }()
     

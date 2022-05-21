@@ -105,14 +105,13 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     // MARK: - Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "DashboardScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "DashboardScreenStrings")
         return localizer
     }()
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        let language = locale.language
-        localizer.changeLanguage(language)
+        localizer.changeLocale(locale)
         categoryPickerViewController.changeLocale(locale)
         accountPickerViewController.changeLocale(locale)
         templatesViewController.changeLocale(locale)

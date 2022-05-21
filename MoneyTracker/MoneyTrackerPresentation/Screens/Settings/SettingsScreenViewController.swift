@@ -58,11 +58,10 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        let language = locale.language
-        localizer.changeLanguage(language)
-        currencyCodeLocalizer.changeLanguage(language)
-        languageCodeLocalizer.changeLanguage(language)
-        appearanceTypeNameLocalizer.changeLanguage(language)
+        localizer.changeLocale(locale)
+        currencyCodeLocalizer.changeLocale(locale)
+        languageCodeLocalizer.changeLocale(locale)
+        appearanceTypeNameLocalizer.changeLocale(locale)
         setContent()
         tableViewController.reload()
     }
@@ -112,22 +111,22 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     // MARK: - Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "SettingsScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "SettingsScreenStrings")
         return localizer
     }()
     
     private lazy var currencyCodeLocalizer: CurrencyCodeLocalizer = {
-        let localizer = CurrencyCodeLocalizer(language: locale.language)
+        let localizer = CurrencyCodeLocalizer(locale: locale)
         return localizer
     }()
     
     private lazy var languageCodeLocalizer: LanguageCodeLocalizer = {
-        let localizer = LanguageCodeLocalizer(language: locale.language)
+        let localizer = LanguageCodeLocalizer(locale: locale)
         return localizer
     }()
     
     private lazy var appearanceTypeNameLocalizer: AppearanceSettingNameLocalizer = {
-        let localizer = AppearanceSettingNameLocalizer(language: locale.language)
+        let localizer = AppearanceSettingNameLocalizer(locale: locale)
         return localizer
     }()
     

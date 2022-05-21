@@ -983,7 +983,6 @@ public final class Presentation: AUIWindowPresentation {
     private func pushSelectLanguageViewController(_ navigationController: UINavigationController, selectedLanguage: Language?) throws {
         do {
             let languages = try delegate.presentationLanguages(self)
-            let selectedLanguage = language
             let viewController = SelectLanguageScreenViewController(appearance: appearance, languages: languages, locale: locale)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
@@ -1483,7 +1482,7 @@ public final class Presentation: AUIWindowPresentation {
     private weak var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
     private func presentUnexpectedErrorAlertScreen(_ error: Swift.Error) {
         let viewController = UnexpectedErrorAlertScreenViewController(title: nil, message: nil, preferredStyle: .alert)
-        viewController.language = language
+        viewController.locale = locale
         viewController.seeDetailsClosure = { [weak self] in
             guard let self = self else { return }
             viewController.dismiss(animated: true) { [weak self] in

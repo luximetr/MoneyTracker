@@ -32,7 +32,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "AddTemplateScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "AddTemplateScreenStrings")
         return localizer
     }()
     

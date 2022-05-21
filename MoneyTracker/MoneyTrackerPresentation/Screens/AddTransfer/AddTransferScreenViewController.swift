@@ -107,7 +107,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "AddTransferScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "AddTransferScreenStrings")
         return localizer
     }()
     
@@ -135,8 +135,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        let language = locale.language
-        localizer.changeLanguage(language)
+        localizer.changeLocale(locale)
         dayDatePickerController.changeLocale(locale)
         fromAccountPickerController.changeLocale(locale)
         toAccountPickerController.changeLocale(locale)

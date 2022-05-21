@@ -57,13 +57,13 @@ final class CategoryPickerViewController: EmptyViewController {
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "DashboardCategoryPickerStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "DashboardCategoryPickerStrings")
         return localizer
     }()
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        localizer.changeLanguage(locale.language)
+        localizer.changeLocale(locale)
         setContent()
     }
     

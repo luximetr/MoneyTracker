@@ -46,7 +46,7 @@ final class ReplenishmentTableViewCellController: AUIClosuresTableViewCellContro
     }()
     
     private lazy var currencyCodeLocalizer: CurrencyCodeLocalizer = {
-        let localizer = CurrencyCodeLocalizer(language: locale.language)
+        let localizer = CurrencyCodeLocalizer(locale: locale)
         return localizer
     }()
     

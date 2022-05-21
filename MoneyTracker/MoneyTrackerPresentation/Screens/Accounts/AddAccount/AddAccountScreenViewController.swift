@@ -34,7 +34,7 @@ final class AddAccountScreenViewController: StatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "AddAccountScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "AddAccountScreenStrings")
         return localizer
     }()
     

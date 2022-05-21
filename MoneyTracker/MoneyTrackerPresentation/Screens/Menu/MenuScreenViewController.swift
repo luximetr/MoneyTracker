@@ -77,14 +77,14 @@ final class MenuScreenViewController: StatusBarScreenViewController {
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        localizer.changeLanguage(locale.language)
+        localizer.changeLocale(locale)
         setContent()
     }
     
     // MARK: - Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "MenuScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "MenuScreenStrings")
         return localizer
     }()
     

@@ -84,13 +84,13 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "StatisticScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "StatisticScreenStrings")
         return localizer
     }()
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        localizer.changeLanguage(locale.language)
+        localizer.changeLocale(locale)
         monthPickerViewConroller.changeLocale(locale)
         setContent()
     }

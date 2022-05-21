@@ -30,7 +30,7 @@ class CategoryVerticalPickerController: EmptyViewController {
     // MARK: - Language
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "CategoryVerticalPickerStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "CategoryVerticalPickerStrings")
         return localizer
     }()
     

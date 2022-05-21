@@ -26,7 +26,7 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "BalanceAccountHorizontalPickerStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "BalanceAccountHorizontalPickerStrings")
         return localizer
     }()
     

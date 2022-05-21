@@ -26,7 +26,7 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "SelectCurrencyScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "SelectCurrencyScreenStrings")
         return localizer
     }()
     

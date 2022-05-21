@@ -113,7 +113,7 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
     // MARK: - Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "CategoriesListScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "CategoriesListScreenStrings")
         return localizer
     }()
     

@@ -36,7 +36,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(language: locale.language, stringsTableName: "EditAccountScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "EditAccountScreenStrings")
         return localizer
     }()
     
