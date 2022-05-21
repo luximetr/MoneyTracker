@@ -20,7 +20,7 @@ final class EditTransferScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: MyLocale, accounts: [Account], transfer: Transfer) {
+    init(appearance: Appearance, locale: Locale, accounts: [Account], transfer: Transfer) {
         self.transfer = transfer
         self.accounts = accounts
         self.fromAccountPickerController = BalanceAccountHorizontalPickerController(locale: locale, appearance: appearance)
@@ -143,7 +143,7 @@ final class EditTransferScreenViewController: StatusBarScreenViewController {
         screenView.changeAppearance(appearance)
     }
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         let language = locale.language
         localizer.changeLanguage(language)

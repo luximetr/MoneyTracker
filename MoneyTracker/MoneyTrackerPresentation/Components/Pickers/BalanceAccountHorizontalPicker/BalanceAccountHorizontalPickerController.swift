@@ -32,7 +32,7 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     
     // MARK: - Initializer
     
-    init(locale: MyLocale, appearance: Appearance) {
+    init(locale: Locale, appearance: Appearance) {
         self.appearance = appearance
         super.init(locale: locale)
     }

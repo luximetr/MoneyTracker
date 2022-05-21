@@ -13,12 +13,12 @@ final class TransferTableViewCellController: AUIClosuresTableViewCellController 
     
     // MARK: - Data
     
-    var locale: MyLocale
+    var locale: Locale
     var transfer: Transfer
     
     // MARK: - Initializer
     
-    init(locale: MyLocale, transfer: Transfer) {
+    init(locale: Locale, transfer: Transfer) {
         self.locale = locale
         self.transfer = transfer
     }

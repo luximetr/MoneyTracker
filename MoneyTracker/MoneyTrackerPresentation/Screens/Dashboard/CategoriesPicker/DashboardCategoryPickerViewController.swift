@@ -18,7 +18,7 @@ final class CategoryPickerViewController: EmptyViewController {
     
     // MARK: Initializer
     
-    init(locale: MyLocale, appearance: Appearance, categories: [Category]) {
+    init(locale: Locale, appearance: Appearance, categories: [Category]) {
         self.appearance = appearance
         self.categories = categories
         super.init(locale: locale)
@@ -61,7 +61,7 @@ final class CategoryPickerViewController: EmptyViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         localizer.changeLanguage(locale.language)
         setContent()

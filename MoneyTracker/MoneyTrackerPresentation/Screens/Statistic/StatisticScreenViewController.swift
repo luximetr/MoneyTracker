@@ -19,7 +19,7 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
     var monthsClosure: (() -> [Date])?
     var expensesClosure: ((Date) -> [Expense])?
     
-    override init(appearance: Appearance, locale: MyLocale) {
+    override init(appearance: Appearance, locale: Locale) {
         monthPickerViewConroller = MonthPickerViewController(locale: locale)
         super.init(appearance: appearance, locale: locale)
     }
@@ -88,7 +88,7 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         localizer.changeLanguage(locale.language)
         monthPickerViewConroller.changeLocale(locale)

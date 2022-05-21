@@ -22,11 +22,11 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
     
     // MARK: Language
     
-    var locale: MyLocale
+    var locale: Locale
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, locale: MyLocale) {
+    init(appearance: Appearance, locale: Locale) {
         self.appearance = appearance
         self.locale = locale
         super.init()
@@ -35,7 +35,7 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
   
     // MARK: - Events
     
-    func changeLocale(_ locale: MyLocale) {
+    func changeLocale(_ locale: Locale) {
         self.locale = locale
     }
     

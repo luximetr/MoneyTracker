@@ -55,7 +55,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let storageLanguage = (try? storage.getSelectedLanguage()) ?? .english
         let language = StorageLanguageMapper.mapStorageLanguageToLanguage(storageLanguage)
         let presentationLanguage = PresentationLanguageMapper.mapLanguageToPresentationLanguage(language)
-        let presentationLocale = MyLocale(language: presentationLanguage, scriptCode: Locale.current.scriptCode, regionCode: Locale.current.regionCode)
+        let presentationLocale = Locale(language: presentationLanguage, scriptCode: Locale.current.scriptCode, regionCode: Locale.current.regionCode)
         let presentation = Presentation(window: presentationWindow, locale: presentationLocale, appearanceSetting: presentationAppearanceSetting)
         presentation.delegate = self
         return presentation

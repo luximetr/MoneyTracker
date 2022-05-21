@@ -29,7 +29,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: MyLocale, operations: [Operation]) {
+    init(appearance: Appearance, locale: Locale, operations: [Operation]) {
         self.operations = operations
         super.init(appearance: appearance, locale: locale)
     }
@@ -83,7 +83,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         screenView.changeAppearance(appearance)
     }
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }

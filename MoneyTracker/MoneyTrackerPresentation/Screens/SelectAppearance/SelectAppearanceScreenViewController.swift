@@ -19,7 +19,7 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, locale: MyLocale, appearanceSettings: [AppearanceSetting], selectedAppearanceSetting: AppearanceSetting) {
+    init(appearance: Appearance, locale: Locale, appearanceSettings: [AppearanceSetting], selectedAppearanceSetting: AppearanceSetting) {
         self.appearanceSettings = appearanceSettings
         self.selectedAppearanceSetting = selectedAppearanceSetting
         super.init(appearance: appearance, locale: locale)
@@ -93,7 +93,7 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         localizer.changeLanguage(locale.language)
         appearanceTypeNameLocalizer.changeLanguage(locale.language)

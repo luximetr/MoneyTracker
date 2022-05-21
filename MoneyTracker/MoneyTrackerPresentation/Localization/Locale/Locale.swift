@@ -7,12 +7,12 @@
 
 import Foundation
 
-public class MyLocale {
+public struct Locale {
     
     let language: Language
     let scriptCode: String?
     let regionCode: String?
-    let locale: Locale
+    let foundationLocale: Foundation.Locale
     
     public init(language: Language, scriptCode: String?, regionCode: String?) {
         self.language = language
@@ -27,7 +27,7 @@ public class MyLocale {
         var identifier = languageCode
         if let scriptCode = scriptCode { identifier += "-\(scriptCode)" }
         if let regionCode = regionCode { identifier += "_\(regionCode)" }
-        self.locale = Locale(identifier: identifier)
+        self.foundationLocale = Foundation.Locale(identifier: identifier)
     }
     
 }

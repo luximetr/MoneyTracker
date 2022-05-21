@@ -25,7 +25,7 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, locale: MyLocale, defaultCurrency: Currency, appearanceSetting: AppearanceSetting) {
+    init(appearance: Appearance, locale: Locale, defaultCurrency: Currency, appearanceSetting: AppearanceSetting) {
         self.defaultCurrency = defaultCurrency
         self.appearanceSetting = appearanceSetting
         super.init(appearance: appearance, locale: locale)
@@ -56,7 +56,7 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Events
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         let language = locale.language
         localizer.changeLanguage(language)

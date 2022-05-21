@@ -16,7 +16,7 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: MyLocale, accounts: [Account]) {
+    init(appearance: Appearance, locale: Locale, accounts: [Account]) {
         self.accounts = accounts
         super.init(appearance: appearance, locale: locale)
     }
@@ -67,7 +67,7 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }

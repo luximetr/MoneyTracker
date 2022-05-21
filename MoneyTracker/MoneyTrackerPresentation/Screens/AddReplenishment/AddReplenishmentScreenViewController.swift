@@ -20,7 +20,7 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: MyLocale, accounts: [Account], selectedAccount: Account?) {
+    init(appearance: Appearance, locale: Locale, accounts: [Account], selectedAccount: Account?) {
         self.accounts = accounts
         self.selectedAccount = selectedAccount
         self.accountPickerController = BalanceAccountHorizontalPickerController(locale: locale, appearance: appearance)
@@ -82,7 +82,7 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         accountPickerController.changeLocale(locale)
         dayDatePickerController.changeLocale(locale)

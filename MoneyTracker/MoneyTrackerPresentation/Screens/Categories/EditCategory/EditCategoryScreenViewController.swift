@@ -21,7 +21,7 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: MyLocale, category: Category, categoryColors: [CategoryColor]) {
+    init(appearance: Appearance, locale: Locale, category: Category, categoryColors: [CategoryColor]) {
         self.category = category
         self.categoryColors = categoryColors
         self.categoryIconName = category.iconName
@@ -60,7 +60,7 @@ final class EditCategoryScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }

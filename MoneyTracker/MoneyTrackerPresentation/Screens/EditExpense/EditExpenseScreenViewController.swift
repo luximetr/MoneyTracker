@@ -32,7 +32,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     // MARK: - Life cycle
     
-    init(appearance: Appearance, locale: MyLocale, expense: Expense, categories: [Category], balanceAccounts: [Account]) {
+    init(appearance: Appearance, locale: Locale, expense: Expense, categories: [Category], balanceAccounts: [Account]) {
         self.expense = expense
         self.categories = categories
         self.balanceAccounts = balanceAccounts
@@ -120,7 +120,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         balanceAccountPickerController.changeLocale(locale)
         dayDatePickerController.changeLocale(locale)

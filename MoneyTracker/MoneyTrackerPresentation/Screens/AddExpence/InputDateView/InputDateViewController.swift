@@ -60,13 +60,13 @@ final class InputDateViewController: EmptyViewController, AUIControlControllerDi
     
     // MARK: - Language
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }
     
     func setContent() {
-        datePickerController.locale = locale.locale
+        datePickerController.locale = locale.foundationLocale
     }
     
 }

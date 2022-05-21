@@ -24,7 +24,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, locale: MyLocale, categories: [Category], accounts: [Account], templates: [ExpenseTemplate]) {
+    init(appearance: Appearance, locale: Locale, categories: [Category], accounts: [Account], templates: [ExpenseTemplate]) {
         self.templates = templates
         self.categoryPickerViewController = CategoryPickerViewController(locale: locale, appearance: appearance, categories: categories)
         self.accountPickerViewController = AccountPickerViewController(locale: locale, appearance: appearance, accounts: accounts)
@@ -109,7 +109,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         let language = locale.language
         localizer.changeLanguage(language)

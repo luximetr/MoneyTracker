@@ -16,7 +16,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Life cycle
     
-    init(appearance: Appearance, locale: MyLocale, templates: [ExpenseTemplate]) {
+    init(appearance: Appearance, locale: Locale, templates: [ExpenseTemplate]) {
         self.templates = templates
         super.init(appearance: appearance, locale: locale)
     }
@@ -35,7 +35,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
         return ScreenLocalizer(language: locale.language, stringsTableName: "TemplatesScreenStrings")
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }

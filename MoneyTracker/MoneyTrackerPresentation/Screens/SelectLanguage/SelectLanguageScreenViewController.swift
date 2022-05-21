@@ -19,7 +19,7 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, languages: [Language], locale: MyLocale) {
+    init(appearance: Appearance, languages: [Language], locale: Locale) {
         self.languages = languages
         self.selectedLanguage = locale.language
         super.init(appearance: appearance, locale: locale)

@@ -46,7 +46,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
         return ScreenLocalizer(language: locale.language, stringsTableName: "DateHorizontalPickerViewStrings")
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         localizer.changeLanguage(locale.language)
         setupDatePickerLocal()
@@ -210,7 +210,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     }
     
     private func setupDatePickerLocal() {
-        pickerView?.datePicker.locale = locale.locale
+        pickerView?.datePicker.locale = locale.foundationLocale
     }
     
     @objc private func datePickerDidEndSelecting() {

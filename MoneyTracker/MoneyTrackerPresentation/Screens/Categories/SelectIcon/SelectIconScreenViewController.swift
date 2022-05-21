@@ -21,7 +21,7 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
 
     // MARK: - Life cycle
     
-    init(appearance: Appearance, locale: MyLocale, iconNames: [String], color: CategoryColor) {
+    init(appearance: Appearance, locale: Locale, iconNames: [String], color: CategoryColor) {
         self.iconNames = iconNames
         self.color = color
         super.init(appearance: appearance, locale: locale)
@@ -50,7 +50,7 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }

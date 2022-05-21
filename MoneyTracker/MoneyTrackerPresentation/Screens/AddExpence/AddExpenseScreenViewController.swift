@@ -26,7 +26,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
 
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: MyLocale, accounts: [Account], categories: [Category], selectedCategory: Category?) {
+    init(appearance: Appearance, locale: Locale, accounts: [Account], categories: [Category], selectedCategory: Category?) {
         self.accounts = accounts
         self.categories = categories
         self.selectedCategory = selectedCategory ?? categories.first
@@ -264,7 +264,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         let language = locale.language
         localizer.changeLanguage(language)

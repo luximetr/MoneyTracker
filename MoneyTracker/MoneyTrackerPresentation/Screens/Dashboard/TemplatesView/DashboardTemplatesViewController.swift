@@ -18,7 +18,7 @@ final class TemplatesViewController: EmptyViewController {
     
     // MARK: Initializer
     
-    init(locale: MyLocale, appearance: Appearance, templates: [ExpenseTemplate]) {
+    init(locale: Locale, appearance: Appearance, templates: [ExpenseTemplate]) {
         self.appearance = appearance
         self.templates = templates
         super.init(locale: locale)
@@ -69,7 +69,7 @@ final class TemplatesViewController: EmptyViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         localizer.changeLanguage(locale.language)
         setContent()

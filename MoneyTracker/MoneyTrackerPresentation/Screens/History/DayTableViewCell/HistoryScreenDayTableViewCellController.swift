@@ -14,13 +14,13 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
     
     // MARK: Data
     
-    private var locale: MyLocale
+    private var locale: Locale
     let day: Date
     private var operations: [Operation]
     
     // MARK: Initializer
     
-    init(locale: MyLocale, day: Date, operations: [Operation]) {
+    init(locale: Locale, day: Date, operations: [Operation]) {
         self.locale = locale
         self.day = day
         self.operations = operations
@@ -45,7 +45,7 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         setContent()
     }
     
-    func changeLanguage(_ locale: MyLocale) {
+    func changeLanguage(_ locale: Locale) {
         self.locale = locale
         setContent()
     }
@@ -62,7 +62,7 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
     
     private lazy var dayDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = locale.locale
+        dateFormatter.locale = locale.foundationLocale
         dateFormatter.dateFormat = "dd MMMM, EEE"
         return dateFormatter
     }()

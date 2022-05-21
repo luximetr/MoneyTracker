@@ -36,7 +36,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }
@@ -62,7 +62,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
 
     // MARK: - Life cycle
     
-    init(appearance: Appearance, locale: MyLocale, categories: [Category], balanceAccounts: [Account]) {
+    init(appearance: Appearance, locale: Locale, categories: [Category], balanceAccounts: [Account]) {
         self.categories = categories
         self.balanceAccounts = balanceAccounts
         self.balanceAccountPickerController = BalanceAccountHorizontalPickerController(locale: locale, appearance: appearance)

@@ -18,7 +18,7 @@ final class AccountPickerViewController: EmptyViewController {
     
     // MARK: Initializer
     
-    init(locale: MyLocale, appearance: Appearance, accounts: [Account]) {
+    init(locale: Locale, appearance: Appearance, accounts: [Account]) {
         self.accounts = accounts
         self.appearance = appearance
         super.init(locale: locale)
@@ -72,7 +72,7 @@ final class AccountPickerViewController: EmptyViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         localizer.changeLanguage(locale.language)
         setContent()

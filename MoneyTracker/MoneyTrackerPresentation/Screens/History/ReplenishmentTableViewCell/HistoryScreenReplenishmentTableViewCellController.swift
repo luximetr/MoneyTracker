@@ -13,12 +13,12 @@ final class ReplenishmentTableViewCellController: AUIClosuresTableViewCellContro
     
     // MARK: - Data
     
-    private var locale: MyLocale
+    private var locale: Locale
     var replenishment: Replenishment
     
     // MARK: - Initializer
     
-    init(locale: MyLocale, replenishment: Replenishment) {
+    init(locale: Locale, replenishment: Replenishment) {
         self.locale = locale
         self.replenishment = replenishment
     }

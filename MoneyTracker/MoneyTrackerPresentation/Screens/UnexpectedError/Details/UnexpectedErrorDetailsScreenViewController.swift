@@ -16,7 +16,7 @@ final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewContr
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: MyLocale, error: Swift.Error) {
+    init(appearance: Appearance, locale: Locale, error: Swift.Error) {
         self.error = error
         super.init(appearance: appearance, locale: locale)
     }
@@ -43,7 +43,7 @@ final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewContr
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }

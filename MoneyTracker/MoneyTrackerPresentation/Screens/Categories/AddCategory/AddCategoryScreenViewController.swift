@@ -20,7 +20,7 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Init
     
-    init(appearance: Appearance, locale: MyLocale, categoryColors: [CategoryColor], categoryIconName: String) {
+    init(appearance: Appearance, locale: Locale, categoryColors: [CategoryColor], categoryIconName: String) {
         self.categoryColors = categoryColors
         self.categoryIconName = categoryIconName
         self.colorPickerController = CategoryColorHorizontalPickerController(appearance: appearance)
@@ -57,7 +57,7 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }

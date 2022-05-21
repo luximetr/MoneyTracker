@@ -22,7 +22,7 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, locale: MyLocale) {
+    init(appearance: Appearance, locale: Locale) {
         self.appearance = appearance
         super.init(locale: locale)
     }

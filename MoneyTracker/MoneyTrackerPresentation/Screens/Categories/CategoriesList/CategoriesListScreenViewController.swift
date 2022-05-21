@@ -21,7 +21,7 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, locale: MyLocale, categories: [Category]) {
+    init(appearance: Appearance, locale: Locale, categories: [Category]) {
         self.categories = categories
         super.init(appearance: appearance, locale: locale)
     }

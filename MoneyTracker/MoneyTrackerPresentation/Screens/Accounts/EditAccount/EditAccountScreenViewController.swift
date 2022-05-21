@@ -18,7 +18,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: MyLocale, account: Account, accountColors: [AccountColor]) {
+    init(appearance: Appearance, locale: Locale, account: Account, accountColors: [AccountColor]) {
         self.account = account
         self.selectedCurrency = account.currency
         self.accountColors = accountColors
@@ -40,7 +40,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }

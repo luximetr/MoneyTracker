@@ -37,7 +37,7 @@ class CategoryHorizontalPickerController: EmptyViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
     }
     
@@ -52,7 +52,7 @@ class CategoryHorizontalPickerController: EmptyViewController {
     
     // MARK: - Initializer
     
-    init(locale: MyLocale, appearance: Appearance) {
+    init(locale: Locale, appearance: Appearance) {
         self.appearance = appearance
         super.init(locale: locale)
     }

@@ -17,7 +17,7 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, locale: MyLocale, currencies: [Currency], selectedCurrency: Currency) {
+    init(appearance: Appearance, locale: Locale, currencies: [Currency], selectedCurrency: Currency) {
         self.currencies = currencies
         self.selectedCurrency = selectedCurrency
         super.init(appearance: appearance, locale: locale)
@@ -30,7 +30,7 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: MyLocale) {
+    override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
         setContent()
     }
