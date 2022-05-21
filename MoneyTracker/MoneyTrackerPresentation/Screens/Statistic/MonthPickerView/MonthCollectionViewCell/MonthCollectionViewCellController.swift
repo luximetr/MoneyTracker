@@ -55,13 +55,8 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     // MARK: - Language
     
-    private lazy var localizer: ScreenLocalizer = {
-        return ScreenLocalizer(language: locale.language, stringsTableName: "MonthCollectionViewCellStrings")
-    }()
-    
     func changeLanguage(_ locale: MyLocale) {
         self.locale = locale
-        localizer.changeLanguage(locale.language)
         setContent()
     }
     
@@ -75,7 +70,7 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     private lazy var monthDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: localizer.localizeText("dateLocale"))
+        dateFormatter.locale = locale.locale
         dateFormatter.dateFormat = "LLLL yyyy"
         return dateFormatter
     }()

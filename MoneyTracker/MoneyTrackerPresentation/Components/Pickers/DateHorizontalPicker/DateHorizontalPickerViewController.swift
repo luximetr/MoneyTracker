@@ -210,8 +210,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     }
     
     private func setupDatePickerLocal() {
-        let locale = Locale(identifier: localizer.localizeText("dateLocale"))
-        pickerView?.datePicker.locale = locale
+        pickerView?.datePicker.locale = locale.locale
     }
     
     @objc private func datePickerDidEndSelecting() {

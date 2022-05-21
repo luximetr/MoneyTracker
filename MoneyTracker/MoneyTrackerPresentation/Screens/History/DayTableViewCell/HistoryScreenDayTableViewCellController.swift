@@ -60,13 +60,9 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         return numberFormatter
     }()
     
-    private lazy var localizer: ScreenLocalizer = {
-        return ScreenLocalizer(language: locale.language, stringsTableName: "DayTableViewCellStrings")
-    }()
-    
     private lazy var dayDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: localizer.localizeText("dateLocale"))
+        dateFormatter.locale = locale.locale
         dateFormatter.dateFormat = "dd MMMM, EEE"
         return dateFormatter
     }()

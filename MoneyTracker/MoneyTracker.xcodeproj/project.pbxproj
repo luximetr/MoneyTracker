@@ -381,8 +381,6 @@
 		DBDC92E72819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92E62819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift */; };
 		DBDC92E92819417B00D8C435 /* CategoryVerticalPickerCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92E82819417B00D8C435 /* CategoryVerticalPickerCellController.swift */; };
 		DBDC92EC281A316D00D8C435 /* InputDateViewStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92EE281A316D00D8C435 /* InputDateViewStrings.strings */; };
-		DBDC92F3281AE96900D8C435 /* DayTableViewCellStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92F5281AE96900D8C435 /* DayTableViewCellStrings.strings */; };
-		DBDC92FA281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92FC281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings */; };
 		DBDC9301281B8F3C00D8C435 /* ErrorSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9300281B8F3C00D8C435 /* ErrorSnackbarView.swift */; };
 		DBDC9303281B8F5A00D8C435 /* ErrorSnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9302281B8F5A00D8C435 /* ErrorSnackbarViewController.swift */; };
 		DBDC9306281FBA4600D8C435 /* DateHorizontalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */; };
@@ -971,12 +969,6 @@
 		DBDC92ED281A316D00D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
 		DBDC92EF281A316F00D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
 		DBDC92F0281A317000D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
-		DBDC92F4281AE96900D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DayTableViewCellStrings.strings; sourceTree = "<group>"; };
-		DBDC92F6281AE96D00D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/DayTableViewCellStrings.strings; sourceTree = "<group>"; };
-		DBDC92F7281AE96F00D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DayTableViewCellStrings.strings; sourceTree = "<group>"; };
-		DBDC92FB281AEB4700D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MonthCollectionViewCellStrings.strings; sourceTree = "<group>"; };
-		DBDC92FD281AEB4800D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/MonthCollectionViewCellStrings.strings; sourceTree = "<group>"; };
-		DBDC92FE281AEB4900D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/MonthCollectionViewCellStrings.strings; sourceTree = "<group>"; };
 		DBDC9300281B8F3C00D8C435 /* ErrorSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSnackbarView.swift; sourceTree = "<group>"; };
 		DBDC9302281B8F5A00D8C435 /* ErrorSnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSnackbarViewController.swift; sourceTree = "<group>"; };
 		DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerView.swift; sourceTree = "<group>"; };
@@ -1075,7 +1067,6 @@
 			children = (
 				2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */,
 				2E01B2C327EDACD400013321 /* MonthCollectionViewCell.swift */,
-				DBDC92FC281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings */,
 			);
 			path = MonthCollectionViewCell;
 			sourceTree = "<group>";
@@ -2190,7 +2181,6 @@
 			children = (
 				2ED8BD7D27E91DB90007F60B /* HistoryScreenDayTableViewCellController.swift */,
 				2ED8BD7B27E91A520007F60B /* HistoryScreenDayTableViewCell.swift */,
-				DBDC92F5281AE96900D8C435 /* DayTableViewCellStrings.strings */,
 			);
 			path = DayTableViewCell;
 			sourceTree = "<group>";
@@ -3051,13 +3041,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */,
-				DBDC92FA281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings in Resources */,
 				DBDC92EC281A316D00D8C435 /* InputDateViewStrings.strings in Resources */,
 				2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */,
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
 				2ECB218C27DCA9FD006D6558 /* AddExpenseScreenStrings.strings in Resources */,
 				2ED9047927F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings in Resources */,
-				DBDC92F3281AE96900D8C435 /* DayTableViewCellStrings.strings in Resources */,
 				2EB8271F2807583900C6377F /* CurrencyCodeStrings.strings in Resources */,
 				DB74864B27BBABB2004DF67B /* TemplatesScreenStrings.strings in Resources */,
 				2E2A6EDA27EC4FBB0084054C /* EditExpenseScreenStrings.strings in Resources */,
@@ -4022,26 +4010,6 @@
 				DBDC92F0281A317000D8C435 /* uk */,
 			);
 			name = InputDateViewStrings.strings;
-			sourceTree = "<group>";
-		};
-		DBDC92F5281AE96900D8C435 /* DayTableViewCellStrings.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DBDC92F4281AE96900D8C435 /* en */,
-				DBDC92F6281AE96D00D8C435 /* th */,
-				DBDC92F7281AE96F00D8C435 /* uk */,
-			);
-			name = DayTableViewCellStrings.strings;
-			sourceTree = "<group>";
-		};
-		DBDC92FC281AEB4700D8C435 /* MonthCollectionViewCellStrings.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DBDC92FB281AEB4700D8C435 /* en */,
-				DBDC92FD281AEB4800D8C435 /* th */,
-				DBDC92FE281AEB4900D8C435 /* uk */,
-			);
-			name = MonthCollectionViewCellStrings.strings;
 			sourceTree = "<group>";
 		};
 		DBDC9312282219C400D8C435 /* DateHorizontalPickerViewStrings.strings */ = {
