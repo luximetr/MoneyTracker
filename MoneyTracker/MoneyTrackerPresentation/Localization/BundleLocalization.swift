@@ -25,7 +25,7 @@ extension Bundle {
     
     private static var localizedBundles: [String: Bundle] = [:]
     
-    class func localizedFor(language: String, region: String?) -> Bundle? {
+    private class func localizedFor(language: String, region: String?) -> Bundle? {
         var resource = language
         if let region = region {
             resource += "_\(region)"
