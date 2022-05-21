@@ -380,7 +380,6 @@
 		DBDC92E12819386A00D8C435 /* CategoryVerticalPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92E32819386A00D8C435 /* CategoryVerticalPickerStrings.strings */; };
 		DBDC92E72819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92E62819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift */; };
 		DBDC92E92819417B00D8C435 /* CategoryVerticalPickerCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92E82819417B00D8C435 /* CategoryVerticalPickerCellController.swift */; };
-		DBDC92EC281A316D00D8C435 /* InputDateViewStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDC92EE281A316D00D8C435 /* InputDateViewStrings.strings */; };
 		DBDC9301281B8F3C00D8C435 /* ErrorSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9300281B8F3C00D8C435 /* ErrorSnackbarView.swift */; };
 		DBDC9303281B8F5A00D8C435 /* ErrorSnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9302281B8F5A00D8C435 /* ErrorSnackbarViewController.swift */; };
 		DBDC9306281FBA4600D8C435 /* DateHorizontalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */; };
@@ -966,9 +965,6 @@
 		DBDC92E52819386C00D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/CategoryVerticalPickerStrings.strings; sourceTree = "<group>"; };
 		DBDC92E62819400A00D8C435 /* CategoryVerticalPickerCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerCategoryCell.swift; sourceTree = "<group>"; };
 		DBDC92E82819417B00D8C435 /* CategoryVerticalPickerCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerCellController.swift; sourceTree = "<group>"; };
-		DBDC92ED281A316D00D8C435 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
-		DBDC92EF281A316F00D8C435 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
-		DBDC92F0281A317000D8C435 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InputDateViewStrings.strings; sourceTree = "<group>"; };
 		DBDC9300281B8F3C00D8C435 /* ErrorSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSnackbarView.swift; sourceTree = "<group>"; };
 		DBDC9302281B8F5A00D8C435 /* ErrorSnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSnackbarViewController.swift; sourceTree = "<group>"; };
 		DBDC9305281FBA4600D8C435 /* DateHorizontalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHorizontalPickerView.swift; sourceTree = "<group>"; };
@@ -2052,7 +2048,6 @@
 			children = (
 				2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */,
 				2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */,
-				DBDC92EE281A316D00D8C435 /* InputDateViewStrings.strings */,
 			);
 			path = InputDateView;
 			sourceTree = "<group>";
@@ -3041,7 +3036,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */,
-				DBDC92EC281A316D00D8C435 /* InputDateViewStrings.strings in Resources */,
 				2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */,
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
 				2ECB218C27DCA9FD006D6558 /* AddExpenseScreenStrings.strings in Resources */,
@@ -4000,16 +3994,6 @@
 				DBDC92E52819386C00D8C435 /* uk */,
 			);
 			name = CategoryVerticalPickerStrings.strings;
-			sourceTree = "<group>";
-		};
-		DBDC92EE281A316D00D8C435 /* InputDateViewStrings.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DBDC92ED281A316D00D8C435 /* en */,
-				DBDC92EF281A316F00D8C435 /* th */,
-				DBDC92F0281A317000D8C435 /* uk */,
-			);
-			name = InputDateViewStrings.strings;
 			sourceTree = "<group>";
 		};
 		DBDC9312282219C400D8C435 /* DateHorizontalPickerViewStrings.strings */ = {
