@@ -55,7 +55,7 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     // MARK: - Language
     
-    func changeLanguage(_ locale: Locale) {
+    func changeLocale(_ locale: Locale) {
         self.locale = locale
         setContent()
     }

@@ -45,7 +45,7 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         setContent()
     }
     
-    func changeLanguage(_ locale: Locale) {
+    func changeLocale(_ locale: Locale) {
         self.locale = locale
         setContent()
     }
