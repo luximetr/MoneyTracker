@@ -131,10 +131,10 @@ public final class Presentation: AUIWindowPresentation {
         statisticNavigationController.viewControllers = [statisticViewController]
         self.statisticScreen = statisticViewController
         // Settings
-        let settingsViewController = createSettingsScreenViewController()
+        let settingsViewController = createBalanceCalculatorScreenViewController()//createSettingsScreenViewController()
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
         settingsNavigationController.viewControllers = [settingsViewController]
-        self.settingsScreenViewController = settingsViewController
+        //self.settingsScreenViewController = settingsViewController
         self.settingsNavigationController = settingsNavigationController
         // Menu
         let menuViewController = MenuScreenViewController(appearance: appearance, locale: locale, dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
@@ -143,7 +143,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.dashboard()
+        menuViewController.settings()//dashboard()
     }
     
     // MARK: - Menu Navigation Controller
@@ -646,6 +646,30 @@ public final class Presentation: AUIWindowPresentation {
                 return []
             }
         }
+        return viewController
+    }
+    
+    // MARK: - Balance Calculator Screen
+    
+    private weak var balanceCalculatorScreenViewController: BalanceCalculatorScreenViewController?
+    private func createBalanceCalculatorScreenViewController() -> BalanceCalculatorScreenViewController {
+        let accounts = try! delegate.presentationAccounts(self)
+        let viewController = BalanceCalculatorScreenViewController(appearance: appearance, locale: locale, accounts: accounts)
+//        viewController.backClosure = { [weak self] in
+//            guard let self = self else { return [] }
+//            let months = (try? self.delegate.presentationExpensesMonths(self)) ?? []
+//            return months
+//        }
+//        viewController.expensesClosure = { [weak self] month in
+//            guard let self = self else { return [] }
+//            do {
+//                let expenses = try self.delegate.presentationMonthExpenses(self, month: month)
+//                return expenses
+//            } catch {
+//                self.presentUnexpectedErrorAlertScreen(error)
+//                return []
+//            }
+//        }
         return viewController
     }
     

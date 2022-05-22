@@ -196,6 +196,11 @@
 		2ECB219327DD276D006D6558 /* InputAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219227DD276D006D6558 /* InputAmountView.swift */; };
 		2ECB219827DD2AE4006D6558 /* SelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219727DD2AE4006D6558 /* SelectCategoryView.swift */; };
 		2ECB219A27DD2B39006D6558 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB219927DD2B39006D6558 /* SelectCategoryViewController.swift */; };
+		2ECC0A0F283A2B370056F927 /* BalanceCalculatorScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC0A0E283A2B370056F927 /* BalanceCalculatorScreenViewController.swift */; };
+		2ECC0A11283A2B420056F927 /* BalanceCalculatorScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC0A10283A2B420056F927 /* BalanceCalculatorScreenView.swift */; };
+		2ECC0A14283A2B5E0056F927 /* BalanceCalculatorScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECC0A16283A2B5E0056F927 /* BalanceCalculatorScreenStrings.strings */; };
+		2ECC0A1B283A2C6C0056F927 /* BalanceCalculatorAccountCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC0A1A283A2C6C0056F927 /* BalanceCalculatorAccountCollectionViewCellController.swift */; };
+		2ECC0A1D283A2C870056F927 /* BalanceCalculatorAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC0A1C283A2C870056F927 /* BalanceCalculatorAccountCollectionViewCell.swift */; };
 		2ECE2DD527F8DA05006E43D0 /* DashboardAccountPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECE2DD727F8DA05006E43D0 /* DashboardAccountPickerStrings.strings */; };
 		2ECF014B27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */; };
 		2ECF015027BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF015227BDA36D008469E0 /* UnexpectedErrorAlertScreenStrings.strings */; };
@@ -773,6 +778,13 @@
 		2ECB219227DD276D006D6558 /* InputAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAmountView.swift; sourceTree = "<group>"; };
 		2ECB219727DD2AE4006D6558 /* SelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryView.swift; sourceTree = "<group>"; };
 		2ECB219927DD2B39006D6558 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
+		2ECC0A0E283A2B370056F927 /* BalanceCalculatorScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCalculatorScreenViewController.swift; sourceTree = "<group>"; };
+		2ECC0A10283A2B420056F927 /* BalanceCalculatorScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCalculatorScreenView.swift; sourceTree = "<group>"; };
+		2ECC0A15283A2B5E0056F927 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BalanceCalculatorScreenStrings.strings; sourceTree = "<group>"; };
+		2ECC0A17283A2B600056F927 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/BalanceCalculatorScreenStrings.strings; sourceTree = "<group>"; };
+		2ECC0A18283A2B610056F927 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/BalanceCalculatorScreenStrings.strings; sourceTree = "<group>"; };
+		2ECC0A1A283A2C6C0056F927 /* BalanceCalculatorAccountCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCalculatorAccountCollectionViewCellController.swift; sourceTree = "<group>"; };
+		2ECC0A1C283A2C870056F927 /* BalanceCalculatorAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCalculatorAccountCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ECE2DD627F8DA05006E43D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DashboardAccountPickerStrings.strings; sourceTree = "<group>"; };
 		2ECF014A27BDA347008469E0 /* UnexpectedErrorAlertScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedErrorAlertScreenViewController.swift; sourceTree = "<group>"; };
 		2ECF015127BDA36D008469E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UnexpectedErrorAlertScreenStrings.strings; sourceTree = "<group>"; };
@@ -1527,6 +1539,7 @@
 				2E2A6ED527EC4F710084054C /* EditExpense */,
 				2E9F46E42821A89100F4E048 /* EditReplenishment */,
 				DB7486E327D0658F004DF67B /* Statistic */,
+				2ECC0A0D283A2A250056F927 /* BalanceCalculator */,
 				2E9289F927AFF9A7002F3403 /* Settings */,
 				2EC96DE627F609F5009A9AEA /* Categories */,
 				2EC96DE727F60A53009A9AEA /* Accounts */,
@@ -1956,6 +1969,26 @@
 				2ECB219727DD2AE4006D6558 /* SelectCategoryView.swift */,
 			);
 			path = SelectCategoryView;
+			sourceTree = "<group>";
+		};
+		2ECC0A0D283A2A250056F927 /* BalanceCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				2ECC0A0E283A2B370056F927 /* BalanceCalculatorScreenViewController.swift */,
+				2ECC0A10283A2B420056F927 /* BalanceCalculatorScreenView.swift */,
+				2ECC0A16283A2B5E0056F927 /* BalanceCalculatorScreenStrings.strings */,
+				2ECC0A19283A2C470056F927 /* AccountCollectionViewCell */,
+			);
+			path = BalanceCalculator;
+			sourceTree = "<group>";
+		};
+		2ECC0A19283A2C470056F927 /* AccountCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2ECC0A1A283A2C6C0056F927 /* BalanceCalculatorAccountCollectionViewCellController.swift */,
+				2ECC0A1C283A2C870056F927 /* BalanceCalculatorAccountCollectionViewCell.swift */,
+			);
+			path = AccountCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		2ECF014927BDA300008469E0 /* Alert */ = {
@@ -3005,6 +3038,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ECC0A14283A2B5E0056F927 /* BalanceCalculatorScreenStrings.strings in Resources */,
 				2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */,
 				2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */,
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
@@ -3284,6 +3318,7 @@
 				DB7BA80D27F9482B00A3B3BA /* SelectIconScreenCollectionCell.swift in Sources */,
 				2ECAD4F92809A3830003BB26 /* DarkAppearanceColors.swift in Sources */,
 				2E01B2C427EDACD400013321 /* MonthCollectionViewCell.swift in Sources */,
+				2ECC0A11283A2B420056F927 /* BalanceCalculatorScreenView.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesListScreenView.swift in Sources */,
 				DB45FACF27E4B5B70073C677 /* TextFieldLabelController.swift in Sources */,
 				2E95BB3927B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift in Sources */,
@@ -3361,6 +3396,7 @@
 				DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */,
 				2EFCCE40283431F700E1F85F /* DefaultAppearanceFonts.swift in Sources */,
 				2ECB218727DCA957006D6558 /* AddExpenseScreenViewController.swift in Sources */,
+				2ECC0A0F283A2B370056F927 /* BalanceCalculatorScreenViewController.swift in Sources */,
 				2EC22DD228105EAF00530139 /* SelectAppearanceScreenAppearanceTableViewCell.swift in Sources */,
 				DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */,
 				2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */,
@@ -3428,6 +3464,7 @@
 				DB40041F280EA888004073D0 /* BalanceAccountColorHorizontalPickerController.swift in Sources */,
 				2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */,
 				DB74865127BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift in Sources */,
+				2ECC0A1B283A2C6C0056F927 /* BalanceCalculatorAccountCollectionViewCellController.swift in Sources */,
 				2EC19AD627A7F78C00E1A6FA /* NavigationBarScreenView.swift in Sources */,
 				DB7BA80127F87C8800A3B3BA /* SelectIconScreenViewController.swift in Sources */,
 				2E7F856A281D6AFC0013C3DD /* HistoryScreenBalanceTransferTableViewCell.swift in Sources */,
@@ -3451,6 +3488,7 @@
 				2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */,
 				2ED8BD7C27E91A520007F60B /* HistoryScreenDayTableViewCell.swift in Sources */,
 				2ECAD4F72809A3180003BB26 /* Appearance.swift in Sources */,
+				2ECC0A1D283A2C870056F927 /* BalanceCalculatorAccountCollectionViewCell.swift in Sources */,
 				2E30391827BDAF440084B96C /* UnexpectedErrorDetailsScreenViewController.swift in Sources */,
 				2E95BB2827B313810097CA46 /* BackTitleNavigationBarScreenView.swift in Sources */,
 				DBB7BD1927DC42FE004EF5B7 /* DashboardTemplateCollectionCell.swift in Sources */,
@@ -3822,6 +3860,16 @@
 				2EC7CAAC280891E900E3DBF6 /* th */,
 			);
 			name = AddExpenseScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2ECC0A16283A2B5E0056F927 /* BalanceCalculatorScreenStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ECC0A15283A2B5E0056F927 /* en */,
+				2ECC0A17283A2B600056F927 /* th */,
+				2ECC0A18283A2B610056F927 /* uk */,
+			);
+			name = BalanceCalculatorScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2ECE2DD727F8DA05006E43D0 /* DashboardAccountPickerStrings.strings */ = {
