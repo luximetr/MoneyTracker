@@ -122,8 +122,7 @@
 		2EB2144128187F0F0058242F /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2144028187F0F0058242F /* Transfer.swift */; };
 		2EB2E878281080E00017ACDD /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E877281080E00017ACDD /* AppearanceSetting.swift */; };
 		2EB2E87B281083550017ACDD /* AppearanceSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87A281083550017ACDD /* AppearanceSetting.swift */; };
-		2EB2E87D281083820017ACDD /* PresentationAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */; };
-		2EB2E87F281083960017ACDD /* StorageAppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */; };
+		2EB2E87D281083820017ACDD /* AppearanceSettingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2E87C281083820017ACDD /* AppearanceSettingMapper.swift */; };
 		2EB8271A280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */; };
 		2EB8271C2807580300C6377F /* CurrencyCodeLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8271B2807580300C6377F /* CurrencyCodeLocalizer.swift */; };
 		2EB8271F2807583900C6377F /* CurrencyCodeStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EB827212807583900C6377F /* CurrencyCodeStrings.strings */; };
@@ -210,9 +209,8 @@
 		2ED1D16727DDD38E0001D5A6 /* InputDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */; };
 		2ED1D16927DDD5510001D5A6 /* InputDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */; };
 		2ED248E528086BEF001E0498 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248E428086BEF001E0498 /* Language.swift */; };
-		2ED248E728086C45001E0498 /* PresentationLanguageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248E628086C45001E0498 /* PresentationLanguageMapper.swift */; };
+		2ED248E728086C45001E0498 /* LanguageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248E628086C45001E0498 /* LanguageMapper.swift */; };
 		2ED248EA28087002001E0498 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248E928087002001E0498 /* Language.swift */; };
-		2ED248EC2808736B001E0498 /* StorageLanguageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED248EB2808736B001E0498 /* StorageLanguageMapper.swift */; };
 		2ED347BB2805CC1A0005529A /* PresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED347BA2805CC1A0005529A /* PresentationDelegate.swift */; };
 		2ED3E93727F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3E93627F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift */; };
 		2ED3E93927F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3E93827F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift */; };
@@ -640,8 +638,7 @@
 		2EB2144028187F0F0058242F /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		2EB2E877281080E00017ACDD /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
 		2EB2E87A281083550017ACDD /* AppearanceSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSetting.swift; sourceTree = "<group>"; };
-		2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationAppearanceSettingMapper.swift; sourceTree = "<group>"; };
-		2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAppearanceSettingMapper.swift; sourceTree = "<group>"; };
+		2EB2E87C281083820017ACDD /* AppearanceSettingMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingMapper.swift; sourceTree = "<group>"; };
 		2EB82719280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTitleValueTableViewCell.swift; sourceTree = "<group>"; };
 		2EB8271B2807580300C6377F /* CurrencyCodeLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCodeLocalizer.swift; sourceTree = "<group>"; };
 		2EB827202807583900C6377F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CurrencyCodeStrings.strings; sourceTree = "<group>"; };
@@ -789,9 +786,8 @@
 		2ED1D16627DDD38E0001D5A6 /* InputDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateView.swift; sourceTree = "<group>"; };
 		2ED1D16827DDD5510001D5A6 /* InputDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDateViewController.swift; sourceTree = "<group>"; };
 		2ED248E428086BEF001E0498 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
-		2ED248E628086C45001E0498 /* PresentationLanguageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationLanguageMapper.swift; sourceTree = "<group>"; };
+		2ED248E628086C45001E0498 /* LanguageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageMapper.swift; sourceTree = "<group>"; };
 		2ED248E928087002001E0498 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
-		2ED248EB2808736B001E0498 /* StorageLanguageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageLanguageMapper.swift; sourceTree = "<group>"; };
 		2ED347BA2805CC1A0005529A /* PresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationDelegate.swift; sourceTree = "<group>"; };
 		2ED3E93627F38D79006C76FB /* CategoryPickerAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerAddCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ED3E93827F38D8C006C76FB /* CategoryPickerAddCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerAddCollectionViewCellController.swift; sourceTree = "<group>"; };
@@ -1607,8 +1603,7 @@
 			isa = PBXGroup;
 			children = (
 				2EB2E87A281083550017ACDD /* AppearanceSetting.swift */,
-				2EB2E87C281083820017ACDD /* PresentationAppearanceSettingMapper.swift */,
-				2EB2E87E281083960017ACDD /* StorageAppearanceSettingMapper.swift */,
+				2EB2E87C281083820017ACDD /* AppearanceSettingMapper.swift */,
 			);
 			path = AppearanceSetting;
 			sourceTree = "<group>";
@@ -2032,8 +2027,7 @@
 			isa = PBXGroup;
 			children = (
 				2ED248E428086BEF001E0498 /* Language.swift */,
-				2ED248E628086C45001E0498 /* PresentationLanguageMapper.swift */,
-				2ED248EB2808736B001E0498 /* StorageLanguageMapper.swift */,
+				2ED248E628086C45001E0498 /* LanguageMapper.swift */,
 			);
 			path = Language;
 			sourceTree = "<group>";
@@ -3228,9 +3222,8 @@
 				DB7793CB2810EA9900150822 /* AddingTopUpAccountAdapter.swift in Sources */,
 				DB400436280FB149004073D0 /* AddingCategoryAdapter.swift in Sources */,
 				DB62AF0327EF03E300F8CA55 /* ImportingExpensesFileAdapter.swift in Sources */,
-				2EB2E87D281083820017ACDD /* PresentationAppearanceSettingMapper.swift in Sources */,
+				2EB2E87D281083820017ACDD /* AppearanceSettingMapper.swift in Sources */,
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
-				2EB2E87F281083960017ACDD /* StorageAppearanceSettingMapper.swift in Sources */,
 				DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */,
 				DBDC92D32814F0C100D8C435 /* EditingBalanceAccountAdapter.swift in Sources */,
 				DBDC9332282D52E300D8C435 /* ImportingTransferAdapter.swift in Sources */,
@@ -3247,14 +3240,13 @@
 				DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */,
 				DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */,
 				DB7793C128106FA200150822 /* BalanceAccountColorAdapter.swift in Sources */,
-				2ED248EC2808736B001E0498 /* StorageLanguageMapper.swift in Sources */,
 				DB7793C32810714900150822 /* AddingBalanceAccountAdapter.swift in Sources */,
 				DBA0546B27FFCF7300DB3892 /* EditingCategoryAdapter.swift in Sources */,
 				2ED248E528086BEF001E0498 /* Language.swift in Sources */,
 				DB62AEF327EEB7FF00F8CA55 /* ImportingBalanceAccountAdapter.swift in Sources */,
 				DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */,
 				DB40042D280F0323004073D0 /* TraitCollectionChangeNotifyWindow.swift in Sources */,
-				2ED248E728086C45001E0498 /* PresentationLanguageMapper.swift in Sources */,
+				2ED248E728086C45001E0498 /* LanguageMapper.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
 				DB62AEF527EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift in Sources */,
 				DB7793BF28106EFE00150822 /* BalanceAccountAdapter.swift in Sources */,

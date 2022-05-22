@@ -86,18 +86,18 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             let appearanceSetting: AppearanceSetting
             if let storageAppearanceSetting = try storage.getSelectedAppearanceSetting() {
-                appearanceSetting = StorageAppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
+                appearanceSetting = AppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
             } else {
                 appearanceSetting = defaultAppearanceSetting
             }
-            let presentationAppearanceSetting = PresentationAppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
+            let presentationAppearanceSetting = AppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
             let language: Language
             if let storageLanguage = try storage.getSelectedLanguage() {
-                language = StorageLanguageMapper.mapStorageLanguageToLanguage(storageLanguage)
+                language = LanguageMapper.mapStorageLanguageToLanguage(storageLanguage)
             } else {
                 language = .english
             }
-            let presentationLanguage = PresentationLanguageMapper.mapLanguageToPresentationLanguage(language)
+            let presentationLanguage = LanguageMapper.mapLanguageToPresentationLanguage(language)
             let foundationLocaleCurrent = Locale.current
             let foundationLocaleCurrentScriptCode = foundationLocaleCurrent.scriptCode
             let foundationLocaleCurrentRegionCode = foundationLocaleCurrent.regionCode
@@ -539,21 +539,21 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentationLanguages(_ presentation: Presentation) throws -> [PresentationLanguage] {
         let languages: [Language] = [.english, .ukrainian, .thai]
-        let presentationLanguages = languages.map({ PresentationLanguageMapper.mapLanguageToPresentationLanguage($0) })
+        let presentationLanguages = languages.map({ LanguageMapper.mapLanguageToPresentationLanguage($0) })
         return presentationLanguages
     }
     
     func presentation(_ presentation: Presentation, selectLanguage presentationLanguage: PresentationLanguage) throws {
-        let language = PresentationLanguageMapper.mapPresentationLanguageToLanguage(presentationLanguage)
-        let storageLanguage = StorageLanguageMapper.mapLanguageToStorageLanguage(language)
+        let language = LanguageMapper.mapPresentationLanguageToLanguage(presentationLanguage)
+        let storageLanguage = LanguageMapper.mapLanguageToStorageLanguage(language)
         storage.saveSelectedLanguage(storageLanguage)
     }
     
     // MARK: - Appearance
     
     func presentation(_ presentation: Presentation, selectAppearanceSetting presentationAppearanceSetting: PresentationAppearanceSetting) throws {
-        let appearanceSetting = PresentationAppearanceSettingMapper.mapPresentationAppearanceSettingToAppearanceSetting(presentationAppearanceSetting)
-        let storageAppearanceSetting = StorageAppearanceSettingMapper.mapAppearanceSettingToStorageAppearanceSetting(appearanceSetting)
+        let appearanceSetting = AppearanceSettingMapper.mapPresentationAppearanceSettingToAppearanceSetting(presentationAppearanceSetting)
+        let storageAppearanceSetting = AppearanceSettingMapper.mapAppearanceSettingToStorageAppearanceSetting(appearanceSetting)
         storage.saveSelectedAppearanceSetting(storageAppearanceSetting)
     }
     
