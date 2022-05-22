@@ -11,22 +11,6 @@ import AUIKit
 extension StatisticMenuScreenViewController {
 final class ScreenView: TitleNavigationBarScreenView {
     
-    // MARK: - Initialization
-        
-    init(appearance: Appearance) {
-        super.init(appearance: appearance)
-    }
-    
-    // MARK: - Appearance
-    
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
-        backgroundColor = appearance.colors.primaryBackground
-        setupTitleLabel()
-        setupTableView()
-        titleTableViewCells?.forEach({ $0.setAppearance(appearance) })
-    }
-    
     // MARK: - Subviews
     
     let tableView = UITableView()
@@ -43,11 +27,6 @@ final class ScreenView: TitleNavigationBarScreenView {
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
         setupTitleTableViewCell()
-    }
-    
-    override func setupTitleLabel() {
-        super.setupTitleLabel()
-        titleLabel.textColor = appearance.colors.primaryText
     }
     
     private func setupTableView() {
@@ -69,7 +48,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     private func layoutTableView() {
         let x: CGFloat = 0
-        let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
+        let y = navigationBarView.frame.maxY
         let width = bounds.width
         let height = bounds.height - y
         let frame = CGRect(x: x, y: y, width: width, height: height)
@@ -91,6 +70,15 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     func titleTableViewCellHeight() -> CGFloat {
         return 60
+    }
+    
+    // MARK: - Appearance
+    
+    override func changeAppearance(_ appearance: Appearance) {
+        super.changeAppearance(appearance)
+        backgroundColor = appearance.colors.primaryBackground
+        tableView.backgroundColor = appearance.colors.primaryBackground
+        titleTableViewCells?.forEach({ $0.setAppearance(appearance) })
     }
     
 }

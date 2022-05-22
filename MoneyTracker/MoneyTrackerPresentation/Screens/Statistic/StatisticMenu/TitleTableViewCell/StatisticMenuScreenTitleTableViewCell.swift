@@ -11,20 +11,10 @@ import AUIKit
 extension StatisticMenuScreenViewController {
 final class TitleTableViewCell: AppearanceTableViewCell {
     
-    // MARK: - Appearance
-    
-    override func setAppearance(_ appearance: Appearance) {
-        super.setAppearance(appearance)
-        backgroundColor = appearance.colors.primaryBackground
-        setupTitleLabel(appearance: appearance)
-        setupForwardImageView(appearance: appearance)
-        setupSeparatorView(appearance: appearance)
-    }
-    
     // MARK: - Subviews
     
     let titleLabel = UILabel()
-    let forwardImageView = UIImageView()
+    private let forwardImageView = UIImageView()
     private let separatorView = UIView()
     
     // MARK: - Setup
@@ -34,21 +24,12 @@ final class TitleTableViewCell: AppearanceTableViewCell {
         selectionStyle = .none
         contentView.addSubview(titleLabel)
         contentView.addSubview(forwardImageView)
+        setupForwardImageView()
         contentView.addSubview(separatorView)
     }
     
-    private func setupTitleLabel(appearance: Appearance) {
-        titleLabel.textColor = appearance.colors.primaryText
-    }
-    
-    private func setupForwardImageView(appearance: Appearance) {
+    private func setupForwardImageView() {
         forwardImageView.contentMode = .scaleAspectFit
-        forwardImageView.image = appearance.images.forwardArrow.withRenderingMode(.alwaysTemplate)
-        forwardImageView.tintColor = appearance.colors.primaryText
-    }
-    
-    private func setupSeparatorView(appearance: Appearance) {
-        separatorView.backgroundColor = appearance.colors.secondaryBackground
     }
     
     // MARK: - Layout
@@ -98,6 +79,17 @@ final class TitleTableViewCell: AppearanceTableViewCell {
             titleLabel.alpha = 1
             forwardImageView.alpha = 1
         }
+    }
+    
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        backgroundColor = appearance.colors.primaryBackground
+        titleLabel.textColor = appearance.colors.primaryText
+        forwardImageView.tintColor = appearance.colors.primaryText
+        separatorView.backgroundColor = appearance.colors.secondaryBackground
+        forwardImageView.image = appearance.images.forwardArrow.withRenderingMode(.alwaysTemplate)
     }
     
 }

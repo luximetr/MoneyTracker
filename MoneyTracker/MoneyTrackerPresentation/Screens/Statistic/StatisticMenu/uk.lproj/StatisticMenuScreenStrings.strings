@@ -1,7 +1,3 @@
-/* 
-  StatisticMenuScreen.strings
-  MoneyTracker
-
-  Created by Job Ihor Myroniuk on 22.05.2022.
-  
-*/
+"title" = "Statistic";
+"expensesByCategories" = "By categories";
+"balancesCalculator" = "Balances calculator";

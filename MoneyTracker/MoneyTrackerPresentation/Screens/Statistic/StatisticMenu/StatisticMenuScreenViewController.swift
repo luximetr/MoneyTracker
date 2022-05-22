@@ -10,7 +10,7 @@ import AUIKit
 
 final class StatisticMenuScreenViewController: StatusBarScreenViewController {
     
-    // MARK: - Data
+    // MARK: - Delegation
     
     var didSelectExpensesByCategoriesClosure: (() -> Void)?
     var didSelectBalancesCalculatorClosure: (() -> Void)?

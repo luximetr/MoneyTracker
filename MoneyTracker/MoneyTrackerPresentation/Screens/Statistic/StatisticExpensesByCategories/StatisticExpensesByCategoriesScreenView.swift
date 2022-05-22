@@ -34,7 +34,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         backgroundColor = appearance.colors.primaryBackground
-        addSubview(monthPickerView)
+        insertSubview(monthPickerView, belowSubview: navigationBarView)
         addSubview(monthExpensesLabel)
         setupMonthExpensesLabel()
         addSubview(monthCategoriesExpensesTableView)
@@ -69,7 +69,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private func layoutMonthPickerView() {
         let x: CGFloat = 0
-        let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
+        let y = navigationBarView.frame.maxY + 24
         let width = bounds.width
         let height: CGFloat = 28
         let frame = CGRect(x: x, y: y, width: width, height: height)

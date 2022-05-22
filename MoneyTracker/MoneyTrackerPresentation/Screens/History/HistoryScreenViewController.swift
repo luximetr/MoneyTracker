@@ -255,11 +255,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return 0 }
             return self.screenView.expenseTableViewCellHeight()
         }
-        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self, weak cellController] in
             guard let self = self else { return nil }
+            guard let cellController = cellController else { return nil }
             let title = self.localizer.localizeText("delete")
-            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
+            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self, weak cellController] contextualAction, view, success in
                 guard let self = self else { return }
+                guard let cellController = cellController else { return }
                 let expense = cellController.expense
                 let operation = Operation.expense(expense)
                 self.operationDeleteActionHandler(operation) { error in
@@ -272,8 +274,9 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])
         }
-        cellController.didSelectClosure = { [weak self] in
+        cellController.didSelectClosure = { [weak self, weak cellController] in
             guard let self = self else { return }
+            guard let cellController = cellController else { return }
             let expense = cellController.expense
             self.selectExpense(expense)
         }
@@ -295,11 +298,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return 0 }
             return self.screenView.replenishmentTableViewCellHeight()
         }
-        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self, weak cellController] in
             guard let self = self else { return nil }
+            guard let cellController = cellController else { return nil }
             let title = self.localizer.localizeText("delete")
-            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
+            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self, weak cellController] contextualAction, view, success in
                 guard let self = self else { return }
+                guard let cellController = cellController else { return }
                 let balanceReplenishment = cellController.replenishment
                 let operation = Operation.replenishment(balanceReplenishment)
                 self.operationDeleteActionHandler(operation) { error in
@@ -312,8 +317,9 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])
         }
-        cellController.didSelectClosure = { [weak self] in
+        cellController.didSelectClosure = { [weak self, weak cellController] in
             guard let self = self else { return }
+            guard let cellController = cellController else { return }
             let replenishment = cellController.replenishment
             self.selectReplenishment(replenishment)
         }
@@ -335,11 +341,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return 0 }
             return self.screenView.transferTableViewCellHeight()
         }
-        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self] in
+        cellController.trailingSwipeActionsConfigurationForCellClosure = { [weak self, weak cellController] in
             guard let self = self else { return nil }
+            guard let cellController = cellController else { return nil }
             let title = self.localizer.localizeText("delete")
-            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
+            let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self, weak cellController] contextualAction, view, success in
                 guard let self = self else { return }
+                guard let cellController = cellController else { return }
                 let balanceTransfer = cellController.transfer
                 let operation = Operation.transfer(balanceTransfer)
                 self.operationDeleteActionHandler(operation) { error in
@@ -352,8 +360,9 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             })
             return UISwipeActionsConfiguration(actions: [deleteAction])
         }
-        cellController.didSelectClosure = { [weak self] in
+        cellController.didSelectClosure = { [weak self, weak cellController] in
             guard let self = self else { return }
+            guard let cellController = cellController else { return }
             let transfer = cellController.transfer
             self.selectTransfer(transfer)
         }
