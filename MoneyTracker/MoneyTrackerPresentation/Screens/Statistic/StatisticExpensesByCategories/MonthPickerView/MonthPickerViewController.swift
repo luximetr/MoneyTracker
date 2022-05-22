@@ -119,8 +119,9 @@ final class MonthPickerViewController: EmptyViewController {
             let size = self.monthPickerView!.monthCollectionViewCellSize(cellController.formatMonth(month))
             return size
         }
-        cellController.didSelectClosure = { [weak self] in
+        cellController.didSelectClosure = { [weak self, weak cellController] in
             guard let self = self else { return }
+            guard let cellController = cellController else { return }
             self.didSelectMonthCellController(cellController)
         }
         return cellController
