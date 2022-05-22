@@ -18,9 +18,13 @@ public class Storage {
     // MARK: - Initiaizer
     
     public init() {
-        userDefautlsAccessor = UserDefaultsAccessor()
-        let database = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("DatabaseName.sqlite")
-        sqliteDatabase = try! SqliteDatabase(database: database)
+        do {
+            userDefautlsAccessor = UserDefaultsAccessor()
+            let database = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("DatabaseName.sqlite")
+            sqliteDatabase = try SqliteDatabase(database: database)
+        } catch {
+            fatalError()
+        }
     }
     
     // MARK: - BalanceTransfer
