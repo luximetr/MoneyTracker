@@ -60,7 +60,7 @@ public final class Presentation: AUIWindowPresentation {
         menuScreenViewController?.changeAppearance(appearance)
         dashboardViewController?.changeAppearance(appearance)
         pushedAddExpenseViewController?.changeAppearance(appearance)
-        statisticExpensesByCategoriesScreenViewController?.changeAppearance(appearance)
+        pushedStatisticExpensesByCategoriesScreenViewController?.changeAppearance(appearance)
         pushedHistoryViewController?.changeAppearance(appearance)
         pushedEditExpenseViewController?.changeAppearance(appearance)
         selectIconViewController?.changeAppearance(appearance)
@@ -88,6 +88,8 @@ public final class Presentation: AUIWindowPresentation {
         pushedAddReplenishmentViewController?.changeAppearance(appearance)
         pushedAddTransferViewController?.changeAppearance(appearance)
         pushedEditTransferViewController?.changeAppearance(appearance)
+        statisticMenuScreenViewController?.changeAppearance(appearance)
+        balanceCalculatorScreenViewController?.changeAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -112,7 +114,6 @@ public final class Presentation: AUIWindowPresentation {
         menuScreenViewController?.changeLocale(locale)
         dashboardViewController?.changeLocale(locale)
         settingsScreenViewController?.changeLocale(locale)
-        statisticExpensesByCategoriesScreenViewController?.changeLocale(locale)
         pushedSelectLanguageViewController?.changeLocale(locale)
     }
     
@@ -232,7 +233,6 @@ public final class Presentation: AUIWindowPresentation {
             do {
                 let addedExpense = try self.delegate.presentation(self, useTemplate: template)
                 self.displayExpenseAddedSnackbarViewController(template: template, expense: addedExpense)
-                self.statisticExpensesByCategoriesScreenViewController?.addExpense(addedExpense)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
                 throw error
@@ -267,7 +267,6 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { throw Error("") }
                 do {
                     let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
-                    self.statisticExpensesByCategoriesScreenViewController?.addExpense(addedExpense)
                     return addedExpense
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
@@ -278,13 +277,11 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { throw Error("") }
                 do {
                     let addedExpense = try self.delegate.presentation(self, editExpense: editingExpense)
-                    self.statisticExpensesByCategoriesScreenViewController?.editExpense(addedExpense)
                     return addedExpense
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                     throw error
                 }
-                
             }
             viewController.deleteExpenseClosure = { [weak self] expense in
                 guard let self = self else { return }
@@ -439,8 +436,7 @@ public final class Presentation: AUIWindowPresentation {
             viewController.deleteExpenseClosure = { [weak self] deletingExpense in
                 guard let self = self else { return }
                 do {
-                    let deletedExpense = try self.delegate.presentation(self, deleteExpense: deletingExpense)
-                    self.statisticExpensesByCategoriesScreenViewController?.deleteExpense(deletedExpense)
+                    _ = try self.delegate.presentation(self, deleteExpense: deletingExpense)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -532,7 +528,6 @@ public final class Presentation: AUIWindowPresentation {
                 do {
                     let editedExpense = try self.delegate.presentation(self, editExpense: expense)
                     self.pushedHistoryViewController?.editExpense(editedExpense)
-                    self.statisticExpensesByCategoriesScreenViewController?.editExpense(editedExpense)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -654,7 +649,7 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Statistic Screen
     
-    private weak var statisticExpensesByCategoriesScreenViewController: StatisticExpensesByCategoriesScreenViewController?
+    private weak var pushedStatisticExpensesByCategoriesScreenViewController: StatisticExpensesByCategoriesScreenViewController?
     private func pushStatisticExpensesByCategoriesScreenViewController(_ navigationController: UINavigationController) throws {
         let viewController = StatisticExpensesByCategoriesScreenViewController(appearance: appearance, locale: locale)
         viewController.backClosure = { [weak navigationController] in
@@ -676,7 +671,7 @@ public final class Presentation: AUIWindowPresentation {
                 return []
             }
         }
-        statisticExpensesByCategoriesScreenViewController = viewController
+        pushedStatisticExpensesByCategoriesScreenViewController = viewController
         navigationController.pushViewController(viewController, animated: true)
     }
     

@@ -40,8 +40,11 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.resetButton.addTarget(self, action: #selector(resetButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.allButton.addTarget(self, action: #selector(allButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupCollectionViewController()
         setContent()
+        setupReselAllButtons()
     }
     
     private func setupCollectionViewController() {
@@ -85,6 +88,20 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
         backClosure?()
     }
     
+    @objc private func resetButtonTouchUpInsideEventAction() {
+        selectedAccounts = []
+        accountsCellControllers.forEach({ $0.setIsSelected(false) })
+        setBalanceLabelContent()
+        setupReselAllButtons()
+    }
+    
+    @objc private func allButtonTouchUpInsideEventAction() {
+        selectedAccounts = accounts
+        accountsCellControllers.forEach({ $0.setIsSelected(true) })
+        setBalanceLabelContent()
+        setupReselAllButtons()
+    }
+    
     private func didSelectAccount(_ account: Account) {
         let cellConroller = accountsCellController(account)
         if let firstIndex = selectedAccounts.firstIndex(of: account) {
@@ -95,38 +112,36 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
             cellConroller?.setIsSelected(true)
         }
         setBalanceLabelContent()
+        setupReselAllButtons()
     }
     
-    private func didDeleteAccount(_ account: Account, cellController: AUICollectionViewCellController) {
-        //deleteAccountClosure?(account)
-        //collectionViewController.deleteCellController(cellController, completion: nil)
-    }
-    
-    func addAccount(_ account: Account) {
-        accounts.append(account)
-        let cellController = createAccountCollectionViewCellController(account: account)
-        collectionViewController.appendCellController(cellController, toSectionController: accountsSectionController, completion: nil)
-    }
-    
-    func editAccount(_ editedAccount: Account) {
-        guard let index = accounts.firstIndex(where: { $0.id == editedAccount.id }) else { return }
-        accounts[index] = editedAccount
-        guard let cellController = accountsSectionController.cellControllers.first(where: { ($0 as? AccountCollectionViewCellController)?.account.id == editedAccount.id }) as? AccountCollectionViewCellController else { return }
-        cellController.editAccount(editedAccount)
+    func setupReselAllButtons() {
+        if selectedAccounts.isEmpty {
+            screenView.resetButton.isHidden = true
+            screenView.allButton.isHidden = false
+        } else {
+            screenView.resetButton.isHidden = false
+            screenView.allButton.isHidden = true
+        }
     }
     
     // MARK: Content
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("screenTitle")
+        screenView.resetButton.setTitle(localizer.localizeText("reset"), for: .normal)
+        screenView.allButton.setTitle(localizer.localizeText("all"), for: .normal)
         setBalanceLabelContent()
         setCollectionViewControllerContent()
     }
     
     private func setBalanceLabelContent() {
-//        let currenciesAmounts = Dictionary(grouping: expenses, by: { $0.account.currency })
-//        let gg = Dictionary(uniqueKeysWithValues: currenciesAmounts.map({ ($0, $1.map({ $0.amount }).reduce(into: Decimal(), +)) }))
         var currenciesAmount: [Currency: Decimal] = [:]
+        for account in accounts {
+            let currency = account.currency
+            let currencyAmount = Decimal()
+            currenciesAmount[currency] = currencyAmount
+        }
         for account in selectedAccounts {
             let currency = account.currency
             let amount = account.amount

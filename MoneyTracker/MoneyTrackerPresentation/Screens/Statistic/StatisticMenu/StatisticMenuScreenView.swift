@@ -21,6 +21,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
+        backgroundColor = appearance.colors.primaryBackground
         setupTitleLabel()
         setupTableView()
         titleTableViewCells?.forEach({ $0.setAppearance(appearance) })
@@ -38,6 +39,7 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
+        backgroundColor = appearance.colors.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
         setupTitleTableViewCell()

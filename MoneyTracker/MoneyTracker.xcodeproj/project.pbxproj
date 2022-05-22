@@ -1120,7 +1120,7 @@
 			children = (
 				2E0FC1CB283A669300BF248B /* StatisticMenu */,
 				DB7486E327D0658F004DF67B /* StatisticExpensesByCategories */,
-				2ECC0A0D283A2A250056F927 /* BalanceCalculator */,
+				2ECC0A0D283A2A250056F927 /* StatisticBalancesCalculator */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -2009,7 +2009,7 @@
 			path = SelectCategoryView;
 			sourceTree = "<group>";
 		};
-		2ECC0A0D283A2A250056F927 /* BalanceCalculator */ = {
+		2ECC0A0D283A2A250056F927 /* StatisticBalancesCalculator */ = {
 			isa = PBXGroup;
 			children = (
 				2ECC0A0E283A2B370056F927 /* BalanceCalculatorScreenViewController.swift */,
@@ -2017,7 +2017,7 @@
 				2ECC0A16283A2B5E0056F927 /* BalanceCalculatorScreenStrings.strings */,
 				2ECC0A19283A2C470056F927 /* AccountCollectionViewCell */,
 			);
-			path = BalanceCalculator;
+			path = StatisticBalancesCalculator;
 			sourceTree = "<group>";
 		};
 		2ECC0A19283A2C470056F927 /* AccountCollectionViewCell */ = {

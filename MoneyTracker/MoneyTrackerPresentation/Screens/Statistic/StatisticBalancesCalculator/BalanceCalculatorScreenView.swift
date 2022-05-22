@@ -14,12 +14,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: Initializer
     
     init(appearance: Appearance) {
+        self.resetButton = TextButton(appearance: appearance)
+        self.allButton = TextButton(appearance: appearance)
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         super.init(appearance: appearance)
     }
     
     // MARK: Subviews
     
+    let resetButton: TextButton
+    let allButton: TextButton
     let balanceLabel = UILabel()
     let collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     let collectionView: UICollectionView
@@ -29,11 +33,25 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         backgroundColor = appearance.colors.primaryBackground
+        navigationBarView.addSubview(resetButton)
+        setupResetButton()
+        navigationBarView.addSubview(allButton)
+        setupAllButton()
         addSubview(balanceLabel)
         setupBalanceLabel()
         insertSubview(collectionView, belowSubview: navigationBarView)
         setupCollectionView()
         setupAccountCollectionViewCell()
+    }
+    
+    private func setupResetButton() {
+        resetButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .regular)
+        resetButton.setTitleColor(appearance.colors.accent, for: .normal)
+    }
+    
+    private func setupAllButton() {
+        allButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .regular)
+        allButton.setTitleColor(appearance.colors.accent, for: .normal)
     }
     
     private func setupBalanceLabel() {
@@ -57,8 +75,30 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutResetButton()
+        layoutAllButton()
         layoutBalanceLabel()
         layoutCollectionView()
+    }
+    
+    private func layoutResetButton() {
+        var size = navigationBarView.bounds.size
+        size = resetButton.sizeThatFits(size)
+        let x = navigationBarView.bounds.width - size.width - 12
+        let y = (navigationBarView.frame.size.height - size.height) * 0.5
+        let origin = CGPoint(x: x, y: y)
+        let frame = CGRect(origin: origin, size: size)
+        resetButton.frame = frame
+    }
+    
+    private func layoutAllButton() {
+        var size = navigationBarView.bounds.size
+        size = allButton.sizeThatFits(size)
+        let x = navigationBarView.bounds.width - size.width - 12
+        let y = (navigationBarView.frame.size.height - size.height) * 0.5
+        let origin = CGPoint(x: x, y: y)
+        let frame = CGRect(origin: origin, size: size)
+        allButton.frame = frame
     }
     
     private func layoutBalanceLabel() {
@@ -102,6 +142,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
+        resetButton.setTitleColor(appearance.colors.accent, for: .normal)
+        allButton.setTitleColor(appearance.colors.accent, for: .normal)
         collectionView.backgroundColor = appearance.colors.primaryBackground
     }
     
