@@ -18,14 +18,29 @@ typealias Files = MoneyTrackerFiles.Files
 
 class Application: AUIEmptyApplication, PresentationDelegate {
     
-    // MARK: Events
+    // MARK: - Events
     
     override func didFinishLaunching() {
         super.didFinishLaunching()
-        try! initPresentation()
-        presentation.display()
+        do {
+            try self.initialize()
+            self.presentation.display()
+        } catch {
+            fatalError()
+        }
     }
     
+    // MARK: - Initialize
+    
+    private func initialize() throws {
+        do {
+            try self.initializeStorage()
+            try self.initializePresentation()
+        } catch {
+            throw Error("Cannot initialize \(String(reflecting: Self.self))")
+        }
+    }
+        
     // MARK: - Files
     
     private lazy var files: Files = {
@@ -35,10 +50,16 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Storage
     
-    private lazy var storage: Storage = {
-        let storage = Storage()
-        return storage
-    }()
+    private var storage: Storage!
+    
+    private func initializeStorage() throws {
+        do {
+            let storage = try Storage()
+            self.storage = storage
+        } catch {
+            throw Error("Cannot initialize \(String(reflecting: Storage.self))")
+        }
+    }
     
     // MARK: - Presentation
     
@@ -61,7 +82,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     private let defaultAppearanceSetting: AppearanceSetting = .system
     private let defaultLanguage: Language = .english
-    private func initPresentation() throws {
+    private func initializePresentation() throws {
         do {
             let appearanceSetting: AppearanceSetting
             if let storageAppearanceSetting = try storage.getSelectedAppearanceSetting() {
@@ -85,7 +106,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             presentation.delegate = self
             self.presentation = presentation
         } catch {
-            throw Error("Cannot initialize \(String(reflecting: Self.self))")
+            throw Error("Cannot initialize \(String(reflecting: Presentation.self))")
         }
     }
     
