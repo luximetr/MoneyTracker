@@ -22,6 +22,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     override func didFinishLaunching() {
         super.didFinishLaunching()
+        try! initPresentation()
         presentation.display()
     }
     
@@ -48,18 +49,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return window
     }()
     
-    private lazy var presentation: Presentation = {
-        let storageAppearanceSetting = (try? storage.getSelectedAppearanceSetting()) ?? .system
-        let appearanceSetting = StorageAppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
-        let presentationAppearanceSetting = PresentationAppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
-        let storageLanguage = (try? storage.getSelectedLanguage()) ?? .english
-        let language = StorageLanguageMapper.mapStorageLanguageToLanguage(storageLanguage)
-        let presentationLanguage = PresentationLanguageMapper.mapLanguageToPresentationLanguage(language)
-        let presentationLocale = Locale(language: presentationLanguage, scriptCode: Locale.current.scriptCode, regionCode: Locale.current.regionCode)
-        let presentation = Presentation(window: presentationWindow, locale: presentationLocale, appearanceSetting: presentationAppearanceSetting)
-        presentation.delegate = self
-        return presentation
-    }()
+    private var presentation: Presentation!
     
     private func createPresentationWindow() -> UIWindow {
         let window = TraitCollectionChangeNotifyWindow()
@@ -67,6 +57,36 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             self?.presentation.didChangeUserInterfaceStyle(style)
         }
         return window
+    }
+    
+    private let defaultAppearanceSetting: AppearanceSetting = .system
+    private let defaultLanguage: Language = .english
+    private func initPresentation() throws {
+        do {
+            let appearanceSetting: AppearanceSetting
+            if let storageAppearanceSetting = try storage.getSelectedAppearanceSetting() {
+                appearanceSetting = StorageAppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
+            } else {
+                appearanceSetting = defaultAppearanceSetting
+            }
+            let presentationAppearanceSetting = PresentationAppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
+            let language: Language
+            if let storageLanguage = try storage.getSelectedLanguage() {
+                language = StorageLanguageMapper.mapStorageLanguageToLanguage(storageLanguage)
+            } else {
+                language = .english
+            }
+            let presentationLanguage = PresentationLanguageMapper.mapLanguageToPresentationLanguage(language)
+            let foundationLocaleCurrent = Locale.current
+            let foundationLocaleCurrentScriptCode = foundationLocaleCurrent.scriptCode
+            let foundationLocaleCurrentRegionCode = foundationLocaleCurrent.regionCode
+            let presentationLocale = Locale(language: presentationLanguage, scriptCode: foundationLocaleCurrentScriptCode, regionCode: foundationLocaleCurrentRegionCode)
+            let presentation = Presentation(window: presentationWindow, locale: presentationLocale, appearanceSetting: presentationAppearanceSetting)
+            presentation.delegate = self
+            self.presentation = presentation
+        } catch {
+            throw Error("Cannot initialize \(String(reflecting: Self.self))")
+        }
     }
     
     // MARK: - Categories
