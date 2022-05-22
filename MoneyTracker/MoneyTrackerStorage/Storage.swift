@@ -48,6 +48,22 @@ public class Storage {
         }
     }
     
+    public func addBalanceTransferInTransaction(_ addingBalanceTransfer: AddingTransfer) throws -> Transfer {
+        let id = UUID().uuidString
+        let date = Int64(addingBalanceTransfer.date.timeIntervalSince1970)
+        let fromBalanceAccountId = addingBalanceTransfer.fromBalanceAccountId
+        let fromAmount = addingBalanceTransfer.fromAmount
+        let toBalanceAccountId = addingBalanceTransfer.toBalanceAccountId
+        let toAmount = addingBalanceTransfer.toAmount
+        let comment = addingBalanceTransfer.comment
+        let balanceTransferInsertingValues = TransferInsertingValues(id: id, timestamp: date, fromAccountId: fromBalanceAccountId, fromAmount: fromAmount, toAccountId: toBalanceAccountId, toAmount: toAmount, comment: comment)
+        try sqliteDatabase.balanceAccountTable.updateWhereId(fromBalanceAccountId, subtractingAmount: fromAmount)
+        try sqliteDatabase.balanceAccountTable.updateWhereId(toBalanceAccountId, addingAmount: toAmount)
+        try sqliteDatabase.transferSqliteTable.insertValues(balanceTransferInsertingValues)
+        let balanceTransfer = Transfer(id: id, date: addingBalanceTransfer.date, fromAccountId: fromBalanceAccountId, fromAmount: Decimal(fromAmount) / 100, toAccountId: toBalanceAccountId, toAmount: Decimal(toAmount) / 100, comment: comment)
+        return balanceTransfer
+    }
+    
     public func editTransfer(_ editingTransfer: EditingTransfer) throws {
         do {
             try sqliteDatabase.beginTransaction()
@@ -125,6 +141,19 @@ public class Storage {
             try sqliteDatabase.rollbackTransaction()
             throw error
         }
+    }
+    
+    public func addBalanceReplenishmentInTransaction(_ addingBalanceReplenishment: AddingReplenishment) throws -> Replenishment {
+        let id = UUID().uuidString
+        let timestamp = Int64(addingBalanceReplenishment.timestamp.timeIntervalSince1970)
+        let balanceAccountId = addingBalanceReplenishment.accountId
+        let amount = addingBalanceReplenishment.amount
+        let comment = addingBalanceReplenishment.comment
+        let balanceReplenishmentInsertingValues = ReplenishmentInsertingValues(id: id, timestamp: timestamp, amount: amount, accountId: balanceAccountId, comment: comment)
+        try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, addingAmount: amount)
+        try sqliteDatabase.replenishmentSqliteTable.insertValues(balanceReplenishmentInsertingValues)
+        let balanceReplenishment = Replenishment(id: id, timestamp: addingBalanceReplenishment.timestamp, accountId: balanceAccountId, amount: Decimal(amount) / 100, comment: comment)
+        return balanceReplenishment
     }
     
     public func deleteBalanceReplenishment(_ balanceReplenishment: Replenishment) throws {
@@ -233,15 +262,11 @@ public class Storage {
             try sqliteDatabase.beginTransaction()
             var addedCategories: [Category] = []
             for addingCategory in addingCategories {
-                let id = UUID().uuidString
-                let name = addingCategory.name
-                let color = addingCategory.color
-                let iconName = addingCategory.iconName
                 let maxOrderNumber = try sqliteDatabase.categoryTable.selectMaxOrderNumber() ?? 0
                 let nextOrderNumber = maxOrderNumber + 1
-                let values = CategoryInsertingValues(id: id, name: name, icon: iconName, color: color.rawValue, orderNumber: nextOrderNumber)
+                let values = createCategoryInsertingValues(addingCategory: addingCategory, orderNumber: nextOrderNumber)
                 try sqliteDatabase.categoryTable.insertValues(values)
-                let category = Category(id: id, name: name, color: color, iconName: iconName)
+                let category = createCategory(addingCategory: addingCategory, id: values.id)
                 addedCategories.append(category)
             }
             try sqliteDatabase.commitTransaction()
@@ -250,6 +275,43 @@ public class Storage {
             try sqliteDatabase.rollbackTransaction()
             throw error
         }
+    }
+    
+    @discardableResult
+    private func addCategoriesInTransaction(_ addingCategories: [AddingCategory]) throws -> [Category] {
+        var addedCategories: [Category] = []
+        for addingCategory in addingCategories {
+            let maxOrderNumber = try sqliteDatabase.categoryTable.selectMaxOrderNumber() ?? 0
+            let nextOrderNumber = maxOrderNumber + 1
+            let values = createCategoryInsertingValues(addingCategory: addingCategory, orderNumber: nextOrderNumber)
+            try sqliteDatabase.categoryTable.insertValues(values)
+            let category = createCategory(addingCategory: addingCategory, id: values.id)
+            addedCategories.append(category)
+        }
+        return addedCategories
+    }
+    
+    private func createCategoryInsertingValues(addingCategory: AddingCategory, orderNumber: Int64) -> CategoryInsertingValues {
+        let id = UUID().uuidString
+        let name = addingCategory.name
+        let color = addingCategory.color
+        let iconName = addingCategory.iconName
+        return CategoryInsertingValues(
+            id: id,
+            name: name,
+            icon: iconName,
+            color: color.rawValue,
+            orderNumber: orderNumber
+        )
+    }
+    
+    private func createCategory(addingCategory: AddingCategory, id: String) -> Category {
+        return Category(
+            id: id,
+            name: addingCategory.name,
+            color: addingCategory.color,
+            iconName: addingCategory.iconName
+        )
     }
     
     public func updateCategory(editingCategory: EditingCategory) throws -> Category {
@@ -330,7 +392,6 @@ public class Storage {
     public func addBalanceAccount(_ addingBalanceAccount: AddingBalanceAccount) throws -> BalanceAccount {
         do {
             try sqliteDatabase.beginTransaction()
-            let balanceAccount = BalanceAccount(addingBalanceAccount: addingBalanceAccount)
             let id = UUID().uuidString
             let name = addingBalanceAccount.name
             let amount = Int64(try (addingBalanceAccount.amount * 100).int())
@@ -340,11 +401,30 @@ public class Storage {
             let values = BalanceAccountInsertingValues(id: id, name: name, amount: amount, currency: currency, color: color, orderNumber: orderNumber)
             try sqliteDatabase.balanceAccountTable.insert(values: values)
             try sqliteDatabase.commitTransaction()
+            let balanceAccount = BalanceAccount(id: id, addingBalanceAccount: addingBalanceAccount)
             return balanceAccount
         } catch {
             try sqliteDatabase.rollbackTransaction()
             throw error
         }
+    }
+    
+    @discardableResult
+    public func addBalanceAccountsInTransaction(_ addingBalanceAccounts: [AddingBalanceAccount]) throws -> [BalanceAccount] {
+        var balanceAccounts: [BalanceAccount] = []
+        for addingBalanceAccount in addingBalanceAccounts {
+            let id = UUID().uuidString
+            let name = addingBalanceAccount.name
+            let amount = Int64(try (addingBalanceAccount.amount * 100).int())
+            let currency = addingBalanceAccount.currency.rawValue
+            let color = addingBalanceAccount.color.rawValue
+            let orderNumber = (try sqliteDatabase.balanceAccountTable.selectMaxOrderNumber() ?? 0) + 1
+            let values = BalanceAccountInsertingValues(id: id, name: name, amount: amount, currency: currency, color: color, orderNumber: orderNumber)
+            try sqliteDatabase.balanceAccountTable.insert(values: values)
+            let balanceAccount = BalanceAccount(id: id, addingBalanceAccount: addingBalanceAccount)
+            balanceAccounts.append(balanceAccount)
+        }
+        return balanceAccounts
     }
     
     @discardableResult
@@ -495,6 +575,23 @@ public class Storage {
         }
     }
     
+    @discardableResult
+    public func addExpenseInTransaction(addingExpense: AddingExpense) throws -> Expense {
+        let id = UUID().uuidString
+        let amount = Int64(try (addingExpense.amount * 100).int())
+        let timestamp = Int64(addingExpense.date.timeIntervalSince1970)
+        let comment = addingExpense.comment
+        let categoryId = addingExpense.categoryId
+        let balanceAccountId = addingExpense.balanceAccountId
+        let expenseInsertingValues = ExpenseInsertingValues(id: id, timestamp: timestamp, amount: amount, accountId: balanceAccountId, categoryId: categoryId, comment: comment)
+        try sqliteDatabase.expenseTable.insertValues(expenseInsertingValues)
+        try sqliteDatabase.balanceAccountTable.updateWhereId(balanceAccountId, subtractingAmount: amount)
+        let amountDecimal = Decimal(amount) / 100
+        let dateDate = Date(timeIntervalSince1970: Double(timestamp))
+        let expense = Expense(id: id, amount: amountDecimal, date: dateDate, comment: comment, balanceAccountId: balanceAccountId, categoryId: categoryId)
+        return expense
+    }
+        
     @discardableResult
     public func addExpenses(addingExpenses: [AddingExpense]) throws -> [Expense] {
         do {
@@ -651,42 +748,50 @@ public class Storage {
     
     @discardableResult
     public func saveImportingExpensesFile(_ file: ImportingExpensesFile) throws -> ImportedExpensesFile {
-        let categories = try getCategoriesOrdered()
-        let uniqueImportingCategories = file.categories.filter { importingCategory in
-            return !categories.contains(where: { findIfCategoriesEqual(importingCategory: importingCategory, category: $0) })
-        }
-        let importingCategoryAdapter = ImportingCategoryAdapter()
-        let addingCategories = uniqueImportingCategories.map { importingCategoryAdapter.adaptToAdding(importingCategory: $0) }
-        let importedCategories = try addCategories(addingCategories)
-        
-        let balanceAccounts = try getAllBalanceAccountsOrdered()
-        let uniqueImportingBalanceAccounts = file.balanceAccounts.filter { importingBalanceAccount in
-            return !balanceAccounts.contains(where: { findIfBalanceAccountsEqual(importingBalanceAccount: importingBalanceAccount, balanceAccount: $0) })
-        }
-        let addingBalanceAccounts = createAddingBalanceAccounts(importingBalanceAccounts: uniqueImportingBalanceAccounts)
-        let importedBalanceAccounts = addBalanceAccounts(addingBalanceAccounts)
-        
-        let allBalanceAccounts = balanceAccounts + importedBalanceAccounts
-        let allCategories = categories + importedCategories
-        
-        let maxDate = file.operations.max(by: { $0.timestamp < $1.timestamp })?.timestamp
-        let minDate = file.operations.min(by: { $0.timestamp < $1.timestamp })?.timestamp
-        
-        var importedOperations: [Operation] = []
-        if let minDate = minDate, let maxDate = maxDate {
-            let operations = try getOperations(startDate: minDate, endDate: maxDate)
-            let uniqueImportingOperations = file.operations.filter { importingOperation in
-                return !operations.contains(where: { findIfOperationsEqual(importingOperation: importingOperation, operation: $0) })
+        do {
+            try sqliteDatabase.beginTransaction()
+            let categories = try getCategoriesOrdered()
+            let uniqueImportingCategories = file.categories.filter { importingCategory in
+                return !categories.contains(where: { findIfCategoriesEqual(importingCategory: importingCategory, category: $0) })
             }
-            importedOperations = addImportingOperations(uniqueImportingOperations, accounts: allBalanceAccounts, categories: allCategories)
+            let importingCategoryAdapter = ImportingCategoryAdapter()
+            let addingCategories = uniqueImportingCategories.map { importingCategoryAdapter.adaptToAdding(importingCategory: $0) }
+            
+            let balanceAccounts = try getAllBalanceAccountsOrdered()
+            let uniqueImportingBalanceAccounts = file.balanceAccounts.filter { importingBalanceAccount in
+                return !balanceAccounts.contains(where: { findIfBalanceAccountsEqual(importingBalanceAccount: importingBalanceAccount, balanceAccount: $0) })
+            }
+            let addingBalanceAccounts = createAddingBalanceAccounts(importingBalanceAccounts: uniqueImportingBalanceAccounts)
+            
+            let importedCategories = try addCategoriesInTransaction(addingCategories)
+            let importedBalanceAccounts = try addBalanceAccountsInTransaction(addingBalanceAccounts)
+            
+            let allBalanceAccounts = balanceAccounts + importedBalanceAccounts
+            let allCategories = categories + importedCategories
+            
+            let maxDate = file.operations.max(by: { $0.timestamp < $1.timestamp })?.timestamp
+            let minDate = file.operations.min(by: { $0.timestamp < $1.timestamp })?.timestamp
+            
+            var importedOperations: [Operation] = []
+            if let minDate = minDate, let maxDate = maxDate {
+                let operations = try getOperations(startDate: minDate, endDate: maxDate)
+                let uniqueImportingOperations = file.operations.filter { importingOperation in
+                    return !operations.contains(where: { findIfOperationsEqual(importingOperation: importingOperation, operation: $0) })
+                }
+                importedOperations = addImportingOperations(uniqueImportingOperations, accounts: allBalanceAccounts, categories: allCategories)
+            }
+            try sqliteDatabase.commitTransaction()
+            
+            let importedFile = ImportedExpensesFile(
+                importedOperations: importedOperations,
+                importedCategories: importedCategories,
+                importedAccounts: importedBalanceAccounts
+            )
+            return importedFile
+        } catch {
+            try sqliteDatabase.rollbackTransaction()
+            throw error
         }
-        
-        let importedFile = ImportedExpensesFile(
-            importedOperations: importedOperations,
-            importedCategories: importedCategories,
-            importedAccounts: importedBalanceAccounts
-        )
-        return importedFile
     }
     
     private func addImportingOperations(
@@ -714,18 +819,18 @@ public class Storage {
                 let balanceAccount = try findBalanceAccount(name: importingExpense.balanceAccountName, in: accounts)
                 let category = try findCategory(name: importingExpense.categoryName, in: categories)
                 let addingExpense = createAddingExpense(importingExpense: importingExpense, balanceAccount: balanceAccount, category: category)
-                let addedExpense = try addExpense(addingExpense: addingExpense)
+                let addedExpense = try addExpenseInTransaction(addingExpense: addingExpense)
                 return .expense(expense: addedExpense, category: category, balanceAccount: balanceAccount)
             case .transfer(let importingTransfer):
                 let fromAccount = try findBalanceAccount(name: importingTransfer.fromBalanceAccountName, in: accounts)
                 let toAccount = try findBalanceAccount(name: importingTransfer.toBalanceAccountName, in: accounts)
                 let addingTransfer = try createAddingTransfer(importingTransfer: importingTransfer, fromAccount: fromAccount, toAccount: toAccount)
-                let addedTransfer = try addBalanceTransfer(addingTransfer)
+                let addedTransfer = try addBalanceTransferInTransaction(addingTransfer)
                 return .balanceTransfer(balanceTransfer: addedTransfer, fromBalanceAccount: fromAccount, toBalanceAccount: toAccount)
             case .replenishment(let importingReplenishment):
                 let account = try findBalanceAccount(name: importingReplenishment.accountName, in: accounts)
                 let addingReplenishment = try createAddingReplenishment(importingReplenishment: importingReplenishment, account: account)
-                let addedReplenishment = try addBalanceReplenishment(addingReplenishment)
+                let addedReplenishment = try addBalanceReplenishmentInTransaction(addingReplenishment)
                 return .balanceReplenishment(balanceReplenishment: addedReplenishment, balanceAccount: account)
         }
     }
