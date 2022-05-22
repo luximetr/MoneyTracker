@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension StatisticScreenViewController {
+extension StatisticExpensesByCategoriesScreenViewController {
 final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCellController {
     
     private static let amountNumberFormatter: NumberFormatter = {

@@ -17,6 +17,9 @@
 		2E0DB4D027AD77B400A92682 /* TextFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */; };
 		2E0DB4D227AD79C800A92682 /* TitleNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */; };
 		2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */; };
+		2E0FC1CD283A66B200BF248B /* StatisticMenuScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FC1CC283A66B200BF248B /* StatisticMenuScreenViewController.swift */; };
+		2E0FC1CF283A66C100BF248B /* StatisticMenuScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FC1CE283A66C100BF248B /* StatisticMenuScreenView.swift */; };
+		2E0FC1D2283A66D900BF248B /* StatisticMenuScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E0FC1D4283A66D900BF248B /* StatisticMenuScreen.strings */; };
 		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
 		2E25262128191CF70025D2E9 /* ReplenishmentSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */; };
 		2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252623281921CC0025D2E9 /* AddingReplenishment.swift */; };
@@ -94,7 +97,7 @@
 		2EA7066B27B5BA4300FF08B2 /* AddAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7066A27B5BA4300FF08B2 /* AddAccountScreenView.swift */; };
 		2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7066C27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift */; };
 		2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EA7067227B5BA7B00FF08B2 /* AddAccountScreenStrings.strings */; };
-		2EA7B24C27ECFFED006C2F13 /* StatisticScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EA7B24E27ECFFED006C2F13 /* StatisticScreenStrings.strings */; };
+		2EA7B24C27ECFFED006C2F13 /* StatisticExpensesByCategoriesScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EA7B24E27ECFFED006C2F13 /* StatisticExpensesByCategoriesScreenStrings.strings */; };
 		2EA8C97D2822B11B00E192B6 /* EditingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C97C2822B11B00E192B6 /* EditingTransfer.swift */; };
 		2EA8C9802822C4BA00E192B6 /* EditTransferScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C97F2822C4BA00E192B6 /* EditTransferScreenViewController.swift */; };
 		2EA8C9822822C4D100E192B6 /* EditTransferScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C9812822C4D100E192B6 /* EditTransferScreenView.swift */; };
@@ -321,8 +324,8 @@
 		DB7486C327CCE38E004DF67B /* MoneyTrackerFiles.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7486BD27CCE38E004DF67B /* MoneyTrackerFiles.framework */; };
 		DB7486C427CCE38E004DF67B /* MoneyTrackerFiles.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB7486BD27CCE38E004DF67B /* MoneyTrackerFiles.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB7486C927CCE410004DF67B /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486C827CCE410004DF67B /* Files.swift */; };
-		DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */; };
-		DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E627D065EA004DF67B /* StatisticScreenView.swift */; };
+		DB7486E527D065BF004DF67B /* StatisticExpensesByCategoriesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E427D065BF004DF67B /* StatisticExpensesByCategoriesScreenViewController.swift */; };
+		DB7486E727D065EA004DF67B /* StatisticExpensesByCategoriesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7486E627D065EA004DF67B /* StatisticExpensesByCategoriesScreenView.swift */; };
 		DB7793BD2810321000150822 /* BalanceAccountColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793BC2810321000150822 /* BalanceAccountColor.swift */; };
 		DB7793BF28106EFE00150822 /* BalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793BE28106EFE00150822 /* BalanceAccountAdapter.swift */; };
 		DB7793C128106FA200150822 /* BalanceAccountColorAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7793C028106FA200150822 /* BalanceAccountColorAdapter.swift */; };
@@ -535,6 +538,11 @@
 		2E0DB4CF27AD77B400A92682 /* TextFilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFilledButton.swift; sourceTree = "<group>"; };
 		2E0DB4D127AD79C800A92682 /* TitleNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddedSnackbarView.swift; sourceTree = "<group>"; };
+		2E0FC1CC283A66B200BF248B /* StatisticMenuScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticMenuScreenViewController.swift; sourceTree = "<group>"; };
+		2E0FC1CE283A66C100BF248B /* StatisticMenuScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticMenuScreenView.swift; sourceTree = "<group>"; };
+		2E0FC1D3283A66D900BF248B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StatisticMenuScreen.strings; sourceTree = "<group>"; };
+		2E0FC1D5283A66DB00BF248B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/StatisticMenuScreen.strings; sourceTree = "<group>"; };
+		2E0FC1D6283A66DD00BF248B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/StatisticMenuScreen.strings; sourceTree = "<group>"; };
 		2E16BA0A27FC81F4000F2466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExpenseAddedSnackbarStrings.strings; sourceTree = "<group>"; };
 		2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishmentSqliteTable.swift; sourceTree = "<group>"; };
 		2E252623281921CC0025D2E9 /* AddingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingReplenishment.swift; sourceTree = "<group>"; };
@@ -613,7 +621,7 @@
 		2EA7066A27B5BA4300FF08B2 /* AddAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenView.swift; sourceTree = "<group>"; };
 		2EA7066C27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountScreenViewController.swift; sourceTree = "<group>"; };
 		2EA7067127B5BA7B00FF08B2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddAccountScreenStrings.strings; sourceTree = "<group>"; };
-		2EA7B24D27ECFFED006C2F13 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StatisticScreenStrings.strings; sourceTree = "<group>"; };
+		2EA7B24D27ECFFED006C2F13 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StatisticExpensesByCategoriesScreenStrings.strings; sourceTree = "<group>"; };
 		2EA8C97C2822B11B00E192B6 /* EditingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTransfer.swift; sourceTree = "<group>"; };
 		2EA8C97F2822C4BA00E192B6 /* EditTransferScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransferScreenViewController.swift; sourceTree = "<group>"; };
 		2EA8C9812822C4D100E192B6 /* EditTransferScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransferScreenView.swift; sourceTree = "<group>"; };
@@ -707,7 +715,7 @@
 		2EC7CA8D280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AddReplenishmentScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CA8E280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/HistoryScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CA8F280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/EditExpenseScreenStrings.strings; sourceTree = "<group>"; };
-		2EC7CA90280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/StatisticScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CA90280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/StatisticExpensesByCategoriesScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CA91280891D800E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/SettingsScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CA92280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/CategoriesListScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CA93280891D900E3DBF6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
@@ -740,7 +748,7 @@
 		2EC7CAAE280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AddReplenishmentScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CAAF280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/HistoryScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CAB0280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/EditExpenseScreenStrings.strings; sourceTree = "<group>"; };
-		2EC7CAB1280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/StatisticScreenStrings.strings; sourceTree = "<group>"; };
+		2EC7CAB1280891E900E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/StatisticExpensesByCategoriesScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CAB2280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/SettingsScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CAB3280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/CategoriesListScreenStrings.strings; sourceTree = "<group>"; };
 		2EC7CAB4280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AddCategoryScreenStrings.strings; sourceTree = "<group>"; };
@@ -909,8 +917,8 @@
 		DB7486BD27CCE38E004DF67B /* MoneyTrackerFiles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerFiles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7486BF27CCE38E004DF67B /* MoneyTrackerFiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerFiles.h; sourceTree = "<group>"; };
 		DB7486C827CCE410004DF67B /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
-		DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticScreenViewController.swift; sourceTree = "<group>"; };
-		DB7486E627D065EA004DF67B /* StatisticScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticScreenView.swift; sourceTree = "<group>"; };
+		DB7486E427D065BF004DF67B /* StatisticExpensesByCategoriesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticExpensesByCategoriesScreenViewController.swift; sourceTree = "<group>"; };
+		DB7486E627D065EA004DF67B /* StatisticExpensesByCategoriesScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticExpensesByCategoriesScreenView.swift; sourceTree = "<group>"; };
 		DB7793BC2810321000150822 /* BalanceAccountColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountColor.swift; sourceTree = "<group>"; };
 		DB7793BE28106EFE00150822 /* BalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountAdapter.swift; sourceTree = "<group>"; };
 		DB7793C028106FA200150822 /* BalanceAccountColorAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceAccountColorAdapter.swift; sourceTree = "<group>"; };
@@ -1103,6 +1111,24 @@
 				2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */,
 			);
 			path = ExpenseAdded;
+			sourceTree = "<group>";
+		};
+		2E0FC1CA283A666400BF248B /* Statistic */ = {
+			isa = PBXGroup;
+			children = (
+				2E0FC1CB283A669300BF248B /* StatisticMenu */,
+			);
+			path = Statistic;
+			sourceTree = "<group>";
+		};
+		2E0FC1CB283A669300BF248B /* StatisticMenu */ = {
+			isa = PBXGroup;
+			children = (
+				2E0FC1CC283A66B200BF248B /* StatisticMenuScreenViewController.swift */,
+				2E0FC1CE283A66C100BF248B /* StatisticMenuScreenView.swift */,
+				2E0FC1D4283A66D900BF248B /* StatisticMenuScreen.strings */,
+			);
+			path = StatisticMenu;
 			sourceTree = "<group>";
 		};
 		2E252622281921B90025D2E9 /* Replenishment */ = {
@@ -1538,7 +1564,8 @@
 				2ED8BD7027E908C90007F60B /* History */,
 				2E2A6ED527EC4F710084054C /* EditExpense */,
 				2E9F46E42821A89100F4E048 /* EditReplenishment */,
-				DB7486E327D0658F004DF67B /* Statistic */,
+				2E0FC1CA283A666400BF248B /* Statistic */,
+				DB7486E327D0658F004DF67B /* StatisticExpensesByCategories */,
 				2ECC0A0D283A2A250056F927 /* BalanceCalculator */,
 				2E9289F927AFF9A7002F3403 /* Settings */,
 				2EC96DE627F609F5009A9AEA /* Categories */,
@@ -2517,16 +2544,16 @@
 			path = Expense;
 			sourceTree = "<group>";
 		};
-		DB7486E327D0658F004DF67B /* Statistic */ = {
+		DB7486E327D0658F004DF67B /* StatisticExpensesByCategories */ = {
 			isa = PBXGroup;
 			children = (
-				DB7486E427D065BF004DF67B /* StatisticScreenViewController.swift */,
-				DB7486E627D065EA004DF67B /* StatisticScreenView.swift */,
-				2EA7B24E27ECFFED006C2F13 /* StatisticScreenStrings.strings */,
+				DB7486E427D065BF004DF67B /* StatisticExpensesByCategoriesScreenViewController.swift */,
+				DB7486E627D065EA004DF67B /* StatisticExpensesByCategoriesScreenView.swift */,
+				2EA7B24E27ECFFED006C2F13 /* StatisticExpensesByCategoriesScreenStrings.strings */,
 				2E01B2BD27EDA85700013321 /* MonthPickerView */,
 				2EBDF92D27ECCF24002B6C9E /* MonthCategoryExpensesTableViewCell */,
 			);
-			path = Statistic;
+			path = StatisticExpensesByCategories;
 			sourceTree = "<group>";
 		};
 		DB7793CE28124C9300150822 /* ExportCSV */ = {
@@ -3044,6 +3071,7 @@
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
 				2ECB218C27DCA9FD006D6558 /* AddExpenseScreenStrings.strings in Resources */,
 				2ED9047927F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings in Resources */,
+				2E0FC1D2283A66D900BF248B /* StatisticMenuScreen.strings in Resources */,
 				2EB8271F2807583900C6377F /* CurrencyCodeStrings.strings in Resources */,
 				DB74864B27BBABB2004DF67B /* TemplatesScreenStrings.strings in Resources */,
 				2E2A6EDA27EC4FBB0084054C /* EditExpenseScreenStrings.strings in Resources */,
@@ -3057,7 +3085,7 @@
 				DB45FAD927E6EFE80073C677 /* EditTemplateScreenStrings.strings in Resources */,
 				2EA8C9852822C4E600E192B6 /* EditTransferScreenStrings.strings in Resources */,
 				2E394F1527FCDDE5002C3052 /* AddReplenishmentScreenStrings.strings in Resources */,
-				2EA7B24C27ECFFED006C2F13 /* StatisticScreenStrings.strings in Resources */,
+				2EA7B24C27ECFFED006C2F13 /* StatisticExpensesByCategoriesScreenStrings.strings in Resources */,
 				2EB8272728075E0100C6377F /* LanguageNameStrings.strings in Resources */,
 				2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */,
 				2EA7067027B5BA7B00FF08B2 /* AddAccountScreenStrings.strings in Resources */,
@@ -3358,7 +3386,7 @@
 				DB40041C280EA697004073D0 /* CategoryColor.swift in Sources */,
 				2ED7E48A2809FADC00B35F02 /* StatusBarScreenViewController.swift in Sources */,
 				2E9F46EA2821ADD300F4E048 /* EditingReplenishment.swift in Sources */,
-				DB7486E727D065EA004DF67B /* StatisticScreenView.swift in Sources */,
+				DB7486E727D065EA004DF67B /* StatisticExpensesByCategoriesScreenView.swift in Sources */,
 				DB400421280EC105004073D0 /* BalanceAccountColorHorizontalPickerColorCellController.swift in Sources */,
 				DB45FAD627E6EFC00073C677 /* EditTemplateScreenView.swift in Sources */,
 				2EDCEBF8281D006E001F3F58 /* HistoryScreenReplenishmentTableViewCellController.swift in Sources */,
@@ -3421,6 +3449,7 @@
 				DBDC930B281FBC9A00D8C435 /* DateHorizontalPickerDateCell.swift in Sources */,
 				DBA0546927FFCE0B00DB3892 /* EditingCategory.swift in Sources */,
 				DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */,
+				2E0FC1CF283A66C100BF248B /* StatisticMenuScreenView.swift in Sources */,
 				DB7BA81227F9831700A3B3BA /* ColorHorizontalPickerController.swift in Sources */,
 				2EB82741280764C900C6377F /* SelectLanguageLanguageTableViewCell.swift in Sources */,
 				2EC22DD428105EBC00530139 /* SelectAppearanceScreenAppearanceTableViewCellController.swift in Sources */,
@@ -3472,6 +3501,7 @@
 				2ECB219327DD276D006D6558 /* InputAmountView.swift in Sources */,
 				DB400426280ECA55004073D0 /* CategoryColorHorizontalPickerColorCellController.swift in Sources */,
 				2E7F8571281D79840013C3DD /* HistoryScreenExpenseTableViewCell.swift in Sources */,
+				2E0FC1CD283A66B200BF248B /* StatisticMenuScreenViewController.swift in Sources */,
 				2EC22DC828105DD700530139 /* SelectAppearanceScreenView.swift in Sources */,
 				2E2A6EDE27EC4FD70084054C /* EditExpenseScreenView.swift in Sources */,
 				2EA7066D27B5BA4F00FF08B2 /* AddAccountScreenViewController.swift in Sources */,
@@ -3498,7 +3528,7 @@
 				DB400416280EA1B5004073D0 /* AccountColorUIColorProvider.swift in Sources */,
 				2E394F1227FCDDD0002C3052 /* AddReplenishmentScreenView.swift in Sources */,
 				DBB7BD2727DC765B004EF5B7 /* BalanceAccountHorizontalPickerController.swift in Sources */,
-				DB7486E527D065BF004DF67B /* StatisticScreenViewController.swift in Sources */,
+				DB7486E527D065BF004DF67B /* StatisticExpensesByCategoriesScreenViewController.swift in Sources */,
 				DB45FAD427E6EFAC0073C677 /* EditTemplateScreenViewController.swift in Sources */,
 				2EA3B732280CA19300E64374 /* AppearanceCollectionViewCell.swift in Sources */,
 				2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */,
@@ -3621,6 +3651,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2E0FC1D4283A66D900BF248B /* StatisticMenuScreen.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E0FC1D3283A66D900BF248B /* en */,
+				2E0FC1D5283A66DB00BF248B /* th */,
+				2E0FC1D6283A66DD00BF248B /* uk */,
+			);
+			name = StatisticMenuScreen.strings;
+			sourceTree = "<group>";
+		};
 		2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3721,14 +3761,14 @@
 			name = AddAccountScreenStrings.strings;
 			sourceTree = "<group>";
 		};
-		2EA7B24E27ECFFED006C2F13 /* StatisticScreenStrings.strings */ = {
+		2EA7B24E27ECFFED006C2F13 /* StatisticExpensesByCategoriesScreenStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2EA7B24D27ECFFED006C2F13 /* en */,
 				2EC7CA90280891D800E3DBF6 /* uk */,
 				2EC7CAB1280891E900E3DBF6 /* th */,
 			);
-			name = StatisticScreenStrings.strings;
+			name = StatisticExpensesByCategoriesScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2EA8C9872822C4E600E192B6 /* EditTransferScreenStrings.strings */ = {

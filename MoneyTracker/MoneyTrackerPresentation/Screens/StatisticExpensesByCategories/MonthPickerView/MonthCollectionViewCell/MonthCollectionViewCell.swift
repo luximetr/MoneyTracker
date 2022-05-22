@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension StatisticScreenViewController {
+extension StatisticExpensesByCategoriesScreenViewController {
 class MonthCollectionViewCell: AppearanceCollectionViewCell {
     
     // MARK: - Subviews

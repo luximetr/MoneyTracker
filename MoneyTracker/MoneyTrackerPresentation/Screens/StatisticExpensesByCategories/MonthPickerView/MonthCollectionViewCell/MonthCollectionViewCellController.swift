@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension StatisticScreenViewController {
+extension StatisticExpensesByCategoriesScreenViewController {
 final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellController {
     
     // MARK: Data

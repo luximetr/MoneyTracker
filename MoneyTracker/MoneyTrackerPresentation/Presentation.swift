@@ -126,10 +126,10 @@ public final class Presentation: AUIWindowPresentation {
         self.dashboardViewController = dashboardViewController
         self.dashboardNavigationController = dashboardNavigationController
         // Statistic
-        let statisticViewController = createStatisticScreen()//createBalanceCalculatorScreenViewController()
+        let statisticViewController = createBalanceCalculatorScreenViewController()//createStatisticScreen()
         let statisticNavigationController = AUINavigationBarHiddenNavigationController()
         statisticNavigationController.viewControllers = [statisticViewController]
-        self.statisticScreen = statisticViewController
+        //self.statisticScreen = statisticViewController
         // Settings
         let settingsViewController = createSettingsScreenViewController()
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
@@ -143,7 +143,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.dashboard()
+        menuViewController.statistic()
     }
     
     // MARK: - Menu Navigation Controller
@@ -628,9 +628,9 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Statistic Screen
     
-    private weak var statisticScreen: StatisticScreenViewController?
-    private func createStatisticScreen() -> StatisticScreenViewController {
-        let viewController = StatisticScreenViewController(appearance: appearance, locale: locale)
+    private weak var statisticScreen: StatisticExpensesByCategoriesScreenViewController?
+    private func createStatisticScreen() -> StatisticExpensesByCategoriesScreenViewController {
+        let viewController = StatisticExpensesByCategoriesScreenViewController(appearance: appearance, locale: locale)
         viewController.monthsClosure = { [weak self] in
             guard let self = self else { return [] }
             let months = (try? self.delegate.presentationExpensesMonths(self)) ?? []

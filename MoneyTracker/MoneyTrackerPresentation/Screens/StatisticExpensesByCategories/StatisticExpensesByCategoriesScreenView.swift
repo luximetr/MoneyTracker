@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import PinLayout
 
-extension StatisticScreenViewController {
+extension StatisticExpensesByCategoriesScreenViewController {
 final class ScreenView: TitleNavigationBarScreenView {
     
     // MARK: - Initializer

@@ -9,7 +9,7 @@ import UIKit
 import AUIKit
 import MoneyTrackerFoundation
 
-final class StatisticScreenViewController: StatusBarScreenViewController {
+final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
@@ -84,7 +84,7 @@ final class StatisticScreenViewController: StatusBarScreenViewController {
     // MARK: Content
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(locale: locale, stringsTableName: "StatisticScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "StatisticExpensesByCategoriesScreenStrings")
         return localizer
     }()
     
