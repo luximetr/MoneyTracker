@@ -39,6 +39,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     private func setupBalanceLabel() {
         balanceLabel.font = appearance.fonts.primary(size: 24, weight: .medium)
         balanceLabel.textColor = appearance.colors.primaryText
+        balanceLabel.adjustsFontSizeToFitWidth = true
+        balanceLabel.minimumScaleFactor = 0.5
     }
     
     private func setupCollectionView() {

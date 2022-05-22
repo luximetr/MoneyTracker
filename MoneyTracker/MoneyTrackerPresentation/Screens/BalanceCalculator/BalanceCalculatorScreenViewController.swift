@@ -24,10 +24,6 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     // MARK: Delegation
     
     var backClosure: (() -> Void)?
-    var addAccountClosure: (() -> Void)?
-    var editAccountClosure: ((Account) -> Void)?
-    var deleteAccountClosure: ((Account) -> Void)?
-    var orderAccountsClosure: (([Account]) -> Void)?
     
     // MARK: View
     
@@ -54,7 +50,9 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     
     private let collectionViewController = AUIEmptyCollectionViewController()
     private let accountsSectionController = AUIEmptyCollectionViewSectionController()
-    private let addAccountSectionController = AUIEmptyCollectionViewSectionController()
+    private var accountsCellControllers: [AccountCollectionViewCellController] {
+        return accountsSectionController.cellControllers.compactMap { $0 as? AccountCollectionViewCellController }
+    }
     
     // MARK: Localizer
     
@@ -141,10 +139,6 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
             self.didSelectAccount(cellController.account)
         }
         return cellController
-    }
-    
-    private var accountsCellControllers: [AccountCollectionViewCellController] {
-        return accountsSectionController.cellControllers.compactMap { $0 as? AccountCollectionViewCellController }
     }
     
 }
