@@ -845,8 +845,7 @@ public final class Presentation: AUIWindowPresentation {
     private weak var settingsScreenViewController: SettingsScreenViewController?
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
         let defaultCurrency = try! delegate.presentationSelectedCurrency(self)
-        let appearanceSetting = try! self.delegate.presentationAppearanceSetting(self)
-        let viewController = SettingsScreenViewController(appearance: appearance, locale: locale, defaultCurrency: defaultCurrency, appearanceSetting: appearanceSetting)
+        let viewController = SettingsScreenViewController(appearance: appearance, locale: locale, defaultCurrency: defaultCurrency, appearanceSetting: self.appearanceSetting)
         viewController.didSelectCategoriesClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
@@ -1013,8 +1012,7 @@ public final class Presentation: AUIWindowPresentation {
     private func pushSelectAppearanceViewController(_ navigationController: UINavigationController) throws {
         do {
             
-            let appearanceSetting = try self.delegate.presentationAppearanceSetting(self)
-            let viewController = SelectAppearanceScreenViewController(appearance: appearance, locale: locale, appearanceSettings: [.light, .dark, .system], selectedAppearanceSetting: appearanceSetting)
+            let viewController = SelectAppearanceScreenViewController(appearance: appearance, locale: locale, appearanceSettings: [.light, .dark, .system], selectedAppearanceSetting: self.appearanceSetting)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)

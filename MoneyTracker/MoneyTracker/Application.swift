@@ -40,13 +40,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             throw Error("Cannot initialize \(String(reflecting: Self.self))")
         }
     }
-        
-    // MARK: - Files
-    
-    private lazy var files: Files = {
-        let files = Files()
-        return files
-    }()
     
     // MARK: - Storage
     
@@ -60,6 +53,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             throw Error("Cannot initialize \(String(reflecting: Storage.self))")
         }
     }
+        
+    // MARK: - Files
+    
+    private lazy var files: Files = {
+        let files = Files()
+        return files
+    }()
     
     // MARK: - Presentation
     
@@ -550,17 +550,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     // MARK: - Appearance
-    
-    func presentationAppearanceSetting(_ presentation: Presentation) throws -> PresentationAppearanceSetting {
-        do {
-            let storageAppearanceSetting = (try storage.getSelectedAppearanceSetting()) ?? .system
-            let appearanceSetting = StorageAppearanceSettingMapper.mapStorageAppearanceSettingToAppearanceSetting(storageAppearanceSetting)
-            let presentationAppearanceSetting = PresentationAppearanceSettingMapper.mapAppearanceSettingToPresentationAppearanceSetting(appearanceSetting)
-            return presentationAppearanceSetting
-        } catch {
-            throw error
-        }
-    }
     
     func presentation(_ presentation: Presentation, selectAppearanceSetting presentationAppearanceSetting: PresentationAppearanceSetting) throws {
         let appearanceSetting = PresentationAppearanceSettingMapper.mapPresentationAppearanceSettingToAppearanceSetting(presentationAppearanceSetting)
