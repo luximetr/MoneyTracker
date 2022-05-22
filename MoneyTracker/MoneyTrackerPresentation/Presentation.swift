@@ -1010,29 +1010,23 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var pushedSelectAppearanceViewController: SelectAppearanceScreenViewController?
     private func pushSelectAppearanceViewController(_ navigationController: UINavigationController) throws {
-        do {
-            
-            let viewController = SelectAppearanceScreenViewController(appearance: appearance, locale: locale, appearanceSettings: [.light, .dark, .system], selectedAppearanceSetting: self.appearanceSetting)
-            viewController.backClosure = { [weak navigationController] in
-                guard let navigationController = navigationController else { return }
-                navigationController.popViewController(animated: true)
-            }
-            viewController.didSelectAppearanceSettingClosure = { [weak self] appearanceSetting in
-                guard let self = self else { return }
-                do {
-                    try self.delegate.presentation(self, selectAppearanceSetting: appearanceSetting)
-                    self.setAppearanceSetting(appearanceSetting)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                    throw error
-                }
-            }
-            self.pushedSelectAppearanceViewController = viewController
-            navigationController.pushViewController(viewController, animated: true)
-        } catch {
-            let error = Error("Cannot push SelectAppearanceViewController\n\(error)")
-            throw error
+        let viewController = SelectAppearanceScreenViewController(appearance: appearance, locale: locale, appearanceSettings: [.light, .dark, .system], selectedAppearanceSetting: self.appearanceSetting)
+        viewController.backClosure = { [weak navigationController] in
+            guard let navigationController = navigationController else { return }
+            navigationController.popViewController(animated: true)
         }
+        viewController.didSelectAppearanceSettingClosure = { [weak self] appearanceSetting in
+            guard let self = self else { return }
+            do {
+                try self.delegate.presentation(self, selectAppearanceSetting: appearanceSetting)
+                self.setAppearanceSetting(appearanceSetting)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+                throw error
+            }
+        }
+        self.pushedSelectAppearanceViewController = viewController
+        navigationController.pushViewController(viewController, animated: true)
     }
     
     // MARK: - Accounts Screen View Controller
@@ -1082,8 +1076,7 @@ public final class Presentation: AUIWindowPresentation {
             pushedAccoutsViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
-            let error = Error("Cannot push AccoutsViewController\n\(error)")
-            throw error
+            throw Error("Cannot push AccoutsViewController\n\(error)")
         }
     }
     
