@@ -10,29 +10,31 @@ import AUIKit
 
 final class BalanceCalculatorScreenViewController: StatusBarScreenViewController {
     
-    // MARK: Data
+    // MARK: - Data
     
     private var accounts: [Account]
+    private var selectedAccounts: [Account]
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
     init(appearance: Appearance, locale: Locale, accounts: [Account]) {
         self.accounts = accounts
+        self.selectedAccounts = accounts
         super.init(appearance: appearance, locale: locale)
     }
     
-    // MARK: Delegation
+    // MARK: - Delegation
     
     var backClosure: (() -> Void)?
     
-    // MARK: View
+    // MARK: - View
     
     override func loadView() {
         view = ScreenView(appearance: appearance)
     }
     
-    private var screenView: ScreenView! {
-        return view as? ScreenView
+    private var screenView: ScreenView {
+        return view as! ScreenView
     }
     
     override func viewDidLoad() {
@@ -46,15 +48,18 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
         collectionViewController.collectionView = screenView.collectionView
     }
     
-    // MARK: Subcomponents
+    // MARK: - Components
     
     private let collectionViewController = AUIEmptyCollectionViewController()
     private let accountsSectionController = AUIEmptyCollectionViewSectionController()
     private var accountsCellControllers: [AccountCollectionViewCellController] {
         return accountsSectionController.cellControllers.compactMap { $0 as? AccountCollectionViewCellController }
     }
+    private func accountsCellController(_ account: Account) -> AccountCollectionViewCellController? {
+        return accountsCellControllers.first(where: { $0.account.id == account.id })
+    }
     
-    // MARK: Localizer
+    // MARK: - Localizer
     
     private lazy var localizer: Localizer = {
         let localizer = Localizer(locale: locale, stringsTableName: "BalanceCalculatorScreenStrings")
@@ -81,12 +86,20 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     }
     
     private func didSelectAccount(_ account: Account) {
-        editAccountClosure?(account)
+        let cellConroller = accountsCellController(account)
+        if let firstIndex = selectedAccounts.firstIndex(of: account) {
+            selectedAccounts.remove(at: firstIndex)
+            cellConroller?.setIsSelected(false)
+        } else {
+            selectedAccounts.append(account)
+            cellConroller?.setIsSelected(true)
+        }
+        setBalanceLabelContent()
     }
     
     private func didDeleteAccount(_ account: Account, cellController: AUICollectionViewCellController) {
-        deleteAccountClosure?(account)
-        collectionViewController.deleteCellController(cellController, completion: nil)
+        //deleteAccountClosure?(account)
+        //collectionViewController.deleteCellController(cellController, completion: nil)
     }
     
     func addAccount(_ account: Account) {
@@ -106,7 +119,28 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("screenTitle")
+        setBalanceLabelContent()
         setCollectionViewControllerContent()
+    }
+    
+    private func setBalanceLabelContent() {
+//        let currenciesAmounts = Dictionary(grouping: expenses, by: { $0.account.currency })
+//        let gg = Dictionary(uniqueKeysWithValues: currenciesAmounts.map({ ($0, $1.map({ $0.amount }).reduce(into: Decimal(), +)) }))
+        var currenciesAmount: [Currency: Decimal] = [:]
+        for account in selectedAccounts {
+            let currency = account.currency
+            let amount = account.amount
+            let currencyAmount = (currenciesAmount[currency] ?? .zero) + amount
+            currenciesAmount[currency] = currencyAmount
+        }
+        var currenciesAmountsStrings: [String] = []
+        let sortedCurrencyAmount = currenciesAmount.sorted(by: { $0.1 > $1.1 })
+        for (currency, amount) in sortedCurrencyAmount {
+            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
+            currenciesAmountsStrings.append(currencyAmountString)
+        }
+        let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
+        screenView.balanceLabel.text = currenciesAmountsStringsJoined
     }
     
     private func setCollectionViewControllerContent() {
@@ -116,14 +150,14 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
             accountCellControllers.append(accountCellController)
         }
         accountsSectionController.cellControllers = accountCellControllers
-        
         let sectionControllers = [accountsSectionController]
         collectionViewController.sectionControllers = sectionControllers
         collectionViewController.reload()
     }
     
     private func createAccountCollectionViewCellController(account: Account) -> AccountCollectionViewCellController {
-        let cellController = AccountCollectionViewCellController(account: account, appearance: appearance)
+        let isSelected = selectedAccounts.contains(account)
+        let cellController = AccountCollectionViewCellController(account: account, appearance: appearance, isSelected: isSelected)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             let accountCollectionViewCell = self.screenView.accountCollectionViewCell(indexPath)

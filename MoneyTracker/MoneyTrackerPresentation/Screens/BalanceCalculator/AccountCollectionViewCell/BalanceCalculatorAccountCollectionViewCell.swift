@@ -13,99 +13,38 @@ final class AccountCollectionViewCell: AppearanceCollectionViewCell {
 
     // MARK: Subviews
     
-    private let _accountView = AccountView(appearance: CompositeAppearance(fonts: DefaultAppearanceFonts(), colors: DarkAppearanceColors(), images: DefaultAppearanceImages()))
-    var accountView: UIView { return _accountView }
-    var nameLabel: UILabel { return _accountView.nameLabel }
-    var balanceLabel: UILabel { return _accountView.balanceLabel }
-    
-    // MARK: Setup
-    
-    override func setup() {
-        super.setup()
-        contentView.addSubview(_accountView)
-        setupContainerView()
-    }
-    
-    private func setupContainerView() {
-        _accountView.layer.shadowColor = UIColor.black.withAlphaComponent(0.35).cgColor
-        _accountView.layer.shadowOpacity = 1
-        _accountView.layer.shadowRadius = 6
-        _accountView.layer.shadowOffset = CGSize(width: 0, height: 4)
-    }
-    
-    // MARK: Layout
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = 10
-        layoutAccountView()
-    }
-    
-    private func layoutAccountView() {
-        let x: CGFloat = 0
-        let y: CGFloat = 0
-        let width = bounds.width
-        let height = bounds.height
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        _accountView.frame = frame
-        _accountView.layer.cornerRadius = 10
-    }
-    
-    override var isHighlighted: Bool {
-        willSet {
-            setNeedsLayout()
-            layoutIfNeeded()
-            if newValue {
-                _accountView.alpha = 0.6
-            } else {
-                _accountView.alpha = 1
-            }
-        }
-    }
-    
-    override func setAppearance(_ appearance: Appearance) {
-        super.setAppearance(appearance)
-        _accountView.changeAppearance(appearance)
-    }
-        
-}
-}
-
-private class AccountView: AppearanceView {
-    
-    // MARK: Subviews
-    
     let nameLabel = UILabel()
     let balanceLabel = UILabel()
+    var color: UIColor?
     
     // MARK: Setup
     
     override func setup() {
         super.setup()
-        addSubview(nameLabel)
+        contentView.layer.shadowColor = UIColor.black.withAlphaComponent(0.35).cgColor
+        contentView.layer.shadowOpacity = 1
+        contentView.layer.shadowRadius = 6
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        contentView.addSubview(nameLabel)
         setupNameLabel()
-        addSubview(balanceLabel)
+        contentView.addSubview(balanceLabel)
         setupBalanceLabel()
     }
     
     private func setupNameLabel() {
-        nameLabel.textColor = appearance.colors.cardPrimaryText
+        nameLabel.textColor = appearance?.colors.cardPrimaryText
     }
     
     private func setupBalanceLabel() {
-        balanceLabel.textColor = appearance.colors.cardPrimaryText
-    }
-    
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
-        nameLabel.textColor = appearance.colors.cardPrimaryText
-        balanceLabel.textColor = appearance.colors.cardPrimaryText
+        balanceLabel.textColor = appearance?.colors.cardPrimaryText
     }
     
     // MARK: Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderWidth = 1
         layoutBalanceLabel()
         layoutNameLabel()
     }
@@ -131,4 +70,44 @@ private class AccountView: AppearanceView {
         nameLabel.frame = frame
     }
     
+    override var isHighlighted: Bool {
+        willSet {
+            if newValue {
+                contentView.alpha = 0.6
+            } else {
+                contentView.alpha = 1
+            }
+        }
+    }
+    
+    var _isSelected: Bool = false
+    func setSelected(_ isSelected: Bool) {
+        guard let color = color else { return }
+        _isSelected = isSelected
+        if _isSelected {
+            nameLabel.textColor = appearance?.colors.cardPrimaryText
+            balanceLabel.textColor = appearance?.colors.cardPrimaryText
+            contentView.backgroundColor = color
+            contentView.layer.shadowColor = UIColor.black.withAlphaComponent(0.35).cgColor
+        } else {
+            nameLabel.textColor = color
+            balanceLabel.textColor = color
+            contentView.backgroundColor = .clear
+            contentView.layer.shadowColor = UIColor.clear.cgColor
+        }
+        contentView.layer.borderColor = color.cgColor
+    }
+    
+    func setColor(_ color: UIColor) {
+        self.color = color
+        setSelected(_isSelected)
+    }
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        nameLabel.textColor = appearance.colors.cardPrimaryText
+        balanceLabel.textColor = appearance.colors.cardPrimaryText
+    }
+        
+}
 }

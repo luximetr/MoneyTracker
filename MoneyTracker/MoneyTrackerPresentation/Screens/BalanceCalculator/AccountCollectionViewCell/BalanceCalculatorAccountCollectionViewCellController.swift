@@ -15,12 +15,14 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         
     private(set) var account: Account
     private(set) var appearance: Appearance
+    private var isSelected: Bool
     
     // MARK: Initializer
         
-    init(account: Account, appearance: Appearance) {
+    init(account: Account, appearance: Appearance, isSelected: Bool) {
         self.account = account
         self.appearance = appearance
+        self.isSelected = isSelected
         super.init()
     }
     
@@ -36,17 +38,20 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         setAppearance(appearance)
     }
     
-    override func unsetupCollectionViewCell() {
-        super.unsetupCollectionViewCell()
-    }
-    
     // MARK: Content
     
+    func setIsSelected(_ isSelected: Bool) {
+        self.isSelected = isSelected
+        accountCollectionViewCell?.setSelected(isSelected)
+    }
+    
     private func setContent() {
+        accountCollectionViewCell?.color = uiColorProvider.getUIColor(accountColor: account.color, appearance: appearance)
+        accountCollectionViewCell?.setSelected(isSelected)
         accountCollectionViewCell?.nameLabel.text = account.name
         accountCollectionViewCell?.balanceLabel.text = "\(account.amount.description) \(account.currency.rawValue)"
-        accountCollectionViewCell?.accountView.setNeedsLayout()
-        accountCollectionViewCell?.accountView.layoutIfNeeded()
+        accountCollectionViewCell?.setNeedsLayout()
+        accountCollectionViewCell?.layoutIfNeeded()
     }
     
     // MARK: - Appearance
@@ -56,7 +61,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
         let accountUIColor = uiColorProvider.getUIColor(accountColor: account.color, appearance: appearance)
-        accountCollectionViewCell?.accountView.backgroundColor = accountUIColor
+        accountCollectionViewCell?.setColor(accountUIColor)
     }
     
     // MARK: Events

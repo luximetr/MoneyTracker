@@ -126,15 +126,15 @@ public final class Presentation: AUIWindowPresentation {
         self.dashboardViewController = dashboardViewController
         self.dashboardNavigationController = dashboardNavigationController
         // Statistic
-        let statisticViewController = createStatisticScreen()
+        let statisticViewController = createStatisticScreen()//createBalanceCalculatorScreenViewController()
         let statisticNavigationController = AUINavigationBarHiddenNavigationController()
         statisticNavigationController.viewControllers = [statisticViewController]
         self.statisticScreen = statisticViewController
         // Settings
-        let settingsViewController = createBalanceCalculatorScreenViewController()//createSettingsScreenViewController()
+        let settingsViewController = createSettingsScreenViewController()
         let settingsNavigationController = AUINavigationBarHiddenNavigationController()
         settingsNavigationController.viewControllers = [settingsViewController]
-        //self.settingsScreenViewController = settingsViewController
+        self.settingsScreenViewController = settingsViewController
         self.settingsNavigationController = settingsNavigationController
         // Menu
         let menuViewController = MenuScreenViewController(appearance: appearance, locale: locale, dashboardScreenViewController: dashboardNavigationController, statisticScreenViewController: statisticNavigationController, settingsScreenViewController: settingsNavigationController)
@@ -143,7 +143,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.settings()//dashboard()
+        menuViewController.dashboard()
     }
     
     // MARK: - Menu Navigation Controller
