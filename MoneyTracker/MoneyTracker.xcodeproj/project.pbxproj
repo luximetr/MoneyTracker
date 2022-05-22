@@ -19,7 +19,8 @@
 		2E0F71ED27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */; };
 		2E0FC1CD283A66B200BF248B /* StatisticMenuScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FC1CC283A66B200BF248B /* StatisticMenuScreenViewController.swift */; };
 		2E0FC1CF283A66C100BF248B /* StatisticMenuScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FC1CE283A66C100BF248B /* StatisticMenuScreenView.swift */; };
-		2E0FC1D2283A66D900BF248B /* StatisticMenuScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E0FC1D4283A66D900BF248B /* StatisticMenuScreen.strings */; };
+		2E0FC1D2283A66D900BF248B /* StatisticMenuScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E0FC1D4283A66D900BF248B /* StatisticMenuScreenStrings.strings */; };
+		2E0FC1D9283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FC1D8283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift */; };
 		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
 		2E25262128191CF70025D2E9 /* ReplenishmentSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */; };
 		2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252623281921CC0025D2E9 /* AddingReplenishment.swift */; };
@@ -540,9 +541,10 @@
 		2E0F71EC27EB8118009E7C28 /* ExpenseAddedSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddedSnackbarView.swift; sourceTree = "<group>"; };
 		2E0FC1CC283A66B200BF248B /* StatisticMenuScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticMenuScreenViewController.swift; sourceTree = "<group>"; };
 		2E0FC1CE283A66C100BF248B /* StatisticMenuScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticMenuScreenView.swift; sourceTree = "<group>"; };
-		2E0FC1D3283A66D900BF248B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StatisticMenuScreen.strings; sourceTree = "<group>"; };
-		2E0FC1D5283A66DB00BF248B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/StatisticMenuScreen.strings; sourceTree = "<group>"; };
-		2E0FC1D6283A66DD00BF248B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/StatisticMenuScreen.strings; sourceTree = "<group>"; };
+		2E0FC1D3283A66D900BF248B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StatisticMenuScreenStrings.strings; sourceTree = "<group>"; };
+		2E0FC1D5283A66DB00BF248B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/StatisticMenuScreenStrings.strings; sourceTree = "<group>"; };
+		2E0FC1D6283A66DD00BF248B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/StatisticMenuScreenStrings.strings; sourceTree = "<group>"; };
+		2E0FC1D8283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticMenuScreenTitleTableViewCell.swift; sourceTree = "<group>"; };
 		2E16BA0A27FC81F4000F2466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExpenseAddedSnackbarStrings.strings; sourceTree = "<group>"; };
 		2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishmentSqliteTable.swift; sourceTree = "<group>"; };
 		2E252623281921CC0025D2E9 /* AddingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingReplenishment.swift; sourceTree = "<group>"; };
@@ -1117,6 +1119,8 @@
 			isa = PBXGroup;
 			children = (
 				2E0FC1CB283A669300BF248B /* StatisticMenu */,
+				DB7486E327D0658F004DF67B /* StatisticExpensesByCategories */,
+				2ECC0A0D283A2A250056F927 /* BalanceCalculator */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -1126,9 +1130,18 @@
 			children = (
 				2E0FC1CC283A66B200BF248B /* StatisticMenuScreenViewController.swift */,
 				2E0FC1CE283A66C100BF248B /* StatisticMenuScreenView.swift */,
-				2E0FC1D4283A66D900BF248B /* StatisticMenuScreen.strings */,
+				2E0FC1D4283A66D900BF248B /* StatisticMenuScreenStrings.strings */,
+				2E0FC1D7283A67F600BF248B /* TitleTableViewCell */,
 			);
 			path = StatisticMenu;
+			sourceTree = "<group>";
+		};
+		2E0FC1D7283A67F600BF248B /* TitleTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2E0FC1D8283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift */,
+			);
+			path = TitleTableViewCell;
 			sourceTree = "<group>";
 		};
 		2E252622281921B90025D2E9 /* Replenishment */ = {
@@ -1565,8 +1578,6 @@
 				2E2A6ED527EC4F710084054C /* EditExpense */,
 				2E9F46E42821A89100F4E048 /* EditReplenishment */,
 				2E0FC1CA283A666400BF248B /* Statistic */,
-				DB7486E327D0658F004DF67B /* StatisticExpensesByCategories */,
-				2ECC0A0D283A2A250056F927 /* BalanceCalculator */,
 				2E9289F927AFF9A7002F3403 /* Settings */,
 				2EC96DE627F609F5009A9AEA /* Categories */,
 				2EC96DE727F60A53009A9AEA /* Accounts */,
@@ -3071,7 +3082,7 @@
 				2E928A0027AFF9F6002F3403 /* SettingsScreenStrings.strings in Resources */,
 				2ECB218C27DCA9FD006D6558 /* AddExpenseScreenStrings.strings in Resources */,
 				2ED9047927F8707C0091FCA5 /* DashboardCategoryPickerStrings.strings in Resources */,
-				2E0FC1D2283A66D900BF248B /* StatisticMenuScreen.strings in Resources */,
+				2E0FC1D2283A66D900BF248B /* StatisticMenuScreenStrings.strings in Resources */,
 				2EB8271F2807583900C6377F /* CurrencyCodeStrings.strings in Resources */,
 				DB74864B27BBABB2004DF67B /* TemplatesScreenStrings.strings in Resources */,
 				2E2A6EDA27EC4FBB0084054C /* EditExpenseScreenStrings.strings in Resources */,
@@ -3328,6 +3339,7 @@
 				2EB82735280761CA00C6377F /* SelectLanguageScreenViewController.swift in Sources */,
 				2E98FF5127EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift in Sources */,
 				2EC22DDA2810654900530139 /* AppearanceSettingNameLocalizer.swift in Sources */,
+				2E0FC1D9283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift in Sources */,
 				2E01B2C127EDA8DF00013321 /* MonthPickerViewController.swift in Sources */,
 				DB400414280EA0DF004073D0 /* AccountColor.swift in Sources */,
 				DBA0546527FD6F0300DB3892 /* DashboardCategoryPickerCategoryCellController.swift in Sources */,
@@ -3651,14 +3663,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2E0FC1D4283A66D900BF248B /* StatisticMenuScreen.strings */ = {
+		2E0FC1D4283A66D900BF248B /* StatisticMenuScreenStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2E0FC1D3283A66D900BF248B /* en */,
 				2E0FC1D5283A66DB00BF248B /* th */,
 				2E0FC1D6283A66DD00BF248B /* uk */,
 			);
-			name = StatisticMenuScreen.strings;
+			name = StatisticMenuScreenStrings.strings;
 			sourceTree = "<group>";
 		};
 		2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */ = {

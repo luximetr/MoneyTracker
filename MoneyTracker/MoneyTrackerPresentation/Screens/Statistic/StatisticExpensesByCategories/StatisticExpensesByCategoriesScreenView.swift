@@ -10,7 +10,7 @@ import AUIKit
 import PinLayout
 
 extension StatisticExpensesByCategoriesScreenViewController {
-final class ScreenView: TitleNavigationBarScreenView {
+final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Initializer
     

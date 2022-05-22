@@ -18,6 +18,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     private var expenses: [Expense] = []
     var monthsClosure: (() -> [Date])?
     var expensesClosure: ((Date) -> [Expense])?
+    var backClosure: (() -> Void)?
     
     override init(appearance: Appearance, locale: Locale) {
         monthPickerViewConroller = MonthPickerViewController(locale: locale)
@@ -70,6 +71,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         super.viewDidLoad()
         loadData()
         setContent()
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
         monthPickerViewConroller.monthPickerView = screenView.monthPickerView
         monthPickerViewConroller.didSelectMonthClosure = { [weak self] month in
             guard let self = self else { return }
@@ -104,6 +106,10 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     }
     
     // MARK: Events
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
     
     private func didSelectMonth(_ month: Date) {
         selectedMonth = month
