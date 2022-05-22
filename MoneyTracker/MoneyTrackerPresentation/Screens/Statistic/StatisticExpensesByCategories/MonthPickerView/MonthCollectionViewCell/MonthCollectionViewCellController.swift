@@ -31,10 +31,6 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
         super.init()
     }
     
-    deinit {
-        print("gfgfgfg")
-    }
-    
     // MARK: MonthCollectionViewCell
     
     var monthCollectionViewCell: MonthCollectionViewCell? {

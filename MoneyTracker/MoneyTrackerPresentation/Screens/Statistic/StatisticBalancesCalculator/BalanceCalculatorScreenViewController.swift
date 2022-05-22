@@ -183,8 +183,9 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
             let size = self.screenView.accountCollectionViewCellSize()
             return size
         }
-        cellController.didSelectClosure = { [weak self] in
+        cellController.didSelectClosure = { [weak self, weak cellController] in
             guard let self = self else { return }
+            guard let cellController = cellController else { return }
             self.didSelectAccount(cellController.account)
         }
         return cellController
