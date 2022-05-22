@@ -118,8 +118,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationCategories = storageCategories.map { CategoryAdapter().adaptToPresentation(storageCategory: $0) }
             return presentationCategories
         } catch {
-            let error = Error("Cannot get categories\n\(error)")
-            throw error
+            throw Error("Cannot get categories\n\(error)")
         }
     }
     
@@ -130,8 +129,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationAddedCategory = CategoryAdapter().adaptToPresentation(storageCategory: storageAddedCategory)
             return presentationAddedCategory
         } catch {
-            let error = Error("Cannot add category \(addingCategory)\n\(error)")
-            throw error
+            throw Error("Cannot add category \(addingCategory)\n\(error)")
         }
     }
     
@@ -140,8 +138,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let storageCategory = CategoryAdapter().adaptToStorage(presentationCategory: category)
             try storage.removeCategory(id: storageCategory.id)
         } catch {
-            let error = Error("Cannot delete category \(category)\n\(error)")
-            throw error
+            throw Error("Cannot delete category \(category)\n\(error)")
         }
     }
     
@@ -153,8 +150,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationCategory = CategoryAdapter().adaptToPresentation(storageCategory: storageEditedCategory)
             return presentationCategory
         } catch {
-            let error = Error("Cannot edit category \(presentationEditingCategory)\n\(error)")
-            throw error
+            throw Error("Cannot edit category \(presentationEditingCategory)\n\(error)")
         }
     }
     
@@ -164,8 +160,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let storageCategories = presentationCategories.map({ categoryAdapter.adaptToStorage(presentationCategory: $0) })
             try storage.saveCategoriesOrder(orderedIds: storageCategories.map({ $0.id }))
         } catch {
-            let error = Error("Cannot order categories \(presentationCategories)\n\(error)")
-            throw error
+            throw Error("Cannot order categories \(presentationCategories)\n\(error)")
         }
     }
     
@@ -178,8 +173,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationAccounts = storageAccounts.map({ accountAdapter.adaptToPresentation(storageAccount: $0) })
             return presentationAccounts
         } catch {
-            let error = Error("Cannot get accounts\n\(error)")
-            throw error
+            throw Error("Cannot get accounts\n\(error)")
         }
     }
     
@@ -190,8 +184,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let addedPresentationAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: addedStorageAccount)
             return addedPresentationAccount
         } catch {
-            let error = Error("Cannot add account \(addingAccount)\n\(error)")
-            throw error
+            throw Error("Cannot add account \(addingAccount)\n\(error)")
         }
     }
     
@@ -199,8 +192,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             try storage.removeBalanceAccount(id: deletingAccount.id)
         } catch {
-            let error = Error("Cannot delete account \(deletingAccount)\n\(error)")
-            throw error
+            throw Error("Cannot delete account \(deletingAccount)\n\(error)")
         }
     }
 
@@ -210,8 +202,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let storageCategories = presentationBalanceAccounts.map({ balanceAccountAdapter.adaptToStorage(presentationAccount: $0) })
             try storage.saveBalanceAccountOrder(orderedIds: storageCategories.map({ $0.id }))
         } catch {
-            let error = Error("Cannot order accounts \(presentationBalanceAccounts)\n\(error)")
-            throw error
+            throw Error("Cannot order accounts \(presentationBalanceAccounts)\n\(error)")
         }
     }
     
@@ -222,8 +213,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let editedPresentationAccount = BalanceAccountAdapter().adaptToPresentation(storageAccount: editedStorageAccount)
             return editedPresentationAccount
         } catch {
-            let error = Error("Cannot edit account \(editingAccount)\n\(error)")
-            throw error
+            throw Error("Cannot edit account \(editingAccount)\n\(error)")
         }
     }
     
@@ -244,8 +234,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             self.selectedCurrency = selectedCurrency
             return adapter.adaptToPresentation(storageCurrency: selectedCurrency)
         } catch {
-            let error = Error("Cannot get selected currency\n\(error)")
-            throw error
+            throw Error("Cannot get selected currency\n\(error)")
         }
     }
     
@@ -268,8 +257,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             }
             return presentationExpenses.reversed()
         } catch {
-            let error = Error("Cannot get expenses for day \(day)(\n\(error)")
-            throw error
+            throw Error("Cannot get expenses for day \(day)(\n\(error)")
         }
     }
     
@@ -282,8 +270,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let months = monthsExpenses.keys.sorted(by: <)
             return months
         } catch {
-            let error = Error("Cannot expenses months(\n\(error)")
-            throw error
+            throw Error("Cannot expenses months(\n\(error)")
         }
     }
     
@@ -297,8 +284,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             }
             return presentationExpenses
         } catch {
-            let error = Error("Cannot get expenses for month \(month)\n\(error)")
-            throw error
+            throw Error("Cannot get expenses for month \(month)\n\(error)")
         }
     }
     
@@ -312,8 +298,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             }
             return presentationExpenses.reversed()
         } catch {
-            let error = Error("Cannot get expenses\n\(error)")
-            throw error
+            throw Error("Cannot get expenses\n\(error)")
         }
     }
     
@@ -324,8 +309,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationExpense = try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: storageAddedExpense)
             return presentationExpense
         } catch {
-            let error = Error("Cannot add expense \(presentationAddingExpense)\n\(error)")
-            throw error
+            throw Error("Cannot add expense \(presentationAddingExpense)\n\(error)")
         }
     }
     
@@ -340,8 +324,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             }
             return editingExpense
         } catch {
-            let error = Error("Cannot edit expense \(editingExpense)\n\(error)")
-            throw error
+            throw Error("Cannot edit expense \(editingExpense)\n\(error)")
         }
     }
     
@@ -362,8 +345,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             }
             return presentationTemplates
         } catch {
-            let error = Error("Cannot get expense templates\n\(error)")
-            throw error
+            throw Error("Cannot get expense templates\n\(error)")
         }
     }
     
@@ -376,8 +358,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let template = templateAdapter.adaptToPresentation(storageExpenseTemplate: storageTemplate, presentationBalanceAccount: addingExpenseTemplate.balanceAccount, presentationCategory: addingExpenseTemplate.category)
             return template
         } catch {
-            let error = Error("Cannot add expense template \(addingExpenseTemplate)\n\(error)")
-            throw error
+            throw Error("Cannot add expense template \(addingExpenseTemplate)\n\(error)")
         }
     }
     
@@ -389,8 +370,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let updatedTemplate = try fetchPresentationExpenseTemplate(id: storageEditingTemplate.id)
             return updatedTemplate
         } catch {
-            let error = Error("Cannot add expense template \(editingExpenseTemplate)\n\(error)")
-            throw error
+            throw Error("Cannot add expense template \(editingExpenseTemplate)\n\(error)")
         }
     }
     
@@ -409,8 +389,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let orderedIds = reorderExpenseTemplates.map { $0.id }
             try storage.saveExpenseTemplatesOrder(orderedIds: orderedIds)
         } catch {
-            let error = Error("Cannot reorder expense templates\n\(error)")
-            throw error
+            throw Error("Cannot reorder expense templates\n\(error)")
         }
     }
     
@@ -418,8 +397,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             try storage.removeExpenseTemplate(expenseTemplateId: expenseTemplate.id)
         } catch {
-            let error = Error("Cannot delete expense template \(expenseTemplate)\n\(error)")
-            throw error
+            throw Error("Cannot delete expense template \(expenseTemplate)\n\(error)")
         }
     }
     
@@ -503,8 +481,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationBalanceTransfer = PresentationTransfer(id: storageBalanceTransfer.id, fromAccount: presentationAddingTransfer.fromAccount, toAccount: presentationAddingTransfer.toAccount, day: presentationAddingTransfer.timestamp, fromAmount: presentationAddingTransfer.fromAmount, toAmount: presentationAddingTransfer.toAmount, comment: presentationAddingTransfer.comment)
             return presentationBalanceTransfer
         } catch {
-            let error = Error("Cannot add presentation transfer \(presentationAddingTransfer)\n\(error)")
-            throw error
+            throw Error("Cannot add presentation transfer \(presentationAddingTransfer)\n\(error)")
         }
     }
     
@@ -521,8 +498,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationTopUpAccount = PresentationTopUpAccount(id: storageBalanceTransfer.id, timestamp: presentationAddingTopUpAccount.timestamp, account: presentationAddingTopUpAccount.account, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
             return presentationTopUpAccount
         } catch {
-            let error = Error("Cannot add presentation top up account \(presentationAddingTopUpAccount)\n\(error)")
-            throw error
+            throw Error("Cannot add presentation top up account \(presentationAddingTopUpAccount)\n\(error)")
         }
     }
     
