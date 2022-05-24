@@ -780,6 +780,9 @@ public class Storage {
                 }
                 importedOperations = addImportingOperations(uniqueImportingOperations, accounts: allBalanceAccounts, categories: allCategories)
             }
+            for importedBalanceAccount in importedBalanceAccounts {
+                try sqliteDatabase.balanceAccountTable.updateWhereId(importedBalanceAccount.id, amount: Int64(try (importedBalanceAccount.amount * Decimal(100)).int()))
+            }
             try sqliteDatabase.commitTransaction()
             
             let importedFile = ImportedExpensesFile(

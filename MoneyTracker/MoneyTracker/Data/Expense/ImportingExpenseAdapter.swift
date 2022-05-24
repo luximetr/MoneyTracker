@@ -18,8 +18,8 @@ class ImportingExpenseAdapter {
             timestamp: filesImportingOperation.date,
             balanceAccountName: filesImportingOperation.from,
             categoryName: filesImportingOperation.to,
-            amount: filesImportingOperation.amount,
-            currency: filesImportingOperation.currency,
+            amount: filesImportingOperation.fromAmount,
+            currency: filesImportingOperation.fromCurrency,
             comment: filesImportingOperation.comment
         )
     }

@@ -158,6 +158,22 @@ class BalanceAccountSqliteTable: CustomDebugStringConvertible {
         }
     }
     
+    func updateWhereId(_ id: String, amount: Int64) throws {
+        do {
+            let statement =
+                """
+                UPDATE balance_account SET amount = ? WHERE id = ?;
+                """
+            let preparedStatement = try sqlite3PrepareV2(databaseConnection, statement)
+            try sqlite3BindInt64(preparedStatement, 1, amount)
+            try sqlite3BindText(preparedStatement, 2, id)
+            try sqlite3StepDone(preparedStatement)
+            try sqlite3Finalize(preparedStatement)
+        } catch {
+            throw error
+        }
+    }
+    
     // MARK: - DELETE
     
     func deleteWhereId(_ id: String) throws {

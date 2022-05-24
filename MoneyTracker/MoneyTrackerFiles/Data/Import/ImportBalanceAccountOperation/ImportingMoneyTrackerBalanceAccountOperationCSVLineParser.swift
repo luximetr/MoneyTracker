@@ -22,9 +22,11 @@ class ImportingMoneyTrackerBalanceAccountOperationCSVLineParser {
             date: date,
             operationType: operationType,
             from: from ?? "",
+            fromAmount: amount,
+            fromCurrency: currency ?? "",
             to: to ?? "",
-            amount: amount,
-            currency: currency ?? "",
+            toAmount: amount,
+            toCurrency: currency ?? "",
             comment: comment ?? ""
         )
     }
