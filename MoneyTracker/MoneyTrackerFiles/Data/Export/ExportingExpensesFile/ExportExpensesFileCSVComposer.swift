@@ -15,7 +15,7 @@ class ExportExpensesFileCSVComposer {
     
     // MARK: - Dependencies
     
-    private let expenseCSVComposer = ExportExpenseCSVComposer()
+    private let expenseCSVComposer = ExportingExpenseCSVComposer()
     private let balanceAccountCSVComposer = ExportBalanceAccountCSVComposer()
     private let categoryCSVComposer = ExportCategoryCSVComposer()
     

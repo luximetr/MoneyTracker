@@ -1,5 +1,5 @@
 //
-//  ExportExpenseCSVComposer.swift
+//  ExportingExpenseCSVComposer.swift
 //  MoneyTrackerFiles
 //
 //  Created by Oleksandr Orlov on 25.03.2022.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-class ExportExpenseCSVComposer {
+class ExportingExpenseCSVComposer {
     
     private let linesSeparator = "\n"
     private let columnsSeparator = ","
     
-    func composeCSV(expenses: [ExportExpense]) -> String? {
+    func composeCSV(expenses: [ExportingExpense]) -> String? {
         guard expenses.isNonEmpty else { return nil }
         let headerLine = composeCSVHeaderLine()
         let expensesLines = expenses.map { composeCSVLine(expense: $0) }
@@ -33,7 +33,7 @@ class ExportExpenseCSVComposer {
         return components.joined(separator: columnsSeparator)
     }
     
-    private func composeCSVLine(expense: ExportExpense) -> String {
+    private func composeCSVLine(expense: ExportingExpense) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateString = dateFormatter.string(from: expense.date)

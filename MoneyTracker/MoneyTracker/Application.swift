@@ -433,7 +433,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let expensesAdapter = ExportExpenseAdapter()
         let storageExpenses = try storage.getAllExpenses()
 //        let operations = try storage.getOperations()
-        let filesExpenses = storageExpenses.compactMap { storageExpense -> FilesExportExpense? in
+        let filesExpenses = storageExpenses.compactMap { storageExpense -> FilesExportingExpense? in
             guard let category = filesCategories.first(where: { $0.id == storageExpense.categoryId }) else { return nil }
             guard let account = filesBalanceAccounts.first(where: { $0.id == storageExpense.balanceAccountId }) else { return nil }
             return expensesAdapter.adaptToFiles(storageExpense: storageExpense, balanceAccount: account, category: category)

@@ -10,12 +10,12 @@ import Foundation
 public struct ExportExpensesFile {
     public let balanceAccounts: [ExportBalanceAccount]
     public let categories: [ExportCategory]
-    public let expenses: [ExportExpense]
+    public let expenses: [ExportingExpense]
     
     public init(
         balanceAccounts: [ExportBalanceAccount],
         categories: [ExportCategory],
-        expenses: [ExportExpense]
+        expenses: [ExportingExpense]
     ) {
         self.balanceAccounts = balanceAccounts
         self.categories = categories

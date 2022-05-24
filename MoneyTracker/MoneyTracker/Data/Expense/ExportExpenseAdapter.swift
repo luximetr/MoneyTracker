@@ -8,7 +8,7 @@
 import Foundation
 import MoneyTrackerFiles
 
-typealias FilesExportExpense = MoneyTrackerFiles.ExportExpense
+typealias FilesExportingExpense = MoneyTrackerFiles.ExportingExpense
 
 class ExportExpenseAdapter {
     
@@ -16,8 +16,8 @@ class ExportExpenseAdapter {
         storageExpense: StorageExpense,
         balanceAccount: FilesExportBalanceAccount,
         category: FilesExportCategory
-    ) -> FilesExportExpense {
-        return FilesExportExpense(
+    ) -> FilesExportingExpense {
+        return FilesExportingExpense(
             id: storageExpense.id,
             amount: storageExpense.amount,
             date: storageExpense.date,

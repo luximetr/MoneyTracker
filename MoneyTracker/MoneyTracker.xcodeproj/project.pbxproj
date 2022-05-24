@@ -245,8 +245,8 @@
 		2EFCCE40283431F700E1F85F /* SystemAppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3F283431F700E1F85F /* SystemAppearanceFonts.swift */; };
 		2EFCCE4328343C0900E1F85F /* AppearanceColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE4228343C0900E1F85F /* AppearanceColors.swift */; };
 		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
-		DB26119A283D1E9B003F21AF /* ExportExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB261198283D1E9B003F21AF /* ExportExpense.swift */; };
-		DB26119B283D1E9B003F21AF /* ExportExpenseCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB261199283D1E9B003F21AF /* ExportExpenseCSVComposer.swift */; };
+		DB26119A283D1E9B003F21AF /* ExportingExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB261198283D1E9B003F21AF /* ExportingExpense.swift */; };
+		DB26119B283D1E9B003F21AF /* ExportingExpenseCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB261199283D1E9B003F21AF /* ExportingExpenseCSVComposer.swift */; };
 		DB400412280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400411280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift */; };
 		DB400414280EA0DF004073D0 /* AccountColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400413280EA0DF004073D0 /* AccountColor.swift */; };
 		DB400416280EA1B5004073D0 /* AccountColorUIColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400415280EA1B5004073D0 /* AccountColorUIColorProvider.swift */; };
@@ -830,8 +830,8 @@
 		91DB6CD061BC073A2D2C4504 /* Pods-MoneyTrackerStorage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerStorage.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerStorage/Pods-MoneyTrackerStorage.debug.xcconfig"; sourceTree = "<group>"; };
 		920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.release.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.release.xcconfig"; sourceTree = "<group>"; };
 		B5FBC1001C9260CDC0F2D88C /* Pods-MoneyTrackerStorage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerStorage.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerStorage/Pods-MoneyTrackerStorage.release.xcconfig"; sourceTree = "<group>"; };
-		DB261198283D1E9B003F21AF /* ExportExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportExpense.swift; sourceTree = "<group>"; };
-		DB261199283D1E9B003F21AF /* ExportExpenseCSVComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportExpenseCSVComposer.swift; sourceTree = "<group>"; };
+		DB261198283D1E9B003F21AF /* ExportingExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportingExpense.swift; sourceTree = "<group>"; };
+		DB261199283D1E9B003F21AF /* ExportingExpenseCSVComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportingExpenseCSVComposer.swift; sourceTree = "<group>"; };
 		DB400411280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackTitleRightButtonNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		DB400413280EA0DF004073D0 /* AccountColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountColor.swift; sourceTree = "<group>"; };
 		DB400415280EA1B5004073D0 /* AccountColorUIColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountColorUIColorProvider.swift; sourceTree = "<group>"; };
@@ -2284,8 +2284,8 @@
 		DB261197283D1E9B003F21AF /* ExportingExpense */ = {
 			isa = PBXGroup;
 			children = (
-				DB261198283D1E9B003F21AF /* ExportExpense.swift */,
-				DB261199283D1E9B003F21AF /* ExportExpenseCSVComposer.swift */,
+				DB261198283D1E9B003F21AF /* ExportingExpense.swift */,
+				DB261199283D1E9B003F21AF /* ExportingExpenseCSVComposer.swift */,
 			);
 			path = ExportingExpense;
 			sourceTree = "<group>";
@@ -3558,11 +3558,11 @@
 				DB62AEE327EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift in Sources */,
 				DB62AEC427EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift in Sources */,
 				DB62AEEF27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift in Sources */,
-				DB26119B283D1E9B003F21AF /* ExportExpenseCSVComposer.swift in Sources */,
+				DB26119B283D1E9B003F21AF /* ExportingExpenseCSVComposer.swift in Sources */,
 				DB62AEC627EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift in Sources */,
 				DB62AED927EEA21800F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB62AEDB27EEA23300F8CA55 /* ImportingBalanceAccountOperation.swift in Sources */,
-				DB26119A283D1E9B003F21AF /* ExportExpense.swift in Sources */,
+				DB26119A283D1E9B003F21AF /* ExportingExpense.swift in Sources */,
 				DB62AEE527EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift in Sources */,
 				DB7486C927CCE410004DF67B /* Files.swift in Sources */,
 				DB62AEED27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift in Sources */,
