@@ -245,6 +245,8 @@
 		2EFCCE40283431F700E1F85F /* SystemAppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3F283431F700E1F85F /* SystemAppearanceFonts.swift */; };
 		2EFCCE4328343C0900E1F85F /* AppearanceColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE4228343C0900E1F85F /* AppearanceColors.swift */; };
 		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
+		DB26119A283D1E9B003F21AF /* ExportExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB261198283D1E9B003F21AF /* ExportExpense.swift */; };
+		DB26119B283D1E9B003F21AF /* ExportExpenseCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB261199283D1E9B003F21AF /* ExportExpenseCSVComposer.swift */; };
 		DB400412280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400411280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift */; };
 		DB400414280EA0DF004073D0 /* AccountColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400413280EA0DF004073D0 /* AccountColor.swift */; };
 		DB400416280EA1B5004073D0 /* AccountColorUIColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400415280EA1B5004073D0 /* AccountColorUIColorProvider.swift */; };
@@ -271,12 +273,10 @@
 		DB62AEB227EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEB127EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift */; };
 		DB62AEBA27EDB98100F8CA55 /* ExportBalanceAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEB927EDB98100F8CA55 /* ExportBalanceAccount.swift */; };
 		DB62AEBC27EDC94F00F8CA55 /* ExportCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEBB27EDC94F00F8CA55 /* ExportCategory.swift */; };
-		DB62AEBE27EDC97F00F8CA55 /* ExportExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEBD27EDC97F00F8CA55 /* ExportExpense.swift */; };
 		DB62AEC027EDCA8600F8CA55 /* ExportExpensesFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEBF27EDCA8600F8CA55 /* ExportExpensesFile.swift */; };
 		DB62AEC227EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC127EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift */; };
 		DB62AEC427EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC327EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift */; };
 		DB62AEC627EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC527EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift */; };
-		DB62AEC827EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC727EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift */; };
 		DB62AECA27EDD2FA00F8CA55 /* ExportCategoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */; };
 		DB62AECC27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */; };
 		DB62AECE27EDEA8200F8CA55 /* ExportExpenseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */; };
@@ -830,6 +830,8 @@
 		91DB6CD061BC073A2D2C4504 /* Pods-MoneyTrackerStorage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerStorage.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerStorage/Pods-MoneyTrackerStorage.debug.xcconfig"; sourceTree = "<group>"; };
 		920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.release.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.release.xcconfig"; sourceTree = "<group>"; };
 		B5FBC1001C9260CDC0F2D88C /* Pods-MoneyTrackerStorage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerStorage.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerStorage/Pods-MoneyTrackerStorage.release.xcconfig"; sourceTree = "<group>"; };
+		DB261198283D1E9B003F21AF /* ExportExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportExpense.swift; sourceTree = "<group>"; };
+		DB261199283D1E9B003F21AF /* ExportExpenseCSVComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportExpenseCSVComposer.swift; sourceTree = "<group>"; };
 		DB400411280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackTitleRightButtonNavigationBarScreenView.swift; sourceTree = "<group>"; };
 		DB400413280EA0DF004073D0 /* AccountColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountColor.swift; sourceTree = "<group>"; };
 		DB400415280EA1B5004073D0 /* AccountColorUIColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountColorUIColorProvider.swift; sourceTree = "<group>"; };
@@ -856,12 +858,10 @@
 		DB62AEB127EB2F9400F8CA55 /* DashboardTemplateCollectionCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTemplateCollectionCellController.swift; sourceTree = "<group>"; };
 		DB62AEB927EDB98100F8CA55 /* ExportBalanceAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBalanceAccount.swift; sourceTree = "<group>"; };
 		DB62AEBB27EDC94F00F8CA55 /* ExportCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCategory.swift; sourceTree = "<group>"; };
-		DB62AEBD27EDC97F00F8CA55 /* ExportExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpense.swift; sourceTree = "<group>"; };
 		DB62AEBF27EDCA8600F8CA55 /* ExportExpensesFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpensesFile.swift; sourceTree = "<group>"; };
 		DB62AEC127EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpensesFileCSVComposer.swift; sourceTree = "<group>"; };
 		DB62AEC327EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCategoryCSVComposer.swift; sourceTree = "<group>"; };
 		DB62AEC527EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBalanceAccountCSVComposer.swift; sourceTree = "<group>"; };
-		DB62AEC727EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpenseCSVComposer.swift; sourceTree = "<group>"; };
 		DB62AEC927EDD2FA00F8CA55 /* ExportCategoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCategoryAdapter.swift; sourceTree = "<group>"; };
 		DB62AECB27EDE8CF00F8CA55 /* ExportBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBalanceAccountAdapter.swift; sourceTree = "<group>"; };
 		DB62AECD27EDEA8200F8CA55 /* ExportExpenseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportExpenseAdapter.swift; sourceTree = "<group>"; };
@@ -2267,6 +2267,29 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DB261194283D1DD5003F21AF /* ExportingTransfer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExportingTransfer;
+			sourceTree = "<group>";
+		};
+		DB261196283D1E1B003F21AF /* ExportingOperation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExportingOperation;
+			sourceTree = "<group>";
+		};
+		DB261197283D1E9B003F21AF /* ExportingExpense */ = {
+			isa = PBXGroup;
+			children = (
+				DB261198283D1E9B003F21AF /* ExportExpense.swift */,
+				DB261199283D1E9B003F21AF /* ExportExpenseCSVComposer.swift */,
+			);
+			path = ExportingExpense;
+			sourceTree = "<group>";
+		};
 		DB400410280E4A17004073D0 /* BackTitleRightButtonNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2322,40 +2345,31 @@
 			path = ExpenseTemplate;
 			sourceTree = "<group>";
 		};
-		DB62AEB327EDB92600F8CA55 /* ExportExpensesFile */ = {
+		DB62AEB327EDB92600F8CA55 /* ExportingExpensesFile */ = {
 			isa = PBXGroup;
 			children = (
 				DB62AEBF27EDCA8600F8CA55 /* ExportExpensesFile.swift */,
 				DB62AEC127EDCAAF00F8CA55 /* ExportExpensesFileCSVComposer.swift */,
 			);
-			path = ExportExpensesFile;
+			path = ExportingExpensesFile;
 			sourceTree = "<group>";
 		};
-		DB62AEB627EDB95400F8CA55 /* ExportExpense */ = {
-			isa = PBXGroup;
-			children = (
-				DB62AEBD27EDC97F00F8CA55 /* ExportExpense.swift */,
-				DB62AEC727EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift */,
-			);
-			path = ExportExpense;
-			sourceTree = "<group>";
-		};
-		DB62AEB727EDB96C00F8CA55 /* ExportCategory */ = {
+		DB62AEB727EDB96C00F8CA55 /* ExportingCategory */ = {
 			isa = PBXGroup;
 			children = (
 				DB62AEBB27EDC94F00F8CA55 /* ExportCategory.swift */,
 				DB62AEC327EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift */,
 			);
-			path = ExportCategory;
+			path = ExportingCategory;
 			sourceTree = "<group>";
 		};
-		DB62AEB827EDB97300F8CA55 /* ExportBalanceAccount */ = {
+		DB62AEB827EDB97300F8CA55 /* ExportingBalanceAccount */ = {
 			isa = PBXGroup;
 			children = (
 				DB62AEB927EDB98100F8CA55 /* ExportBalanceAccount.swift */,
 				DB62AEC527EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift */,
 			);
-			path = ExportBalanceAccount;
+			path = ExportingBalanceAccount;
 			sourceTree = "<group>";
 		};
 		DB62AECF27EDFE0400F8CA55 /* ImportExpensesFile */ = {
@@ -2403,10 +2417,13 @@
 		DB62AED427EDFE2D00F8CA55 /* Export */ = {
 			isa = PBXGroup;
 			children = (
-				DB62AEB327EDB92600F8CA55 /* ExportExpensesFile */,
-				DB62AEB827EDB97300F8CA55 /* ExportBalanceAccount */,
-				DB62AEB727EDB96C00F8CA55 /* ExportCategory */,
-				DB62AEB627EDB95400F8CA55 /* ExportExpense */,
+				DB62AEB327EDB92600F8CA55 /* ExportingExpensesFile */,
+				DB62AEB827EDB97300F8CA55 /* ExportingBalanceAccount */,
+				DB62AEB727EDB96C00F8CA55 /* ExportingCategory */,
+				DB261196283D1E1B003F21AF /* ExportingOperation */,
+				DB261197283D1E9B003F21AF /* ExportingExpense */,
+				DBBCA9F7283D1EFD00A63968 /* ExportingReplenishment */,
+				DB261194283D1DD5003F21AF /* ExportingTransfer */,
 			);
 			path = Export;
 			sourceTree = "<group>";
@@ -2665,6 +2682,13 @@
 				DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		DBBCA9F7283D1EFD00A63968 /* ExportingReplenishment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExportingReplenishment;
 			sourceTree = "<group>";
 		};
 		DBD6ACDD27B2A76600389236 /* SelectCurrency */ = {
@@ -3534,15 +3558,15 @@
 				DB62AEE327EEB03300F8CA55 /* ImportingCoinKeeperCategoryCSVLineParser.swift in Sources */,
 				DB62AEC427EDCAC300F8CA55 /* ExportCategoryCSVComposer.swift in Sources */,
 				DB62AEEF27EEB4FF00F8CA55 /* ImportingMoneyTrackerExpensesFileCSVParser.swift in Sources */,
+				DB26119B283D1E9B003F21AF /* ExportExpenseCSVComposer.swift in Sources */,
 				DB62AEC627EDCB3C00F8CA55 /* ExportBalanceAccountCSVComposer.swift in Sources */,
 				DB62AED927EEA21800F8CA55 /* ImportingBalanceAccount.swift in Sources */,
 				DB62AEDB27EEA23300F8CA55 /* ImportingBalanceAccountOperation.swift in Sources */,
+				DB26119A283D1E9B003F21AF /* ExportExpense.swift in Sources */,
 				DB62AEE527EEB0D600F8CA55 /* ImportingCoinKeeperBalanceAccountCSVLineParser.swift in Sources */,
 				DB7486C927CCE410004DF67B /* Files.swift in Sources */,
-				DB62AEC827EDCBB100F8CA55 /* ExportExpenseCSVComposer.swift in Sources */,
 				DB62AEED27EEB4CC00F8CA55 /* ImportingMoneyTrackerBalanceAccountCSVLineParser.swift in Sources */,
 				DBDC9328282A6D5C00D8C435 /* ImportingCoinKeeperBalanceAccountOperationTypeParser.swift in Sources */,
-				DB62AEBE27EDC97F00F8CA55 /* ExportExpense.swift in Sources */,
 				DB62AEE127EEAD9F00F8CA55 /* ImportingCoinKeeperExpensesFileCSVParser.swift in Sources */,
 				DB62AEE927EEB46400F8CA55 /* ImportingMoneyTrackerCategoryCSVLineParser.swift in Sources */,
 				DB62AEBA27EDB98100F8CA55 /* ExportBalanceAccount.swift in Sources */,
