@@ -33,7 +33,7 @@ class ExportingExpenseCSVComposer {
         return components.joined(separator: columnsSeparator)
     }
     
-    private func composeCSVLine(expense: ExportingExpense) -> String {
+    func composeCSVLine(expense: ExportingExpense) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateString = dateFormatter.string(from: expense.date)
