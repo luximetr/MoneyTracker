@@ -56,8 +56,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Events
     
-    override func changeLocale(_ locale: Locale) {
-        super.changeLocale(locale)
+    override func setLocale(_ locale: Locale) {
+        super.setLocale(locale)
         localizer.changeLocale(locale)
         currencyCodeLocalizer.changeLocale(locale)
         languageCodeLocalizer.changeLocale(locale)

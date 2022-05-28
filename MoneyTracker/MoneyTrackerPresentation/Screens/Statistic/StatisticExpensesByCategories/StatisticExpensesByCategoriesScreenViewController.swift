@@ -32,27 +32,6 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         expenses = expensesClosure?(Date()) ?? []
     }
     
-    func deleteExpense(_ expense: Expense) {
-        loadData()
-        setContent()
-    }
-    
-    func editExpense(_ expense: Expense) {
-        loadData()
-        setContent()
-    }
-    
-    func addExpense(_ expense: Expense) {
-        loadData()
-        setContent()
-    }
-    
-    func addExpenses(_ expenses: [Expense]) {
-        guard !expenses.isEmpty else { return }
-        loadData()
-        setContent()
-    }
-    
     // MARK: View
     
     private var screenView: ScreenView {
@@ -83,19 +62,21 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         }
     }
         
-    // MARK: Content
+    // MARK: - Localization
+    
+    override func setLocale(_ locale: Locale) {
+        super.setLocale(locale)
+        localizer.changeLocale(locale)
+        monthPickerViewConroller.changeLocale(locale)
+        setContent()
+    }
     
     private lazy var localizer: Localizer = {
         let localizer = Localizer(locale: locale, stringsTableName: "StatisticExpensesByCategoriesScreenStrings")
         return localizer
     }()
     
-    override func changeLocale(_ locale: Locale) {
-        super.changeLocale(locale)
-        localizer.changeLocale(locale)
-        monthPickerViewConroller.changeLocale(locale)
-        setContent()
-    }
+    // MARK: - Content
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")

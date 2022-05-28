@@ -82,8 +82,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         screenView.changeAppearance(appearance)
     }
     
-    override func changeLocale(_ locale: Locale) {
-        super.changeLocale(locale)
+    override func setLocale(_ locale: Locale) {
+        super.setLocale(locale)
         setContent()
     }
     

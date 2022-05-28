@@ -50,8 +50,8 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
-    override func changeLocale(_ locale: Locale) {
-        super.changeLocale(locale)
+    override func setLocale(_ locale: Locale) {
+        super.setLocale(locale)
         setContent()
     }
     

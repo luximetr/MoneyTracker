@@ -264,8 +264,8 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         return localizer
     }()
     
-    override func changeLocale(_ locale: Locale) {
-        super.changeLocale(locale)
+    override func setLocale(_ locale: Locale) {
+        super.setLocale(locale)
         localizer.changeLocale(locale)
         selectCategoryViewController.changeLocale(locale)
         balanceAccountHorizontalPickerController.changeLocale(locale)

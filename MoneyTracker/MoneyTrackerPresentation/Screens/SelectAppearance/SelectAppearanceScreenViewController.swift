@@ -93,8 +93,8 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
         return localizer
     }()
     
-    override func changeLocale(_ locale: Locale) {
-        super.changeLocale(locale)
+    override func setLocale(_ locale: Locale) {
+        super.setLocale(locale)
         localizer.changeLocale(locale)
         appearanceTypeNameLocalizer.changeLocale(locale)
         setContent()

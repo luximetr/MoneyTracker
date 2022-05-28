@@ -111,10 +111,10 @@ public final class Presentation: AUIWindowPresentation {
     
     func changeLocale(_ locale: Locale) {
         self.locale = locale
-        menuScreenViewController?.changeLocale(locale)
-        dashboardViewController?.changeLocale(locale)
-        settingsScreenViewController?.changeLocale(locale)
-        pushedSelectLanguageViewController?.changeLocale(locale)
+        menuScreenViewController?.setLocale(locale)
+        dashboardViewController?.setLocale(locale)
+        settingsScreenViewController?.setLocale(locale)
+        pushedSelectLanguageViewController?.setLocale(locale)
     }
     
     // MARK: - Display
