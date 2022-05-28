@@ -71,6 +71,7 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
+        fundsAmountNumberFormatter.locale = locale.foundationLocale
         setContent()
     }
     
@@ -127,6 +128,14 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     
     // MARK: Content
     
+    private lazy var fundsAmountNumberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = locale.foundationLocale
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }()
+    
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("screenTitle")
         screenView.resetButton.setTitle(localizer.localizeText("reset"), for: .normal)
@@ -151,7 +160,8 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
         var currenciesAmountsStrings: [String] = []
         let sortedCurrencyAmount = currenciesAmount.sorted(by: { $0.1 > $1.1 })
         for (currency, amount) in sortedCurrencyAmount {
-            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
+            let fundsString = fundsAmountNumberFormatter.string(from: amount as NSNumber) ?? ""
+            let currencyAmountString = "\(fundsString) \(currency.rawValue.uppercased())"
             currenciesAmountsStrings.append(currencyAmountString)
         }
         let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
@@ -172,7 +182,7 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     
     private func createAccountCollectionViewCellController(account: Account) -> AccountCollectionViewCellController {
         let isSelected = selectedAccounts.contains(account)
-        let cellController = AccountCollectionViewCellController(account: account, appearance: appearance, isSelected: isSelected)
+        let cellController = AccountCollectionViewCellController(account: account, appearance: appearance, isSelected: isSelected, fundsAmountNumberFormatter: fundsAmountNumberFormatter)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             let accountCollectionViewCell = self.screenView.accountCollectionViewCell(indexPath)

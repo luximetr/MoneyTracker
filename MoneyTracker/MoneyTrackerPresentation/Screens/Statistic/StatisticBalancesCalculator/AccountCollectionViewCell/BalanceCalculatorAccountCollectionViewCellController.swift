@@ -16,13 +16,15 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
     private(set) var account: Account
     private(set) var appearance: Appearance
     private var isSelected: Bool
+    private let fundsAmountNumberFormatter: NumberFormatter
     
     // MARK: Initializer
         
-    init(account: Account, appearance: Appearance, isSelected: Bool) {
+    init(account: Account, appearance: Appearance, isSelected: Bool, fundsAmountNumberFormatter: NumberFormatter) {
         self.account = account
         self.appearance = appearance
         self.isSelected = isSelected
+        self.fundsAmountNumberFormatter = fundsAmountNumberFormatter
         super.init()
     }
     
@@ -49,7 +51,8 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         accountCollectionViewCell?.color = uiColorProvider.getUIColor(accountColor: account.color, appearance: appearance)
         accountCollectionViewCell?.setSelected(isSelected)
         accountCollectionViewCell?.nameLabel.text = account.name
-        accountCollectionViewCell?.balanceLabel.text = "\(account.amount.description) \(account.currency.rawValue)"
+        let fundsString = fundsAmountNumberFormatter.string(from: account.amount as NSNumber) ?? ""
+        accountCollectionViewCell?.balanceLabel.text = "\(fundsString) \(account.currency.rawValue)"
         accountCollectionViewCell?.setNeedsLayout()
         accountCollectionViewCell?.layoutIfNeeded()
     }
