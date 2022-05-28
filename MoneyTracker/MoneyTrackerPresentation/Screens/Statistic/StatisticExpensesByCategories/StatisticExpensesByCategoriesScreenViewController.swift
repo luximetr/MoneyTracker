@@ -99,6 +99,14 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         setMonthCategoryExpensesTableViewControllerContent()
     }
     
+    private lazy var fundsAmountNumberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = locale.foundationLocale
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }()
+    
     private func setMonthExpensesLabelContent() {
 //        let currenciesAmounts = Dictionary(grouping: expenses, by: { $0.account.currency })
 //        let gg = Dictionary(uniqueKeysWithValues: currenciesAmounts.map({ ($0, $1.map({ $0.amount }).reduce(into: Decimal(), +)) }))
@@ -112,7 +120,8 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         var currenciesAmountsStrings: [String] = []
         let sortedCurrencyAmount = currenciesAmount.sorted(by: { $0.1 > $1.1 })
         for (currency, amount) in sortedCurrencyAmount {
-            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
+            let fundsAmountString = fundsAmountNumberFormatter.string(from: amount as NSNumber) ?? ""
+            let currencyAmountString = "\(fundsAmountString) \(currency.rawValue.uppercased())"
             currenciesAmountsStrings.append(currencyAmountString)
         }
         let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
@@ -133,7 +142,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     }
     
     private func createMonthCategoryExpensesTableViewController(expenses: [Expense]) -> AUITableViewCellController {
-        let cellController = MonthCategoryExpensesTableViewCellController(appearance: appearance, expenses: expenses)
+        let cellController = MonthCategoryExpensesTableViewCellController(appearance: appearance, expenses: expenses, fundsAmountNumberFormatter: fundsAmountNumberFormatter)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.monthCategoryExpensesTableViewCell(indexPath)

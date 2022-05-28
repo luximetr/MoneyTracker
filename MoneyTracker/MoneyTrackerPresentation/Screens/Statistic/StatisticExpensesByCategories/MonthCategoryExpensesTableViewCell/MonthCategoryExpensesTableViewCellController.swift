@@ -11,14 +11,6 @@ import AUIKit
 extension StatisticExpensesByCategoriesScreenViewController {
 final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCellController {
     
-    private static let amountNumberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.decimalSeparator = "."
-        numberFormatter.minimumFractionDigits = 0
-        numberFormatter.maximumFractionDigits = 2
-        return numberFormatter
-    }()
-    
     // MARK: Data
     
     private(set) var appearance: Appearance
@@ -26,12 +18,15 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
     private var category: Category? {
         return expenses.first?.category
     }
+    private let fundsAmountNumberFormatter: NumberFormatter
     
     // MARK: Initializer
     
-    init(appearance: Appearance, expenses: [Expense]) {
+    init(appearance: Appearance, expenses: [Expense], fundsAmountNumberFormatter: NumberFormatter) {
         self.appearance = appearance
         self.expenses = expenses
+        self.fundsAmountNumberFormatter = fundsAmountNumberFormatter
+        super.init()
     }
     
     // MARK: Cell
@@ -62,7 +57,8 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
         var currenciesAmountsStrings: [String] = []
         let sortedCurrencyAmount = currenciesAmounts.sorted(by: { $0.1 > $1.1 })
         for (currency, amount) in sortedCurrencyAmount {
-            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
+            let fundsString = fundsAmountNumberFormatter.string(from: amount as NSNumber) ?? ""
+            let currencyAmountString = "\(fundsString) \(currency.rawValue.uppercased())"
             currenciesAmountsStrings.append(currencyAmountString)
         }
         let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
