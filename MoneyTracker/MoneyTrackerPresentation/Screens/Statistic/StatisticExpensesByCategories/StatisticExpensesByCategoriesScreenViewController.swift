@@ -68,6 +68,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         super.setLocale(locale)
         localizer.changeLocale(locale)
         monthPickerViewConroller.changeLocale(locale)
+        fundsAmountNumberFormatter.locale = locale.foundationLocale
         setContent()
     }
     
@@ -108,8 +109,6 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     }()
     
     private func setMonthExpensesLabelContent() {
-//        let currenciesAmounts = Dictionary(grouping: expenses, by: { $0.account.currency })
-//        let gg = Dictionary(uniqueKeysWithValues: currenciesAmounts.map({ ($0, $1.map({ $0.amount }).reduce(into: Decimal(), +)) }))
         var currenciesAmount: [Currency: Decimal] = [:]
         for expense in expenses {
             let currency = expense.account.currency
