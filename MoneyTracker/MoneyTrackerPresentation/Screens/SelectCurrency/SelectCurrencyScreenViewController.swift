@@ -20,6 +20,7 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     init(appearance: Appearance, locale: Locale, currencies: [Currency], selectedCurrency: Currency) {
         self.currencies = currencies
         self.selectedCurrency = selectedCurrency
+        self.currencyNameProvider = CurrencyNameLocalizer(locale: locale)
         super.init(appearance: appearance, locale: locale)
     }
     
@@ -80,7 +81,7 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     
     private let currencies: [Currency]
     private var selectedCurrency: Currency
-    private let currencyNameProvider = CurrencyNameProvider()
+    private let currencyNameProvider: CurrencyNameLocalizer
     
     // MARK: - Currency - Cell
     
@@ -90,7 +91,7 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     
     private func createCurrencyCellController(currency: Currency) -> AUITableViewCellController {
         let isSelected = currency == selectedCurrency
-        let currencyName = currencyNameProvider.getCurrencyName(currency: currency)
+        let currencyName = currencyNameProvider.name(currency)
         let selectCurrencyCellController = CurrencyTableViewCellController(appearance: appearance, currency: currency, currencyName: currencyName, isSelected: isSelected)
         selectCurrencyCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }

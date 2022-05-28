@@ -21,6 +21,7 @@
 		2E0FC1CF283A66C100BF248B /* StatisticMenuScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FC1CE283A66C100BF248B /* StatisticMenuScreenView.swift */; };
 		2E0FC1D2283A66D900BF248B /* StatisticMenuScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E0FC1D4283A66D900BF248B /* StatisticMenuScreenStrings.strings */; };
 		2E0FC1D9283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FC1D8283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift */; };
+		2E15D5D228426B2800645C47 /* CurrencyNameStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E15D5D428426B2800645C47 /* CurrencyNameStrings.strings */; };
 		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
 		2E25262128191CF70025D2E9 /* ReplenishmentSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */; };
 		2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252623281921CC0025D2E9 /* AddingReplenishment.swift */; };
@@ -319,7 +320,7 @@
 		DB74864F27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74864E27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift */; };
 		DB74865127BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */; };
 		DB74868F27BE91E6004DF67B /* AddingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74868E27BE91E6004DF67B /* AddingCategory.swift */; };
-		DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74869027BE91F6004DF67B /* CurrencyNameProvider.swift */; };
+		DB74869127BE91F6004DF67B /* CurrencyNameLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74869027BE91F6004DF67B /* CurrencyNameLocalizer.swift */; };
 		DB74869527CA1533004DF67B /* ImportCSVScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB74869427CA1533004DF67B /* ImportCSVScreenViewController.swift */; };
 		DB7486C027CCE38E004DF67B /* MoneyTrackerFiles.h in Headers */ = {isa = PBXBuildFile; fileRef = DB7486BF27CCE38E004DF67B /* MoneyTrackerFiles.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB7486C327CCE38E004DF67B /* MoneyTrackerFiles.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7486BD27CCE38E004DF67B /* MoneyTrackerFiles.framework */; };
@@ -545,6 +546,9 @@
 		2E0FC1D5283A66DB00BF248B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/StatisticMenuScreenStrings.strings; sourceTree = "<group>"; };
 		2E0FC1D6283A66DD00BF248B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/StatisticMenuScreenStrings.strings; sourceTree = "<group>"; };
 		2E0FC1D8283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticMenuScreenTitleTableViewCell.swift; sourceTree = "<group>"; };
+		2E15D5D328426B2800645C47 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CurrencyNameStrings.strings; sourceTree = "<group>"; };
+		2E15D5D528426B2900645C47 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/CurrencyNameStrings.strings; sourceTree = "<group>"; };
+		2E15D5D628426B2A00645C47 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/CurrencyNameStrings.strings; sourceTree = "<group>"; };
 		2E16BA0A27FC81F4000F2466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ExpenseAddedSnackbarStrings.strings; sourceTree = "<group>"; };
 		2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishmentSqliteTable.swift; sourceTree = "<group>"; };
 		2E252623281921CC0025D2E9 /* AddingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingReplenishment.swift; sourceTree = "<group>"; };
@@ -914,7 +918,7 @@
 		DB74864E27BBAD34004DF67B /* TemplatesScreenViewTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenViewTemplateTableViewCell.swift; sourceTree = "<group>"; };
 		DB74865027BBC16F004DF67B /* TemplatesScreenTemplateTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreenTemplateTableViewCellController.swift; sourceTree = "<group>"; };
 		DB74868E27BE91E6004DF67B /* AddingCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingCategory.swift; sourceTree = "<group>"; };
-		DB74869027BE91F6004DF67B /* CurrencyNameProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyNameProvider.swift; sourceTree = "<group>"; };
+		DB74869027BE91F6004DF67B /* CurrencyNameLocalizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyNameLocalizer.swift; sourceTree = "<group>"; };
 		DB74869427CA1533004DF67B /* ImportCSVScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCSVScreenViewController.swift; sourceTree = "<group>"; };
 		DB7486BD27CCE38E004DF67B /* MoneyTrackerFiles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyTrackerFiles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7486BF27CCE38E004DF67B /* MoneyTrackerFiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyTrackerFiles.h; sourceTree = "<group>"; };
@@ -1144,6 +1148,15 @@
 			path = TitleTableViewCell;
 			sourceTree = "<group>";
 		};
+		2E15D5CF28426AEA00645C47 /* Name */ = {
+			isa = PBXGroup;
+			children = (
+				DB74869027BE91F6004DF67B /* CurrencyNameLocalizer.swift */,
+				2E15D5D428426B2800645C47 /* CurrencyNameStrings.strings */,
+			);
+			path = Name;
+			sourceTree = "<group>";
+		};
 		2E252622281921B90025D2E9 /* Replenishment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1329,8 +1342,8 @@
 		2E926E8627BC55790081E3AE /* Currency */ = {
 			isa = PBXGroup;
 			children = (
-				DB74869027BE91F6004DF67B /* CurrencyNameProvider.swift */,
 				DBD6ACEE27B3CEA300389236 /* Currency.swift */,
+				2E15D5CF28426AEA00645C47 /* Name */,
 				2EB8272228075D8400C6377F /* Code */,
 			);
 			path = Currency;
@@ -3095,6 +3108,7 @@
 				DBD6ACE427B35BF600389236 /* SelectCurrencyScreenStrings.strings in Resources */,
 				DB7BA80827F87D7500A3B3BA /* SelectIconScreenStrings.strings in Resources */,
 				DBDC9310282219C400D8C435 /* DateHorizontalPickerViewStrings.strings in Resources */,
+				2E15D5D228426B2800645C47 /* CurrencyNameStrings.strings in Resources */,
 				2ED9048127F8AB590091FCA5 /* DashboardTemplatesViewStrings.strings in Resources */,
 				2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */,
 				2E99FBF0282256B8005B6948 /* EditReplenishmentScreenStrings.strings in Resources */,
@@ -3430,7 +3444,7 @@
 				2ECB218727DCA957006D6558 /* AddExpenseScreenViewController.swift in Sources */,
 				2ECC0A0F283A2B370056F927 /* BalanceCalculatorScreenViewController.swift in Sources */,
 				2EC22DD228105EAF00530139 /* SelectAppearanceScreenAppearanceTableViewCell.swift in Sources */,
-				DB74869127BE91F6004DF67B /* CurrencyNameProvider.swift in Sources */,
+				DB74869127BE91F6004DF67B /* CurrencyNameLocalizer.swift in Sources */,
 				2EC1BDC827B99AA500C4A054 /* MoneySumTextInputValidator.swift in Sources */,
 				DBB7BD2427DC7614004EF5B7 /* BalanceAccountHorizontalPickerView.swift in Sources */,
 				DBDC9306281FBA4600D8C435 /* DateHorizontalPickerView.swift in Sources */,
@@ -3663,6 +3677,16 @@
 				2E0FC1D6283A66DD00BF248B /* uk */,
 			);
 			name = StatisticMenuScreenStrings.strings;
+			sourceTree = "<group>";
+		};
+		2E15D5D428426B2800645C47 /* CurrencyNameStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E15D5D328426B2800645C47 /* en */,
+				2E15D5D528426B2900645C47 /* th */,
+				2E15D5D628426B2A00645C47 /* uk */,
+			);
+			name = CurrencyNameStrings.strings;
 			sourceTree = "<group>";
 		};
 		2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */ = {
