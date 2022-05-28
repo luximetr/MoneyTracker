@@ -8,7 +8,7 @@
 import AFoundation
 import AUIKit
 
-final class UnexpectedErrorAlertScreenViewController: UIAlertController {
+final class ErrorAlertViewController: UIAlertController {
     
     // MARK: Delegation
     
@@ -33,7 +33,7 @@ final class UnexpectedErrorAlertScreenViewController: UIAlertController {
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(locale: locale, stringsTableName: "UnexpectedErrorAlertScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "ErrorAlertStrings")
         return localizer
     }()
     

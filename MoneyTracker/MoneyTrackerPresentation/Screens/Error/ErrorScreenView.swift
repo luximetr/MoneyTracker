@@ -8,7 +8,8 @@
 import UIKit
 import AUIKit
 
-final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
+extension ErrorScreenViewController {
+final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Subviews
     
@@ -33,6 +34,7 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
     private func setupTextView() {
         textView.isEditable = false
         textView.textColor = appearance.colors.primaryText
+        textView.alwaysBounceVertical = true
     }
     
     // MARK: Layout
@@ -72,4 +74,5 @@ final class UnexpectedErrorDetailsScreenView: BackTitleNavigationBarScreenView {
         textView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     }
     
+}
 }

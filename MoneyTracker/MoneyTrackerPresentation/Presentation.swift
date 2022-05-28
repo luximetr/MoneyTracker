@@ -1100,7 +1100,7 @@ public final class Presentation: AUIWindowPresentation {
                     try self.delegate.presentation(self, deleteAccount: account)
                     self.dashboardViewController?.deleteAccount(account)
                 } catch {
-                    self.displayUnexpectedErrorDetailsScreen(error)
+                    self.displayErrorScreen(error)
                 }
             }
             viewController.editAccountClosure = { [weak self, weak navigationController] editingAccount in
@@ -1114,7 +1114,7 @@ public final class Presentation: AUIWindowPresentation {
                     try self.delegate.presentation(self, orderAccounts: accounts)
                     self.dashboardViewController?.orderAccounts(accounts)
                 } catch {
-                    self.displayUnexpectedErrorDetailsScreen(error)
+                    self.displayErrorScreen(error)
                 }
             }
             pushedAccoutsViewController = viewController
@@ -1514,15 +1514,15 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Unexpected Error Alert Screen
     
-    private weak var unexpectedErrorAlertScreenViewController: UnexpectedErrorAlertScreenViewController?
+    private weak var unexpectedErrorAlertScreenViewController: ErrorAlertViewController?
     private func presentUnexpectedErrorAlertScreen(_ error: Swift.Error) {
-        let viewController = UnexpectedErrorAlertScreenViewController(title: nil, message: nil, preferredStyle: .alert)
+        let viewController = ErrorAlertViewController(title: nil, message: nil, preferredStyle: .alert)
         viewController.locale = locale
         viewController.seeDetailsClosure = { [weak self] in
             guard let self = self else { return }
             viewController.dismiss(animated: true) { [weak self] in
                 guard let self = self else { return }
-                self.displayUnexpectedErrorDetailsScreen(error)
+                self.displayErrorScreen(error)
             }
             self.unexpectedErrorAlertScreenViewController = nil
         }
@@ -1537,9 +1537,9 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - Unexpected Error Details Screen
     
-    private weak var unexpectedErrorDetailsScreenViewController: UnexpectedErrorDetailsScreenViewController?
-    private func displayUnexpectedErrorDetailsScreen(_ error: Swift.Error) {
-        let viewController = UnexpectedErrorDetailsScreenViewController(appearance: appearance, locale: locale, error: error)
+    private weak var displayedErrorScreenViewController: ErrorScreenViewController?
+    private func displayErrorScreen(_ error: Swift.Error) {
+        let viewController = ErrorScreenViewController(appearance: appearance, locale: locale, error: error)
         viewController.modalPresentationStyle = .fullScreen
         viewController.backClosure = {
             viewController.dismiss(animated: true, completion: nil)
@@ -1548,8 +1548,25 @@ public final class Presentation: AUIWindowPresentation {
             let activityViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
             viewController.present(activityViewController, animated: true, completion: nil)
         }
-        unexpectedErrorDetailsScreenViewController = viewController
+        displayedErrorScreenViewController = viewController
         self.menuNavigationController?.present(viewController, animated: true, completion: nil)
+    }
+    
+    // MARK: Error
+    
+    public class func createUnexpectedErrorViewController(_ error: Swift.Error) -> UIViewController {
+        let appearance = CompositeAppearance(fonts: DefaultAppearanceFonts(), colors: LightAppearanceColors(), images: DefaultAppearanceImages())
+        let locale = Locale(language: .english, scriptCode: nil, regionCode: nil)
+        let viewController = ErrorScreenViewController(appearance: appearance, locale: locale, error: error)
+        viewController.modalPresentationStyle = .fullScreen
+        viewController.backClosure = {
+            viewController.dismiss(animated: true, completion: nil)
+        }
+        viewController.shareClosure = { data in
+            let activityViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+            viewController.present(activityViewController, animated: true, completion: nil)
+        }
+        return viewController
     }
     
 }

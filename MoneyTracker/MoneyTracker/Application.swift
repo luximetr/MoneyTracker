@@ -25,8 +25,9 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             try self.initialize()
             self.presentation.display()
+            throw Error("f jkds hfkhdkjfjkdhfjkdhjk fh")
         } catch {
-            fatalError()
+            self.showError(error)
         }
     }
     
@@ -572,6 +573,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         } catch {
             throw error
         }
+    }
+    
+    // MARK: Error
+    
+    private func showError(_ error: Swift.Error) {
+        let window = self.window ?? UIWindow()
+        let errorViewController = Presentation.createUnexpectedErrorViewController(error)
+        window.rootViewController = errorViewController
+        window.makeKeyAndVisible()
     }
     
 }

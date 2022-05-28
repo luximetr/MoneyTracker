@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewController {
+final class ErrorScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
@@ -29,17 +29,17 @@ final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewContr
     // MARK: View
     
     override func loadView() {
-        view = UnexpectedErrorDetailsScreenView(frame: .zero, appearance: appearance)
+        view = ScreenView(frame: .zero, appearance: appearance)
     }
     
-    private var unexpectedErrorDetailsScreenView: UnexpectedErrorDetailsScreenView! {
-        return view as? UnexpectedErrorDetailsScreenView
+    private var screenView: ScreenView! {
+        return view as? ScreenView
     }
         
     // MARK: Localizer
     
     private lazy var localizer: Localizer = {
-        let localizer = Localizer(locale: locale, stringsTableName: "UnexpectedErrorDetailsScreenStrings")
+        let localizer = Localizer(locale: locale, stringsTableName: "ErrorScreenStrings")
         return localizer
     }()
     
@@ -51,16 +51,16 @@ final class UnexpectedErrorDetailsScreenViewController: StatusBarScreenViewContr
     // MARK: Content
     
     private func setContent() {
-        unexpectedErrorDetailsScreenView.titleLabel.text = localizer.localizeText("title")
+        screenView.titleLabel.text = localizer.localizeText("title")
     }
     
     // MARK: Events
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        unexpectedErrorDetailsScreenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        unexpectedErrorDetailsScreenView.shareButton.addTarget(self, action: #selector(shareButtonTouchUpInsideEventAction), for: .touchUpInside)
-        unexpectedErrorDetailsScreenView.textView.text = String(reflecting: error)
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.shareButton.addTarget(self, action: #selector(shareButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.textView.text = String(reflecting: error)
         setContent()
     }
     
