@@ -25,7 +25,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             try self.initialize()
             self.presentation.display()
-            throw Error("f jkds hfkhdkjfjkdhfjkdhjk fh")
         } catch {
             self.showError(error)
         }
