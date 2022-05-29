@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import AFoundation
 
 extension StatisticExpensesByCategoriesScreenViewController {
 final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCellController {
@@ -57,7 +58,7 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
         var currenciesAmountsStrings: [String] = []
         let sortedCurrencyAmount = currenciesAmounts.sorted(by: { $0.1 > $1.1 })
         for (currency, amount) in sortedCurrencyAmount {
-            let fundsString = fundsAmountNumberFormatter.string(from: amount as NSNumber) ?? ""
+            let fundsString = fundsAmountNumberFormatter.string(amount)
             let currencyAmountString = "\(fundsString) \(currency.rawValue.uppercased())"
             currenciesAmountsStrings.append(currencyAmountString)
         }

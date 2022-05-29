@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import AFoundation
 import MoneyTrackerFoundation
 
 final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenViewController {
@@ -119,7 +120,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         var currenciesAmountsStrings: [String] = []
         let sortedCurrencyAmount = currenciesAmount.sorted(by: { $0.1 > $1.1 })
         for (currency, amount) in sortedCurrencyAmount {
-            let fundsAmountString = fundsAmountNumberFormatter.string(from: amount as NSNumber) ?? ""
+            let fundsAmountString = fundsAmountNumberFormatter.string(amount)
             let currencyAmountString = "\(fundsAmountString) \(currency.rawValue.uppercased())"
             currenciesAmountsStrings.append(currencyAmountString)
         }

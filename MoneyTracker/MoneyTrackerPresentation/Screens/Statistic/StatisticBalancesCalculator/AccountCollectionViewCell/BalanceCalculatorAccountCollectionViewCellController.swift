@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import AFoundation
 
 extension BalanceCalculatorScreenViewController {
 final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellController {
@@ -51,7 +52,7 @@ final class AccountCollectionViewCellController: AUIClosuresCollectionViewCellCo
         accountCollectionViewCell?.color = uiColorProvider.getUIColor(accountColor: account.color, appearance: appearance)
         accountCollectionViewCell?.setSelected(isSelected)
         accountCollectionViewCell?.nameLabel.text = account.name
-        let fundsString = fundsAmountNumberFormatter.string(from: account.amount as NSNumber) ?? ""
+        let fundsString = fundsAmountNumberFormatter.string(account.amount)
         accountCollectionViewCell?.balanceLabel.text = "\(fundsString) \(account.currency.rawValue)"
         accountCollectionViewCell?.setNeedsLayout()
         accountCollectionViewCell?.layoutIfNeeded()

@@ -7,6 +7,7 @@
 
 import UIKit
 import AUIKit
+import AFoundation
 
 final class BalanceCalculatorScreenViewController: StatusBarScreenViewController {
     
@@ -160,7 +161,7 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
         var currenciesAmountsStrings: [String] = []
         let sortedCurrencyAmount = currenciesAmount.sorted(by: { $0.1 > $1.1 })
         for (currency, amount) in sortedCurrencyAmount {
-            let fundsString = fundsAmountNumberFormatter.string(from: amount as NSNumber) ?? ""
+            let fundsString = fundsAmountNumberFormatter.string(amount)
             let currencyAmountString = "\(fundsString) \(currency.rawValue.uppercased())"
             currenciesAmountsStrings.append(currencyAmountString)
         }
