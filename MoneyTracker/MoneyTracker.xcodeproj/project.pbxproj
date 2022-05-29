@@ -233,7 +233,6 @@
 		2ED76C8E27F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED76C9027F5828A000F8622 /* BalanceAccountHorizontalPickerStrings.strings */; };
 		2ED7E48A2809FADC00B35F02 /* StatusBarScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */; };
 		2ED7E490280A06C600B35F02 /* AppearanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */; };
-		2ED82B5B2815397B00789BA4 /* SqliteHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */; };
 		2ED8BD7227E908E50007F60B /* HistoryScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7127E908E50007F60B /* HistoryScreenViewController.swift */; };
 		2ED8BD7427E908F50007F60B /* HistoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7327E908F50007F60B /* HistoryScreenView.swift */; };
 		2ED8BD7727E909150007F60B /* HistoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ED8BD7927E909150007F60B /* HistoryScreenStrings.strings */; };
@@ -826,7 +825,6 @@
 		2ED76C8F27F5828A000F8622 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
 		2ED7E4892809FADC00B35F02 /* StatusBarScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarScreenViewController.swift; sourceTree = "<group>"; };
 		2ED7E48F280A06C600B35F02 /* AppearanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTableViewCell.swift; sourceTree = "<group>"; };
-		2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteHelpers.swift; sourceTree = "<group>"; };
 		2ED8BD7127E908E50007F60B /* HistoryScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenViewController.swift; sourceTree = "<group>"; };
 		2ED8BD7327E908F50007F60B /* HistoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenView.swift; sourceTree = "<group>"; };
 		2ED8BD7827E909150007F60B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HistoryScreenStrings.strings; sourceTree = "<group>"; };
@@ -1944,7 +1942,6 @@
 				2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */,
 				2E5061E32818542900C6C217 /* TransferSqliteTable.swift */,
 				2E5061E128184CFE00C6C217 /* OperationSqliteView.swift */,
-				2ED82B5A2815397B00789BA4 /* SqliteHelpers.swift */,
 			);
 			path = SqliteDatabase;
 			sourceTree = "<group>";
@@ -3265,7 +3262,6 @@
 				2E926EA827BC59030081E3AE /* AddingExpenseTemplate.swift in Sources */,
 				2E926EA927BC59030081E3AE /* EditingExpenseTemplate.swift in Sources */,
 				2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */,
-				2ED82B5B2815397B00789BA4 /* SqliteHelpers.swift in Sources */,
 				DB62AEFB27EF025E00F8CA55 /* ImportingCategory.swift in Sources */,
 				2ED248EA28087002001E0498 /* Language.swift in Sources */,
 				2E5279592811AFAC00BC916B /* SqliteDatabase.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import SQLite3
+import ASQLite3
 
 struct OperationSelectedRow {
     let type: String

@@ -20,4 +20,5 @@ target 'MoneyTrackerStorage' do
   use_frameworks!
 
   pod "AFoundation", :git => 'https://github.com/ihormyroniuk/AFoundation.git', :branch => 'development'
+  pod "ASQLite3", :git => 'https://github.com/ihormyroniuk/ASQLite3.git', :branch => 'development'
 end
