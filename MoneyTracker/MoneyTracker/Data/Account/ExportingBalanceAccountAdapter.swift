@@ -9,12 +9,12 @@ import Foundation
 import MoneyTrackerFiles
 import MoneyTrackerStorage
 
-typealias FilesExportBalanceAccount = MoneyTrackerFiles.ExportBalanceAccount
+typealias FilesExportingBalanceAccount = MoneyTrackerFiles.ExportingBalanceAccount
 
-class ExportBalanceAccountAdapter {
+class ExportingBalanceAccountAdapter {
     
-    func adaptToFiles(storageAccount: StorageBalanceAccount) -> FilesExportBalanceAccount {
-        return FilesExportBalanceAccount(
+    func adaptToFiles(storageAccount: StorageBalanceAccount) -> FilesExportingBalanceAccount {
+        return FilesExportingBalanceAccount(
             id: storageAccount.id,
             name: storageAccount.name,
             amount: storageAccount.amount,

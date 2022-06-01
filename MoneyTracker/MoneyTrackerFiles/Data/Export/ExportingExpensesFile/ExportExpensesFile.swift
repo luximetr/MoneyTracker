@@ -8,17 +8,17 @@
 import Foundation
 
 public struct ExportExpensesFile {
-    public let balanceAccounts: [ExportBalanceAccount]
-    public let categories: [ExportCategory]
-    public let expenses: [ExportingExpense]
+    public let balanceAccounts: [ExportingBalanceAccount]
+    public let categories: [ExportingCategory]
+    public let operations: [ExportingBalanceAccountOperation]
     
     public init(
-        balanceAccounts: [ExportBalanceAccount],
-        categories: [ExportCategory],
-        expenses: [ExportingExpense]
+        balanceAccounts: [ExportingBalanceAccount],
+        categories: [ExportingCategory],
+        operations: [ExportingBalanceAccountOperation]
     ) {
         self.balanceAccounts = balanceAccounts
         self.categories = categories
-        self.expenses = expenses
+        self.operations = operations
     }
 }

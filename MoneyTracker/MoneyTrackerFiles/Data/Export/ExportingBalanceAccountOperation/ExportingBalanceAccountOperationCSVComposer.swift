@@ -27,11 +27,14 @@ class ExportingBalanceAccountOperationCSVComposer {
     
     private func composeCSVHeaderLine() -> String {
         let components = [
+            "\"Date\"",
+            "\"Type\"",
             "\"From\"",
             "\"To\"",
-            "\"Date\"",
-            "\"Amount\"",
-            "\"Currency\"",
+            "\"From Amount\"",
+            "\"From Currency\"",
+            "\"To Amount\"",
+            "\"To Currency\"",
             "\"Comment\""
         ]
         return components.joined(separator: columnsSeparator)

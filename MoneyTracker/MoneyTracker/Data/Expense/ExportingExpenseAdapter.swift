@@ -1,5 +1,5 @@
 //
-//  ExportExpenseAdapter.swift
+//  ExportingExpenseAdapter.swift
 //  MoneyTracker
 //
 //  Created by Oleksandr Orlov on 25.03.2022.
@@ -10,21 +10,21 @@ import MoneyTrackerFiles
 
 typealias FilesExportingExpense = MoneyTrackerFiles.ExportingExpense
 
-class ExportExpenseAdapter {
+class ExportingExpenseAdapter {
     
     func adaptToFiles(
         storageExpense: StorageExpense,
-        balanceAccount: FilesExportBalanceAccount,
-        category: FilesExportCategory
+        storageAccount: StorageBalanceAccount,
+        storageCategory: StorageCategory
     ) -> FilesExportingExpense {
         return FilesExportingExpense(
             id: storageExpense.id,
             amount: storageExpense.amount,
             date: storageExpense.date,
             comment: storageExpense.comment,
-            balanceAccountName: balanceAccount.name,
-            currencyCode: balanceAccount.currencyCode,
-            categoryName: category.name
+            balanceAccountName: storageAccount.name,
+            currencyCode: storageAccount.currency.rawValue,
+            categoryName: storageCategory.name
         )
     }
 }

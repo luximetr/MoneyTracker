@@ -15,12 +15,12 @@ class ExportExpensesFileCSVComposer {
     
     // MARK: - Dependencies
     
-    private let expenseCSVComposer = ExportingExpenseCSVComposer()
+    private let operationCSVComposer = ExportingBalanceAccountOperationCSVComposer()
     private let balanceAccountCSVComposer = ExportBalanceAccountCSVComposer()
-    private let categoryCSVComposer = ExportCategoryCSVComposer()
+    private let categoryCSVComposer = ExportingCategoryCSVComposer()
     
     func composeCSV(file: ExportExpensesFile) -> String {
-        let expensesCSV = expenseCSVComposer.composeCSV(expenses: file.expenses)
+        let expensesCSV = operationCSVComposer.composeCSV(operations: file.operations)
         let balanceAccountsCSV = balanceAccountCSVComposer.composeCSV(balanceAccounts: file.balanceAccounts)
         let categoriesCSV = categoryCSVComposer.composeCSV(categories: file.categories)
         let formatIDLine = "\"Exported from MoneyTracker\""

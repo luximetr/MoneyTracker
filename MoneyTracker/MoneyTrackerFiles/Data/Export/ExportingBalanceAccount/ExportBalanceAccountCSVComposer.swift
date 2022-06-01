@@ -12,7 +12,7 @@ class ExportBalanceAccountCSVComposer {
     private let linesSeparator = "\n"
     private let columnsSeparator = ","
     
-    func composeCSV(balanceAccounts: [ExportBalanceAccount]) -> String? {
+    func composeCSV(balanceAccounts: [ExportingBalanceAccount]) -> String? {
         guard balanceAccounts.isNonEmpty else { return nil }
         let headerLine = composeHeaderLine()
         let accountsLines = balanceAccounts.map { composeCSVLine(balanceAccount: $0) }
@@ -30,7 +30,7 @@ class ExportBalanceAccountCSVComposer {
         return components.joined(separator: columnsSeparator)
     }
     
-    private func composeCSVLine(balanceAccount: ExportBalanceAccount) -> String {
+    private func composeCSVLine(balanceAccount: ExportingBalanceAccount) -> String {
         let components = [
             "\"\(balanceAccount.name)\"",
             "\"\(balanceAccount.amount)\"",
