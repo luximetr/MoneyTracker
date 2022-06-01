@@ -1,5 +1,5 @@
 //
-//  ExportCategoryAdapter.swift
+//  ExportingCategoryAdapter.swift
 //  MoneyTracker
 //
 //  Created by Oleksandr Orlov on 25.03.2022.
@@ -8,12 +8,12 @@
 import Foundation
 import MoneyTrackerFiles
 
-typealias FilesExportCategory = MoneyTrackerFiles.ExportCategory
+typealias FilesExportingCategory = MoneyTrackerFiles.ExportingCategory
 
-class ExportCategoryAdapter {
+class ExportingCategoryAdapter {
     
-    func adaptToFiles(storageCategory: StorageCategory) -> FilesExportCategory {
-        return FilesExportCategory(
+    func adaptToFiles(storageCategory: StorageCategory) -> FilesExportingCategory {
+        return FilesExportingCategory(
             id: storageCategory.id,
             name: storageCategory.name,
             categoryColor: (storageCategory.color).rawValue,

@@ -22,8 +22,8 @@ public struct BalanceAccount {
         self.color = color
     }
     
-    public init(addingBalanceAccount: AddingBalanceAccount) {
-        self.id = UUID().uuidString
+    public init(id: String, addingBalanceAccount: AddingBalanceAccount) {
+        self.id = id
         self.name = addingBalanceAccount.name
         self.amount = addingBalanceAccount.amount
         self.currency = addingBalanceAccount.currency

@@ -1,5 +1,5 @@
 //
-//  ExportCategory.swift
+//  ExportingCategory.swift
 //  MoneyTrackerFiles
 //
 //  Created by Oleksandr Orlov on 25.03.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ExportCategory {
+public struct ExportingCategory {
     public let id: String
     public let name: String
     public let categoryColor: String

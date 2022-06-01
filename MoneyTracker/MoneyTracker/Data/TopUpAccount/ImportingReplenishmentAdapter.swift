@@ -16,7 +16,7 @@ class ImportingReplenishmentAdapter {
         return StorageImportingReplenishment(
             timestamp: filesImportingOperation.date,
             accountName: filesImportingOperation.to,
-            amount: filesImportingOperation.amount,
+            amount: filesImportingOperation.toAmount,
             comment: filesImportingOperation.comment
         )
     }

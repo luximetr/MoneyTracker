@@ -1,5 +1,5 @@
 //
-//  ExportExpense.swift
+//  ExportingExpense.swift
 //  MoneyTrackerFiles
 //
 //  Created by Oleksandr Orlov on 25.03.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ExportExpense {
+public struct ExportingExpense {
     public let id: String
     public let amount: Decimal
     public let date: Date

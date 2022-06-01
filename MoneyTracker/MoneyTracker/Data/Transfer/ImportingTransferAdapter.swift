@@ -16,9 +16,9 @@ class ImportingTransferAdapter {
         return StorageImportingTransfer(
             timestamp: filesImportingOperation.date,
             fromAccountName: filesImportingOperation.from,
-            fromAmount: filesImportingOperation.amount,
+            fromAmount: filesImportingOperation.fromAmount,
             toAccountName: filesImportingOperation.to,
-            toAmount: filesImportingOperation.amount,
+            toAmount: filesImportingOperation.toAmount,
             comment: filesImportingOperation.comment
         )
     }

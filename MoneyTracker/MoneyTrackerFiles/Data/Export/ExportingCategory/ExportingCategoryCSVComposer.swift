@@ -1,5 +1,5 @@
 //
-//  ExportCategoryCSVComposer.swift
+//  ExportingCategoryCSVComposer.swift
 //  MoneyTrackerFiles
 //
 //  Created by Oleksandr Orlov on 25.03.2022.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-class ExportCategoryCSVComposer {
+class ExportingCategoryCSVComposer {
     
     private let linesSeparator = "\n"
     private let columnsSeparator = ","
     
-    func composeCSV(categories: [ExportCategory]) -> String? {
+    func composeCSV(categories: [ExportingCategory]) -> String? {
         guard categories.isNonEmpty else { return nil }
         let headerLine = composeHeaderLine()
         let categoriesLines = categories.map { composeCSVLine(category: $0) }
@@ -29,7 +29,7 @@ class ExportCategoryCSVComposer {
         return components.joined(separator: columnsSeparator)
     }
     
-    private func composeCSVLine(category: ExportCategory) -> String {
+    private func composeCSVLine(category: ExportingCategory) -> String {
         let components = [
             "\"\(category.name)\"",
             "\"\(category.categoryColor)\"",

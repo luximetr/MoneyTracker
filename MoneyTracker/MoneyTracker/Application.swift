@@ -444,23 +444,21 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationDidStartExpensesCSVExport(_ presentation: Presentation) throws -> URL {
-        let categoriesAdapter = ExportCategoryAdapter()
+        let categoriesAdapter = ExportingCategoryAdapter()
         let storageCategories = try storage.getCategoriesOrdered()
         let filesCategories = storageCategories.map { categoriesAdapter.adaptToFiles(storageCategory: $0) }
-        let balanceAccountsAdapter = ExportBalanceAccountAdapter()
+        let balanceAccountsAdapter = ExportingBalanceAccountAdapter()
         let storageBalanceAccounts = try storage.getAllBalanceAccountsOrdered()
         let filesBalanceAccounts = storageBalanceAccounts.map { balanceAccountsAdapter.adaptToFiles(storageAccount: $0) }
-        let expensesAdapter = ExportExpenseAdapter()
-        let storageExpenses = try storage.getAllExpenses()
-        let filesExpenses = storageExpenses.compactMap { storageExpense -> FilesExportExpense? in
-            guard let category = filesCategories.first(where: { $0.id == storageExpense.categoryId }) else { return nil }
-            guard let account = filesBalanceAccounts.first(where: { $0.id == storageExpense.balanceAccountId }) else { return nil }
-            return expensesAdapter.adaptToFiles(storageExpense: storageExpense, balanceAccount: account, category: category)
-        }
+        
+        let operations = try storage.getOperations()
+        let operationAdapter = ExportingOperationAdapter()
+        let filesOperations = operations.map { operationAdapter.adaptToFiles(storageOperation: $0) }
+        
         let exportFile = ExportExpensesFile(
             balanceAccounts: filesBalanceAccounts,
             categories: filesCategories,
-            expenses: filesExpenses
+            operations: filesOperations
         )
         let fileURL = try files.createCSVFile(exportExpensesFile: exportFile)
         return fileURL

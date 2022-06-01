@@ -12,7 +12,7 @@ class ImportingMoneyTrackerExpensesFileCSVParser {
     func parseCSV(_ csvString: String) throws -> ImportingExpensesFile {
         try verifyFormat(csvString)
         let csvLines = csvString.components(separatedBy: "\n")
-        let expenses = parseExpenses(csvLines: csvLines)
+        let expenses = parseOperations(csvLines: csvLines)
         let balanceAccounts = parseBalanceAccounts(csvLines: csvLines)
         let categories = parseCategories(csvLines: csvLines)
         return ImportingExpensesFile(
@@ -32,26 +32,26 @@ class ImportingMoneyTrackerExpensesFileCSVParser {
     
     // MARK: - Parse expenses
     
-    private let expenseParser = ImportingMoneyTrackerBalanceAccountOperationCSVLineParser()
+    private let operationParser = ImportingMoneyTrackerBalanceAccountOperationCSVLineParser()
     
-    private func parseExpenses(csvLines: [String]) -> [ImportingBalanceAccountOperation] {
-        let expensesCSVLines = findExpensesCSVLines(in: csvLines)
-        return expensesCSVLines.compactMap { parseExpense(csvLine: $0) }
+    private func parseOperations(csvLines: [String]) -> [ImportingBalanceAccountOperation] {
+        let operationsCSVLines = findOperationsCSVLines(in: csvLines)
+        return operationsCSVLines.compactMap { parseOperation(csvLine: $0) }
     }
     
-    private func parseExpense(csvLine: String) -> ImportingBalanceAccountOperation? {
+    private func parseOperation(csvLine: String) -> ImportingBalanceAccountOperation? {
         do {
-            return try expenseParser.parse(csvLine: csvLine)
+            return try operationParser.parse(csvLine: csvLine)
         } catch {
             print(error)
             return nil
         }
     }
     
-    private func findExpensesCSVLines(in csvLines: [String]) -> [String] {
+    private func findOperationsCSVLines(in csvLines: [String]) -> [String] {
         return findCSVLines(
             inCsvLines: csvLines,
-            afterLine: "\"From\",\"To\",\"Date\",\"Amount\",\"Currency\",\"Comment\"",
+            afterLine: "\"Date\",\"Type\",\"From\",\"To\",\"From Amount\",\"From Currency\",\"To Amount\",\"To Currency\",\"Comment\"",
             andBeforeLine: ""
         )
     }
