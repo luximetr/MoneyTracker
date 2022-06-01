@@ -21,10 +21,10 @@ class ExportingTransferAdapter {
             id: storageTransfer.id,
             date: storageTransfer.date,
             fromAccountName: fromStorageAccount.name,
-            fromAmount: fromStorageAccount.amount,
+            fromAmount: storageTransfer.fromAmount,
             fromCurrencyCode: fromStorageAccount.currency.rawValue,
             toAccountName: toStorageAccount.name,
-            toAmount: toStorageAccount.amount,
+            toAmount: storageTransfer.toAmount,
             toCurrencyCode: toStorageAccount.currency.rawValue,
             comment: storageTransfer.comment
         )
