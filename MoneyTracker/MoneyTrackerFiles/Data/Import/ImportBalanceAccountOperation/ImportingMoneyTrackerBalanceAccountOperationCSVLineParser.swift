@@ -13,20 +13,22 @@ class ImportingMoneyTrackerBalanceAccountOperationCSVLineParser {
         let components = csvLine.components(separatedBy: "\",\"").map { $0.replacingOccurrences(of: "\"", with: "") }
         let date = try parseDate(components: components)
         let operationType = try parseOperationType(components: components)
-        let amount = try parseAmount(components: components)
         let from = components[safe: fromIndex]
         let to = components[safe: toIndex]
-        let currency = components[safe: currencyIndex]
+        let fromAmount = try parseFromAmount(components: components)
+        let fromCurrency = components[safe: fromCurrencyIndex]
+        let toAmount = try parseToAmount(components: components)
+        let toCurrency = components[safe: toCurrencyIndex]
         let comment = components[safe: commentIndex]
         return ImportingBalanceAccountOperation(
             date: date,
             operationType: operationType,
             from: from ?? "",
-            fromAmount: amount,
-            fromCurrency: currency ?? "",
+            fromAmount: fromAmount,
+            fromCurrency: fromCurrency ?? "",
             to: to ?? "",
-            toAmount: amount,
-            toCurrency: currency ?? "",
+            toAmount: toAmount,
+            toCurrency: toCurrency ?? "",
             comment: comment ?? ""
         )
     }
@@ -61,11 +63,23 @@ class ImportingMoneyTrackerBalanceAccountOperationCSVLineParser {
         return operationType
     }
     
-    // MARK: - Parse amount
+    // MARK: - Parse from amount
     
-    private func parseAmount(components: [String]) throws -> Decimal {
-        guard let amountString = components[safe: amountIndex] else {
-            throw ConvertError.noAmount
+    private func parseFromAmount(components: [String]) throws -> Decimal {
+        guard let amountString = components[safe: fromAmountIndex] else {
+            throw ConvertError.noFromAmount
+        }
+        guard let amount = Decimal(string: amountString) else {
+            throw ConvertError.unsupportedAmountFormat
+        }
+        return amount
+    }
+    
+    // MARK: - Parse to amount
+    
+    private func parseToAmount(components: [String]) throws -> Decimal {
+        guard let amountString = components[safe: toAmountIndex] else {
+            throw ConvertError.noToAmount
         }
         guard let amount = Decimal(string: amountString) else {
             throw ConvertError.unsupportedAmountFormat
@@ -75,13 +89,15 @@ class ImportingMoneyTrackerBalanceAccountOperationCSVLineParser {
     
     // MARK: - Indexes
     
-    private let fromIndex = 0
-    private let toIndex = 1
-    private let dateIndex = 2
-    private let amountIndex = 3
-    private let currencyIndex = 4
-    private let commentIndex = 5
-    private let typeIndex = 6
+    private let dateIndex = 0
+    private let typeIndex = 1
+    private let fromIndex = 2
+    private let toIndex = 3
+    private let fromAmountIndex = 4
+    private let fromCurrencyIndex = 5
+    private let toAmountIndex = 6
+    private let toCurrencyIndex = 7
+    private let commentIndex = 8
     
     // MARK: - Errors
     
@@ -90,7 +106,8 @@ class ImportingMoneyTrackerBalanceAccountOperationCSVLineParser {
         case unsupportedDateFormat
         case noOperationType
         case unsupportedOperationType
-        case noAmount
+        case noFromAmount
+        case noToAmount
         case unsupportedAmountFormat
     }
 }
