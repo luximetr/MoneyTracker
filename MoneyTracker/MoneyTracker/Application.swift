@@ -427,7 +427,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         let categoriesAdapter = ExportingCategoryAdapter()
         let storageCategories = try storage.getCategoriesOrdered()
         let filesCategories = storageCategories.map { categoriesAdapter.adaptToFiles(storageCategory: $0) }
-        let balanceAccountsAdapter = ExportBalanceAccountAdapter()
+        let balanceAccountsAdapter = ExportingBalanceAccountAdapter()
         let storageBalanceAccounts = try storage.getAllBalanceAccountsOrdered()
         let filesBalanceAccounts = storageBalanceAccounts.map { balanceAccountsAdapter.adaptToFiles(storageAccount: $0) }
         
