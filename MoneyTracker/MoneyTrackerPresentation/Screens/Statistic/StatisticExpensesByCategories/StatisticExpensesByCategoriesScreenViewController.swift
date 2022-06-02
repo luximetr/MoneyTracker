@@ -30,7 +30,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         months = monthsClosure?() ?? []
         let currentMonth = (selectedMonth ?? Date()).startOfMonth
         selectedMonth = months.min(by: { abs($0.timeIntervalSince(currentMonth)) < abs($1.timeIntervalSince(currentMonth)) }) ?? currentMonth
-        expenses = expensesClosure?(Date()) ?? []
+        expenses = expensesClosure?(selectedMonth ?? Date()) ?? []
     }
     
     // MARK: View
