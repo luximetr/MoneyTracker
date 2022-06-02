@@ -224,7 +224,7 @@ public class Storage {
                 let category = Category(id: selectedRow.id, name: selectedRow.name, color: categoryColor, iconName: selectedRow.icon)
                 return category
             }
-            return categories.first!
+            return categories.first(where: { $0.id == id })!
         } catch {
             throw error
         }
@@ -379,7 +379,7 @@ public class Storage {
         do {
             let balanceAccountSelectedRows = try sqliteDatabase.balanceAccountTable.selectOrderByOrderNumber()
             let balanceAccounts = try balanceAccountSelectedRows.map({ try mapBalanceAccountSelectedRowToBalanceAccount($0) })
-            return balanceAccounts.first!
+            return balanceAccounts.first(where: { $0.id == id })!
         } catch {
             throw error
         }
