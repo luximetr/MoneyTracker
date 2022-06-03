@@ -8,7 +8,6 @@ end
 target 'MoneyTrackerPresentation' do
   use_frameworks!
 
-  pod 'PinLayout'
   pod 'AnyFormatKit', '~> 2.5.2'
 end
 

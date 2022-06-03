@@ -25,6 +25,8 @@
 		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
 		2E180A5B284AA29600F555A3 /* AUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A5A284AA29600F555A3 /* AUIKit */; };
 		2E180A5D284AA2B400F555A3 /* AUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A5C284AA2B400F555A3 /* AUIKit */; };
+		2E180A63284AA7A400F555A3 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A62284AA7A400F555A3 /* PinLayout */; };
+		2E180A65284AA7B100F555A3 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A64284AA7B100F555A3 /* PinLayout */; };
 		2E25262128191CF70025D2E9 /* ReplenishmentSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */; };
 		2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252623281921CC0025D2E9 /* AddingReplenishment.swift */; };
 		2E252626281922230025D2E9 /* Replenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252625281922230025D2E9 /* Replenishment.swift */; };
@@ -1051,6 +1053,7 @@
 				2EC4CA6628055BB400518CDD /* MoneyTrackerUIKit.framework in Frameworks */,
 				291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */,
 				2EC4CA4C2805599800518CDD /* MoneyTrackerFoundation.framework in Frameworks */,
+				2E180A63284AA7A400F555A3 /* PinLayout in Frameworks */,
 				2EC4CA6F28055BD100518CDD /* MoneyTrackerUIKit.framework in Frameworks */,
 				2EC4CA5828055A3800518CDD /* MoneyTrackerFoundation.framework in Frameworks */,
 				2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */,
@@ -1063,6 +1066,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E180A65284AA7B100F555A3 /* PinLayout in Frameworks */,
 				2E180A5D284AA2B400F555A3 /* AUIKit in Frameworks */,
 				2EC4CA5328055A1A00518CDD /* MoneyTrackerFoundation.framework in Frameworks */,
 				2EC4CA6B28055BC800518CDD /* MoneyTrackerUIKit.framework in Frameworks */,
@@ -2982,6 +2986,7 @@
 			packageProductDependencies = (
 				2E8498F8284A9C25005B6185 /* AFoundation */,
 				2E180A5A284AA29600F555A3 /* AUIKit */,
+				2E180A62284AA7A400F555A3 /* PinLayout */,
 			);
 			productName = MoneyTracker;
 			productReference = 2EB109FA27A6C30C00743416 /* MoneyTracker.app */;
@@ -3008,6 +3013,7 @@
 			packageProductDependencies = (
 				2E8498FC284A9C3F005B6185 /* AFoundation */,
 				2E180A5C284AA2B400F555A3 /* AUIKit */,
+				2E180A64284AA7B100F555A3 /* PinLayout */,
 			);
 			productName = MoneyTrackerPresentation;
 			productReference = 2EB10A1A27A6CAE500743416 /* MoneyTrackerPresentation.framework */;
@@ -3118,6 +3124,7 @@
 			packageReferences = (
 				2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */,
 				2E180A59284AA29600F555A3 /* XCRemoteSwiftPackageReference "AUIKit" */,
+				2E180A61284AA7A400F555A3 /* XCRemoteSwiftPackageReference "PinLayout" */,
 			);
 			productRefGroup = 2EB109FB27A6C30C00743416 /* Products */;
 			projectDirPath = "";
@@ -4788,6 +4795,14 @@
 				kind = branch;
 			};
 		};
+		2E180A61284AA7A400F555A3 /* XCRemoteSwiftPackageReference "PinLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/layoutBox/PinLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ihormyroniuk/AFoundation.git";
@@ -4808,6 +4823,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E180A59284AA29600F555A3 /* XCRemoteSwiftPackageReference "AUIKit" */;
 			productName = AUIKit;
+		};
+		2E180A62284AA7A400F555A3 /* PinLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E180A61284AA7A400F555A3 /* XCRemoteSwiftPackageReference "PinLayout" */;
+			productName = PinLayout;
+		};
+		2E180A64284AA7B100F555A3 /* PinLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E180A61284AA7A400F555A3 /* XCRemoteSwiftPackageReference "PinLayout" */;
+			productName = PinLayout;
 		};
 		2E8498F8284A9C25005B6185 /* AFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
