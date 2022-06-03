@@ -5,6 +5,7 @@
 //  Created by Oleksandr Orlov on 27.04.2022.
 //
 
+import UIKit
 import AUIKit
 
 extension CategoryVerticalPickerController {

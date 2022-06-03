@@ -1,15 +1,11 @@
 PODS:
-  - AFoundation (0.1.3)
   - AnyFormatKit (2.5.2)
   - ASQLite3 (0.1.3)
-  - AUIKit (1.0.0)
   - PinLayout (1.10.2)
 
 DEPENDENCIES:
-  - AFoundation (from `https://github.com/ihormyroniuk/AFoundation.git`, branch `development`)
   - AnyFormatKit (~> 2.5.2)
   - ASQLite3 (from `https://github.com/ihormyroniuk/ASQLite3.git`, branch `development`)
-  - AUIKit (from `https://github.com/ihormyroniuk/AUIKit.git`, branch `development`)
   - PinLayout
 
 SPEC REPOS:
@@ -18,34 +14,20 @@ SPEC REPOS:
     - PinLayout
 
 EXTERNAL SOURCES:
-  AFoundation:
-    :branch: development
-    :git: https://github.com/ihormyroniuk/AFoundation.git
   ASQLite3:
     :branch: development
     :git: https://github.com/ihormyroniuk/ASQLite3.git
-  AUIKit:
-    :branch: development
-    :git: https://github.com/ihormyroniuk/AUIKit.git
 
 CHECKOUT OPTIONS:
-  AFoundation:
-    :commit: e0e48aed1d178a1a8bd572cab2c94009473d631e
-    :git: https://github.com/ihormyroniuk/AFoundation.git
   ASQLite3:
-    :commit: 0435811989370a5554881cd438f43435856611a4
+    :commit: a35d3ca1b94f64badbb146e0f215bdf733efd6a1
     :git: https://github.com/ihormyroniuk/ASQLite3.git
-  AUIKit:
-    :commit: 4400aa706b66a62f9e5394c3a5912a77cb8fdf19
-    :git: https://github.com/ihormyroniuk/AUIKit.git
 
 SPEC CHECKSUMS:
-  AFoundation: b395b4e2cb156715b6a4c55182c801bef1a5e810
   AnyFormatKit: b0dbb2a5f2fe7a0fc97f401f8a219a47ee63a335
   ASQLite3: 0c872c40d8a6c78357d046f3bb2192256ef31b12
-  AUIKit: 1f146cf9d07e7241c2318521cfea313467732d34
   PinLayout: d6b1960e4b182b4da1481b9aa6728f621e20708d
 
-PODFILE CHECKSUM: 63221ed86e40dbdc2501fb699710cb8d32b59d96
+PODFILE CHECKSUM: 6489078b5cdf4c87b5eff2f661618f7ff9bc55ed
 
 COCOAPODS: 1.11.2

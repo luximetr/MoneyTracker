@@ -5,6 +5,7 @@
 //  Created by Oleksandr Orlov on 03.04.2022.
 //
 
+import UIKit
 import AUIKit
 
 extension ColorHorizontalPickerController {

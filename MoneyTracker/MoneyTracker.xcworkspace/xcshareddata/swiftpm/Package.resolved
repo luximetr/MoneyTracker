@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AFoundation",
+        "repositoryURL": "https://github.com/ihormyroniuk/AFoundation.git",
+        "state": {
+          "branch": "development",
+          "revision": "efcce09f152c118cecacb27b63e83fbf60ead05e",
+          "version": null
+        }
+      },
+      {
+        "package": "AUIKit",
+        "repositoryURL": "https://github.com/ihormyroniuk/AUIKit",
+        "state": {
+          "branch": "development",
+          "revision": "866c2a7fb56292d396715d19f2a6ea2bb703b970",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

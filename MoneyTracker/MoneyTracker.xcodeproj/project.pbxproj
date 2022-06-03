@@ -23,6 +23,8 @@
 		2E0FC1D9283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FC1D8283A681400BF248B /* StatisticMenuScreenTitleTableViewCell.swift */; };
 		2E15D5D228426B2800645C47 /* CurrencyNameStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E15D5D428426B2800645C47 /* CurrencyNameStrings.strings */; };
 		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
+		2E180A5B284AA29600F555A3 /* AUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A5A284AA29600F555A3 /* AUIKit */; };
+		2E180A5D284AA2B400F555A3 /* AUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A5C284AA2B400F555A3 /* AUIKit */; };
 		2E25262128191CF70025D2E9 /* ReplenishmentSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */; };
 		2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252623281921CC0025D2E9 /* AddingReplenishment.swift */; };
 		2E252626281922230025D2E9 /* Replenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252625281922230025D2E9 /* Replenishment.swift */; };
@@ -52,6 +54,9 @@
 		2E7F856F281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F856E281D797B0013C3DD /* HistoryScreenExpenseTableViewCellController.swift */; };
 		2E7F8571281D79840013C3DD /* HistoryScreenExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F8570281D79840013C3DD /* HistoryScreenExpenseTableViewCell.swift */; };
 		2E832AAF2816DBEF0083B77F /* ExpenseSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E832AAE2816DBEF0083B77F /* ExpenseSqliteTable.swift */; };
+		2E8498F9284A9C25005B6185 /* AFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2E8498F8284A9C25005B6185 /* AFoundation */; };
+		2E8498FB284A9C38005B6185 /* AFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2E8498FA284A9C38005B6185 /* AFoundation */; };
+		2E8498FD284A9C3F005B6185 /* AFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2E8498FC284A9C3F005B6185 /* AFoundation */; };
 		2E91153E27A92DE600359F21 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91153D27A92DE600359F21 /* Category.swift */; };
 		2E91154727A9308B00359F21 /* MoneyTrackerStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E91154627A9308B00359F21 /* MoneyTrackerStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */; };
@@ -1032,6 +1037,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */,
+				2E8498FB284A9C38005B6185 /* AFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1040,6 +1046,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EB10A2027A6CAE500743416 /* MoneyTrackerPresentation.framework in Frameworks */,
+				2E180A5B284AA29600F555A3 /* AUIKit in Frameworks */,
+				2E8498F9284A9C25005B6185 /* AFoundation in Frameworks */,
 				2EC4CA6628055BB400518CDD /* MoneyTrackerUIKit.framework in Frameworks */,
 				291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */,
 				2EC4CA4C2805599800518CDD /* MoneyTrackerFoundation.framework in Frameworks */,
@@ -1055,9 +1063,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E180A5D284AA2B400F555A3 /* AUIKit in Frameworks */,
 				2EC4CA5328055A1A00518CDD /* MoneyTrackerFoundation.framework in Frameworks */,
 				2EC4CA6B28055BC800518CDD /* MoneyTrackerUIKit.framework in Frameworks */,
 				C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */,
+				2E8498FD284A9C3F005B6185 /* AFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2938,6 +2948,9 @@
 			dependencies = (
 			);
 			name = MoneyTrackerStorage;
+			packageProductDependencies = (
+				2E8498FA284A9C38005B6185 /* AFoundation */,
+			);
 			productName = MoneyTrackerStorage;
 			productReference = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */;
 			productType = "com.apple.product-type.framework";
@@ -2966,6 +2979,10 @@
 				2EC4CA7128055BD100518CDD /* PBXTargetDependency */,
 			);
 			name = MoneyTracker;
+			packageProductDependencies = (
+				2E8498F8284A9C25005B6185 /* AFoundation */,
+				2E180A5A284AA29600F555A3 /* AUIKit */,
+			);
 			productName = MoneyTracker;
 			productReference = 2EB109FA27A6C30C00743416 /* MoneyTracker.app */;
 			productType = "com.apple.product-type.application";
@@ -2988,6 +3005,10 @@
 				2EC4CA6E28055BC800518CDD /* PBXTargetDependency */,
 			);
 			name = MoneyTrackerPresentation;
+			packageProductDependencies = (
+				2E8498FC284A9C3F005B6185 /* AFoundation */,
+				2E180A5C284AA2B400F555A3 /* AUIKit */,
+			);
 			productName = MoneyTrackerPresentation;
 			productReference = 2EB10A1A27A6CAE500743416 /* MoneyTrackerPresentation.framework */;
 			productType = "com.apple.product-type.framework";
@@ -3094,6 +3115,10 @@
 				th,
 			);
 			mainGroup = 2EB109F127A6C30C00743416;
+			packageReferences = (
+				2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */,
+				2E180A59284AA29600F555A3 /* XCRemoteSwiftPackageReference "AUIKit" */,
+			);
 			productRefGroup = 2EB109FB27A6C30C00743416 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -4753,6 +4778,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2E180A59284AA29600F555A3 /* XCRemoteSwiftPackageReference "AUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ihormyroniuk/AUIKit";
+			requirement = {
+				branch = development;
+				kind = branch;
+			};
+		};
+		2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ihormyroniuk/AFoundation.git";
+			requirement = {
+				branch = development;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2E180A5A284AA29600F555A3 /* AUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E180A59284AA29600F555A3 /* XCRemoteSwiftPackageReference "AUIKit" */;
+			productName = AUIKit;
+		};
+		2E180A5C284AA2B400F555A3 /* AUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E180A59284AA29600F555A3 /* XCRemoteSwiftPackageReference "AUIKit" */;
+			productName = AUIKit;
+		};
+		2E8498F8284A9C25005B6185 /* AFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */;
+			productName = AFoundation;
+		};
+		2E8498FA284A9C38005B6185 /* AFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */;
+			productName = AFoundation;
+		};
+		2E8498FC284A9C3F005B6185 /* AFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */;
+			productName = AFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2EB109F227A6C30C00743416 /* Project object */;
 }

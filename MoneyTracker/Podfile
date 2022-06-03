@@ -3,15 +3,11 @@ platform :ios, '13.0'
 target 'MoneyTracker' do
   use_frameworks!
 
-  pod "AFoundation", :git => 'https://github.com/ihormyroniuk/AFoundation.git', :branch => 'development'
-  pod "AUIKit", :git => 'https://github.com/ihormyroniuk/AUIKit.git', :branch => 'development'
 end
 
 target 'MoneyTrackerPresentation' do
   use_frameworks!
 
-  pod "AFoundation", :git => 'https://github.com/ihormyroniuk/AFoundation.git', :branch => 'development'
-  pod "AUIKit", :git => 'https://github.com/ihormyroniuk/AUIKit.git', :branch => 'development'
   pod 'PinLayout'
   pod 'AnyFormatKit', '~> 2.5.2'
 end
@@ -19,6 +15,5 @@ end
 target 'MoneyTrackerStorage' do
   use_frameworks!
 
-  pod "AFoundation", :git => 'https://github.com/ihormyroniuk/AFoundation.git', :branch => 'development'
   pod "ASQLite3", :git => 'https://github.com/ihormyroniuk/ASQLite3.git', :branch => 'development'
 end

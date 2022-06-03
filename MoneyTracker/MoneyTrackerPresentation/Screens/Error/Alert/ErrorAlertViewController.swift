@@ -6,6 +6,7 @@
 //
 
 import AFoundation
+import UIKit
 import AUIKit
 
 final class ErrorAlertViewController: UIAlertController {
