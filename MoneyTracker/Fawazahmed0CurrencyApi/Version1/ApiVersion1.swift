@@ -8,14 +8,21 @@
 import Foundation
 import AFoundation
 
-enum ApiVersion1 {
+public class ApiVersion1 {
     
-    static let scheme = UriScheme.https
-    static let host = "cdn.jsdelivr.net"
+    private let scheme = UriScheme.https
+    private let host = "cdn.jsdelivr.net"
     static let path = "/gh/fawazahmed0/currency-api@1"
+    private let currencyCodeProvider = ApiVersion1CurrencyCodeProvider()
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter
+    }()
+    private let isMin: Bool = true
     
-    func сurrenciesCurrency(requestData: ApiVersion1CurrenciesCurrencyRequestData) -> ApiVersion1CurrenciesCurrencyHttpExchange {
-        let httpExchange = ApiVersion1CurrenciesCurrencyHttpExchange(requestData: requestData)
+    func сurrenciesCurrency(requestData: ApiVersion1LatestCurrenciesCurrencyRequestData) -> ApiVersion1LatestCurrenciesCurrencyHttpExchange {
+        let httpExchange = ApiVersion1LatestCurrenciesCurrencyHttpExchange(scheme: scheme, host: host, requestData: requestData, dateFormatter: dateFormatter, isMin: isMin, currencyCodeProvider: currencyCodeProvider)
         return httpExchange
     }
     

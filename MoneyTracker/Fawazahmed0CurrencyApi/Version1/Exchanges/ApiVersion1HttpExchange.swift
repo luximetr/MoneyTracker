@@ -10,8 +10,14 @@ import AFoundation
 
 class ApiVersion1HttpExchange<RequestData, ParsedResponse>: RequestDataHttpExchange<RequestData, ParsedResponse> {
     
-    let scheme = ApiVersion1.scheme
-    let host = ApiVersion1.host
+    let scheme: String
+    let host: String
     let basePath = ApiVersion1.path
+    
+    init(scheme: String, host: String, requestData: RequestData) {
+        self.scheme = scheme
+        self.host = host
+        super.init(requestData: requestData)
+    }
     
 }

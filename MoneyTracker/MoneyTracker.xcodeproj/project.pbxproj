@@ -150,11 +150,13 @@
 		2EBBD24D281C1DBB00929A97 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBD24C281C1DBB00929A97 /* Operation.swift */; };
 		2EBDF1E3284BCF2700698B7E /* AFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2EBDF1E2284BCF2700698B7E /* AFoundation */; };
 		2EBDF1E5284BCFC200698B7E /* ApiVersion1HttpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E4284BCFC200698B7E /* ApiVersion1HttpExchange.swift */; };
-		2EBDF1E7284BD20800698B7E /* ApiVersion1CurrenciesCurrencyHttpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E6284BD20800698B7E /* ApiVersion1CurrenciesCurrencyHttpExchange.swift */; };
+		2EBDF1E7284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E6284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift */; };
 		2EBDF1E9284BD34200698B7E /* ApiVersion1Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */; };
-		2EBDF1EC284BD4B600698B7E /* ApiVersion1CurrenciesCurrencyRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1EB284BD4B600698B7E /* ApiVersion1CurrenciesCurrencyRequestData.swift */; };
 		2EBDF1EE284BD4DE00698B7E /* ApiVersion1Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1ED284BD4DE00698B7E /* ApiVersion1Date.swift */; };
-		2EBDF1F2284BD75D00698B7E /* ApiVersion1CurrenciesCurrencyParsedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F1284BD75D00698B7E /* ApiVersion1CurrenciesCurrencyParsedResponse.swift */; };
+		2EBDF1F2284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F1284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift */; };
+		2EBDF1F4284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift */; };
+		2EBDF1F7284BED4D00698B7E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F6284BED4D00698B7E /* Error.swift */; };
+		2EBDF1F9284BF52200698B7E /* ApiVersion1LatestCurrenciesCurrencyRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F8284BF52200698B7E /* ApiVersion1LatestCurrenciesCurrencyRequestData.swift */; };
 		2EBDF92F27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF92E27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift */; };
 		2EBDF93127ECCF8B002B6C9E /* MonthCategoryExpensesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF93027ECCF8B002B6C9E /* MonthCategoryExpensesTableViewCell.swift */; };
 		2EC19ACE27A7F64000E1A6FA /* CategoriesListScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC19ACD27A7F64000E1A6FA /* CategoriesListScreenViewController.swift */; };
@@ -704,11 +706,13 @@
 		2EB82740280764C900C6377F /* SelectLanguageLanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageLanguageTableViewCell.swift; sourceTree = "<group>"; };
 		2EBBD24C281C1DBB00929A97 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		2EBDF1E4284BCFC200698B7E /* ApiVersion1HttpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1HttpExchange.swift; sourceTree = "<group>"; };
-		2EBDF1E6284BD20800698B7E /* ApiVersion1CurrenciesCurrencyHttpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1CurrenciesCurrencyHttpExchange.swift; sourceTree = "<group>"; };
+		2EBDF1E6284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift; sourceTree = "<group>"; };
 		2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1Currency.swift; sourceTree = "<group>"; };
-		2EBDF1EB284BD4B600698B7E /* ApiVersion1CurrenciesCurrencyRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1CurrenciesCurrencyRequestData.swift; sourceTree = "<group>"; };
 		2EBDF1ED284BD4DE00698B7E /* ApiVersion1Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1Date.swift; sourceTree = "<group>"; };
-		2EBDF1F1284BD75D00698B7E /* ApiVersion1CurrenciesCurrencyParsedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1CurrenciesCurrencyParsedResponse.swift; sourceTree = "<group>"; };
+		2EBDF1F1284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift; sourceTree = "<group>"; };
+		2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1CurrencyCodeProvider.swift; sourceTree = "<group>"; };
+		2EBDF1F6284BED4D00698B7E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		2EBDF1F8284BF52200698B7E /* ApiVersion1LatestCurrenciesCurrencyRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1LatestCurrenciesCurrencyRequestData.swift; sourceTree = "<group>"; };
 		2EBDF92E27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCategoryExpensesTableViewCellController.swift; sourceTree = "<group>"; };
 		2EBDF93027ECCF8B002B6C9E /* MonthCategoryExpensesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCategoryExpensesTableViewCell.swift; sourceTree = "<group>"; };
 		2EC19ACD27A7F64000E1A6FA /* CategoriesListScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListScreenViewController.swift; sourceTree = "<group>"; };
@@ -1812,9 +1816,9 @@
 		2EBDF1EA284BD41D00698B7E /* CurrenciesCurrency */ = {
 			isa = PBXGroup;
 			children = (
-				2EBDF1E6284BD20800698B7E /* ApiVersion1CurrenciesCurrencyHttpExchange.swift */,
-				2EBDF1EB284BD4B600698B7E /* ApiVersion1CurrenciesCurrencyRequestData.swift */,
-				2EBDF1F1284BD75D00698B7E /* ApiVersion1CurrenciesCurrencyParsedResponse.swift */,
+				2EBDF1E6284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift */,
+				2EBDF1F8284BF52200698B7E /* ApiVersion1LatestCurrenciesCurrencyRequestData.swift */,
+				2EBDF1F1284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift */,
 			);
 			path = CurrenciesCurrency;
 			sourceTree = "<group>";
@@ -1832,10 +1836,19 @@
 		2EBDF1F0284BD52800698B7E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */,
 				2EBDF1ED284BD4DE00698B7E /* ApiVersion1Date.swift */,
+				2EBDF1F5284BE43D00698B7E /* Currency */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		2EBDF1F5284BE43D00698B7E /* Currency */ = {
+			isa = PBXGroup;
+			children = (
+				2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */,
+				2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift */,
+			);
+			path = Currency;
 			sourceTree = "<group>";
 		};
 		2EBDF92D27ECCF24002B6C9E /* MonthCategoryExpensesTableViewCell */ = {
@@ -2369,6 +2382,7 @@
 				2EDEED18284BC1B600E8BDC0 /* Api.swift */,
 				2EBDF1EF284BD51500698B7E /* Version1 */,
 				2EDEED0F284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.h */,
+				2EBDF1F6284BED4D00698B7E /* Error.swift */,
 			);
 			path = Fawazahmed0CurrencyApi;
 			sourceTree = "<group>";
@@ -3675,14 +3689,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EBDF1E7284BD20800698B7E /* ApiVersion1CurrenciesCurrencyHttpExchange.swift in Sources */,
-				2EBDF1F2284BD75D00698B7E /* ApiVersion1CurrenciesCurrencyParsedResponse.swift in Sources */,
+				2EBDF1F9284BF52200698B7E /* ApiVersion1LatestCurrenciesCurrencyRequestData.swift in Sources */,
+				2EBDF1E7284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift in Sources */,
+				2EBDF1F2284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift in Sources */,
+				2EBDF1F4284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift in Sources */,
 				2EBDF1E9284BD34200698B7E /* ApiVersion1Currency.swift in Sources */,
 				2EBDF1EE284BD4DE00698B7E /* ApiVersion1Date.swift in Sources */,
 				2EDEED19284BC1B600E8BDC0 /* Api.swift in Sources */,
 				2EBDF1E5284BCFC200698B7E /* ApiVersion1HttpExchange.swift in Sources */,
 				2EDEED1B284BC20000E8BDC0 /* ApiVersion1.swift in Sources */,
-				2EBDF1EC284BD4B600698B7E /* ApiVersion1CurrenciesCurrencyRequestData.swift in Sources */,
+				2EBDF1F7284BED4D00698B7E /* Error.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4692,6 +4708,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4701,10 +4718,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moneytracker.Fawazahmed0CurrencyApi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -4725,6 +4743,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4734,9 +4753,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moneytracker.Fawazahmed0CurrencyApi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
