@@ -11,6 +11,24 @@
         }
       },
       {
+        "package": "AnyFormatKit",
+        "repositoryURL": "https://github.com/luximetr/AnyFormatKit",
+        "state": {
+          "branch": null,
+          "revision": "ae3a965164005b07f81d6aa066520d7ad14ea54e",
+          "version": "2.5.2"
+        }
+      },
+      {
+        "package": "ASQLite3",
+        "repositoryURL": "https://github.com/ihormyroniuk/ASQLite3",
+        "state": {
+          "branch": "development",
+          "revision": "a35d3ca1b94f64badbb146e0f215bdf733efd6a1",
+          "version": null
+        }
+      },
+      {
         "package": "AUIKit",
         "repositoryURL": "https://github.com/ihormyroniuk/AUIKit",
         "state": {

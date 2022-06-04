@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */; };
 		2E01B2BF27EDA89B00013321 /* MonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E01B2BE27EDA89B00013321 /* MonthPickerView.swift */; };
 		2E01B2C127EDA8DF00013321 /* MonthPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E01B2C027EDA8DF00013321 /* MonthPickerViewController.swift */; };
 		2E01B2C427EDACD400013321 /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E01B2C327EDACD400013321 /* MonthCollectionViewCell.swift */; };
@@ -25,8 +24,8 @@
 		2E16BA0927FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E16BA0B27FC81F4000F2466 /* ExpenseAddedSnackbarStrings.strings */; };
 		2E180A5B284AA29600F555A3 /* AUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A5A284AA29600F555A3 /* AUIKit */; };
 		2E180A5D284AA2B400F555A3 /* AUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A5C284AA2B400F555A3 /* AUIKit */; };
-		2E180A63284AA7A400F555A3 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A62284AA7A400F555A3 /* PinLayout */; };
 		2E180A65284AA7B100F555A3 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A64284AA7B100F555A3 /* PinLayout */; };
+		2E180A6A284AA98500F555A3 /* AnyFormatKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E180A69284AA98500F555A3 /* AnyFormatKit */; };
 		2E25262128191CF70025D2E9 /* ReplenishmentSqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E25262028191CF70025D2E9 /* ReplenishmentSqliteTable.swift */; };
 		2E252624281921CC0025D2E9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252623281921CC0025D2E9 /* AddingReplenishment.swift */; };
 		2E252626281922230025D2E9 /* Replenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E252625281922230025D2E9 /* Replenishment.swift */; };
@@ -98,6 +97,7 @@
 		2E96212C27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E96212E27AFD94C00DF0DD4 /* EditCategoryScreenStrings.strings */; };
 		2E98FF5127EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E98FF5027EBA53F007405B9 /* ExpenseAddedSnackbarViewController.swift */; };
 		2E99FBF0282256B8005B6948 /* EditReplenishmentScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E99FBF2282256B8005B6948 /* EditReplenishmentScreenStrings.strings */; };
+		2E9DE0A1284B222E00A9C858 /* ASQLite3 in Frameworks */ = {isa = PBXBuildFile; productRef = 2E9DE0A0284B222E00A9C858 /* ASQLite3 */; };
 		2E9F46E62821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E52821A8CD00F4E048 /* EditReplenishmentScreenViewController.swift */; };
 		2E9F46E82821A8DB00F4E048 /* EditReplenishmentScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E72821A8DB00F4E048 /* EditReplenishmentScreenView.swift */; };
 		2E9F46EA2821ADD300F4E048 /* EditingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F46E92821ADD300F4E048 /* EditingReplenishment.swift */; };
@@ -260,7 +260,6 @@
 		2EFCCE3E283431B800E1F85F /* AppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3D283431B800E1F85F /* AppearanceFonts.swift */; };
 		2EFCCE40283431F700E1F85F /* DefaultAppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3F283431F700E1F85F /* DefaultAppearanceFonts.swift */; };
 		2EFCCE4328343C0900E1F85F /* AppearanceColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE4228343C0900E1F85F /* AppearanceColors.swift */; };
-		C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */; };
 		DB26119A283D1E9B003F21AF /* ExportingExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB261198283D1E9B003F21AF /* ExportingExpense.swift */; };
 		DB26119B283D1E9B003F21AF /* ExportingExpenseCSVComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB261199283D1E9B003F21AF /* ExportingExpenseCSVComposer.swift */; };
 		DB400412280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB400411280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift */; };
@@ -420,7 +419,6 @@
 		DBDC9330282D50FA00D8C435 /* ImportingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC932F282D50FA00D8C435 /* ImportingOperation.swift */; };
 		DBDC9332282D52E300D8C435 /* ImportingTransferAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9331282D52E300D8C435 /* ImportingTransferAdapter.swift */; };
 		DBDC9334282D53F000D8C435 /* ImportingReplenishmentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC9333282D53F000D8C435 /* ImportingReplenishmentAdapter.swift */; };
-		E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -545,7 +543,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E01B2BE27EDA89B00013321 /* MonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerView.swift; sourceTree = "<group>"; };
 		2E01B2C027EDA8DF00013321 /* MonthPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerViewController.swift; sourceTree = "<group>"; };
 		2E01B2C327EDACD400013321 /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -861,12 +858,6 @@
 		2EFCCE3D283431B800E1F85F /* AppearanceFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceFonts.swift; sourceTree = "<group>"; };
 		2EFCCE3F283431F700E1F85F /* DefaultAppearanceFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppearanceFonts.swift; sourceTree = "<group>"; };
 		2EFCCE4228343C0900E1F85F /* AppearanceColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceColors.swift; sourceTree = "<group>"; };
-		3BF952E2EAD51B56319BC964 /* Pods-MoneyTrackerPresentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.release.xcconfig"; sourceTree = "<group>"; };
-		419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTrackerPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		91DB6CD061BC073A2D2C4504 /* Pods-MoneyTrackerStorage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerStorage.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerStorage/Pods-MoneyTrackerStorage.debug.xcconfig"; sourceTree = "<group>"; };
-		920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.release.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.release.xcconfig"; sourceTree = "<group>"; };
-		B5FBC1001C9260CDC0F2D88C /* Pods-MoneyTrackerStorage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerStorage.release.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerStorage/Pods-MoneyTrackerStorage.release.xcconfig"; sourceTree = "<group>"; };
 		DB261198283D1E9B003F21AF /* ExportingExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportingExpense.swift; sourceTree = "<group>"; };
 		DB261199283D1E9B003F21AF /* ExportingExpenseCSVComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportingExpenseCSVComposer.swift; sourceTree = "<group>"; };
 		DB400411280E4A4D004073D0 /* BackTitleRightButtonNavigationBarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackTitleRightButtonNavigationBarScreenView.swift; sourceTree = "<group>"; };
@@ -1029,8 +1020,6 @@
 		DBDC932F282D50FA00D8C435 /* ImportingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingOperation.swift; sourceTree = "<group>"; };
 		DBDC9331282D52E300D8C435 /* ImportingTransferAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingTransferAdapter.swift; sourceTree = "<group>"; };
 		DBDC9333282D53F000D8C435 /* ImportingReplenishmentAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportingReplenishmentAdapter.swift; sourceTree = "<group>"; };
-		E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTrackerPresentation.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTrackerPresentation/Pods-MoneyTrackerPresentation.debug.xcconfig"; sourceTree = "<group>"; };
-		FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTracker.debug.xcconfig"; path = "Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1038,8 +1027,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E431D758E768D52D5969B5DE /* Pods_MoneyTrackerStorage.framework in Frameworks */,
 				2E8498FB284A9C38005B6185 /* AFoundation in Frameworks */,
+				2E9DE0A1284B222E00A9C858 /* ASQLite3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,9 +1040,7 @@
 				2E180A5B284AA29600F555A3 /* AUIKit in Frameworks */,
 				2E8498F9284A9C25005B6185 /* AFoundation in Frameworks */,
 				2EC4CA6628055BB400518CDD /* MoneyTrackerUIKit.framework in Frameworks */,
-				291D2B2ED7A82E2B3C85F570 /* Pods_MoneyTracker.framework in Frameworks */,
 				2EC4CA4C2805599800518CDD /* MoneyTrackerFoundation.framework in Frameworks */,
-				2E180A63284AA7A400F555A3 /* PinLayout in Frameworks */,
 				2EC4CA6F28055BD100518CDD /* MoneyTrackerUIKit.framework in Frameworks */,
 				2EC4CA5828055A3800518CDD /* MoneyTrackerFoundation.framework in Frameworks */,
 				2E91154A27A9308B00359F21 /* MoneyTrackerStorage.framework in Frameworks */,
@@ -1066,11 +1053,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E180A6A284AA98500F555A3 /* AnyFormatKit in Frameworks */,
 				2E180A65284AA7B100F555A3 /* PinLayout in Frameworks */,
 				2E180A5D284AA2B400F555A3 /* AUIKit in Frameworks */,
 				2EC4CA5328055A1A00518CDD /* MoneyTrackerFoundation.framework in Frameworks */,
 				2EC4CA6B28055BC800518CDD /* MoneyTrackerUIKit.framework in Frameworks */,
-				C28BCBF9C002CFB6F8BE390D /* Pods_MoneyTrackerPresentation.framework in Frameworks */,
 				2E8498FD284A9C3F005B6185 /* AFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1550,8 +1537,6 @@
 				2EC4CA472805599800518CDD /* MoneyTrackerFoundation */,
 				2EC4CA6128055BB400518CDD /* MoneyTrackerUIKit */,
 				2EB109FB27A6C30C00743416 /* Products */,
-				51E3EA472CC8324F4826A8AD /* Pods */,
-				F6CDF223860AC628D18B4DED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2331,19 +2316,6 @@
 			path = Colors;
 			sourceTree = "<group>";
 		};
-		51E3EA472CC8324F4826A8AD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */,
-				920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */,
-				E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */,
-				3BF952E2EAD51B56319BC964 /* Pods-MoneyTrackerPresentation.release.xcconfig */,
-				91DB6CD061BC073A2D2C4504 /* Pods-MoneyTrackerStorage.debug.xcconfig */,
-				B5FBC1001C9260CDC0F2D88C /* Pods-MoneyTrackerStorage.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		DB261194283D1DD5003F21AF /* ExportingTransfer */ = {
 			isa = PBXGroup;
 			children = (
@@ -2881,16 +2853,6 @@
 			path = ImportingBalanceAccountOperationType;
 			sourceTree = "<group>";
 		};
-		F6CDF223860AC628D18B4DED /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				03925520AAE7EFA6F31C5FDD /* Pods_MoneyTracker.framework */,
-				4824322390D5C77FA8BBBF93 /* Pods_MoneyTrackerPresentation.framework */,
-				419B3EB9CBB39A081DB419E1 /* Pods_MoneyTrackerStorage.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2941,7 +2903,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E91154C27A9308B00359F21 /* Build configuration list for PBXNativeTarget "MoneyTrackerStorage" */;
 			buildPhases = (
-				DABB76EBA81E362AD56EA4AB /* [CP] Check Pods Manifest.lock */,
 				2E91153F27A9308B00359F21 /* Headers */,
 				2E91154027A9308B00359F21 /* Sources */,
 				2E91154127A9308B00359F21 /* Frameworks */,
@@ -2954,6 +2915,7 @@
 			name = MoneyTrackerStorage;
 			packageProductDependencies = (
 				2E8498FA284A9C38005B6185 /* AFoundation */,
+				2E9DE0A0284B222E00A9C858 /* ASQLite3 */,
 			);
 			productName = MoneyTrackerStorage;
 			productReference = 2E91154427A9308B00359F21 /* MoneyTrackerStorage.framework */;
@@ -2963,11 +2925,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2EB10A0E27A6C30D00743416 /* Build configuration list for PBXNativeTarget "MoneyTracker" */;
 			buildPhases = (
-				FD7BF82A9949D6B2D9FDE63A /* [CP] Check Pods Manifest.lock */,
 				2EB109F627A6C30C00743416 /* Sources */,
 				2EB109F727A6C30C00743416 /* Frameworks */,
 				2EB109F827A6C30C00743416 /* Resources */,
-				6F5E88B3E336AB2CF96031BE /* [CP] Embed Pods Frameworks */,
 				2EB10A2527A6CAE500743416 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -2986,7 +2946,6 @@
 			packageProductDependencies = (
 				2E8498F8284A9C25005B6185 /* AFoundation */,
 				2E180A5A284AA29600F555A3 /* AUIKit */,
-				2E180A62284AA7A400F555A3 /* PinLayout */,
 			);
 			productName = MoneyTracker;
 			productReference = 2EB109FA27A6C30C00743416 /* MoneyTracker.app */;
@@ -2996,7 +2955,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2EB10A2227A6CAE500743416 /* Build configuration list for PBXNativeTarget "MoneyTrackerPresentation" */;
 			buildPhases = (
-				482A3C3F19892C873BF2C870 /* [CP] Check Pods Manifest.lock */,
 				2EB10A1527A6CAE500743416 /* Headers */,
 				2EB10A1627A6CAE500743416 /* Sources */,
 				2EB10A1727A6CAE500743416 /* Frameworks */,
@@ -3014,6 +2972,7 @@
 				2E8498FC284A9C3F005B6185 /* AFoundation */,
 				2E180A5C284AA2B400F555A3 /* AUIKit */,
 				2E180A64284AA7B100F555A3 /* PinLayout */,
+				2E180A69284AA98500F555A3 /* AnyFormatKit */,
 			);
 			productName = MoneyTrackerPresentation;
 			productReference = 2EB10A1A27A6CAE500743416 /* MoneyTrackerPresentation.framework */;
@@ -3125,6 +3084,8 @@
 				2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */,
 				2E180A59284AA29600F555A3 /* XCRemoteSwiftPackageReference "AUIKit" */,
 				2E180A61284AA7A400F555A3 /* XCRemoteSwiftPackageReference "PinLayout" */,
+				2E180A66284AA96600F555A3 /* XCRemoteSwiftPackageReference "AnyFormatKit" */,
+				2E9DE09D284B222000A9C858 /* XCRemoteSwiftPackageReference "ASQLite3" */,
 			);
 			productRefGroup = 2EB109FB27A6C30C00743416 /* Products */;
 			projectDirPath = "";
@@ -3228,92 +3189,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		482A3C3F19892C873BF2C870 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoneyTrackerPresentation-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6F5E88B3E336AB2CF96031BE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoneyTracker/Pods-MoneyTracker-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DABB76EBA81E362AD56EA4AB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoneyTrackerStorage-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FD7BF82A9949D6B2D9FDE63A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoneyTracker-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2E91154027A9308B00359F21 /* Sources */ = {
@@ -4183,7 +4058,6 @@
 /* Begin XCBuildConfiguration section */
 		2E91154D27A9308B00359F21 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91DB6CD061BC073A2D2C4504 /* Pods-MoneyTrackerStorage.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4219,7 +4093,6 @@
 		};
 		2E91154E27A9308B00359F21 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5FBC1001C9260CDC0F2D88C /* Pods-MoneyTrackerStorage.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4372,7 +4245,6 @@
 		};
 		2EB10A0F27A6C30D00743416 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCC26FF4D9B85D4C02436829 /* Pods-MoneyTracker.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4406,7 +4278,6 @@
 		};
 		2EB10A1027A6C30D00743416 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 920095F171BE4702A53D6C7D /* Pods-MoneyTracker.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4440,7 +4311,6 @@
 		};
 		2EB10A2327A6CAE500743416 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E7E1AA165580B202F99BC895 /* Pods-MoneyTrackerPresentation.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4477,7 +4347,6 @@
 		};
 		2EB10A2427A6CAE500743416 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BF952E2EAD51B56319BC964 /* Pods-MoneyTrackerPresentation.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4803,9 +4672,25 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		2E180A66284AA96600F555A3 /* XCRemoteSwiftPackageReference "AnyFormatKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/luximetr/AnyFormatKit";
+			requirement = {
+				kind = exactVersion;
+				version = 2.5.2;
+			};
+		};
 		2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ihormyroniuk/AFoundation.git";
+			requirement = {
+				branch = development;
+				kind = branch;
+			};
+		};
+		2E9DE09D284B222000A9C858 /* XCRemoteSwiftPackageReference "ASQLite3" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ihormyroniuk/ASQLite3";
 			requirement = {
 				branch = development;
 				kind = branch;
@@ -4824,15 +4709,15 @@
 			package = 2E180A59284AA29600F555A3 /* XCRemoteSwiftPackageReference "AUIKit" */;
 			productName = AUIKit;
 		};
-		2E180A62284AA7A400F555A3 /* PinLayout */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2E180A61284AA7A400F555A3 /* XCRemoteSwiftPackageReference "PinLayout" */;
-			productName = PinLayout;
-		};
 		2E180A64284AA7B100F555A3 /* PinLayout */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2E180A61284AA7A400F555A3 /* XCRemoteSwiftPackageReference "PinLayout" */;
 			productName = PinLayout;
+		};
+		2E180A69284AA98500F555A3 /* AnyFormatKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E180A66284AA96600F555A3 /* XCRemoteSwiftPackageReference "AnyFormatKit" */;
+			productName = AnyFormatKit;
 		};
 		2E8498F8284A9C25005B6185 /* AFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -4848,6 +4733,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E8498F7284A9C25005B6185 /* XCRemoteSwiftPackageReference "AFoundation" */;
 			productName = AFoundation;
+		};
+		2E9DE0A0284B222E00A9C858 /* ASQLite3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E9DE09D284B222000A9C858 /* XCRemoteSwiftPackageReference "ASQLite3" */;
+			productName = ASQLite3;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
