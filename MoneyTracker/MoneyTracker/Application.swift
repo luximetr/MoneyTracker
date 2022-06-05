@@ -10,11 +10,13 @@ import AUIKit
 import MoneyTrackerPresentation
 import MoneyTrackerStorage
 import MoneyTrackerFiles
+import MoneyTrackerNetwork
 
 typealias Presentation = MoneyTrackerPresentation.Presentation
 typealias PresentationDelegate = MoneyTrackerPresentation.PresentationDelegate
 typealias Storage = MoneyTrackerStorage.Storage
 typealias Files = MoneyTrackerFiles.Files
+typealias Network = MoneyTrackerNetwork.Network
 
 class Application: AUIEmptyApplication, PresentationDelegate {
     
@@ -25,6 +27,21 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             try self.initialize()
             self.presentation.display()
+            self.network.latestCurrenciesCurrency { result in
+                switch result {
+                case .success(let response):
+                    switch response {
+                    case .parsedResponse(let parsedResponse):
+                        print(parsedResponse)
+                    case .networkConnectionLost:
+                        break
+                    case .notConnectedToInternet:
+                        break
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
         } catch {
             self.showError(error)
         }
@@ -35,6 +52,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     private func initialize() throws {
         do {
             try self.initializeStorage()
+            self.initializeNetwork()
             try self.initializePresentation()
         } catch {
             throw Error("Cannot initialize \(String(reflecting: Self.self))")
@@ -52,6 +70,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         } catch {
             throw Error("Cannot initialize \(String(reflecting: Storage.self))")
         }
+    }
+    
+    // MARK: - Network
+    
+    private var network: Network!
+    
+    private func initializeNetwork() {
+        let network = Network()
+        self.network = network
     }
         
     // MARK: - Files
