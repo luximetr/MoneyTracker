@@ -21,7 +21,7 @@ public class ApiVersion1 {
     }()
     private let isMin: Bool = true
     
-    func сurrenciesCurrency(requestData: ApiVersion1LatestCurrenciesCurrencyRequestData) -> ApiVersion1LatestCurrenciesCurrencyHttpExchange {
+    func latestCurrenciesCurrency(requestData: ApiVersion1LatestCurrenciesCurrencyRequestData) -> ApiVersion1LatestCurrenciesCurrencyHttpExchange {
         let httpExchange = ApiVersion1LatestCurrenciesCurrencyHttpExchange(scheme: scheme, host: host, requestData: requestData, dateFormatter: dateFormatter, isMin: isMin, currencyCodeProvider: currencyCodeProvider)
         return httpExchange
     }
