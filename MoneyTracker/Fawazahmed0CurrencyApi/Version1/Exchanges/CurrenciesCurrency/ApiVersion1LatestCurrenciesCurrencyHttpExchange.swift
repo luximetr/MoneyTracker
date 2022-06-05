@@ -8,7 +8,7 @@
 import Foundation
 import AFoundation
 
-class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExchange<ApiVersion1LatestCurrenciesCurrencyRequestData, ApiVersion1LatestCurrenciesCurrencyParsedResponse> {
+public class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExchange<ApiVersion1LatestCurrenciesCurrencyRequestData, ApiVersion1LatestCurrenciesCurrencyParsedResponse> {
     
     private let dateFormatter: DateFormatter
     private let currencyCodeProvider: ApiVersion1CurrencyCodeProvider
@@ -21,7 +21,7 @@ class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExchange<A
         super.init(scheme: scheme, host: host, requestData: requestData)
     }
     
-    override func constructRequest() throws -> HttpRequest {
+    public override func constructRequest() throws -> HttpRequest {
         let method = HttpRequestMethod.get
         var urlComponents = URLComponents()
         urlComponents.scheme = scheme
@@ -41,7 +41,7 @@ class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExchange<A
         return request
     }
     
-    override func parseResponse(_ httpResponse: HttpResponse) throws -> ApiVersion1LatestCurrenciesCurrencyParsedResponse {
+    public override func parseResponse(_ httpResponse: HttpResponse) throws -> ApiVersion1LatestCurrenciesCurrencyParsedResponse {
         let code = httpResponse.code
         guard code == HttpResponseCode.ok else {
             let error = Error("Unexpected code \(code)")

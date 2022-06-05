@@ -10,6 +10,10 @@ import AFoundation
 
 public class ApiVersion1 {
     
+    public init() {
+        
+    }
+    
     private let scheme = UriScheme.https
     private let host = "cdn.jsdelivr.net"
     static let path = "/gh/fawazahmed0/currency-api@1"
@@ -21,7 +25,7 @@ public class ApiVersion1 {
     }()
     private let isMin: Bool = true
     
-    func latestCurrenciesCurrency(requestData: ApiVersion1LatestCurrenciesCurrencyRequestData) -> ApiVersion1LatestCurrenciesCurrencyHttpExchange {
+    public func latestCurrenciesCurrency(requestData: ApiVersion1LatestCurrenciesCurrencyRequestData) -> ApiVersion1LatestCurrenciesCurrencyHttpExchange {
         let httpExchange = ApiVersion1LatestCurrenciesCurrencyHttpExchange(scheme: scheme, host: host, requestData: requestData, dateFormatter: dateFormatter, isMin: isMin, currencyCodeProvider: currencyCodeProvider)
         return httpExchange
     }

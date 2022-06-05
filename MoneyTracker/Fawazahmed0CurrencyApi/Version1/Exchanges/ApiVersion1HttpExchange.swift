@@ -8,7 +8,7 @@
 import Foundation
 import AFoundation
 
-class ApiVersion1HttpExchange<RequestData, ParsedResponse>: RequestDataHttpExchange<RequestData, ParsedResponse> {
+public class ApiVersion1HttpExchange<RequestData, ParsedResponse>: RequestDataHttpExchange<RequestData, ParsedResponse> {
     
     let scheme: String
     let host: String
