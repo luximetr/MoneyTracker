@@ -24,10 +24,11 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     
     // MARK: Initializer
         
-    init(locale: Locale, month: Date, isSelected: Bool) {
+    init(locale: Locale, month: Date, isSelected: Bool, monthDateFormatter: DateFormatter) {
         self.locale = locale
         self.month = month
         self.isSelected = isSelected
+        self.monthDateFormatter = monthDateFormatter
         super.init()
     }
     
@@ -63,17 +64,12 @@ final class MonthCollectionViewCellController: AUIClosuresCollectionViewCellCont
     // MARK: Content
     
     private func setContent() {
-        let month = formatMonth(month)
+        let month = monthDateFormatter.string(from: month)
         monthCollectionViewCell?.monthLabel.text = month
         monthCollectionViewCell?.setSelected(isSelected)
     }
     
-    private lazy var monthDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = locale.foundationLocale
-        dateFormatter.dateFormat = "LLLL yyyy"
-        return dateFormatter
-    }()
+    private let monthDateFormatter: DateFormatter
     
     func formatMonth(_ month: Date) -> String {
         let month = monthDateFormatter.string(from: month)

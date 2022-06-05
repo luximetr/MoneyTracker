@@ -13,7 +13,7 @@ final class MonthPickerViewController: EmptyViewController {
     
     // MARK: Data
     
-    private(set) var months: [Date] = []
+    private var months: [Date] = []
     private(set) var selectedMonth: Date?
     
     func setMonths(_ months: [Date]) {
@@ -94,6 +94,13 @@ final class MonthPickerViewController: EmptyViewController {
     
     // MARK: Content
     
+    private lazy var monthDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = locale.foundationLocale
+        dateFormatter.dateFormat = "LLLL yyyy"
+        return dateFormatter
+    }()
+    
     private func setCollectionViewControllerContent() {
         collectionViewController.reload()
         var cellControllers: [AUICollectionViewCellController] = []
@@ -107,7 +114,8 @@ final class MonthPickerViewController: EmptyViewController {
     }
     
     private func createMonthCollectionViewCellController(month: Date) -> MonthCollectionViewCellController {
-        let cellController = MonthCollectionViewCellController(locale: locale, month: month, isSelected: month == selectedMonth)
+        let isSelected = month == selectedMonth
+        let cellController = MonthCollectionViewCellController(locale: locale, month: month, isSelected: isSelected, monthDateFormatter: monthDateFormatter)
         cellController.cellForItemAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UICollectionViewCell() }
             let monthCollectionViewCell = self.monthPickerView!.monthCollectionViewCell(indexPath)

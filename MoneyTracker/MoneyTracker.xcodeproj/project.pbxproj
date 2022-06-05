@@ -1632,10 +1632,10 @@
 				2E91154527A9308B00359F21 /* MoneyTrackerStorage */,
 				2EB10A1B27A6CAE500743416 /* MoneyTrackerPresentation */,
 				DB7486BE27CCE38E004DF67B /* MoneyTrackerFiles */,
-				2EC4CA472805599800518CDD /* MoneyTrackerFoundation */,
-				2EC4CA6128055BB400518CDD /* MoneyTrackerUIKit */,
 				2EC56F83284C8D5300946815 /* MoneyTrackerNetwork */,
 				2EDEED0E284BC17500E8BDC0 /* Fawazahmed0CurrencyApi */,
+				2EC4CA472805599800518CDD /* MoneyTrackerFoundation */,
+				2EC4CA6128055BB400518CDD /* MoneyTrackerUIKit */,
 				2EB109FB27A6C30C00743416 /* Products */,
 				2EBDF1E1284BCF2700698B7E /* Frameworks */,
 			);
@@ -3343,10 +3343,10 @@
 				2E91154327A9308B00359F21 /* MoneyTrackerStorage */,
 				2EB10A1927A6CAE500743416 /* MoneyTrackerPresentation */,
 				DB7486BC27CCE38E004DF67B /* MoneyTrackerFiles */,
-				2EC4CA452805599800518CDD /* MoneyTrackerFoundation */,
-				2EC4CA5F28055BB400518CDD /* MoneyTrackerUIKit */,
 				2EC56F81284C8D5200946815 /* MoneyTrackerNetwork */,
 				2EDEED0C284BC17500E8BDC0 /* Fawazahmed0CurrencyApi */,
+				2EC4CA452805599800518CDD /* MoneyTrackerFoundation */,
+				2EC4CA5F28055BB400518CDD /* MoneyTrackerUIKit */,
 			);
 		};
 /* End PBXProject section */
