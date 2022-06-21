@@ -33,7 +33,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, editExpense editingExpense: Expense) throws -> Expense
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws -> Expense
     func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
-    func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [Expense]
+    func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> CategoriesMonthExpenses
     func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date]
     func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
     func presentation(_ presentation: Presentation, addTransfer addingTransfer: AddingTransfer) throws -> Transfer

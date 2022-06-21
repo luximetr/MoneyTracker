@@ -52,22 +52,23 @@ public class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExc
         let jsonObject = try jsonValue.object()
         let dateString = try jsonObject.string("date")
         let date = dateFormatter.date(from: dateString)!
-        let currencyCode = currencyCodeProvider.code(requestData.currency)
-        let currencyJsonObject = try jsonObject.object(currencyCode)
-        print(currencyJsonObject)
-//        let resultJsonObject = try response.object("result")
-//        let random = try resultJsonObject.object("random")
-//        let data: [String] = try random.array("data").strings()
-//        let completionTimeString = try random.string("completionTime")
-//        let iso8601DateFormatter = ISO8601DateFormatter()
-//        iso8601DateFormatter.formatOptions = [.withSpaceBetweenDateAndTime]
-//        let completionTime = iso8601DateFormatter.date(from: completionTimeString)!
-//        let id = try response.value("id")
-//        let bitsUsed = try resultJsonObject.number("bitsUsed").uint()
-//        let bitsLeft = try resultJsonObject.number("bitsLeft").uint()
-//        let requestsLeft = try resultJsonObject.number("requestsLeft").uint()
-//        let advisoryDelay = try resultJsonObject.number("advisoryDelay").uint()
-        let parsedResponse = ApiVersion1LatestCurrenciesCurrencyParsedResponse(date: date)
+        let currency = requestData.currency
+        let currencyCode = currencyCodeProvider.code(currency)
+        let currencyExchangeRatesJsonObject = try jsonObject.object(currencyCode)
+        let singaporeDollarCurrencyCode = currencyCodeProvider.code(.singaporeDollar)
+        let singaporeDollarExchangeRate = try currencyExchangeRatesJsonObject.number(singaporeDollarCurrencyCode)
+        let usDollarCurrencyCode = currencyCodeProvider.code(.usDollar)
+        let usDollarExchangeRate = try currencyExchangeRatesJsonObject.number(usDollarCurrencyCode)
+        let hryvniaCurrencyCode = currencyCodeProvider.code(.hryvnia)
+        let hryvniaExchangeRate = try currencyExchangeRatesJsonObject.number(hryvniaCurrencyCode)
+        let turkishLiraCurrencyCode = currencyCodeProvider.code(.turkishLira)
+        let turkishLiraExchangeRate = try currencyExchangeRatesJsonObject.number(turkishLiraCurrencyCode)
+        let bahtCurrencyCode = currencyCodeProvider.code(.baht)
+        let bahtExchangeRate = try currencyExchangeRatesJsonObject.number(bahtCurrencyCode)
+        let euroCurrencyCode = currencyCodeProvider.code(.euro)
+        let euroExchangeRate = try currencyExchangeRatesJsonObject.number(euroCurrencyCode)
+        let exchangeRates = ApiVersion1ExchangeRates(singaporeDollarExchangeRate: singaporeDollarExchangeRate, usDollarExchangeRate: usDollarExchangeRate, hryvniaExchangeRate: hryvniaExchangeRate, turkishLiraExchangeRate: turkishLiraExchangeRate, bahtExchangeRate: bahtExchangeRate, euroExchangeRate: euroExchangeRate)
+        let parsedResponse = ApiVersion1LatestCurrenciesCurrencyParsedResponse(date: date, currency: currency, exchangeRates: exchangeRates)
         return parsedResponse
     }
     

@@ -33,6 +33,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     switch response {
                     case .parsedResponse(let parsedResponse):
                         print(parsedResponse)
+                        print(parsedResponse.exchangeRates[.usDollar])
                     case .networkConnectionLost:
                         break
                     case .notConnectedToInternet:
@@ -301,7 +302,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> [PresentationExpense] {
+    func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> CategoriesMonthExpenses {
         do {
             let startDate = month.startOfMonth
             let endDate = month.endOfMonth
@@ -309,7 +310,30 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
                 return try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: expense)
             }
-            return presentationExpenses
+            
+            let categoriesExpenses = Dictionary(grouping: presentationExpenses) { $0.category }//.values.sorted(by: { $0.first?.category.name ?? "" < $1.first?.category.name ?? "" })
+
+            var categoriesMonthExpenses: [CategoryMonthExpenses] = []
+            for (category, expenses) in categoriesExpenses {
+                var currenciesMoneyAmount: [CurrencyMoneyAmount] = []
+                var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
+                for expense in expenses {
+                    let currency = expense.account.currency
+                    let amount = expense.amount
+                    let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+                    currenciesAmounts[currency] = currencyAmount
+                }
+                for (key, value) in currenciesAmounts {
+                    let currencyMoneyAmount = CurrencyMoneyAmount(amount: value, currency: key)
+                    currenciesMoneyAmount.append(currencyMoneyAmount)
+                }
+                let moneyAmount = MoneyAmount(currenciesMoneyAmount: currenciesMoneyAmount)
+                let categoryMonthExpenses = CategoryMonthExpenses(category: category, expenses: moneyAmount)
+                categoriesMonthExpenses.append(categoryMonthExpenses)
+            }
+            let bv = MoneyAmount(currenciesMoneyAmount: [])
+            let cme = CategoriesMonthExpenses(expenses: bv, categoriesMonthExpenses: categoriesMonthExpenses)
+            return cme
         } catch {
             throw Error("Cannot get expenses for month \(month)\n\(error)")
         }

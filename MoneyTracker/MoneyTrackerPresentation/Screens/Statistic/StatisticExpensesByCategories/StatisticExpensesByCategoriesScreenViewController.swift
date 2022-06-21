@@ -16,9 +16,9 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     
     private var months: [Date] = []
     private var selectedMonth: Date?
-    private var expenses: [Expense] = []
+    private var expenses: CategoriesMonthExpenses?
     var monthsClosure: (() -> [Date])?
-    var expensesClosure: ((Date) -> [Expense])?
+    var expensesClosure: ((Date) -> CategoriesMonthExpenses)?
     var backClosure: (() -> Void)?
     
     override init(appearance: Appearance, locale: Locale) {
@@ -30,7 +30,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         months = monthsClosure?() ?? []
         let currentMonth = (selectedMonth ?? Date()).startOfMonth
         selectedMonth = months.min(by: { abs($0.timeIntervalSince(currentMonth)) < abs($1.timeIntervalSince(currentMonth)) }) ?? currentMonth
-        expenses = expensesClosure?(selectedMonth ?? Date()) ?? []
+        expenses = expensesClosure?(selectedMonth ?? Date())
     }
     
     // MARK: View
@@ -96,7 +96,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     
     private func didSelectMonth(_ month: Date) {
         selectedMonth = month
-        expenses = expensesClosure?(month) ?? []
+        expenses = expensesClosure?(month)
         setMonthExpensesLabelContent()
         setMonthCategoryExpensesTableViewControllerContent()
     }
@@ -110,9 +110,10 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     }()
     
     private func setMonthExpensesLabelContent() {
+        guard let expenses = expenses else { return }
         var currenciesAmount: [Currency: Decimal] = [:]
-        for expense in expenses {
-            let currency = expense.account.currency
+        for expense in expenses.expenses.currenciesMoneyAmount {
+            let currency = expense.currency
             let amount = expense.amount
             let currencyAmount = (currenciesAmount[currency] ?? .zero) + amount
             currenciesAmount[currency] = currencyAmount
@@ -131,18 +132,19 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     private func setMonthCategoryExpensesTableViewControllerContent() {
         monthCategoryExpensesTableViewSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        let categoriesExpenses = Dictionary(grouping: expenses) { $0.category }.values.sorted(by: { $0.first?.category.name ?? "" < $1.first?.category.name ?? "" })
-        for categoryExpenses in categoriesExpenses {
-            let cellController = createMonthCategoryExpensesTableViewController(expenses: categoryExpenses)
-            cellControllers.append(cellController)
+        if let expenses = expenses {
+            for categoryMonthExpenses in expenses.categoriesMonthExpenses {
+                let cellController = createMonthCategoryExpensesTableViewController(categoryMonthExpenses: categoryMonthExpenses)
+                cellControllers.append(cellController)
+            }
         }
         monthCategoryExpensesTableViewSectionController.cellControllers = cellControllers
         monthCategoryExpensesTableViewController.sectionControllers = [monthCategoryExpensesTableViewSectionController]
         monthCategoryExpensesTableViewController.reload()
     }
     
-    private func createMonthCategoryExpensesTableViewController(expenses: [Expense]) -> AUITableViewCellController {
-        let cellController = MonthCategoryExpensesTableViewCellController(appearance: appearance, expenses: expenses, fundsAmountNumberFormatter: fundsAmountNumberFormatter)
+    private func createMonthCategoryExpensesTableViewController(categoryMonthExpenses: CategoryMonthExpenses) -> AUITableViewCellController {
+        let cellController = MonthCategoryExpensesTableViewCellController(appearance: appearance, categoryMonthExpenses: categoryMonthExpenses, fundsAmountNumberFormatter: fundsAmountNumberFormatter)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.monthCategoryExpensesTableViewCell(indexPath)

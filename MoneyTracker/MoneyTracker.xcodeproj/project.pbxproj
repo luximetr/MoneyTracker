@@ -152,7 +152,6 @@
 		2EBDF1E5284BCFC200698B7E /* ApiVersion1HttpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E4284BCFC200698B7E /* ApiVersion1HttpExchange.swift */; };
 		2EBDF1E7284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E6284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift */; };
 		2EBDF1E9284BD34200698B7E /* ApiVersion1Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */; };
-		2EBDF1EE284BD4DE00698B7E /* ApiVersion1Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1ED284BD4DE00698B7E /* ApiVersion1Date.swift */; };
 		2EBDF1F2284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F1284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift */; };
 		2EBDF1F4284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift */; };
 		2EBDF1F7284BED4D00698B7E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F6284BED4D00698B7E /* Error.swift */; };
@@ -277,8 +276,13 @@
 		2EDEED13284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDEED0D284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework */; };
 		2EDEED14284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDEED0D284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2EDEED1B284BC20000E8BDC0 /* ApiVersion1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDEED1A284BC20000E8BDC0 /* ApiVersion1.swift */; };
+		2EE023AB28625DE30045450A /* CurrencyMoneyAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023AA28625DE30045450A /* CurrencyMoneyAmount.swift */; };
+		2EE023AD28625DF90045450A /* MoneyAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023AC28625DF90045450A /* MoneyAmount.swift */; };
+		2EE023AF28625E1E0045450A /* CategoryMonthExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */; };
+		2EE023B128625E320045450A /* CategoriesMonthExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */; };
 		2EE1897827FEBD08006D7DA9 /* Replenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897727FEBD08006D7DA9 /* Replenishment.swift */; };
 		2EE1897A27FEBD18006D7DA9 /* AddingReplenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897927FEBD18006D7DA9 /* AddingReplenishment.swift */; };
+		2EE40B042861C7B4006F253C /* ApiVersion1ExchangeRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE40B032861C7B4006F253C /* ApiVersion1ExchangeRates.swift */; };
 		2EFCCE3E283431B800E1F85F /* AppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3D283431B800E1F85F /* AppearanceFonts.swift */; };
 		2EFCCE40283431F700E1F85F /* DefaultAppearanceFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE3F283431F700E1F85F /* DefaultAppearanceFonts.swift */; };
 		2EFCCE4328343C0900E1F85F /* AppearanceColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFCCE4228343C0900E1F85F /* AppearanceColors.swift */; };
@@ -749,7 +753,6 @@
 		2EBDF1E4284BCFC200698B7E /* ApiVersion1HttpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1HttpExchange.swift; sourceTree = "<group>"; };
 		2EBDF1E6284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift; sourceTree = "<group>"; };
 		2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1Currency.swift; sourceTree = "<group>"; };
-		2EBDF1ED284BD4DE00698B7E /* ApiVersion1Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1Date.swift; sourceTree = "<group>"; };
 		2EBDF1F1284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift; sourceTree = "<group>"; };
 		2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1CurrencyCodeProvider.swift; sourceTree = "<group>"; };
 		2EBDF1F6284BED4D00698B7E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -931,8 +934,13 @@
 		2EDEED0D284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fawazahmed0CurrencyApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EDEED0F284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fawazahmed0CurrencyApi.h; sourceTree = "<group>"; };
 		2EDEED1A284BC20000E8BDC0 /* ApiVersion1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1.swift; sourceTree = "<group>"; };
+		2EE023AA28625DE30045450A /* CurrencyMoneyAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyMoneyAmount.swift; sourceTree = "<group>"; };
+		2EE023AC28625DF90045450A /* MoneyAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyAmount.swift; sourceTree = "<group>"; };
+		2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryMonthExpenses.swift; sourceTree = "<group>"; };
+		2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesMonthExpenses.swift; sourceTree = "<group>"; };
 		2EE1897727FEBD08006D7DA9 /* Replenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replenishment.swift; sourceTree = "<group>"; };
 		2EE1897927FEBD18006D7DA9 /* AddingReplenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingReplenishment.swift; sourceTree = "<group>"; };
+		2EE40B032861C7B4006F253C /* ApiVersion1ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1ExchangeRates.swift; sourceTree = "<group>"; };
 		2EFCCE3D283431B800E1F85F /* AppearanceFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceFonts.swift; sourceTree = "<group>"; };
 		2EFCCE3F283431F700E1F85F /* DefaultAppearanceFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppearanceFonts.swift; sourceTree = "<group>"; };
 		2EFCCE4228343C0900E1F85F /* AppearanceColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceColors.swift; sourceTree = "<group>"; };
@@ -1893,7 +1901,7 @@
 		2EBDF1F0284BD52800698B7E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2EBDF1ED284BD4DE00698B7E /* ApiVersion1Date.swift */,
+				2EE40B032861C7B4006F253C /* ApiVersion1ExchangeRates.swift */,
 				2EBDF1F5284BE43D00698B7E /* Currency */,
 			);
 			path = Data;
@@ -2765,6 +2773,10 @@
 		DB7486E327D0658F004DF67B /* StatisticExpensesByCategories */ = {
 			isa = PBXGroup;
 			children = (
+				2EE023AA28625DE30045450A /* CurrencyMoneyAmount.swift */,
+				2EE023AC28625DF90045450A /* MoneyAmount.swift */,
+				2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */,
+				2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */,
 				DB7486E427D065BF004DF67B /* StatisticExpensesByCategoriesScreenViewController.swift */,
 				DB7486E627D065EA004DF67B /* StatisticExpensesByCategoriesScreenView.swift */,
 				2EA7B24E27ECFFED006C2F13 /* StatisticExpensesByCategoriesScreenStrings.strings */,
@@ -3584,13 +3596,16 @@
 				DBDC92D8281931EC00D8C435 /* CategoryVerticalPickerView.swift in Sources */,
 				DB7BA80D27F9482B00A3B3BA /* SelectIconScreenCollectionCell.swift in Sources */,
 				2ECAD4F92809A3830003BB26 /* DarkAppearanceColors.swift in Sources */,
+				2EE023AD28625DF90045450A /* MoneyAmount.swift in Sources */,
 				2E01B2C427EDACD400013321 /* MonthCollectionViewCell.swift in Sources */,
 				2ECC0A11283A2B420056F927 /* BalanceCalculatorScreenView.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesListScreenView.swift in Sources */,
 				DB45FACF27E4B5B70073C677 /* TextFieldLabelController.swift in Sources */,
 				2E95BB3927B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift in Sources */,
 				2ECAD4FB2809A38E0003BB26 /* LightAppearanceColors.swift in Sources */,
+				2EE023AF28625E1E0045450A /* CategoryMonthExpenses.swift in Sources */,
 				DBB7BD2B27DDA874004EF5B7 /* BalanceAccountHorizontalPickerItemCellController.swift in Sources */,
+				2EE023B128625E320045450A /* CategoriesMonthExpenses.swift in Sources */,
 				DBDC92E92819417B00D8C435 /* CategoryVerticalPickerCellController.swift in Sources */,
 				2EC19AD827A8110600E1A6FA /* CategoriesListScreenCategoryTableViewCell.swift in Sources */,
 				2EB8271A280752E700C6377F /* SettingsScreenTitleValueTableViewCell.swift in Sources */,
@@ -3713,6 +3728,7 @@
 				2E9F46E82821A8DB00F4E048 /* EditReplenishmentScreenView.swift in Sources */,
 				2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */,
 				DB40041A280EA67D004073D0 /* CategoryColorUIColorProvider.swift in Sources */,
+				2EE023AB28625DE30045450A /* CurrencyMoneyAmount.swift in Sources */,
 				2E09CC3727F4F9720015DA1E /* PlainTextField.swift in Sources */,
 				2ECAD4FD2809DCF30003BB26 /* StatusBarScreenView.swift in Sources */,
 				DB7BA81727F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift in Sources */,
@@ -3810,11 +3826,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EBDF1F9284BF52200698B7E /* ApiVersion1LatestCurrenciesCurrencyRequestData.swift in Sources */,
+				2EE40B042861C7B4006F253C /* ApiVersion1ExchangeRates.swift in Sources */,
 				2EBDF1E7284BD20800698B7E /* ApiVersion1LatestCurrenciesCurrencyHttpExchange.swift in Sources */,
 				2EBDF1F2284BD75D00698B7E /* ApiVersion1LatestCurrenciesCurrencyParsedResponse.swift in Sources */,
 				2EBDF1F4284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift in Sources */,
 				2EBDF1E9284BD34200698B7E /* ApiVersion1Currency.swift in Sources */,
-				2EBDF1EE284BD4DE00698B7E /* ApiVersion1Date.swift in Sources */,
 				2EBDF1E5284BCFC200698B7E /* ApiVersion1HttpExchange.swift in Sources */,
 				2EDEED1B284BC20000E8BDC0 /* ApiVersion1.swift in Sources */,
 				2EBDF1F7284BED4D00698B7E /* Error.swift in Sources */,

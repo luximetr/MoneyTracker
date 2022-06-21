@@ -662,13 +662,13 @@ public final class Presentation: AUIWindowPresentation {
             return months
         }
         viewController.expensesClosure = { [weak self] month in
-            guard let self = self else { return [] }
+            guard let self = self else { fatalError() }
             do {
                 let expenses = try self.delegate.presentationMonthExpenses(self, month: month)
                 return expenses
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
-                return []
+                fatalError()
             }
         }
         pushedStatisticExpensesByCategoriesScreenViewController = viewController

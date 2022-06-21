@@ -9,10 +9,6 @@ import Foundation
 
 public struct ApiVersion1LatestCurrenciesCurrencyParsedResponse {
     public let date: Date
-//    public let singaporeDollar: Decimal
-//    public let usDollar: Decimal
-//    public let hryvnia: Decimal
-//    public let turkishLira: Decimal
-//    public let baht: Decimal
-//    public let euro: Decimal
+    public let currency: ApiVersion1Currency
+    public let exchangeRates: ApiVersion1ExchangeRates
 }
