@@ -27,22 +27,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         do {
             try self.initialize()
             self.presentation.display()
-            self.network.latestCurrenciesCurrency { result in
-                switch result {
-                case .success(let response):
-                    switch response {
-                    case .parsedResponse(let parsedResponse):
-                        print(parsedResponse)
-                        print(parsedResponse.exchangeRates[.usDollar])
-                    case .networkConnectionLost:
-                        break
-                    case .notConnectedToInternet:
-                        break
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
         } catch {
             self.showError(error)
         }
@@ -304,6 +288,23 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> CategoriesMonthExpenses {
         do {
+            self.network.latestCurrenciesCurrency { result in
+                switch result {
+                case .success(let response):
+                    switch response {
+                    case .parsedResponse(let parsedResponse):
+                        print(parsedResponse)
+                        print(parsedResponse.exchangeRates[.usDollar])
+                    case .networkConnectionLost:
+                        break
+                    case .notConnectedToInternet:
+                        break
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
             let startDate = month.startOfMonth
             let endDate = month.endOfMonth
             let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)

@@ -1747,6 +1747,10 @@
 		2EB10A4B27A7083200743416 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2EE023AA28625DE30045450A /* CurrencyMoneyAmount.swift */,
+				2EE023AC28625DF90045450A /* MoneyAmount.swift */,
+				2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */,
+				2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */,
 				2EDCEBF0281CFB80001F3F58 /* Operation */,
 				2ED60BCD27DE534E00EC11D4 /* Expense */,
 				DB74869227BE920C004DF67B /* ExpenseTemplate */,
@@ -2773,10 +2777,6 @@
 		DB7486E327D0658F004DF67B /* StatisticExpensesByCategories */ = {
 			isa = PBXGroup;
 			children = (
-				2EE023AA28625DE30045450A /* CurrencyMoneyAmount.swift */,
-				2EE023AC28625DF90045450A /* MoneyAmount.swift */,
-				2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */,
-				2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */,
 				DB7486E427D065BF004DF67B /* StatisticExpensesByCategoriesScreenViewController.swift */,
 				DB7486E627D065EA004DF67B /* StatisticExpensesByCategoriesScreenView.swift */,
 				2EA7B24E27ECFFED006C2F13 /* StatisticExpensesByCategoriesScreenStrings.strings */,
