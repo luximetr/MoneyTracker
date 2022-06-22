@@ -54,21 +54,21 @@ final class MonthCategoryExpensesTableViewCell: AppearanceTableViewCell {
         layoutSeparatorView()
     }
     
-    private let categoryIconViewLeft: CGFloat = 24
-    private let categoryIconViewSide: CGFloat = 40
+    private let categoryIconViewLeading: CGFloat = 24
+    private let categoryIconViewWidth: CGFloat = 40
     
     private func layoutCategoryIconView() {
-        let x = categoryIconViewLeft
-        let y: CGFloat = frame.height / 2 - categoryIconViewSide / 2
-        let height = categoryIconViewSide
-        let width = categoryIconViewSide
+        let x = categoryIconViewLeading
+        let y: CGFloat = frame.height / 2 - categoryIconViewWidth / 2
+        let height = categoryIconViewWidth
+        let width = categoryIconViewWidth
         let frame = CGRect(x: x, y: y, width: width, height: height)
         categoryIconView.frame = frame
         categoryIconView.layer.cornerRadius = height / 2
     }
     
     private func layoutCategoryLabel() {
-        let x: CGFloat = categoryIconViewLeft + categoryIconViewSide + 16
+        let x: CGFloat = categoryIconViewLeading + categoryIconViewWidth + 16
         let y: CGFloat = 0
         let height: CGFloat = bounds.height - 1
         let width = categoryLabel.sizeThatFits(CGSize(width: bounds.width, height: height)).width

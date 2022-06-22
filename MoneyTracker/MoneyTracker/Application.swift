@@ -11,6 +11,7 @@ import MoneyTrackerPresentation
 import MoneyTrackerStorage
 import MoneyTrackerFiles
 import MoneyTrackerNetwork
+import Fawazahmed0CurrencyApi
 
 typealias Presentation = MoneyTrackerPresentation.Presentation
 typealias PresentationDelegate = MoneyTrackerPresentation.PresentationDelegate
@@ -286,57 +287,74 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentationMonthExpenses(_ presentation: Presentation, month: Date) throws -> CategoriesMonthExpenses {
-        do {
-            self.network.latestCurrenciesCurrency { result in
-                switch result {
-                case .success(let response):
-                    switch response {
-                    case .parsedResponse(let parsedResponse):
-                        print(parsedResponse)
-                        print(parsedResponse.exchangeRates[.usDollar])
-                    case .networkConnectionLost:
-                        break
-                    case .notConnectedToInternet:
-                        break
-                    }
-                case .failure(let error):
-                    print(error)
+    func presentationMonthExpenses(_ presentation: Presentation, month: Date, completionHandler: @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void) {
+        func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
+            do {
+                let currencyAdapter = CurrencyAdapter()
+                let startDate = month.startOfMonth
+                let endDate = month.endOfMonth
+                let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+                let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
+                    return try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: expense)
                 }
-            }
-            
-            let startDate = month.startOfMonth
-            let endDate = month.endOfMonth
-            let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
-            let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
-                return try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: expense)
-            }
-            
-            let categoriesExpenses = Dictionary(grouping: presentationExpenses) { $0.category }//.values.sorted(by: { $0.first?.category.name ?? "" < $1.first?.category.name ?? "" })
+                
+                let categoriesExpenses = Dictionary(grouping: presentationExpenses) { $0.category }//.values.sorted(by: { $0.first?.category.name ?? "" < $1.first?.category.name ?? "" })
 
-            var categoriesMonthExpenses: [CategoryMonthExpenses] = []
-            for (category, expenses) in categoriesExpenses {
-                var currenciesMoneyAmount: [CurrencyMoneyAmount] = []
-                var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
-                for expense in expenses {
-                    let currency = expense.account.currency
-                    let amount = expense.amount
-                    let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
-                    currenciesAmounts[currency] = currencyAmount
+                var categoriesMonthExpenses: [CategoryMonthExpenses] = []
+                for (category, expenses) in categoriesExpenses {
+                    var currenciesMoneyAmount: [CurrencyMoneyAmount] = []
+                    var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
+                    for expense in expenses {
+                        if let exchangeRates = exchangeRates {
+//                            let currency = expense.account.currency
+//                            let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
+//                            let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(hhh)
+//                            let ggd = exchangeRates[gg]
+//                            let amount = expense.amount / ggd
+//                            let currencyAmount = (currenciesAmounts[hhh] ?? .zero) + amount
+//                            currenciesAmounts[hhh] = currencyAmount
+                            let currency = expense.account.currency
+                            let amount = expense.amount
+                            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+                            currenciesAmounts[currency] = currencyAmount
+                        } else {
+                            let currency = expense.account.currency
+                            let amount = expense.amount
+                            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+                            currenciesAmounts[currency] = currencyAmount
+                        }
+                    }
+                    
+                    for (key, value) in currenciesAmounts {
+                        let currencyMoneyAmount = CurrencyMoneyAmount(amount: value, currency: key)
+                        currenciesMoneyAmount.append(currencyMoneyAmount)
+                    }
+                    let moneyAmount = MoneyAmount(currenciesMoneyAmount: currenciesMoneyAmount)
+                    let categoryMonthExpenses = CategoryMonthExpenses(category: category, expenses: moneyAmount)
+                    categoriesMonthExpenses.append(categoryMonthExpenses)
                 }
-                for (key, value) in currenciesAmounts {
-                    let currencyMoneyAmount = CurrencyMoneyAmount(amount: value, currency: key)
-                    currenciesMoneyAmount.append(currencyMoneyAmount)
-                }
-                let moneyAmount = MoneyAmount(currenciesMoneyAmount: currenciesMoneyAmount)
-                let categoryMonthExpenses = CategoryMonthExpenses(category: category, expenses: moneyAmount)
-                categoriesMonthExpenses.append(categoryMonthExpenses)
+                let bv = MoneyAmount(currenciesMoneyAmount: [])
+                let cme = CategoriesMonthExpenses(expenses: bv, categoriesMonthExpenses: categoriesMonthExpenses)
+                completionHandler(.success(cme))
+            } catch {
+                completionHandler(.failure(error))
             }
-            let bv = MoneyAmount(currenciesMoneyAmount: [])
-            let cme = CategoriesMonthExpenses(expenses: bv, categoriesMonthExpenses: categoriesMonthExpenses)
-            return cme
-        } catch {
-            throw Error("Cannot get expenses for month \(month)\n\(error)")
+        }
+        self.network.latestCurrenciesCurrency { result in
+            switch result {
+            case .success(let response):
+                switch response {
+                case .parsedResponse(let parsedResponse):
+                    let exchangeRates = parsedResponse.exchangeRates
+                    ddd(exchangeRates: exchangeRates)
+                case .networkConnectionLost(let error):
+                    ddd(exchangeRates: nil)
+                case .notConnectedToInternet(let error):
+                    ddd(exchangeRates: nil)
+                }
+            case .failure(let error):
+                ddd(exchangeRates: nil)
+            }
         }
     }
     

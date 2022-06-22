@@ -8,9 +8,11 @@
 import Foundation
 import MoneyTrackerPresentation
 import MoneyTrackerStorage
+import Fawazahmed0CurrencyApi
 
 typealias PresentationCurrency = MoneyTrackerPresentation.Currency
 typealias StorageCurrency = MoneyTrackerStorage.Currency
+typealias Fawazahmed0CurrencyApiVersionaCurrency = Fawazahmed0CurrencyApi.ApiVersion1Currency
 
 class CurrencyAdapter {
     
@@ -38,6 +40,17 @@ class CurrencyAdapter {
             case .TRY: return .turkishLira
             case .THB: return .baht
             case .EUR: return .euro
+        }
+    }
+    
+    func mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(_ fawazahmed0CurrencyApiVersionaCurrency: PresentationCurrency) -> Fawazahmed0CurrencyApiVersionaCurrency {
+        switch fawazahmed0CurrencyApiVersionaCurrency {
+            case .singaporeDollar: return .singaporeDollar
+            case .usDollar: return .usDollar
+            case .hryvnia: return .hryvnia
+            case .turkishLira: return .turkishLira
+            case .baht: return .baht
+            case .euro: return .euro
         }
     }
 }

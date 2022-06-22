@@ -14,11 +14,8 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
     
     // MARK: Data
     
-    private(set) var appearance: Appearance
-    let categoryMonthExpenses: CategoryMonthExpenses
-    private var category: Category {
-        return categoryMonthExpenses.category
-    }
+    private var appearance: Appearance
+    private let categoryMonthExpenses: CategoryMonthExpenses
     private let fundsAmountNumberFormatter: NumberFormatter
     
     // MARK: Initializer
@@ -38,12 +35,15 @@ final class MonthCategoryExpensesTableViewCellController: AUIClosuresTableViewCe
     
     override func cellForRowAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = super.cellForRowAtIndexPath(indexPath) as? MonthCategoryExpensesTableViewCell else { return UITableViewCell() }
-        cell.categoryLabel.text = categoryMonthExpenses.category.name
+        let category = categoryMonthExpenses.category
+        cell.categoryIconView.setIcon(named: category.iconName)
+        cell.categoryLabel.text = category.name
         cell.amountLabel.text = setDayExpensesContent()
-        cell.categoryIconView.setIcon(named: categoryMonthExpenses.category.iconName)
         setAppearance(appearance)
         return cell
     }
+    
+    // MARK: Content
     
     private func setDayExpensesContent() -> String {
         var currenciesAmounts: [Currency: Decimal] = [:]

@@ -15,10 +15,10 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     // MARK: Data
     
     private var months: [Date] = []
-    private var selectedMonth: Date?
-    private var expenses: CategoriesMonthExpenses?
     var monthsClosure: (() -> [Date])?
-    var expensesClosure: ((Date) -> CategoriesMonthExpenses)?
+    private var selectedMonth: Date?
+    private var categoriesMonthExpenses: CategoriesMonthExpenses?
+    var expensesClosure: ((Date, @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void) -> Void)?
     var backClosure: (() -> Void)?
     
     override init(appearance: Appearance, locale: Locale) {
@@ -30,7 +30,21 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         months = monthsClosure?() ?? []
         let currentMonth = (selectedMonth ?? Date()).startOfMonth
         selectedMonth = months.min(by: { abs($0.timeIntervalSince(currentMonth)) < abs($1.timeIntervalSince(currentMonth)) }) ?? currentMonth
-        expenses = expensesClosure?(selectedMonth ?? Date())
+        self.loadCategoriesMonthExpenses()
+    }
+    
+    private func loadCategoriesMonthExpenses() {
+        self.expensesClosure?(selectedMonth ?? Date(), { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let categoriesMonthExpenses):
+                self.categoriesMonthExpenses = categoriesMonthExpenses
+                self.setMonthExpensesLabelContent()
+                self.setMonthCategoryExpensesTableViewControllerContent()
+            case .failure:
+                break
+            }
+        })
     }
     
     // MARK: View
@@ -96,9 +110,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     
     private func didSelectMonth(_ month: Date) {
         selectedMonth = month
-        expenses = expensesClosure?(month)
-        setMonthExpensesLabelContent()
-        setMonthCategoryExpensesTableViewControllerContent()
+        self.loadCategoriesMonthExpenses()
     }
     
     private lazy var fundsAmountNumberFormatter: NumberFormatter = {
@@ -110,7 +122,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     }()
     
     private func setMonthExpensesLabelContent() {
-        guard let expenses = expenses else { return }
+        guard let expenses = categoriesMonthExpenses else { return }
         var currenciesAmount: [Currency: Decimal] = [:]
         for expense in expenses.expenses.currenciesMoneyAmount {
             let currency = expense.currency
@@ -132,7 +144,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     private func setMonthCategoryExpensesTableViewControllerContent() {
         monthCategoryExpensesTableViewSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        if let expenses = expenses {
+        if let expenses = categoriesMonthExpenses {
             for categoryMonthExpenses in expenses.categoriesMonthExpenses {
                 let cellController = createMonthCategoryExpensesTableViewController(categoryMonthExpenses: categoryMonthExpenses)
                 cellControllers.append(cellController)

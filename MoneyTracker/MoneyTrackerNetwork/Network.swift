@@ -24,7 +24,7 @@ public class Network {
     
     public func latestCurrenciesCurrency(completionHandler: @escaping (Result<URLSession.HttpExchangeDataTaskResponse<ApiVersion1LatestCurrenciesCurrencyParsedResponse>, Swift.Error>) -> Void) {
         do {
-            let requestData = Fawazahmed0CurrencyApi.ApiVersion1LatestCurrenciesCurrencyRequestData(currency: .baht)
+            let requestData = Fawazahmed0CurrencyApi.ApiVersion1LatestCurrenciesCurrencyRequestData(currency: .singaporeDollar)
             let httpExchange = fawazahmed0CurrencyApiVersion1.latestCurrenciesCurrency(requestData: requestData)
             let dataTask = try urlSession.httpExchangeDataTask(httpExchange) { (result) in
                 switch result {

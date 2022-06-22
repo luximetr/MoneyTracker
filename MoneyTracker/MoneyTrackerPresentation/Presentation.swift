@@ -661,15 +661,13 @@ public final class Presentation: AUIWindowPresentation {
             let months = (try? self.delegate.presentationExpensesMonths(self)) ?? []
             return months
         }
-        viewController.expensesClosure = { [weak self] month in
-            guard let self = self else { fatalError() }
-            do {
-                let expenses = try self.delegate.presentationMonthExpenses(self, month: month)
-                return expenses
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
-                fatalError()
-            }
+        viewController.expensesClosure = { [weak self] month, completionHandler in
+            guard let self = self else { return }
+            self.delegate.presentationMonthExpenses(self, month: month, completionHandler: { result in
+                DispatchQueue.main.async {
+                    completionHandler(result)
+                }
+            })
         }
         pushedStatisticExpensesByCategoriesScreenViewController = viewController
         navigationController.pushViewController(viewController, animated: true)
