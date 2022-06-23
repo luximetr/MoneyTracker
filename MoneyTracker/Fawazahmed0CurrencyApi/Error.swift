@@ -5,8 +5,6 @@
 //  Created by Job Ihor Myroniuk on 04.06.2022.
 //
 
-import Foundation
-
 struct Error: Swift.Error, CustomDebugStringConvertible {
     
     private let fileId: StaticString

@@ -12,11 +12,12 @@ public class ApiVersion1HttpExchange<RequestData, ParsedResponse>: RequestDataHt
     
     let scheme: String
     let host: String
-    let basePath = ApiVersion1.path
+    let basePath: String
     
-    init(scheme: String, host: String, requestData: RequestData) {
+    init(scheme: String, host: String, basePath: String, requestData: RequestData) {
         self.scheme = scheme
         self.host = host
+        self.basePath = basePath
         super.init(requestData: requestData)
     }
     

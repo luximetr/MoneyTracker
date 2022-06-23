@@ -1905,8 +1905,8 @@
 		2EBDF1F0284BD52800698B7E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2EE40B032861C7B4006F253C /* ApiVersion1ExchangeRates.swift */,
 				2EBDF1F5284BE43D00698B7E /* Currency */,
+				2EE40B032861C7B4006F253C /* ApiVersion1ExchangeRates.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";

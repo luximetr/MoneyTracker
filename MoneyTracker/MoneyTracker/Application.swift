@@ -288,9 +288,9 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationMonthExpenses(_ presentation: Presentation, month: Date, completionHandler: @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void) {
+        let currencyAdapter = CurrencyAdapter()
         func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
             do {
-                let currencyAdapter = CurrencyAdapter()
                 let startDate = month.startOfMonth
                 let endDate = month.endOfMonth
                 let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
@@ -306,17 +306,18 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
                     for expense in expenses {
                         if let exchangeRates = exchangeRates {
-//                            let currency = expense.account.currency
-//                            let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
-//                            let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(hhh)
-//                            let ggd = exchangeRates[gg]
-//                            let amount = expense.amount / ggd
-//                            let currencyAmount = (currenciesAmounts[hhh] ?? .zero) + amount
-//                            currenciesAmounts[hhh] = currencyAmount
                             let currency = expense.account.currency
-                            let amount = expense.amount
-                            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
-                            currenciesAmounts[currency] = currencyAmount
+                            let currency2 = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(currency)
+                            let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
+                            let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(hhh)
+                            let exchangeRate = exchangeRates[currency2]
+                            let amount = expense.amount / exchangeRate
+                            let currencyAmount = (currenciesAmounts[hhh] ?? .zero) + amount
+                            currenciesAmounts[hhh] = currencyAmount
+//                            let currency = expense.account.currency
+//                            let amount = expense.amount
+//                            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+//                            currenciesAmounts[currency] = currencyAmount
                         } else {
                             let currency = expense.account.currency
                             let amount = expense.amount
@@ -340,19 +341,21 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                 completionHandler(.failure(error))
             }
         }
-        self.network.latestCurrenciesCurrency { result in
+        let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
+        let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(hhh)
+        self.network.latestCurrenciesCurrency(gg) { result in
             switch result {
             case .success(let response):
                 switch response {
                 case .parsedResponse(let parsedResponse):
                     let exchangeRates = parsedResponse.exchangeRates
                     ddd(exchangeRates: exchangeRates)
-                case .networkConnectionLost(let error):
+                case .networkConnectionLost:
                     ddd(exchangeRates: nil)
-                case .notConnectedToInternet(let error):
+                case .notConnectedToInternet:
                     ddd(exchangeRates: nil)
                 }
-            case .failure(let error):
+            case .failure:
                 ddd(exchangeRates: nil)
             }
         }

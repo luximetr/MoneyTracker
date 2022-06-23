@@ -14,11 +14,11 @@ public class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExc
     private let currencyCodeProvider: ApiVersion1CurrencyCodeProvider
     private let isMin: Bool
     
-    init(scheme: String, host: String, requestData: ApiVersion1LatestCurrenciesCurrencyRequestData, dateFormatter: DateFormatter, isMin: Bool, currencyCodeProvider: ApiVersion1CurrencyCodeProvider) {
+    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesCurrencyRequestData, dateFormatter: DateFormatter, isMin: Bool, currencyCodeProvider: ApiVersion1CurrencyCodeProvider) {
         self.dateFormatter = dateFormatter
         self.currencyCodeProvider = currencyCodeProvider
         self.isMin = isMin
-        super.init(scheme: scheme, host: host, requestData: requestData)
+        super.init(scheme: scheme, host: host, basePath: basePath, requestData: requestData)
     }
     
     public override func constructRequest() throws -> HttpRequest {

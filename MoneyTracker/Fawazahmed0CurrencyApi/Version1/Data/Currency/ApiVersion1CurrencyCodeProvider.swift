@@ -11,12 +11,12 @@ final class ApiVersion1CurrencyCodeProvider {
     
     func code(_ currency: ApiVersion1Currency) -> String {
         switch currency {
-            case .singaporeDollar: return "sgd"
-            case .usDollar: return "usd"
-            case .hryvnia: return "uah"
-            case .turkishLira: return "try"
-            case .baht: return "bat"
-            case .euro: return "eur"
+        case .singaporeDollar: return "sgd"
+        case .usDollar: return "usd"
+        case .hryvnia: return "uah"
+        case .turkishLira: return "try"
+        case .baht: return "thb"
+        case .euro: return "eur"
         }
     }
     
