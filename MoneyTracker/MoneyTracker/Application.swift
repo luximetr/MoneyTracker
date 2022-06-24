@@ -293,13 +293,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             do {
                 let startDate = month.startOfMonth
                 let endDate = month.endOfMonth
-                let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
-                let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
-                    return try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: expense)
+                let storageExpenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+                let expenseAdapter = ExpenseAdapter(storage: storage)
+                let presentationExpenses: [PresentationExpense] = try storageExpenses.map { storageExpense in
+                    let presentationExpense = try expenseAdapter.adaptToPresentation(storageExpense: storageExpense)
+                    return presentationExpense
                 }
-                
-                let categoriesExpenses = Dictionary(grouping: presentationExpenses) { $0.category }//.values.sorted(by: { $0.first?.category.name ?? "" < $1.first?.category.name ?? "" })
-
+                let categoriesExpenses = Dictionary(grouping: presentationExpenses) { $0.category }
                 var categoriesMonthExpenses: [CategoryMonthExpenses] = []
                 for (category, expenses) in categoriesExpenses {
                     var currenciesMoneyAmount: [CurrencyMoneyAmount] = []
