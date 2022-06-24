@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ApiVersion1LatestCurrenciesCurrencyRequestData {
+public struct ApiVersion1LatestCurrenciesRequestData {
     public let currency: ApiVersion1Currency
     
     public init(currency: ApiVersion1Currency) {

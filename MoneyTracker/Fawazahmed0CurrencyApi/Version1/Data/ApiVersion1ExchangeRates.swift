@@ -8,21 +8,21 @@
 import Foundation
 
 public struct ApiVersion1ExchangeRates {
-    public let singaporeDollarExchangeRate: Decimal
-    public let usDollarExchangeRate: Decimal
-    public let hryvniaExchangeRate: Decimal
-    public let turkishLiraExchangeRate: Decimal
-    public let bahtExchangeRate: Decimal
-    public let euroExchangeRate: Decimal
-    public subscript(exchangeRate: ApiVersion1Currency) -> Decimal {
+    public let singaporeDollar: Decimal
+    public let usDollar: Decimal
+    public let hryvnia: Decimal
+    public let turkishLira: Decimal
+    public let baht: Decimal
+    public let euro: Decimal
+    public subscript(currency: ApiVersion1Currency) -> Decimal {
         get {
-            switch exchangeRate {
-            case .singaporeDollar: return singaporeDollarExchangeRate
-            case .usDollar: return usDollarExchangeRate
-            case .hryvnia: return hryvniaExchangeRate
-            case .turkishLira: return turkishLiraExchangeRate
-            case .baht: return bahtExchangeRate
-            case .euro: return euroExchangeRate
+            switch currency {
+            case .singaporeDollar: return singaporeDollar
+            case .usDollar: return usDollar
+            case .hryvnia: return hryvnia
+            case .turkishLira: return turkishLira
+            case .baht: return baht
+            case .euro: return euro
             }
         }
     }

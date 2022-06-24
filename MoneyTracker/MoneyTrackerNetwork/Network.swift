@@ -21,12 +21,12 @@ public class Network {
     
     // MARK: - Fawazahmed0CurrencyApi
     
-    private let fawazahmed0CurrencyApiVersion1 = Fawazahmed0CurrencyApiVersion1.jsdelivrMin
+    private let fawazahmed0CurrencyApiVersion1Jsdelivr = Fawazahmed0CurrencyApiVersion1.jsdelivr
     
-    public func latestCurrenciesCurrency(_ currency: Fawazahmed0CurrencyApiVersion1Currency, completionHandler: @escaping (Result<URLSession.HttpExchangeDataTaskResponse<ApiVersion1LatestCurrenciesCurrencyParsedResponse>, Swift.Error>) -> Void) {
+    public func latestCurrenciesCurrency(_ currency: Fawazahmed0CurrencyApiVersion1Currency, completionHandler: @escaping (Result<URLSession.HttpExchangeDataTaskResponse<ApiVersion1LatestCurrenciesParsedResponse>, Swift.Error>) -> Void) {
         do {
-            let requestData = Fawazahmed0CurrencyApi.ApiVersion1LatestCurrenciesCurrencyRequestData(currency: currency)
-            let httpExchange = fawazahmed0CurrencyApiVersion1.latestCurrenciesCurrency(requestData: requestData)
+            let requestData = Fawazahmed0CurrencyApi.ApiVersion1LatestCurrenciesRequestData(currency: currency)
+            let httpExchange = fawazahmed0CurrencyApiVersion1Jsdelivr.latestCurrencies(requestData: requestData)
             let dataTask = try urlSession.httpExchangeDataTask(httpExchange) { (result) in
                 switch result {
                 case .success(let response):

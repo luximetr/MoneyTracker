@@ -8,13 +8,13 @@
 import Foundation
 import AFoundation
 
-public class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExchange<ApiVersion1LatestCurrenciesCurrencyRequestData, ApiVersion1LatestCurrenciesCurrencyParsedResponse> {
+public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<ApiVersion1LatestCurrenciesRequestData, ApiVersion1LatestCurrenciesParsedResponse> {
     
     private let dateFormatter: DateFormatter
     private let currencyCodeProvider: ApiVersion1CurrencyCodeProvider
     private let isMin: Bool
     
-    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesCurrencyRequestData, dateFormatter: DateFormatter, isMin: Bool, currencyCodeProvider: ApiVersion1CurrencyCodeProvider) {
+    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesRequestData, dateFormatter: DateFormatter, isMin: Bool, currencyCodeProvider: ApiVersion1CurrencyCodeProvider) {
         self.dateFormatter = dateFormatter
         self.currencyCodeProvider = currencyCodeProvider
         self.isMin = isMin
@@ -41,7 +41,7 @@ public class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExc
         return request
     }
     
-    public override func parseResponse(_ httpResponse: HttpResponse) throws -> ApiVersion1LatestCurrenciesCurrencyParsedResponse {
+    public override func parseResponse(_ httpResponse: HttpResponse) throws -> ApiVersion1LatestCurrenciesParsedResponse {
         let code = httpResponse.code
         guard code == HttpResponseCode.ok else {
             let error = Error("Unexpected code \(code)")
@@ -67,8 +67,8 @@ public class ApiVersion1LatestCurrenciesCurrencyHttpExchange: ApiVersion1HttpExc
         let bahtExchangeRate = try currencyExchangeRatesJsonObject.number(bahtCurrencyCode)
         let euroCurrencyCode = currencyCodeProvider.code(.euro)
         let euroExchangeRate = try currencyExchangeRatesJsonObject.number(euroCurrencyCode)
-        let exchangeRates = ApiVersion1ExchangeRates(singaporeDollarExchangeRate: singaporeDollarExchangeRate, usDollarExchangeRate: usDollarExchangeRate, hryvniaExchangeRate: hryvniaExchangeRate, turkishLiraExchangeRate: turkishLiraExchangeRate, bahtExchangeRate: bahtExchangeRate, euroExchangeRate: euroExchangeRate)
-        let parsedResponse = ApiVersion1LatestCurrenciesCurrencyParsedResponse(date: date, currency: currency, exchangeRates: exchangeRates)
+        let exchangeRates = ApiVersion1ExchangeRates(singaporeDollar: singaporeDollarExchangeRate, usDollar: usDollarExchangeRate, hryvnia: hryvniaExchangeRate, turkishLira: turkishLiraExchangeRate, baht: bahtExchangeRate, euro: euroExchangeRate)
+        let parsedResponse = ApiVersion1LatestCurrenciesParsedResponse(date: date, currency: currency, exchangeRates: exchangeRates)
         return parsedResponse
     }
     
