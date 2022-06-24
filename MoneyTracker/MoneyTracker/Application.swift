@@ -309,15 +309,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                             let currency = expense.account.currency
                             let currency2 = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(currency)
                             let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
-                            let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(hhh)
                             let exchangeRate = exchangeRates[currency2]
                             let amount = expense.amount / exchangeRate
                             let currencyAmount = (currenciesAmounts[hhh] ?? .zero) + amount
                             currenciesAmounts[hhh] = currencyAmount
-//                            let currency = expense.account.currency
-//                            let amount = expense.amount
-//                            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
-//                            currenciesAmounts[currency] = currencyAmount
                         } else {
                             let currency = expense.account.currency
                             let amount = expense.amount
