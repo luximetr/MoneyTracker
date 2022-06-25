@@ -208,6 +208,7 @@
 		2EC6292E27AC1F4500371252 /* AddCategoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6292D27AC1F4500371252 /* AddCategoryScreenView.swift */; };
 		2EC6293727AC282100371252 /* AddCategoryScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6293927AC282100371252 /* AddCategoryScreenStrings.strings */; };
 		2EC84102280B3066007AAE5E /* AppearanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC84101280B3066007AAE5E /* AppearanceButton.swift */; };
+		2EC95ACD28665F4500072EAD /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC95ACC28665F4500072EAD /* Currency.swift */; };
 		2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */; };
 		2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */; };
 		2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECAB30427C593F50028CB0D /* EditAccountScreenStrings.strings */; };
@@ -865,6 +866,7 @@
 		2EC7CAC3280891EA00E3DBF6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/BalanceAccountHorizontalPickerStrings.strings; sourceTree = "<group>"; };
 		2EC7CAC5280891F900E3DBF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2EC84101280B3066007AAE5E /* AppearanceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceButton.swift; sourceTree = "<group>"; };
+		2EC95ACC28665F4500072EAD /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenViewController.swift; sourceTree = "<group>"; };
 		2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenView.swift; sourceTree = "<group>"; };
 		2ECAB30327C593F50028CB0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditAccountScreenStrings.strings; sourceTree = "<group>"; };
@@ -1485,6 +1487,7 @@
 		2E926E8827BC55AD0081E3AE /* Currency */ = {
 			isa = PBXGroup;
 			children = (
+				2EC95ACC28665F4500072EAD /* Currency.swift */,
 				DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */,
 			);
 			path = Currency;
@@ -3536,6 +3539,7 @@
 				2EB2E87D281083820017ACDD /* AppearanceSettingMapper.swift in Sources */,
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
 				DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */,
+				2EC95ACD28665F4500072EAD /* Currency.swift in Sources */,
 				DBDC92D32814F0C100D8C435 /* EditingBalanceAccountAdapter.swift in Sources */,
 				DBDC9332282D52E300D8C435 /* ImportingTransferAdapter.swift in Sources */,
 				DB400432280FAC79004073D0 /* CategoryColorAdapter.swift in Sources */,

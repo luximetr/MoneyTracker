@@ -243,7 +243,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentationSelectedCurrency(_ presentation: Presentation) throws -> PresentationCurrency {
         do {
             let adapter = CurrencyAdapter()
-            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency() ?? .SGD
+            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency() ?? .singaporeDollar
             self.selectedCurrency = selectedCurrency
             return adapter.adaptToPresentation(storageCurrency: selectedCurrency)
         } catch {
