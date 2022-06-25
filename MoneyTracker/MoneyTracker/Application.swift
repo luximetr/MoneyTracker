@@ -301,6 +301,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                 }
                 let categoriesExpenses = Dictionary(grouping: presentationExpenses) { $0.category }
                 var categoriesMonthExpenses: [CategoryMonthExpenses] = []
+                var allCurrenciesAmounts: [PresentationCurrency: Decimal] = [:]
                 for (category, expenses) in categoriesExpenses {
                     var currenciesMoneyAmount: [CurrencyMoneyAmount] = []
                     var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
@@ -313,11 +314,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                             let amount = expense.amount / exchangeRate
                             let currencyAmount = (currenciesAmounts[hhh] ?? .zero) + amount
                             currenciesAmounts[hhh] = currencyAmount
+                            allCurrenciesAmounts[hhh] = (allCurrenciesAmounts[hhh] ?? Decimal()) + amount
                         } else {
                             let currency = expense.account.currency
                             let amount = expense.amount
                             let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
                             currenciesAmounts[currency] = currencyAmount
+                            allCurrenciesAmounts[currency] = (allCurrenciesAmounts[currency] ?? Decimal()) + amount
                         }
                     }
                     
@@ -329,7 +332,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     let categoryMonthExpenses = CategoryMonthExpenses(category: category, expenses: moneyAmount)
                     categoriesMonthExpenses.append(categoryMonthExpenses)
                 }
-                let bv = MoneyAmount(currenciesMoneyAmount: [])
+                let rr = allCurrenciesAmounts.map({ CurrencyMoneyAmount(amount: $1, currency: $0) })
+                let bv = MoneyAmount(currenciesMoneyAmount: rr)
                 let cme = CategoriesMonthExpenses(expenses: bv, categoriesMonthExpenses: categoriesMonthExpenses)
                 completionHandler(.success(cme))
             } catch {

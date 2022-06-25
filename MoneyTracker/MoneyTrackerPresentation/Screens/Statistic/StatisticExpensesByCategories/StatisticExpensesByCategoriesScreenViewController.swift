@@ -127,13 +127,9 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     }()
     
     private func setMonthExpensesLabelContent() {
-        guard let expenses = categoriesMonthExpenses else { return }
-        var currenciesAmount: [Currency: Decimal] = [:]
-        for expense in expenses.expenses.currenciesMoneyAmount {
-            let currency = expense.currency
-            let amount = expense.amount
-            let currencyAmount = (currenciesAmount[currency] ?? .zero) + amount
-            currenciesAmount[currency] = currencyAmount
+        guard let expenses = categoriesMonthExpenses?.expenses else { return }
+        let currenciesAmount: [Currency: Decimal] = expenses.currenciesMoneyAmount.reduce(into: [Currency: Decimal]()) {
+            $0[$1.currency] = $1.amount
         }
         var currenciesAmountsStrings: [String] = []
         let sortedCurrencyAmount = currenciesAmount.sorted(by: { $0.1 > $1.1 })
@@ -144,6 +140,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         }
         let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
         screenView.monthExpensesLabel.text = currenciesAmountsStringsJoined
+        screenView.setNeedsLayout()
     }
     
     private func setMonthCategoryExpensesTableViewControllerContent() {
