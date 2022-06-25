@@ -61,8 +61,10 @@ final class EditTransferScreenViewController: StatusBarScreenViewController {
         checkSameCurrencies()
         setContent()
         fromAccountPickerController.setSelectedAccount(transfer.fromAccount)
+        fromAmountInputController.textFieldController.keyboardType = .decimalPad
         fromAmountInputController.textFieldController.text = NumberFormatter().string(from: transfer.fromAmount as NSNumber)
         toAccountPickerController.setSelectedAccount(transfer.toAccount)
+        toAmountInputController.textFieldController.keyboardType = .decimalPad
         toAmountInputController.textFieldController.text = NumberFormatter().string(from: transfer.toAmount as NSNumber)
         screenView.commentTextField.text = transfer.comment
         checkSameCurrencies()
