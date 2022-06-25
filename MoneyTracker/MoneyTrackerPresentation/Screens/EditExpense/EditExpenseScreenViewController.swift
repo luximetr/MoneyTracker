@@ -53,6 +53,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         view = ScreenView(appearance: appearance)
     }
     
+    private let tapGestureRecognizer = UITapGestureRecognizer()
     private let balanceAccountPickerController: BalanceAccountHorizontalPickerController
     private let categoryPickerController: CategoryHorizontalPickerController
     private let amountInputController = TextFieldLabelController()
@@ -60,6 +61,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTapGestureRecognizer()
         setupBalanceAccountPickerController()
         setupCategoryPickerController()
         setupCommentTextFieldController()
@@ -71,6 +73,12 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
         setupDatePickerController()
         setupErrorSnackbarViewController()
         setContent()
+    }
+    
+    private func setupTapGestureRecognizer() {
+        screenView.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer.cancelsTouchesInView = false
+        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerAction))
     }
     
     private func setupBalanceAccountPickerController() {
@@ -147,6 +155,10 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     }
     
     // MARK: - Events
+    
+    @objc private func tapGestureRecognizerAction() {
+        view.endEditing(true)
+    }
     
     private func addAccount() {
         addAccountClosure?()

@@ -147,6 +147,9 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     
     private func showAccountSelected(_ account: Account) {
         guard let cellController = findCellControllerForAccountId(account.id) else { return }
+        if let indexPath = collectionController.indexPathForCellController(cellController) {
+            balanceAccountHorizontalPickerView.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
         cellController.isSelected = true
     }
     
