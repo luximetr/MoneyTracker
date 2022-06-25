@@ -11,12 +11,12 @@ import AFoundation
 public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<ApiVersion1LatestCurrenciesRequestData, ApiVersion1LatestCurrenciesParsedResponse> {
     
     private let dateFormatter: DateFormatter
-    private let currencyCodeProvider: ApiVersion1CurrencyCodeProvider
+    private let currencyCodeMapper: ApiVersion1CurrencyCodeMapper
     private let isMin: Bool
     
-    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesRequestData, dateFormatter: DateFormatter, isMin: Bool, currencyCodeProvider: ApiVersion1CurrencyCodeProvider) {
+    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesRequestData, dateFormatter: DateFormatter, isMin: Bool, currencyCodeMapper: ApiVersion1CurrencyCodeMapper) {
         self.dateFormatter = dateFormatter
-        self.currencyCodeProvider = currencyCodeProvider
+        self.currencyCodeMapper = currencyCodeMapper
         self.isMin = isMin
         super.init(scheme: scheme, host: host, basePath: basePath, requestData: requestData)
     }
@@ -28,7 +28,7 @@ public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<Ap
         urlComponents.host = host
         var path = basePath
         path += "/latest/currencies"
-        let pathCurrencyCode = currencyCodeProvider.code(requestData.currency)
+        let pathCurrencyCode = currencyCodeMapper.code(requestData.currency)
         path += "/\(pathCurrencyCode)"
         if isMin {
             path += ".min"
@@ -44,7 +44,7 @@ public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<Ap
     public override func parseResponse(_ httpResponse: HttpResponse) throws -> ApiVersion1LatestCurrenciesParsedResponse {
         let code = httpResponse.code
         guard code == HttpResponseCode.ok else {
-            let error = Error("Unexpected code \(code)")
+            let error = Error("Unexpected HTTP response code \(code)")
             throw error
         }
         let body = httpResponse.body ?? Data()
@@ -53,19 +53,19 @@ public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<Ap
         let dateString = try jsonObject.string("date")
         let date = dateFormatter.date(from: dateString)!
         let currency = requestData.currency
-        let currencyCode = currencyCodeProvider.code(currency)
+        let currencyCode = currencyCodeMapper.code(currency)
         let currencyExchangeRatesJsonObject = try jsonObject.object(currencyCode)
-        let singaporeDollarCurrencyCode = currencyCodeProvider.code(.singaporeDollar)
+        let singaporeDollarCurrencyCode = currencyCodeMapper.code(.singaporeDollar)
         let singaporeDollarExchangeRate = try currencyExchangeRatesJsonObject.number(singaporeDollarCurrencyCode)
-        let usDollarCurrencyCode = currencyCodeProvider.code(.usDollar)
+        let usDollarCurrencyCode = currencyCodeMapper.code(.usDollar)
         let usDollarExchangeRate = try currencyExchangeRatesJsonObject.number(usDollarCurrencyCode)
-        let hryvniaCurrencyCode = currencyCodeProvider.code(.hryvnia)
+        let hryvniaCurrencyCode = currencyCodeMapper.code(.hryvnia)
         let hryvniaExchangeRate = try currencyExchangeRatesJsonObject.number(hryvniaCurrencyCode)
-        let turkishLiraCurrencyCode = currencyCodeProvider.code(.turkishLira)
+        let turkishLiraCurrencyCode = currencyCodeMapper.code(.turkishLira)
         let turkishLiraExchangeRate = try currencyExchangeRatesJsonObject.number(turkishLiraCurrencyCode)
-        let bahtCurrencyCode = currencyCodeProvider.code(.baht)
+        let bahtCurrencyCode = currencyCodeMapper.code(.baht)
         let bahtExchangeRate = try currencyExchangeRatesJsonObject.number(bahtCurrencyCode)
-        let euroCurrencyCode = currencyCodeProvider.code(.euro)
+        let euroCurrencyCode = currencyCodeMapper.code(.euro)
         let euroExchangeRate = try currencyExchangeRatesJsonObject.number(euroCurrencyCode)
         let exchangeRates = ApiVersion1ExchangeRates(singaporeDollar: singaporeDollarExchangeRate, usDollar: usDollarExchangeRate, hryvnia: hryvniaExchangeRate, turkishLira: turkishLiraExchangeRate, baht: bahtExchangeRate, euro: euroExchangeRate)
         let parsedResponse = ApiVersion1LatestCurrenciesParsedResponse(date: date, currency: currency, exchangeRates: exchangeRates)

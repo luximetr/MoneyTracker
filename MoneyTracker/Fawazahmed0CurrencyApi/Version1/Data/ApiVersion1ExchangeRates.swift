@@ -8,6 +8,7 @@
 import Foundation
 
 public struct ApiVersion1ExchangeRates {
+    
     public let singaporeDollar: Decimal
     public let usDollar: Decimal
     public let hryvnia: Decimal
@@ -26,4 +27,5 @@ public struct ApiVersion1ExchangeRates {
             }
         }
     }
+    
 }

@@ -153,7 +153,7 @@
 		2EBDF1E7284BD20800698B7E /* ApiVersion1LatestCurrenciesHttpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E6284BD20800698B7E /* ApiVersion1LatestCurrenciesHttpExchange.swift */; };
 		2EBDF1E9284BD34200698B7E /* ApiVersion1Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */; };
 		2EBDF1F2284BD75D00698B7E /* ApiVersion1LatestCurrenciesParsedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F1284BD75D00698B7E /* ApiVersion1LatestCurrenciesParsedResponse.swift */; };
-		2EBDF1F4284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift */; };
+		2EBDF1F4284BE0ED00698B7E /* ApiVersion1CurrencyCodeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeMapper.swift */; };
 		2EBDF1F7284BED4D00698B7E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F6284BED4D00698B7E /* Error.swift */; };
 		2EBDF1F9284BF52200698B7E /* ApiVersion1LatestCurrenciesRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF1F8284BF52200698B7E /* ApiVersion1LatestCurrenciesRequestData.swift */; };
 		2EBDF92F27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDF92E27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift */; };
@@ -755,7 +755,7 @@
 		2EBDF1E6284BD20800698B7E /* ApiVersion1LatestCurrenciesHttpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1LatestCurrenciesHttpExchange.swift; sourceTree = "<group>"; };
 		2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1Currency.swift; sourceTree = "<group>"; };
 		2EBDF1F1284BD75D00698B7E /* ApiVersion1LatestCurrenciesParsedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1LatestCurrenciesParsedResponse.swift; sourceTree = "<group>"; };
-		2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1CurrencyCodeProvider.swift; sourceTree = "<group>"; };
+		2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1CurrencyCodeMapper.swift; sourceTree = "<group>"; };
 		2EBDF1F6284BED4D00698B7E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		2EBDF1F8284BF52200698B7E /* ApiVersion1LatestCurrenciesRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1LatestCurrenciesRequestData.swift; sourceTree = "<group>"; };
 		2EBDF92E27ECCF82002B6C9E /* MonthCategoryExpensesTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCategoryExpensesTableViewCellController.swift; sourceTree = "<group>"; };
@@ -1918,7 +1918,7 @@
 			isa = PBXGroup;
 			children = (
 				2EBDF1E8284BD34200698B7E /* ApiVersion1Currency.swift */,
-				2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift */,
+				2EBDF1F3284BE0ED00698B7E /* ApiVersion1CurrencyCodeMapper.swift */,
 			);
 			path = Currency;
 			sourceTree = "<group>";
@@ -3833,7 +3833,7 @@
 				2EE40B042861C7B4006F253C /* ApiVersion1ExchangeRates.swift in Sources */,
 				2EBDF1E7284BD20800698B7E /* ApiVersion1LatestCurrenciesHttpExchange.swift in Sources */,
 				2EBDF1F2284BD75D00698B7E /* ApiVersion1LatestCurrenciesParsedResponse.swift in Sources */,
-				2EBDF1F4284BE0ED00698B7E /* ApiVersion1CurrencyCodeProvider.swift in Sources */,
+				2EBDF1F4284BE0ED00698B7E /* ApiVersion1CurrencyCodeMapper.swift in Sources */,
 				2EBDF1E9284BD34200698B7E /* ApiVersion1Currency.swift in Sources */,
 				2EBDF1E5284BCFC200698B7E /* ApiVersion1HttpExchange.swift in Sources */,
 				2EDEED1B284BC20000E8BDC0 /* ApiVersion1.swift in Sources */,
