@@ -15,7 +15,7 @@ final class CurrencyCodeLocalizer {
     
     func changeLocale(_ locale: Locale) {
         self.locale = locale
-        localizer.changeLocale(locale)
+        localizer.setLocale(locale)
     }
     
     // MARK: - Initializer

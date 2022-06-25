@@ -74,7 +74,7 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
             let selectedCellController = appearanceSettingTableViewCellController(appearanceType)
             selectedCellController?.setIsSelected(true)
             selectedAppearanceSetting = appearanceType
-            localizer.changeLocale(locale)
+            localizer.setLocale(locale)
             appearanceTypeNameLocalizer.changeLocale(locale)
             setContent()
             tableViewController.reload()
@@ -95,7 +95,7 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
-        localizer.changeLocale(locale)
+        localizer.setLocale(locale)
         appearanceTypeNameLocalizer.changeLocale(locale)
         setContent()
     }

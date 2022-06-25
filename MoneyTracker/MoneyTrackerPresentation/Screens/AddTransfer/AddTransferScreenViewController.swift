@@ -135,7 +135,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
-        localizer.changeLocale(locale)
+        localizer.setLocale(locale)
         dayDatePickerController.changeLocale(locale)
         fromAccountPickerController.changeLocale(locale)
         toAccountPickerController.changeLocale(locale)

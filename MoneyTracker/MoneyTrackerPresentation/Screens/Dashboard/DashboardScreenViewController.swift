@@ -111,7 +111,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
-        localizer.changeLocale(locale)
+        localizer.setLocale(locale)
         categoryPickerViewController.changeLocale(locale)
         accountPickerViewController.changeLocale(locale)
         templatesViewController.changeLocale(locale)

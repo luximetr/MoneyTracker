@@ -1673,11 +1673,11 @@
 				2EB10A1327A6C8D400743416 /* main.swift */,
 				2EB10A1127A6C8CB00743416 /* Application.swift */,
 				2E91155427A93D4800359F21 /* Data */,
-				2E926E8027BC3AA20081E3AE /* Error.swift */,
 				DB40042B280F02BA004073D0 /* TraitCollectionChangeNotifyWindow.swift */,
 				2EB10A0627A6C30D00743416 /* Assets.xcassets */,
 				2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */,
 				2EB10A0B27A6C30D00743416 /* Info.plist */,
+				2E926E8027BC3AA20081E3AE /* Error.swift */,
 			);
 			path = MoneyTracker;
 			sourceTree = "<group>";

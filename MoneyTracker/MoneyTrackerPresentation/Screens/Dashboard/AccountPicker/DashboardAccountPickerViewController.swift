@@ -74,7 +74,7 @@ final class AccountPickerViewController: EmptyViewController {
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        localizer.changeLocale(locale)
+        localizer.setLocale(locale)
         setContent()
     }
     

@@ -74,7 +74,7 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
             let selectedCellController = languageCellController(language)
             selectedCellController?.setIsSelected(true)
             selectedLanguage = language
-            localizer.changeLocale(locale)
+            localizer.setLocale(locale)
             languageNameLocalizer.changeLocale(locale)
             languageCodeLocalizer.changeLocale(locale)
             setContent()

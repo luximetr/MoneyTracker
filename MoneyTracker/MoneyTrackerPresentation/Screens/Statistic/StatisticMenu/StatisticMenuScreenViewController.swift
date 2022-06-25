@@ -42,7 +42,7 @@ final class StatisticMenuScreenViewController: StatusBarScreenViewController {
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
-        localizer.changeLocale(locale)
+        localizer.setLocale(locale)
         setContent()
         tableViewController.reload()
     }

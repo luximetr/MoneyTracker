@@ -58,7 +58,7 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
-        localizer.changeLocale(locale)
+        localizer.setLocale(locale)
         currencyCodeLocalizer.changeLocale(locale)
         languageCodeLocalizer.changeLocale(locale)
         appearanceTypeNameLocalizer.changeLocale(locale)

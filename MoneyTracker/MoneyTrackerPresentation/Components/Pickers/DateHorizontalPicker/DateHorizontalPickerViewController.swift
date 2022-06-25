@@ -49,7 +49,7 @@ class DateHorizontalPickerViewController: EmptyViewController {
     
     override func changeLocale(_ locale: Locale) {
         super.changeLocale(locale)
-        localizer.changeLocale(locale)
+        localizer.setLocale(locale)
         setupDatePickerLocal()
         findTodayCellController()?.setTitle(localizer.localizeText("today"))
     }
