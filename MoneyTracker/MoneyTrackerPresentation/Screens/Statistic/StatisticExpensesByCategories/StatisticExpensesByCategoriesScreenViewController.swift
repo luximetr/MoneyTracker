@@ -12,19 +12,13 @@ import MoneyTrackerFoundation
 
 final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenViewController {
     
-    // MARK: Data
+    // MARK: - Data
     
     private var months: [Date] = []
     var monthsClosure: (() -> [Date])?
     private var selectedMonth: Date?
     private var categoriesMonthExpenses: CategoriesMonthExpenses?
     var expensesClosure: ((Date, @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void) -> Void)?
-    var backClosure: (() -> Void)?
-    
-    override init(appearance: Appearance, locale: Locale) {
-        monthPickerViewConroller = MonthPickerViewController(locale: locale)
-        super.init(appearance: appearance, locale: locale)
-    }
     
     private func loadData() {
         months = monthsClosure?() ?? []
@@ -47,6 +41,13 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         })
     }
     
+    // MARK: - Initializer
+    
+    override init(appearance: Appearance, locale: Locale) {
+        monthPickerViewConroller = MonthPickerViewController(locale: locale)
+        super.init(appearance: appearance, locale: locale)
+    }
+    
     // MARK: View
     
     private var screenView: ScreenView {
@@ -57,9 +58,13 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
         view = ScreenView(appearance: appearance)
     }
     
+    var backClosure: (() -> Void)?
     private let monthPickerViewConroller: MonthPickerViewController
     private let monthCategoryExpensesTableViewController = AUIEmptyTableViewController()
     private let monthCategoryExpensesTableViewSectionController = AUIEmptyTableViewSectionController()
+    private var monthCategoryExpensesCellControllers: [MonthCategoryExpensesTableViewCellController] {
+        return monthCategoryExpensesTableViewSectionController.cellControllers.compactMap { $0 as? MonthCategoryExpensesTableViewCellController }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,10 +176,6 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
             return self.screenView.monthCategoryExpensesTableViewCellHeight()
         }
         return cellController
-    }
-    
-    private var monthCategoryExpensesCellControllers: [MonthCategoryExpensesTableViewCellController] {
-        return monthCategoryExpensesTableViewSectionController.cellControllers.compactMap { $0 as? MonthCategoryExpensesTableViewCellController }
     }
     
     // MARK: - Appearance
