@@ -152,6 +152,9 @@ class CategoryHorizontalPickerController: EmptyViewController {
     
     private func showCategorySelected(_ category: Category) {
         guard let cellController = findCellController(forCategoryId: category.id) else { return }
+        if let indexPath = collectionController.indexPathForCellController(cellController) {
+            categoryHorizontalPickerView.collectionViewScrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
         cellController.isSelected = true
     }
     
