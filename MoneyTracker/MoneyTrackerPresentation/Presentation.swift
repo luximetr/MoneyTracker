@@ -680,6 +680,14 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             let viewController = BalanceCalculatorScreenViewController(appearance: appearance, locale: locale, accounts: accounts)
+            viewController.accountsBalanceClosure = { [weak self] accounts, completionHandler in
+                guard let self = self else { return }
+                self.delegate.presentationBalance(self, accounts: accounts) { result in
+                    DispatchQueue.main.async {
+                        completionHandler(result)
+                    }
+                }
+            }
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)

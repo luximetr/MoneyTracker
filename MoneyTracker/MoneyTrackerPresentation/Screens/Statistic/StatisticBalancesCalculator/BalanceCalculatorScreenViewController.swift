@@ -15,6 +15,21 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     
     private var accounts: [Account]
     private var selectedAccounts: [Account]
+    private var accountsBalance: MoneyAmount?
+    var accountsBalanceClosure: (([Account], @escaping (Result<MoneyAmount, Swift.Error>) -> Void) -> Void)?
+    
+    private func loadAccountsBalance() {
+        self.accountsBalanceClosure?(selectedAccounts, { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let accountsBalance):
+                self.accountsBalance = accountsBalance
+                self.setBalanceLabelContent()
+            case .failure:
+                break
+            }
+        })
+    }
     
     // MARK: - Initializer
     
@@ -38,22 +53,6 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
         return view as! ScreenView
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        screenView.resetButton.addTarget(self, action: #selector(resetButtonTouchUpInsideEventAction), for: .touchUpInside)
-        screenView.allButton.addTarget(self, action: #selector(allButtonTouchUpInsideEventAction), for: .touchUpInside)
-        setupCollectionViewController()
-        setContent()
-        setupReselAllButtons()
-    }
-    
-    private func setupCollectionViewController() {
-        collectionViewController.collectionView = screenView.collectionView
-    }
-    
-    // MARK: - Components
-    
     private let collectionViewController = AUIEmptyCollectionViewController()
     private let accountsSectionController = AUIEmptyCollectionViewSectionController()
     private var accountsCellControllers: [AccountCollectionViewCellController] {
@@ -63,17 +62,15 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
         return accountsCellControllers.first(where: { $0.account.id == account.id })
     }
     
-    // MARK: - Localizer
-    
-    private lazy var localizer: Localizer = {
-        let localizer = Localizer(locale: locale, stringsTableName: "BalanceCalculatorScreenStrings")
-        return localizer
-    }()
-    
-    override func setLocale(_ locale: Locale) {
-        super.setLocale(locale)
-        fundsAmountNumberFormatter.locale = locale.foundationLocale
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.resetButton.addTarget(self, action: #selector(resetButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.allButton.addTarget(self, action: #selector(allButtonTouchUpInsideEventAction), for: .touchUpInside)
+        collectionViewController.collectionView = screenView.collectionView
         setContent()
+        setupReselAllButtons()
+        loadAccountsBalance()
     }
     
     // MARK: - Appearance
@@ -84,47 +81,17 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
         accountsCellControllers.forEach { $0.setAppearance(appearance) }
     }
     
-    // MARK: Events
+    // MARK: - Localization
     
-    @objc private func backButtonTouchUpInsideEventAction() {
-        backClosure?()
-    }
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(locale: locale, stringsTableName: "BalanceCalculatorScreenStrings")
+        return localizer
+    }()
     
-    @objc private func resetButtonTouchUpInsideEventAction() {
-        selectedAccounts = []
-        accountsCellControllers.forEach({ $0.setIsSelected(false) })
-        setBalanceLabelContent()
-        setupReselAllButtons()
-    }
-    
-    @objc private func allButtonTouchUpInsideEventAction() {
-        selectedAccounts = accounts
-        accountsCellControllers.forEach({ $0.setIsSelected(true) })
-        setBalanceLabelContent()
-        setupReselAllButtons()
-    }
-    
-    private func didSelectAccount(_ account: Account) {
-        let cellConroller = accountsCellController(account)
-        if let firstIndex = selectedAccounts.firstIndex(of: account) {
-            selectedAccounts.remove(at: firstIndex)
-            cellConroller?.setIsSelected(false)
-        } else {
-            selectedAccounts.append(account)
-            cellConroller?.setIsSelected(true)
-        }
-        setBalanceLabelContent()
-        setupReselAllButtons()
-    }
-    
-    func setupReselAllButtons() {
-        if selectedAccounts.isEmpty {
-            screenView.resetButton.isHidden = true
-            screenView.allButton.isHidden = false
-        } else {
-            screenView.resetButton.isHidden = false
-            screenView.allButton.isHidden = true
-        }
+    override func setLocale(_ locale: Locale) {
+        super.setLocale(locale)
+        fundsAmountNumberFormatter.locale = locale.foundationLocale
+        setContent()
     }
     
     // MARK: Content
@@ -146,18 +113,8 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     }
     
     private func setBalanceLabelContent() {
-        var currenciesAmount: [Currency: Decimal] = [:]
-        for account in accounts {
-            let currency = account.currency
-            let currencyAmount = Decimal()
-            currenciesAmount[currency] = currencyAmount
-        }
-        for account in selectedAccounts {
-            let currency = account.currency
-            let amount = account.amount
-            let currencyAmount = (currenciesAmount[currency] ?? .zero) + amount
-            currenciesAmount[currency] = currencyAmount
-        }
+        guard let accountsBalance = accountsBalance else { return }
+        let currenciesAmount: [Currency: Decimal] = accountsBalance.currenciesAmount
         var currenciesAmountsStrings: [String] = []
         let sortedCurrencyAmount = currenciesAmount.sorted(by: { $0.1 > $1.1 })
         for (currency, amount) in sortedCurrencyAmount {
@@ -166,7 +123,7 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
             currenciesAmountsStrings.append(currencyAmountString)
         }
         let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
-        screenView.balanceLabel.text = currenciesAmountsStringsJoined
+        screenView.setBalance(currenciesAmountsStringsJoined)
     }
     
     private func setCollectionViewControllerContent() {
@@ -200,6 +157,49 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
             self.didSelectAccount(cellController.account)
         }
         return cellController
+    }
+    
+    // MARK: Events
+    
+    @objc private func backButtonTouchUpInsideEventAction() {
+        backClosure?()
+    }
+    
+    @objc private func resetButtonTouchUpInsideEventAction() {
+        selectedAccounts = []
+        accountsCellControllers.forEach({ $0.setIsSelected(false) })
+        loadAccountsBalance()
+        setupReselAllButtons()
+    }
+    
+    @objc private func allButtonTouchUpInsideEventAction() {
+        selectedAccounts = accounts
+        accountsCellControllers.forEach({ $0.setIsSelected(true) })
+        loadAccountsBalance()
+        setupReselAllButtons()
+    }
+    
+    private func didSelectAccount(_ account: Account) {
+        let cellConroller = accountsCellController(account)
+        if let firstIndex = selectedAccounts.firstIndex(of: account) {
+            selectedAccounts.remove(at: firstIndex)
+            cellConroller?.setIsSelected(false)
+        } else {
+            selectedAccounts.append(account)
+            cellConroller?.setIsSelected(true)
+        }
+        loadAccountsBalance()
+        setupReselAllButtons()
+    }
+    
+    func setupReselAllButtons() {
+        if selectedAccounts.isEmpty {
+            screenView.resetButton.isHidden = true
+            screenView.allButton.isHidden = false
+        } else {
+            screenView.resetButton.isHidden = false
+            screenView.allButton.isHidden = true
+        }
     }
     
 }

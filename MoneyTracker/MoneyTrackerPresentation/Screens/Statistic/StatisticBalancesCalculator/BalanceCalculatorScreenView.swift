@@ -24,7 +24,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     let resetButton: TextButton
     let allButton: TextButton
-    let balanceLabel = UILabel()
+    private let balanceLabel = UILabel()
     let collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     let collectionView: UICollectionView
     
@@ -145,6 +145,13 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         resetButton.setTitleColor(appearance.colors.accent, for: .normal)
         allButton.setTitleColor(appearance.colors.accent, for: .normal)
         collectionView.backgroundColor = appearance.colors.primaryBackground
+    }
+    
+    // MARK: Setters
+    
+    func setBalance(_ balance: String) {
+        balanceLabel.text = balance
+        setNeedsLayout()
     }
     
 }

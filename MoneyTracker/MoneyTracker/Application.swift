@@ -360,10 +360,51 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentationBalance(_ presentation: Presentation, accounts: [PresentationBalanceAccount], completionHandler: @escaping (Result<MoneyAmount, Swift.Error>) -> Void) {
+        let currencyAdapter = CurrencyAdapter()
+        func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
+            var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
+            for account in accounts {
+                let currency = account.currency
+                let amount = account.amount
+                if let exchangeRates = exchangeRates {
+                    let currency2 = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(currency)
+                    let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
+                    let exchangeRate = exchangeRates[currency2]
+                    let amount = amount / exchangeRate
+                    let currencyAmount = (currenciesAmounts[hhh] ?? .zero) + amount
+                    currenciesAmounts[hhh] = currencyAmount
+                } else {
+                    let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+                    currenciesAmounts[currency] = currencyAmount
+                }
+            }
+            let rr = currenciesAmounts.map({ CurrencyMoneyAmount(amount: $1, currency: $0) })
+            let bv = MoneyAmount(currenciesMoneyAmount: rr)
+            completionHandler(.success(bv))
+        }
+        let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
+        let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(hhh)
+        self.network.latestCurrenciesCurrency(gg) { result in
+            switch result {
+            case .success(let response):
+                switch response {
+                case .parsedResponse(let parsedResponse):
+                    let exchangeRates = parsedResponse.exchangeRates
+                    ddd(exchangeRates: exchangeRates)
+                case .networkConnectionLost:
+                    ddd(exchangeRates: nil)
+                case .notConnectedToInternet:
+                    ddd(exchangeRates: nil)
+                }
+            case .failure:
+                ddd(exchangeRates: nil)
+            }
+        }
+    }
+    
     func presentationExpenses(_ presentation: Presentation) throws -> [PresentationExpense] {
         do {
-            let operations = try storage.getOperations()
-            print(operations)
             let expenses = try storage.getAllExpenses()
             let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
                 return try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: expense)
