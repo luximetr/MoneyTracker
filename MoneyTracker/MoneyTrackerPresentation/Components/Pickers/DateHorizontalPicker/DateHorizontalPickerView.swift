@@ -48,7 +48,7 @@ class DateHorizontalPickerView: AppearanceView {
         setupPickDayButtonIcon()
         addSubview(selectedDayFrameView)
         setupSelectedDayFrameView()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupCollectionView() {
@@ -156,8 +156,8 @@ class DateHorizontalPickerView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         collectionView.backgroundColor = appearance.colors.primaryBackground
         pickDayButtonBackground.backgroundColor = appearance.colors.primaryBackground

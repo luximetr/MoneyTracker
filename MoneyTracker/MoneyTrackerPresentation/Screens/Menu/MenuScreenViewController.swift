@@ -98,7 +98,7 @@ final class MenuScreenViewController: StatusBarScreenViewController {
     
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
     }
     
 }

@@ -117,7 +117,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func changeAppearance(_ appearance: Appearance) {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
-        monthPickerView.changeAppearance(appearance)
+        monthPickerView.setAppearance(appearance)
         monthExpensesLabel.textColor = appearance.colors.primaryText
         monthCategoriesExpensesTableView.backgroundColor = appearance.colors.primaryBackground
         monthCategoryExpensesTableViewCells?.forEach({ $0.setAppearance(appearance) })

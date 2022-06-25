@@ -146,9 +146,9 @@ final class ScreenView: TitleNavigationBarScreenView {
         super.changeAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         historyButton.imageView?.tintColor = appearance.colors.primaryText
-        categoryPickerView.changeAppearance(appearance)
-        accountPickerView.changeAppearance(appearance)
-        templatesView.changeAppearance(appearance)
+        categoryPickerView.setAppearance(appearance)
+        accountPickerView.setAppearance(appearance)
+        templatesView.setAppearance(appearance)
     }
     
 }

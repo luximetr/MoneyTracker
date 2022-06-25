@@ -162,14 +162,14 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         statusBarView.backgroundColor = appearance.colors.primaryBackground
         navigationBarView.backgroundColor = appearance.colors.primaryBackground
         balanceAccountPickerHeaderLabel.textColor = appearance.colors.secondaryText
-        balanceAccountPickerView.changeAppearance(appearance)
+        balanceAccountPickerView.setAppearance(appearance)
         categoryPickerHeaderLabel.textColor = appearance.colors.secondaryText
-        categoryPickerView.changeAppearance(appearance)
+        categoryPickerView.setAppearance(appearance)
         nameTextField.changeAppearance(appearance)
-        amountInputView.changeAppearance(appearance)
+        amountInputView.setAppearance(appearance)
         commentTextField.changeAppearance(appearance)
         saveButton.backgroundColor = appearance.colors.primaryActionBackground
         saveButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
-        errorSnackbarView.changeAppearance(appearance)
+        errorSnackbarView.setAppearance(appearance)
     }
 }

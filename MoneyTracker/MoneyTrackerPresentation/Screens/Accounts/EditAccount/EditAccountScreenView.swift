@@ -200,7 +200,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         backgroundColor = appearance.colors.primaryBackground
         colorsTitleLabel.textColor = appearance.colors.primaryText
         currencyInputView.setTitleColor(appearance.colors.secondaryText, for: .normal)
-        errorSnackbarView.changeAppearance(appearance)
+        errorSnackbarView.setAppearance(appearance)
     }
     
 }

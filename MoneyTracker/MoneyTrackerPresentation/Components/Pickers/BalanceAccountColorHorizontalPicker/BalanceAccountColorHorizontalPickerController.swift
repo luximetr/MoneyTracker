@@ -51,7 +51,7 @@ class BalanceAccountColorHorizontalPickerController: AUIEmptyViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        pickerView.changeAppearance(appearance)
+        pickerView.setAppearance(appearance)
         colorCellControllers.forEach { $0.uiColor = uiColorProvider.getUIColor(accountColor: $0.color, appearance: appearance) }
     }
     

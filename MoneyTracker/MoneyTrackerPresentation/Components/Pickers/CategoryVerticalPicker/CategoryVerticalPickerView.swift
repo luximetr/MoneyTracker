@@ -23,7 +23,7 @@ class CategoryVerticalPickerView: AppearanceView {
     override func setup() {
         super.setup()
         setupSelf()
-        changeAppearance(appearance)
+        setAppearance(appearance)
         addSubview(tableView)
         setupTableView()
         addSubview(topGradientView)
@@ -108,8 +108,8 @@ class CategoryVerticalPickerView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         tableView.backgroundColor = appearance.colors.primaryBackground
         topGradientViewLayer.colors = [appearance.colors.primaryBackground.withAlphaComponent(1).cgColor, appearance.colors.primaryBackground.withAlphaComponent(0).cgColor]

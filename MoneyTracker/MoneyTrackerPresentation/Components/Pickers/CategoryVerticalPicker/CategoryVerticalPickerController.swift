@@ -38,7 +38,7 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        pickerView?.changeAppearance(appearance)
+        pickerView?.setAppearance(appearance)
         findCategoriesCellControllers().forEach { $0.setAppearance(appearance) }
     }
     

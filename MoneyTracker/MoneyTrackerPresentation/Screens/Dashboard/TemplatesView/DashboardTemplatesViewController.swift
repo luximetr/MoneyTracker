@@ -115,7 +115,7 @@ final class TemplatesViewController: EmptyViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        templatesView?.changeAppearance(appearance)
+        templatesView?.setAppearance(appearance)
     }
     
     // MARK: Events

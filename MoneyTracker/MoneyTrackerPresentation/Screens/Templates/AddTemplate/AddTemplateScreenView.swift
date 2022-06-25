@@ -156,12 +156,12 @@ final class AddTemplateScreenView: BackTitleNavigationBarScreenView {
         statusBarView.backgroundColor = appearance.colors.primaryBackground
         navigationBarView.backgroundColor = appearance.colors.primaryBackground
         nameTextField.changeAppearance(appearance)
-        amountInputView.changeAppearance(appearance)
+        amountInputView.setAppearance(appearance)
         commentTextField.changeAppearance(appearance)
         balanceAccountPickerHeaderLabel.textColor = appearance.colors.secondaryText
         categoryPickerHeaderLabel.textColor = appearance.colors.secondaryText
         addButton.backgroundColor = appearance.colors.primaryActionBackground
         addButton.titleLabel?.textColor = appearance.colors.primaryActionText
-        errorSnackbarView.changeAppearance(appearance)
+        errorSnackbarView.setAppearance(appearance)
     }
 }

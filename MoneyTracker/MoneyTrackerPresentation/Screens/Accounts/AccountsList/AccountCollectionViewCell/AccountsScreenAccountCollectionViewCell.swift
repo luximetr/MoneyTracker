@@ -120,7 +120,7 @@ final class AccountCollectionViewCell: AppearanceCollectionViewCell {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        _accountView.changeAppearance(appearance)
+        _accountView.setAppearance(appearance)
         deleteButton.backgroundColor = appearance.colors.dangerousActionBackground
     }
         
@@ -152,8 +152,8 @@ private class AccountView: AppearanceView {
         balanceLabel.textColor = appearance.colors.cardPrimaryText
     }
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         nameLabel.textColor = appearance.colors.cardPrimaryText
         balanceLabel.textColor = appearance.colors.cardPrimaryText
     }

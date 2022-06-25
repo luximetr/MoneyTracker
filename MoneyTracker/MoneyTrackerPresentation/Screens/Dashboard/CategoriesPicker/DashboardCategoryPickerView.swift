@@ -36,7 +36,7 @@ final class CategoryPickerView: AppearanceView {
         addSubview(collectionView)
         setupCollectionView()
         setupCategoryCollectionViewCell()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupTitleLabel() {
@@ -124,8 +124,8 @@ final class CategoryPickerView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         titleLabel.textColor = appearance.colors.primaryText
         addExpenseButton.setTitleColor(appearance.colors.accent, for: .normal)

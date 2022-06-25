@@ -26,7 +26,7 @@ class ErrorSnackbarView: AppearanceView {
         addSubview(dismissIcon)
         setupDismissIcon()
         addSubview(dismissButton)
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupSelf() {
@@ -112,8 +112,8 @@ class ErrorSnackbarView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.dangerousActionBackground
         titleLabel.textColor = appearance.colors.dangerousActionText
         dismissIcon.tintColor = appearance.colors.dangerousActionText

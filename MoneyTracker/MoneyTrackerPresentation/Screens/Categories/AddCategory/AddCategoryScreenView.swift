@@ -174,7 +174,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         nameTextField.changeAppearance(appearance)
         addButton.setTitleColor(appearance.colors.primaryActionText, for: .normal)
         addButton.backgroundColor = appearance.colors.primaryActionBackground
-        errorSnackbarView.changeAppearance(appearance)
+        errorSnackbarView.setAppearance(appearance)
     }
     
 }

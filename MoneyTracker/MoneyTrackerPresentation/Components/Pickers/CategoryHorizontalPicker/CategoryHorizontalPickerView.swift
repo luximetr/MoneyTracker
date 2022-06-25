@@ -31,7 +31,7 @@ class CategoryHorizontalPickerView: AppearanceView {
         setupCollectionView()
         setupCategoryCollectionViewCell()
         setupAddCategoryCollectionViewCell()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupCollectionView() {
@@ -112,8 +112,8 @@ class CategoryHorizontalPickerView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         collectionView.backgroundColor = appearance.colors.primaryBackground
         appearanceCollectionViewCell.forEach { $0.setAppearance(appearance) }

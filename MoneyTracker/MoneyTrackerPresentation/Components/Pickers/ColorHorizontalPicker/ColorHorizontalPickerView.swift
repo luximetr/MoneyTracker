@@ -36,7 +36,7 @@ final class ColorHorizontalPickerView: AppearanceView {
         super.setup()
         addSubview(collectionView)
         setupCollectionView()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupCollectionView() {
@@ -60,8 +60,8 @@ final class ColorHorizontalPickerView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         collectionView.backgroundColor = appearance.colors.primaryBackground
     }
     

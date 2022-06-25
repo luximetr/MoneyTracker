@@ -73,7 +73,7 @@ final class ExpenseAddedSnackbarViewController: EmptyViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        expenseAddedSnackbarView?.changeAppearance(appearance)
+        expenseAddedSnackbarView?.setAppearance(appearance)
     }
     
     // MARK: Events

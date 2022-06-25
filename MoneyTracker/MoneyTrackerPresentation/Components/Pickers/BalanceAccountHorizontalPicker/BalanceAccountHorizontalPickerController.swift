@@ -41,7 +41,7 @@ class BalanceAccountHorizontalPickerController: EmptyViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        balanceAccountHorizontalPickerView.changeAppearance(appearance)
+        balanceAccountHorizontalPickerView.setAppearance(appearance)
         accountsCellControllers.forEach { $0.setAppearance(appearance) }
         addCellController?.setAppearance(appearance)
     }

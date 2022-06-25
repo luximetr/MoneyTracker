@@ -25,7 +25,7 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
         setupSelf()
         setupTextField()
         setupLabel()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupSelf() {
@@ -94,8 +94,8 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         layer.borderColor = appearance.colors.secondaryBackground.cgColor
         textField.tintColor = appearance.colors.accent

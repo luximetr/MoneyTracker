@@ -41,7 +41,7 @@ final class TemplatesView: AppearanceView {
         addSubview(collectionView)
         setupCollectionView()
         setupTemplateCollectionViewCell()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupPanGestureView() {
@@ -165,8 +165,8 @@ final class TemplatesView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         addButton.setTitleColor(appearance.colors.accent, for: .normal)
         panGestureView.backgroundColor = appearance.colors.secondaryBackground

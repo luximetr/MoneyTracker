@@ -141,7 +141,7 @@ final class CategoryPickerViewController: EmptyViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        categoryPickerView?.changeAppearance(appearance)
+        categoryPickerView?.setAppearance(appearance)
         categoriesCellControllers.forEach { $0.changeAppearance(appearance) }
         addCellController?.setAppearance(appearance)
     }

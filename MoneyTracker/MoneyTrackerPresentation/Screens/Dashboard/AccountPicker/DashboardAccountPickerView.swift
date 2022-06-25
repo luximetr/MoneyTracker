@@ -35,7 +35,7 @@ final class AccountPickerView: AppearanceView {
         addSubview(transferButton)
         addSubview(collectionView)
         setupCollectionView()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupTitleLabel() {
@@ -120,8 +120,8 @@ final class AccountPickerView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         titleLabel.textColor = appearance.colors.primaryText
         transferButton.setTitleColor(appearance.colors.accent, for: .normal)

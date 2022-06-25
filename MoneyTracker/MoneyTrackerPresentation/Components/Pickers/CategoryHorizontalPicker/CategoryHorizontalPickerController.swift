@@ -45,7 +45,7 @@ class CategoryHorizontalPickerController: EmptyViewController {
     
     func changeAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        categoryHorizontalPickerView.changeAppearance(appearance)
+        categoryHorizontalPickerView.setAppearance(appearance)
         categoriesCellControllers.forEach { $0.setAppearance(appearance) }
         addCellController?.setAppearance(appearance)
     }

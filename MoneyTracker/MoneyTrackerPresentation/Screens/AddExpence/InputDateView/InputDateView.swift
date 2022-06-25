@@ -20,7 +20,7 @@ final class InputDateView: AppearanceView {
         super.setup()
         addSubview(datePicker)
         autoLayout()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     // MARK: AutoLayout
@@ -38,8 +38,8 @@ final class InputDateView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         datePicker.overrideUserInterfaceStyle = appearance.colors.overrideUserInterfaceStyle
     }
     

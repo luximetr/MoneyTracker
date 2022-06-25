@@ -86,7 +86,7 @@ final class InputAmountView: AppearanceView {
         addSubview(zeroKeyButton)
         addSubview(calculateKeyButton)
         addSubview(additionKeyButton)
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupPlaceholderLabel() {
@@ -337,8 +337,8 @@ final class InputAmountView: AppearanceView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         placeholderLabel.textColor = appearance.colors.secondaryText
         inputLabel.textColor = appearance.colors.primaryText

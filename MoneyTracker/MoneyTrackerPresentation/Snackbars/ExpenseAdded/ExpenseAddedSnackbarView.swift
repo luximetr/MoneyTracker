@@ -32,7 +32,7 @@ final class ExpenseAddedSnackbarView: AppearanceView {
         setupMessageLabel()
         addSubview(okButton)
         setupOkButton()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupMessageLabel() {
@@ -77,8 +77,8 @@ final class ExpenseAddedSnackbarView: AppearanceView {
     
     // MARK: -Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.successActionBackground
         messageLabel.textColor = appearance.colors.successActionText
         okButton.setTitleColor(appearance.colors.successActionText, for: .normal)
