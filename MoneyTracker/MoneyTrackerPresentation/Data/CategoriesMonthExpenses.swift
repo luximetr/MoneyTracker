@@ -8,10 +8,10 @@
 import Foundation
 
 public struct CategoriesMonthExpenses {
-    let expenses: MoneyAmount
+    let expenses: CurrenciesAmount
     let categoriesMonthExpenses: [CategoryMonthExpenses]
     
-    public init(expenses: MoneyAmount, categoriesMonthExpenses: [CategoryMonthExpenses]) {
+    public init(expenses: CurrenciesAmount, categoriesMonthExpenses: [CategoryMonthExpenses]) {
         self.expenses = expenses
         self.categoriesMonthExpenses = categoriesMonthExpenses
     }

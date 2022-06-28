@@ -15,8 +15,8 @@ final class BalanceCalculatorScreenViewController: StatusBarScreenViewController
     
     private var accounts: [Account]
     private var selectedAccounts: [Account]
-    private var accountsBalance: MoneyAmount?
-    var accountsBalanceClosure: (([Account], @escaping (Result<MoneyAmount, Swift.Error>) -> Void) -> Void)?
+    private var accountsBalance: CurrenciesAmount?
+    var accountsBalanceClosure: (([Account], @escaping (Result<CurrenciesAmount, Swift.Error>) -> Void) -> Void)?
     
     private func loadAccountsBalance() {
         self.accountsBalanceClosure?(selectedAccounts, { [weak self] result in

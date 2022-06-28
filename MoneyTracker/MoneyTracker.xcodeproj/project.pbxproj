@@ -236,6 +236,11 @@
 		2ECF015027BDA36D008469E0 /* ErrorAlertStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF015227BDA36D008469E0 /* ErrorAlertStrings.strings */; };
 		2ED04A372836CEB20048B931 /* AppearanceImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED04A362836CEB20048B931 /* AppearanceImages.swift */; };
 		2ED04A392836CF970048B931 /* DefaultAppearanceImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED04A382836CF970048B931 /* DefaultAppearanceImages.swift */; };
+		2ED0D750286BA34600049F3A /* CurrencyAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED0D74F286BA34600049F3A /* CurrencyAmount.swift */; };
+		2ED0D752286BA39600049F3A /* CurrenciesAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED0D751286BA39600049F3A /* CurrenciesAmount.swift */; };
+		2ED0D754286BA63A00049F3A /* ExchangeRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED0D753286BA63A00049F3A /* ExchangeRates.swift */; };
+		2ED0D757286BA7AC00049F3A /* CurrencyAmountMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED0D756286BA7AC00049F3A /* CurrencyAmountMapper.swift */; };
+		2ED0D75A286BA93900049F3A /* CurrenciesAmountMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED0D759286BA93900049F3A /* CurrenciesAmountMapper.swift */; };
 		2ED15AD427EE4618001436E1 /* MonthCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */; };
 		2ED15EC527FE210D00208386 /* AddingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC427FE210D00208386 /* AddingTransfer.swift */; };
 		2ED15EC727FE21A800208386 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED15EC627FE21A800208386 /* Transfer.swift */; };
@@ -277,8 +282,8 @@
 		2EDEED13284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDEED0D284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework */; };
 		2EDEED14284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDEED0D284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2EDEED1B284BC20000E8BDC0 /* ApiVersion1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDEED1A284BC20000E8BDC0 /* ApiVersion1.swift */; };
-		2EE023AB28625DE30045450A /* CurrencyMoneyAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023AA28625DE30045450A /* CurrencyMoneyAmount.swift */; };
-		2EE023AD28625DF90045450A /* MoneyAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023AC28625DF90045450A /* MoneyAmount.swift */; };
+		2EE023AB28625DE30045450A /* CurrencyAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023AA28625DE30045450A /* CurrencyAmount.swift */; };
+		2EE023AD28625DF90045450A /* CurrenciesAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023AC28625DF90045450A /* CurrenciesAmount.swift */; };
 		2EE023AF28625E1E0045450A /* CategoryMonthExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */; };
 		2EE023B128625E320045450A /* CategoriesMonthExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */; };
 		2EE1897827FEBD08006D7DA9 /* Replenishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE1897727FEBD08006D7DA9 /* Replenishment.swift */; };
@@ -896,6 +901,11 @@
 		2ECF015127BDA36D008469E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ErrorAlertStrings.strings; sourceTree = "<group>"; };
 		2ED04A362836CEB20048B931 /* AppearanceImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceImages.swift; sourceTree = "<group>"; };
 		2ED04A382836CF970048B931 /* DefaultAppearanceImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppearanceImages.swift; sourceTree = "<group>"; };
+		2ED0D74F286BA34600049F3A /* CurrencyAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAmount.swift; sourceTree = "<group>"; };
+		2ED0D751286BA39600049F3A /* CurrenciesAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesAmount.swift; sourceTree = "<group>"; };
+		2ED0D753286BA63A00049F3A /* ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRates.swift; sourceTree = "<group>"; };
+		2ED0D756286BA7AC00049F3A /* CurrencyAmountMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAmountMapper.swift; sourceTree = "<group>"; };
+		2ED0D759286BA93900049F3A /* CurrenciesAmountMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesAmountMapper.swift; sourceTree = "<group>"; };
 		2ED15AD327EE4618001436E1 /* MonthCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCellController.swift; sourceTree = "<group>"; };
 		2ED15EC427FE210D00208386 /* AddingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTransfer.swift; sourceTree = "<group>"; };
 		2ED15EC627FE21A800208386 /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
@@ -936,8 +946,8 @@
 		2EDEED0D284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fawazahmed0CurrencyApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EDEED0F284BC17500E8BDC0 /* Fawazahmed0CurrencyApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fawazahmed0CurrencyApi.h; sourceTree = "<group>"; };
 		2EDEED1A284BC20000E8BDC0 /* ApiVersion1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiVersion1.swift; sourceTree = "<group>"; };
-		2EE023AA28625DE30045450A /* CurrencyMoneyAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyMoneyAmount.swift; sourceTree = "<group>"; };
-		2EE023AC28625DF90045450A /* MoneyAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyAmount.swift; sourceTree = "<group>"; };
+		2EE023AA28625DE30045450A /* CurrencyAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAmount.swift; sourceTree = "<group>"; };
+		2EE023AC28625DF90045450A /* CurrenciesAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesAmount.swift; sourceTree = "<group>"; };
 		2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryMonthExpenses.swift; sourceTree = "<group>"; };
 		2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesMonthExpenses.swift; sourceTree = "<group>"; };
 		2EE1897727FEBD08006D7DA9 /* Replenishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replenishment.swift; sourceTree = "<group>"; };
@@ -1396,6 +1406,8 @@
 		2E91155427A93D4800359F21 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2ED0D755286BA79800049F3A /* CurrencyAmount */,
+				2ED0D758286BA92200049F3A /* CurrenciesAmount */,
 				2EB2E879281083410017ACDD /* AppearanceSetting */,
 				2ED248E328086BDF001E0498 /* Language */,
 				DB62AF0127EF03D200F8CA55 /* ExpensesFile */,
@@ -1407,6 +1419,7 @@
 				DB7486DB27CDD30C004DF67B /* Expense */,
 				2ED15EC827FE250500208386 /* Transfer */,
 				2EE1897B27FEBF29006D7DA9 /* TopUpAccount */,
+				2ED0D753286BA63A00049F3A /* ExchangeRates.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1750,8 +1763,8 @@
 		2EB10A4B27A7083200743416 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				2EE023AA28625DE30045450A /* CurrencyMoneyAmount.swift */,
-				2EE023AC28625DF90045450A /* MoneyAmount.swift */,
+				2EE023AA28625DE30045450A /* CurrencyAmount.swift */,
+				2EE023AC28625DF90045450A /* CurrenciesAmount.swift */,
 				2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */,
 				2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */,
 				2EDCEBF0281CFB80001F3F58 /* Operation */,
@@ -2247,6 +2260,24 @@
 				2EB10A4727A7075700743416 /* BundleLocalization.swift */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		2ED0D755286BA79800049F3A /* CurrencyAmount */ = {
+			isa = PBXGroup;
+			children = (
+				2ED0D74F286BA34600049F3A /* CurrencyAmount.swift */,
+				2ED0D756286BA7AC00049F3A /* CurrencyAmountMapper.swift */,
+			);
+			path = CurrencyAmount;
+			sourceTree = "<group>";
+		};
+		2ED0D758286BA92200049F3A /* CurrenciesAmount */ = {
+			isa = PBXGroup;
+			children = (
+				2ED0D751286BA39600049F3A /* CurrenciesAmount.swift */,
+				2ED0D759286BA93900049F3A /* CurrenciesAmountMapper.swift */,
+			);
+			path = CurrenciesAmount;
 			sourceTree = "<group>";
 		};
 		2ED15EC327FE20F100208386 /* Transfer */ = {
@@ -3527,8 +3558,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ED0D752286BA39600049F3A /* CurrenciesAmount.swift in Sources */,
 				2EB2E87B281083550017ACDD /* AppearanceSetting.swift in Sources */,
 				DB62AEF127EEB78500F8CA55 /* ImportingCategoryAdapter.swift in Sources */,
+				2ED0D757286BA7AC00049F3A /* CurrencyAmountMapper.swift in Sources */,
 				2EDCEBF5281CFD0B001F3F58 /* Operation.swift in Sources */,
 				DBDC932A282D4F9200D8C435 /* ImportingOperationAdapter.swift in Sources */,
 				DB7793CB2810EA9900150822 /* AddingTopUpAccountAdapter.swift in Sources */,
@@ -3539,6 +3572,7 @@
 				2EB2E87D281083820017ACDD /* AppearanceSettingMapper.swift in Sources */,
 				2E926E8127BC3AA20081E3AE /* Error.swift in Sources */,
 				DB7793C92810EA7300150822 /* TopUpAccountAdapter.swift in Sources */,
+				2ED0D754286BA63A00049F3A /* ExchangeRates.swift in Sources */,
 				2EC95ACD28665F4500072EAD /* Currency.swift in Sources */,
 				DBDC92D32814F0C100D8C435 /* EditingBalanceAccountAdapter.swift in Sources */,
 				DBDC9332282D52E300D8C435 /* ImportingTransferAdapter.swift in Sources */,
@@ -3553,6 +3587,8 @@
 				DB7348FB28477A2E00D68BE0 /* ExportingReplenishmentAdapter.swift in Sources */,
 				2EB10A1427A6C8D400743416 /* main.swift in Sources */,
 				DB400434280FAFAF004073D0 /* CategoryAdapter.swift in Sources */,
+				2ED0D750286BA34600049F3A /* CurrencyAmount.swift in Sources */,
+				2ED0D75A286BA93900049F3A /* CurrenciesAmountMapper.swift in Sources */,
 				DBD6ACFC27B5032800389236 /* CurrencyMapper.swift in Sources */,
 				DB62AECE27EDEA8200F8CA55 /* ExportingExpenseAdapter.swift in Sources */,
 				DB7793C128106FA200150822 /* BalanceAccountColorAdapter.swift in Sources */,
@@ -3600,7 +3636,7 @@
 				DBDC92D8281931EC00D8C435 /* CategoryVerticalPickerView.swift in Sources */,
 				DB7BA80D27F9482B00A3B3BA /* SelectIconScreenCollectionCell.swift in Sources */,
 				2ECAD4F92809A3830003BB26 /* DarkAppearanceColors.swift in Sources */,
-				2EE023AD28625DF90045450A /* MoneyAmount.swift in Sources */,
+				2EE023AD28625DF90045450A /* CurrenciesAmount.swift in Sources */,
 				2E01B2C427EDACD400013321 /* MonthCollectionViewCell.swift in Sources */,
 				2ECC0A11283A2B420056F927 /* BalanceCalculatorScreenView.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesListScreenView.swift in Sources */,
@@ -3732,7 +3768,7 @@
 				2E9F46E82821A8DB00F4E048 /* EditReplenishmentScreenView.swift in Sources */,
 				2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */,
 				DB40041A280EA67D004073D0 /* CategoryColorUIColorProvider.swift in Sources */,
-				2EE023AB28625DE30045450A /* CurrencyMoneyAmount.swift in Sources */,
+				2EE023AB28625DE30045450A /* CurrencyAmount.swift in Sources */,
 				2E09CC3727F4F9720015DA1E /* PlainTextField.swift in Sources */,
 				2ECAD4FD2809DCF30003BB26 /* StatusBarScreenView.swift in Sources */,
 				DB7BA81727F9881700A3B3BA /* ColorHorizontalPickerColorCell.swift in Sources */,

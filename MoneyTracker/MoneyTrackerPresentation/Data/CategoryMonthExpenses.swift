@@ -9,9 +9,9 @@ import Foundation
 
 public struct CategoryMonthExpenses: Hashable {
     public let category: Category
-    public let expenses: MoneyAmount
+    public let expenses: CurrenciesAmount
     
-    public init(category: Category, expenses: MoneyAmount) {
+    public init(category: Category, expenses: CurrenciesAmount) {
         self.category = category
         self.expenses = expenses
     }

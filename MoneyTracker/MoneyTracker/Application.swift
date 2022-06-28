@@ -309,6 +309,10 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+//    private func calculateCurrenciesAmount(_ currenciesAmount: CurrenciesAmount, basicCurrency: Currency, exchangeRates: ExchangeRates) {
+//        
+//    }
+    
     func presentationMonthExpenses(_ presentation: Presentation, month: Date, completionHandler: @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void) {
         let currencyAdapter = CurrencyAdapter()
         func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
@@ -325,7 +329,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                 var categoriesMonthExpenses: [CategoryMonthExpenses] = []
                 var allCurrenciesAmounts: [PresentationCurrency: Decimal] = [:]
                 for (category, expenses) in categoriesExpenses {
-                    var currenciesMoneyAmount: [CurrencyMoneyAmount] = []
+                    var currenciesMoneyAmount: [PresentationCurrencyAmount] = []
                     var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
                     for expense in expenses {
                         if let exchangeRates = exchangeRates {
@@ -347,15 +351,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     }
                     
                     for (key, value) in currenciesAmounts {
-                        let currencyMoneyAmount = CurrencyMoneyAmount(amount: value, currency: key)
+                        let currencyMoneyAmount = PresentationCurrencyAmount(amount: value, currency: key)
                         currenciesMoneyAmount.append(currencyMoneyAmount)
                     }
-                    let moneyAmount = MoneyAmount(currenciesMoneyAmount: currenciesMoneyAmount)
+                    let moneyAmount = PresentationCurrenciesAmount(currenciesMoneyAmount: currenciesMoneyAmount)
                     let categoryMonthExpenses = CategoryMonthExpenses(category: category, expenses: moneyAmount)
                     categoriesMonthExpenses.append(categoryMonthExpenses)
                 }
-                let rr = allCurrenciesAmounts.map({ CurrencyMoneyAmount(amount: $1, currency: $0) })
-                let bv = MoneyAmount(currenciesMoneyAmount: rr)
+                let rr = allCurrenciesAmounts.map({ PresentationCurrencyAmount(amount: $1, currency: $0) })
+                let bv = PresentationCurrenciesAmount(currenciesMoneyAmount: rr)
                 let cme = CategoriesMonthExpenses(expenses: bv, categoriesMonthExpenses: categoriesMonthExpenses)
                 completionHandler(.success(cme))
             } catch {
@@ -382,7 +386,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentationBalance(_ presentation: Presentation, accounts: [PresentationBalanceAccount], completionHandler: @escaping (Result<MoneyAmount, Swift.Error>) -> Void) {
+    func presentationBalance(_ presentation: Presentation, accounts: [PresentationBalanceAccount], completionHandler: @escaping (Result<PresentationCurrenciesAmount, Swift.Error>) -> Void) {
         let currencyAdapter = CurrencyAdapter()
         func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
             var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
@@ -401,8 +405,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     currenciesAmounts[currency] = currencyAmount
                 }
             }
-            let rr = currenciesAmounts.map({ CurrencyMoneyAmount(amount: $1, currency: $0) })
-            let bv = MoneyAmount(currenciesMoneyAmount: rr)
+            let rr = currenciesAmounts.map({ PresentationCurrencyAmount(amount: $1, currency: $0) })
+            let bv = PresentationCurrenciesAmount(currenciesMoneyAmount: rr)
             completionHandler(.success(bv))
         }
         let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)

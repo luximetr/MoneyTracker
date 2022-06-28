@@ -7,9 +7,9 @@
 
 import Foundation
 
-public struct MoneyAmount: Hashable {
+public struct CurrenciesAmount: Hashable {
     
-    public let currenciesMoneyAmount: [CurrencyMoneyAmount]
+    public let currenciesMoneyAmount: [CurrencyAmount]
     public var currenciesAmount: [Currency: Decimal] {
         get {
             let currenciesAmount = currenciesMoneyAmount.reduce(into: [Currency: Decimal]()) { $0[$1.currency] = $1.amount }
@@ -17,7 +17,7 @@ public struct MoneyAmount: Hashable {
         }
     }
     
-    public init(currenciesMoneyAmount: [CurrencyMoneyAmount]) {
+    public init(currenciesMoneyAmount: [CurrencyAmount]) {
         self.currenciesMoneyAmount = currenciesMoneyAmount
     }
     

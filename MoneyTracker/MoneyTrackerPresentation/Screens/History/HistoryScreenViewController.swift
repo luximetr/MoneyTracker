@@ -8,6 +8,11 @@
 import UIKit
 import AUIKit
 
+enum Historyitem {
+    case day
+    case operation
+}
+
 final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
@@ -184,12 +189,14 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         setTableViewControllerContent()
     }
     
-    // MARK: Content
+    // MARK: - Localization
     
     private lazy var localizer: Localizer = {
         let localizer = Localizer(locale: locale, stringsTableName: "HistoryScreenStrings")
         return localizer
     }()
+    
+    // MARK: Content
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")

@@ -35,7 +35,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationExpenses(_ presentation: Presentation) throws -> [Expense]
     
     func presentationMonthExpenses(_ presentation: Presentation, month: Date, completionHandler: @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void)
-    func presentationBalance(_ presentation: Presentation, accounts: [Account], completionHandler: @escaping (Result<MoneyAmount, Swift.Error>) -> Void)
+    func presentationBalance(_ presentation: Presentation, accounts: [Account], completionHandler: @escaping (Result<CurrenciesAmount, Swift.Error>) -> Void)
     
     func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date]
     func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
