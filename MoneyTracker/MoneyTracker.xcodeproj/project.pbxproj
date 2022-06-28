@@ -419,7 +419,7 @@
 		DBD6ACEF27B3CEA300389236 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACEE27B3CEA300389236 /* Currency.swift */; };
 		DBD6ACF827B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */; };
 		DBD6ACFA27B4FBDA00389236 /* UserDefaultsAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */; };
-		DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */; };
+		DBD6ACFC27B5032800389236 /* CurrencyMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6ACFB27B5032800389236 /* CurrencyMapper.swift */; };
 		DBDC92D12814EF9C00D8C435 /* EditingAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D02814EF9C00D8C435 /* EditingAccount.swift */; };
 		DBDC92D32814F0C100D8C435 /* EditingBalanceAccountAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D22814F0C100D8C435 /* EditingBalanceAccountAdapter.swift */; };
 		DBDC92D6281931A600D8C435 /* CategoryVerticalPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC92D5281931A600D8C435 /* CategoryVerticalPickerController.swift */; };
@@ -1077,7 +1077,7 @@
 		DBD6ACEE27B3CEA300389236 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		DBD6ACF727B4FBC800389236 /* SelectedCurrencyUserDefaultRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCurrencyUserDefaultRepo.swift; sourceTree = "<group>"; };
 		DBD6ACF927B4FBDA00389236 /* UserDefaultsAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAccessor.swift; sourceTree = "<group>"; };
-		DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAdapter.swift; sourceTree = "<group>"; };
+		DBD6ACFB27B5032800389236 /* CurrencyMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyMapper.swift; sourceTree = "<group>"; };
 		DBDC92D02814EF9C00D8C435 /* EditingAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingAccount.swift; sourceTree = "<group>"; };
 		DBDC92D22814F0C100D8C435 /* EditingBalanceAccountAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingBalanceAccountAdapter.swift; sourceTree = "<group>"; };
 		DBDC92D5281931A600D8C435 /* CategoryVerticalPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVerticalPickerController.swift; sourceTree = "<group>"; };
@@ -1488,7 +1488,7 @@
 			isa = PBXGroup;
 			children = (
 				2EC95ACC28665F4500072EAD /* Currency.swift */,
-				DBD6ACFB27B5032800389236 /* CurrencyAdapter.swift */,
+				DBD6ACFB27B5032800389236 /* CurrencyMapper.swift */,
 			);
 			path = Currency;
 			sourceTree = "<group>";
@@ -3553,7 +3553,7 @@
 				DB7348FB28477A2E00D68BE0 /* ExportingReplenishmentAdapter.swift in Sources */,
 				2EB10A1427A6C8D400743416 /* main.swift in Sources */,
 				DB400434280FAFAF004073D0 /* CategoryAdapter.swift in Sources */,
-				DBD6ACFC27B5032800389236 /* CurrencyAdapter.swift in Sources */,
+				DBD6ACFC27B5032800389236 /* CurrencyMapper.swift in Sources */,
 				DB62AECE27EDEA8200F8CA55 /* ExportingExpenseAdapter.swift in Sources */,
 				DB7793C128106FA200150822 /* BalanceAccountColorAdapter.swift in Sources */,
 				DB7793C32810714900150822 /* AddingBalanceAccountAdapter.swift in Sources */,

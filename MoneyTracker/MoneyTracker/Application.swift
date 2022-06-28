@@ -21,6 +21,32 @@ typealias Network = MoneyTrackerNetwork.Network
 
 class Application: AUIEmptyApplication, PresentationDelegate {
     
+    // MARK: - Calendar
+    
+    private var calendar: Calendar!
+    
+    private func initializeCalendar() {
+        let calendar = Calendar.current
+        self.calendar = calendar
+    }
+    
+    // MARK: - Basic currency
+    
+    private var basicCurrency: Currency!
+    
+    private func initializeBasicCurrency() throws {
+        do {
+            if let storageBasicCurrency = try storage.getSelectedCurrency() {
+                self.basicCurrency = CurrencyMapper.mapToCurrency(storageBasicCurrency)
+            } else {
+                let defaultBasicCurrency: Currency = .singaporeDollar
+                self.basicCurrency = defaultBasicCurrency
+            }
+        } catch {
+            throw Error("Cannot initialize basicCurrency\n\(error)")
+        }
+    }
+    
     // MARK: - Events
     
     override func didFinishLaunching() {
@@ -37,17 +63,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     private func initialize() throws {
         do {
+            self.initializeCalendar()
             try self.initializeStorage()
+            try self.initializeBasicCurrency()
             self.initializeNetwork()
             try self.initializePresentation()
         } catch {
             throw Error("Cannot initialize \(String(reflecting: Self.self))")
         }
     }
-    
-    // MARK: - Storage
-    
-    private var storage: Storage!
     
     private func initializeStorage() throws {
         do {
@@ -58,14 +82,18 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    // MARK: - Network
-    
-    private var network: Network!
-    
     private func initializeNetwork() {
         let network = Network()
         self.network = network
     }
+    
+    // MARK: - Storage
+    
+    private var storage: Storage!
+    
+    // MARK: - Network
+    
+    private var network: Network!
         
     // MARK: - Files
     
@@ -92,8 +120,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
         return window
     }
-    
-    private let calendar = Calendar.current
     
     private let defaultAppearanceSetting: AppearanceSetting = .system
     private let defaultLanguage: Language = .english
@@ -243,21 +269,15 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     private var selectedCurrency: StorageCurrency?
     
     func presentationSelectedCurrency(_ presentation: Presentation) throws -> PresentationCurrency {
-        do {
-            let adapter = CurrencyAdapter()
-            let selectedCurrency = try selectedCurrency ?? storage.getSelectedCurrency() ?? .singaporeDollar
-            self.selectedCurrency = selectedCurrency
-            return adapter.adaptToPresentation(storageCurrency: selectedCurrency)
-        } catch {
-            throw Error("Cannot get selected currency\n\(error)")
-        }
+        let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
+        return presentationBasicCurrency
     }
     
-    func presentation(_ presentation: Presentation, updateSelectedCurrency currency: PresentationCurrency) {
-        let adapter = CurrencyAdapter()
-        let storageCurrency = adapter.adaptToStorage(presentationCurrency: currency)
-        self.selectedCurrency = storageCurrency
-        storage.saveSelectedCurrency(storageCurrency)
+    func presentation(_ presentation: Presentation, updateSelectedCurrency presentationBasicCurrency: PresentationCurrency) {
+        let basicCurrency = CurrencyMapper.mapToCurrency(presentationBasicCurrency)
+        let storageBasicCurrency = CurrencyMapper.mapToStorageCurrency(basicCurrency)
+        storage.saveSelectedCurrency(storageBasicCurrency)
+        self.basicCurrency = basicCurrency
     }
     
     // MARK: - Expenses
@@ -285,7 +305,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let months = monthsExpenses.keys.sorted(by: <)
             return months
         } catch {
-            throw Error("Cannot expenses months(\n\(error)")
+            throw Error("Cannot expenses months\n\(error)")
         }
     }
     
@@ -311,12 +331,12 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                         if let exchangeRates = exchangeRates {
                             let currency = expense.account.currency
                             let currency2 = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(currency)
-                            let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
+                            let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
                             let exchangeRate = exchangeRates[currency2]
                             let amount = expense.amount / exchangeRate
-                            let currencyAmount = (currenciesAmounts[hhh] ?? .zero) + amount
-                            currenciesAmounts[hhh] = currencyAmount
-                            allCurrenciesAmounts[hhh] = (allCurrenciesAmounts[hhh] ?? Decimal()) + amount
+                            let currencyAmount = (currenciesAmounts[presentationBasicCurrency] ?? .zero) + amount
+                            currenciesAmounts[presentationBasicCurrency] = currencyAmount
+                            allCurrenciesAmounts[presentationBasicCurrency] = (allCurrenciesAmounts[presentationBasicCurrency] ?? Decimal()) + amount
                         } else {
                             let currency = expense.account.currency
                             let amount = expense.amount
@@ -342,8 +362,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                 completionHandler(.failure(error))
             }
         }
-        let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
-        let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(hhh)
+        let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
+        let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(presentationBasicCurrency)
         self.network.latestCurrenciesCurrency(gg) { result in
             switch result {
             case .success(let response):
@@ -371,11 +391,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                 let amount = account.amount
                 if let exchangeRates = exchangeRates {
                     let currency2 = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(currency)
-                    let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
+                    let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
                     let exchangeRate = exchangeRates[currency2]
                     let amount = amount / exchangeRate
-                    let currencyAmount = (currenciesAmounts[hhh] ?? .zero) + amount
-                    currenciesAmounts[hhh] = currencyAmount
+                    let currencyAmount = (currenciesAmounts[presentationBasicCurrency] ?? .zero) + amount
+                    currenciesAmounts[presentationBasicCurrency] = currencyAmount
                 } else {
                     let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
                     currenciesAmounts[currency] = currencyAmount
@@ -385,8 +405,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let bv = MoneyAmount(currenciesMoneyAmount: rr)
             completionHandler(.success(bv))
         }
-        let hhh = currencyAdapter.adaptToPresentation(storageCurrency: self.selectedCurrency!)
-        let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(hhh)
+        let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
+        let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(presentationBasicCurrency)
         self.network.latestCurrenciesCurrency(gg) { result in
             switch result {
             case .success(let response):

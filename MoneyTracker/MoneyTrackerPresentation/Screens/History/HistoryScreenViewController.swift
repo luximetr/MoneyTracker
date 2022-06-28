@@ -42,14 +42,6 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         view = HistoryScreenView(appearance: appearance)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
-        tableViewController.tableView = screenView.tableView
-        setTableViewControllerContent()
-        setContent()
-    }
-    
     private let tableViewController = AUIEmptyTableViewController()
     private let sectionController = AUIEmptyTableViewSectionController()
     private func dayCellController(day: Date) -> DayTableViewCellController? {
@@ -72,6 +64,14 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             }
         }
         return cellController
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        tableViewController.tableView = screenView.tableView
+        setTableViewControllerContent()
+        setContent()
     }
     
     // MARK: Events

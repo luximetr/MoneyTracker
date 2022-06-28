@@ -39,10 +39,10 @@ enum Currency {
         switch storageCurrency {
             case .singaporeDollar: self = .singaporeDollar
             case .usDollar: self = .usDollar
-            case .UAH: self = .hryvnia
-            case .TRY: self = .turkishLira
-            case .THB: self = .baht
-            case .EUR: self = .euro
+            case .hryvnia: self = .hryvnia
+            case .turkishLira: self = .turkishLira
+            case .baht: self = .baht
+            case .euro: self = .euro
         }
     }
     
@@ -50,10 +50,10 @@ enum Currency {
         switch self {
             case .singaporeDollar: return .singaporeDollar
             case .usDollar: return .usDollar
-            case .hryvnia: return .UAH
-            case .turkishLira: return .TRY
-            case .baht: return .THB
-            case .euro: return .EUR
+            case .hryvnia: return .hryvnia
+            case .turkishLira: return .turkishLira
+            case .baht: return .baht
+            case .euro: return .euro
         }
     }
     
