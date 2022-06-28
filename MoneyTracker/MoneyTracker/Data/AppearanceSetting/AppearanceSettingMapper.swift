@@ -14,7 +14,9 @@ typealias PresentationAppearanceSetting = MoneyTrackerPresentation.AppearanceSet
 
 enum AppearanceSettingMapper {
     
-    static func mapAppearanceSettingToPresentationAppearanceSetting(_ appearanceSetting: AppearanceSetting) -> PresentationAppearanceSetting {
+    // MARK: - Presentation
+    
+    static func mapToPresentationAppearanceSetting(_ appearanceSetting: AppearanceSetting) -> PresentationAppearanceSetting {
         switch appearanceSetting {
         case .light: return .light
         case .dark: return .dark
@@ -22,7 +24,7 @@ enum AppearanceSettingMapper {
         }
     }
     
-    static func mapPresentationAppearanceSettingToAppearanceSetting(_ presentationAppearanceSetting: PresentationAppearanceSetting) -> AppearanceSetting {
+    static func mapToAppearanceSetting(_ presentationAppearanceSetting: PresentationAppearanceSetting) -> AppearanceSetting {
         switch presentationAppearanceSetting {
         case .light: return .light
         case .dark: return .dark
@@ -30,7 +32,9 @@ enum AppearanceSettingMapper {
         }
     }
     
-    static func mapAppearanceSettingToStorageAppearanceSetting(_ appearanceSetting: AppearanceSetting) -> StorageAppearanceSetting {
+    // MARK: - Storage
+    
+    static func mapToStorageAppearanceSetting(_ appearanceSetting: AppearanceSetting) -> StorageAppearanceSetting {
         switch appearanceSetting {
         case .light: return .light
         case .dark: return .dark
@@ -38,7 +42,7 @@ enum AppearanceSettingMapper {
         }
     }
     
-    static func mapStorageAppearanceSettingToAppearanceSetting(_ storageAppearanceSetting: StorageAppearanceSetting) -> AppearanceSetting {
+    static func mapToAppearanceSetting(_ storageAppearanceSetting: StorageAppearanceSetting) -> AppearanceSetting {
         switch storageAppearanceSetting {
         case .light: return .light
         case .dark: return .dark

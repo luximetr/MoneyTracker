@@ -14,7 +14,9 @@ typealias StorageLanguage = MoneyTrackerStorage.Language
 
 enum LanguageMapper {
     
-    static func mapLanguageToPresentationLanguage(_ language: Language) -> PresentationLanguage {
+    // MARK: - Presentation
+    
+    static func mapToPresentationLanguage(_ language: Language) -> PresentationLanguage {
         switch language {
         case .english: return .english
         case .ukrainian: return .ukrainian
@@ -22,7 +24,7 @@ enum LanguageMapper {
         }
     }
     
-    static func mapPresentationLanguageToLanguage(_ presentationLanguage: PresentationLanguage) -> Language {
+    static func mapToLanguage(_ presentationLanguage: PresentationLanguage) -> Language {
         switch presentationLanguage {
         case .english: return .english
         case .ukrainian: return .ukrainian
@@ -30,7 +32,9 @@ enum LanguageMapper {
         }
     }
     
-    static func mapLanguageToStorageLanguage(_ language: Language) -> StorageLanguage {
+    // MARK: - Storage
+    
+    static func mapToStorageLanguage(_ language: Language) -> StorageLanguage {
         switch language {
         case .english: return .english
         case .ukrainian: return .ukrainian
@@ -38,7 +42,7 @@ enum LanguageMapper {
         }
     }
     
-    static func mapStorageLanguageToLanguage(_ storageLanguage: StorageLanguage) -> Language {
+    static func mapToLanguage(_ storageLanguage: StorageLanguage) -> Language {
         switch storageLanguage {
         case .english: return .english
         case .ukrainian: return .ukrainian
