@@ -360,8 +360,8 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         screenView.changeAppearance(appearance)
         balanceAccountHorizontalPickerController.changeAppearance(appearance)
         selectCategoryViewController.changeAppearance(appearance)

@@ -14,10 +14,9 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     private var operations: [Operation]
     func operations(day: Date) -> [Operation] {
-        let operations = self.operations.filter({ Calendar.current.isDate($0.timestamp, inSameDayAs: day) })
+        let operations = self.operations.filter({ calendar.isDate($0.timestamp, inSameDayAs: day) })
         return operations
     }
-    
     var backClosure: (() -> Void)?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
     var selectExpenseClosure: ((Expense) -> Void)?
@@ -28,9 +27,9 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: Locale, operations: [Operation]) {
+    init(appearance: Appearance, locale: Locale, calendar: Calendar, operations: [Operation]) {
         self.operations = operations
-        super.init(appearance: appearance, locale: locale)
+        super.init(appearance: appearance, locale: locale, calendar: calendar)
     }
     
     // MARK: View
@@ -77,8 +76,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Events
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         screenView.changeAppearance(appearance)
     }
     
@@ -199,7 +198,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     private func setTableViewControllerContent() {
         sectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        let daysExpenses = Dictionary(grouping: operations) { Calendar.current.startOfDay(for: $0.timestamp) }.sorted(by: { $0.0 > $1.0 })
+        let daysExpenses = Dictionary(grouping: operations) { calendar.startOfDay(for: $0.timestamp) }.sorted(by: { $0.0 > $1.0 })
         for (day, operations) in daysExpenses {
             let dayCellController = createDayTableViewController(day: day, operations: operations)
             cellControllers.append(dayCellController)

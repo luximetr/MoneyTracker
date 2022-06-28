@@ -14,7 +14,7 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
     
     var appearance: Appearance
     
-    func changeAppearance(_ appearance: Appearance) {
+    func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
         self.statusBarStyle = appearance.colors.statusBarStyle
         didSetStatusBarStyle()
@@ -24,11 +24,16 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
     
     var locale: Locale
     
+    // MARK: Calendar
+    
+    var calendar: Calendar
+    
     // MARK: - Initializer
     
-    init(appearance: Appearance, locale: Locale) {
+    init(appearance: Appearance, locale: Locale, calendar: Calendar = Calendar.current) {
         self.appearance = appearance
         self.locale = locale
+        self.calendar = calendar
         super.init()
         self.statusBarStyle = appearance.colors.statusBarStyle
     }

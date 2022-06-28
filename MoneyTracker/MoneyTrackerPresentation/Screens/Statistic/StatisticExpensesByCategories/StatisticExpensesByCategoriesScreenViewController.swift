@@ -43,9 +43,9 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     
     // MARK: - Initializer
     
-    override init(appearance: Appearance, locale: Locale) {
+    override init(appearance: Appearance, locale: Locale, calendar: Calendar) {
         monthPickerViewConroller = MonthPickerViewController(locale: locale)
-        super.init(appearance: appearance, locale: locale)
+        super.init(appearance: appearance, locale: locale, calendar: calendar)
     }
     
     // MARK: View
@@ -177,8 +177,8 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         screenView.changeAppearance(appearance)
         monthCategoryExpensesCellControllers.forEach { $0.setAppearance(appearance) }
     }

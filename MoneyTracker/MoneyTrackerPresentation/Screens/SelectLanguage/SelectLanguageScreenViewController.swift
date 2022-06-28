@@ -134,8 +134,8 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         screenView.changeAppearance(appearance)
         languageCellControllers?.forEach { $0.setAppearance(appearance) }
     }

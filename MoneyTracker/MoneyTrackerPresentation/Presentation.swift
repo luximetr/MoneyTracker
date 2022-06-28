@@ -10,11 +10,14 @@ import AUIKit
 import MessageUI
 
 public final class Presentation: AUIWindowPresentation {
+    
+    var calendar: Calendar
         
     // MARK: Initializer
     
-    public init(window: UIWindow, locale: Locale, appearanceSetting: AppearanceSetting) {
+    public init(window: UIWindow, appearanceSetting: AppearanceSetting, locale: Locale, calendar: Calendar) {
         self.locale = locale
+        self.calendar = calendar
         self.appearanceSetting = appearanceSetting
         self.appearance = Presentation.appearance(appearanceSetting, window: window)
         super.init(window: window)
@@ -57,39 +60,39 @@ public final class Presentation: AUIWindowPresentation {
     
     private func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
-        menuScreenViewController?.changeAppearance(appearance)
-        dashboardViewController?.changeAppearance(appearance)
-        pushedAddExpenseViewController?.changeAppearance(appearance)
-        pushedStatisticExpensesByCategoriesScreenViewController?.changeAppearance(appearance)
-        pushedHistoryViewController?.changeAppearance(appearance)
-        pushedEditExpenseViewController?.changeAppearance(appearance)
-        selectIconViewController?.changeAppearance(appearance)
-        pushedCategoriesViewController?.changeAppearance(appearance)
-        presentedAddCategoryViewController?.changeAppearance(appearance)
-        pushedAddCategoryViewController?.changeAppearance(appearance)
-        pushedEditCategoryViewController?.changeAppearance(appearance)
-        pushedAccoutsViewController?.changeAppearance(appearance)
-        pushedAddAccoutScreenViewController?.changeAppearance(appearance)
-        presentedAddAccoutScreenViewController?.changeAppearance(appearance)
-        pushedEditAccoutScreenViewController?.changeAppearance(appearance)
-        settingsScreenViewController?.changeAppearance(appearance)
-        pushedSelectDefaultCurrencyViewController?.changeAppearance(appearance)
-        presentedSelectCurrencyViewController?.changeAppearance(appearance)
-        pushedSelectAppearanceViewController?.changeAppearance(appearance)
-        pushedSelectLanguageViewController?.changeAppearance(appearance)
-        pushedTemplatesScreenViewController?.changeAppearance(appearance)
-        pushedAddTemplateScreenViewController?.changeAppearance(appearance)
-        presentedAddTemplateScreenViewController?.changeAppearance(appearance)
-        pushedEditTemplateScreenViewController?.changeAppearance(appearance)
+        menuScreenViewController?.setAppearance(appearance)
+        dashboardViewController?.setAppearance(appearance)
+        pushedAddExpenseViewController?.setAppearance(appearance)
+        pushedStatisticExpensesByCategoriesScreenViewController?.setAppearance(appearance)
+        pushedHistoryViewController?.setAppearance(appearance)
+        pushedEditExpenseViewController?.setAppearance(appearance)
+        selectIconViewController?.setAppearance(appearance)
+        pushedCategoriesViewController?.setAppearance(appearance)
+        presentedAddCategoryViewController?.setAppearance(appearance)
+        pushedAddCategoryViewController?.setAppearance(appearance)
+        pushedEditCategoryViewController?.setAppearance(appearance)
+        pushedAccoutsViewController?.setAppearance(appearance)
+        pushedAddAccoutScreenViewController?.setAppearance(appearance)
+        presentedAddAccoutScreenViewController?.setAppearance(appearance)
+        pushedEditAccoutScreenViewController?.setAppearance(appearance)
+        settingsScreenViewController?.setAppearance(appearance)
+        pushedSelectDefaultCurrencyViewController?.setAppearance(appearance)
+        presentedSelectCurrencyViewController?.setAppearance(appearance)
+        pushedSelectAppearanceViewController?.setAppearance(appearance)
+        pushedSelectLanguageViewController?.setAppearance(appearance)
+        pushedTemplatesScreenViewController?.setAppearance(appearance)
+        pushedAddTemplateScreenViewController?.setAppearance(appearance)
+        presentedAddTemplateScreenViewController?.setAppearance(appearance)
+        pushedEditTemplateScreenViewController?.setAppearance(appearance)
         importCSVScreen?.changeAppearance(appearance)
         exportCSVScreen?.changeAppearance(appearance)
         expenseAddedSnackbarViewControllers.forEach { $0.changeAppearance(appearance) }
-        pushedEditReplenishmentViewController?.changeAppearance(appearance)
-        pushedAddReplenishmentViewController?.changeAppearance(appearance)
-        pushedAddTransferViewController?.changeAppearance(appearance)
-        pushedEditTransferViewController?.changeAppearance(appearance)
-        statisticMenuScreenViewController?.changeAppearance(appearance)
-        balanceCalculatorScreenViewController?.changeAppearance(appearance)
+        pushedEditReplenishmentViewController?.setAppearance(appearance)
+        pushedAddReplenishmentViewController?.setAppearance(appearance)
+        pushedAddTransferViewController?.setAppearance(appearance)
+        pushedEditTransferViewController?.setAppearance(appearance)
+        statisticMenuScreenViewController?.setAppearance(appearance)
+        balanceCalculatorScreenViewController?.setAppearance(appearance)
     }
     
     public func didChangeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
@@ -428,7 +431,7 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let operations = try delegate.presentationOperations(self)
             
-            let viewController = HistoryScreenViewController(appearance: appearance, locale: locale, operations: operations)
+            let viewController = HistoryScreenViewController(appearance: appearance, locale: locale, calendar: calendar, operations: operations)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
@@ -651,7 +654,7 @@ public final class Presentation: AUIWindowPresentation {
     
     private weak var pushedStatisticExpensesByCategoriesScreenViewController: StatisticExpensesByCategoriesScreenViewController?
     private func pushStatisticExpensesByCategoriesScreenViewController(_ navigationController: UINavigationController) throws {
-        let viewController = StatisticExpensesByCategoriesScreenViewController(appearance: appearance, locale: locale)
+        let viewController = StatisticExpensesByCategoriesScreenViewController(appearance: appearance, locale: locale, calendar: calendar)
         viewController.backClosure = { [weak navigationController] in
             guard let navigationController = navigationController else { return }
             navigationController.popViewController(animated: true)

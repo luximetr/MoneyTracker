@@ -93,6 +93,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return window
     }
     
+    private let calendar = Calendar.current
+    
     private let defaultAppearanceSetting: AppearanceSetting = .system
     private let defaultLanguage: Language = .english
     private func initializePresentation() throws {
@@ -115,7 +117,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let foundationLocaleCurrentScriptCode = foundationLocaleCurrent.scriptCode
             let foundationLocaleCurrentRegionCode = foundationLocaleCurrent.regionCode
             let presentationLocale = Locale(language: presentationLanguage, scriptCode: foundationLocaleCurrentScriptCode, regionCode: foundationLocaleCurrentRegionCode)
-            let presentation = Presentation(window: presentationWindow, locale: presentationLocale, appearanceSetting: presentationAppearanceSetting)
+            let presentation = Presentation(window: presentationWindow, appearanceSetting: presentationAppearanceSetting, locale: presentationLocale, calendar: calendar)
             presentation.delegate = self
             self.presentation = presentation
         } catch {
