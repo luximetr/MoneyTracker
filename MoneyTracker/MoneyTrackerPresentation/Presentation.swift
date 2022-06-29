@@ -429,12 +429,18 @@ public final class Presentation: AUIWindowPresentation {
     private weak var pushedHistoryViewController: HistoryScreenViewController?
     private func pushHistoryViewController(_ navigationController: UINavigationController) throws {
         do {
-            let operations = try delegate.presentationOperations(self)
-            
-            let viewController = HistoryScreenViewController(appearance: appearance, locale: locale, calendar: calendar, operations: operations)
+            let viewController = HistoryScreenViewController(appearance: appearance, locale: locale, calendar: calendar)
             viewController.backClosure = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
+            }
+            viewController.historyItemsClosure = { [weak self] completionHandler in
+                guard let self = self else { return }
+                self.delegate.presentationOperations(self, completionHandler: { result in
+                    DispatchQueue.main.async {
+                        completionHandler(result)
+                    }
+                })
             }
             viewController.deleteExpenseClosure = { [weak self] deletingExpense in
                 guard let self = self else { return }

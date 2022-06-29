@@ -17,14 +17,24 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
-    private var operations: [Historyitem]
+    private var operations: [Historyitem]?
     
     var historyItemsClosure: ((@escaping (Result<[Historyitem], Swift.Error>) -> Void) -> Void)?
     
     private func loadHistoryItems() {
-        
+        screenView.tableViewRefreshControl.beginRefreshing()
+        historyItemsClosure?({ [weak self] result in
+            guard let self = self else { return }
+            self.screenView.tableViewRefreshControl.endRefreshing()
+            switch result {
+            case .success(let historyItems):
+                self.operations = historyItems
+                self.setTableViewControllerContent()
+            case .failure:
+                self.backClosure?()
+            }
+        })
     }
-    
     
     var backClosure: (() -> Void)?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
@@ -33,13 +43,6 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     var selectTransferClosure: ((Transfer) -> Void)?
     var deleteBalanceReplenishmentClosure: ((Replenishment) throws -> Void)?
     var selectReplenishmentClosure: ((Replenishment) -> Void)?
-    
-    // MARK: Initializer
-    
-    init(appearance: Appearance, locale: Locale, calendar: Calendar, operations: [Historyitem]) {
-        self.operations = operations
-        super.init(appearance: appearance, locale: locale, calendar: calendar)
-    }
     
     // MARK: View
     
@@ -82,6 +85,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         tableViewController.tableView = screenView.tableView
         setTableViewControllerContent()
         setContent()
+        loadHistoryItems()
     }
     
     // MARK: - Appearance
@@ -92,6 +96,11 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     // MARK: Localization
+    
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(locale: locale, stringsTableName: "HistoryScreenStrings")
+        return localizer
+    }()
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
@@ -202,13 +211,6 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
 //        setTableViewControllerContent()
     }
     
-    // MARK: - Localization
-    
-    private lazy var localizer: Localizer = {
-        let localizer = Localizer(locale: locale, stringsTableName: "HistoryScreenStrings")
-        return localizer
-    }()
-    
     // MARK: Content
     
     private func setContent() {
@@ -216,7 +218,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     private func setTableViewControllerContent() {
-        sectionController.cellControllers = []
+        guard let operations = operations else { return }
         var cellControllers: [AUITableViewCellController] = []
         for historyItem in operations {
             switch historyItem {

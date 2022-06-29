@@ -651,31 +651,58 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Operations
     
-    func presentationOperations(_ presentation: Presentation) throws -> [Historyitem] {
-        let storageOperations = try storage.getOperations()
-        let operationAdapter = OperationAdapter(storage: storage)
-        let presentationOperations = storageOperations.map { operationAdapter.adaptToPresentation(storageOperation: $0) }
-        
-        var historyItems: [Historyitem] = []
-        let daysPresentationExpenses = Dictionary(grouping: presentationOperations) { calendar.startOfDay(for: $0.timestamp) }.sorted(by: { $0.0 > $1.0 })
-        for (day, presentationExpenses) in daysPresentationExpenses {
-            let expenses: [PresentationExpense] = presentationExpenses.compactMap { operation in
-                if case let .expense(expense) = operation { return expense }
-                else { return nil }
+    func presentationOperations(_ presentation: Presentation, completionHandler: (@escaping (Result<[Historyitem], Swift.Error>) -> Void)) {
+        let fawazahmed0CurrencyApiBasicCurrency = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(basicCurrency)
+        self.network.latestCurrenciesCurrency(fawazahmed0CurrencyApiBasicCurrency) { [weak self] result in
+            guard let self = self else { return }
+            let exchangeRates: ExchangeRates?
+            switch result {
+            case .success(let response):
+                switch response {
+                case .parsedResponse(let parsedResponse):
+                    let fawazahmed0CurrencyApiExchangeRates = parsedResponse.exchangeRates
+                    exchangeRates = ExchangeRatesMapper.mapToExchangeRates(fawazahmed0CurrencyApiExchangeRates)
+                case .networkConnectionLost:
+                    exchangeRates = nil
+                case .notConnectedToInternet:
+                    exchangeRates = nil
+                }
+            case .failure:
+                exchangeRates = nil
             }
-            let currenciesExpenses = Dictionary(grouping: expenses) { $0.account.currency }
-            let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
-            let currenciesAmounts = currenciesExpense.map({ PresentationCurrencyAmount(amount: $0.value, currency: $0.key) })
-            let currenciesAmount = PresentationCurrenciesAmount(currenciesMoneyAmount: currenciesAmounts)
-            let dayHistoryItem: Historyitem = .day(day, currenciesAmount)
-            historyItems.append(dayHistoryItem)
-            for presentationOperation in presentationExpenses {
-                let operationHistoryItem: Historyitem = .operation(presentationOperation)
-                historyItems.append(operationHistoryItem)
+            do {
+                let storageOperations = try self.storage.getOperations()
+                let operationAdapter = OperationAdapter(storage: self.storage)
+                let presentationOperations = storageOperations.map { operationAdapter.adaptToPresentation(storageOperation: $0) }
+                
+                var historyItems: [Historyitem] = []
+                let daysPresentationExpenses = Dictionary(grouping: presentationOperations) { self.calendar.startOfDay(for: $0.timestamp) }.sorted(by: { $0.0 > $1.0 })
+                for (day, presentationExpenses) in daysPresentationExpenses {
+                    let expenses: [PresentationExpense] = presentationExpenses.compactMap { operation in
+                        if case let .expense(expense) = operation { return expense }
+                        else { return nil }
+                    }
+                    let currenciesExpenses = Dictionary(grouping: expenses) { $0.account.currency }
+                    let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
+                    let currencyAmounts = currenciesExpense.map({ CurrencyAmount(currency: CurrencyMapper.mapToCurrency($0.key), amount: $0.value) })
+                    var currenciesAmounts = CurrenciesAmount(currenciesAmount: Set(currencyAmounts))
+                    if let exchangeRates = exchangeRates {
+                        currenciesAmounts = self.calculateCurrenciesAmount(currenciesAmounts, basicCurrency: self.basicCurrency, exchangeRates: exchangeRates)
+                    }
+                    let presentationCurrenciesAmount = CurrenciesAmountMapper.mapToPresentationCurrenciesAmount(currenciesAmounts)
+                    let dayHistoryItem: Historyitem = .day(day, presentationCurrenciesAmount)
+                    historyItems.append(dayHistoryItem)
+                    for presentationOperation in presentationExpenses {
+                        let operationHistoryItem: Historyitem = .operation(presentationOperation)
+                        historyItems.append(operationHistoryItem)
+                    }
+                }
+                
+                completionHandler(.success(historyItems))
+            } catch {
+                completionHandler(.failure(error))
             }
         }
-        
-        return historyItems
     }
     
     // MARK: - Language

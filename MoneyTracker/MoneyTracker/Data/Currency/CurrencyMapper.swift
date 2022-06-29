@@ -105,4 +105,17 @@ enum CurrencyMapper {
         }
     }
     
+    // MARK: - Fawazahmed0CurrencyApi
+    
+    static func mapToFawazahmed0CurrencyApiVersionaCurrency(_ currency: Currency) -> Fawazahmed0CurrencyApiVersionaCurrency {
+        switch currency {
+        case .singaporeDollar: return .singaporeDollar
+        case .usDollar: return .usDollar
+        case .hryvnia: return .hryvnia
+        case .turkishLira: return .turkishLira
+        case .baht: return .baht
+        case .euro: return .euro
+        }
+    }
+    
 }
