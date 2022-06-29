@@ -51,7 +51,7 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
         addSubview(errorSnackbarView)
         setupBalanceAccountPickerHeaderLabel()
         setupCategoryPickerHeaderLabel()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupBalanceAccountPickerHeaderLabel() {
@@ -156,8 +156,8 @@ final class EditTemplateScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         statusBarView.backgroundColor = appearance.colors.primaryBackground
         navigationBarView.backgroundColor = appearance.colors.primaryBackground

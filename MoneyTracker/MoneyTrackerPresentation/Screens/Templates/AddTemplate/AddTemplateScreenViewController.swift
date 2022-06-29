@@ -55,7 +55,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        addTemplateScreenView.changeAppearance(appearance)
+        addTemplateScreenView.setAppearance(appearance)
         balanceAccountPickerController.changeAppearance(appearance)
         categoryPickerController.changeAppearance(appearance)
     }

@@ -22,7 +22,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
         setupLanguageTableViewCell()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupTableView() {
@@ -68,8 +68,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         tableView.backgroundColor = appearance.colors.primaryBackground
     }

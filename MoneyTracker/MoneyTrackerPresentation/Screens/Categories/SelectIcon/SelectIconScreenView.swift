@@ -31,7 +31,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.setup()
         setupCollectionView()
         addSubview(collectionView)
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupCollectionView() {
@@ -79,8 +79,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         navigationBarView.backgroundColor = appearance.colors.primaryBackground
         collectionView.backgroundColor = appearance.colors.primaryBackground

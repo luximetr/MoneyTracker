@@ -149,7 +149,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         balanceAccountPickerController.changeAppearance(appearance)
         categoryPickerController.changeAppearance(appearance)
     }

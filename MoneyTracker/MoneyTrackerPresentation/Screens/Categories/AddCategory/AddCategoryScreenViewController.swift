@@ -152,7 +152,7 @@ final class AddCategoryScreenViewController: StatusBarScreenViewController {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         colorPickerController.changeAppearance(appearance)
         if let selectedColor = colorPickerController.selectedColor {
             updateView(categoryColor: selectedColor)

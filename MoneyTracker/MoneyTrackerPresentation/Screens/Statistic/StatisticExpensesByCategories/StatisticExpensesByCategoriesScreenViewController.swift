@@ -179,7 +179,7 @@ final class StatisticExpensesByCategoriesScreenViewController: StatusBarScreenVi
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         monthCategoryExpensesCellControllers.forEach { $0.setAppearance(appearance) }
     }
     

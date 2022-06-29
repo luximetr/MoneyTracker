@@ -76,7 +76,7 @@ final class AccountsScreenViewController: StatusBarScreenViewController, UIColle
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         accountsCellControllers.forEach { $0.setAppearance(appearance) }
     }
     

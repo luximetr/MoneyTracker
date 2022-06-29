@@ -49,7 +49,7 @@ final class TemplatesScreenViewController: StatusBarScreenViewController {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        templatesScreenView.changeAppearance(appearance)
+        templatesScreenView.setAppearance(appearance)
     }
     
     // MARK: - View

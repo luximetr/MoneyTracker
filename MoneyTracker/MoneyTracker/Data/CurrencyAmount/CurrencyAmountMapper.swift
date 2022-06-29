@@ -22,8 +22,4 @@ enum CurrencyAmountMapper {
         return presentationCurrencyAmount
     }
     
-//    static func mapToCurrencyAmount(_ presentationCurrencyAmount: PresentationCurrencyAmount) -> CurrencyAmount {
-//
-//    }
-    
 }

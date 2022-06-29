@@ -132,7 +132,7 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
     }
     
     override func setLocale(_ locale: Locale) {

@@ -19,8 +19,8 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         setupTitleLabel()
         setupTableView()
         titleTableViewCells?.forEach({ $0.setAppearance(appearance) })

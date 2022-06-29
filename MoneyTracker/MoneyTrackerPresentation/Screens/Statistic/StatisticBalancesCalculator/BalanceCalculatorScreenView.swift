@@ -139,8 +139,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         resetButton.setTitleColor(appearance.colors.accent, for: .normal)
         allButton.setTitleColor(appearance.colors.accent, for: .normal)

@@ -44,7 +44,7 @@ class SelectCurrencyScreenViewController: StatusBarScreenViewController {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        selectCurrencyScreenView.changeAppearance(appearance)
+        selectCurrencyScreenView.setAppearance(appearance)
         currenciesCellControllers.forEach { $0.setAppearance(appearance) }
     }
     

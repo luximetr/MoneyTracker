@@ -113,6 +113,7 @@
 		2EA8C9852822C4E600E192B6 /* EditTransferScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EA8C9872822C4E600E192B6 /* EditTransferScreenStrings.strings */; };
 		2EA8C98B2822C76600E192B6 /* EditingTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C98A2822C76600E192B6 /* EditingTransfer.swift */; };
 		2EADAD9D27E133860013DEEC /* ExpenseTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EADAD9C27E133860013DEEC /* ExpenseTableViewCellController.swift */; };
+		2EAE3A6A286C2A740056A368 /* ExchangeRatesMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAE3A69286C2A740056A368 /* ExchangeRatesMapper.swift */; };
 		2EB10A0727A6C30D00743416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0627A6C30D00743416 /* Assets.xcassets */; };
 		2EB10A0A27A6C30D00743416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB10A0827A6C30D00743416 /* LaunchScreen.storyboard */; };
 		2EB10A1227A6C8CB00743416 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB10A1127A6C8CB00743416 /* Application.swift */; };
@@ -721,6 +722,7 @@
 		2EA8C9892822C4E800E192B6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/EditTransferScreenStrings.strings; sourceTree = "<group>"; };
 		2EA8C98A2822C76600E192B6 /* EditingTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTransfer.swift; sourceTree = "<group>"; };
 		2EADAD9C27E133860013DEEC /* ExpenseTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCellController.swift; sourceTree = "<group>"; };
+		2EAE3A69286C2A740056A368 /* ExchangeRatesMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRatesMapper.swift; sourceTree = "<group>"; };
 		2EB109FA27A6C30C00743416 /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB10A0627A6C30D00743416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EB10A0927A6C30D00743416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1408,6 +1410,7 @@
 			children = (
 				2ED0D755286BA79800049F3A /* CurrencyAmount */,
 				2ED0D758286BA92200049F3A /* CurrenciesAmount */,
+				2EAE3A68286C2A5E0056A368 /* ExchangeRates */,
 				2EB2E879281083410017ACDD /* AppearanceSetting */,
 				2ED248E328086BDF001E0498 /* Language */,
 				DB62AF0127EF03D200F8CA55 /* ExpensesFile */,
@@ -1419,7 +1422,6 @@
 				DB7486DB27CDD30C004DF67B /* Expense */,
 				2ED15EC827FE250500208386 /* Transfer */,
 				2EE1897B27FEBF29006D7DA9 /* TopUpAccount */,
-				2ED0D753286BA63A00049F3A /* ExchangeRates.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1647,6 +1649,15 @@
 				2EA8C9872822C4E600E192B6 /* EditTransferScreenStrings.strings */,
 			);
 			path = EditTransfer;
+			sourceTree = "<group>";
+		};
+		2EAE3A68286C2A5E0056A368 /* ExchangeRates */ = {
+			isa = PBXGroup;
+			children = (
+				2ED0D753286BA63A00049F3A /* ExchangeRates.swift */,
+				2EAE3A69286C2A740056A368 /* ExchangeRatesMapper.swift */,
+			);
+			path = ExchangeRates;
 			sourceTree = "<group>";
 		};
 		2EB109F127A6C30C00743416 = {
@@ -3601,6 +3612,7 @@
 				2ED248E728086C45001E0498 /* LanguageMapper.swift in Sources */,
 				2EDB3EF127C43FB5003A9FDD /* AddingExpenseTemplateAdapter.swift in Sources */,
 				DB62AEF527EEF5CD00F8CA55 /* ImportingExpenseAdapter.swift in Sources */,
+				2EAE3A6A286C2A740056A368 /* ExchangeRatesMapper.swift in Sources */,
 				DB7793BF28106EFE00150822 /* BalanceAccountAdapter.swift in Sources */,
 				DB45FAE027E6F3440073C677 /* EditingExpenseTemplateAdapter.swift in Sources */,
 				DB40043A280FB5BF004073D0 /* ExpenseAdapter.swift in Sources */,

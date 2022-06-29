@@ -101,7 +101,7 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {

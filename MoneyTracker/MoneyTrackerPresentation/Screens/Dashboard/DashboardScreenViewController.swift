@@ -228,7 +228,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         categoryPickerViewController.changeAppearance(appearance)
         accountPickerViewController.changeAppearance(appearance)
         templatesViewController.changeAppearance(appearance)

@@ -9,6 +9,16 @@ import UIKit
 import AUIKit
 
 class StatusBarScreenViewController: AUIStatusBarScreenViewController {
+    
+    // MARK: - Initialization
+    
+    init(appearance: Appearance, locale: Locale, calendar: Calendar = Calendar.current) {
+        self.appearance = appearance
+        self.locale = locale
+        self.calendar = calendar
+        super.init()
+        self.statusBarStyle = appearance.colors.statusBarStyle
+    }
   
     // MARK: - Appearance
     
@@ -20,28 +30,16 @@ class StatusBarScreenViewController: AUIStatusBarScreenViewController {
         didSetStatusBarStyle()
     }
     
-    // MARK: Language
+    // MARK: - Localization
     
     var locale: Locale
-    
-    // MARK: Calendar
-    
-    var calendar: Calendar
-    
-    // MARK: - Initializer
-    
-    init(appearance: Appearance, locale: Locale, calendar: Calendar = Calendar.current) {
-        self.appearance = appearance
-        self.locale = locale
-        self.calendar = calendar
-        super.init()
-        self.statusBarStyle = appearance.colors.statusBarStyle
-    }
-  
-    // MARK: - Events
     
     func setLocale(_ locale: Locale) {
         self.locale = locale
     }
+    
+    // MARK: - Calendar
+    
+    var calendar: Calendar
     
 }

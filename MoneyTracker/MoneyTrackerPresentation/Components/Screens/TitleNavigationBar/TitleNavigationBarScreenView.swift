@@ -48,8 +48,8 @@ class TitleNavigationBarScreenView: NavigationBarScreenView {
     
     // MARK: - Events
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         setupTitleLabel()
     }
     

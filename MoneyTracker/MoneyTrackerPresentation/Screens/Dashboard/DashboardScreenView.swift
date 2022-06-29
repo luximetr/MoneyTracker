@@ -38,7 +38,7 @@ final class ScreenView: TitleNavigationBarScreenView {
         addSubview(categoryPickerView)
         addSubview(accountPickerView)
         addSubview(templatesView)
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupHistoryButton() {
@@ -142,8 +142,8 @@ final class ScreenView: TitleNavigationBarScreenView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         historyButton.imageView?.tintColor = appearance.colors.primaryText
         categoryPickerView.setAppearance(appearance)

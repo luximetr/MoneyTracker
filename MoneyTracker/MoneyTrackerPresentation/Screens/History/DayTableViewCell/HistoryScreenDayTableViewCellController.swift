@@ -12,21 +12,21 @@ import AFoundation
 extension HistoryScreenViewController {
 final class DayTableViewCellController: AUIClosuresTableViewCellController {
     
-    // MARK: Data
+    // MARK: - Data
     
     private var locale: Locale
     let day: Date
-    private var operations: [Operation]
+    private var currenciesAmount: CurrenciesAmount
     
-    // MARK: Initializer
+    // MARK: - Initializer
     
-    init(locale: Locale, day: Date, operations: [Operation]) {
+    init(locale: Locale, day: Date, currenciesAmount: CurrenciesAmount) {
         self.locale = locale
         self.day = day
-        self.operations = operations
+        self.currenciesAmount = currenciesAmount
     }
     
-    // MARK: Cell
+    // MARK: - DayTableViewCell
     
     private var dayTableViewCell: DayTableViewCell? {
         return tableViewCell as? DayTableViewCell
@@ -38,10 +38,10 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         return dayTableViewCell
     }
     
-    // MARK: Events
+    // MARK: - Events
     
-    func setOperations(_ operations: [Operation]) {
-        self.operations = operations
+    func setOperations(_ currenciesAmount: CurrenciesAmount) {
+        self.currenciesAmount = currenciesAmount
         setContent()
     }
     
@@ -50,7 +50,7 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
         setContent()
     }
     
-    // MARK: Content
+    // MARK: - Content
     
     private static let amountNumberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
@@ -68,14 +68,7 @@ final class DayTableViewCellController: AUIClosuresTableViewCellController {
     }()
     
     private var contentExpensesLabel: String {
-        let expenses: [Expense] = operations.compactMap { operation in
-            if case let .expense(expense) = operation {
-                return expense
-            }
-            return nil
-        }
-        let currenciesExpenses = Dictionary(grouping: expenses) { $0.account.currency }
-        let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
+        let currenciesExpense = currenciesAmount.currenciesAmount.sorted(by: { $0.1 > $1.1 })
         let currenciesExpenseStrings = currenciesExpense.map({ "\(Self.amountNumberFormatter.string(from: NSDecimalNumber(decimal: $1)) ?? "") \($0.rawValue)" })
         let joinedCurrenciesExpenseStrings = currenciesExpenseStrings.joined(separator: " + ")
         return joinedCurrenciesExpenseStrings

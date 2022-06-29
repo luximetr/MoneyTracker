@@ -61,7 +61,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(errorSnackbarView)
         setupAddButton()
         autoLayout()
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     private func setupScrollView() {
@@ -254,8 +254,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         fromAccountPickerLabel.textColor = appearance.colors.secondaryText
         fromAccountPickerView.setAppearance(appearance)

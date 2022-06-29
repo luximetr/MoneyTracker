@@ -167,7 +167,7 @@ final class EditReplenishmentScreenViewController: StatusBarScreenViewController
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
     }
     
 }

@@ -8,20 +8,24 @@
 import UIKit
 import AUIKit
 
-enum Historyitem {
-    case day
-    case operation
+public enum Historyitem {
+    case day(Date, CurrenciesAmount)
+    case operation(Operation)
 }
 
 final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
-    private var operations: [Operation]
-    func operations(day: Date) -> [Operation] {
-        let operations = self.operations.filter({ calendar.isDate($0.timestamp, inSameDayAs: day) })
-        return operations
+    private var operations: [Historyitem]
+    
+    var historyItemsClosure: ((@escaping (Result<[Historyitem], Swift.Error>) -> Void) -> Void)?
+    
+    private func loadHistoryItems() {
+        
     }
+    
+    
     var backClosure: (() -> Void)?
     var deleteExpenseClosure: ((Expense) throws -> Void)?
     var selectExpenseClosure: ((Expense) -> Void)?
@@ -32,7 +36,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: Locale, calendar: Calendar, operations: [Operation]) {
+    init(appearance: Appearance, locale: Locale, calendar: Calendar, operations: [Historyitem]) {
         self.operations = operations
         super.init(appearance: appearance, locale: locale, calendar: calendar)
     }
@@ -74,65 +78,74 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.tableViewRefreshControl.addTarget(self, action: #selector(tableViewRefreshControlValueChangedAction), for: .valueChanged)
         tableViewController.tableView = screenView.tableView
         setTableViewControllerContent()
         setContent()
     }
     
-    // MARK: Events
+    // MARK: - Appearance
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
     }
+    
+    // MARK: Localization
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
         setContent()
     }
     
+    // MARK: Events
+    
     @objc private func backButtonTouchUpInsideEventAction() {
         backClosure?()
     }
     
+    @objc private func tableViewRefreshControlValueChangedAction() {
+        screenView.tableViewRefreshControl.endRefreshing()
+    }
+    
     private func operationDeleteActionHandler(_ operation: Operation, completionHandler: @escaping ((Swift.Error?) -> Void)) {
-        do {
-            switch operation {
-            case .expense(let expense):
-                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
-                    throw Error("deleteExpenseClosure property is not set")
-                }
-                try deleteExpenseClosure(expense)
-            case .transfer(let balanceTransfer):
-                guard let deleteBalanceTransferClosure = self.deleteTransferClosure else {
-                    throw Error("deleteBalanceTransferClosure property is not set")
-                }
-                try deleteBalanceTransferClosure(balanceTransfer)
-            case .replenishment(let replenishment):
-                guard let deleteReplenishmentClosure = self.deleteBalanceReplenishmentClosure else {
-                    throw Error("deleteReplenishmentClosure property is not set")
-                }
-                try deleteReplenishmentClosure(replenishment)
-            }
-            guard let index = self.operations.firstIndex(where: { $0.id == operation.id }) else {
-                throw Error("Cannot find operation")
-            }
-            self.operations.remove(at: index)
-            guard let cellController = self.operationCellController(operation: operation) else { return }
-            var cellControllers: [AUITableViewCellController] = [cellController]
-            let day = operation.timestamp
-            let operations = self.operations(day: day)
-            let dayCellController = self.dayCellController(day: day)
-            dayCellController?.setOperations(operations)
-            if self.operations(day: day).isEmpty, let dayCellController = dayCellController {
-                cellControllers.append(dayCellController)
-            }
-            self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
-                completionHandler(nil)
-            }
-        } catch {
-            completionHandler(error)
-        }
+//        do {
+//            switch operation {
+//            case .expense(let expense):
+//                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
+//                    throw Error("deleteExpenseClosure property is not set")
+//                }
+//                try deleteExpenseClosure(expense)
+//            case .transfer(let balanceTransfer):
+//                guard let deleteBalanceTransferClosure = self.deleteTransferClosure else {
+//                    throw Error("deleteBalanceTransferClosure property is not set")
+//                }
+//                try deleteBalanceTransferClosure(balanceTransfer)
+//            case .replenishment(let replenishment):
+//                guard let deleteReplenishmentClosure = self.deleteBalanceReplenishmentClosure else {
+//                    throw Error("deleteReplenishmentClosure property is not set")
+//                }
+//                try deleteReplenishmentClosure(replenishment)
+//            }
+//            guard let index = self.operations.firstIndex(where: { $0.id == operation.id }) else {
+//                throw Error("Cannot find operation")
+//            }
+//            self.operations.remove(at: index)
+//            guard let cellController = self.operationCellController(operation: operation) else { return }
+//            var cellControllers: [AUITableViewCellController] = [cellController]
+//            let day = operation.timestamp
+//            let operations = self.operations(day: day)
+//            let dayCellController = self.dayCellController(day: day)
+//            dayCellController?.setOperations(operations)
+//            if self.operations(day: day).isEmpty, let dayCellController = dayCellController {
+//                cellControllers.append(dayCellController)
+//            }
+//            self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
+//                completionHandler(nil)
+//            }
+//        } catch {
+//            completionHandler(error)
+//        }
     }
     
     private func selectExpense(_ expense: Expense) {
@@ -140,17 +153,17 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     func editExpense(_ editedExpense: Expense) {
-        guard let firstIndex = operations.firstIndex(where: { operation in
-            if case let .expense(expense) = operation {
-                return expense.id == editedExpense.id
-            }
-            return false
-        }) else {
-            return
-        }
-        self.operations[firstIndex] = .expense(editedExpense)
-        self.operations.sort(by: { $0.timestamp > $1.timestamp })
-        setTableViewControllerContent()
+//        guard let firstIndex = operations.firstIndex(where: { operation in
+//            if case let .expense(expense) = operation {
+//                return expense.id == editedExpense.id
+//            }
+//            return false
+//        }) else {
+//            return
+//        }
+//        self.operations[firstIndex] = .expense(editedExpense)
+//        self.operations.sort(by: { $0.timestamp > $1.timestamp })
+//        setTableViewControllerContent()
     }
     
     private func selectReplenishment(_ replenishment: Replenishment) {
@@ -158,17 +171,17 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     func editReplenishment(_ editedReplenishment: Replenishment) {
-        guard let firstIndex = operations.firstIndex(where: { operation in
-            if case let .replenishment(replenishment) = operation {
-                return replenishment.id == editedReplenishment.id
-            }
-            return false
-        }) else {
-            return
-        }
-        self.operations[firstIndex] = .replenishment(editedReplenishment)
-        self.operations.sort(by: { $0.timestamp > $1.timestamp })
-        setTableViewControllerContent()
+//        guard let firstIndex = operations.firstIndex(where: { operation in
+//            if case let .replenishment(replenishment) = operation {
+//                return replenishment.id == editedReplenishment.id
+//            }
+//            return false
+//        }) else {
+//            return
+//        }
+//        self.operations[firstIndex] = .replenishment(editedReplenishment)
+//        self.operations.sort(by: { $0.timestamp > $1.timestamp })
+//        setTableViewControllerContent()
     }
     
     private func selectTransfer(_ transfer: Transfer) {
@@ -176,17 +189,17 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     }
     
     func editTransfer(_ editedTransfer: Transfer) {
-        guard let firstIndex = operations.firstIndex(where: { operation in
-            if case let .transfer(transfer) = operation {
-                return transfer.id == editedTransfer.id
-            }
-            return false
-        }) else {
-            return
-        }
-        self.operations[firstIndex] = .transfer(editedTransfer)
-        self.operations.sort(by: { $0.timestamp > $1.timestamp })
-        setTableViewControllerContent()
+//        guard let firstIndex = operations.firstIndex(where: { operation in
+//            if case let .transfer(transfer) = operation {
+//                return transfer.id == editedTransfer.id
+//            }
+//            return false
+//        }) else {
+//            return
+//        }
+//        self.operations[firstIndex] = .transfer(editedTransfer)
+//        self.operations.sort(by: { $0.timestamp > $1.timestamp })
+//        setTableViewControllerContent()
     }
     
     // MARK: - Localization
@@ -205,12 +218,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     private func setTableViewControllerContent() {
         sectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
-        let daysExpenses = Dictionary(grouping: operations) { calendar.startOfDay(for: $0.timestamp) }.sorted(by: { $0.0 > $1.0 })
-        for (day, operations) in daysExpenses {
-            let dayCellController = createDayTableViewController(day: day, operations: operations)
-            cellControllers.append(dayCellController)
-            for opeation in operations {
-                switch opeation {
+        for historyItem in operations {
+            switch historyItem {
+            case let .day(day, currenciesAmount):
+                let dayTableViewController = createDayTableViewController(day: day, currenciesAmount: currenciesAmount)
+                cellControllers.append(dayTableViewController)
+            case .operation(let operation):
+                switch operation {
                 case .expense(let expense):
                     let expenseCellController = createExpenseTableViewController(expense: expense)
                     cellControllers.append(expenseCellController)
@@ -228,8 +242,8 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         tableViewController.reload()
     }
     
-    private func createDayTableViewController(day: Date, operations: [Operation]) -> AUITableViewCellController {
-        let cellController = DayTableViewCellController(locale: locale, day: day, operations: operations)
+    private func createDayTableViewController(day: Date, currenciesAmount: CurrenciesAmount) -> AUITableViewCellController {
+        let cellController = DayTableViewCellController(locale: locale, day: day, currenciesAmount: currenciesAmount)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
             let cell = self.screenView.dayTableViewCell(indexPath)

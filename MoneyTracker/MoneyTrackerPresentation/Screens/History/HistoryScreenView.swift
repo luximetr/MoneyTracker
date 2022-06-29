@@ -14,6 +14,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
     // MARK: - Subviews
     
     let tableView = UITableView()
+    let tableViewRefreshControl = UIRefreshControl()
     private var dayTableViewCells: [DayTableViewCell]? {
         let dayTableViewCells = tableView.visibleCells.compactMap({ $0 as? DayTableViewCell })
         return dayTableViewCells
@@ -37,6 +38,7 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
         super.setup()
         backgroundColor = appearance.colors.primaryBackground
         insertSubview(tableView, belowSubview: navigationBarView)
+        tableView.addSubview(tableViewRefreshControl)
         setupTableView()
         setupDayTableViewCell()
         setupExpenseTableViewCell()
@@ -153,8 +155,8 @@ final class HistoryScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         tableView.backgroundColor = appearance.colors.primaryBackground
         dayTableViewCells?.forEach({ $0.setAppearance(appearance) })

@@ -186,7 +186,7 @@ final class CategoriesListScreenViewController: StatusBarScreenViewController {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         categoryCellControllers.forEach { $0.setAppearance(appearance) }
     }
     

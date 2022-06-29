@@ -169,7 +169,7 @@ final class EditAccountScreenViewController: StatusBarScreenViewController {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         colorPickerController.changeAppearance(appearance)
         if let selectedAccountColor = selectedAccountColor {
             didSelectAccountColor(selectedAccountColor)

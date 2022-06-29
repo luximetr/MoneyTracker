@@ -12,7 +12,7 @@ public enum Operation {
     case transfer(Transfer)
     case replenishment(Replenishment)
     
-    var id: String {
+    public var id: String {
         switch self {
         case .expense(let expense):
             return expense.id
@@ -23,7 +23,7 @@ public enum Operation {
         }
     }
     
-    var timestamp: Date {
+    public var timestamp: Date {
         switch self {
         case .expense(let expense):
             return expense.timestamp

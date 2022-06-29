@@ -141,7 +141,7 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         appearancesSettingCells.forEach { $0.setAppearance(appearance) }
     }
 }

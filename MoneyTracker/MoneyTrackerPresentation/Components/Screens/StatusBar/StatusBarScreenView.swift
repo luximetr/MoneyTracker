@@ -14,7 +14,7 @@ class StatusBarScreenView: AUIStatusBarScreenView {
     
     var appearance: Appearance
     
-    func changeAppearance(_ appearance: Appearance) {
+    func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
         setupStatusBarView()
     }

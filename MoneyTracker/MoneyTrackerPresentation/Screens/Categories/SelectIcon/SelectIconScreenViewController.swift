@@ -65,7 +65,7 @@ class SelectIconScreenViewController: StatusBarScreenViewController {
     
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
-        screenView.changeAppearance(appearance)
+        screenView.setAppearance(appearance)
         let iconCellBackgroundColor = uiColorProvider.getUIColor(categoryColor: color, appearance: appearance)
         iconCellControllers.forEach { $0.backgroundColor = iconCellBackgroundColor }
     }

@@ -309,9 +309,19 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-//    private func calculateCurrenciesAmount(_ currenciesAmount: CurrenciesAmount, basicCurrency: Currency, exchangeRates: ExchangeRates) {
-//        
-//    }
+    private func calculateCurrenciesAmount(_ currenciesAmount: CurrenciesAmount, basicCurrency: Currency, exchangeRates: ExchangeRates) -> CurrenciesAmount {
+        var basicAmount: Decimal = 0
+        for currencyAmount in currenciesAmount {
+            let currency = currencyAmount.currency
+            let exchangeRate = exchangeRates[currency]
+            let amount = currencyAmount.amount
+            let basicCurrencyExchangeRateAmount = amount / exchangeRate
+            basicAmount += basicCurrencyExchangeRateAmount
+        }
+        let basicCurrencyAmount = CurrencyAmount(currency: basicCurrency, amount: basicAmount)
+        let basicCurrenciesAmount = CurrenciesAmount(currenciesAmount: [basicCurrencyAmount])
+        return basicCurrenciesAmount
+    }
     
     func presentationMonthExpenses(_ presentation: Presentation, month: Date, completionHandler: @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void) {
         let currencyAdapter = CurrencyAdapter()
@@ -641,11 +651,31 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Operations
     
-    func presentationOperations(_ presentation: Presentation) throws -> [PresentationOperation] {
+    func presentationOperations(_ presentation: Presentation) throws -> [Historyitem] {
         let storageOperations = try storage.getOperations()
         let operationAdapter = OperationAdapter(storage: storage)
         let presentationOperations = storageOperations.map { operationAdapter.adaptToPresentation(storageOperation: $0) }
-        return presentationOperations
+        
+        var historyItems: [Historyitem] = []
+        let daysPresentationExpenses = Dictionary(grouping: presentationOperations) { calendar.startOfDay(for: $0.timestamp) }.sorted(by: { $0.0 > $1.0 })
+        for (day, presentationExpenses) in daysPresentationExpenses {
+            let expenses: [PresentationExpense] = presentationExpenses.compactMap { operation in
+                if case let .expense(expense) = operation { return expense }
+                else { return nil }
+            }
+            let currenciesExpenses = Dictionary(grouping: expenses) { $0.account.currency }
+            let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
+            let currenciesAmounts = currenciesExpense.map({ PresentationCurrencyAmount(amount: $0.value, currency: $0.key) })
+            let currenciesAmount = PresentationCurrenciesAmount(currenciesMoneyAmount: currenciesAmounts)
+            let dayHistoryItem: Historyitem = .day(day, currenciesAmount)
+            historyItems.append(dayHistoryItem)
+            for presentationOperation in presentationExpenses {
+                let operationHistoryItem: Historyitem = .operation(presentationOperation)
+                historyItems.append(operationHistoryItem)
+            }
+        }
+        
+        return historyItems
     }
     
     // MARK: - Language
