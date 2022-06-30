@@ -634,7 +634,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Top Up Account
     
-    func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingTopUpAccount) throws -> PresentationTopUpAccount {
+    func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingReplenishment) throws -> PresentationTopUpAccount {
         do {
             let timestamp = presentationAddingTopUpAccount.timestamp
             let balanceAccountId = presentationAddingTopUpAccount.account.id
@@ -651,7 +651,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Operations
     
-    func presentationOperations(_ presentation: Presentation, completionHandler: (@escaping (Result<[Historyitem], Swift.Error>) -> Void)) {
+    func presentationLoadHistoryItems(_ presentation: Presentation, completionHandler: (@escaping (Result<[Historyitem]?, Swift.Error>) -> Void)) {
         let fawazahmed0CurrencyApiBasicCurrency = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(basicCurrency)
         self.network.latestCurrenciesCurrency(fawazahmed0CurrencyApiBasicCurrency) { [weak self] result in
             guard let self = self else { return }

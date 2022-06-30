@@ -64,7 +64,7 @@ public final class Presentation: AUIWindowPresentation {
         dashboardViewController?.setAppearance(appearance)
         pushedAddExpenseViewController?.setAppearance(appearance)
         pushedStatisticExpensesByCategoriesScreenViewController?.setAppearance(appearance)
-        pushedHistoryViewController?.setAppearance(appearance)
+        pushedHistoryScreenViewController?.setAppearance(appearance)
         pushedEditExpenseViewController?.setAppearance(appearance)
         selectIconViewController?.setAppearance(appearance)
         pushedCategoriesViewController?.setAppearance(appearance)
@@ -172,11 +172,7 @@ public final class Presentation: AUIWindowPresentation {
         viewController.historyClosure = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
-            do {
-                try self.pushHistoryViewController(menuNavigationController)
-            } catch {
-                self.presentUnexpectedErrorAlertScreen(error)
-            }
+            self.pushHistoryScreenViewController(menuNavigationController)
         }
         viewController.addExpenseClosure = { [weak self] category in
             guard let self = self else { return }
@@ -426,79 +422,74 @@ public final class Presentation: AUIWindowPresentation {
     
     // MARK: - History View Controller
     
-    private weak var pushedHistoryViewController: HistoryScreenViewController?
-    private func pushHistoryViewController(_ navigationController: UINavigationController) throws {
-        do {
-            let viewController = HistoryScreenViewController(appearance: appearance, locale: locale, calendar: calendar)
-            viewController.backClosure = { [weak navigationController] in
-                guard let navigationController = navigationController else { return }
-                navigationController.popViewController(animated: true)
-            }
-            viewController.historyItemsClosure = { [weak self] completionHandler in
-                guard let self = self else { return }
-                self.delegate.presentationOperations(self, completionHandler: { result in
-                    DispatchQueue.main.async {
-                        completionHandler(result)
-                    }
-                })
-            }
-            viewController.deleteExpenseClosure = { [weak self] deletingExpense in
-                guard let self = self else { return }
-                do {
-                    _ = try self.delegate.presentation(self, deleteExpense: deletingExpense)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                }
-            }
-            viewController.selectExpenseClosure = { [weak self] expense in
-                guard let self = self else { return }
-                guard let menuNavigationController = self.menuNavigationController else { return }
-                do {
-                    try self.pushEditExpenseViewController(menuNavigationController, expense: expense)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                }
-            }
-            viewController.deleteTransferClosure = { [weak self] deletingTransfer in
-                guard let self = self else { return }
-                do {
-                    _ = try self.delegate.presentation(self, deleteBalanceTransfer: deletingTransfer)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                }
-            }
-            viewController.selectTransferClosure = { [weak self] transfer in
-                guard let self = self else { return }
-                guard let menuNavigationController = self.menuNavigationController else { return }
-                do {
-                    try self.pushEditTransferViewController(menuNavigationController, transfer: transfer)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                }
-            }
-            viewController.deleteReplenishmentClosure = { [weak self] deletingBalanceReplenishment in
-                guard let self = self else { return }
-                do {
-                    _ = try self.delegate.presentation(self, deleteBalanceReplenishment: deletingBalanceReplenishment)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                }
-            }
-            viewController.selectReplenishmentClosure = { [weak self] replenishment in
-                guard let self = self else { return }
-                guard let menuNavigationController = self.menuNavigationController else { return }
-                do {
-                    try self.pushEditReplenishmentViewController(menuNavigationController, replenishment: replenishment)
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                }
-            }
-            self.pushedHistoryViewController = viewController
-            navigationController.pushViewController(viewController, animated: true)
-        } catch {
-            let error = Error("Cannot push HistoryViewController\n\(error)")
-            throw error
+    private weak var pushedHistoryScreenViewController: HistoryScreenViewController?
+    private func pushHistoryScreenViewController(_ navigationController: UINavigationController) {
+        let viewController = HistoryScreenViewController(appearance: appearance, locale: locale, calendar: calendar)
+        viewController.back = { [weak navigationController] in
+            guard let navigationController = navigationController else { return }
+            navigationController.popViewController(animated: true)
         }
+        viewController.loadHistoryItems = { [weak self] completionHandler in
+            guard let self = self else { return }
+            self.delegate.presentationLoadHistoryItems(self, completionHandler: { result in
+                DispatchQueue.main.async {
+                    completionHandler(result)
+                }
+            })
+        }
+        viewController.deleteExpense = { [weak self] deletingExpense in
+            guard let self = self else { return }
+            do {
+                _ = try self.delegate.presentation(self, deleteExpense: deletingExpense)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.selectExpense = { [weak self] expense in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            do {
+                try self.pushEditExpenseViewController(menuNavigationController, expense: expense)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.deleteTransfer = { [weak self] deletingTransfer in
+            guard let self = self else { return }
+            do {
+                _ = try self.delegate.presentation(self, deleteBalanceTransfer: deletingTransfer)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.selectTransfer = { [weak self] transfer in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            do {
+                try self.pushEditTransferViewController(menuNavigationController, transfer: transfer)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.deleteReplenishment = { [weak self] deletingBalanceReplenishment in
+            guard let self = self else { return }
+            do {
+                _ = try self.delegate.presentation(self, deleteBalanceReplenishment: deletingBalanceReplenishment)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.selectReplenishment = { [weak self] replenishment in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            do {
+                try self.pushEditReplenishmentViewController(menuNavigationController, replenishment: replenishment)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        self.pushedHistoryScreenViewController = viewController
+        navigationController.pushViewController(viewController, animated: true)
     }
     
     // MARK: - Edit Expense View Controller
@@ -536,7 +527,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     let editedExpense = try self.delegate.presentation(self, editExpense: expense)
-                    self.pushedHistoryViewController?.editExpense(editedExpense)
+                    self.pushedHistoryScreenViewController?.editExpense(editedExpense)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
@@ -575,7 +566,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let navigationController = navigationController else { return }
                 do {
                     let editedReplenishment = try self.delegate.presentation(self, editReplenishment: editingReplenishment)
-                    self.pushedHistoryViewController?.editReplenishment(editedReplenishment)
+                    self.pushedHistoryScreenViewController?.editReplenishment(editedReplenishment)
                     navigationController.popViewController(animated: true)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
@@ -615,7 +606,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let navigationController = navigationController else { return }
                 do {
                     let editedTransfer = try self.delegate.presentation(self, editTransfer: editingTransfer)
-                    self.pushedHistoryViewController?.editTransfer(editedTransfer)
+                    self.pushedHistoryScreenViewController?.editTransfer(editedTransfer)
                     navigationController.popViewController(animated: true)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)

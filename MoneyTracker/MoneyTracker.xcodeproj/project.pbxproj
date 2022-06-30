@@ -213,6 +213,7 @@
 		2ECAB2FD27C593980028CB0D /* EditAccountScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */; };
 		2ECAB2FF27C593AC0028CB0D /* EditAccountScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */; };
 		2ECAB30227C593F50028CB0D /* EditAccountScreenStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ECAB30427C593F50028CB0D /* EditAccountScreenStrings.strings */; };
+		2ECABDFC286E247A0003CA28 /* Historyitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECABDFB286E247A0003CA28 /* Historyitem.swift */; };
 		2ECAD4F72809A3180003BB26 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD4F62809A3180003BB26 /* Appearance.swift */; };
 		2ECAD4F92809A3830003BB26 /* DarkAppearanceColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD4F82809A3830003BB26 /* DarkAppearanceColors.swift */; };
 		2ECAD4FB2809A38E0003BB26 /* LightAppearanceColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD4FA2809A38E0003BB26 /* LightAppearanceColors.swift */; };
@@ -877,6 +878,7 @@
 		2ECAB2FC27C593980028CB0D /* EditAccountScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenViewController.swift; sourceTree = "<group>"; };
 		2ECAB2FE27C593AC0028CB0D /* EditAccountScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountScreenView.swift; sourceTree = "<group>"; };
 		2ECAB30327C593F50028CB0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditAccountScreenStrings.strings; sourceTree = "<group>"; };
+		2ECABDFB286E247A0003CA28 /* Historyitem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Historyitem.swift; sourceTree = "<group>"; };
 		2ECAD4F62809A3180003BB26 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		2ECAD4F82809A3830003BB26 /* DarkAppearanceColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkAppearanceColors.swift; sourceTree = "<group>"; };
 		2ECAD4FA2809A38E0003BB26 /* LightAppearanceColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightAppearanceColors.swift; sourceTree = "<group>"; };
@@ -1778,6 +1780,7 @@
 				2EE023AC28625DF90045450A /* CurrenciesAmount.swift */,
 				2EE023AE28625E1E0045450A /* CategoryMonthExpenses.swift */,
 				2EE023B028625E320045450A /* CategoriesMonthExpenses.swift */,
+				2ECABDFB286E247A0003CA28 /* Historyitem.swift */,
 				2EDCEBF0281CFB80001F3F58 /* Operation */,
 				2ED60BCD27DE534E00EC11D4 /* Expense */,
 				DB74869227BE920C004DF67B /* ExpenseTemplate */,
@@ -3653,6 +3656,7 @@
 				2ECC0A11283A2B420056F927 /* BalanceCalculatorScreenView.swift in Sources */,
 				2EC19AD027A7F65200E1A6FA /* CategoriesListScreenView.swift in Sources */,
 				DB45FACF27E4B5B70073C677 /* TextFieldLabelController.swift in Sources */,
+				2ECABDFC286E247A0003CA28 /* Historyitem.swift in Sources */,
 				2E95BB3927B31E870097CA46 /* AccountsScreenAccountCollectionViewCell.swift in Sources */,
 				2ECAD4FB2809A38E0003BB26 /* LightAppearanceColors.swift in Sources */,
 				2EE023AF28625E1E0045450A /* CategoryMonthExpenses.swift in Sources */,

@@ -9,7 +9,7 @@ import Foundation
 import MoneyTrackerPresentation
 import MoneyTrackerStorage
 
-typealias PresentationAddingTopUpAccount = MoneyTrackerPresentation.AddingReplenishment
+typealias PresentationAddingReplenishment = MoneyTrackerPresentation.AddingReplenishment
 typealias StorageAddingReplenishment = MoneyTrackerStorage.AddingReplenishment
 typealias PresentationEditingReplenishment = MoneyTrackerPresentation.EditingReplenishment
 

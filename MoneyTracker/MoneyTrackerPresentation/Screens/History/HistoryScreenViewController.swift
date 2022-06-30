@@ -8,43 +8,55 @@
 import UIKit
 import AUIKit
 
-public enum Historyitem: Hashable, Equatable {
-    case day(Date, CurrenciesAmount)
-    case expense(Expense)
-    case transfer(Transfer)
-    case replenishment(Replenishment)
-}
-
 final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Data
     
     private var historyItems: [Historyitem]?
     
-    var historyItemsClosure: ((@escaping (Result<[Historyitem], Swift.Error>) -> Void) -> Void)?
+    // MARK: Actions
     
-    private func loadHistoryItems() {
-        screenView.tableViewRefreshControl.beginRefreshing()
-        historyItemsClosure?({ [weak self] result in
+    var back: (() -> Void)?
+    
+    var loadHistoryItems: ((@escaping (Result<[Historyitem]?, Swift.Error>) -> Void) -> Void)?
+    
+    private func loadHistoryItemsSettingContent() {
+        guard let loadHistoryItems = loadHistoryItems else { return }
+        loadHistoryItems({ [weak self] result in
             guard let self = self else { return }
-            self.screenView.tableViewRefreshControl.endRefreshing()
             switch result {
             case .success(let historyItems):
                 self.historyItems = historyItems
                 self.setTableViewControllerContent()
             case .failure:
-                self.backClosure?()
+                self.back?()
             }
         })
     }
     
-    var backClosure: (() -> Void)?
-    var deleteExpenseClosure: ((Expense) throws -> Void)?
-    var selectExpenseClosure: ((Expense) -> Void)?
-    var deleteTransferClosure: ((Transfer) throws -> Void)?
-    var selectTransferClosure: ((Transfer) -> Void)?
-    var deleteReplenishmentClosure: ((Replenishment) throws -> Void)?
-    var selectReplenishmentClosure: ((Replenishment) -> Void)?
+    var deleteExpense: ((Expense) throws -> Void)?
+    
+    var selectExpense: ((Expense) -> Void)?
+    
+    var deleteTransfer: ((Transfer) throws -> Void)?
+    
+    var selectTransfer: ((Transfer) -> Void)?
+    
+    var deleteReplenishment: ((Replenishment) throws -> Void)?
+    
+    var selectReplenishment: ((Replenishment) -> Void)?
+    
+    func editExpense(_ editedExpense: Expense) {
+        loadHistoryItemsSettingContent()
+    }
+    
+    func editReplenishment(_ editedReplenishment: Replenishment) {
+        loadHistoryItemsSettingContent()
+    }
+    
+    func editTransfer(_ editedTransfer: Transfer) {
+        loadHistoryItemsSettingContent()
+    }
     
     // MARK: View
     
@@ -98,12 +110,12 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
+        screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideAction), for: .touchUpInside)
         screenView.tableViewRefreshControl.addTarget(self, action: #selector(tableViewRefreshControlValueChangedAction), for: .valueChanged)
         tableViewController.tableView = screenView.tableView
         setTableViewControllerContent()
         setContent()
-        loadHistoryItems()
+        loadHistoryItemsSettingContent()
     }
     
     // MARK: - Appearance
@@ -127,79 +139,24 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
     
     // MARK: Events
     
-    @objc private func backButtonTouchUpInsideEventAction() {
-        backClosure?()
+    @objc private func backButtonTouchUpInsideAction() {
+        guard let back = back else { return }
+        back()
     }
     
     @objc private func tableViewRefreshControlValueChangedAction() {
-        screenView.tableViewRefreshControl.endRefreshing()
-    }
-    
-//    private func operationDeleteActionHandler(_ historyItem: Historyitem, completionHandler: @escaping ((Swift.Error?) -> Void)) {
-//        do {
-//            switch historyItem {
-//            case .day:
-//                completionHandler(nil)
-//                return
-//            case .expense(let expense):
-//                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
-//                    throw Error("deleteExpenseClosure property is not set")
-//                }
-//                try deleteExpenseClosure(expense)
-//            case .transfer(let balanceTransfer):
-//                guard let deleteBalanceTransferClosure = self.deleteTransferClosure else {
-//                    throw Error("deleteBalanceTransferClosure property is not set")
-//                }
-//                try deleteBalanceTransferClosure(balanceTransfer)
-//            case .replenishment(let replenishment):
-//                guard let deleteReplenishmentClosure = self.deleteBalanceReplenishmentClosure else {
-//                    throw Error("deleteReplenishmentClosure property is not set")
-//                }
-//                try deleteReplenishmentClosure(replenishment)
-//            }
-//            guard let index = self.historyItems?.firstIndex(where: { $0 == historyItem }) else {
-//                throw Error("Cannot find operation")
-//            }
-//            historyItems?.remove(at: index)
-//            guard let cellController = self.operationCellController(operation: operation) else { return }
-//            var cellControllers: [AUITableViewCellController] = [cellController]
-//            let day = operation.timestamp
-//            let operations = self.operations(day: day)
-//            let dayCellController = self.dayCellController(day: day)
-//            dayCellController?.setOperations(operations)
-//            if self.operations(day: day).isEmpty, let dayCellController = dayCellController {
-//                cellControllers.append(dayCellController)
-//            }
-//            self.tableViewController.deleteCellControllersAnimated(cellControllers, .left) { finished in
-//                completionHandler(nil)
-//            }
-//        } catch {
-//            completionHandler(error)
-//        }
-//    }
-        
-    private func selectExpense(_ expense: Expense) {
-        self.selectExpenseClosure?(expense)
-    }
-    
-    func editExpense(_ editedExpense: Expense) {
-        loadHistoryItems()
-    }
-    
-    private func selectReplenishment(_ replenishment: Replenishment) {
-        self.selectReplenishmentClosure?(replenishment)
-    }
-    
-    func editReplenishment(_ editedReplenishment: Replenishment) {
-        loadHistoryItems()
-    }
-    
-    private func selectTransfer(_ transfer: Transfer) {
-        self.selectTransferClosure?(transfer)
-    }
-    
-    func editTransfer(_ editedTransfer: Transfer) {
-        loadHistoryItems()
+        guard let loadHistoryItems = loadHistoryItems else { return }
+        loadHistoryItems({ [weak self] result in
+            guard let self = self else { return }
+            self.screenView.tableViewRefreshControl.endRefreshing()
+            switch result {
+            case .success(let historyItems):
+                self.historyItems = historyItems
+                self.setTableViewControllerContent()
+            case .failure:
+                self.back?()
+            }
+        })
     }
     
     // MARK: Content
@@ -214,16 +171,16 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         for historyItem in operations {
             switch historyItem {
             case let .day(day, currenciesAmount):
-                let dayTableViewController = initializeDayTableViewController(day: day, currenciesAmount: currenciesAmount)
+                let dayTableViewController = initializeDayCellController(day: day, currenciesAmount: currenciesAmount)
                 cellControllers.append(dayTableViewController)
             case .expense(let expense):
-                let expenseCellController = initializeExpenseTableViewController(expense: expense)
+                let expenseCellController = initializeExpenseCellController(expense: expense)
                 cellControllers.append(expenseCellController)
             case .transfer(let transfer):
-                let transferCellController = initializeTransferTableViewController(transfer: transfer)
+                let transferCellController = initializeTransferCellController(transfer: transfer)
                 cellControllers.append(transferCellController)
             case .replenishment(let replenishment):
-                let replenishmentCellController = initializeReplenishmentTableViewController(replenishment: replenishment)
+                let replenishmentCellController = initializeReplenishmentCellController(replenishment: replenishment)
                 cellControllers.append(replenishmentCellController)
             }
         }
@@ -232,7 +189,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         tableViewController.reload()
     }
     
-    private func initializeDayTableViewController(day: Date, currenciesAmount: CurrenciesAmount) -> AUITableViewCellController {
+    private func initializeDayCellController(day: Date, currenciesAmount: CurrenciesAmount) -> AUITableViewCellController {
         let cellController = DayTableViewCellController(locale: locale, day: day, currenciesAmount: currenciesAmount)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
@@ -250,7 +207,7 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         return cellController
     }
     
-    private func initializeExpenseTableViewController(expense: Expense) -> AUITableViewCellController {
+    private func initializeExpenseCellController(expense: Expense) -> AUITableViewCellController {
         let cellController = ExpenseTableViewCellController(expense: expense)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
@@ -273,13 +230,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
                 guard let self = self else { return }
                 guard let cellController = cellController else { return }
                 let expense = cellController.expense
-                if let deleteExpenseClosure = self.deleteExpenseClosure {
+                if let deleteExpenseClosure = self.deleteExpense {
                     do {
                         try deleteExpenseClosure(expense)
                         self.tableViewController.deleteCellControllerAnimated(cellController, .left) { [weak self] finished in
                             guard let self = self else { return }
                             success(true)
-                            self.loadHistoryItems()
+                            self.loadHistoryItemsSettingContent()
                         }
                     } catch {
                         success(false)
@@ -294,12 +251,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
             guard let self = self else { return }
             guard let cellController = cellController else { return }
             let expense = cellController.expense
-            self.selectExpense(expense)
+            guard let selectExpense = self.selectExpense else { return }
+            selectExpense(expense)
         }
         return cellController
     }
     
-    private func initializeReplenishmentTableViewController(replenishment: Replenishment) -> AUITableViewCellController {
+    private func initializeReplenishmentCellController(replenishment: Replenishment) -> AUITableViewCellController {
         let cellController = ReplenishmentTableViewCellController(locale: locale, replenishment: replenishment)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
@@ -322,13 +280,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
                 guard let self = self else { return }
                 guard let cellController = cellController else { return }
                 let replenishment = cellController.replenishment
-                if let deleteReplenishmentClosure = self.deleteReplenishmentClosure {
+                if let deleteReplenishmentClosure = self.deleteReplenishment {
                     do {
                         try deleteReplenishmentClosure(replenishment)
                         self.tableViewController.deleteCellControllerAnimated(cellController, .left) { [weak self] finished in
                             guard let self = self else { return }
                             success(true)
-                            self.loadHistoryItems()
+                            self.loadHistoryItemsSettingContent()
                         }
                     } catch {
                         success(false)
@@ -342,13 +300,14 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         cellController.didSelectClosure = { [weak self, weak cellController] in
             guard let self = self else { return }
             guard let cellController = cellController else { return }
+            guard let selectReplenishment = self.selectReplenishment else { return }
             let replenishment = cellController.replenishment
-            self.selectReplenishment(replenishment)
+            selectReplenishment(replenishment)
         }
         return cellController
     }
     
-    private func initializeTransferTableViewController(transfer: Transfer) -> AUITableViewCellController {
+    private func initializeTransferCellController(transfer: Transfer) -> AUITableViewCellController {
         let cellController = TransferTableViewCellController(locale: locale, transfer: transfer)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
@@ -371,13 +330,13 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
                 guard let self = self else { return }
                 guard let cellController = cellController else { return }
                 let transfer = cellController.transfer
-                if let deleteTransferClosure = self.deleteTransferClosure {
+                if let deleteTransferClosure = self.deleteTransfer {
                     do {
                         try deleteTransferClosure(transfer)
                         self.tableViewController.deleteCellControllerAnimated(cellController, .left) { [weak self] finished in
                             guard let self = self else { return }
                             success(true)
-                            self.loadHistoryItems()
+                            self.loadHistoryItemsSettingContent()
                         }
                     } catch {
                         success(false)
@@ -391,8 +350,9 @@ final class HistoryScreenViewController: StatusBarScreenViewController {
         cellController.didSelectClosure = { [weak self, weak cellController] in
             guard let self = self else { return }
             guard let cellController = cellController else { return }
+            guard let selectTransfer = self.selectTransfer else { return }
             let transfer = cellController.transfer
-            self.selectTransfer(transfer)
+            selectTransfer(transfer)
         }
         return cellController
     }
