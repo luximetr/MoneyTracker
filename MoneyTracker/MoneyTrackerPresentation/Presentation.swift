@@ -476,7 +476,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            viewController.deleteBalanceReplenishmentClosure = { [weak self] deletingBalanceReplenishment in
+            viewController.deleteReplenishmentClosure = { [weak self] deletingBalanceReplenishment in
                 guard let self = self else { return }
                 do {
                     _ = try self.delegate.presentation(self, deleteBalanceReplenishment: deletingBalanceReplenishment)

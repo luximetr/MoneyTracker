@@ -693,8 +693,17 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     let dayHistoryItem: Historyitem = .day(day, presentationCurrenciesAmount)
                     historyItems.append(dayHistoryItem)
                     for presentationOperation in presentationExpenses {
-                        let operationHistoryItem: Historyitem = .operation(presentationOperation)
-                        historyItems.append(operationHistoryItem)
+                        switch presentationOperation {
+                        case .expense(let expense):
+                            let expenseHistoryItem: Historyitem = .expense(expense)
+                            historyItems.append(expenseHistoryItem)
+                        case .transfer(let transfer):
+                            let transferHistoryItem: Historyitem = .transfer(transfer)
+                            historyItems.append(transferHistoryItem)
+                        case .replenishment(let replenishment):
+                            let replenishmentHistoryItem: Historyitem = .replenishment(replenishment)
+                            historyItems.append(replenishmentHistoryItem)
+                        }
                     }
                 }
                 
