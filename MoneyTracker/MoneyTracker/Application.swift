@@ -21,22 +21,67 @@ typealias Network = MoneyTrackerNetwork.Network
 
 class Application: AUIEmptyApplication, PresentationDelegate {
     
-    // MARK: - Calendar
+    // MARK: - Data
     
     private var calendar: Calendar!
+    
+    private var storage: Storage!
+    
+    private var language: Language!
+    
+    private var basicCurrency: Currency!
+    
+    private var network: Network!
+    
+    private var presentation: Presentation!
+    
+    // MARK: - Initialization
+    
+    private func initialize() throws {
+        do {
+            self.initializeCalendar()
+            try self.initializeStorage()
+            try self.initializeLanguage()
+            try self.initializeBasicCurrency()
+            self.initializeNetwork()
+            try self.initializePresentation()
+        } catch {
+            throw Error("Cannot initialize \(String(reflecting: Self.self))")
+        }
+    }
     
     private func initializeCalendar() {
         let calendar = Calendar.current
         self.calendar = calendar
     }
     
-    // MARK: - Basic currency
+    private func initializeStorage() throws {
+        do {
+            let storage = try Storage()
+            self.storage = storage
+        } catch {
+            throw Error("Cannot initialize \(String(reflecting: Storage.self))")
+        }
+    }
     
-    private var basicCurrency: Currency!
+    private func initializeLanguage() throws {
+        do {
+            let language: Language
+            if let storageLanguage = try storage.getSelectedLanguage() {
+                language = LanguageMapper.mapToLanguage(storageLanguage)
+            } else {
+                let defaultLanguage: Language = .english
+                language = defaultLanguage
+            }
+            self.language = language
+        } catch {
+            throw Error("Cannot initialize language\n\(error)")
+        }
+    }
     
     private func initializeBasicCurrency() throws {
         do {
-            if let storageBasicCurrency = try storage.getSelectedCurrency() {
+            if let storageBasicCurrency = try storage.getBasicCurrency() {
                 self.basicCurrency = CurrencyMapper.mapToCurrency(storageBasicCurrency)
             } else {
                 let defaultBasicCurrency: Currency = .singaporeDollar
@@ -44,6 +89,34 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             }
         } catch {
             throw Error("Cannot initialize basicCurrency\n\(error)")
+        }
+    }
+    
+    private func initializeNetwork() {
+        let network = Network()
+        self.network = network
+    }
+    
+    private func initializePresentation() throws {
+        do {
+            let appearanceSetting: AppearanceSetting
+            if let storageAppearanceSetting = try storage.getSelectedAppearanceSetting() {
+                appearanceSetting = AppearanceSettingMapper.mapToAppearanceSetting(storageAppearanceSetting)
+            } else {
+                let defaultAppearanceSetting: AppearanceSetting = .system
+                appearanceSetting = defaultAppearanceSetting
+            }
+            let presentationAppearanceSetting = AppearanceSettingMapper.mapToPresentationAppearanceSetting(appearanceSetting)
+            let presentationLanguage = LanguageMapper.mapToPresentationLanguage(language)
+            let foundationLocaleCurrent = Locale.current
+            let foundationLocaleCurrentScriptCode = foundationLocaleCurrent.scriptCode
+            let foundationLocaleCurrentRegionCode = foundationLocaleCurrent.regionCode
+            let presentationLocale = Locale(language: presentationLanguage, scriptCode: foundationLocaleCurrentScriptCode, regionCode: foundationLocaleCurrentRegionCode)
+            let presentation = Presentation(window: presentationWindow, appearanceSetting: presentationAppearanceSetting, locale: presentationLocale, calendar: calendar)
+            presentation.delegate = self
+            self.presentation = presentation
+        } catch {
+            throw Error("Cannot initialize \(String(reflecting: Presentation.self))")
         }
     }
     
@@ -58,42 +131,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             self.showError(error)
         }
     }
-    
-    // MARK: - Initialization
-    
-    private func initialize() throws {
-        do {
-            self.initializeCalendar()
-            try self.initializeStorage()
-            try self.initializeBasicCurrency()
-            self.initializeNetwork()
-            try self.initializePresentation()
-        } catch {
-            throw Error("Cannot initialize \(String(reflecting: Self.self))")
-        }
-    }
-    
-    private func initializeStorage() throws {
-        do {
-            let storage = try Storage()
-            self.storage = storage
-        } catch {
-            throw Error("Cannot initialize \(String(reflecting: Storage.self))")
-        }
-    }
-    
-    private func initializeNetwork() {
-        let network = Network()
-        self.network = network
-    }
-    
-    // MARK: - Storage
-    
-    private var storage: Storage!
-    
-    // MARK: - Network
-    
-    private var network: Network!
         
     // MARK: - Files
     
@@ -111,44 +148,12 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         return window
     }()
     
-    private var presentation: Presentation!
-    
     private func createPresentationWindow() -> UIWindow {
         let window = TraitCollectionChangeNotifyWindow()
         window.didChangeUserInterfaceStyleClosure = { [weak self] style in
             self?.presentation.didChangeUserInterfaceStyle(style)
         }
         return window
-    }
-    
-    private let defaultAppearanceSetting: AppearanceSetting = .system
-    private let defaultLanguage: Language = .english
-    private func initializePresentation() throws {
-        do {
-            let appearanceSetting: AppearanceSetting
-            if let storageAppearanceSetting = try storage.getSelectedAppearanceSetting() {
-                appearanceSetting = AppearanceSettingMapper.mapToAppearanceSetting(storageAppearanceSetting)
-            } else {
-                appearanceSetting = defaultAppearanceSetting
-            }
-            let presentationAppearanceSetting = AppearanceSettingMapper.mapToPresentationAppearanceSetting(appearanceSetting)
-            let language: Language
-            if let storageLanguage = try storage.getSelectedLanguage() {
-                language = LanguageMapper.mapToLanguage(storageLanguage)
-            } else {
-                language = .english
-            }
-            let presentationLanguage = LanguageMapper.mapToPresentationLanguage(language)
-            let foundationLocaleCurrent = Locale.current
-            let foundationLocaleCurrentScriptCode = foundationLocaleCurrent.scriptCode
-            let foundationLocaleCurrentRegionCode = foundationLocaleCurrent.regionCode
-            let presentationLocale = Locale(language: presentationLanguage, scriptCode: foundationLocaleCurrentScriptCode, regionCode: foundationLocaleCurrentRegionCode)
-            let presentation = Presentation(window: presentationWindow, appearanceSetting: presentationAppearanceSetting, locale: presentationLocale, calendar: calendar)
-            presentation.delegate = self
-            self.presentation = presentation
-        } catch {
-            throw Error("Cannot initialize \(String(reflecting: Presentation.self))")
-        }
     }
     
     // MARK: - Categories
@@ -276,7 +281,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     func presentation(_ presentation: Presentation, updateSelectedCurrency presentationBasicCurrency: PresentationCurrency) {
         let basicCurrency = CurrencyMapper.mapToCurrency(presentationBasicCurrency)
         let storageBasicCurrency = CurrencyMapper.mapToStorageCurrency(basicCurrency)
-        storage.saveSelectedCurrency(storageBasicCurrency)
+        storage.saveBasicCurrency(storageBasicCurrency)
         self.basicCurrency = basicCurrency
     }
     

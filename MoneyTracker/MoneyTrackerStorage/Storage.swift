@@ -505,14 +505,14 @@ public class Storage {
         }
     }
     
-    // MARK: - Selected Currency
+    // MARK: - Basic Currency
     
-    public func saveSelectedCurrency(_ currency: Currency) {
+    public func saveBasicCurrency(_ currency: Currency) {
         let repo = createSelectedCurrencyRepo()
         repo.save(currency: currency)
     }
     
-    public func getSelectedCurrency() throws -> Currency? {
+    public func getBasicCurrency() throws -> Currency? {
         let repo = createSelectedCurrencyRepo()
         return try repo.fetch()
     }
