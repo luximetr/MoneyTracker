@@ -16,17 +16,52 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     private var accounts: [Account]
     private var categories: [Category]
     private var selectedCategory: Category?
-    var backClosure: (() -> Void)?
-    var addAccountClosure: (() -> Void)?
-    var addCategoryClosure: (() -> Void)?
-    var addExpenseClosure: ((AddingExpense) throws -> Expense)?
-    var editExpenseClosure: ((Expense) throws -> Expense)?
-    var dayExpensesClosure: ((Date) throws -> [Expense])?
-    var deleteExpenseClosure: ((Expense) throws -> Void)?
+    
+    // MARK: Actions
+    
+    var back: (() -> Void)?
+    
+    var addAccount: (() -> Void)?
+    
+    var addCategory: (() -> Void)?
+    
+    var addExpense: ((AddingExpense) throws -> Expense)?
+    
+    var editExpense: ((Expense) throws -> Expense)?
+    
+    var loadDayExpenses: ((Date) throws -> [Expense])?
+    
+    var deleteExpense: ((Expense) throws -> Void)?
+    
+    private func selectDay(_ day: Date) {
+        guard let loadDayExpenses = loadDayExpenses else { return }
+        do {
+            dayExpenses = try loadDayExpenses(day)
+            setExpensesTableViewControllerContent()
+            setDayExpensesContent()
+        } catch {
+            
+        }
+    }
 
+    func addExpense(_ expense: Expense) {
+        dayExpenses.insert(expense, at: 0)
+        setDayExpensesContent()
+        let cellController = createExpenseTableViewController(expense: expense)
+        expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
+    }
+    
+    func editExpense(_ expense: Expense) {
+        guard let index = dayExpenses.firstIndex(where: { $0.id == expense.id }) else { return }
+        dayExpenses[index] = expense
+        setDayExpensesContent()
+        let cellController = expenseCellController(expense: expense)
+        cellController?.editExpense(expense)
+    }
+    
     // MARK: Initializer
     
-    init(appearance: Appearance, locale: Locale, accounts: [Account], categories: [Category], selectedCategory: Category?) {
+    init(appearance: Appearance, locale: Locale, calendar: Calendar, accounts: [Account], categories: [Category], selectedCategory: Category?) {
         self.accounts = accounts
         self.categories = categories
         self.selectedCategory = selectedCategory ?? categories.first
@@ -35,7 +70,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         self.selectCategoryViewController = CategoryVerticalPickerController(appearance: appearance, locale: locale)
         self.inputDateViewController = InputDateViewController(locale: locale)
         self.errorSnackbarViewController = ErrorSnackbarViewController(appearance: appearance)
-        super.init(appearance: appearance, locale: locale)
+        super.init(appearance: appearance, locale: locale, calendar: calendar)
     }
     
     // MARK: View
@@ -75,7 +110,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         selectCategoryViewController.pickerView = screenView.selectCategoryView
         selectCategoryViewController.setSelectedCategory(selectedCategory)
         selectCategoryViewController.didTapOnAddClosure = { [weak self] in
-            self?.addCategoryClosure?()
+            self?.addCategory?()
         }
         screenView.addButton.addTarget(self, action: #selector(editButtonTouchUpInsideEventAction), for: .touchUpInside)
         screenView.backButton.addTarget(self, action: #selector(backButtonTouchUpInsideEventAction), for: .touchUpInside)
@@ -84,10 +119,10 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         balanceAccountHorizontalPickerController.setSelectedAccount(accounts.first)
         balanceAccountHorizontalPickerController.addAccountClosure = { [weak self] in
             guard let self = self else { return }
-            self.addAccount()
+            self.addAccount?()
         }
         setupExpensesTableViewController()
-        dayExpenses = (try? dayExpensesClosure?(Date())) ?? []
+        dayExpenses = (try? loadDayExpenses?(Date())) ?? []
         setupErrorSnackbarViewController()
         setContent()
         setExpensesTableViewControllerContent()
@@ -118,6 +153,31 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         commentTextFieldController.addDidTapReturnKeyObserver(self)
     }
     
+    // MARK: - Appearance
+    
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
+        screenView.setAppearance(appearance)
+        balanceAccountHorizontalPickerController.changeAppearance(appearance)
+        selectCategoryViewController.changeAppearance(appearance)
+    }
+    
+    // MARK: Localization
+    
+    private lazy var localizer: Localizer = {
+        let localizer = Localizer(locale: locale, stringsTableName: "AddExpenseScreenStrings")
+        return localizer
+    }()
+    
+    override func setLocale(_ locale: Locale) {
+        super.setLocale(locale)
+        localizer.setLocale(locale)
+        selectCategoryViewController.changeLocale(locale)
+        balanceAccountHorizontalPickerController.changeLocale(locale)
+        inputDateViewController.changeLocale(locale)
+        setContent()
+    }
+    
     // MARK: Events
     
     @objc private func tapGestureRecognizerAction() {
@@ -125,18 +185,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     }
     
     @objc private func backButtonTouchUpInsideEventAction() {
-        backClosure?()
-    }
-    
-    private func selectDay(_ day: Date) {
-        guard let dayExpensesClosure = dayExpensesClosure else { return }
-        do {
-            dayExpenses = try dayExpensesClosure(day)
-            setExpensesTableViewControllerContent()
-            setDayExpensesContent()
-        } catch {
-            
-        }
+        back?()
     }
     
     @objc func editButtonTouchUpInsideEventAction() {
@@ -157,7 +206,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         if let editingExpense = self.editingExpense {
             do {
                 let addingExpense = Expense(id: editingExpense.id, timestamp: editingExpense.timestamp, amount: amount, account: account, category: category, comment: comment)
-                _ = try editExpenseClosure?(addingExpense)
+                _ = try editExpense?(addingExpense)
                 self.editExpense(addingExpense)
                 self.selectExpense(nil)
             } catch {
@@ -165,7 +214,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             }
         } else {
             let addingExpense = AddingExpense(timestamp: date, amount: amount, account: account, category: category, comment: comment)
-            guard let addExpenseClosure = addExpenseClosure else { return }
+            guard let addExpenseClosure = addExpense else { return }
             do {
                 let addedExpense = try addExpenseClosure(addingExpense)
                 addExpense(addedExpense)
@@ -176,25 +225,6 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
                 
             }
         }
-    }
-    
-    private func addAccount() {
-        addAccountClosure?()
-    }
-    
-    func addExpense(_ expense: Expense) {
-        dayExpenses.insert(expense, at: 0)
-        setDayExpensesContent()
-        let cellController = createExpenseTableViewController(expense: expense)
-        expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
-    }
-    
-    func editExpense(_ expense: Expense) {
-        guard let index = dayExpenses.firstIndex(where: { $0.id == expense.id }) else { return }
-        dayExpenses[index] = expense
-        setDayExpensesContent()
-        let cellController = expenseCellController(expense: expense)
-        cellController?.editExpense(expense)
     }
     
     func textFieldControllerDidTapReturnKey(_ textFieldController: AUITextFieldController) {
@@ -258,20 +288,6 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     }
     
     // MARK: Content
-
-    private lazy var localizer: Localizer = {
-        let localizer = Localizer(locale: locale, stringsTableName: "AddExpenseScreenStrings")
-        return localizer
-    }()
-    
-    override func setLocale(_ locale: Locale) {
-        super.setLocale(locale)
-        localizer.setLocale(locale)
-        selectCategoryViewController.changeLocale(locale)
-        balanceAccountHorizontalPickerController.changeLocale(locale)
-        inputDateViewController.changeLocale(locale)
-        setContent()
-    }
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
@@ -329,7 +345,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             let title = self.localizer.localizeText("delete")
             let deleteAction = UIContextualAction(style: .destructive, title: title, handler: { [weak self] contextualAction, view, success in
                 guard let self = self else { return }
-                guard let deleteExpenseClosure = self.deleteExpenseClosure else {
+                guard let deleteExpenseClosure = self.deleteExpense else {
                     success(false)
                     return
                 }
@@ -356,15 +372,6 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             self.selectExpense(expense)
         }
         return cellController
-    }
-    
-    // MARK: - Appearance
-    
-    override func setAppearance(_ appearance: Appearance) {
-        super.setAppearance(appearance)
-        screenView.setAppearance(appearance)
-        balanceAccountHorizontalPickerController.changeAppearance(appearance)
-        selectCategoryViewController.changeAppearance(appearance)
     }
     
     // MARK: - Error Snackbar

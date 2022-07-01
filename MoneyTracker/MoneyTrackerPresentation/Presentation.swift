@@ -247,12 +247,12 @@ public final class Presentation: AUIWindowPresentation {
         do {
             let accounts = try delegate.presentationAccounts(self)
             let categories = try delegate.presentationCategories(self)
-            let viewController = AddExpenseScreenViewController(appearance: appearance, locale: locale, accounts: accounts, categories: categories, selectedCategory: selectedCategory)
-            viewController.backClosure = { [weak navigationController] in
+            let viewController = AddExpenseScreenViewController(appearance: appearance, locale: locale, calendar: calendar, accounts: accounts, categories: categories, selectedCategory: selectedCategory)
+            viewController.back = { [weak navigationController] in
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
             }
-            viewController.dayExpensesClosure = { [weak self] day in
+            viewController.loadDayExpenses = { [weak self] day in
                 guard let self = self else { return [] }
                 do {
                     let dayExpenses = try self.delegate.presentationDayExpenses(self, day: day)
@@ -262,7 +262,7 @@ public final class Presentation: AUIWindowPresentation {
                     throw error
                 }
             }
-            viewController.addExpenseClosure = { [weak self] addingExpense in
+            viewController.addExpense = { [weak self] addingExpense in
                 guard let self = self else { throw Error("") }
                 do {
                     let addedExpense = try self.delegate.presentation(self, addExpense: addingExpense)
@@ -272,7 +272,7 @@ public final class Presentation: AUIWindowPresentation {
                     throw error
                 }
             }
-            viewController.editExpenseClosure = { [weak self] editingExpense in
+            viewController.editExpense = { [weak self] editingExpense in
                 guard let self = self else { throw Error("") }
                 do {
                     let addedExpense = try self.delegate.presentation(self, editExpense: editingExpense)
@@ -282,7 +282,7 @@ public final class Presentation: AUIWindowPresentation {
                     throw error
                 }
             }
-            viewController.deleteExpenseClosure = { [weak self] expense in
+            viewController.deleteExpense = { [weak self] expense in
                 guard let self = self else { return }
                 do {
                     _ = try self.delegate.presentation(self, deleteExpense: expense)
@@ -290,7 +290,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            viewController.addAccountClosure = { [weak self, weak viewController] in
+            viewController.addAccount = { [weak self, weak viewController] in
                 guard let self = self else { return }
                 guard let viewController = viewController else { return }
                 do {
@@ -299,7 +299,7 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            viewController.addCategoryClosure = { [weak self, weak viewController] in
+            viewController.addCategory = { [weak self, weak viewController] in
                 guard let viewController = viewController else { return }
                 do {
                     try self?.presentAddCategoryScreenViewController(viewController)
