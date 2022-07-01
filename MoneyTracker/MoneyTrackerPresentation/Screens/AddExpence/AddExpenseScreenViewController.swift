@@ -17,6 +17,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     private var categories: [Category]
     private var selectedCategory: Category?
     
+    
     // MARK: Actions
     
     var back: (() -> Void)?
@@ -30,6 +31,8 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     var editExpense: ((Expense) throws -> Expense)?
     
     var loadDayExpenses: ((Date) throws -> [Expense])?
+    
+    var loadDayCurrencies: ((@escaping (Result<[Historyitem]?, Swift.Error>) -> Void) -> Void)?
     
     var deleteExpense: ((Expense) throws -> Void)?
     
@@ -47,7 +50,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     func addExpense(_ expense: Expense) {
         dayExpenses.insert(expense, at: 0)
         setDayExpensesContent()
-        let cellController = createExpenseTableViewController(expense: expense)
+        let cellController = initializeExpenseCellController(expense: expense)
         expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
     }
     
@@ -59,7 +62,63 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         cellController?.editExpense(expense)
     }
     
-    // MARK: Initializer
+    func deleteExpense(_ deletingExpense: Expense) {
+        if let index = dayExpenses.firstIndex(of: deletingExpense) {
+            dayExpenses.remove(at: index)
+            if let cellController = expenseCellController(expense: deletingExpense) {
+                expensesTableViewController.deleteCellControllerAnimated(cellController, .left, completion: nil)
+            }
+        }
+        setDayExpensesContent()
+    }
+    
+    func addAccount(_ account: Account) {
+        accounts.append(account)
+        balanceAccountHorizontalPickerController.showOptions(accounts: accounts)
+    }
+    
+    func addCategory(_ category: Category) {
+        categories.append(category)
+        selectCategoryViewController.setCategories(categories)
+        selectCategoryViewController.setSelectedCategory(category)
+    }
+    
+    private var editingExpense: Expense?
+    func selectExpense(_ expense: Expense?) {
+        if let expense = expense {
+            if expense.id == editingExpense?.id {
+                editingExpense = nil
+                let cellController = expenseCellController(expense: expense)
+                cellController?.setIsSelected(false, animated: true)
+                inputAmountViewController.input = ""
+                commentTextFieldController.text = nil
+            } else {
+                if let editingExpense = self.editingExpense {
+                    let cellController = expenseCellController(expense: editingExpense)
+                    cellController?.setIsSelected(false, animated: true)
+                }
+                self.editingExpense = expense
+                let cellController = expenseCellController(expense: expense)
+                cellController?.setIsSelected(true, animated: true)
+                
+                inputAmountViewController.setAmount(expense.amount)
+                commentTextFieldController.text = expense.comment
+                balanceAccountHorizontalPickerController.setSelectedAccount(expense.account)
+                selectCategoryViewController.setSelectedCategory(expense.category)
+            }
+        } else {
+            if let editingExpense = self.editingExpense {
+                let cellController = expenseCellController(expense: editingExpense)
+                cellController?.setIsSelected(false, animated: true)
+            }
+            editingExpense = nil
+            inputAmountViewController.input = ""
+            commentTextFieldController.text = nil
+        }
+        
+    }
+    
+    // MARK: Initialization
     
     init(appearance: Appearance, locale: Locale, calendar: Calendar, accounts: [Account], categories: [Category], selectedCategory: Category?) {
         self.accounts = accounts
@@ -231,62 +290,6 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         view.endEditing(true)
     }
     
-    func deleteExpense(_ deletingExpense: Expense) {
-        if let index = dayExpenses.firstIndex(of: deletingExpense) {
-            dayExpenses.remove(at: index)
-            if let cellController = expenseCellController(expense: deletingExpense) {
-                expensesTableViewController.deleteCellControllerAnimated(cellController, .left, completion: nil)
-            }
-        }
-        setDayExpensesContent()
-    }
-    
-    func addAccount(_ account: Account) {
-        accounts.append(account)
-        balanceAccountHorizontalPickerController.showOptions(accounts: accounts)
-    }
-    
-    func addCategory(_ category: Category) {
-        categories.append(category)
-        selectCategoryViewController.setCategories(categories)
-        selectCategoryViewController.setSelectedCategory(category)
-    }
-    
-    private var editingExpense: Expense?
-    func selectExpense(_ expense: Expense?) {
-        if let expense = expense {
-            if expense.id == editingExpense?.id {
-                editingExpense = nil
-                let cellController = expenseCellController(expense: expense)
-                cellController?.setIsSelected(false, animated: true)
-                inputAmountViewController.input = ""
-                commentTextFieldController.text = nil
-            } else {
-                if let editingExpense = self.editingExpense {
-                    let cellController = expenseCellController(expense: editingExpense)
-                    cellController?.setIsSelected(false, animated: true)
-                }
-                self.editingExpense = expense
-                let cellController = expenseCellController(expense: expense)
-                cellController?.setIsSelected(true, animated: true)
-                
-                inputAmountViewController.setAmount(expense.amount)
-                commentTextFieldController.text = expense.comment
-                balanceAccountHorizontalPickerController.setSelectedAccount(expense.account)
-                selectCategoryViewController.setSelectedCategory(expense.category)
-            }
-        } else {
-            if let editingExpense = self.editingExpense {
-                let cellController = expenseCellController(expense: editingExpense)
-                cellController?.setIsSelected(false, animated: true)
-            }
-            editingExpense = nil
-            inputAmountViewController.input = ""
-            commentTextFieldController.text = nil
-        }
-        
-    }
-    
     // MARK: Content
     
     private func setContent() {
@@ -317,7 +320,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         expensesSectionController.cellControllers = []
         var cellControllers: [AUITableViewCellController] = []
         for expense in dayExpenses {
-            let cellController = createExpenseTableViewController(expense: expense)
+            let cellController = initializeExpenseCellController(expense: expense)
             cellControllers.append(cellController)
         }
         expensesSectionController.cellControllers = cellControllers
@@ -325,7 +328,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         expensesTableViewController.reload()
     }
     
-    private func createExpenseTableViewController(expense: Expense) -> AUITableViewCellController {
+    private func initializeExpenseCellController(expense: Expense) -> AUITableViewCellController {
         let cellController = ExpenseTableViewCellController(expense: expense)
         cellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
             guard let self = self else { return UITableViewCell() }
