@@ -262,6 +262,15 @@ public final class Presentation: AUIWindowPresentation {
                     throw error
                 }
             }
+            viewController.loadDayCurrenciesAmount = { [weak self] expenses, completionHandler in
+                guard let self = self else { return }
+                self.delegate.presentationDayCurrenciesAmount(self, expense: expenses) { result in
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        completionHandler(result)
+                    }
+                }
+            }
             viewController.addExpense = { [weak self] addingExpense in
                 guard let self = self else { throw Error("") }
                 do {
@@ -818,7 +827,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.pushedEditExpenseViewController?.addCategory(addedCategory)
                 self.pushedEditTemplateScreenViewController?.addCategory(addedCategory)
                 self.pushedAddTemplateScreenViewController?.addCategory(addedCategory)
-                self.pushedAddExpenseViewController?.addCategory(addedCategory)
+                self.pushedAddExpenseViewController?.addCategorySettingContent(addedCategory)
                 viewController.dismiss(animated: true, completion: nil)
             } catch {
                 self.presentUnexpectedErrorAlertScreen(error)
@@ -1165,7 +1174,7 @@ public final class Presentation: AUIWindowPresentation {
                     }
                     self.dashboardViewController?.addAccount(addedAccount)
                     self.pushedEditExpenseViewController?.addAccount(addedAccount)
-                    self.pushedAddExpenseViewController?.addAccount(addedAccount)
+                    self.pushedAddExpenseViewController?.addAccountSettingContent(addedAccount)
                     self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
                     self.pushedAddTransferViewController?.addAccount(addedAccount)
                     self.pushedAddReplenishmentViewController?.addAccount(addedAccount)
@@ -1217,7 +1226,7 @@ public final class Presentation: AUIWindowPresentation {
                     }
                     self.dashboardViewController?.addAccount(addedAccount)
                     self.pushedEditExpenseViewController?.addAccount(addedAccount)
-                    self.pushedAddExpenseViewController?.addAccount(addedAccount)
+                    self.pushedAddExpenseViewController?.addAccountSettingContent(addedAccount)
                     self.pushedEditTemplateScreenViewController?.addAccount(addedAccount)
                     self.pushedAddTransferViewController?.addAccount(addedAccount)
                     self.pushedAddReplenishmentViewController?.addAccount(addedAccount)

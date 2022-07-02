@@ -16,7 +16,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     private var accounts: [Account]
     private var categories: [Category]
     private var selectedCategory: Category?
-    
+    private var dayCurrenciesAmount: CurrenciesAmount?
     
     // MARK: Actions
     
@@ -32,7 +32,21 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     var loadDayExpenses: ((Date) throws -> [Expense])?
     
-    var loadDayCurrencies: ((@escaping (Result<[Historyitem]?, Swift.Error>) -> Void) -> Void)?
+    var loadDayCurrenciesAmount: (([Expense], @escaping (Result<CurrenciesAmount?, Swift.Error>) -> Void) -> Void)?
+    
+    private func loadDayCurrenciesAmountSettingContent() {
+        guard let loadDayCurrenciesAmount = loadDayCurrenciesAmount else { return }
+        loadDayCurrenciesAmount(dayExpenses, { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let currenciesAmount):
+                self.dayCurrenciesAmount = currenciesAmount
+                self.setDayExpensesContent()
+            case .failure:
+                break
+            }
+        })
+    }
     
     var deleteExpense: ((Expense) throws -> Void)?
     
@@ -42,42 +56,35 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             dayExpenses = try loadDayExpenses(day)
             setExpensesTableViewControllerContent()
             setDayExpensesContent()
+            loadDayCurrenciesAmountSettingContent()
         } catch {
             
         }
     }
 
-    func addExpense(_ expense: Expense) {
+    func addExpenseSettingContent(_ expense: Expense) {
         dayExpenses.insert(expense, at: 0)
         setDayExpensesContent()
         let cellController = initializeExpenseCellController(expense: expense)
         expensesTableViewController.insertCellControllerAtSectionBeginningAnimated(expensesSectionController, cellController: cellController, .top, completion: nil)
+        loadDayCurrenciesAmountSettingContent()
     }
     
-    func editExpense(_ expense: Expense) {
+    func editExpenseSettingContent(_ expense: Expense) {
         guard let index = dayExpenses.firstIndex(where: { $0.id == expense.id }) else { return }
         dayExpenses[index] = expense
         setDayExpensesContent()
         let cellController = expenseCellController(expense: expense)
         cellController?.editExpense(expense)
+        loadDayCurrenciesAmountSettingContent()
     }
     
-    func deleteExpense(_ deletingExpense: Expense) {
-        if let index = dayExpenses.firstIndex(of: deletingExpense) {
-            dayExpenses.remove(at: index)
-            if let cellController = expenseCellController(expense: deletingExpense) {
-                expensesTableViewController.deleteCellControllerAnimated(cellController, .left, completion: nil)
-            }
-        }
-        setDayExpensesContent()
-    }
-    
-    func addAccount(_ account: Account) {
+    func addAccountSettingContent(_ account: Account) {
         accounts.append(account)
         balanceAccountHorizontalPickerController.showOptions(accounts: accounts)
     }
     
-    func addCategory(_ category: Category) {
+    func addCategorySettingContent(_ category: Category) {
         categories.append(category)
         selectCategoryViewController.setCategories(categories)
         selectCategoryViewController.setSelectedCategory(category)
@@ -92,6 +99,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
                 cellController?.setIsSelected(false, animated: true)
                 inputAmountViewController.input = ""
                 commentTextFieldController.text = nil
+                loadDayCurrenciesAmountSettingContent()
             } else {
                 if let editingExpense = self.editingExpense {
                     let cellController = expenseCellController(expense: editingExpense)
@@ -105,6 +113,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
                 commentTextFieldController.text = expense.comment
                 balanceAccountHorizontalPickerController.setSelectedAccount(expense.account)
                 selectCategoryViewController.setSelectedCategory(expense.category)
+                loadDayCurrenciesAmountSettingContent()
             }
         } else {
             if let editingExpense = self.editingExpense {
@@ -114,6 +123,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             editingExpense = nil
             inputAmountViewController.input = ""
             commentTextFieldController.text = nil
+            loadDayCurrenciesAmountSettingContent()
         }
         
     }
@@ -186,6 +196,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         setContent()
         setExpensesTableViewControllerContent()
         setDayExpensesContent()
+        loadDayCurrenciesAmountSettingContent()
     }
     
     private func setupTapGestureRecognizer() {
@@ -266,7 +277,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             do {
                 let addingExpense = Expense(id: editingExpense.id, timestamp: editingExpense.timestamp, amount: amount, account: account, category: category, comment: comment)
                 _ = try editExpense?(addingExpense)
-                self.editExpense(addingExpense)
+                self.editExpenseSettingContent(addingExpense)
                 self.selectExpense(nil)
             } catch {
                 
@@ -276,7 +287,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             guard let addExpenseClosure = addExpense else { return }
             do {
                 let addedExpense = try addExpenseClosure(addingExpense)
-                addExpense(addedExpense)
+                addExpenseSettingContent(addedExpense)
                 inputAmountViewController.input = ""
                 commentTextFieldController.text = nil
                 view.endEditing(true)
@@ -298,22 +309,22 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
     }
     
+    private static let amountNumberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.decimalSeparator = "."
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }()
+    
     private func setDayExpensesContent() {
-        var currenciesAmounts: [Currency: Decimal] = [:]
-        for expense in dayExpenses {
-            let currency = expense.account.currency
-            let amount = expense.amount
-            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
-            currenciesAmounts[currency] = currencyAmount
+        guard let currenciesExpense = dayCurrenciesAmount?.currenciesAmount.sorted(by: { $0.1 > $1.1 }) else {
+            screenView.dayExpensesLabel.text = nil
+            return
         }
-        var currenciesAmountsStrings: [String] = []
-        let sortedCurrencyAmount = currenciesAmounts.sorted(by: { $0.1 < $1.1 })
-        for (currency, amount) in sortedCurrencyAmount {
-            let currencyAmountString = "\(amount) \(currency.rawValue.uppercased())"
-            currenciesAmountsStrings.append(currencyAmountString)
-        }
-        let currenciesAmountsStringsJoined = currenciesAmountsStrings.joined(separator: " + ")
-        screenView.dayExpensesLabel.text = currenciesAmountsStringsJoined
+        let currenciesExpenseStrings = currenciesExpense.map({ "\(Self.amountNumberFormatter.string(from: NSDecimalNumber(decimal: $1)) ?? "") \($0.rawValue)" })
+        let joinedCurrenciesExpenseStrings = currenciesExpenseStrings.joined(separator: " + ")
+        screenView.dayExpensesLabel.text = joinedCurrenciesExpenseStrings
     }
     
     private func setExpensesTableViewControllerContent() {
@@ -363,6 +374,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
                     self.expensesTableViewController.deleteCellControllerAnimated(cellController, .left) { finished in
                         success(true)
                     }
+                    self.loadDayCurrenciesAmountSettingContent()
                 } catch {
                     success(false)
                 }

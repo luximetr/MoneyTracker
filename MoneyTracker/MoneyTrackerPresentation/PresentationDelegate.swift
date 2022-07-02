@@ -29,6 +29,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentation(_ presentation: Presentation, didPickDocumentAt url: URL) throws
     func presentationDidStartExpensesCSVExport(_ presentation: Presentation) throws -> URL
     func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [Expense]
+    func presentationDayCurrenciesAmount(_ presentation: Presentation, expense: [Expense], completionHandler: @escaping (Result<CurrenciesAmount?, Swift.Error>) -> Void)
     func presentation(_ presentation: Presentation, addExpense addingExpense: AddingExpense) throws -> Expense
     func presentation(_ presentation: Presentation, editExpense editingExpense: Expense) throws -> Expense
     func presentation(_ presentation: Presentation, deleteExpense deletingExpense: Expense) throws -> Expense

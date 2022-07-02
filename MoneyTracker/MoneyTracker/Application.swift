@@ -301,6 +301,41 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentationDayCurrenciesAmount(_ presentation: Presentation, expense: [PresentationExpense], completionHandler: @escaping (Result<PresentationCurrenciesAmount?, Swift.Error>) -> Void) {
+        if expense.isEmpty {
+            completionHandler(.success(nil))
+            return
+        }
+        let fawazahmed0CurrencyApiBasicCurrency = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(basicCurrency)
+        self.network.latestCurrenciesCurrency(fawazahmed0CurrencyApiBasicCurrency) { [weak self] result in
+            guard let self = self else { return }
+            let exchangeRates: ExchangeRates?
+            switch result {
+            case .success(let response):
+                switch response {
+                case .parsedResponse(let parsedResponse):
+                    let fawazahmed0CurrencyApiExchangeRates = parsedResponse.exchangeRates
+                    exchangeRates = ExchangeRatesMapper.mapToExchangeRates(fawazahmed0CurrencyApiExchangeRates)
+                case .networkConnectionLost:
+                    exchangeRates = nil
+                case .notConnectedToInternet:
+                    exchangeRates = nil
+                }
+            case .failure:
+                exchangeRates = nil
+            }
+            let currenciesExpenses = Dictionary(grouping: expense) { $0.account.currency }
+            let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
+            let currencyAmounts = currenciesExpense.map({ CurrencyAmount(currency: CurrencyMapper.mapToCurrency($0.key), amount: $0.value) })
+            var currenciesAmounts = CurrenciesAmount(currenciesAmount: Set(currencyAmounts))
+            if let exchangeRates = exchangeRates {
+                currenciesAmounts = self.calculateCurrenciesAmount(currenciesAmounts, basicCurrency: self.basicCurrency, exchangeRates: exchangeRates)
+            }
+            let presentationCurrenciesAmount = CurrenciesAmountMapper.mapToPresentationCurrenciesAmount(currenciesAmounts)
+            completionHandler(.success(presentationCurrenciesAmount))
+        }
+    }
+    
     func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date] {
         do {
             let startDate = Date(timeIntervalSince1970: 0)
