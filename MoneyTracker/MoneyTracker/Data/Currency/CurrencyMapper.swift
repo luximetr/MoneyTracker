@@ -14,53 +14,23 @@ typealias PresentationCurrency = MoneyTrackerPresentation.Currency
 typealias StorageCurrency = MoneyTrackerStorage.Currency
 typealias Fawazahmed0CurrencyApiVersionaCurrency = Fawazahmed0CurrencyApi.ApiVersion1Currency
 
-class CurrencyAdapter {
-    
-    func adaptToStorage(presentationCurrency: PresentationCurrency) -> StorageCurrency {
-        switch presentationCurrency {
-            case .singaporeDollar: return .singaporeDollar
-            case .usDollar: return .usDollar
-            case .hryvnia: return .hryvnia
-            case .turkishLira: return .turkishLira
-            case .baht: return .baht
-            case .euro: return .euro
-        }
-    }
-    
-    func adaptToStorageOptional(presentationCurrency: PresentationCurrency?) -> StorageCurrency? {
-        guard let presentationCurrency = presentationCurrency else { return nil }
-        return adaptToStorage(presentationCurrency: presentationCurrency)
-    }
-    
-    func adaptToPresentation(storageCurrency: StorageCurrency) -> PresentationCurrency {
-        switch storageCurrency {
-            case .singaporeDollar: return .singaporeDollar
-            case .usDollar: return .usDollar
-            case .hryvnia: return .hryvnia
-            case .turkishLira: return .turkishLira
-            case .baht: return .baht
-            case .euro: return .euro
-        }
-    }
-    
-    func mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(_ fawazahmed0CurrencyApiVersionaCurrency: PresentationCurrency) -> Fawazahmed0CurrencyApiVersionaCurrency {
-        switch fawazahmed0CurrencyApiVersionaCurrency {
-            case .singaporeDollar: return .singaporeDollar
-            case .usDollar: return .usDollar
-            case .hryvnia: return .hryvnia
-            case .turkishLira: return .turkishLira
-            case .baht: return .baht
-            case .euro: return .euro
-        }
-    }
-}
-
 enum CurrencyMapper {
     
     // MARK: - Presentation
     
     static func mapToPresentationCurrency(_ currency: Currency) -> PresentationCurrency {
         switch currency {
+        case .singaporeDollar: return .singaporeDollar
+        case .usDollar: return .usDollar
+        case .hryvnia: return .hryvnia
+        case .turkishLira: return .turkishLira
+        case .baht: return .baht
+        case .euro: return .euro
+        }
+    }
+    
+    static func mapToPresentationCurrency(_ storageCurrency: StorageCurrency) -> PresentationCurrency {
+        switch storageCurrency {
         case .singaporeDollar: return .singaporeDollar
         case .usDollar: return .usDollar
         case .hryvnia: return .hryvnia
@@ -94,6 +64,17 @@ enum CurrencyMapper {
         }
     }
     
+    static func mapToStorageCurrency(_ presentationCurrency: PresentationCurrency) -> StorageCurrency {
+        switch presentationCurrency {
+        case .singaporeDollar: return .singaporeDollar
+        case .usDollar: return .usDollar
+        case .hryvnia: return .hryvnia
+        case .turkishLira: return .turkishLira
+        case .baht: return .baht
+        case .euro: return .euro
+        }
+    }
+    
     static func mapToCurrency(_ storageCurrency: StorageCurrency) -> Currency {
         switch storageCurrency {
         case .singaporeDollar: return .singaporeDollar
@@ -109,6 +90,17 @@ enum CurrencyMapper {
     
     static func mapToFawazahmed0CurrencyApiVersionaCurrency(_ currency: Currency) -> Fawazahmed0CurrencyApiVersionaCurrency {
         switch currency {
+        case .singaporeDollar: return .singaporeDollar
+        case .usDollar: return .usDollar
+        case .hryvnia: return .hryvnia
+        case .turkishLira: return .turkishLira
+        case .baht: return .baht
+        case .euro: return .euro
+        }
+    }
+    
+    static func mapToFawazahmed0CurrencyApiVersionaCurrency(_ presentationCurrency: PresentationCurrency) -> Fawazahmed0CurrencyApiVersionaCurrency {
+        switch presentationCurrency {
         case .singaporeDollar: return .singaporeDollar
         case .usDollar: return .usDollar
         case .hryvnia: return .hryvnia

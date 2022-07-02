@@ -15,7 +15,6 @@ typealias StorageBalanceAccount = MoneyTrackerStorage.BalanceAccount
 
 class BalanceAccountAdapter {
     
-    private let currencyAdapter = CurrencyAdapter()
     private let accountColorAdapter = BalanceAccountColorAdapter()
     
     func adaptToStorage(presentationAccount: PresentationBalanceAccount) -> StorageBalanceAccount {
@@ -23,7 +22,7 @@ class BalanceAccountAdapter {
             id: presentationAccount.id,
             name: presentationAccount.name,
             amount: presentationAccount.amount,
-            currency: currencyAdapter.adaptToStorage(presentationCurrency: presentationAccount.currency),
+            currency: CurrencyMapper.mapToStorageCurrency(presentationAccount.currency),
             color: accountColorAdapter.adaptToStorage(presentationAccountColor: presentationAccount.color)
         )
     }
@@ -33,7 +32,7 @@ class BalanceAccountAdapter {
             id: storageAccount.id,
             name: storageAccount.name,
             amount: storageAccount.amount,
-            currency: currencyAdapter.adaptToPresentation(storageCurrency: storageAccount.currency),
+            currency: CurrencyMapper.mapToPresentationCurrency(storageAccount.currency),
             color: accountColorAdapter.adaptToPresentation(storageAccountColor: storageAccount.color ?? .variant1)
         )
     }

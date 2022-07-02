@@ -364,7 +364,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationMonthExpenses(_ presentation: Presentation, month: Date, completionHandler: @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void) {
-        let currencyAdapter = CurrencyAdapter()
         func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
             do {
                 let startDate = month.startOfMonth
@@ -384,7 +383,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     for expense in expenses {
                         if let exchangeRates = exchangeRates {
                             let currency = expense.account.currency
-                            let currency2 = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(currency)
+                            let currency2 = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(currency)
                             let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
                             let exchangeRate = exchangeRates[currency2]
                             let amount = expense.amount / exchangeRate
@@ -417,7 +416,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             }
         }
         let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
-        let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(presentationBasicCurrency)
+        let gg = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(presentationBasicCurrency)
         self.network.latestCurrenciesCurrency(gg) { result in
             switch result {
             case .success(let response):
@@ -437,14 +436,13 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationBalance(_ presentation: Presentation, accounts: [PresentationBalanceAccount], completionHandler: @escaping (Result<PresentationCurrenciesAmount, Swift.Error>) -> Void) {
-        let currencyAdapter = CurrencyAdapter()
         func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
             var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
             for account in accounts {
                 let currency = account.currency
                 let amount = account.amount
                 if let exchangeRates = exchangeRates {
-                    let currency2 = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(currency)
+                    let currency2 = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(currency)
                     let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
                     let exchangeRate = exchangeRates[currency2]
                     let amount = amount / exchangeRate
@@ -460,7 +458,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             completionHandler(.success(bv))
         }
         let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
-        let gg = currencyAdapter.mapFawazahmed0CurrencyApiVersionaCurrencyToPresentationCurrency(presentationBasicCurrency)
+        let gg = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(presentationBasicCurrency)
         self.network.latestCurrenciesCurrency(gg) { result in
             switch result {
             case .success(let response):

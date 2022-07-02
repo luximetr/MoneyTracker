@@ -14,14 +14,13 @@ typealias PresentationEditingBalanceAccount = MoneyTrackerPresentation.EditingAc
 
 class EditingBalanceAccountAdapter {
     
-    private let currencyAdapter = CurrencyAdapter()
     private let accountColorAdapter = BalanceAccountColorAdapter()
     
     func adaptToStorage(presentationEditingAccount: PresentationEditingBalanceAccount) -> StorageEditingBalanceAccount {
         return StorageEditingBalanceAccount(
             id: presentationEditingAccount.id,
             name: presentationEditingAccount.name,
-            currency: currencyAdapter.adaptToStorage(presentationCurrency: presentationEditingAccount.currency),
+            currency: CurrencyMapper.mapToStorageCurrency(presentationEditingAccount.currency),
             amount: presentationEditingAccount.amount,
             color: accountColorAdapter.adaptToStorage(presentationAccountColor: presentationEditingAccount.color)
         )
