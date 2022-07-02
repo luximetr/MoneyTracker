@@ -674,7 +674,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Top Up Account
     
-    func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingReplenishment) throws -> PresentationTopUpAccount {
+    func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingReplenishment) throws -> PresentationReplenishment {
         do {
             let timestamp = presentationAddingTopUpAccount.timestamp
             let balanceAccountId = presentationAddingTopUpAccount.account.id
@@ -682,7 +682,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let comment = presentationAddingTopUpAccount.comment
             let storageAddingBalanceReplenishment = AddingReplenishment(timestamp: timestamp, accountId: balanceAccountId, amount: amount, comment: comment)
             let storageBalanceTransfer = try storage.addBalanceReplenishment(storageAddingBalanceReplenishment)
-            let presentationTopUpAccount = PresentationTopUpAccount(id: storageBalanceTransfer.id, timestamp: presentationAddingTopUpAccount.timestamp, account: presentationAddingTopUpAccount.account, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
+            let presentationTopUpAccount = PresentationReplenishment(id: storageBalanceTransfer.id, timestamp: presentationAddingTopUpAccount.timestamp, account: presentationAddingTopUpAccount.account, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
             return presentationTopUpAccount
         } catch {
             throw Error("Cannot add presentation top up account \(presentationAddingTopUpAccount)\n\(error)")
@@ -796,11 +796,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
-    func presentation(_ presentation: Presentation, editReplenishment presentationEditingReplenishment: PresentationEditingReplenishment) throws -> PresentationTopUpAccount {
+    func presentation(_ presentation: Presentation, editReplenishment presentationEditingReplenishment: PresentationEditingReplenishment) throws -> PresentationReplenishment {
         do {
             let storageEditingReplenishment = StorageEditingReplenishment(id: presentationEditingReplenishment.id, timestamp: presentationEditingReplenishment.timestamp, accountId: presentationEditingReplenishment.account.id, amount: presentationEditingReplenishment.amount, comment: presentationEditingReplenishment.comment)
             try storage.editReplenishment(storageEditingReplenishment)
-            return PresentationTopUpAccount(id: presentationEditingReplenishment.id, timestamp: presentationEditingReplenishment.timestamp, account: presentationEditingReplenishment.account, amount: presentationEditingReplenishment.amount, comment: presentationEditingReplenishment.comment)
+            return PresentationReplenishment(id: presentationEditingReplenishment.id, timestamp: presentationEditingReplenishment.timestamp, account: presentationEditingReplenishment.account, amount: presentationEditingReplenishment.amount, comment: presentationEditingReplenishment.comment)
         } catch {
             throw error
         }

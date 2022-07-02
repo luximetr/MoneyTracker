@@ -35,7 +35,7 @@ class OperationAdapter {
             return presentationOperation
         case .balanceReplenishment(let storageBalanceReplenishment, let storageBalanceAccount):
             let presentationBalanceAccount = accountAdapter.adaptToPresentation(storageAccount: storageBalanceAccount)
-            let presentationBalanceReplenishment = PresentationTopUpAccount(id: storageBalanceReplenishment.id, timestamp: storageBalanceReplenishment.timestamp, account: presentationBalanceAccount, amount: storageBalanceReplenishment.amount, comment: storageBalanceReplenishment.comment)
+            let presentationBalanceReplenishment = PresentationReplenishment(id: storageBalanceReplenishment.id, timestamp: storageBalanceReplenishment.timestamp, account: presentationBalanceAccount, amount: storageBalanceReplenishment.amount, comment: storageBalanceReplenishment.comment)
             let presentationOperation: PresentationOperation = .replenishment(presentationBalanceReplenishment)
             return presentationOperation
         case .balanceTransfer(let storageBalanceTransfer, let storageFromBalanceAccount, let storageToBalanceAccount):
