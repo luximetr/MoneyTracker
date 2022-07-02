@@ -265,8 +265,7 @@ public final class Presentation: AUIWindowPresentation {
             viewController.loadDayCurrenciesAmount = { [weak self] expenses, completionHandler in
                 guard let self = self else { return }
                 self.delegate.presentationDayCurrenciesAmount(self, expense: expenses) { result in
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
+                    DispatchQueue.main.async {
                         completionHandler(result)
                     }
                 }
