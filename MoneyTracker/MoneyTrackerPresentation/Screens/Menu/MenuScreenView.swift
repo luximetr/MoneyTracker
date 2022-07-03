@@ -129,9 +129,9 @@ final class ScreenView: AppearanceView {
     override func setAppearance(_ appearance: Appearance) {
         super.setAppearance(appearance)
         tabBarView.backgroundColor = appearance.colors.primaryBackground
-        mainTabBarItem.changeAppearance(appearance)
-        statisticTabBarItem.changeAppearance(appearance)
-        settingsTabBarItem.changeAppearance(appearance)
+        mainTabBarItem.setAppearance(appearance)
+        statisticTabBarItem.setAppearance(appearance)
+        settingsTabBarItem.setAppearance(appearance)
     }
     
 }

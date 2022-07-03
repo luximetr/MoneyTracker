@@ -14,21 +14,50 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
     
     var defaultCurrency: Currency
     var appearanceSetting: AppearanceSetting
-    var didSelectCategoriesClosure: (() -> Void)?
-    var didSelectCurrencyClosure: (() -> Void)?
-    var didSelectAppearanceClosure: (() -> Void)?
-    var didSelectLanguageClosure: (() -> Void)?
-    var didSelectAccountsClosure: (() -> Void)?
-    var didSelectTemplatesClosure: (() -> Void)?
-    var didSelectImportCSVClosure: (() -> Void)?
-    var didSelectExportCSVClosure: (() -> Void)?
+    var totalAmountViewSetting: TotalAmountViewSetting
     
-    // MARK: - Initializer
+    // MARK: - Actions
     
-    init(appearance: Appearance, locale: Locale, defaultCurrency: Currency, appearanceSetting: AppearanceSetting) {
+    var selectCategories: (() -> Void)?
+    
+    var selectCurrency: (() -> Void)?
+    
+    var selectAppearance: (() -> Void)?
+    
+    var selectTotalAmountView: (() -> Void)?
+    
+    var selectLanguage: (() -> Void)?
+    
+    var selectAccounts: (() -> Void)?
+    
+    var selectTemplates: (() -> Void)?
+    
+    var selectImportCsv: (() -> Void)?
+    
+    var selectExportCsv: (() -> Void)?
+    
+    func setAppearanceSetting(_ appearanceSetting: AppearanceSetting) {
+        self.appearanceSetting = appearanceSetting
+        tableViewController.reload()
+    }
+    
+    func setTotalAmountViewSetting(_ totalAmountViewSetting: TotalAmountViewSetting) {
+        self.totalAmountViewSetting = totalAmountViewSetting
+        tableViewController.reload()
+    }
+    
+    func setDefaultCurrency(_ defaultCurrency: Currency) {
+        self.defaultCurrency = defaultCurrency
+        tableViewController.reload()
+    }
+    
+    // MARK: - Initialization
+    
+    init(appearance: Appearance, locale: Locale, calendar: Calendar, defaultCurrency: Currency, appearanceSetting: AppearanceSetting, totalAmountViewSetting: TotalAmountViewSetting) {
         self.defaultCurrency = defaultCurrency
         self.appearanceSetting = appearanceSetting
-        super.init(appearance: appearance, locale: locale)
+        self.totalAmountViewSetting = totalAmountViewSetting
+        super.init(appearance: appearance, locale: locale, calendar: calendar)
     }
     
     // MARK: - View
@@ -54,7 +83,7 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         tableViewController.tableView = screenView.tableView
     }
     
-    // MARK: - Events
+    // MARK: - Localization
     
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
@@ -65,50 +94,6 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         setContent()
         tableViewController.reload()
     }
-    
-    func changeAppearanceSetting(_ appearanceSetting: AppearanceSetting) {
-        self.appearanceSetting = appearanceSetting
-        tableViewController.reload()
-    }
-    
-    private func didSelectCategories() {
-        didSelectCategoriesClosure?()
-    }
-    
-    func changeDefaultCurrency(_ defaultCurrency: Currency) {
-        self.defaultCurrency = defaultCurrency
-        tableViewController.reload()
-    }
-    
-    private func didSelectCurrency() {
-        didSelectCurrencyClosure?()
-    }
-    
-    private func didSelectLanguage() {
-        didSelectLanguageClosure?()
-    }
-    
-    private func didSelectAppearance() {
-        didSelectAppearanceClosure?()
-    }
-            
-    private func didSelectAccounts() {
-        didSelectAccountsClosure?()
-    }
-    
-    private func didSelectTemplates() {
-        didSelectTemplatesClosure?()
-    }
-    
-    private func didSelectImportCSV() {
-        didSelectImportCSVClosure?()
-    }
-    
-    private func didSelectExportCSV() {
-        didSelectExportCSVClosure?()
-    }
-    
-    // MARK: - Content
     
     private lazy var localizer: Localizer = {
         let localizer = Localizer(locale: locale, stringsTableName: "SettingsScreenStrings")
@@ -130,6 +115,19 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         return localizer
     }()
     
+    private lazy var totalAmountViewSettingNameLocalizer: TotalAmountViewSettingNameLocalizer = {
+        let localizer = TotalAmountViewSettingNameLocalizer(locale: locale)
+        return localizer
+    }()
+    
+    // MARK: - Events
+    
+    private func didSelectExportCSV() {
+        selectExportCsv?()
+    }
+    
+    // MARK: - Content
+    
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
         setTableViewContent()
@@ -147,7 +145,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         defaultCurrencyCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectCurrency()
+            guard let selectCurrency = self.selectCurrency else { return }
+            selectCurrency()
         }
         cellControllers.append(defaultCurrencyCellController)
         
@@ -161,7 +160,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         languageCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectLanguage()
+            guard let selectLanguage = self.selectLanguage else { return }
+            selectLanguage()
         }
         cellControllers.append(languageCellController)
         
@@ -175,9 +175,25 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         appearanceCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectAppearance()
+            guard let selectAppearance = self.selectAppearance else { return }
+            selectAppearance()
         }
         cellControllers.append(appearanceCellController)
+        
+        let totalAmountViewCellController = createTitleValueTableViewCellController()
+        totalAmountViewCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
+            guard let self = self else { return UITableViewCell() }
+            let cell = self.screenView.titleValueTableViewCell(indexPath)
+            cell.titleLabel.text = self.localizer.localizeText("totalAmountView")
+            cell.valueLabel.text = self.totalAmountViewSettingNameLocalizer.name(self.totalAmountViewSetting)
+            return cell
+        }
+        totalAmountViewCellController.didSelectClosure = { [weak self] in
+            guard let self = self else { return }
+            guard let selectTotalAmountView = self.selectTotalAmountView else { return }
+            selectTotalAmountView()
+        }
+        cellControllers.append(totalAmountViewCellController)
         
         let accountsCellController = createTitleTableViewCellController()
         accountsCellController.cellForRowAtIndexPathClosure = { [weak self] indexPath in
@@ -188,7 +204,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         accountsCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectAccounts()
+            guard let selectAccounts = self.selectAccounts else { return }
+            selectAccounts()
         }
         cellControllers.append(accountsCellController)
         
@@ -201,7 +218,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         categoriesCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectCategories()
+            guard let selectCategories = self.selectCategories else { return }
+            selectCategories()
         }
         cellControllers.append(categoriesCellController)
         
@@ -214,7 +232,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         templatesCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectTemplates()
+            guard let selectTemplates = self.selectTemplates else { return }
+            selectTemplates()
         }
         cellControllers.append(templatesCellController)
         
@@ -227,7 +246,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         importCSVCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectImportCSV()
+            guard let selectImportCsv = self.selectImportCsv else { return }
+            selectImportCsv()
         }
         cellControllers.append(importCSVCellController)
         
@@ -240,7 +260,8 @@ final class SettingsScreenViewController: StatusBarScreenViewController {
         }
         exportCSVCellController.didSelectClosure = { [weak self] in
             guard let self = self else { return }
-            self.didSelectExportCSV()
+            guard let selectExportCsv = self.selectExportCsv else { return }
+            selectExportCsv()
         }
         cellControllers.append(exportCSVCellController)
         

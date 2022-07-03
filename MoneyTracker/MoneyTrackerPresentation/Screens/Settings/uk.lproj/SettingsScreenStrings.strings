@@ -3,6 +3,7 @@
 "defaultCurrency" = "Валюта за замовчуванням";
 "language" = "Мова";
 "appearance" = "Вигляд";
+"totalAmountView" = "Total amount view";
 "accounts" = "Аккаунти";
 "templates" = "Шаблони";
 "importCSV" = "Імортувати з CSV";

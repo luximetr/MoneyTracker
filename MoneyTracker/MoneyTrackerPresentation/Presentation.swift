@@ -33,7 +33,7 @@ public final class Presentation: AUIWindowPresentation {
         self.appearanceSetting = appearanceSetting
         let appearance: Appearance = appearance(appearanceSetting)
         setAppearance(appearance)
-        settingsScreenViewController?.changeAppearanceSetting(appearanceSetting)
+        settingsScreenViewController?.setAppearanceSetting(appearanceSetting)
     }
     
     private static func appearance(_ appearanceSetting: AppearanceSetting, window: UIWindow) -> Appearance {
@@ -146,7 +146,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.dashboard()
+        menuViewController.settings()//dashboard()
     }
     
     // MARK: - Menu Navigation Controller
@@ -903,8 +903,8 @@ public final class Presentation: AUIWindowPresentation {
     private weak var settingsScreenViewController: SettingsScreenViewController?
     private func createSettingsScreenViewController() -> SettingsScreenViewController {
         let defaultCurrency = try! delegate.presentationSelectedCurrency(self)
-        let viewController = SettingsScreenViewController(appearance: appearance, locale: locale, defaultCurrency: defaultCurrency, appearanceSetting: self.appearanceSetting)
-        viewController.didSelectCategoriesClosure = { [weak self] in
+        let viewController = SettingsScreenViewController(appearance: appearance, locale: locale, calendar: calendar, defaultCurrency: defaultCurrency, appearanceSetting: self.appearanceSetting, totalAmountViewSetting: .basicCurrency)
+        viewController.selectCategories = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
@@ -913,7 +913,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.didSelectCurrencyClosure = { [weak self] in
+        viewController.selectCurrency = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
@@ -922,7 +922,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.didSelectLanguageClosure = { [weak self] in
+        viewController.selectLanguage = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
@@ -931,7 +931,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.didSelectAppearanceClosure = { [weak self] in
+        viewController.selectAppearance = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
@@ -940,7 +940,16 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.didSelectAccountsClosure = { [weak self] in
+        viewController.selectTotalAmountView = { [weak self] in
+            guard let self = self else { return }
+            guard let menuNavigationController = self.menuNavigationController else { return }
+            do {
+                try self.pushSelectAppearanceViewController(menuNavigationController)
+            } catch {
+                self.presentUnexpectedErrorAlertScreen(error)
+            }
+        }
+        viewController.selectAccounts = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
@@ -949,7 +958,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.didSelectTemplatesClosure = { [weak self] in
+        viewController.selectTemplates = { [weak self] in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
@@ -959,12 +968,12 @@ public final class Presentation: AUIWindowPresentation {
                 
             }
         }
-        viewController.didSelectImportCSVClosure = { [weak self] in
+        viewController.selectImportCsv = { [weak self] in
             guard let self = self else { return }
             let viewController = self.createImportCSVScreen()
             self.menuNavigationController?.present(viewController, animated: true)
         }
-        viewController.didSelectExportCSVClosure = { [weak self] in
+        viewController.selectExportCsv = { [weak self] in
             guard let self = self else { return }
             do {
                 let url = try self.delegate.presentationDidStartExpensesCSVExport(self)
@@ -980,7 +989,7 @@ public final class Presentation: AUIWindowPresentation {
     // MARK: - Currency
     
     public func showDefaultCurrencyChanged(_ currency: Currency) {
-        settingsScreenViewController?.changeDefaultCurrency(currency)
+        settingsScreenViewController?.setDefaultCurrency(currency)
     }
     
     // MARK: - Select Currency View Controller

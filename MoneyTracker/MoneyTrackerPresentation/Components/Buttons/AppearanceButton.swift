@@ -21,7 +21,7 @@ class AppearanceButton: AUIButton {
     
     var appearance: Appearance
     
-    func changeAppearance(_ appearance: Appearance) {
+    func setAppearance(_ appearance: Appearance) {
         self.appearance = appearance
     }
     

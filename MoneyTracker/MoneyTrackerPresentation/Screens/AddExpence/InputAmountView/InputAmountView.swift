@@ -343,23 +343,23 @@ final class InputAmountView: AppearanceView {
         placeholderLabel.textColor = appearance.colors.secondaryText
         inputLabel.textColor = appearance.colors.primaryText
         separatorView.backgroundColor = appearance.colors.tertiaryBackground
-        deleteKeyButton.changeAppearance(appearance)
-        sevenKeyButton.changeAppearance(appearance)
-        eightKeyButton.changeAppearance(appearance)
-        nineKeyButton.changeAppearance(appearance)
-        divisionKeyButton.changeAppearance(appearance)
-        fourKeyButton.changeAppearance(appearance)
-        fiveKeyButton.changeAppearance(appearance)
-        sixKeyButton.changeAppearance(appearance)
-        multiplicationKeyButton.changeAppearance(appearance)
-        oneKeyButton.changeAppearance(appearance)
-        twoKeyButton.changeAppearance(appearance)
-        threeKeyButton.changeAppearance(appearance)
-        subtractionKeyButton.changeAppearance(appearance)
-        decimalSeparatorKeyButton.changeAppearance(appearance)
-        zeroKeyButton.changeAppearance(appearance)
-        calculateKeyButton.changeAppearance(appearance)
-        additionKeyButton.changeAppearance(appearance)
+        deleteKeyButton.setAppearance(appearance)
+        sevenKeyButton.setAppearance(appearance)
+        eightKeyButton.setAppearance(appearance)
+        nineKeyButton.setAppearance(appearance)
+        divisionKeyButton.setAppearance(appearance)
+        fourKeyButton.setAppearance(appearance)
+        fiveKeyButton.setAppearance(appearance)
+        sixKeyButton.setAppearance(appearance)
+        multiplicationKeyButton.setAppearance(appearance)
+        oneKeyButton.setAppearance(appearance)
+        twoKeyButton.setAppearance(appearance)
+        threeKeyButton.setAppearance(appearance)
+        subtractionKeyButton.setAppearance(appearance)
+        decimalSeparatorKeyButton.setAppearance(appearance)
+        zeroKeyButton.setAppearance(appearance)
+        calculateKeyButton.setAppearance(appearance)
+        additionKeyButton.setAppearance(appearance)
     }
     
 }
@@ -372,7 +372,7 @@ final class KeyButton: AppearanceButton {
     override func setup() {
         super.setup()
         titleLabel?.font = appearance.fonts.primary(size: 20, weight: .regular)
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     // MARK: States
@@ -392,8 +392,8 @@ final class KeyButton: AppearanceButton {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         setTitleColor(appearance.colors.primaryText, for: .normal)
     }
     
@@ -406,7 +406,7 @@ final class OperationKeyButton: AppearanceButton {
     override func setup() {
         super.setup()
         titleLabel?.font = appearance.fonts.primary(size: 20, weight: .regular)
-        changeAppearance(appearance)
+        setAppearance(appearance)
     }
     
     // MARK: States
@@ -426,8 +426,8 @@ final class OperationKeyButton: AppearanceButton {
     
     // MARK: - Appearance
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         setTitleColor(appearance.colors.tertiaryText, for: .normal)
     }
     

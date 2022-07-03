@@ -3,6 +3,7 @@
 "defaultCurrency" = "Default currency";
 "language" = "Language";
 "appearance" = "Appearance";
+"totalAmountView" = "Total amount view";
 "accounts" = "Accounts";
 "templates" = "Templates";
 "importCSV" = "Import from CSV";

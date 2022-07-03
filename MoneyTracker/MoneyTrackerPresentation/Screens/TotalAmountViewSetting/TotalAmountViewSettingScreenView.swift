@@ -1,19 +1,23 @@
 //
-//  SelectAppearanceScreenView.swift
+//  TotalAmountViewSettingScreenView.swift
 //  MoneyTrackerPresentation
 //
-//  Created by Job Ihor Myroniuk on 20.04.2022.
+//  Created by Job Ihor Myroniuk on 03.07.2022.
 //
 
 import UIKit
 import AUIKit
 
-extension SelectAppearanceScreenViewController {
+extension TotalAmountViewSettingScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Subviews
     
     let tableView = UITableView()
+    private var languageTableViewCells: [TotalAmountViewSettingTableViewCell]? {
+        let languageTableViewCells = tableView.visibleCells.compactMap({ $0 as? TotalAmountViewSettingTableViewCell })
+        return languageTableViewCells
+    }
     
     // MARK: - Setup
     
@@ -31,7 +35,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     private let appearanceSettingTableViewCellReuseIdentifier = "appearanceSettingTableViewCellReuseIdentifier"
     private func setupAppearanceSettingTableViewCell() {
-        tableView.register(AppearanceSettingTableViewCell.self, forCellReuseIdentifier: appearanceSettingTableViewCellReuseIdentifier)
+        tableView.register(TotalAmountViewSettingTableViewCell.self, forCellReuseIdentifier: appearanceSettingTableViewCellReuseIdentifier)
     }
     
     // MARK: Layout
@@ -53,8 +57,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - AppearanceSettingTableViewCell
     
-    func appearanceSettingTableViewCell(_ indexPath: IndexPath) -> AppearanceSettingTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: appearanceSettingTableViewCellReuseIdentifier, for: indexPath) as! AppearanceSettingTableViewCell
+    func appearanceSettingTableViewCell(_ indexPath: IndexPath) -> TotalAmountViewSettingTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: appearanceSettingTableViewCellReuseIdentifier, for: indexPath) as! TotalAmountViewSettingTableViewCell
         return cell
     }
     
