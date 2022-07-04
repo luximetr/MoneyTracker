@@ -8,7 +8,7 @@
 import UIKit
 import AUIKit
 
-extension TotalAmountViewSettingScreenViewController {
+extension TotalAmountViewSettingsScreenViewController {
 final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Subviews

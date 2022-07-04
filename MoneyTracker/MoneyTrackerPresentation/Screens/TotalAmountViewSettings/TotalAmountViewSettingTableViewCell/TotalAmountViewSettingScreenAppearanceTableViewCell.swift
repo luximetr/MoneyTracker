@@ -9,12 +9,13 @@ import UIKit
 import AUIKit
 import PinLayout
 
-extension TotalAmountViewSettingScreenViewController {
+extension TotalAmountViewSettingsScreenViewController {
 final class TotalAmountViewSettingTableViewCell: AppearanceTableViewCell {
 
     // MARK: - Subviews
     
     let nameLabel = UILabel()
+    let exampleLabel = UILabel()
     private let separatorView = UIView()
     
     // MARK: - Setup
@@ -23,11 +24,18 @@ final class TotalAmountViewSettingTableViewCell: AppearanceTableViewCell {
         super.setup()
         selectionStyle = .none
         contentView.addSubview(nameLabel)
+        contentView.addSubview(exampleLabel)
         contentView.addSubview(separatorView)
     }
     
     private func setupNameLabel(appearance: Appearance) {
+        nameLabel.font = appearance.fonts.primary(size: 17, weight: .regular)
         nameLabel.textColor = appearance.colors.primaryText
+    }
+    
+    private func setupExampleLabel(appearance: Appearance) {
+        exampleLabel.font = appearance.fonts.primary(size: 13, weight: .regular)
+        exampleLabel.textColor = appearance.colors.secondaryText
     }
     
     private func setupSeparatorView(appearance: Appearance) {
@@ -39,16 +47,26 @@ final class TotalAmountViewSettingTableViewCell: AppearanceTableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         layoutNameLabel()
+        layoutExampleLabel()
         layoutSeparatorView()
     }
     
     private func layoutNameLabel() {
         let x: CGFloat = 20
-        let y: CGFloat = 0
+        let y: CGFloat = 13
         let width = bounds.width - 2 * x
-        let height = bounds.height - 1
+        let height: CGFloat = 20
         let frame = CGRect(x: x, y: y, width: width, height: height)
         nameLabel.frame = frame
+    }
+    
+    private func layoutExampleLabel() {
+        let x: CGFloat = 20
+        let height: CGFloat = 16
+        let y: CGFloat = 38
+        let width = bounds.width - 2 * x
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        exampleLabel.frame = frame
     }
     
     private func layoutSeparatorView() {
@@ -66,8 +84,10 @@ final class TotalAmountViewSettingTableViewCell: AppearanceTableViewCell {
         super.setHighlighted(highlighted, animated: animated)
         if highlighted {
             nameLabel.alpha = 0.6
+            exampleLabel.alpha = 0.6
         } else {
             nameLabel.alpha = 1
+            exampleLabel.alpha = 1
         }
     }
     
@@ -96,6 +116,7 @@ final class TotalAmountViewSettingTableViewCell: AppearanceTableViewCell {
         super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         setupNameLabel(appearance: appearance)
+        setupExampleLabel(appearance: appearance)
         setupSeparatorView(appearance: appearance)
     }
 

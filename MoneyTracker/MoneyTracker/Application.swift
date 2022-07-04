@@ -815,6 +815,19 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    func presentation(_ presentation: Presentation, selectTotalAmountViewSetting presentationTotalAmountViewSetting: PresentationTotalAmountViewSetting) throws {
+        let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(presentationTotalAmountViewSetting)
+        let storageTotalAmountViewSetting = TotalAmountViewSettingMapper.mapToStorageTotalAmountViewSetting(totalAmountViewSetting)
+        storage.saveTotalAmountViewSetting(storageTotalAmountViewSetting)
+    }
+    
+    func presentationTotalAmountViewSetting(_ presentation: Presentation) throws -> PresentationTotalAmountViewSetting {
+        let storageTotalAmountViewSetting = try storage.getTotalAmountViewSetting() ?? .basicCurrency
+        let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
+        let presentationTotalAmountViewSetting = TotalAmountViewSettingMapper.mapToPresentationTotalAmountViewSetting(totalAmountViewSetting)
+        return presentationTotalAmountViewSetting
+    }
+    
     // MARK: Error
     
     private func showError(_ error: Swift.Error) {

@@ -74,10 +74,6 @@ final class SelectAppearanceScreenViewController: StatusBarScreenViewController 
             let selectedCellController = appearanceSettingTableViewCellController(appearanceType)
             selectedCellController?.setIsSelected(true)
             selectedAppearanceSetting = appearanceType
-            localizer.setLocale(locale)
-            appearanceTypeNameLocalizer.changeLocale(locale)
-            setContent()
-            tableViewController.reload()
         } catch { }
     }
     

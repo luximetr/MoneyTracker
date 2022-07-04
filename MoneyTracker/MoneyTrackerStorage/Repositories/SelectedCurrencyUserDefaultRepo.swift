@@ -96,3 +96,33 @@ class SelectedAppearanceSettingUserDefaultRepo {
     }
     
 }
+
+class TotalAmountViewSettingUserDefaultRepo {
+    
+    // MARK: - Dependencies
+    
+    private let userDefautlsAccessor: UserDefaultsAccessor
+    private let key = "totalAmountViewSetting"
+    
+    // MARK: - Life cycle
+    
+    init(userDefautlsAccessor: UserDefaultsAccessor) {
+        self.userDefautlsAccessor = userDefautlsAccessor
+    }
+    
+    // MARK: - Save
+    
+    func save(totalAmountViewSetting: TotalAmountViewSetting) {
+        userDefautlsAccessor.userDefaults.set(totalAmountViewSetting.rawValue, forKey: key)
+    }
+    
+    // MARK: - Fetch
+    
+    func fetch() throws -> TotalAmountViewSetting? {
+        guard let rawValue = userDefautlsAccessor.userDefaults.string(forKey: key) else {
+            return nil
+        }
+        return TotalAmountViewSetting(rawValue: rawValue)
+    }
+    
+}

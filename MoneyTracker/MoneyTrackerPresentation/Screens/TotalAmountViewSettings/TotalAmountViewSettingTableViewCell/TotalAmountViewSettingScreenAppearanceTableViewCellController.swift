@@ -8,22 +8,24 @@
 import UIKit
 import AUIKit
 
-extension TotalAmountViewSettingScreenViewController {
+extension TotalAmountViewSettingsScreenViewController {
 final class TotalAmountViewSettingTableViewCellController: AUIClosuresTableViewCellController {
     
     // MARK: - Data
     
     private(set) var appearance: Appearance
-    let appearanceSetting: TotalAmountViewSetting
+    let totalAmountViewSetting: TotalAmountViewSetting
+    let example: String
     var isSelected: Bool = false
     
     // MARK: - Initializer
     
-    init(appearance: Appearance, appearanceSetting: TotalAmountViewSetting, isSelected: Bool, appearanceTypeNameLocalizer: TotalAmountViewSettingNameLocalizer) {
+    init(appearance: Appearance, totalAmountViewSetting: TotalAmountViewSetting, example: String, isSelected: Bool, totalAmountViewSettingNameLocalizer: TotalAmountViewSettingNameLocalizer) {
         self.appearance = appearance
-        self.appearanceSetting = appearanceSetting
+        self.totalAmountViewSetting = totalAmountViewSetting
+        self.example = example
         self.isSelected = isSelected
-        self.appearanceTypeNameLocalizer = appearanceTypeNameLocalizer
+        self.totalAmountViewSettingNameLocalizer = totalAmountViewSettingNameLocalizer
     }
     
     // MARK: - LanguageTableViewCell
@@ -48,10 +50,11 @@ final class TotalAmountViewSettingTableViewCellController: AUIClosuresTableViewC
         
     // MARK: - Content
     
-    private let appearanceTypeNameLocalizer: TotalAmountViewSettingNameLocalizer
+    private let totalAmountViewSettingNameLocalizer: TotalAmountViewSettingNameLocalizer
     
     private func setContent() {
-        appearanceSettingTableViewCell?.nameLabel.text = appearanceTypeNameLocalizer.name(appearanceSetting)
+        appearanceSettingTableViewCell?.nameLabel.text = totalAmountViewSettingNameLocalizer.name(totalAmountViewSetting)
+        appearanceSettingTableViewCell?.exampleLabel.text = example
     }
     
     // MARK: - Appearance

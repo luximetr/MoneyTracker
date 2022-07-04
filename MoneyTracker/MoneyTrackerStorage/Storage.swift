@@ -553,6 +553,22 @@ public class Storage {
         return SelectedAppearanceSettingUserDefaultRepo(userDefautlsAccessor: userDefautlsAccessor)
     }
     
+    // MARK: - Selected TotalAmountViewSetting
+    
+    public func saveTotalAmountViewSetting(_ totalAmountViewSetting: TotalAmountViewSetting) {
+        let repo = createTotalAmountViewSettingRepo()
+        repo.save(totalAmountViewSetting: totalAmountViewSetting)
+    }
+    
+    public func getTotalAmountViewSetting() throws -> TotalAmountViewSetting? {
+        let repo = createTotalAmountViewSettingRepo()
+        return try repo.fetch()
+    }
+    
+    private func createTotalAmountViewSettingRepo() -> TotalAmountViewSettingUserDefaultRepo {
+        return TotalAmountViewSettingUserDefaultRepo(userDefautlsAccessor: userDefautlsAccessor)
+    }
+    
     // MARK: - Expenses
     
     @discardableResult
