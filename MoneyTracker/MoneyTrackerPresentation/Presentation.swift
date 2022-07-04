@@ -108,11 +108,11 @@ public final class Presentation: AUIWindowPresentation {
         }
     }
     
-    // MARK: - Locale
+    // MARK: - Localization
     
     private var locale: Locale
     
-    func changeLocale(_ locale: Locale) {
+    private func setLocale(_ locale: Locale) {
         self.locale = locale
         menuScreenViewController?.setLocale(locale)
         dashboardViewController?.setLocale(locale)
@@ -146,7 +146,7 @@ public final class Presentation: AUIWindowPresentation {
         self.menuNavigationController = menuNavigationController
         self.menuScreenViewController = menuViewController
         window.rootViewController = menuNavigationController
-        menuViewController.settings()//dashboard()
+        menuViewController.dashboard()
     }
     
     // MARK: - Menu Navigation Controller
@@ -1060,7 +1060,7 @@ public final class Presentation: AUIWindowPresentation {
                 do {
                     try self.delegate.presentation(self, selectLanguage: language)
                     let locale = Locale(language: language, scriptCode: self.locale.scriptCode, regionCode: self.locale.regionCode)
-                    self.changeLocale(locale)
+                    self.setLocale(locale)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                     throw error
@@ -1097,7 +1097,7 @@ public final class Presentation: AUIWindowPresentation {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    // MARK: - Select Appearance View Controller
+    // MARK: - TotalAmountViewSettingViewController
     
     private weak var pushedTotalAmountViewSettingViewController: TotalAmountViewSettingsScreenViewController?
     private func pushTotalAmountViewSettingViewController(_ navigationController: UINavigationController) throws {
@@ -1112,6 +1112,7 @@ public final class Presentation: AUIWindowPresentation {
                 guard let self = self else { return }
                 do {
                     try self.delegate.presentation(self, selectTotalAmountViewSetting: totalAmountViewSetting)
+                    self.settingsScreenViewController?.setTotalAmountViewSetting(totalAmountViewSetting)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
                     throw error

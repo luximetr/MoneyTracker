@@ -328,7 +328,9 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
             let currencyAmounts = currenciesExpense.map({ CurrencyAmount(currency: CurrencyMapper.mapToCurrency($0.key), amount: $0.value) })
             var currenciesAmounts = CurrenciesAmount(currenciesAmount: Set(currencyAmounts))
-            if let exchangeRates = exchangeRates {
+            let storageTotalAmountViewSetting = (try? self.storage.getTotalAmountViewSetting()) ?? .basicCurrency
+            let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
+            if let exchangeRates = exchangeRates, totalAmountViewSetting == .basicCurrency {
                 currenciesAmounts = self.calculateCurrenciesAmount(currenciesAmounts, basicCurrency: self.basicCurrency, exchangeRates: exchangeRates)
             }
             let presentationCurrenciesAmount = CurrenciesAmountMapper.mapToPresentationCurrenciesAmount(currenciesAmounts)
@@ -364,116 +366,138 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationMonthExpenses(_ presentation: Presentation, month: Date, completionHandler: @escaping (Result<CategoriesMonthExpenses, Swift.Error>) -> Void) {
-        func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
-            do {
-                let startDate = month.startOfMonth
-                let endDate = month.endOfMonth
-                let storageExpenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
-                let expenseAdapter = ExpenseAdapter(storage: storage)
-                let presentationExpenses: [PresentationExpense] = try storageExpenses.map { storageExpense in
-                    let presentationExpense = try expenseAdapter.adaptToPresentation(storageExpense: storageExpense)
-                    return presentationExpense
-                }
-                let categoriesExpenses = Dictionary(grouping: presentationExpenses) { $0.category }
-                var categoriesMonthExpenses: [CategoryMonthExpenses] = []
-                var allCurrenciesAmounts: [PresentationCurrency: Decimal] = [:]
-                for (category, expenses) in categoriesExpenses {
-                    var currenciesMoneyAmount: [PresentationCurrencyAmount] = []
-                    var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
-                    for expense in expenses {
-                        if let exchangeRates = exchangeRates {
-                            let currency = expense.account.currency
-                            let currency2 = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(currency)
-                            let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
-                            let exchangeRate = exchangeRates[currency2]
-                            let amount = expense.amount / exchangeRate
-                            let currencyAmount = (currenciesAmounts[presentationBasicCurrency] ?? .zero) + amount
-                            currenciesAmounts[presentationBasicCurrency] = currencyAmount
-                            allCurrenciesAmounts[presentationBasicCurrency] = (allCurrenciesAmounts[presentationBasicCurrency] ?? Decimal()) + amount
-                        } else {
-                            let currency = expense.account.currency
-                            let amount = expense.amount
-                            let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
-                            currenciesAmounts[currency] = currencyAmount
-                            allCurrenciesAmounts[currency] = (allCurrenciesAmounts[currency] ?? Decimal()) + amount
+        do {
+            let storageTotalAmountViewSetting = try storage.getTotalAmountViewSetting() ?? .basicCurrency
+            let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
+            func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
+                do {
+                    let startDate = month.startOfMonth
+                    let endDate = month.endOfMonth
+                    let storageExpenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
+                    let expenseAdapter = ExpenseAdapter(storage: storage)
+                    let presentationExpenses: [PresentationExpense] = try storageExpenses.map { storageExpense in
+                        let presentationExpense = try expenseAdapter.adaptToPresentation(storageExpense: storageExpense)
+                        return presentationExpense
+                    }
+                    let categoriesExpenses = Dictionary(grouping: presentationExpenses) { $0.category }
+                    var categoriesMonthExpenses: [CategoryMonthExpenses] = []
+                    var allCurrenciesAmounts: [PresentationCurrency: Decimal] = [:]
+                    for (category, expenses) in categoriesExpenses {
+                        var currenciesMoneyAmount: [PresentationCurrencyAmount] = []
+                        var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
+                        for expense in expenses {
+                            if let exchangeRates = exchangeRates {
+                                let currency = expense.account.currency
+                                let currency2 = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(currency)
+                                let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
+                                let exchangeRate = exchangeRates[currency2]
+                                let amount = expense.amount / exchangeRate
+                                let currencyAmount = (currenciesAmounts[presentationBasicCurrency] ?? .zero) + amount
+                                currenciesAmounts[presentationBasicCurrency] = currencyAmount
+                                allCurrenciesAmounts[presentationBasicCurrency] = (allCurrenciesAmounts[presentationBasicCurrency] ?? Decimal()) + amount
+                            } else {
+                                let currency = expense.account.currency
+                                let amount = expense.amount
+                                let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+                                currenciesAmounts[currency] = currencyAmount
+                                allCurrenciesAmounts[currency] = (allCurrenciesAmounts[currency] ?? Decimal()) + amount
+                            }
                         }
+                        
+                        for (key, value) in currenciesAmounts {
+                            let currencyMoneyAmount = PresentationCurrencyAmount(amount: value, currency: key)
+                            currenciesMoneyAmount.append(currencyMoneyAmount)
+                        }
+                        let moneyAmount = PresentationCurrenciesAmount(currenciesMoneyAmount: currenciesMoneyAmount)
+                        let categoryMonthExpenses = CategoryMonthExpenses(category: category, expenses: moneyAmount)
+                        categoriesMonthExpenses.append(categoryMonthExpenses)
                     }
-                    
-                    for (key, value) in currenciesAmounts {
-                        let currencyMoneyAmount = PresentationCurrencyAmount(amount: value, currency: key)
-                        currenciesMoneyAmount.append(currencyMoneyAmount)
-                    }
-                    let moneyAmount = PresentationCurrenciesAmount(currenciesMoneyAmount: currenciesMoneyAmount)
-                    let categoryMonthExpenses = CategoryMonthExpenses(category: category, expenses: moneyAmount)
-                    categoriesMonthExpenses.append(categoryMonthExpenses)
+                    let rr = allCurrenciesAmounts.map({ PresentationCurrencyAmount(amount: $1, currency: $0) })
+                    let bv = PresentationCurrenciesAmount(currenciesMoneyAmount: rr)
+                    let cme = CategoriesMonthExpenses(expenses: bv, categoriesMonthExpenses: categoriesMonthExpenses)
+                    completionHandler(.success(cme))
+                } catch {
+                    completionHandler(.failure(error))
                 }
-                let rr = allCurrenciesAmounts.map({ PresentationCurrencyAmount(amount: $1, currency: $0) })
-                let bv = PresentationCurrenciesAmount(currenciesMoneyAmount: rr)
-                let cme = CategoriesMonthExpenses(expenses: bv, categoriesMonthExpenses: categoriesMonthExpenses)
-                completionHandler(.success(cme))
-            } catch {
-                completionHandler(.failure(error))
             }
-        }
-        let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
-        let gg = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(presentationBasicCurrency)
-        self.network.latestCurrenciesCurrency(gg) { result in
-            switch result {
-            case .success(let response):
-                switch response {
-                case .parsedResponse(let parsedResponse):
-                    let exchangeRates = parsedResponse.exchangeRates
-                    ddd(exchangeRates: exchangeRates)
-                case .networkConnectionLost:
-                    ddd(exchangeRates: nil)
-                case .notConnectedToInternet:
-                    ddd(exchangeRates: nil)
+            switch totalAmountViewSetting {
+            case .basicCurrency:
+                let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
+                let gg = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(presentationBasicCurrency)
+                self.network.latestCurrenciesCurrency(gg) { result in
+                    switch result {
+                    case .success(let response):
+                        switch response {
+                        case .parsedResponse(let parsedResponse):
+                            let exchangeRates = parsedResponse.exchangeRates
+                            ddd(exchangeRates: exchangeRates)
+                        case .networkConnectionLost:
+                            ddd(exchangeRates: nil)
+                        case .notConnectedToInternet:
+                            ddd(exchangeRates: nil)
+                        }
+                    case .failure:
+                        ddd(exchangeRates: nil)
+                    }
                 }
-            case .failure:
+            case .originalCurrencies:
                 ddd(exchangeRates: nil)
             }
+        } catch {
+            completionHandler(.failure(error))
         }
     }
     
     func presentationBalance(_ presentation: Presentation, accounts: [PresentationBalanceAccount], completionHandler: @escaping (Result<PresentationCurrenciesAmount, Swift.Error>) -> Void) {
-        func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
-            var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
-            for account in accounts {
-                let currency = account.currency
-                let amount = account.amount
-                if let exchangeRates = exchangeRates {
-                    let currency2 = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(currency)
-                    let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
-                    let exchangeRate = exchangeRates[currency2]
-                    let amount = amount / exchangeRate
-                    let currencyAmount = (currenciesAmounts[presentationBasicCurrency] ?? .zero) + amount
-                    currenciesAmounts[presentationBasicCurrency] = currencyAmount
-                } else {
-                    let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
-                    currenciesAmounts[currency] = currencyAmount
+        do {
+            let storageTotalAmountViewSetting = try storage.getTotalAmountViewSetting() ?? .basicCurrency
+            let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
+            func ddd(exchangeRates: ApiVersion1ExchangeRates?) {
+                var currenciesAmounts: [PresentationCurrency: Decimal] = [:]
+                for account in accounts {
+                    let currency = account.currency
+                    let amount = account.amount
+                    if let exchangeRates = exchangeRates {
+                        let currency2 = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(currency)
+                        let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
+                        let exchangeRate = exchangeRates[currency2]
+                        let amount = amount / exchangeRate
+                        let currencyAmount = (currenciesAmounts[presentationBasicCurrency] ?? .zero) + amount
+                        currenciesAmounts[presentationBasicCurrency] = currencyAmount
+                    } else {
+                        let currencyAmount = (currenciesAmounts[currency] ?? .zero) + amount
+                        currenciesAmounts[currency] = currencyAmount
+                    }
                 }
+                let rr = currenciesAmounts.map({ PresentationCurrencyAmount(amount: $1, currency: $0) })
+                let bv = PresentationCurrenciesAmount(currenciesMoneyAmount: rr)
+                completionHandler(.success(bv))
             }
-            let rr = currenciesAmounts.map({ PresentationCurrencyAmount(amount: $1, currency: $0) })
-            let bv = PresentationCurrenciesAmount(currenciesMoneyAmount: rr)
-            completionHandler(.success(bv))
-        }
-        let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
-        let gg = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(presentationBasicCurrency)
-        self.network.latestCurrenciesCurrency(gg) { result in
-            switch result {
-            case .success(let response):
-                switch response {
-                case .parsedResponse(let parsedResponse):
-                    let exchangeRates = parsedResponse.exchangeRates
-                    ddd(exchangeRates: exchangeRates)
-                case .networkConnectionLost:
-                    ddd(exchangeRates: nil)
-                case .notConnectedToInternet:
-                    ddd(exchangeRates: nil)
+            switch totalAmountViewSetting {
+            case .basicCurrency:
+                let presentationBasicCurrency = CurrencyMapper.mapToPresentationCurrency(basicCurrency)
+                let fawazahmed0CurrencyApiVersionaBasicCurrency = CurrencyMapper.mapToFawazahmed0CurrencyApiVersionaCurrency(presentationBasicCurrency)
+                self.network.latestCurrenciesCurrency(fawazahmed0CurrencyApiVersionaBasicCurrency) { result in
+                    switch result {
+                    case .success(let response):
+                        switch response {
+                        case .parsedResponse(let parsedResponse):
+                            let exchangeRates = parsedResponse.exchangeRates
+                            ddd(exchangeRates: exchangeRates)
+                        case .networkConnectionLost:
+                            ddd(exchangeRates: nil)
+                        case .notConnectedToInternet:
+                            ddd(exchangeRates: nil)
+                        }
+                    case .failure:
+                        ddd(exchangeRates: nil)
+                    }
                 }
-            case .failure:
+            case .originalCurrencies:
                 ddd(exchangeRates: nil)
             }
+        } catch {
+            completionHandler(.failure(error))
         }
     }
     
@@ -724,7 +748,9 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
                     let currencyAmounts = currenciesExpense.map({ CurrencyAmount(currency: CurrencyMapper.mapToCurrency($0.key), amount: $0.value) })
                     var currenciesAmounts = CurrenciesAmount(currenciesAmount: Set(currencyAmounts))
-                    if let exchangeRates = exchangeRates {
+                    let storageTotalAmountViewSetting = try self.storage.getTotalAmountViewSetting() ?? .basicCurrency
+                    let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
+                    if let exchangeRates = exchangeRates, totalAmountViewSetting == .basicCurrency {
                         currenciesAmounts = self.calculateCurrenciesAmount(currenciesAmounts, basicCurrency: self.basicCurrency, exchangeRates: exchangeRates)
                     }
                     let presentationCurrenciesAmount = CurrenciesAmountMapper.mapToPresentationCurrenciesAmount(currenciesAmounts)
