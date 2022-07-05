@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class ApiVersion1CurrencyCodeMapper {
+enum ApiVersion1CurrencyCodeMapper {
     
-    func code(_ currency: ApiVersion1Currency) -> String {
+    static func mapToCode(_ currency: ApiVersion1Currency) -> String {
         switch currency {
         case .singaporeDollar: return "sgd"
         case .usDollar: return "usd"

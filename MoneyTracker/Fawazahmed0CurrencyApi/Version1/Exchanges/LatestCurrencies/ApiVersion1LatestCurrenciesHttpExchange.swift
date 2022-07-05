@@ -11,12 +11,10 @@ import AFoundation
 public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<ApiVersion1LatestCurrenciesRequestData, ApiVersion1LatestCurrenciesParsedResponse> {
     
     private let dateFormatter: DateFormatter
-    private let currencyCodeMapper: ApiVersion1CurrencyCodeMapper
     private let isMin: Bool
     
-    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesRequestData, dateFormatter: DateFormatter, isMin: Bool, currencyCodeMapper: ApiVersion1CurrencyCodeMapper) {
+    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesRequestData, dateFormatter: DateFormatter, isMin: Bool) {
         self.dateFormatter = dateFormatter
-        self.currencyCodeMapper = currencyCodeMapper
         self.isMin = isMin
         super.init(scheme: scheme, host: host, basePath: basePath, requestData: requestData)
     }
@@ -28,7 +26,7 @@ public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<Ap
         urlComponents.host = host
         var path = basePath
         path += "/latest/currencies"
-        let pathCurrencyCode = currencyCodeMapper.code(requestData.currency)
+        let pathCurrencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(requestData.currency)
         path += "/\(pathCurrencyCode)"
         if isMin {
             path += ".min"
@@ -53,19 +51,19 @@ public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<Ap
         let dateString = try jsonObject.string("date")
         let date = dateFormatter.date(from: dateString)!
         let currency = requestData.currency
-        let currencyCode = currencyCodeMapper.code(currency)
+        let currencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(currency)
         let currencyExchangeRatesJsonObject = try jsonObject.object(currencyCode)
-        let singaporeDollarCurrencyCode = currencyCodeMapper.code(.singaporeDollar)
+        let singaporeDollarCurrencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(.singaporeDollar)
         let singaporeDollarExchangeRate = try currencyExchangeRatesJsonObject.number(singaporeDollarCurrencyCode)
-        let usDollarCurrencyCode = currencyCodeMapper.code(.usDollar)
+        let usDollarCurrencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(.usDollar)
         let usDollarExchangeRate = try currencyExchangeRatesJsonObject.number(usDollarCurrencyCode)
-        let hryvniaCurrencyCode = currencyCodeMapper.code(.hryvnia)
+        let hryvniaCurrencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(.hryvnia)
         let hryvniaExchangeRate = try currencyExchangeRatesJsonObject.number(hryvniaCurrencyCode)
-        let turkishLiraCurrencyCode = currencyCodeMapper.code(.turkishLira)
+        let turkishLiraCurrencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(.turkishLira)
         let turkishLiraExchangeRate = try currencyExchangeRatesJsonObject.number(turkishLiraCurrencyCode)
-        let bahtCurrencyCode = currencyCodeMapper.code(.baht)
+        let bahtCurrencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(.baht)
         let bahtExchangeRate = try currencyExchangeRatesJsonObject.number(bahtCurrencyCode)
-        let euroCurrencyCode = currencyCodeMapper.code(.euro)
+        let euroCurrencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(.euro)
         let euroExchangeRate = try currencyExchangeRatesJsonObject.number(euroCurrencyCode)
         let exchangeRates = ApiVersion1ExchangeRates(singaporeDollar: singaporeDollarExchangeRate, usDollar: usDollarExchangeRate, hryvnia: hryvniaExchangeRate, turkishLira: turkishLiraExchangeRate, baht: bahtExchangeRate, euro: euroExchangeRate)
         let parsedResponse = ApiVersion1LatestCurrenciesParsedResponse(date: date, currency: currency, exchangeRates: exchangeRates)
