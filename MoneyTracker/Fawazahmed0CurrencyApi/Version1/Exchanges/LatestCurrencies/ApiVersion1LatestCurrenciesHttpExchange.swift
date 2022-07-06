@@ -10,11 +10,14 @@ import AFoundation
 
 public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<ApiVersion1LatestCurrenciesRequestData, ApiVersion1LatestCurrenciesParsedResponse> {
     
-    private let dateFormatter: DateFormatter
+    private static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter
+    }()
     private let isMin: Bool
     
-    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesRequestData, dateFormatter: DateFormatter, isMin: Bool) {
-        self.dateFormatter = dateFormatter
+    init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesRequestData, isMin: Bool) {
         self.isMin = isMin
         super.init(scheme: scheme, host: host, basePath: basePath, requestData: requestData)
     }
@@ -49,7 +52,7 @@ public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<Ap
         let jsonValue = try JsonSerialization.jsonValue(body)
         let jsonObject = try jsonValue.object()
         let dateString = try jsonObject.string("date")
-        let date = dateFormatter.date(from: dateString)!
+        let date = Self.dateFormatter.date(from: dateString)!
         let currency = requestData.currency
         let currencyCode = ApiVersion1CurrencyCodeMapper.mapToCode(currency)
         let currencyExchangeRatesJsonObject = try jsonObject.object(currencyCode)
