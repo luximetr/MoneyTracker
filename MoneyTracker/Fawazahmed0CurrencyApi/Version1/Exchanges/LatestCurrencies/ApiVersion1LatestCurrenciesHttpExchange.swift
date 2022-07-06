@@ -10,12 +10,12 @@ import AFoundation
 
 public class ApiVersion1LatestCurrenciesHttpExchange: ApiVersion1HttpExchange<ApiVersion1LatestCurrenciesRequestData, ApiVersion1LatestCurrenciesParsedResponse> {
     
+    private let isMin: Bool
     private static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter
     }()
-    private let isMin: Bool
     
     init(scheme: String, host: String, basePath: String, requestData: ApiVersion1LatestCurrenciesRequestData, isMin: Bool) {
         self.isMin = isMin
