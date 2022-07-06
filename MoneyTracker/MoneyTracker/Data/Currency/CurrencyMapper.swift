@@ -16,6 +16,28 @@ typealias Fawazahmed0CurrencyApiVersionaCurrency = Fawazahmed0CurrencyApi.ApiVer
 
 enum CurrencyMapper {
     
+    static func mapToCurrency(_ presentationCurrency: PresentationCurrency) -> Currency {
+        switch presentationCurrency {
+        case .singaporeDollar: return .singaporeDollar
+        case .usDollar: return .usDollar
+        case .hryvnia: return .hryvnia
+        case .turkishLira: return .turkishLira
+        case .baht: return .baht
+        case .euro: return .euro
+        }
+    }
+    
+    static func mapToCurrency(_ storageCurrency: StorageCurrency) -> Currency {
+        switch storageCurrency {
+        case .singaporeDollar: return .singaporeDollar
+        case .usDollar: return .usDollar
+        case .hryvnia: return .hryvnia
+        case .turkishLira: return .turkishLira
+        case .baht: return .baht
+        case .euro: return .euro
+        }
+    }
+    
     // MARK: - Presentation
     
     static func mapToPresentationCurrency(_ currency: Currency) -> PresentationCurrency {
@@ -40,17 +62,6 @@ enum CurrencyMapper {
         }
     }
     
-    static func mapToCurrency(_ presentationCurrency: PresentationCurrency) -> Currency {
-        switch presentationCurrency {
-        case .singaporeDollar: return .singaporeDollar
-        case .usDollar: return .usDollar
-        case .hryvnia: return .hryvnia
-        case .turkishLira: return .turkishLira
-        case .baht: return .baht
-        case .euro: return .euro
-        }
-    }
-    
     // MARK: - Storage
     
     static func mapToStorageCurrency(_ currency: Currency) -> StorageCurrency {
@@ -66,17 +77,6 @@ enum CurrencyMapper {
     
     static func mapToStorageCurrency(_ presentationCurrency: PresentationCurrency) -> StorageCurrency {
         switch presentationCurrency {
-        case .singaporeDollar: return .singaporeDollar
-        case .usDollar: return .usDollar
-        case .hryvnia: return .hryvnia
-        case .turkishLira: return .turkishLira
-        case .baht: return .baht
-        case .euro: return .euro
-        }
-    }
-    
-    static func mapToCurrency(_ storageCurrency: StorageCurrency) -> Currency {
-        switch storageCurrency {
         case .singaporeDollar: return .singaporeDollar
         case .usDollar: return .usDollar
         case .hryvnia: return .hryvnia
