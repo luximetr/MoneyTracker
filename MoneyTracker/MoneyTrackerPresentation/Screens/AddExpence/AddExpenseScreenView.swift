@@ -27,6 +27,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: - Subviews
     
     let inputDateView: InputDateView
+    private let inputDateBackgroundView = PassthroughView()
+    let inputDateLabel = UILabel()
     let dayExpensesLabel = UILabel()
     private let expensesTableViewContainerView = UIView()
     let expensesTableView = UITableView()
@@ -46,6 +48,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     override func setup() {
         super.setup()
         addSubview(inputDateView)
+        addSubview(inputDateBackgroundView)
+        addSubview(inputDateLabel)
+        setupInputDateLabel()
         addSubview(dayExpensesLabel)
         setupDayExpensesLabel()
         addSubview(expensesTableViewContainerView)
@@ -59,8 +64,13 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(inputAmountView)
         addSubview(selectCategoryView)
         addSubview(errorSnackbarView)
+        bringSubviewToFront(navigationBarView)
         autoLayout()
         setAppearance(appearance)
+    }
+    
+    private func setupInputDateLabel() {
+        inputDateLabel.font = appearance.fonts.primary(size: 14, weight: .regular)
     }
     
     private func setupDayExpensesLabel() {
@@ -106,11 +116,31 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutAddButton()
         layoutSelectCategoryView()
         layoutDayExpensesLabel()
+        layoutInputDateBackgroundView()
+        layoutInputDateLabel()
         layoutSelectAccountView()
         layoutCommentTextField()
         layoutExpensesTableViewContainerView()
         layoutExpenseTableView()
         layoutErrorSnackbarView()
+    }
+    
+    private func layoutInputDateBackgroundView() {
+        let width = bounds.width - 16 * 2
+        let height = CGFloat(50)
+        let x = CGFloat(16)
+        let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        inputDateBackgroundView.frame = frame
+    }
+    
+    private func layoutInputDateLabel() {
+        let width = (bounds.width - 16 * 2 - 10) * 0.3
+        let height = inputDateLabel.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
+        let x = CGFloat(16)
+        let y = navigationBarView.frame.origin.y + navigationBarView.frame.size.height + 17
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        inputDateLabel.frame = frame
     }
     
     private func layoutInputAmountView() {
@@ -218,6 +248,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.setAppearance(appearance)
         backgroundColor = appearance.colors.primaryBackground
         inputDateView.setAppearance(appearance)
+        inputDateBackgroundView.backgroundColor = appearance.colors.primaryBackground
+        inputDateLabel.textColor = appearance.colors.primaryText
         dayExpensesLabel.textColor = appearance.colors.primaryText
         expensesTableView.backgroundColor = appearance.colors.primaryBackground
         commentTextField.changeAppearance(appearance)
