@@ -50,7 +50,14 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     var deleteExpense: ((Expense) throws -> Void)?
     
+    private let selectedDayDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM, yyyy"
+        return formatter
+    }()
+    
     private func selectDay(_ day: Date) {
+        screenView.inputDateLabel.text = selectedDayDateFormatter.string(from: day)
         guard let loadDayExpenses = loadDayExpenses else { return }
         do {
             dayExpenses = try loadDayExpenses(day)
@@ -174,6 +181,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         setupTapGestureRecognizer()
         setupInputDateViewController()
         setupCommentTextFieldController()
+        screenView.inputDateLabel.text = selectedDayDateFormatter.string(from: inputDateViewController.selectedDay)
         inputAmountViewController.inputAmountView = screenView.inputAmountView
         inputAmountViewController.placeholder = "0"
         selectCategoryViewController.setCategories(categories)
