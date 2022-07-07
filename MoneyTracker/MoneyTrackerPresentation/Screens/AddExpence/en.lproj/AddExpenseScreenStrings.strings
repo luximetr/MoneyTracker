@@ -1,4 +1,5 @@
 "title" = "Add expense";
+"clear" = "Clear";
 "commentPlaceholder" = "Comment (optional)";
 "delete" = "Delete";
 "add" = "Done";

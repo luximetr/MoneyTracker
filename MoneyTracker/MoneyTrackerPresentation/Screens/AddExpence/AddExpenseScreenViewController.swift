@@ -170,6 +170,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        screenView.clearButton.addTarget(self, action: #selector(clearButtonTouchUpInsideEventAction), for: .touchUpInside)
         setupTapGestureRecognizer()
         setupInputDateViewController()
         setupCommentTextFieldController()
@@ -258,6 +259,10 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         back?()
     }
     
+    @objc private func clearButtonTouchUpInsideEventAction() {
+        
+    }
+    
     @objc func editButtonTouchUpInsideEventAction() {
         let date = inputDateViewController.selectedDay
         guard let amount = inputAmountViewController.amount else {
@@ -305,6 +310,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     private func setContent() {
         screenView.titleLabel.text = localizer.localizeText("title")
+        screenView.clearButton.setTitle(localizer.localizeText("clear"), for: .normal)
         commentTextFieldController.placeholder = localizer.localizeText("commentPlaceholder")
         screenView.addButton.setTitle(localizer.localizeText("add"), for: .normal)
     }

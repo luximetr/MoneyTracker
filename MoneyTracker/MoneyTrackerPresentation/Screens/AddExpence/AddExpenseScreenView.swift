@@ -14,6 +14,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: - Initializer
     
     init(appearance: Appearance) {
+        self.clearButton = TextButton(appearance: appearance)
         self.inputDateView = InputDateView(appearance: appearance)
         self.commentTextField = PlainTextField(appearance: appearance)
         self.addButton = TextFilledButton(appearance: appearance)
@@ -26,6 +27,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     // MARK: - Subviews
     
+    let clearButton: TextButton
     let inputDateView: InputDateView
     let dayExpensesLabel = UILabel()
     private let expensesTableViewContainerView = UIView()
@@ -45,6 +47,8 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func setup() {
         super.setup()
+        navigationBarView.addSubview(clearButton)
+        setupClearButton()
         addSubview(inputDateView)
         addSubview(dayExpensesLabel)
         setupDayExpensesLabel()
@@ -61,6 +65,11 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         addSubview(errorSnackbarView)
         autoLayout()
         setAppearance(appearance)
+    }
+    
+    private func setupClearButton() {
+        clearButton.titleLabel?.font = appearance.fonts.primary(size: 17, weight: .regular)
+        clearButton.setTitleColor(appearance.colors.accent, for: .normal)
     }
     
     private func setupDayExpensesLabel() {
@@ -102,6 +111,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutClearButton()
         layoutInputAmountView()
         layoutAddButton()
         layoutSelectCategoryView()
@@ -111,6 +121,16 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         layoutExpensesTableViewContainerView()
         layoutExpenseTableView()
         layoutErrorSnackbarView()
+    }
+    
+    private func layoutClearButton() {
+        var size = navigationBarView.bounds.size
+        size = clearButton.sizeThatFits(size)
+        let x = navigationBarView.bounds.width - size.width - 12
+        let y = (navigationBarView.frame.size.height - size.height) * 0.5
+        let origin = CGPoint(x: x, y: y)
+        let frame = CGRect(origin: origin, size: size)
+        clearButton.frame = frame
     }
     
     private func layoutInputAmountView() {
