@@ -105,9 +105,6 @@ final class AccountCollectionViewCell: AppearanceCollectionViewCell {
     
     override var isHighlighted: Bool {
         willSet {
-            accountViewX = 0
-            setNeedsLayout()
-            layoutIfNeeded()
             if newValue {
                 _accountView.alpha = 0.6
                 deleteButton.alpha = 0

@@ -122,8 +122,10 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
         let firstAccount = accounts.first
         fromAccountPickerController.setSelectedAccount(firstAccount)
         fromAmountInputController.labelController.text = firstAccount?.currency.rawValue
+        screenView.fromAmountInputView.placeholder = "0"
         toAccountPickerController.showOptions(accounts: accounts)
         toAccountPickerController.setSelectedAccount(firstAccount)
+        screenView.toAmountInputView.placeholder = "0"
         toAmountInputController.labelController.text = firstAccount?.currency.rawValue
         screenView.toAccountPickerLabel.text = localizer.localizeText("toAccount")
     }

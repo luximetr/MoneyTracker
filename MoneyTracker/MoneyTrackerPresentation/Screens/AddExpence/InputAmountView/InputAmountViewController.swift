@@ -66,6 +66,8 @@ final class InputAmountViewController: AUIEmptyViewController {
         isPlaceholderVisible = input.isEmpty
     }
     
+    let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
+    
     // MARK: InputAmountView
   
     var inputAmountView: InputAmountView? {
@@ -144,70 +146,87 @@ final class InputAmountViewController: AUIEmptyViewController {
     
     @objc func sevenKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("7")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func eightKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("8")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func nineKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("9")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func divisionKeyButtonTouchUpInsideEventAction() {
         tryToAddOperation("/")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func fourKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("4")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func fiveKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("5")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func sixKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("6")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func multiplicationKeyButtonTouchUpInsideEventAction() {
         tryToAddOperation("*")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func oneKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("1")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func twoKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("2")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func threeKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("3")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func subtractionKeyButtonTouchUpInsideEventAction() {
         tryToAddOperation("-")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func decimalSeparatorKeyButtonTouchUpInsideEventAction() {
         tryToAddDecimalSeparator()
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func zeroKeyButtonTouchUpInsideEventAction() {
         tryToAddDigitZero()
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func calculateKeyButtonTouchUpInsideEventAction() {
         tryToCalculate()
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func additionKeyButtonTouchUpInsideEventAction() {
         tryToAddOperation("+")
+        impactFeedbackGenerator.impactOccurred()
     }
     
     @objc func deleteKeyButtonTouchUpInsideEventAction() {
         tryToDelete()
+        impactFeedbackGenerator.impactOccurred()
     }
     
     // MARK: Content

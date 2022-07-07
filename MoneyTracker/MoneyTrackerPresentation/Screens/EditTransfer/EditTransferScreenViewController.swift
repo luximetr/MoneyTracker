@@ -132,6 +132,8 @@ final class EditTransferScreenViewController: StatusBarScreenViewController {
         fromAccountPickerController.setSelectedAccount(firstAccount)
         fromAmountInputController.labelController.text = firstAccount.currency.rawValue
         toAccountPickerController.showOptions(accounts: accounts)
+        screenView.fromAmountInputView.placeholder = "0"
+        screenView.toAmountInputView.placeholder = "0"
         let toAccount = transfer.toAccount
         toAccountPickerController.setSelectedAccount(toAccount)
         toAmountInputController.labelController.text = toAccount.currency.rawValue
