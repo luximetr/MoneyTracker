@@ -12,7 +12,16 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     
     // MARK: Data
     
-    private var dayExpenses: [Expense] = []
+    private var day: Date = Date().startOfDay
+    private var daysExpenses: [Date: [Expense]] = [:]
+    private var dayExpenses: [Expense] {
+        get {
+            return daysExpenses[day] ?? []
+        }
+        set {
+            daysExpenses[day] = newValue
+        }
+    }
     private var accounts: [Account]
     private var categories: [Category]
     private var selectedCategory: Category?
@@ -29,9 +38,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     var addExpense: ((AddingExpense) throws -> Expense)?
     
     var editExpense: ((Expense) throws -> Expense)?
-    
-    var loadDayExpenses: ((Date) throws -> [Expense])?
-    
+        
     var loadDayCurrenciesAmount: (([Expense], @escaping (Result<CurrenciesAmount?, Swift.Error>) -> Void) -> Void)?
     
     private func loadDayCurrenciesAmountSettingContent() {
@@ -57,16 +64,11 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     }()
     
     private func selectDay(_ day: Date) {
+        self.day = day.startOfDay
         screenView.inputDateLabel.text = selectedDayDateFormatter.string(from: day)
-        guard let loadDayExpenses = loadDayExpenses else { return }
-        do {
-            dayExpenses = try loadDayExpenses(day)
-            setExpensesTableViewControllerContent()
-            setDayExpensesContent()
-            loadDayCurrenciesAmountSettingContent()
-        } catch {
-            
-        }
+        setExpensesTableViewControllerContent()
+        setDayExpensesContent()
+        loadDayCurrenciesAmountSettingContent()
     }
 
     func addExpenseSettingContent(_ expense: Expense) {
@@ -135,6 +137,15 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
         
     }
     
+    func clear() {
+        dayCurrenciesAmount = nil
+        daysExpenses = [:]
+        setDayExpensesContent()
+        loadDayCurrenciesAmountSettingContent()
+        setExpensesTableViewControllerContent()
+        loadDayCurrenciesAmountSettingContent()
+    }
+    
     // MARK: Initialization
     
     init(appearance: Appearance, locale: Locale, calendar: Calendar, accounts: [Account], categories: [Category], selectedCategory: Category?) {
@@ -200,7 +211,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
             self.addAccount?()
         }
         setupExpensesTableViewController()
-        dayExpenses = (try? loadDayExpenses?(Date())) ?? []
+        dayExpenses = []
         setupErrorSnackbarViewController()
         setContent()
         setExpensesTableViewControllerContent()
@@ -268,7 +279,7 @@ final class AddExpenseScreenViewController: StatusBarScreenViewController, AUITe
     }
     
     @objc private func clearButtonTouchUpInsideEventAction() {
-        
+        clear()
     }
     
     @objc func editButtonTouchUpInsideEventAction() {

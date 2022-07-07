@@ -252,16 +252,6 @@ public final class Presentation: AUIWindowPresentation {
                 guard let navigationController = navigationController else { return }
                 navigationController.popViewController(animated: true)
             }
-            viewController.loadDayExpenses = { [weak self] day in
-                guard let self = self else { return [] }
-                do {
-                    let dayExpenses = try self.delegate.presentationDayExpenses(self, day: day)
-                    return dayExpenses
-                } catch {
-                    self.presentUnexpectedErrorAlertScreen(error)
-                    throw error
-                }
-            }
             viewController.loadDayCurrenciesAmount = { [weak self] expenses, completionHandler in
                 guard let self = self else { return }
                 self.delegate.presentationDayCurrenciesAmount(self, expense: expenses) { result in

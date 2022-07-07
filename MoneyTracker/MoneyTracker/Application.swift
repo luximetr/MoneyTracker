@@ -287,20 +287,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Expenses
     
-    func presentationDayExpenses(_ presentation: Presentation, day: Date) throws -> [PresentationExpense] {
-        do {
-            let startDate = day.startOfDay
-            let endDate = day.endOfDay
-            let expenses = try storage.getExpenses(startDate: startDate, endDate: endDate)
-            let presentationExpenses: [PresentationExpense] = try expenses.map { expense in
-                return try ExpenseAdapter(storage: storage).adaptToPresentation(storageExpense: expense)
-            }
-            return presentationExpenses.reversed()
-        } catch {
-            throw Error("Cannot get expenses for day \(day)(\n\(error)")
-        }
-    }
-    
     func presentationDayCurrenciesAmount(_ presentation: Presentation, expense: [PresentationExpense], completionHandler: @escaping (Result<PresentationCurrenciesAmount?, Swift.Error>) -> Void) {
         if expense.isEmpty {
             completionHandler(.success(nil))
