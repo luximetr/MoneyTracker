@@ -29,21 +29,26 @@ class SqliteDatabase: CustomDebugStringConvertible {
     // MARK: - Initializer
     
     init(database: URL) throws {
-        self.databaseConnection = try sqlite3Open(database.path)
-        self.categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
-        try categoryTable.createIfNotExists()
-        self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
-        try balanceAccountTable.createIfNotExists()
-        self.expenseTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
-        try expenseTable.createIfNotExists()
-        self.operationSqliteView = OperationSqliteView(databaseConnection: databaseConnection)
-        try operationSqliteView.createIfNotExists()
-        self.transferSqliteTable = TransferSqliteTable(databaseConnection: databaseConnection)
-        try transferSqliteTable.createIfNotExists()
-        self.replenishmentSqliteTable = ReplenishmentSqliteTable(databaseConnection: databaseConnection)
-        try replenishmentSqliteTable.createIfNotExists()
-        self.expenseTemplateTable = ExpenseTemplateSqliteTable(databaseConnection: databaseConnection)
-        try expenseTemplateTable.createIfNotExists()
+        do {
+            self.databaseConnection = try sqlite3Open(database.path)
+            self.categoryTable = CategorySqliteTable(databaseConnection: databaseConnection)
+            try categoryTable.createIfNotExists()
+            self.balanceAccountTable = BalanceAccountSqliteTable(databaseConnection: databaseConnection)
+            try balanceAccountTable.createIfNotExists()
+            self.expenseTable = ExpenseSqliteTable(databaseConnection: databaseConnection)
+            try expenseTable.createIfNotExists()
+            self.operationSqliteView = OperationSqliteView(databaseConnection: databaseConnection)
+            try operationSqliteView.createIfNotExists()
+            self.transferSqliteTable = TransferSqliteTable(databaseConnection: databaseConnection)
+            try transferSqliteTable.createIfNotExists()
+            self.replenishmentSqliteTable = ReplenishmentSqliteTable(databaseConnection: databaseConnection)
+            try replenishmentSqliteTable.createIfNotExists()
+            self.expenseTemplateTable = ExpenseTemplateSqliteTable(databaseConnection: databaseConnection)
+            try expenseTemplateTable.createIfNotExists()
+        } catch {
+            let error = Error("Can not initialize \(String(reflecting: SqliteDatabase.self))\n\(error)")
+            throw error
+        }
     }
     
     // MARK: - Transaction
