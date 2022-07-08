@@ -3,3 +3,7 @@
 "toAccount" = "До";
 "commentPlaceholder" = "Коментар (необов'язково)";
 "add" = "Готово";
+"emptyFromAccountErrorMessage" = "Рахунок 'від' не вибрано";
+"emptyToAccountErrorMessage" = "Рахунок 'до' не вибрано";
+"emptyFromAmountErrorMessage" = "Будь ласка, введіть дійсну суму 'від'";
+"emptyToAmountErrorMessage" = "Будь ласка, введіть дійсну суму 'до'";
