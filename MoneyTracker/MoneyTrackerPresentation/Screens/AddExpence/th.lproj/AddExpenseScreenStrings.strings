@@ -3,3 +3,6 @@
 "commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";
 "delete" = "ลบ";
 "add" = "เสร็จแล้ว";
+"invalidAmountErrorMessage" = "จำนวนเงินไม่สามารถเว้นว่างได้";
+"emptyCategoryErrorMessage" = "ไม่ได้เลือกหมวดหมู่";
+"emptyAccountErrorMessage" = "ไม่ได้เลือกบัญชี";
