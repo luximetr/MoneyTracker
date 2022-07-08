@@ -3,7 +3,7 @@
 "defaultCurrency" = "สกุลเงินเริ่มต้น";
 "language" = "ภาษา";
 "appearance" = "ลักษณะ";
-"totalAmountView" = "Total amount view";
+"totalAmountView" = "ยอดดูทั้งหมด";
 "accounts" = "บัญชี";
 "templates" = "แม่แบบ";
 "importCSV" = "นำเข้าจาก CSV";
