@@ -1,3 +1,5 @@
 "title" = "Створити категорію";
 "add" = "Створити";
 "colorPickerTitle" = "Колір";
+"emptyNameErrorMessage" = "Ім’я не може бути пустим";
+"emptyColorErrorMessage" = "Будь ласка, виберіть колір";
