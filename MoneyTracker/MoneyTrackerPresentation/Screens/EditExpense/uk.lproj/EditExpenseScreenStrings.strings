@@ -5,3 +5,6 @@
 "namePlaceholder" = "Ім'я";
 "amountPlaceholder" = "Сума";
 "commentPlaceholder" = "Коментар (необов'язково)";
+"emptyAccountErrorMessage" = "Рахунок не вибрано";
+"emptyCategoryErrorMessage" = "Категорія не вибрана";
+"invalidAmountErrorMessage" = "Будь ласка, введіть дійсну суму";

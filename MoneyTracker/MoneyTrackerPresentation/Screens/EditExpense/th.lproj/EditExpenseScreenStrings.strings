@@ -5,3 +5,6 @@
 "namePlaceholder" = "ชื่อ";
 "amountPlaceholder" = "จำนวน";
 "commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";
+"emptyAccountErrorMessage" = "ไม่ได้เลือกบัญชี";
+"emptyCategoryErrorMessage" = "ไม่ได้เลือกหมวดหมู่";
+"invalidAmountErrorMessage" = "กรุณากรอกจำนวนเงินที่ถูกต้อง";
