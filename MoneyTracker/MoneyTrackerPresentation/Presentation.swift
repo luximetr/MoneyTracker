@@ -118,6 +118,7 @@ public final class Presentation: AUIWindowPresentation {
         dashboardViewController?.setLocale(locale)
         settingsScreenViewController?.setLocale(locale)
         pushedSelectLanguageViewController?.setLocale(locale)
+        statisticMenuScreenViewController?.setLocale(locale)
     }
     
     // MARK: - Display

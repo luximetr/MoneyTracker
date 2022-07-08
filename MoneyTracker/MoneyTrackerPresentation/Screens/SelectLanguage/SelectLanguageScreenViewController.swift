@@ -76,7 +76,7 @@ final class SelectLanguageScreenViewController: StatusBarScreenViewController {
             selectedLanguage = language
             localizer.setLocale(locale)
             languageNameLocalizer.changeLocale(locale)
-            languageCodeLocalizer.changeLocale(locale)
+            languageCodeLocalizer.setLocale(locale)
             setContent()
             tableViewController.reload()
         } catch { }

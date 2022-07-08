@@ -13,7 +13,7 @@ final class TotalAmountViewSettingNameLocalizer {
     
     private var locale: Locale
     
-    func changeLocale(_ locale: Locale) {
+    func setLocale(_ locale: Locale) {
         self.locale = locale
         localizer.setLocale(locale)
     }

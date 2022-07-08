@@ -96,7 +96,7 @@ final class TotalAmountViewSettingsScreenViewController: StatusBarScreenViewCont
     override func setLocale(_ locale: Locale) {
         super.setLocale(locale)
         localizer.setLocale(locale)
-        totalAmountViewSettingNameLocalizer.changeLocale(locale)
+        totalAmountViewSettingNameLocalizer.setLocale(locale)
         setContent()
     }
     
