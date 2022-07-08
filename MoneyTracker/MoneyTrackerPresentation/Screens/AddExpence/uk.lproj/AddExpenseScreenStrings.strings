@@ -2,3 +2,6 @@
 "commentPlaceholder" = "Коментар (необов'язково)";
 "delete" = "Видалити";
 "add" = "Готово";
+"invalidAmountErrorMessage" = "Сума не може бути пустою";
+"emptyCategoryErrorMessage" = "Категорія не вибрана";
+"emptyAccountErrorMessage" = "Рахунок не вибрано";
