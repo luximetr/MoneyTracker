@@ -14,9 +14,9 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     // MARK: - Subviews
     
     let tableView = UITableView()
-    private var languageTableViewCells: [TotalAmountViewSettingTableViewCell]? {
-        let languageTableViewCells = tableView.visibleCells.compactMap({ $0 as? TotalAmountViewSettingTableViewCell })
-        return languageTableViewCells
+    private var totalAmountViewSettingTableViewCells: [TotalAmountViewSettingTableViewCell]? {
+        let totalAmountViewSettingTableViewCells = tableView.visibleCells.compactMap({ $0 as? TotalAmountViewSettingTableViewCell })
+        return totalAmountViewSettingTableViewCells
     }
     
     // MARK: - Setup
