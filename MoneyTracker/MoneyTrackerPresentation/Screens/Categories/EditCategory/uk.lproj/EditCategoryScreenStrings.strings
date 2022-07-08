@@ -1,3 +1,5 @@
 "title" = "Редагувати категорію";
 "save" = "Зберегти";
 "colorPickerTitle" = "Колір";
+"emptyNameErrorMessage" = "Ім’я не може бути пустим";
+"emptyColorErrorMessage" = "Будь ласка, виберіть колір";

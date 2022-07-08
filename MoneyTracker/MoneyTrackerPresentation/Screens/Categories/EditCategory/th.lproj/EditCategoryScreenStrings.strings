@@ -1,3 +1,5 @@
 "title" = "แก้ไขหมวดหมู่";
 "save" = "บันทึก";
 "colorPickerTitle" = "สี";
+"emptyNameErrorMessage" = "ชื่อไม่สามารถเว้นว่างได้";
+"emptyColorErrorMessage" = "กรุณาเลือกสี";
