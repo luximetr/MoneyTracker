@@ -2,3 +2,5 @@
 "account" = "จาก";
 "commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";
 "add" = "เสร็จแล้ว";
+"emptyAccountErrorMessage" = "ไม่ได้เลือกบัญชี";
+"invalidAmountErrorMessage" = "กรุณากรอกจำนวนเงินที่ถูกต้อง";

@@ -2,3 +2,5 @@
 "account" = "Від";
 "commentPlaceholder" = "Коментар (необов'язково)";
 "add" = "Готово";
+"emptyAccountErrorMessage" = "Рахунок не вибрано";
+"invalidAmountErrorMessage" = "Будь ласка, введіть дійсну суму";
