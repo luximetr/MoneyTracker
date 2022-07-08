@@ -35,6 +35,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     private var presentation: Presentation!
     
+    private var files: Files!
+    
     // MARK: - Initialization
     
     private func initialize() throws {
@@ -45,6 +47,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             try self.initializeBasicCurrency()
             self.initializeNetwork()
             try self.initializePresentation()
+            self.initializeFiles()
         } catch {
             throw Error("Cannot initialize \(String(reflecting: Self.self))")
         }
@@ -120,6 +123,11 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         }
     }
     
+    private func initializeFiles() {
+        let files = Files()
+        self.files = files
+    }
+    
     // MARK: - Events
     
     override func didFinishLaunching() {
@@ -131,13 +139,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             self.showError(error)
         }
     }
-        
-    // MARK: - Files
-    
-    private lazy var files: Files = {
-        let files = Files()
-        return files
-    }()
     
     // MARK: - Presentation
     
