@@ -3,3 +3,7 @@
 "toAccount" = "ถึง";
 "commentPlaceholder" = "ความคิดเห็น (ไม่บังคับ)";
 "add" = "เสร็จแล้ว";
+"emptyFromAccountErrorMessage" = "ไม่ได้เลือกบัญชี 'จาก'";
+"emptyToAccountErrorMessage" = "ไม่ได้เลือกบัญชี 'ถึง'";
+"emptyFromAmountErrorMessage" = "กรุณาใส่จำนวนเงินที่ถูกต้อง 'จาก'";
+"emptyToAmountErrorMessage" = "กรุณากรอกจำนวนเงินที่ถูกต้อง 'ถึง'";
