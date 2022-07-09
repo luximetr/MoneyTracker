@@ -66,7 +66,7 @@ final class InputAmountViewController: AUIEmptyViewController {
         isPlaceholderVisible = input.isEmpty
     }
     
-    let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
+    let hapticFeedbackGenerator = UISelectionFeedbackGenerator()
     
     // MARK: InputAmountView
   
@@ -146,87 +146,87 @@ final class InputAmountViewController: AUIEmptyViewController {
     
     @objc func sevenKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("7")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func eightKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("8")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func nineKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("9")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func divisionKeyButtonTouchUpInsideEventAction() {
         tryToAddOperation("/")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func fourKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("4")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func fiveKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("5")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func sixKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("6")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func multiplicationKeyButtonTouchUpInsideEventAction() {
         tryToAddOperation("*")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func oneKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("1")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func twoKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("2")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func threeKeyButtonTouchUpInsideEventAction() {
         tryToAddDigit("3")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func subtractionKeyButtonTouchUpInsideEventAction() {
         tryToAddOperation("-")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func decimalSeparatorKeyButtonTouchUpInsideEventAction() {
         tryToAddDecimalSeparator()
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func zeroKeyButtonTouchUpInsideEventAction() {
         tryToAddDigitZero()
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func calculateKeyButtonTouchUpInsideEventAction() {
         tryToCalculate()
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func additionKeyButtonTouchUpInsideEventAction() {
         tryToAddOperation("+")
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     @objc func deleteKeyButtonTouchUpInsideEventAction() {
         tryToDelete()
-        impactFeedbackGenerator.impactOccurred()
+        hapticFeedbackGenerator.selectionChanged()
     }
     
     // MARK: Content
