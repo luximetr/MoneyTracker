@@ -37,6 +37,8 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     private var files: Files!
     
+    private var totalAmountViewSetting: TotalAmountViewSetting!
+    
     // MARK: - Initialization
     
     private func initialize() throws {
@@ -48,6 +50,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
             self.initializeNetwork()
             try self.initializePresentation()
             self.initializeFiles()
+            try self.initializeTotalAmountViewSetting()
         } catch {
             throw Error("Cannot initialize \(String(reflecting: Self.self))")
         }
@@ -100,6 +103,21 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         self.network = network
     }
     
+    private lazy var presentationWindow: UIWindow = {
+        let window = createPresentationWindow()
+        self.window = window
+        window.makeKeyAndVisible()
+        return window
+    }()
+    
+    private func createPresentationWindow() -> UIWindow {
+        let window = TraitCollectionChangeNotifyWindow()
+        window.didChangeUserInterfaceStyleClosure = { [weak self] style in
+            self?.presentation.didChangeUserInterfaceStyle(style)
+        }
+        return window
+    }
+    
     private func initializePresentation() throws {
         do {
             let appearanceSetting: AppearanceSetting
@@ -128,6 +146,21 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         self.files = files
     }
     
+    private func initializeTotalAmountViewSetting() throws {
+        do {
+            let totalAmountViewSetting: TotalAmountViewSetting
+            if let storageTotalAmountViewSetting = try self.storage.getTotalAmountViewSetting() {
+                totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
+            } else {
+                let defaultTotalAmountViewSetting: TotalAmountViewSetting = .basicCurrency
+                totalAmountViewSetting = defaultTotalAmountViewSetting
+            }
+            self.totalAmountViewSetting = totalAmountViewSetting
+        } catch {
+            throw Error("Cannot initialize totalAmountViewSetting\n\(error)")
+        }
+    }
+    
     // MARK: - Events
     
     override func didFinishLaunching() {
@@ -138,23 +171,6 @@ class Application: AUIEmptyApplication, PresentationDelegate {
         } catch {
             self.showError(error)
         }
-    }
-    
-    // MARK: - Presentation
-    
-    private lazy var presentationWindow: UIWindow = {
-        let window = createPresentationWindow()
-        self.window = window
-        window.makeKeyAndVisible()
-        return window
-    }()
-    
-    private func createPresentationWindow() -> UIWindow {
-        let window = TraitCollectionChangeNotifyWindow()
-        window.didChangeUserInterfaceStyleClosure = { [weak self] style in
-            self?.presentation.didChangeUserInterfaceStyle(style)
-        }
-        return window
     }
     
     // MARK: - Categories
@@ -683,18 +699,18 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     
     // MARK: - Top Up Account
     
-    func presentation(_ presentation: Presentation, addTopUpAccount presentationAddingTopUpAccount: PresentationAddingReplenishment) throws -> PresentationReplenishment {
+    func presentation(_ presentation: Presentation, addReplenishment presentationAddingReplenishment: PresentationAddingReplenishment) throws -> PresentationReplenishment {
         do {
-            let timestamp = presentationAddingTopUpAccount.timestamp
-            let balanceAccountId = presentationAddingTopUpAccount.account.id
-            let amount = Int64(try (presentationAddingTopUpAccount.amount * 100).int())
-            let comment = presentationAddingTopUpAccount.comment
+            let timestamp = presentationAddingReplenishment.timestamp
+            let balanceAccountId = presentationAddingReplenishment.account.id
+            let amount = Int64(try (presentationAddingReplenishment.amount * 100).int())
+            let comment = presentationAddingReplenishment.comment
             let storageAddingBalanceReplenishment = AddingReplenishment(timestamp: timestamp, accountId: balanceAccountId, amount: amount, comment: comment)
             let storageBalanceTransfer = try storage.addBalanceReplenishment(storageAddingBalanceReplenishment)
-            let presentationTopUpAccount = PresentationReplenishment(id: storageBalanceTransfer.id, timestamp: presentationAddingTopUpAccount.timestamp, account: presentationAddingTopUpAccount.account, amount: presentationAddingTopUpAccount.amount, comment: presentationAddingTopUpAccount.comment)
-            return presentationTopUpAccount
+            let presentationReplenishment = PresentationReplenishment(id: storageBalanceTransfer.id, timestamp: presentationAddingReplenishment.timestamp, account: presentationAddingReplenishment.account, amount: presentationAddingReplenishment.amount, comment: presentationAddingReplenishment.comment)
+            return presentationReplenishment
         } catch {
-            throw Error("Cannot add presentation top up account \(presentationAddingTopUpAccount)\n\(error)")
+            throw Error("Cannot add presentation top up account \(presentationAddingReplenishment)\n\(error)")
         }
     }
     
@@ -735,9 +751,7 @@ class Application: AUIEmptyApplication, PresentationDelegate {
                     let currenciesExpense = currenciesExpenses.mapValues({ $0.reduce(Decimal(), { $0 + $1.amount }) }).sorted(by: { $0.1 > $1.1 })
                     let currencyAmounts = currenciesExpense.map({ CurrencyAmount(currency: CurrencyMapper.mapToCurrency($0.key), amount: $0.value) })
                     var currenciesAmounts = CurrenciesAmount(currenciesAmount: Set(currencyAmounts))
-                    let storageTotalAmountViewSetting = try self.storage.getTotalAmountViewSetting() ?? .basicCurrency
-                    let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
-                    if let exchangeRates = exchangeRates, totalAmountViewSetting == .basicCurrency {
+                    if let exchangeRates = exchangeRates, self.totalAmountViewSetting == .basicCurrency {
                         currenciesAmounts = self.calculateCurrenciesAmount(currenciesAmounts, basicCurrency: self.basicCurrency, exchangeRates: exchangeRates)
                     }
                     let presentationCurrenciesAmount = CurrenciesAmountMapper.mapToPresentationCurrenciesAmount(currenciesAmounts)
@@ -835,10 +849,14 @@ class Application: AUIEmptyApplication, PresentationDelegate {
     }
     
     func presentationTotalAmountViewSetting(_ presentation: Presentation) throws -> PresentationTotalAmountViewSetting {
-        let storageTotalAmountViewSetting = try storage.getTotalAmountViewSetting() ?? .basicCurrency
-        let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
-        let presentationTotalAmountViewSetting = TotalAmountViewSettingMapper.mapToPresentationTotalAmountViewSetting(totalAmountViewSetting)
-        return presentationTotalAmountViewSetting
+        do {
+            let storageTotalAmountViewSetting = try storage.getTotalAmountViewSetting() ?? .basicCurrency
+            let totalAmountViewSetting = TotalAmountViewSettingMapper.mapToTotalAmountViewSetting(storageTotalAmountViewSetting)
+            let presentationTotalAmountViewSetting = TotalAmountViewSettingMapper.mapToPresentationTotalAmountViewSetting(totalAmountViewSetting)
+            return presentationTotalAmountViewSetting
+        } catch {
+            throw Error("Cannot determine presentation TotalAmountViewSetting\n\(error)")
+        }
     }
     
     // MARK: Error

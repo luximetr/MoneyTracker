@@ -25,7 +25,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         super.setup()
         insertSubview(tableView, belowSubview: navigationBarView)
         setupTableView()
-        setupAppearanceSettingTableViewCell()
+        setupTotalAmountViewSettingTableViewCell()
         setAppearance(appearance)
     }
     
@@ -34,7 +34,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
     }
     
     private let appearanceSettingTableViewCellReuseIdentifier = "appearanceSettingTableViewCellReuseIdentifier"
-    private func setupAppearanceSettingTableViewCell() {
+    private func setupTotalAmountViewSettingTableViewCell() {
         tableView.register(TotalAmountViewSettingTableViewCell.self, forCellReuseIdentifier: appearanceSettingTableViewCellReuseIdentifier)
     }
     

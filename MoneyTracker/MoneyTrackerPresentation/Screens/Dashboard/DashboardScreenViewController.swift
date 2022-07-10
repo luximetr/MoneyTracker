@@ -16,7 +16,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
     var addExpenseClosure: ((Category?) -> Void)?
     var addCategoryClosure: (() -> Void)?
     var transferClosure: (() -> Void)?
-    var topUpAccountClosure: ((Account) -> Void)?
+    var replenish: ((Account) -> Void)?
     var addAccountClosure: (() -> Void)?
     var addTemplateClosure: (() -> Void)?
     var useTemplateClosure: ((ExpenseTemplate) throws -> Void)?
@@ -82,7 +82,7 @@ final class DashboardScreenViewController: StatusBarScreenViewController {
         }
         accountPickerViewController.selectAccountClosure = { [weak self] account in
             guard let self = self else { return }
-            self.topUpAccountClosure?(account)
+            self.replenish?(account)
         }
         accountPickerViewController.addAccountClosure = { [weak self] in
             guard let self = self else { return }

@@ -1,5 +1,5 @@
 //
-//  AddingTopUpAccount.swift
+//  AddingReplenishment.swift
 //  MoneyTrackerPresentation
 //
 //  Created by Job Ihor Myroniuk on 07.04.2022.

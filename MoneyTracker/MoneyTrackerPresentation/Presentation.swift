@@ -202,7 +202,7 @@ public final class Presentation: AUIWindowPresentation {
                 self.presentUnexpectedErrorAlertScreen(error)
             }
         }
-        viewController.topUpAccountClosure = { [weak self] account in
+        viewController.replenish = { [weak self] account in
             guard let self = self else { return }
             guard let menuNavigationController = self.menuNavigationController else { return }
             do {
@@ -374,11 +374,11 @@ public final class Presentation: AUIWindowPresentation {
                     self.presentUnexpectedErrorAlertScreen(error)
                 }
             }
-            viewController.addReplenishmentClosure = { [weak self, weak navigationController] addingTopUpAccount in
+            viewController.addReplenishmentClosure = { [weak self, weak navigationController] addingReplenishment in
                 guard let self = self else { return }
                 guard let navigationController = navigationController else { return }
                 do {
-                    _ = try self.delegate.presentation(self, addTopUpAccount: addingTopUpAccount)
+                    _ = try self.delegate.presentation(self, addReplenishment: addingReplenishment)
                     navigationController.popViewController(animated: true)
                 } catch {
                     self.presentUnexpectedErrorAlertScreen(error)
@@ -387,7 +387,7 @@ public final class Presentation: AUIWindowPresentation {
             pushedAddReplenishmentViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
-            let error = Error("Cannot push TopUpAccountViewController\n\(error)")
+            let error = Error("Cannot push AddReplenishmentViewController\n\(error)")
             throw error
         }
     }
@@ -574,7 +574,7 @@ public final class Presentation: AUIWindowPresentation {
             pushedEditReplenishmentViewController = viewController
             navigationController.pushViewController(viewController, animated: true)
         } catch {
-            let error = Error("Cannot push TopUpAccountViewController\n\(error)")
+            let error = Error("Cannot push EditReplenishmentViewController\n\(error)")
             throw error
         }
     }

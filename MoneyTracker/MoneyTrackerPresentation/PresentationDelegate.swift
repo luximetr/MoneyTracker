@@ -40,7 +40,7 @@ public protocol PresentationDelegate: AnyObject {
     func presentationExpensesMonths(_ presentation: Presentation) throws -> [Date]
     func presentation(_ presentation: Presentation, useTemplate tempalate: ExpenseTemplate) throws -> Expense
     func presentation(_ presentation: Presentation, addTransfer addingTransfer: AddingTransfer) throws -> Transfer
-    func presentation(_ presentation: Presentation, addTopUpAccount addingTopUpAccount: AddingReplenishment) throws -> Replenishment
+    func presentation(_ presentation: Presentation, addReplenishment addingReplenishment: AddingReplenishment) throws -> Replenishment
     
     func presentationLanguages(_ presentation: Presentation) throws -> [Language]
     func presentation(_ presentation: Presentation, selectLanguage language: Language) throws
