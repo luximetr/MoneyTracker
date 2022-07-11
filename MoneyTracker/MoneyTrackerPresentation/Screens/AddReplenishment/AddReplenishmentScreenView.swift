@@ -192,7 +192,7 @@ final class ScreenView: BackTitleNavigationBarScreenView {
         dayDatePickerView.setAppearance(appearance)
         addButton.backgroundColor = appearance.colors.primaryActionBackground
         errorSnackbarView.setAppearance(appearance)
-        commentTextField.changeAppearance(appearance)
+        commentTextField.setAppearance(appearance)
         accountPickerView.setAppearance(appearance)
         amountInputView.setAppearance(appearance)
     }

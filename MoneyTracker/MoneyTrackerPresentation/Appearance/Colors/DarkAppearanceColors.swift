@@ -10,6 +10,7 @@ import UIKit
 struct DarkAppearanceColors: AppearanceColors {
 
     let statusBarStyle = UIStatusBarStyle.lightContent
+    let keyboardAppearance = UIKeyboardAppearance.dark
     let overrideUserInterfaceStyle = UIUserInterfaceStyle.dark
     let primaryBackground = UIColor(red: 0.106, green: 0.11, blue: 0.118, alpha: 1)
     let secondaryBackground = UIColor(red: 0.158, green: 0.158, blue: 0.158, alpha: 1)

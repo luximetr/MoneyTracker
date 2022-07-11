@@ -10,6 +10,7 @@ import UIKit
 protocol AppearanceColors {
     
     var statusBarStyle: UIStatusBarStyle { get }
+    var keyboardAppearance: UIKeyboardAppearance { get }
     var overrideUserInterfaceStyle: UIUserInterfaceStyle { get }
     var primaryBackground: UIColor { get }
     var secondaryBackground: UIColor { get }

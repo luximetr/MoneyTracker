@@ -18,6 +18,7 @@ final class PlainTextField: AppearanceTextField {
         tintColor = appearance.colors.accent
         textColor = appearance.colors.primaryText
         backgroundColor = appearance.colors.primaryBackground
+        keyboardAppearance = appearance.colors.keyboardAppearance
         font = appearance.fonts.primary(size: 17, weight: .regular)
     }
     
@@ -49,12 +50,13 @@ final class PlainTextField: AppearanceTextField {
     
     // MARK: - Events
     
-    override func changeAppearance(_ appearance: Appearance) {
-        super.changeAppearance(appearance)
+    override func setAppearance(_ appearance: Appearance) {
+        super.setAppearance(appearance)
         setupBorder()
         tintColor = appearance.colors.primaryText
         textColor = appearance.colors.primaryText
         backgroundColor = appearance.colors.primaryBackground
+        keyboardAppearance = appearance.colors.keyboardAppearance
         placeholder = placeholder
     }
     

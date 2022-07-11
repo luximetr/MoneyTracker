@@ -26,6 +26,7 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
         setupTextField()
         setupLabel()
         setAppearance(appearance)
+        textField.keyboardAppearance = appearance.colors.keyboardAppearance
     }
     
     private func setupSelf() {
@@ -103,6 +104,7 @@ class SingleLineTextInputView: AppearanceView, TextFieldLabelView {
         textField.backgroundColor = appearance.colors.primaryBackground
         textField.layer.borderColor = appearance.colors.secondaryBackground.cgColor
         label.textColor = appearance.colors.secondaryText
+        textField.keyboardAppearance = appearance.colors.keyboardAppearance
         placeholder = placeholder
     }
 }
