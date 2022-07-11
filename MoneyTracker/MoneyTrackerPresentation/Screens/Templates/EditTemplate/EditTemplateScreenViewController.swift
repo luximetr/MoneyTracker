@@ -194,6 +194,7 @@ class EditTemplateScreenViewController: StatusBarScreenViewController, AUITextFi
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = 2
         textFieldController.text = numberFormatter.string(from: NSDecimalNumber(decimal: expenseTemplate.amount))
+        amountInputController.textFieldController.textInputValidator = MoneySumTextInputValidator()
     }
     
     // MARK: - Amount input - Currency

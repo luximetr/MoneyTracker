@@ -189,6 +189,7 @@ class AddTemplateScreenViewController: StatusBarScreenViewController, AUITextFie
         amountInputController.textFieldLabelView = addTemplateScreenView.amountInputView
         let textFieldController = amountInputController.textFieldController
         textFieldController.keyboardType = .decimalPad
+        amountInputController.textFieldController.textInputValidator = MoneySumTextInputValidator()
     }
     
     // MARK: - Amount input - Currency
