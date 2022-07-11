@@ -19,6 +19,10 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     private(set) var appearance: Appearance
     private var categories: [Category] = []
+    private lazy var lastTickedY: CGFloat = {
+        return (pickerView?.cellHeight ?? 0) / 2
+    }()
+    private let hapticFeedbackGenerator = UISelectionFeedbackGenerator()
     
     // MARK: - Initializer
     
@@ -73,6 +77,9 @@ class CategoryVerticalPickerController: EmptyViewController {
         }
         tableViewController.scrollViewDidEndDeceleratingClosure = { [weak self] in
             self?.scrollToNearestCategoryCell()
+        }
+        tableViewController.scrollViewDidScrollClosure = { [weak self] in
+            self?.triggerScrollHapticFeedbackIfNeeded()
         }
     }
     
@@ -191,5 +198,25 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     private func didSelectAddCell() {
         didTapOnAddClosure?()
+    }
+    
+    // MARK: - Haptic feedback - Scroll
+    
+    private func triggerScrollHapticFeedbackIfNeeded() {
+        guard let pickerView = pickerView else { return }
+        let cellHeight = pickerView.cellHeight
+        let contentOffsetY = pickerView.tableView.contentOffset.y + pickerView.tableView.contentInset.top
+        let selectedCellIndex = Int((contentOffsetY + cellHeight / 2) / cellHeight)
+        let tickY = contentOffsetY + (cellHeight / 2)
+        let selectedCellTickY = CGFloat(selectedCellIndex) * cellHeight + cellHeight / 2
+        
+        if abs(tickY - lastTickedY) >= cellHeight {
+            lastTickedY = selectedCellTickY
+            triggerHapticFeedback()
+        }
+    }
+    
+    private func triggerHapticFeedback() {
+        hapticFeedbackGenerator.selectionChanged()
     }
 }
