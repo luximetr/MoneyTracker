@@ -1,52 +1,50 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "AFoundation",
-        "repositoryURL": "https://github.com/ihormyroniuk/AFoundation.git",
-        "state": {
-          "branch": "development",
-          "revision": "efcce09f152c118cecacb27b63e83fbf60ead05e",
-          "version": null
-        }
-      },
-      {
-        "package": "AnyFormatKit",
-        "repositoryURL": "https://github.com/luximetr/AnyFormatKit",
-        "state": {
-          "branch": null,
-          "revision": "ae3a965164005b07f81d6aa066520d7ad14ea54e",
-          "version": "2.5.2"
-        }
-      },
-      {
-        "package": "ASQLite3",
-        "repositoryURL": "https://github.com/ihormyroniuk/ASQLite3",
-        "state": {
-          "branch": "development",
-          "revision": "a35d3ca1b94f64badbb146e0f215bdf733efd6a1",
-          "version": null
-        }
-      },
-      {
-        "package": "AUIKit",
-        "repositoryURL": "https://github.com/ihormyroniuk/AUIKit",
-        "state": {
-          "branch": "development",
-          "revision": "4694b8dd64797d5d430094ae2b98afe6e2cba398",
-          "version": null
-        }
-      },
-      {
-        "package": "PinLayout",
-        "repositoryURL": "https://github.com/layoutBox/PinLayout",
-        "state": {
-          "branch": null,
-          "revision": "75c88c5c374c7bc78a154ffdf963cd362f38258a",
-          "version": "1.10.3"
-        }
+  "pins" : [
+    {
+      "identity" : "afoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ihormyroniuk/AFoundation.git",
+      "state" : {
+        "branch" : "development",
+        "revision" : "efcce09f152c118cecacb27b63e83fbf60ead05e"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "anyformatkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/luximetr/AnyFormatKit",
+      "state" : {
+        "revision" : "ae3a965164005b07f81d6aa066520d7ad14ea54e",
+        "version" : "2.5.2"
+      }
+    },
+    {
+      "identity" : "asqlite3",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ihormyroniuk/ASQLite3",
+      "state" : {
+        "branch" : "development",
+        "revision" : "a35d3ca1b94f64badbb146e0f215bdf733efd6a1"
+      }
+    },
+    {
+      "identity" : "auikit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ihormyroniuk/AUIKit",
+      "state" : {
+        "branch" : "development",
+        "revision" : "4ca69446b9f3d6cb200303c474f9c52825e4315a"
+      }
+    },
+    {
+      "identity" : "pinlayout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/layoutBox/PinLayout",
+      "state" : {
+        "revision" : "75c88c5c374c7bc78a154ffdf963cd362f38258a",
+        "version" : "1.10.3"
+      }
+    }
+  ],
+  "version" : 2
 }
