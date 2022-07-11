@@ -36,7 +36,7 @@ class TextFieldLabelController: AUIEmptyViewController {
     
     // MARK: - Controllers
     
-    let textFieldController = AUIEmptyTextFieldController()
+    let textFieldController = AUITextInputFilterValidatorFormatterTextFieldController()
     let labelController = AUIEmptyLabelController()
     
     

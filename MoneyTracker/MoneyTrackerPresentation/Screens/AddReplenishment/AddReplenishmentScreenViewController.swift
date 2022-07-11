@@ -73,6 +73,8 @@ final class AddReplenishmentScreenViewController: StatusBarScreenViewController 
     
     private func setupAmountInputController() {
         amountInputController.textFieldLabelView = screenView.amountInputView
+        amountInputController.textFieldController.keyboardType = .decimalPad
+        amountInputController.textFieldController.textInputValidator = MoneySumTextInputValidator()
     }
     
     // MARK: Content

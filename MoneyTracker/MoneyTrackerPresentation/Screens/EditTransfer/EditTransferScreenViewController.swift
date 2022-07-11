@@ -131,12 +131,16 @@ final class EditTransferScreenViewController: StatusBarScreenViewController {
         let firstAccount = transfer.fromAccount
         fromAccountPickerController.setSelectedAccount(firstAccount)
         fromAmountInputController.labelController.text = firstAccount.currency.rawValue
+        fromAmountInputController.textFieldController.keyboardType = .decimalPad
+        fromAmountInputController.textFieldController.textInputValidator = MoneySumTextInputValidator()
         toAccountPickerController.showOptions(accounts: accounts)
         screenView.fromAmountInputView.placeholder = "0"
         screenView.toAmountInputView.placeholder = "0"
         let toAccount = transfer.toAccount
         toAccountPickerController.setSelectedAccount(toAccount)
         toAmountInputController.labelController.text = toAccount.currency.rawValue
+        toAmountInputController.textFieldController.keyboardType = .decimalPad
+        toAmountInputController.textFieldController.textInputValidator = MoneySumTextInputValidator()
         screenView.toAccountPickerLabel.text = localizer.localizeText("toAccount")
     }
     

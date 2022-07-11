@@ -99,11 +99,13 @@ final class AddTransferScreenViewController: StatusBarScreenViewController {
     private func setupFromAmountInputController() {
         fromAmountInputController.textFieldLabelView = screenView.fromAmountInputView
         fromAmountInputController.textFieldController.keyboardType = .decimalPad
+        fromAmountInputController.textFieldController.textInputValidator = MoneySumTextInputValidator()
     }
     
     private func setupToAmountInputController() {
         toAmountInputController.textFieldLabelView = screenView.toAmountInputView
         toAmountInputController.textFieldController.keyboardType = .decimalPad
+        toAmountInputController.textFieldController.textInputValidator = MoneySumTextInputValidator()
     }
     
     // MARK: Content

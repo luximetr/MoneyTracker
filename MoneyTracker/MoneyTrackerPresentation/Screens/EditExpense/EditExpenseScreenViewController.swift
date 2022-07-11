@@ -106,6 +106,7 @@ class EditExpenseScreenViewController: StatusBarScreenViewController, AUITextFie
     
     private func setupAmountTextFieldController() {
         amountInputController.textFieldLabelView = screenView.amountInputView
+        amountInputController.textFieldController.textInputValidator = MoneySumTextInputValidator()
         let textFieldController = amountInputController.textFieldController
         textFieldController.keyboardType = .decimalPad
         let numberFormatter = NumberFormatter()
