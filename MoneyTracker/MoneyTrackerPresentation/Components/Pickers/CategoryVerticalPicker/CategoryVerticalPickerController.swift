@@ -23,6 +23,7 @@ class CategoryVerticalPickerController: EmptyViewController {
         return (pickerView?.cellHeight ?? 0) / 2
     }()
     private let hapticFeedbackGenerator = UISelectionFeedbackGenerator()
+    private var hapticFeedbackScrollListener: (() -> Void)?
     
     // MARK: - Initializer
     
@@ -79,7 +80,10 @@ class CategoryVerticalPickerController: EmptyViewController {
             self?.scrollToNearestCategoryCell()
         }
         tableViewController.scrollViewDidScrollClosure = { [weak self] in
-            self?.triggerScrollHapticFeedbackIfNeeded()
+            self?.hapticFeedbackScrollListener?()
+        }
+        tableViewController.scrollViewWillBeginDraggingClosure = { [weak self] in
+            self?.startHapticFeedbackScrollListener()
         }
     }
     
@@ -162,16 +166,25 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     private func showCategorySelected(categoryId: String) {
         guard let indexPath = findIndexPath(categoryId: categoryId) else { return }
-        pickerView?.scrollToCell(at: indexPath)
+        scrollToCell(at: indexPath, useHapticFeedback: false)
     }
     
     private func scrollToNearestCategoryCell() {
         guard let indexPath = pickerView?.findNearestCellIndexPathUnderDivider() else { return }
-        pickerView?.scrollToCell(at: indexPath)
+        scrollToCell(at: indexPath, useHapticFeedback: true)
         guard let cellController = sectionController.cellControllers[safe: indexPath.row] else { return }
         guard let categoryId = (cellController as? CategoryCellController)?.category.id else { return }
         guard let category = categories.first(where: { $0.id == categoryId }) else { return }
         selectedCategory = category
+    }
+    
+    private func scrollToCell(at indexPath: IndexPath, useHapticFeedback: Bool) {
+        if useHapticFeedback {
+            startHapticFeedbackScrollListener()
+        } else {
+            stopHapticFeedbackScrollListener()
+        }
+        pickerView?.scrollToCell(at: indexPath)
     }
     
     // MARK: - Add cell - Create
@@ -218,5 +231,15 @@ class CategoryVerticalPickerController: EmptyViewController {
     
     private func triggerHapticFeedback() {
         hapticFeedbackGenerator.selectionChanged()
+    }
+    
+    private func startHapticFeedbackScrollListener() {
+        hapticFeedbackScrollListener = { [weak self] in
+            self?.triggerScrollHapticFeedbackIfNeeded()
+        }
+    }
+    
+    private func stopHapticFeedbackScrollListener() {
+        hapticFeedbackScrollListener = nil
     }
 }
