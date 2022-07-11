@@ -74,7 +74,7 @@ class CategoryVerticalPickerView: AppearanceView {
         layoutTopGradientView()
         layoutSelectionDividerView()
         layoutTransparentView()
-        tableView.contentInset = UIEdgeInsets(top: 17, left: 0, bottom: transparentView.frame.height - cellHeight, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 17, left: 0, bottom: transparentView.frame.height - cellHeight + 2, right: 0)
     }
     
     private func layoutTableView() {
@@ -132,7 +132,7 @@ class CategoryVerticalPickerView: AppearanceView {
     
     // MARK: - Category cell
     
-    private let cellHeight: CGFloat = 35
+    let cellHeight: CGFloat = 35
     
     private let categoryCellIdentifier = "categoryCellIdentifier"
     
